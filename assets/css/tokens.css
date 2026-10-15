@@ -2,7 +2,7 @@
  *
  * Load order (stage 4 links them in this order, or concatenates them):
  *   fonts.css, tokens.css, layouts/<the league's layout>.css, base.css,
- *   parts-shell.css, parts-scores.css, parts-data.css
+ *   parts-shell.css, parts-scores.css, parts-data.css, fallbacks.css
  *
  * HOW A PAGE PICKS ITS LOOK
  *   <html data-layout="curling">                 one of: basketball curling hockey
@@ -23,10 +23,14 @@
  * league.yml and teams.yml; each layout file supplies its own defaults):
  *   --st-league-color         the league's main colour (light theme)
  *   --st-league-color-dark    optional hand-picked dark-theme version
- *   --st-layout-accent       optional second accent (tab underline, rules)
- *   --st-layout-accent-dark  optional dark version of the second accent
+ *   data-league-colour        attribute on <html> whenever the league sets a colour: switches
+ *                             each layout to its custom-colour overrides (see layouts/*.css)
  *   --st-team-hex             on any element: one team's own colour (see .st-team--custom)
- * Everything else a league's colour touches is derived below with color-mix().
+ * Layout-owned (NOT a league setting; a league never sets these):
+ *   --st-layout-accent       the layout's own second accent (tab underline, rules)
+ *   --st-layout-accent-dark  its dark-theme version
+ * Everything else a league's colour touches is derived below with color-mix(). Browsers
+ * without color-mix() get literal defaults from fallbacks.css instead.
  */
 
 :root {

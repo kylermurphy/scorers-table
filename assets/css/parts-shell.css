@@ -8,8 +8,8 @@
  * are placed by each layout file, not here.
  *
  * Anchors are selected as `.st-page .st-x` where needed to beat base.css's
- * `.st-page a { color: var(--st-link) }`, and for margins to beat
- * `.st-page :is(h1, p, ...) { margin: 0 }`.
+ * `.st-page a { color: var(--st-link) }`. (The margin reset in base.css is `:where()`,
+ * so plain class selectors already beat it.)
  */
 
 /* ============================================================ header */

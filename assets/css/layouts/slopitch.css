@@ -13,7 +13,7 @@
  *
  * Deviations from the mockup, kept for contrast (AA): panel-row #FFFFFF1F -> #FFFFFF14,
  * panel-muted #E3EEDF -> #F1F7EE, panel-label #F3E3C3 -> #FBF0D9, team 4 #C98A12 ->
- * #BE8210, and bar-fill (none in the mockup). Details in docs/layout-tokens.md.
+ * #BE8210, and bar-fill (none in the mockup). Details in docs/design.md ('Mockup colours changed for AA').
  *
  * CUSTOM-COLOUR MODE. Stage 4 writes a league's colour inline (--st-league-color,
  * optionally --st-league-color-dark) AND sets data-league-colour on <html>. Without

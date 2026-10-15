@@ -233,7 +233,7 @@ the phone's setting until the visitor presses the sun/moon button.</p>
 {parts_html(parts)}
 
 <h2 id="league-colour">League colour</h2>
-<p class="lead">Each layout with a league's own colour: an inline <code>--st-league-color</code> plus the <code>data-league-colour</code> attribute on the layout wrapper, which is exactly what stage 4 will write. Four of the eight example colours are shown (the others are in the matrix in <a href="../contrast.md">docs/contrast.md</a>): Navy, Deep red, Forest green, Teal, Purple, Brown and Mid blue pass every checked pair in every layout, light and dark. Gold fails on purpose: white text on it is 2.95:1, and stage 4's data check would stop with a message naming the league's colour.</p>
+<p class="lead">Each layout with a league's own colour: an inline <code>--st-league-color</code> plus the <code>data-league-colour</code> attribute on the layout wrapper, which is exactly what stage 4 will write. Four of the eight example colours are shown (the others are in the matrix in <a href="../contrast.md">docs/contrast.md</a>): Navy, Deep red, Forest green, Teal, Purple, Brown and Mid blue pass every checked pair in every layout, light and dark. Gold fails on purpose: white text on it is 2.9:1, and stage 4's data check would stop with a message naming the league's colour.</p>
 {league_colour_html(parts)}
 </main>
 </body>

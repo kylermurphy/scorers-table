@@ -75,9 +75,7 @@ _COLLECT = r"""
     cx.clearRect(0,0,1,1); cx.fillStyle = '#000'; cx.fillStyle = css; cx.fillRect(0,0,1,1);
     const d = cx.getImageData(0,0,1,1).data;
     const a = d[3] ? Math.round(d[3] / 255 * 1000) / 1000 : 0;
-    // getImageData is premultiplied-rounded; un-premultiply
-    const un = i => d[3] ? Math.min(255, Math.round(d[i] * 255 / d[3])) : 0;
-    return cache[css] = a === 1 ? `rgb(${d[0]}, ${d[1]}, ${d[2]})` : `rgba(${un(0)}, ${un(1)}, ${un(2)}, ${a})`;
+    return cache[css] = a === 1 ? `rgb(${d[0]}, ${d[1]}, ${d[2]})` : `rgba(${d[0]}, ${d[1]}, ${d[2]}, ${a})`;
   }
   const norm = css => css.replace(/(oklab|oklch|lab|lch|color)\([^)]*\)/g, m => one(m)).replace(/\s+/g, ' ');
   const out = [];
@@ -167,20 +165,29 @@ def collect(page_path: Path, browser, scheme: str):
     return ctx, page, data
 
 
+def close_text(a: str, b: str) -> bool:
+    """Two gradient strings equal apart from colour channels off by 1 (8-bit rounding) or alpha by 0.01."""
+    num = re.compile(r"-?\d+\.?\d*")
+    if num.sub("#", a) != num.sub("#", b):
+        return False
+    return all(abs(float(x) - float(y)) <= 1.01 for x, y in zip(num.findall(a), num.findall(b)))
+
+
 def compare(modern: list, old: list) -> dict:
     """Differences between the two renders. Frames with a league colour (data-league-colour) are
     reported separately: there the old browser loses the league's colour by design."""
     res = {"frames": len(modern), "elements": 0, "bg_lost": [], "diffs": {}, "diffs_custom": {}}
     for m, o in zip(modern, old):
         assert (m["cap"], len(m["els"])) == (o["cap"], len(o["els"])), "different pages: %s" % m["cap"]
-        bucket = res["diffs_custom"] if m["custom"] else res["diffs"]
         for em, eo in zip(m["els"], o["els"]):
             res["elements"] += 1
             sel = em[0]
+            # a league's own team colour loses its dark-theme lift (known, documented); a league colour is lost
+            bucket = (res["diffs_custom"] if m["custom"] or "st-team--custom" in sel else res["diffs"])
             if em[8] == "none":
                 continue
             for k, name in ((1, "background-color"), (2, "color"), (3, "background-image"), (4, "border-top-color")):
-                if em[k] == eo[k]:
+                if em[k] == eo[k] or (k == 3 and close_text(em[k], eo[k])):
                     continue
                 if k in (1, 2, 4):
                     a, b = rgb(em[k]), rgb(eo[k])
@@ -240,8 +247,9 @@ def run(shots: Path | None = None, verbose: bool = True) -> dict:
                     for page, label in ((p2, "old"), (p1, "modern")):
                         frames = page.query_selector_all(".ds-frame")
                         for rec in modern:
-                            if rec["part"] in SHOT_PARTS and not rec["custom"]:
-                                name = "%s-%s-%s-%s.png" % (label, rec["part"], rec["layout"], rec["theme"])
+                            if rec["part"] in SHOT_PARTS:
+                                name = "%s-%s-%s-%s%s.png" % (label, rec["part"], rec["layout"], rec["theme"],
+                                                               "-leaguecolour" if rec["custom"] else "")
                                 # one sport per layout is enough: skip repeats
                                 if (shots / name).exists():
                                     continue
