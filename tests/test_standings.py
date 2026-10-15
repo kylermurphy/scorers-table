@@ -359,17 +359,23 @@ def test_team_stat_columns_are_summed_from_team_lines():
 
 def test_tiebreak_note_set():
     assert tiebreak_note(S(tiebreakers=["head_to_head", "wins"])) == \
-        "Ties are broken by head-to-head record, then wins; teams still level share a rank."
+        ("Teams level on points are ranked by head-to-head record (when they have all played each other), "
+         "then wins; teams still level share a rank.")
     assert tiebreak_note(S(tiebreakers=[{"diff": {"cap": 7}}, "points_against"])) == \
-        ("Ties are broken by score difference (each game counted up to 7), then fewest points against; "
-         "teams still level share a rank.")
+        ("Teams level on points are ranked by score difference (each game counted up to 7), then fewest points "
+         "against; teams still level share a rank.")
+    # the skip rule is said once, at the first head-to-head breaker; "level on" follows rank_by
+    assert tiebreak_note(S(rank_by="win_pct", tiebreakers=["head_to_head", "head_to_head_points"])) == \
+        ("Teams level on win percentage are ranked by head-to-head record (when they have all played each "
+         "other), then points in head-to-head games; teams still level share a rank.")
     assert tiebreak_note(S()) == "Teams level on points share a rank."
     assert tiebreak_note(S(rank_by="win_pct")) == "Teams level on win percentage share a rank."
 
 
 def test_tiebreak_note_placeholder():
     note = tiebreak_note(S(tiebreakers=["head_to_head", "diff"]), unset=True)
-    assert note.startswith("[placeholder] ") and note.endswith("Ties are broken by head-to-head record, then score difference; teams still level share a rank.")
+    assert note.startswith("[placeholder] ") and note.endswith("Teams level on points are ranked by head-to-head record (when they have all played each "
+                                                    "other), then score difference; teams still level share a rank.")
     assert table([], S(tiebreakers=["wins"]), tiebreakers_unset=True).tiebreak_note.startswith("[placeholder]")
     assert not table([], S(tiebreakers=["wins"])).tiebreak_note.startswith("[placeholder]")
 
@@ -467,4 +473,92 @@ def test_masters_rule_reproduces_the_masters_table():
                      "b": [2, "1-1", "2", "6", ".500", "48", "48", "0", "3"],
                      "c": [3, "0-2-1", "3", "2", ".167", "53", "59", "−6", "2"]}
     assert [r["broke_by"] for r in res.rows] == [None, None, None]
-    assert res.tiebreak_note == "Ties are broken by head-to-head record, then score difference; teams still level share a rank."
+    assert res.tiebreak_note == ("Teams level on points are ranked by head-to-head record (when they have all played "
+                                 "each other), then score difference; teams still level share a rank.")
+
+
+# ------------------------------------------------------------------ review fixes and edge cases
+
+def test_a_team_playing_itself_is_a_problem_and_not_counted():
+    res = table([g("g1", "a", "a", 3, 0), forfeit("g2", "b", "b", by="b")])
+    assert [(p.at, p.file) for p in res.problems] == [("away", "data/test/games/g1.yml"), ("away", "data/test/games/g2.yml")]
+    assert col(res, "gp") == {t: "0" for t in "abcd"}
+
+
+def test_a_game_id_given_twice_is_a_problem_and_neither_copy_counts():
+    res = table([g("g1", "a", "b", 3, 0), g("g1", "c", "d", 3, 0), g("g2", "a", "c", 1, 0)])
+    assert [(p.level, p.at) for p in res.problems] == [("error", "game_id")] * 2
+    assert col(res, "gp") == {"a": "1", "b": "0", "c": "1", "d": "0"}
+
+
+def test_a_missing_final_score_is_a_problem_not_a_crash():
+    res = table([g("g1", "a", "b", 3, 0, final={"home": None, "away": 2}), g("g2", "c", "d", 1, 0, final={"home": 1})])
+    assert [p.at for p in res.problems] == ["sheet.final.home", "sheet.final.home"]
+    assert col(res, "gp") == {t: "0" for t in "abcd"}
+
+
+def test_games_behind_count_from_the_best_co_leader_and_use_a_real_minus():
+    # by win %: a 1-0 and b 2-0 share first (1.000); b, the better record, is the reference, so neither shows a
+    # negative number; c 0-2, d 0-1
+    games = [g("g1", "a", "c", 3, 0), g("g2", "b", "d", 3, 0), g("g3", "b", "c", 3, 0)]
+    res = table(games, S(rank_by="win_pct", columns=["w", "l", "pct", "gb"]))
+    assert order(res) == [("a", 1), ("b", 1), ("c", 3), ("d", 3)]
+    assert col(res, "gb") == {"a": "0.5", "b": "—", "c": "2", "d": "1.5"}
+    # by points with a point per period: a leads on points with a worse record than b, so b is ahead in games
+    st = S(points={"win": 3, "tie": 0}, period_points=1, columns=["w", "l", "pts", "gb"])
+    games = [g("g1", "a", "c", [9, 9, 9, 9], [0, 0, 0, 0]), g("g2", "a", "d", [9, 9, 9, 9], [0, 0, 0, 0]),
+             g("g3", "b", "c", [1, 1, 0, 0], [0, 0, 1, 1], final={"home": 3, "away": 2}),
+             g("g4", "b", "d", [1, 1, 0, 0], [0, 0, 1, 1], final={"home": 3, "away": 2}),
+             g("g5", "b", "c", [1, 1, 0, 0], [0, 0, 1, 1], final={"home": 3, "away": 2})]
+    res = table(games, st, periods=4)
+    assert [r["team"] for r in res.rows][:2] == ["a", "b"] and col(res, "pts")["a"] == "14"
+    assert col(res, "gb")["b"] == "−0.5" and col(res, "gb", shown=False)["b"] == -0.5
+
+
+def test_four_way_tie_split_by_head_to_head_into_different_sub_groups():
+    # Round robin among a-d: a beats everyone; b and c tie and both beat d. Then games with e and f bring all
+    # four to 6 points (2-1-0). Head-to-head among the four: a 1.000, b .500, c .500, d .000, so it takes a out
+    # on top and d out at the bottom; b and c go on to diff (b +5, c +1 from their win over e/f).
+    st = S(tiebreakers=["head_to_head", "diff"])
+    games = [g("g01", "a", "b", 2, 1), g("g02", "a", "c", 2, 1), g("g03", "a", "d", 2, 1), g("g04", "b", "c", 1, 1),
+             g("g05", "b", "d", 2, 1), g("g06", "c", "d", 2, 1), g("g07", "b", "e", 6, 1), g("g08", "b", "f", 1, 1),
+             g("g09", "c", "f", 2, 1), g("g10", "c", "e", 1, 1), g("g11", "d", "e", 2, 1), g("g12", "d", "f", 2, 1),
+             g("g13", "d", "e", 2, 1)]
+    res = table(games, st, teams={t: TEAMS[t] for t in "abcdef"})
+    assert col(res, "pts") == {"a": "6", "b": "6", "c": "6", "d": "6", "e": "1", "f": "1"}
+    assert order(res)[:4] == [("a", 1), ("b", 2), ("c", 3), ("d", 4)]
+    assert [r["broke_by"] for r in res.rows][:4] == ["head_to_head", "diff", "diff", "head_to_head"]
+
+
+def test_cycle_is_then_split_by_the_next_breaker():
+    games = [g("g1", "a", "b", 1, 0), g("g2", "b", "c", 5, 0), g("g3", "c", "a", 3, 0)]
+    res = table(games, S(tiebreakers=["head_to_head", "diff"]), teams={t: TEAMS[t] for t in "abc"})
+    assert order(res) == [("b", 1), ("c", 2), ("a", 3)] and {r["broke_by"] for r in res.rows} == {"diff"}
+
+
+def test_small_seasons_one_game_a_bye_only_playoffs_and_a_single_team():
+    one = table([g("g1", "a", "b", 3, 1)], S(columns=ALL_COLUMNS))
+    assert order(one) == [("a", 1), ("c", 2), ("d", 2), ("b", 4)]            # c and d (byes) level on 0 with b? no:
+    rows = {r["team"]: r for r in one.rows}
+    assert rows["c"]["display"]["gp"] == "0" and rows["c"]["display"]["pct"] == ".000"
+    assert rows["c"]["display"]["gb"] == "0.5" and rows["b"]["display"]["gb"] == "1"
+    playoffs = table([g("p1", "a", "b", 3, 1, type="playoff")], S(columns=ALL_COLUMNS))
+    assert [r["rank"] for r in playoffs.rows] == [1, 1, 1, 1] and playoffs.problems == []
+    single = table([], S(columns=ALL_COLUMNS), teams={"a": TEAMS["a"]})
+    assert order(single) == [("a", 1)] and single.rows[0]["display"]["gb"] == "—" and not single.rows[0]["tied"]
+
+
+def test_ties_false_does_not_touch_playoffs_but_a_tied_playoff_game_is_still_reported():
+    res = table([g("g1", "a", "b", 3, 1), g("p1", "a", "b", 2, 2, type="playoff")], S(ties=False))
+    assert [p.at for p in res.problems] == ["sheet.final.home"] and "playoff" in res.problems[0].message
+    assert col(res, "gp")["a"] == "1"
+
+
+def test_huge_margins_and_names_that_differ_only_in_case():
+    teams = {"a": Team("a", "otters", "OTA"), "b": Team("b", "Otters", "OTB"), "c": TEAMS["c"], "d": TEAMS["d"]}
+    res = table([g("g1", "b", "c", 10**6, 0), g("g2", "a", "d", 1, 0)], S(columns=["pts", "diff"]), teams=teams)
+    assert order(res) == [("a", 1), ("b", 1), ("c", 3), ("d", 3)]           # same name ignoring case: then by id
+    assert col(res, "diff")["b"] == "+1000000"
+    capped = table([g("g1", "b", "c", 10**6, 0), g("g2", "a", "d", 1, 0)], S(tiebreakers=[{"diff": {"cap": 7}}]),
+                   teams=teams)
+    assert order(capped)[:2] == [("b", 1), ("a", 2)]

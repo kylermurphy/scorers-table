@@ -109,10 +109,13 @@ def test_an_unknown_key_is_an_error_at_that_key():
 
 
 @pytest.mark.parametrize("sheet", [{}, {"periods": None, "final": None}])
-def test_missing_periods_and_final_are_errors_at_each_side(sheet):
-    got = found(sheet)
-    assert set(got) == {("error", "periods.home"), ("error", "periods.away"),
-                        ("error", "final.home"), ("error", "final.away")}
+def test_missing_periods_and_final_are_errors_at_the_missing_box(sheet):
+    assert set(found(sheet)) == {("error", "periods"), ("error", "final")}
+
+
+def test_a_missing_side_is_an_error_at_that_side():
+    sheet = with_change(with_change(good_sheet(), "periods", "away", value="<del>"), "final", "home", value="<del>")
+    assert set(found(sheet)) == {("error", "periods.away"), ("error", "final.home")}
 
 
 def test_periods_must_be_a_list_of_exactly_the_right_length():
@@ -245,8 +248,7 @@ def test_a_draft_may_leave_boxes_empty():
     got = found(sheet, draft)
     assert set(got) == {("warning", "periods.home.1"), ("warning", "final.away")}
     assert {level for level, _ in found(sheet, make_ctx())} == {"error"}
-    assert found({}, draft).keys() == {("warning", "periods.home"), ("warning", "periods.away"),
-                                       ("warning", "final.home"), ("warning", "final.away")}
+    assert found({}, draft).keys() == {("warning", "periods"), ("warning", "final")}
 
 
 def test_a_wrong_number_is_still_an_error_in_a_draft():
@@ -374,7 +376,7 @@ def test_sample_sheets_pass_the_checks_whatever_is_asked(overtime, outcome, game
         final = sheet["final"]
         if game_type == "playoff" or overtime == "overtime" or outcome in ("win_home", "win_away"):
             assert final["home"] != final["away"]
-        if outcome == "win_home" and not (outcome == "tie"):
+        if outcome == "win_home":
             assert final["home"] > final["away"]
         if outcome == "win_away":
             assert final["away"] > final["home"]
@@ -399,3 +401,34 @@ def test_sample_is_the_same_every_time():
     game = SampleGame("g", {"home": ["ann-b", "joe-k"], "away": ["tom-w"]}, "ot")
     ctx = make_ctx("overtime")
     assert SPORT.sample.sheet(random.Random(9), game, ctx) == SPORT.sample.sheet(random.Random(9), game, ctx)
+
+
+def test_the_sample_season_has_a_tie_or_an_overtime_game_and_playoffs_never_tie():
+    from scripts import make_sample
+    from scripts.core.problems import parse_yaml
+    for overtime in ("none", "overtime"):
+        files = make_sample.generate_season(
+            SPORT, {"id": "sample-2026-27", "as_of": "2026-11-20"}, rules={"periods": 2, "overtime": overtime},
+            standings={"ties": True})
+        games = [parse_yaml(text) for name, text in files.items() if name.startswith("games/") and "forfeit" not in text]
+        assert any(g["sheet"]["final"]["home"] == g["sheet"]["final"]["away"] for g in games) == (overtime == "none")
+        assert any("overtime" in g["sheet"] for g in games) == (overtime == "overtime")
+    files = make_sample.generate_season(
+        SPORT, {"id": "sample-2025-26"}, rules={"periods": 2, "overtime": "none"}, standings={"ties": True})
+    playoff_days = {"2025-12-04", "2025-12-11"}
+    for name, text in files.items():
+        if name[len("games/"):len("games/") + 10] in playoff_days:
+            final = parse_yaml(text)["sheet"]["final"]
+            assert final["home"] != final["away"]
+
+
+def test_the_sample_season_has_no_tie_when_the_standings_do_not_allow_one():
+    from scripts import make_sample
+    from scripts.core.problems import parse_yaml
+    files = make_sample.generate_season(
+        SPORT, {"id": "sample-2026-27", "as_of": "2026-11-20"}, rules={"periods": 2, "overtime": "none"},
+        standings={"ties": False})
+    for name, text in files.items():
+        if name.startswith("games/") and "forfeit" not in text:
+            final = parse_yaml(text)["sheet"]["final"]
+            assert final["home"] != final["away"]

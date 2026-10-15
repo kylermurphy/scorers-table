@@ -935,3 +935,13 @@ def test_problems_from_every_file_are_collected_together(sports_root, tmp_path):
     d.game("zzz", "status: final\n")
     files = {f for (f, _) in errs(load(d, sports_root))}
     assert files == {f"{S1}/teams.yml", f"{S1}/players.yml", CSV, f"{S1}/games/zzz.yml"}
+
+
+
+def test_dotfiles_in_games_are_ignored_without_a_warning(sports_root, tmp_path):
+    """`.gitkeep` and `.DS_Store` keep a folder in git or come from the OS; they are never data."""
+    d = Data(tmp_path)
+    d.put("s1/games/.gitkeep", "")
+    d.put("s1/games/.DS_Store", "x")
+    result = load(d, sports_root)
+    assert errs(result) == {} and warns(result) == {}

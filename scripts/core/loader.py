@@ -647,6 +647,8 @@ def load_games(ctx: _GameContext) -> tuple[dict[str, LoadedGame], list[Problem]]
         return games, problems
     for path in sorted(games_dir.iterdir()):
         file = f"{ctx.shown}/games/{path.name}"
+        if path.name.startswith("."):
+            continue                      # .gitkeep, .DS_Store: never data, never worth a warning
         if path.suffix != ".yml":
             if path.is_file():
                 problems.append(Problem("warning", "", "is not a .yml file, so it is ignored. Game files are "

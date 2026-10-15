@@ -248,9 +248,11 @@ def pick_players(rng: random.Random, roster: dict[str, list[str]], spares: list[
 
 # ------------------------------------------------------------------ one season
 
-def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: dict, seed: str = SEED) -> dict[str, str]:
+def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: dict, seed: str = SEED,
+                    collect: list | None = None) -> dict[str, str]:
     """The files of one sample season as {path inside the season folder: text}. Raises SampleError when a sheet
-    fails the sport's own checks. Pure apart from the sport's functions: the same arguments give the same text."""
+    fails the sport's own checks. Pure apart from the sport's functions: the same arguments give the same text.
+    `collect`, when given, receives a (sheet, context, SampleGame) for every sheet written (tests use it)."""
     if sport.sample is None:
         raise SampleError(f"sports/{sport.id}/sample.py was not loaded")
     sample, rules_mod = sport.sample, sport.rules
@@ -306,6 +308,8 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
                               + "; ".join(f"{p.at}: {p.message}" for p in problems))
         reading = call_sport("read", rules_mod.read, sheet, ctx)
         call_sport("present", rules_mod.present, reading, ctx)
+        if collect is not None:
+            collect.append((sheet, ctx, game))
         final = reading.score.final
         if final["home"] != final["away"]:
             winner = row.home if final["home"] > final["away"] else row.away
@@ -431,8 +435,7 @@ def run_loader(root: Path) -> list[str] | None:
     if sport is None:
         return [f"{p.file}: {p.at}: {p.message}" for p in problems]
     data = load_data(root, league, sport, today=dt.date(2026, 10, 15))
-    # A `.gitkeep` only keeps an empty folder in git; the loader may say it ignores it, which is not a problem.
-    return [f"{p.file}: {p.at}: {p.message}" for p in data.problems if not p.file.endswith(".gitkeep")]
+    return [f"{p.file}: {p.at}: {p.message}" for p in data.problems]
 
 
 def main(argv: list[str] | None = None) -> int:

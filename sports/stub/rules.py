@@ -106,8 +106,7 @@ def _check_periods(out, sheet, ctx):
     raw = sheet.get("periods")
     good = {}
     if raw is None:
-        for side in SIDE_KEYS:
-            out.missing(_path("periods", side), f"the points for each {one}")
+        out.missing("periods", f"the points for each {one}, for home and away")
         return good
     if _sides_block(out, raw, "periods", f"the points for each {one}") is None:
         return good
@@ -152,8 +151,7 @@ def _check_overtime(out, sheet, ctx, regulation):
     raw = sheet["overtime"]
     good = {}
     if raw is None:
-        for side in SIDE_KEYS:
-            out.missing(_path("overtime", side), "the overtime points")
+        out.missing("overtime", "the overtime points, for home and away")
         return good
     if _sides_block(out, raw, "overtime", "the overtime points") is None:
         return good
@@ -177,8 +175,7 @@ def _check_final(out, sheet, ctx, regulation, overtime):
     raw = sheet.get("final")
     good = {}
     if raw is None:
-        for side in SIDE_KEYS:
-            out.missing(_path("final", side), "the Final box")
+        out.missing("final", "the Final box, for home and away")
         return good
     if _sides_block(out, raw, "final", "the Final box") is None:
         return good

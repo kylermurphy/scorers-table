@@ -13,8 +13,11 @@ Choices where the spec leaves room (also in the docstrings that use them):
 * `w` counts every win, overtime wins included, and `l` every loss (so a Masters-style table with no `otw`
   column is right); `otw` and `otl` are the "of which" overtime counts. `gp` = w + l + t.
 * A fixed-score forfeit earns no period points (it has no periods); `per_period` earns all of them.
-* A tied or missing regular-season game that is also an error is left out of the table (the build stops anyway).
-* Ranks are competition ranks: 1, 2, 2, 4.
+* A game that is an error (tied when it may not be, no final score, a team playing itself, a game id listed
+  twice, a team outside the season) is left out of the table and reported (the build stops anyway).
+* Ranks are competition ranks: 1, 2, 2, 4 (teams level share a rank; the next rank skips).
+* Games behind are counted from the leader; when several teams share first place, from the one with the best
+  wins-minus-losses, so no co-leader is shown ahead of "—".
 """
 from __future__ import annotations
 
@@ -86,13 +89,16 @@ def _final_at(game: StandingsGame) -> str:
 def game_results(game: StandingsGame, standings: Mapping[str, Any], regulation_periods: int
                  ) -> tuple[dict[str, TeamGame] | None, list[Problem]]:
     """The `TeamGame` of each team in one game ({team id: TeamGame}), and the problems. The dict is None when
-    the game cannot be counted (a tied game that may not be tied, a missing score, a bad forfeit).
+    the game cannot be counted (a tied game that may not be tied, a missing score, a bad forfeit, a team
+    playing itself).
 
     A tied playoff game is always an error; a tied regular-season game is an error when `ties` is false; both
     are reported once, at the Final box of the home side (`Score.final_at`), with the game's file name."""
     def problem(at: str, message: str) -> list[Problem]:
         return [Problem("error", at, message, game.file)]
 
+    if game.home == game.away:
+        return None, problem("away", f"{game.home!r} cannot play itself; check the home and away teams.")
     if game.forfeit is not None:
         if game.forfeit not in (game.home, game.away):
             return None, problem("forfeit", f"{game.forfeit!r} did not play in this game; "
@@ -101,7 +107,9 @@ def game_results(game: StandingsGame, standings: Mapping[str, Any], regulation_p
     if game.reading is None:
         return None, problem("", "This game has neither a score sheet nor a forfeit.")
     score = game.reading.score
-    home, away = score.final["home"], score.final["away"]
+    home, away = score.final.get("home"), score.final.get("away")
+    if not all(isinstance(n, int) and not isinstance(n, bool) for n in (home, away)):
+        return None, problem(_final_at(game), "This game has no final score for both sides; fill in the Final boxes.")
     if home == away:
         if game.type == "playoff":
             return None, problem(_final_at(game), f"A playoff game cannot end tied ({home}-{away}); "
@@ -152,13 +160,22 @@ def results_by_team(games: Iterable[StandingsGame], teams: Iterable[str], standi
                     regulation_periods: int) -> tuple[dict[str, list[TeamGame]], list[Problem]]:
     """{team id: [TeamGame, ...]} for every team in `teams`, from the regular-season games only, in game id
     order, plus the problems of every game (playoff games are checked for ties but never counted). A game that
-    cannot be counted is left out. Games that name a team outside `teams` are an error."""
+    cannot be counted is left out. Games that name a team outside `teams` are an error, and so is a game id
+    given more than once (none of its copies is counted)."""
     if regulation_periods < 1:
         raise ValueError("regulation_periods must be at least 1")
     known = set(teams)
     by_team: dict[str, list[TeamGame]] = {t: [] for t in sorted(known)}
     problems: list[Problem] = []
-    for game in sorted(games, key=lambda g: g.game_id):
+    games = sorted(games, key=lambda g: (g.game_id, g.file, g.home, g.away))
+    seen: dict[str, int] = {}
+    for game in games:
+        seen[game.game_id] = seen.get(game.game_id, 0) + 1
+    for game in games:
+        if seen[game.game_id] > 1:
+            problems.append(Problem("error", "game_id", f"Game {game.game_id!r} is given {seen[game.game_id]} times; "
+                                    "each game id must be used once.", game.file))
+            continue
         counted, found = game_results(game, standings, regulation_periods)
         problems.extend(found)
         if game.type != "regular" or counted is None:
@@ -367,18 +384,23 @@ def validate_tiebreakers(spec: Any, at: str = "standings.tiebreakers") -> list[P
 
 
 def tiebreak_note(standings: Mapping[str, Any], unset: bool = False) -> str:
-    """One sentence under the table: 'Ties are broken by head-to-head record, then wins; teams still level
-    share a rank.' With `unset` (the league has not decided its tiebreakers) it starts with the
-    [placeholder] wording and then says what the build is using instead."""
+    """One sentence under the table: 'Teams level on points are ranked by head-to-head record (when they have
+    all played each other), then wins; teams still level share a rank.' (It says "level on points", not
+    "ties", so it is not read as tied games.) With `unset` (the league has not decided its tiebreakers) it
+    starts with the [placeholder] wording and then says what the build is using instead."""
     phrases = []
+    met_said = False
     for name, options in normalise_tiebreakers(standings["tiebreakers"]):
         text = _PHRASES[name][0]
         if name == "diff" and "cap" in options:
             text += f" (each game counted up to {options['cap']})"
+        if name in ("head_to_head", "head_to_head_points") and not met_said:
+            text += " (when they have all played each other)"          # the skip rule, said once
+            met_said = True
         phrases.append(text)
     basis = "win percentage" if standings["rank_by"] == "win_pct" else "points"
     if phrases:
-        note = f"Ties are broken by {', then '.join(phrases)}; teams still level share a rank."
+        note = f"Teams level on {basis} are ranked by {', then '.join(phrases)}; teams still level share a rank."
     else:
         note = f"Teams level on {basis} share a rank."
     return f"{fmt.PLACEHOLDER} The league has not decided its tiebreakers yet. {note}" if unset else note
@@ -416,7 +438,9 @@ def _order(table: Table, teams: Mapping[str, Team], standings: Mapping[str, Any]
 # ------------------------------------------------------------------ the rows
 
 def _gb(table: Table, leader: str, team: str) -> Fraction:
-    """Games behind the leader: half the wins gap plus half the losses gap (a tie is half a win, half a loss)."""
+    """Games behind the leader: half the wins gap plus half the losses gap (a tie is half a win, half a loss,
+    so ties cancel out). Negative for a team with a better wins-minus-losses than the leader (possible when
+    the table is ranked by points, or by win % with unequal games)."""
     def wl(t: str) -> tuple[Fraction, Fraction]:
         r = table.records[t]
         return r.w + Fraction(r.t, 2), r.l + Fraction(r.t, 2)
@@ -440,7 +464,8 @@ def _row_values(table: Table, leader: str, team: str, columns: Iterable[str]) ->
             values[col], display[col] = r.diff, fmt.signed(r.diff)
         elif col == "gb":
             gap = _gb(table, leader, team)
-            values[col], display[col] = _number(gap), (fmt.DASH if gap == 0 else fmt.decimal(float(gap), 1).removesuffix(".0"))
+            text = fmt.decimal(abs(float(gap)), 1).removesuffix(".0")
+            values[col], display[col] = _number(gap), (fmt.DASH if gap == 0 else fmt.MINUS + text if gap < 0 else text)
         else:
             values[col] = getattr(r, col) if col in KNOWN_COLUMNS else r.stats.get(col, 0)
             display[col] = str(values[col])
@@ -469,7 +494,8 @@ def compute_standings(games: Iterable[StandingsGame], teams: Mapping[str, Team],
     table = Table({t: record_of(g, stat_keys) for t, g in by_team.items()}, {t: tuple(g) for t, g in by_team.items()})
     cells = _order(table, teams, standings) if teams else []
     rows: list[dict] = []
-    leader = cells[0][0][0] if cells else ""
+    top = cells[0][0] if cells else []        # first place (shared or not); games behind count from its best record
+    leader = max(top, key=lambda t: table.records[t].w - table.records[t].l) if top else ""
     for cell, broke_by in cells:
         rank = len(rows) + 1
         for team in cell:
