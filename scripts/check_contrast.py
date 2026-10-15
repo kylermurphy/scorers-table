@@ -796,9 +796,9 @@ def _either(*exprs: str) -> str:
 
 _LEAD_TRACK = _mix("panel-text", 22)                                   # parts-data.css .st-race__row--lead .st-race__bar
 _LS_TINT = "color-mix(in oklab, %s 9%%, %s)" % (_v("panel-text"), _v("panel-bg"))   # --ls-bg of .st-final (basketball, classic)
-_LS_BLANK = _mix("panel-text", 14)                                     # .st-final .is-blank cell on that box
+_LS_BLANK = _mix("panel-text", 8)                                      # .st-final .is-blank cell on that box
 _SB_BLANK = "color-mix(in oklab, %s, %s 16%%)" % (_v("score-bg"), _v("score-text"))  # scoreboard .is-blank and blank key
-_RINK = _either(_mix("link", 24), _mix("hot", 30))                     # hockey .st-final::before lines behind the text
+_RINK = _either(_mix("link", 11), _mix("hot", 11))                     # hockey .st-final::before lines behind the text
 
 
 def build_pairs() -> list:
@@ -910,21 +910,18 @@ def build_pairs() -> list:
     ]
     # marks, badges, ranks (parts-scores.css .is-mark, .st-legend__key--mark/--limit; base.css .st-badge)
     P += [
-        _pair("mark-text", ("surface", "mark-bg"), "text", "mark-text/mark-bg"),
-        _pair("mark-text", "surface", "text", "mark-text/surface",
+        _pair("mark-text", ("surface", "mark-bg"), "text", "mark-text/mark-bg", not_in=("scoreboard",)),
+        _pair("mark-text", "surface", "text", "mark-text/surface", not_in=("scoreboard",),
               why="a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key)"),
-        _pair("mark-line", "surface", "ui",
+        _pair("mark-line", "surface", "ui", not_in=("scoreboard",),
               why="the outline of a stolen end or run-limit inning against the card (it carries the meaning "
                   "together with the text colour)"),
-        _pair("mark-line", ("surface", "mark-bg"), "ui", "mark-line/mark-bg",
+        _pair("mark-line", ("surface", "mark-bg"), "ui", "mark-line/mark-bg", not_in=("scoreboard",),
               why="the same outline against the tint it encloses"),
         _pair("mark-line", "score-bg", "ui", "mark-line/score-bg", only=("scoreboard",),
               why="parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile"),
-        _pair("score-text", ("surface", "mark-bg"), "text", "score-text/mark-bg", only=("scoreboard",),
-              plain="the run-limit legend key", why="parts-scores.css [scoreboard] .st-legend__key--limit: "
-              "score-text on the key's mark-bg"),
-        _pair("won-line", "surface", "ui", only=("basketball", "curling", "hockey", "slopitch"),
-              why="the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere"),
+        _pair("won-line", "surface", "ui", only=("curling", "hockey", "slopitch"),
+              why="the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere"),
         _pair("won-line", "panel-bg", "ui", "won-line/panel-bg", only=("basketball", "classic"),
               why="the underline on the coloured final panel"),
         _pair("won-line", "score-bg", "ui", only=("scoreboard",),

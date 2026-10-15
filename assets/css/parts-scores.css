@@ -1109,9 +1109,9 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(color-mix(in oklab, var(--st-link) 16%, transparent), color-mix(in oklab, var(--st-link) 16%, transparent)) 28% 0 / 4px 100% no-repeat,
-    linear-gradient(color-mix(in oklab, var(--st-hot) 16%, transparent), color-mix(in oklab, var(--st-hot) 16%, transparent)) 50% 0 / 4px 100% no-repeat,
-    linear-gradient(color-mix(in oklab, var(--st-link) 16%, transparent), color-mix(in oklab, var(--st-link) 16%, transparent)) 72% 0 / 4px 100% no-repeat;
+    linear-gradient(color-mix(in oklab, var(--st-link) 11%, transparent), color-mix(in oklab, var(--st-link) 11%, transparent)) 28% 0 / 4px 100% no-repeat,
+    linear-gradient(color-mix(in oklab, var(--st-hot) 11%, transparent), color-mix(in oklab, var(--st-hot) 11%, transparent)) 50% 0 / 4px 100% no-repeat,
+    linear-gradient(color-mix(in oklab, var(--st-link) 11%, transparent), color-mix(in oklab, var(--st-link) 11%, transparent)) 72% 0 / 4px 100% no-repeat;
 }
 [data-layout="hockey"] .st-final > * {
   position: relative;

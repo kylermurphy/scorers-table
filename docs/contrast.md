@@ -17,34 +17,26 @@
 
 | Layout | Theme | Pairs checked | Pass | Fail | Accepted | Decor below target |
 |---|---|---:|---:|---:|---:|---:|
-| basketball | light | 82 | 81 | 0 | 0 | 1 |
-| basketball | dark | 82 | 81 | 0 | 0 | 1 |
+| basketball | light | 81 | 80 | 0 | 0 | 1 |
+| basketball | dark | 81 | 80 | 0 | 0 | 1 |
 | classic | light | 81 | 79 | 0 | 0 | 2 |
 | classic | dark | 82 | 80 | 0 | 0 | 2 |
 | curling | light | 76 | 74 | 0 | 1 | 1 |
 | curling | dark | 79 | 78 | 0 | 0 | 1 |
-| hockey | light | 80 | 78 | 1 | 0 | 1 |
-| hockey | dark | 82 | 79 | 1 | 0 | 2 |
-| scoreboard | light | 86 | 86 | 0 | 0 | 0 |
-| scoreboard | dark | 87 | 87 | 0 | 0 | 0 |
+| hockey | light | 80 | 79 | 0 | 0 | 1 |
+| hockey | dark | 82 | 80 | 0 | 0 | 2 |
+| scoreboard | light | 81 | 81 | 0 | 0 | 0 |
+| scoreboard | dark | 82 | 82 | 0 | 0 | 0 |
 | slopitch | light | 76 | 75 | 0 | 0 | 1 |
 | slopitch | dark | 78 | 76 | 0 | 0 | 2 |
 
 Pairs that need no enforcement (decor) count as passing unless they miss their target.
 
-**2 enforced pair(s) fail.** The two dark blocks of every file are identical, and the dark custom-colour blocks restate everything their light block sets.
+**All enforced pairs pass.** The two dark blocks of every file are identical, and the dark custom-colour blocks restate everything their light block sets.
 
 ## Failures
 
-* **hockey, light theme, `muted/rink`** (text 4.5): #5A6478 on #EFB7C0 = **3.45:1**, needs 4.5:1 (worst: case 2 of 2 (#C8102E4D)).
-* **hockey, dark theme, `muted/rink`** (text 4.5): #A3AEBD on #3B4E69 = **3.76:1**, needs 4.5:1 (worst: case 1 of 2 (#8DB8FF3D)).
-* **League colour example Navy** fails (see League colour examples for the messages): basketball (light).
-* **League colour example Deep red** fails (see League colour examples for the messages): basketball (light).
-* **League colour example Forest green** fails (see League colour examples for the messages): basketball (light).
-* **League colour example Teal** fails (see League colour examples for the messages): basketball (light).
-* **League colour example Purple** fails (see League colour examples for the messages): basketball (light).
-* **League colour example Brown** fails (see League colour examples for the messages): basketball (light).
-* **League colour example Mid blue** fails (see League colour examples for the messages): basketball (light).
+None.
 
 ## Every pair
 
@@ -109,7 +101,6 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #8F3036 | #FFFFFF | 7.94 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #DE4F58 | #FFFFFF | 3.91 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #DE4F58 | #FFE8E7 | 3.34 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #FF5C66 | #FFFFFF | 3.01 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `won-line/panel-bg` | ui | #FF5C66 | #032F98 | 3.74 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #032F98 | #E4EAF6 | 9.33 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #17602A | #DDF1E0 | 6.46 | 4.5 | pass |  |
@@ -196,7 +187,6 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #FF8284 | #131B34 | 7.11 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #CE4951 | #131B34 | 3.80 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #CE4951 | #2E0A0C | 4.03 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #FF5C66 | #131B34 | 5.65 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `won-line/panel-bg` | ui | #FF5C66 | #022274 | 4.70 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #9AB1DC | #0E2769 | 6.40 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #8FDC9A | #17361F | 8.12 | 4.5 | pass |  |
@@ -271,8 +261,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `panel-line/panel-bg` | decor | #395482 | #1D3A6E | 1.46 |  | decor | decorative divider; carries no information |
 | `panel-text/ls-box` | text | #FFFFFF | #2F4B7B | 8.70 | 4.5 | pass | parts-scores.css :is(basketball, classic) .st-final: --ls-bg is panel-text 9% over panel-bg |
 | `panel-muted/ls-box` | text | #E1E6ED | #2F4B7B | 6.93 | 4.5 | pass | same box: --ls-muted (loser rows, ends, column heads) |
-| `panel-text/ls-box-blank` | text | #FFFFFF | #4C648D | 5.97 | 4.5 | pass | parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% over the score box |
-| `panel-muted/ls-box-blank` | text | #E1E6ED | #4C648D | 4.76 | 4.5 | pass | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
+| `panel-text/ls-box-blank` | text | #FFFFFF | #405986 | 7.02 | 4.5 | pass | parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% over the score box |
+| `panel-muted/ls-box-blank` | text | #E1E6ED | #405986 | 5.59 | 4.5 | pass | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
 | `panel-text-80/panel-bg` | text | #D2D8E2 | #1D3A6E | 7.78 | 4.5 | pass | parts-scores.css .st-final__head--board .st-final__team:not(.is-winner) .st-final__name (panel-text at opacity .8) |
 | `panel-muted/score-bg` | text | #E1E6ED | #1D3A6E | 8.89 | 4.5 | pass | parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or periods sport (not Slo-pitch or Curling, which have no period tiles) |
 | `footer-text/footer-bg` | text | #C9D4F2 | #0B1B3F | 11.41 | 4.5 | pass |  |
@@ -357,8 +347,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `panel-line/panel-bg` | decor | #395482 | #1D3A6E | 1.46 |  | decor | decorative divider; carries no information |
 | `panel-text/ls-box` | text | #FFFFFF | #2F4B7B | 8.70 | 4.5 | pass | parts-scores.css :is(basketball, classic) .st-final: --ls-bg is panel-text 9% over panel-bg |
 | `panel-muted/ls-box` | text | #E1E6ED | #2F4B7B | 6.93 | 4.5 | pass | same box: --ls-muted (loser rows, ends, column heads) |
-| `panel-text/ls-box-blank` | text | #FFFFFF | #4C648D | 5.97 | 4.5 | pass | parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% over the score box |
-| `panel-muted/ls-box-blank` | text | #E1E6ED | #4C648D | 4.76 | 4.5 | pass | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
+| `panel-text/ls-box-blank` | text | #FFFFFF | #405986 | 7.02 | 4.5 | pass | parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% over the score box |
+| `panel-muted/ls-box-blank` | text | #E1E6ED | #405986 | 5.59 | 4.5 | pass | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
 | `panel-text-80/panel-bg` | text | #D2D8E2 | #1D3A6E | 7.78 | 4.5 | pass | parts-scores.css .st-final__head--board .st-final__team:not(.is-winner) .st-final__name (panel-text at opacity .8) |
 | `panel-muted/score-bg` | text | #E1E6ED | #1D3A6E | 8.89 | 4.5 | pass | parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or periods sport (not Slo-pitch or Curling, which have no period tiles) |
 | `footer-text/footer-bg` | text | #C9D4F2 | #060A14 | 13.36 | 4.5 | pass |  |
@@ -452,7 +442,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #A60B24 | #FFFFFF | 7.79 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #D95658 | #FFFFFF | 3.87 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #D95658 | #FDE4E3 | 3.20 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere |
 | `badge-text/badge-bg` | text | #0E2233 | #E7ECF3 | 13.65 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #1D4E89 | 8.38 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #0E2233 | #E3ECF4 | 13.56 | 4.5 | pass |  |
@@ -534,7 +524,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #EB8D8A | #13222F | 6.71 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #D85154 | #13222F | 4.02 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #D85154 | #53030D | 3.76 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #9DB2CE | #13222F | 7.47 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #9DB2CE | #13222F | 7.47 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere |
 | `badge-text/badge-bg` | text | #E8F0F6 | #0E2D53 | 11.99 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #4E74A4 | 4.81 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #E8F0F6 | #24394B | 10.34 | 4.5 | pass |  |
@@ -619,7 +609,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #151A22 | #FFFFFF | 17.46 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #966700 | #FFFFFF | 4.95 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #966700 | #FEF3E2 | 4.51 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere |
 | `badge-text/badge-bg` | text | #14181F | #F2A900 | 8.85 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #1D4E89 | 8.38 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #14181F | #EDF1F5 | 15.67 | 4.5 | pass |  |
@@ -629,8 +619,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `score-line/score-bg` | decor | #3A4250 | #14181F | 1.75 |  | decor | decorative divider; carries no information |
 | `bar-fill/bar-track` | ui | #5A6478 | #DCE2EA | 4.56 | 3 | pass |  |
 | `bar-lead/bar-track` | ui | #1D4E89 | #DCE2EA | 6.43 | 3 | pass |  |
-| `muted/rink` | text | #5A6478 | #EFB7C0 | 3.45 | 4.5 | **FAIL** | worst: case 2 of 2 (#C8102E4D). parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text |
-| `text-80/rink` | text | #413942 | #EFB7C0 | 6.46 | 4.5 | pass | worst: case 2 of 2 (#C8102E4D). parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines) |
+| `muted/rink` | text | #5A6478 | #F9E5E8 | 4.93 | 4.5 | pass | worst: case 2 of 2 (#C8102E1C). parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text |
+| `text-80/rink` | text | #43434A | #F9E5E8 | 8.12 | 4.5 | pass | worst: case 2 of 2 (#C8102E1C). parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines) |
 | `team-1/surface` | decor | #C8102E | #FFFFFF | 5.88 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-1/bg` | decor | #C8102E | #F6F8FA | 5.52 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-2/surface` | decor | #1D4E89 | #FFFFFF | 8.38 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
@@ -705,7 +695,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #F2A900 | #212C39 | 7.04 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #F2A900 | #212C39 | 7.04 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #F2A900 | #190E00 | 9.46 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #6FA8FF | #212C39 | 5.87 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #6FA8FF | #212C39 | 5.87 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere |
 | `badge-text/badge-bg` | text | #14181F | #F2A900 | 8.85 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #386298 | 6.23 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #EEF2F7 | #2E3A4B | 10.24 | 4.5 | pass |  |
@@ -715,8 +705,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `score-line/score-bg` | decor | #334255 | #090B0F | 1.92 |  | decor | decorative divider; carries no information |
 | `bar-fill/bar-track` | ui | #A3AEBD | #334255 | 4.55 | 3 | pass |  |
 | `bar-lead/bar-track` | ui | #6FA8FF | #334255 | 4.25 | 3 | pass |  |
-| `muted/rink` | text | #A3AEBD | #3B4E69 | 3.76 | 4.5 | **FAIL** | worst: case 1 of 2 (#8DB8FF3D). parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text |
-| `text-80/rink` | text | #CAD1DB | #3B4E69 | 5.50 | 4.5 | pass | worst: case 1 of 2 (#8DB8FF3D). parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines) |
+| `muted/rink` | text | #A3AEBD | #2D3B4F | 5.05 | 4.5 | pass | worst: case 1 of 2 (#8DB8FF1C). parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text |
+| `text-80/rink` | text | #C7CDD5 | #2D3B4F | 7.09 | 4.5 | pass | worst: case 1 of 2 (#8DB8FF1C). parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines) |
 | `team-1/surface` | decor | #FF6B7A | #212C39 | 5.14 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-1/bg` | decor | #FF6B7A | #17202B | 5.97 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-2/surface` | decor | #6FA8FF | #212C39 | 5.87 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
@@ -789,12 +779,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-accent/footer-bg` | ui | #CB0E1D | #111111 | 3.25 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2A2A2A | #111111 | 1.31 |  | decor | decorative divider; carries no information |
 | `score-text/footer-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass | parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg) |
-| `mark-text/mark-bg` | text | #947019 | #000000 | 4.59 | 4.5 | pass |  |
-| `mark-text/surface` | text | #947019 | #FFFFFF | 4.57 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #B38720 | #FFFFFF | 3.27 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #B38720 | #000000 | 6.40 | 3 | pass | the same outline against the tint it encloses |
 | `mark-line/score-bg` | ui | #B38720 | #000000 | 6.40 | 3 | pass | parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile |
-| `score-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass | parts-scores.css [scoreboard] .st-legend__key--limit: score-text on the key's mark-bg |
 | `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #111111 | #FFC233 | 11.70 | 4.5 | pass |  |
@@ -880,12 +865,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-accent/footer-bg` | ui | #CF2528 | #000000 | 3.94 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2A2A2A | #000000 | 1.46 |  | decor | decorative divider; carries no information |
 | `score-text/footer-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass | parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg) |
-| `mark-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
-| `mark-text/surface` | text | #FFC233 | #1A1A1A | 10.78 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #FFC233 | #1A1A1A | 10.78 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the same outline against the tint it encloses |
 | `mark-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile |
-| `score-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass | parts-scores.css [scoreboard] .st-legend__key--limit: score-text on the key's mark-bg |
 | `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #111111 | #FFC233 | 11.70 | 4.5 | pass |  |
@@ -971,7 +951,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #964324 | #FFFFFF | 6.71 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #B5532E | #FFFFFF | 4.95 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #B5532E | #FFFFFF | 4.95 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #2F6B3A | #FFFFFF | 6.39 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #2F6B3A | #FFFFFF | 6.39 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere |
 | `badge-text/badge-bg` | text | #22201C | #EAE0C9 | 12.39 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #22201C | #F3EBDA | 13.71 | 4.5 | pass |  |
@@ -1053,7 +1033,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #E8875E | #22201A | 6.24 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #E0835A | #22201A | 5.86 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #E0835A | #22201A | 5.86 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #86CC92 | #22201A | 8.58 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #86CC92 | #22201A | 8.58 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Basketball and Classic cards underline in `accent` (covered by accent/surface), Scoreboard draws it elsewhere |
 | `badge-text/badge-bg` | text | #F4ECD9 | #3A362C | 10.23 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #F4ECD9 | #3A362C | 10.23 | 4.5 | pass |  |
@@ -1083,13 +1063,13 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 
 A league sets ONE colour (`colour`, optionally `colour_dark`) in `league.yml`. Stage 4 writes it as an inline `--st-league-color` (and `--st-league-color-dark`) on `<html>` and adds the attribute `data-league-colour` next to `data-layout`; each layout's `[data-league-colour]` blocks then re-derive everything that depends on the colour. The table below runs every pair of every layout in that mode, in both themes, with each example colour (no `colour_dark`, so the dark theme derives from the same colour). Failures here are information, not failures of the layouts: they are what a league picking that colour would be told. Only the example colours not marked as expected failures must pass.
 
-* **Navy #1D3A6E** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
-* **Deep red #9E1B32** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
-* **Forest green #2F6B3A** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
-* **Teal #0E6B6B** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
-* **Purple #5B3A8C** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
-* **Brown #7A4A1E** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
-* **Mid blue #1F5FA8** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Navy #1D3A6E** passes in every layout, light and dark.
+* **Deep red #9E1B32** passes in every layout, light and dark.
+* **Forest green #2F6B3A** passes in every layout, light and dark.
+* **Teal #0E6B6B** passes in every layout, light and dark.
+* **Purple #5B3A8C** passes in every layout, light and dark.
+* **Brown #7A4A1E** passes in every layout, light and dark.
+* **Mid blue #1F5FA8** passes in every layout, light and dark.
 * **Gold #C98A12** fails in every layout (expected: the deliberate hard case).
 * **Gold is an expected failure**: white text on it fails AA, so stage 4 stops with `league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour.`
 * There is no second league colour: `colour_2` is not a league setting. A layout's own second accent (`--st-layout-accent`) is fixed by the layout and never set by a league.
@@ -1098,42 +1078,14 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 
 | Colour | basketball light | basketball dark | classic light | classic dark | curling light | curling dark | hockey light | hockey dark | scoreboard light | scoreboard dark | slopitch light | slopitch dark |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Navy #1D3A6E | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Deep red #9E1B32 | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Forest green #2F6B3A | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Teal #0E6B6B | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Purple #5B3A8C | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Brown #7A4A1E | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Mid blue #1F5FA8 | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
-| Gold #C98A12 (expected fail) | **21** | **9** | **15** | **5** | **11** | **4** | **8** | **3** | **13** | **10** | **19** | **5** |
-
-**basketball with Navy (#1D3A6E)**
-
-* league.yml colour #1D3A6E: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
-
-**basketball with Deep red (#9E1B32)**
-
-* league.yml colour #9E1B32: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
-
-**basketball with Forest green (#2F6B3A)**
-
-* league.yml colour #2F6B3A: the won-period underline on cards is 1.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
-
-**basketball with Teal (#0E6B6B)**
-
-* league.yml colour #0E6B6B: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
-
-**basketball with Purple (#5B3A8C)**
-
-* league.yml colour #5B3A8C: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
-
-**basketball with Brown (#7A4A1E)**
-
-* league.yml colour #7A4A1E: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
-
-**basketball with Mid blue (#1F5FA8)**
-
-* league.yml colour #1F5FA8: the won-period underline on cards is 1.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
+| Navy #1D3A6E | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Deep red #9E1B32 | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Forest green #2F6B3A | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Teal #0E6B6B | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Purple #5B3A8C | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Brown #7A4A1E | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Mid blue #1F5FA8 | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Gold #C98A12 (expected fail) | **20** | **9** | **14** | **4** | **11** | **4** | **8** | **3** | **13** | **10** | **19** | **5** |
 
 **basketball with Gold (#C98A12)**
 
@@ -1152,7 +1104,6 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 * league.yml colour #C98A12: text on the panel's tile is 4.3:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/panel-tile-bg`
 * league.yml colour #C98A12: text in the final panel's score box is 4.0:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box`
 * league.yml colour #C98A12: the losing team's name is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text-80/panel-bg`
-* league.yml colour #C98A12: the won-period underline on cards is 1.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 * league.yml colour #C98A12: badge text on badges is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-text/badge-bg`
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-1-text/rank-1-bg`
 * league.yml colour #C98A12: losing scores on the score panel is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `score-dim/score-bg`
@@ -1178,8 +1129,7 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 * league.yml colour #C98A12: the theme button's icon when hovered is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-text/theme-button-hover`
 * league.yml colour #C98A12: nav text on the nav bar is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
 * league.yml colour #C98A12: small nav text on the nav bar is 3.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
-* league.yml colour #C98A12: a blank cell in the final panel's score box is 4.1:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
-* league.yml colour #C98A12: small text in a blank cell of the final panel's score box is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/ls-box-blank`
+* league.yml colour #C98A12: small text in a blank cell of the final panel's score box is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/ls-box-blank`
 * league.yml colour #C98A12: badge text on badges is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-text/badge-bg`
 * league.yml colour #C98A12: rank numbers on rank numbers' background is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-text/rank-bg`
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-1-text/rank-1-bg`
@@ -1187,8 +1137,7 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
 * league.yml colour #C98A12: nav text on the nav bar is 3.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-text/nav-bg`
 * league.yml colour #C98A12: small nav text on the nav bar is 3.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #C98A12: a blank cell in the final panel's score box is 4.1:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
-* league.yml colour #C98A12: small text in a blank cell of the final panel's score box is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/ls-box-blank`
+* league.yml colour #C98A12: small text in a blank cell of the final panel's score box is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/ls-box-blank`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-base`
 
 **curling with Gold (#C98A12)**
