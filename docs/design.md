@@ -201,7 +201,6 @@ colours and fail with the league's are reported, one message per role and theme.
 
 ### Browsers without `color-mix()`
 
-<!-- fallbacks: lead to confirm -->
 Every league-derived role and every mark tint uses `color-mix(in oklab, ...)`. Browsers older
 than Safari 16.2, Chrome 111 and Firefox 113 do not understand it. `assets/css/fallbacks.css`
 is loaded last and holds an `@supports not (color: color-mix(in oklab, red, red))` block with
@@ -715,7 +714,7 @@ Notes:
 * Derived dark accents are paler and greyer than the hand-picked mockup ones (mixing with white cannot add colour): Basketball link `#9AB1DC` for `#8FB0FF`, Classic accent `#AAB6CC` for `#9DB6E8`, Curling accent `#9DB2CE` for
   `#8CB8E8`. All pass AA. `docs/dark-palettes.md` lists where the values differ.
 
-## Decisions made in stage 3 (for the owner to confirm)
+## Decisions made in stage 3 (confirmed by the owner, 15 October 2026)
 
 1. **League colour model.** A league sets one colour (`colour`) and optionally a dark version (`colour_dark`). Each layout has its own second accent, which a league cannot set. A separate second league colour was
    dropped. This was agreed during stage 3.

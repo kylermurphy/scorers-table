@@ -54,25 +54,13 @@ setting later (stages 4 and 5) and shows as a `[placeholder]` until the league a
 need 4 games played to rank" (hockey). These numbers are invented. They should become league settings
 or `[placeholder]`s.
 
-## 3. Decisions waiting for the owner
+## 3. Decisions
 
-The stage 3 decisions are written out in `docs/design.md`, under "Decisions made in stage 3 (for the owner to
-confirm)". The ones that are still open:
+The stage 3 decisions are written out in `docs/design.md`, under "Decisions made in stage 3", and were
+**confirmed by the owner on 15 October 2026** (team palettes follow the layout; the team card design; the
+changed mockup colours; the curling header line exception; the structure the mockups did not draw; the
+old-browser floor; fixed scenes; the "Scored with hammer" 3 of 5 correction). Still open, from `BRIEF.md`:
 
-1. **Team palettes follow the layout.** A team with no colour of its own changes colour when the league changes
-   layout. Should the palette follow the team or the sport instead?
-2. **The team card** is new and no mockup shows it. Is the design right in all six layouts?
-3. **Changed mockup colours.** The contrast changes in "Mockup colours changed for AA" (for example Basketball's
-   deeper light `hot` red, the Scoreboard ticker tag in amber) are accepted?
-4. **Accepted exception.** The curling header's red line stays at 2.76:1 (decorative). OK?
-5. **Structure the mockups did not draw:** the hero card for curling and hockey; the Scoreboard game row with the
-   time first; the Scoreboard "Next up" bar for slo-pitch; edges on Classic-Curling's tiles; no amber outline on
-   Scoreboard's dark lead row.
-6. **Old browsers.** Browsers older than Safari 16.2, Chrome 111 and Firefox 113 show the layout's default colours
-   instead of the league's own (readable, but not the league's colour). Is that floor acceptable for a 50+
-   audience, or should stage 4 write the derived colours as hex instead?
-7. **Scenes** (header and footer pictures) are fixed and do not follow the league colour. Should any of them?
-8. **Sample "Scored with hammer" 3 of 5** (the mockup said 2 of 5): confirm the correction.
-9. **Search engines.** Default off (noindex) or on? (`BRIEF.md`, "Not decided yet".)
-10. **Setup help.** A written guide only, or also a `/new-league` Claude Code command? (`BRIEF.md`.)
-11. **Desktop** layouts are stage 9; phone first until then.
+1. **Search engines.** Default off (noindex) or on? (`BRIEF.md`, "Not decided yet".)
+2. **Setup help.** A written guide only, or also a `/new-league` Claude Code command? (`BRIEF.md`.)
+3. **Desktop** layouts are stage 9; phone first until then.
