@@ -90,8 +90,8 @@
   --st-footer-accent: var(--st-layout-accent-base);
   /* Marks and badges */
   --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), white 85%);
-  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), black 50%);
-  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 40%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), black 35%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), black 10%);
   --st-won-line: var(--st-layout-accent-base);
   --st-blank-bg: var(--st-surface-2);
   --st-badge-bg: var(--st-league-wash);
@@ -128,7 +128,7 @@
     --st-team-4: #6CC46F;
     --st-team-5: #B08CF0;
     --st-team-6: #F27AB0;
-    --st-team-lift: 20%;
+    --st-team-lift: 53%;
     --st-bg: #0A1022;
     --st-surface: #131B34;
     --st-surface-2: #1A2444;
@@ -154,8 +154,8 @@
     --st-footer-bg: #18214D;
     --st-footer-text: #B8C3E0;
     --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 70%);
-    --st-mark-text: var(--st-layout-accent-tint);
-    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), black 30%);
+    --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 20%);
+    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), black 15%);
     --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
     --st-badge-text: var(--st-league-tint);
     --st-win-bg: #17361F;
@@ -176,7 +176,7 @@
   --st-team-4: #6CC46F;
   --st-team-5: #B08CF0;
   --st-team-6: #F27AB0;
-  --st-team-lift: 20%;
+  --st-team-lift: 53%;
   --st-bg: #0A1022;
   --st-surface: #131B34;
   --st-surface-2: #1A2444;
@@ -202,8 +202,8 @@
   --st-footer-bg: #18214D;
   --st-footer-text: #B8C3E0;
   --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 70%);
-  --st-mark-text: var(--st-layout-accent-tint);
-  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), black 30%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 20%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), black 15%);
   --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
   --st-badge-text: var(--st-league-tint);
   --st-win-bg: #17361F;
@@ -214,6 +214,75 @@
   --st-score-dim: color-mix(in oklab, var(--st-league-base), white 75%);
   --st-scene-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Cpath d='M0 56V38C34 30 70 27 108 33C140 38 162 41 196 36C232 31 252 22 290 22C326 22 356 30 390 38V56Z' fill='%23141C42'/%3E%3Cpath d='M0 56V46C40 41 82 39 128 43C170 47 204 48 246 43C292 38 336 40 390 46V56Z' fill='%2303060C'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Ccircle cx='352' cy='16' r='18' fill='%23C9D4F2' opacity='.10'/%3E%3Ccircle cx='352' cy='16' r='8' fill='%23E8ECF7'/%3E%3Ccircle cx='349' cy='14' r='1.6' fill='%23C9D0E2'/%3E%3Ccircle cx='355' cy='18' r='1.2' fill='%23C9D0E2'/%3E%3Ccircle cx='24' cy='8' r='1' fill='%23FFFFFF' opacity='.7'/%3E%3Ccircle cx='58' cy='18' r='1.2' fill='%23FFFFFF' opacity='.6'/%3E%3Ccircle cx='112' cy='5' r='1' fill='%23FFFFFF' opacity='.8'/%3E%3Ccircle cx='176' cy='12' r='1.2' fill='%23FFFFFF' opacity='.6'/%3E%3Ccircle cx='236' cy='4' r='1' fill='%23FFFFFF' opacity='.7'/%3E%3Ccircle cx='300' cy='9' r='1.3' fill='%23FFFFFF' opacity='.8'/%3E%3Ccircle cx='380' cy='4' r='1' fill='%23FFFFFF' opacity='.6'/%3E%3Cpath d='M70 56A125 125 0 0 1 320 56' fill='none' stroke='%23C9D4F2' stroke-opacity='.32' stroke-width='2'/%3E%3Cpath d='M150 56A45 45 0 0 1 240 56' fill='none' stroke='%23C9D4F2' stroke-opacity='.26' stroke-width='2' stroke-dasharray='5 5'/%3E%3C/svg%3E");
   --st-scene-image-footer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='40' viewBox='0 0 390 40' %3E%3Crect width='390' height='40' fill='%230A1022'/%3E%3Cpath d='M0 40V22C34 14 70 11 108 17C140 22 162 25 196 20C232 15 252 6 290 6C326 6 356 14 390 22V40Z' fill='%2324306A'/%3E%3Cpath d='M0 40V30C40 25 82 23 128 27C170 31 204 32 246 27C292 22 336 24 390 30V40Z' fill='%2318214D'/%3E%3C/svg%3E");
+}
+
+/* Custom-colour mode (<html data-league-colour>): see the header comment. */
+[data-layout="basketball"][data-league-colour] {
+  --st-panel-bg: var(--st-league-dim);
+  --st-score-bg: var(--st-league-dim);
+  --st-header-bg: linear-gradient(180deg, color-mix(in oklab, var(--st-league-base), black 8%) 0%, color-mix(in oklab, var(--st-league-base), black 8%) 58%, #3A2A8C 74%, #B23A5E 88%, #EE6A2F 100%);
+  --st-link: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
+  --st-badge-text: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
+  --st-header-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+  --st-header-button-line: #FFFFFFD9;
+  --st-tab: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 86%);
+  --st-panel-row: #0000001F;
+  --st-footer-accent: var(--st-league-tint);
+  --st-won-line: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 86%);
+}
+@media (prefers-color-scheme: dark) {
+  [data-layout="basketball"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 70%;
+    --st-panel-bg: var(--st-league-dim);
+    --st-score-bg: var(--st-league-dim);
+    --st-link: var(--st-league-tint);
+    --st-badge-text: var(--st-league-tint);
+    --st-header-bg: linear-gradient(180deg, #0A1022 0%, color-mix(in oklab, #0A1022, var(--st-league-base) 26%) 50%, color-mix(in oklab, #0A1022, var(--st-league-base) 58%) 76%, color-mix(in oklab, color-mix(in oklab, #0A1022, var(--st-league-base) 85%), white 26%) 100%);
+    --st-header-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+    --st-header-button-line: #FFFFFF73;
+    --st-tab: color-mix(in oklab, var(--st-league-base), white 90%);
+    --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+    --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 85%);
+    --st-panel-label: color-mix(in oklab, var(--st-league-base), white 85%);
+    --st-panel-row: #FFFFFF14;
+    --st-footer-accent: var(--st-league-tint);
+    --st-won-line: color-mix(in oklab, var(--st-league-base), white 90%);
+    --st-score-dim: color-mix(in oklab, var(--st-league-base), white 85%);
+  }
+}
+[data-layout="basketball"][data-league-colour][data-theme="dark"] {
+  --st-tint: 70%;
+  --st-panel-bg: var(--st-league-dim);
+  --st-score-bg: var(--st-league-dim);
+  --st-link: var(--st-league-tint);
+  --st-badge-text: var(--st-league-tint);
+  --st-header-bg: linear-gradient(180deg, #0A1022 0%, color-mix(in oklab, #0A1022, var(--st-league-base) 26%) 50%, color-mix(in oklab, #0A1022, var(--st-league-base) 58%) 76%, color-mix(in oklab, color-mix(in oklab, #0A1022, var(--st-league-base) 85%), white 26%) 100%);
+  --st-header-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+  --st-header-button-line: #FFFFFF73;
+  --st-tab: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 86%);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 85%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 85%);
+  --st-panel-row: #FFFFFF14;
+  --st-footer-accent: var(--st-league-tint);
+  --st-won-line: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 85%);
+}
+
+/* Custom-colour mode, won-quarter underline. One colour cannot be 3:1 on both the white card and a
+   league-coloured panel, so (as Classic does) the underline is --st-won-line only on the coloured final
+   panel and the league accent (link colour) on cards. */
+[data-layout="basketball"][data-league-colour] .st-line-score,
+[data-layout="basketball"][data-league-colour] .st-legend__key--won {
+  --ls-won: var(--st-accent);
+}
+[data-layout="basketball"][data-league-colour] .st-final .st-line-score,
+[data-layout="basketball"][data-league-colour] .st-final .st-legend__key--won {
+  --ls-won: var(--st-won-line);
 }
 
 /* Scenes. The header is position: relative and the scene div is its last child: court arcs

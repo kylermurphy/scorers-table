@@ -3,13 +3,39 @@
  * green and clay, inning line score with the run-limit mark.
  * Fonts: Zilla Slab (display, scores) + Work Sans (text).
  * Source: design canvas Slopitch-Home, Slopitch-Home-Dark, Slopitch-Game; dark values
- * from docs/dark-palettes.md. League colour = outfield green, colour 2 = clay. The
- * scorebook-ink footer stays literal.
+ * from docs/dark-palettes.md. League colour = outfield green; layout accent = clay
+ * (layout-owned, a league never sets it). The scorebook-ink footer stays literal.
  *
  * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
  * team palette, league-colour defaults and the header scene. This is the one place
  * raw hex is allowed. Dark values are written twice (OS preference, and the
  * [data-theme="dark"] button) and must stay identical.
+ *
+ * Deviations from the mockup, kept for contrast (AA): panel-row #FFFFFF1F -> #FFFFFF14,
+ * panel-muted #E3EEDF -> #F1F7EE, panel-label #F3E3C3 -> #FBF0D9, team 4 #C98A12 ->
+ * #BE8210, and bar-fill (none in the mockup). Details in docs/layout-tokens.md.
+ *
+ * CUSTOM-COLOUR MODE. Stage 4 writes a league's colour inline (--st-league-color,
+ * optionally --st-league-color-dark) AND sets data-league-colour on <html>. Without
+ * that attribute this file is exactly the approved mockup (its own greens, in dark the
+ * mockup's #86CC92 accent). With it, the blocks at the end of this file re-derive the
+ * roles that follow the league colour so any colour with white text on it at 4.5:1 or
+ * more passes every pair of scripts/check_contrast.py. The clay accent sits on the
+ * paper and dark grounds, not on the league colour, so it needs nothing. What changes:
+ *   light  The coloured header and panel are the league colour 15% toward black:
+ *          the fixed light texts on them (muted #E3EEDF, panel muted/label, white at
+ *          80% on the hero card, the cream tab) and the white panel rows only reach
+ *          4.5:1 on a colour that is darker than the 4.5:1-for-white limit, which
+ *          leaves no room for them. Links and the accent (the winner's total) are the
+ *          colour 10% toward black (the colour itself reaches only 4.2:1 on the paper
+ *          and 4.0:1 on the shaded rows at the limit). The theme button ring is
+ *          raised to 65% white (53% gives 2.96:1 on Teal). Buttons, WIN badge, rank 1
+ *          and bars use the colour itself.
+ *   dark   Links, accent, focus ring, rank 1, leader bar, won line and panel edge use
+ *          the league colour 70% toward white (--st-tint: 70%): a near-black colour
+ *          such as #000 needs about 65% to reach 4.5:1 on the dark paper and for the
+ *          dark text on the rank 1 chip. The header and panel keep their default
+ *          dark derivation (the colour 25% toward black).
  */
 
 [data-layout="slopitch"] {
@@ -19,10 +45,10 @@
   --st-league-color: #2F6B3A;
   --st-layout-accent: #B5532E;
 
-  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
+  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90).
+     Only dim is used by the default look (the dark header and panel); the custom-colour
+     blocks at the end set their own tint. */
   --st-dim: 25%;
-  --st-lift: 31%;
-  --st-tint: 55%;
 
   /* Type */
   --st-font-display: "Zilla Slab", Georgia, serif;
@@ -33,9 +59,9 @@
   --st-display-transform: none;
   --st-display-tracking: 0;
   --st-num-variant: tabular-nums;
-  --st-fs-h3: 1.375rem; /* 22 px */
-  --st-fs-title: 1.875rem; /* 30 px */
-  --st-fs-score-hero: 2.875rem; /* 46 px */
+  --st-fs-h3: 1.375rem; /* mockup: 22px */
+  --st-fs-title: 1.875rem; /* mockup: 30px */
+  --st-fs-score-hero: 2.875rem; /* mockup: 46px */
 
   /* Shape */
   --st-radius-card: 0.625rem;
@@ -146,7 +172,14 @@
     --st-team-4: #F0C04A;
     --st-team-5: #B9A3F0;
     --st-team-6: #5CC7C2;
-    --st-team-lift: 37%;
+    /* Custom team colours (st-team--custom) in dark: this share of white is mixed in.
+       30% gives 3:1 or more against --st-surface and --st-bg for #1D3A6E navy 3.3,
+       #2F6B3A green 4.9, #7A4A1E brown 4.4, #5B3A8C purple 4.0, #9E1B32 red 4.2, and
+       leaves light colours themselves (#F2A900 -> #F7CE92, #FFC233 -> #FFDB9C, #7FDDE6
+       -> #ACE9EF; 10 to 12:1). Pure black needs 53% (3.0:1), which would turn #F2A900
+       into #FAD8A4; at 30% it stays 1.2:1 (a chip never carries information alone).
+       Navy reaches 3:1 at 28%; 20% gave 2.5. */
+    --st-team-lift: 30%;
 
     --st-bg: #131A14;
     --st-bg-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(244, 236, 214, 0.045) 27px, rgba(244, 236, 214, 0.045) 28px);
@@ -157,36 +190,36 @@
 
     --st-text: #F4ECD9;
     --st-muted: #BDB29C;
-    --st-link: var(--st-league-tint);
+    --st-link: #86CC92;
     --st-link-hover: #FFFFFF;
-    --st-accent: var(--st-league-tint);
-    --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
+    --st-accent: #86CC92;
+    --st-hot: #E8875E;
     --st-rule: #D9CFB6;
-    --st-focus: var(--st-league-tint);
+    --st-focus: #86CC92;
 
     --st-header-bg: var(--st-league-dim);
 
     --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
-    --st-panel-line: var(--st-league-base);
+    --st-panel-line: #2F5E39;
 
     --st-footer-bg: #0B0F0B;
     --st-footer-line: #2A3326;
 
-    --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
-    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
-    --st-won-line: var(--st-league-tint);
+    --st-mark-text: #E8875E;
+    --st-mark-line: #E0835A;
+    --st-won-line: #86CC92;
     --st-blank-bg: #2B2820;
     --st-badge-bg: #3A362C;
     --st-badge-text: #F4ECD9;
 
     --st-rank-bg: #3A362C;
     --st-rank-text: #F4ECD9;
-    --st-rank-1-bg: var(--st-league-tint);
+    --st-rank-1-bg: #86CC92;
     --st-rank-1-text: #131A14;
 
     --st-bar-track: #3A362C;
     --st-bar-fill: #BDB29C;
-    --st-bar-lead: var(--st-league-tint);
+    --st-bar-lead: #86CC92;
 
     --st-score-bg: #22201A;
     --st-score-text: #F4ECD9;
@@ -206,7 +239,7 @@
   --st-team-4: #F0C04A;
   --st-team-5: #B9A3F0;
   --st-team-6: #5CC7C2;
-  --st-team-lift: 37%;
+  --st-team-lift: 30%; /* see the comment in the media-query block above */
 
   --st-bg: #131A14;
   --st-bg-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(244, 236, 214, 0.045) 27px, rgba(244, 236, 214, 0.045) 28px);
@@ -217,36 +250,36 @@
 
   --st-text: #F4ECD9;
   --st-muted: #BDB29C;
-  --st-link: var(--st-league-tint);
+  --st-link: #86CC92;
   --st-link-hover: #FFFFFF;
-  --st-accent: var(--st-league-tint);
-  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
+  --st-accent: #86CC92;
+  --st-hot: #E8875E;
   --st-rule: #D9CFB6;
-  --st-focus: var(--st-league-tint);
+  --st-focus: #86CC92;
 
   --st-header-bg: var(--st-league-dim);
 
   --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
-  --st-panel-line: var(--st-league-base);
+  --st-panel-line: #2F5E39;
 
   --st-footer-bg: #0B0F0B;
   --st-footer-line: #2A3326;
 
-  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
-  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
-  --st-won-line: var(--st-league-tint);
+  --st-mark-text: #E8875E;
+  --st-mark-line: #E0835A;
+  --st-won-line: #86CC92;
   --st-blank-bg: #2B2820;
   --st-badge-bg: #3A362C;
   --st-badge-text: #F4ECD9;
 
   --st-rank-bg: #3A362C;
   --st-rank-text: #F4ECD9;
-  --st-rank-1-bg: var(--st-league-tint);
+  --st-rank-1-bg: #86CC92;
   --st-rank-1-text: #131A14;
 
   --st-bar-track: #3A362C;
   --st-bar-fill: #BDB29C;
-  --st-bar-lead: var(--st-league-tint);
+  --st-bar-lead: #86CC92;
 
   --st-score-bg: #22201A;
   --st-score-text: #F4ECD9;
@@ -272,4 +305,48 @@
 }
 [data-layout="slopitch"] .st-footer__scene {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Custom-colour mode (the header comment says what and why). The light block, then
+   the same dark overrides twice; the dark blocks restate every property of the light
+   block, because the light block would otherwise win in dark. */
+[data-layout="slopitch"][data-league-colour] {
+  --st-link: color-mix(in oklab, var(--st-league-base), black 10%);
+  --st-accent: color-mix(in oklab, var(--st-league-base), black 10%);
+  --st-header-bg: color-mix(in oklab, var(--st-league-base), black 15%);
+  --st-panel-bg: color-mix(in oklab, var(--st-league-base), black 15%);
+  --st-header-button-line: #FFFFFFA6;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="slopitch"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 70%;
+
+    --st-link: var(--st-league-tint);
+    --st-accent: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+    --st-rank-1-bg: var(--st-league-tint);
+    --st-bar-lead: var(--st-league-tint);
+    --st-won-line: var(--st-league-tint);
+    --st-panel-line: var(--st-league-base);
+    --st-header-bg: var(--st-league-dim);
+    --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+    --st-header-button-line: #FFFFFF88;
+  }
+}
+
+[data-layout="slopitch"][data-league-colour][data-theme="dark"] {
+  --st-tint: 70%;
+
+  --st-link: var(--st-league-tint);
+  --st-accent: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+  --st-rank-1-bg: var(--st-league-tint);
+  --st-bar-lead: var(--st-league-tint);
+  --st-won-line: var(--st-league-tint);
+  --st-panel-line: var(--st-league-base);
+  --st-header-bg: var(--st-league-dim);
+  --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+  --st-header-button-line: #FFFFFF88;
 }

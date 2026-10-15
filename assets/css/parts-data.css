@@ -235,8 +235,10 @@
 [data-layout="hockey"] .st-leader-tile--accent {
   --tile-edge: var(--st-link);
 }
-/* ... and its label is set a touch tighter (mockup .06em), so "Goals-against avg" fits one line */
+/* ... and its label is 12px with .06em (mockup; the hockey label role is 13px for the table
+   heads), so "Goals-against avg" fits one line */
 [data-layout="hockey"] .st-leader-tile__label {
+  font-size: var(--st-step-xs);
   letter-spacing: 0.06em;
 }
 /* Classic: one edge colour (the league's) for every tile */

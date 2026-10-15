@@ -505,9 +505,9 @@ def render_events(ctx: Ctx) -> str:
         t = tm(L, r["team"])
         rows.append(
             f'<tr><td>{r["period"]}</td><td>{esc(r["time"])}</td>'
-            f'<td class="is-left st-table__strong">{chip(t, "sm")}'
-            f'<abbr class="st-team-code" title="{esc(t["name"])}">{esc(t["code"])}</abbr>'
-            f'{esc(r["player"]["label"])}</td><td class="is-left">{esc(r["infraction"])}</td><td>{r["minutes"]}</td></tr>')
+            f'<td class="is-left st-table__strong">{esc(r["player"]["label"])}'
+            f'<span class="st-table__team-line">{chip(t, "sm")}'
+            f'<abbr class="st-team-code" title="{esc(t["name"])}">{esc(t["code"])}</abbr></span></td><td class="is-left">{esc(r["infraction"])}</td><td>{r["minutes"]}</td></tr>')
     out.append(
         '<div class="st-table-wrap" role="region" aria-label="Penalties, scrolls sideways" tabindex="0">'
         f'<table class="st-table st-table--events"><caption class="st-visually-hidden">Penalties</caption>'

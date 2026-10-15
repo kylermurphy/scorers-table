@@ -3,13 +3,29 @@
  * score as the hero, hammer and stolen-end marks.
  * Fonts: Alegreya (display, numbers; lining figures forced) + Source Sans 3 (text).
  * Source: design canvas Curling-Home, Curling-Home-Dark, Curling-Game; dark values from
- * docs/dark-palettes.md. League colour = house blue, colour 2 = house red. The ink
+ * docs/dark-palettes.md. League colour = house blue; `--st-layout-accent` (layout-owned, a league
+ * never sets it) = house red, used for the header line and the stolen-end marks. The ink
  * (#0E2233) header, panel and footer are the sport's ground and stay literal.
  *
  * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
  * team palette, league-colour defaults and the header scene. This is the one place
  * raw hex is allowed. Dark values are written twice (OS preference, and the
  * [data-theme="dark"] button) and must stay identical.
+ *
+ * CUSTOM-COLOUR MODE. Stage 4 writes the league's colour inline AND puts data-league-colour on
+ * <html>. Without the attribute this file is exactly the approved look (house blue and red).
+ * With it, the blocks at the end re-derive the roles that would fail for an arbitrary colour with
+ * white text on it at 4.5:1 or better:
+ *   - link (light): the colour darkened 12%; a colour just inside the white-text limit is
+ *     only 4.1:1 as text on the pale rink-blue page (#EEF4F8);
+ *   - rule (light): the league colour (the default is the mockup's ink, #0E2233, which does not
+ *     depend on the league);
+ *   - button, WIN badge (dark): the colour itself instead of league-lift (22% towards white),
+ *     because the lift makes a mid-tone fill too light for white text (3.9:1 for green, teal,
+ *     brown, mid blue);
+ *   - text accent, rule, focus, leader bar, rank-1 fill (dark): tint 66% instead of 58%, so
+ *     even a black league colour gives 4.5:1 on the dark cards and dark text on the rank-1 fill.
+ * The two dark blocks restate everything the light block sets (the checker enforces it).
  */
 
 [data-layout="curling"] {
@@ -32,11 +48,11 @@
   --st-display-transform: none;
   --st-display-tracking: 0;
   --st-num-variant: lining-nums tabular-nums;
-  --st-fs-h2: 1.625rem; /* 26 px */
-  --st-fs-title: 1.8125rem; /* 29 px */
-  --st-fs-stat: 2.625rem; /* 42 px */
-  --st-fs-score-card: 1.375rem; /* 22 px */
-  --st-fs-score-hero: var(--st-step-7xl); /* 48 px */
+  --st-fs-h2: 1.625rem; /* mockup: 26px (between the 24 and 28 steps) */
+  --st-fs-title: 1.8125rem; /* mockup: 29px */
+  --st-fs-stat: 2.625rem; /* mockup: 42px */
+  --st-fs-score-card: 1.375rem; /* mockup: 22px */
+  --st-fs-score-hero: var(--st-step-7xl); /* 48px, on the scale */
 
   /* Shape */
   --st-radius-card: 0.625rem;
@@ -68,7 +84,7 @@
   --st-link-hover: #0E2233;
   --st-accent: var(--st-league-base);
   --st-hot: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
-  --st-rule: var(--st-league-base);
+  --st-rule: #0E2233; /* the mockup's ink; the league colour in custom-colour mode */
   --st-focus: var(--st-league-base);
 
   /* Buttons */
@@ -147,7 +163,20 @@
     --st-team-4: #B391EE;
     --st-team-5: #E9B940;
     --st-team-6: #C3CDD7;
-    --st-team-lift: 40%;
+    /* Custom team colours (st-team--custom) are lifted 54% toward white in dark (light: 0%). Measured
+       against the dark --st-surface #13222F / --st-bg #0B1620 (contrast, surface / bg):
+         colour    as given      54% lift          lift needed for 3:1 on both
+         #1D3A6E   1.5 / 1.6    #90A0BC  6.1 / 6.9     27%
+         #000000   1.3 / 1.1    #6F6F6F  3.2 / 3.6     53%  (sets the value)
+         #2F6B3A   2.5 / 2.9    #9EB9A0  7.6 / 8.6      8%
+         #7A4A1E   2.2 / 2.5    #C2A995  7.2 / 8.2     14%
+         #5B3A8C   1.9 / 2.1    #AFA2CB  6.8 / 7.7     19%
+         #9E1B32   2.0 / 2.3    #DA9B9C  7.1 / 8.0     16%
+         #F2A900 -> #FBD9A6, #FFC233 -> #FFE4B0, #7FDDE6 -> #C8F0F4 (need no lift): paler, still amber,
+         yellow, aqua.
+       53% is the least that lifts pure black to 3:1 (54% leaves a margin); 30% would do for every other listed colour
+       (navy 3.3 / 3.8) and keeps reds and greens stronger, but a black team chip would vanish. */
+    --st-team-lift: 54%;
 
     --st-bg: #0B1620;
     --st-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='9'><circle cx='4.5' cy='4.5' r='1' fill='%23CFE6FF' fill-opacity='.05'/></svg>");
@@ -211,7 +240,7 @@
   --st-team-4: #B391EE;
   --st-team-5: #E9B940;
   --st-team-6: #C3CDD7;
-  --st-team-lift: 40%;
+  --st-team-lift: 54%; /* see the table in the media-query block above */
 
   --st-bg: #0B1620;
   --st-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='9'><circle cx='4.5' cy='4.5' r='1' fill='%23CFE6FF' fill-opacity='.05'/></svg>");
@@ -285,4 +314,29 @@
 }
 [data-layout="curling"] .st-footer__scene {
   display: none;
+}
+
+/* ------------------------------------------------------------- custom-colour mode
+   Only when stage 4 sets data-league-colour (the league chose its own colour). See the
+   header comment for why each role is re-derived. Light block first, then the dark copies
+   (OS preference, and the button), which must restate every property of the light block. */
+[data-layout="curling"][data-league-colour] {
+  --st-link: color-mix(in oklab, var(--st-league-base), black 12%);
+  --st-rule: var(--st-league-base);
+}
+@media (prefers-color-scheme: dark) {
+  [data-layout="curling"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 66%;
+    --st-link: var(--st-league-tint);
+    --st-rule: var(--st-league-tint);
+    --st-button-bg: var(--st-league-base);
+    --st-win-bg: var(--st-league-base);
+  }
+}
+[data-layout="curling"][data-league-colour][data-theme="dark"] {
+  --st-tint: 66%;
+  --st-link: var(--st-league-tint);
+  --st-rule: var(--st-league-tint);
+  --st-button-bg: var(--st-league-base);
+  --st-win-bg: var(--st-league-base);
 }

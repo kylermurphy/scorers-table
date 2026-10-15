@@ -78,7 +78,7 @@
   /* Next-game panel */
   --st-panel-bg: var(--st-league-base);
   --st-panel-text: var(--st-league-ink);
-  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 88%);
   --st-panel-label: color-mix(in oklab, var(--st-league-base), white 80%);
   --st-panel-row: #FFFFFF1A;
   --st-panel-line: color-mix(in oklab, var(--st-league-base), white 14%);
@@ -94,7 +94,7 @@
   /* Marks and badges */
   --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), white 88%);
   --st-mark-text: var(--st-layout-accent-base);
-  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 63%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 25%);
   --st-won-line: var(--st-league-ink);
   --st-blank-bg: var(--st-surface-2);
   --st-badge-bg: var(--st-league-wash);
@@ -131,7 +131,7 @@
     --st-team-4: #B391EE;
     --st-team-5: #E9B940;
     --st-team-6: #C3CDD7;
-    --st-team-lift: 20%;
+    --st-team-lift: 53%;
     --st-bg: #0B1220;
     --st-surface: #141D30;
     --st-surface-2: #1B2740;
@@ -154,7 +154,7 @@
     --st-footer-line: #26324A;
     --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 38%);
     --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
-    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 9%);
+    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 25%);
     --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
     --st-badge-text: var(--st-league-tint);
     --st-win-bg: #17361F;
@@ -175,7 +175,7 @@
   --st-team-4: #B391EE;
   --st-team-5: #E9B940;
   --st-team-6: #C3CDD7;
-  --st-team-lift: 20%;
+  --st-team-lift: 53%;
   --st-bg: #0B1220;
   --st-surface: #141D30;
   --st-surface-2: #1B2740;
@@ -198,7 +198,7 @@
   --st-footer-line: #26324A;
   --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 38%);
   --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
-  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 9%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 25%);
   --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
   --st-badge-text: var(--st-league-tint);
   --st-win-bg: #17361F;
@@ -209,6 +209,53 @@
   --st-rank-1-text: #0B1220;
   --st-bar-fill: var(--st-league-tint);
   --st-bar-lead: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
+}
+
+/* Custom-colour mode (<html data-league-colour>): see the header comment. */
+[data-layout="classic"][data-league-colour] {
+  --st-link: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
+  --st-badge-text: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
+  --st-rank-text: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
+  --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-panel-bg: color-mix(in oklab, var(--st-league-base), black 30%);
+  --st-score-bg: color-mix(in oklab, var(--st-league-base), black 30%);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 92%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 92%);
+  --st-panel-tile-text: color-mix(in oklab, var(--st-league-base), white 92%);
+  --st-panel-row: #0000001A;
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 92%);
+}
+@media (prefers-color-scheme: dark) {
+  [data-layout="classic"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 72%;
+    --st-link: var(--st-league-tint);
+    --st-badge-text: var(--st-league-tint);
+    --st-rank-text: color-mix(in oklab, var(--st-league-base), white 78%);
+    --st-nav-bg: color-mix(in oklab, var(--st-league-base), white 5%);
+    --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 90%);
+    --st-panel-bg: color-mix(in oklab, var(--st-league-base), black 30%);
+    --st-score-bg: color-mix(in oklab, var(--st-league-base), black 30%);
+    --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 90%);
+    --st-panel-label: color-mix(in oklab, var(--st-league-base), white 90%);
+    --st-panel-tile-text: color-mix(in oklab, var(--st-league-base), white 90%);
+    --st-panel-row: #FFFFFF1A;
+    --st-score-dim: color-mix(in oklab, var(--st-league-base), white 90%);
+  }
+}
+[data-layout="classic"][data-league-colour][data-theme="dark"] {
+  --st-tint: 72%;
+  --st-link: var(--st-league-tint);
+  --st-badge-text: var(--st-league-tint);
+  --st-rank-text: color-mix(in oklab, var(--st-league-base), white 78%);
+  --st-nav-bg: color-mix(in oklab, var(--st-league-base), white 5%);
+  --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-panel-bg: color-mix(in oklab, var(--st-league-base), black 30%);
+  --st-score-bg: color-mix(in oklab, var(--st-league-base), black 30%);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-panel-tile-text: color-mix(in oklab, var(--st-league-base), white 90%);
+  --st-panel-row: #FFFFFF1A;
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 90%);
 }
 
 /* No scene in this layout. */

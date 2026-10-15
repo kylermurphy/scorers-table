@@ -3,13 +3,35 @@
  * kickplate; scoring summary, penalties, goals/assists/points.
  * Fonts: Saira Condensed (display, numbers; UPPERCASE) + Saira (text).
  * Source: design canvas Hockey-Home, Hockey-Home-Dark, Hockey-Game; dark values from
- * docs/dark-palettes.md. League colour = blue-line blue, colour 2 = kickplate gold
- * (never used as text on light). The boards and the red line stay literal.
+ * docs/dark-palettes.md. League colour = blue-line blue; layout accent = kickplate
+ * gold (layout-owned, a league never sets it; only used on the near-black boards and
+ * as a fill, never as text on light). The boards and the red line stay literal.
  *
  * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
  * team palette, league-colour defaults and the header scene. This is the one place
  * raw hex is allowed. Dark values are written twice (OS preference, and the
  * [data-theme="dark"] button) and must stay identical.
+ *
+ * CUSTOM-COLOUR MODE. Stage 4 writes a league's colour inline (--st-league-color,
+ * optionally --st-league-color-dark) AND sets data-league-colour on <html>. Without
+ * that attribute this file is exactly the approved mockup (the blue-line blue, and in
+ * dark the mockup's own #8DB8FF / #6FA8FF blues, which the generic tint of the league
+ * colour only approximates). With it, the blocks at the end of this file re-derive the
+ * roles that follow the league colour so any colour with white text on it at 4.5:1 or
+ * more passes every pair of scripts/check_contrast.py. The rink boards, the gold
+ * kickplate and the red line are fixed grounds, so their text needs nothing. What does
+ * change:
+ *   light  --st-link: the league colour 10% toward black (the colour itself reaches
+ *          only 4.2:1 on the page background and 3.9:1 on shaded rows at the 4.5:1
+ *          limit). Rules, focus ring, bars and buttons use the colour itself.
+ *   dark   link, rule, focus ring, won line and leader bar use the league colour
+ *          72% toward white (--st-tint: 72%): a near-black league colour such as #000
+ *          needs about 70% to reach 4.5:1 on the shaded rows; the mockup blues replace
+ *          the default values. Button and WIN badge use the colour itself, not the
+ *          lightened one: white on the lightened colour drops below 4.5:1 for colours
+ *          near the limit.
+ * The rink-line SVG in --st-scene-image keeps the literal blue line (a data URI cannot
+ * read a variable); the hockey blue line is the rink's, not the league's.
  */
 
 [data-layout="hockey"] {
@@ -19,8 +41,9 @@
   --st-league-color: #1D4E89;
   --st-layout-accent: #F2A900;
 
-  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
-  --st-tint: 55%;
+  /* Knobs of the league-colour maths: the tokens.css defaults (dim 30, lift 12, tint 62,
+     wash 90). The default look uses only the base colour and the lift (dark button); the
+     custom-colour blocks at the end set their own tint. */
 
   /* Type */
   --st-font-display: "Saira Condensed", "Arial Narrow", sans-serif;
@@ -32,9 +55,9 @@
   --st-display-tracking: 0.02em;
   --st-num-variant: tabular-nums;
   --st-fs-label: var(--st-step-sm); /* 13 px */
-  --st-fs-h3: 1.375rem; /* 22 px */
-  --st-fs-h2: 1.5625rem; /* 25 px */
-  --st-fs-stat: 2.625rem; /* 42 px */
+  --st-fs-h3: 1.375rem; /* mockup: 22px */
+  --st-fs-h2: 1.5625rem; /* mockup: 25px */
+  --st-fs-stat: 2.625rem; /* mockup: 42px */
   --st-fs-score-card: var(--st-step-4xl); /* 28 px */
   --st-fs-score-hero: var(--st-step-9xl); /* 72 px */
 
@@ -147,7 +170,14 @@
     --st-team-4: #7FDDE6;
     --st-team-5: #8E96A3;
     --st-team-6: #F0965A;
-    --st-team-lift: 40%;
+    /* Custom team colours (st-team--custom) in dark: this share of white is mixed in.
+       35% gives 3:1 or more against --st-surface and --st-bg for #1D3A6E navy 3.3,
+       #2F6B3A green 4.6, #7A4A1E brown 4.2, #5B3A8C purple 3.9, #9E1B32 red 4.1, and
+       leaves light colours themselves (#F2A900 -> #F8C87F, #FFC233 -> #FFD98C, #7FDDE6
+       -> #B0E9EF; 9 to 11:1). Pure black needs 57% (3.0:1) to be seen on these grounds,
+       which would turn #F2A900 into #FBDBAC; at 35% it stays 1.2:1 (a chip never
+       carries information alone). Navy reaches 3:1 at 33%; 20% gave 2.2. */
+    --st-team-lift: 35%;
 
     --st-bg: #17202B;
     --st-surface: #212C39;
@@ -157,12 +187,12 @@
 
     --st-text: #EEF2F7;
     --st-muted: #A3AEBD;
-    --st-link: var(--st-league-tint);
+    --st-link: #8DB8FF;
     --st-link-hover: #FFFFFF;
     --st-accent: #EEF2F7;
     --st-hot: #FF7482;
-    --st-rule: var(--st-league-tint);
-    --st-focus: var(--st-league-tint);
+    --st-rule: #6FA8FF;
+    --st-focus: #8DB8FF;
 
     --st-button-bg: var(--st-league-lift);
 
@@ -176,7 +206,7 @@
     --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 78%);
     --st-mark-text: var(--st-layout-accent-base);
     --st-mark-line: var(--st-layout-accent-base);
-    --st-won-line: var(--st-league-tint);
+    --st-won-line: #6FA8FF;
     --st-blank-bg: #2A3646;
     --st-win-bg: var(--st-league-lift);
 
@@ -185,7 +215,7 @@
 
     --st-bar-track: #334255;
     --st-bar-fill: #A3AEBD;
-    --st-bar-lead: var(--st-league-tint);
+    --st-bar-lead: #6FA8FF;
 
     --st-score-bg: #090B0F;
     --st-score-line: #334255;
@@ -203,7 +233,7 @@
   --st-team-4: #7FDDE6;
   --st-team-5: #8E96A3;
   --st-team-6: #F0965A;
-  --st-team-lift: 40%;
+  --st-team-lift: 35%; /* see the comment in the media-query block above */
 
   --st-bg: #17202B;
   --st-surface: #212C39;
@@ -213,12 +243,12 @@
 
   --st-text: #EEF2F7;
   --st-muted: #A3AEBD;
-  --st-link: var(--st-league-tint);
+  --st-link: #8DB8FF;
   --st-link-hover: #FFFFFF;
   --st-accent: #EEF2F7;
   --st-hot: #FF7482;
-  --st-rule: var(--st-league-tint);
-  --st-focus: var(--st-league-tint);
+  --st-rule: #6FA8FF;
+  --st-focus: #8DB8FF;
 
   --st-button-bg: var(--st-league-lift);
 
@@ -232,7 +262,7 @@
   --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 78%);
   --st-mark-text: var(--st-layout-accent-base);
   --st-mark-line: var(--st-layout-accent-base);
-  --st-won-line: var(--st-league-tint);
+  --st-won-line: #6FA8FF;
   --st-blank-bg: #2A3646;
   --st-win-bg: var(--st-league-lift);
 
@@ -241,7 +271,7 @@
 
   --st-bar-track: #334255;
   --st-bar-fill: #A3AEBD;
-  --st-bar-lead: var(--st-league-tint);
+  --st-bar-lead: #6FA8FF;
 
   --st-score-bg: #090B0F;
   --st-score-line: #334255;
@@ -265,4 +295,38 @@
 }
 [data-layout="hockey"] .st-footer__scene {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Custom-colour mode (the header comment says what and why). The light block, then
+   the same dark overrides twice; the dark blocks restate every property of the light
+   block, because the light block would otherwise win in dark. */
+[data-layout="hockey"][data-league-colour] {
+  --st-link: color-mix(in oklab, var(--st-league-base), black 10%);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="hockey"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 72%;
+
+    --st-link: var(--st-league-tint);
+    --st-rule: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+    --st-won-line: var(--st-league-tint);
+    --st-bar-lead: var(--st-league-tint);
+    --st-button-bg: var(--st-league-base);
+    --st-win-bg: var(--st-league-base);
+  }
+}
+
+[data-layout="hockey"][data-league-colour][data-theme="dark"] {
+  --st-tint: 72%;
+
+  --st-link: var(--st-league-tint);
+  --st-rule: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+  --st-won-line: var(--st-league-tint);
+  --st-bar-lead: var(--st-league-tint);
+  --st-button-bg: var(--st-league-base);
+  --st-win-bg: var(--st-league-base);
 }

@@ -9,12 +9,26 @@
  * Default league colour: red #CB0E1D (the colour of the basketball mockup). The dark
  * mockup was drawn with slo-pitch green (#2F6B3A lifted to #2B7539); the knobs below
  * (--st-lift 4%, --st-tint 55%) were fitted to that pair and then applied to the red.
- * Second colour amber #FFC233 is the scoreboard's fixed digit colour: it is the default of
- * --st-layout-accent (tab underline) and a literal in the digit roles, so recolouring
- * league-color-2 moves only the tab underline.
+ * Amber #FFC233 is the scoreboard's fixed digit colour: `--st-layout-accent` (layout-owned, a league
+ * never sets it) holds it for the tab underline, and it is a literal in the digit roles.
  * League-driven: header bar, buttons, hot text, hover link, dark-mode links, footer accent.
  * Everything else is ink, white and grey, as in the mockups.
- * No scene: the header is a flat league-colour bar; the scene boxes are hidden.
+ *
+ * CUSTOM-COLOUR MODE. Stage 4 writes the league's colour inline AND puts data-league-colour on
+ * <html>. Without the attribute this file is exactly the approved look (red, amber, ink). With it,
+ * the blocks at the end re-derive every role whose default would fail for an arbitrary colour with
+ * white text on it at 4.5:1 or better (darker colours need paler accents, lighter ones darker text):
+ *   - tint 66% (not 55%): link, hot and the footer accent are the colour as TEXT or a thin line on
+ *     the near-black page and footer, so even a black league colour must reach 4.5:1 / 3:1 there;
+ *   - hot / hover link on the light page: the colour darkened 10%, so a colour just inside the
+ *     white-text limit still reaches 4.5:1 on the grey (#F2F2F2) strips;
+ *   - header, nav and button fill in dark: the colour itself, not the 4% lift (a lift can push a
+ *     borderline colour under 4.5:1 for white text); muted header text and the theme-button ring:
+ *     pure white (a 92% / 70% white loses to a colour at the limit);
+ *   - tab underline: the amber, lightened 30%, because plain amber is only 2.8:1 on a colour at the
+ *     white-text limit;
+ *   - footer accent: the tint (the colour itself is under 3:1 on the black footer for dark colours).
+ * The two dark blocks restate everything the light block sets (the checker enforces it).
  */
 
 [data-layout="scoreboard"] {
@@ -34,8 +48,8 @@
   --st-display-transform: uppercase;
   --st-display-tracking: 0.03em;
   --st-num-variant: tabular-nums;
-  --st-fs-h2: var(--st-step-5xl);
-  --st-fs-score-hero: var(--st-step-6xl);
+  --st-fs-h2: var(--st-step-5xl);        /* 32 px, as the mockup */
+  --st-fs-score-hero: var(--st-step-6xl); /* mockup: 44px digit boxes; 40 px is the nearest step */
   /* shape */
   --st-radius-card: 0.625rem;
   --st-radius-panel: 0.875rem;
@@ -97,8 +111,13 @@
   --st-footer-accent: var(--st-league-base);
   /* Marks and badges */
   --st-mark-bg: #000000;
-  --st-mark-text: #FFC233;
-  --st-mark-line: #FFC233;
+  /* Light: amber on white is 1.6:1, so a mark drawn straight on the card (the legend key as plain
+     text) uses a gold that clears 4.5:1 on white AND on the black mark tile (#947019: 4.57 / 4.59;
+     the window is that narrow); the outline is a deeper amber (3.0 on white, 6.9 on black). The
+     Scoreboard's own marked cells and key draw amber (score-text) on a black tile; the dark theme
+     keeps amber, see the dark blocks. */
+  --st-mark-text: #947019;
+  --st-mark-line: #B38720;
   --st-won-line: #FFC233;
   --st-blank-bg: var(--st-surface-2);
   --st-badge-bg: #111111;
@@ -135,7 +154,20 @@
     --st-team-4: #6CC46F;
     --st-team-5: #B08CF0;
     --st-team-6: #C3CDD7;
-    --st-team-lift: 20%;
+    /* Custom team colours (st-team--custom) are lifted 52% toward white in dark (light: 0%). Measured
+       against the dark --st-surface #1A1A1A / --st-bg #121212 (contrast, surface / bg):
+         colour    as given      52% lift          lift needed for 3:1 on both
+         #1D3A6E   1.6 / 1.7    #8C9CB9  6.3 / 6.8     24%
+         #000000   1.2 / 1.1    #696969  3.2 / 3.4     51%  (sets the value)
+         #2F6B3A   2.7 / 2.9    #9AB69C  7.9 / 8.5      5%
+         #7A4A1E   2.3 / 2.5    #BFA591  7.5 / 8.0     11%
+         #5B3A8C   2.0 / 2.2    #AC9EC9  7.0 / 7.6     16%
+         #9E1B32   2.2 / 2.4    #D89798  7.3 / 7.9     13%
+         #F2A900 -> #FAD7A2, #FFC233 -> #FFE3AC, #7FDDE6 -> #C5EFF3 (need no lift): paler, still amber,
+         yellow, aqua.
+       51% is the least that lifts pure black to 3:1 (52% leaves a margin); 28% would do for every other listed colour
+       (navy 3.4 / 3.6) and keeps reds and greens stronger, but a black team chip would vanish. */
+    --st-team-lift: 52%;
     --st-bg: #121212;
     --st-surface: #1A1A1A;
     --st-surface-2: #232323;
@@ -149,6 +181,8 @@
     --st-hot: var(--st-league-tint);
     --st-rule: #E8E8E8;
     --st-focus: #FFC233;
+    --st-mark-text: #FFC233;
+    --st-mark-line: #FFC233;
     --st-button-bg: var(--st-league-lift);
     --st-header-bg: var(--st-league-lift);
     --st-panel-bg: #1A1A1A;
@@ -171,7 +205,7 @@
   --st-team-4: #6CC46F;
   --st-team-5: #B08CF0;
   --st-team-6: #C3CDD7;
-  --st-team-lift: 20%;
+  --st-team-lift: 52%; /* see the table in the media-query block above */
   --st-bg: #121212;
   --st-surface: #1A1A1A;
   --st-surface-2: #232323;
@@ -185,6 +219,8 @@
   --st-hot: var(--st-league-tint);
   --st-rule: #E8E8E8;
   --st-focus: #FFC233;
+  --st-mark-text: #FFC233;
+  --st-mark-line: #FFC233;
   --st-button-bg: var(--st-league-lift);
   --st-header-bg: var(--st-league-lift);
   --st-panel-bg: #1A1A1A;
@@ -203,4 +239,45 @@
 [data-layout="scoreboard"] .st-header__scene,
 [data-layout="scoreboard"] .st-footer__scene {
   display: none;
+}
+
+/* ------------------------------------------------------------- custom-colour mode
+   Only when stage 4 sets data-league-colour (the league chose its own colour). See the
+   header comment for why each role is re-derived. Light block first, then the dark copies
+   (OS preference, and the button), which must restate every property of the light block. */
+[data-layout="scoreboard"][data-league-colour] {
+  --st-tint: 66%;
+  --st-hot: color-mix(in oklab, var(--st-league-base), black 10%);
+  --st-link-hover: color-mix(in oklab, var(--st-league-base), black 10%);
+  --st-header-muted: var(--st-league-ink);
+  --st-nav-muted: var(--st-league-ink);
+  --st-header-button-line: var(--st-league-ink);
+  --st-tab: color-mix(in oklab, var(--st-score-text), white 30%);
+  --st-footer-accent: var(--st-league-tint);
+}
+@media (prefers-color-scheme: dark) {
+  [data-layout="scoreboard"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 66%;
+    --st-hot: var(--st-league-tint);
+    --st-link-hover: #FFFFFF;
+    --st-header-muted: var(--st-league-ink);
+    --st-nav-muted: var(--st-league-ink);
+    --st-header-button-line: var(--st-league-ink);
+    --st-tab: color-mix(in oklab, var(--st-score-text), white 30%);
+    --st-footer-accent: var(--st-league-tint);
+    --st-header-bg: var(--st-league-base);
+    --st-button-bg: var(--st-league-base);
+  }
+}
+[data-layout="scoreboard"][data-league-colour][data-theme="dark"] {
+  --st-tint: 66%;
+  --st-hot: var(--st-league-tint);
+  --st-link-hover: #FFFFFF;
+  --st-header-muted: var(--st-league-ink);
+  --st-nav-muted: var(--st-league-ink);
+  --st-header-button-line: var(--st-league-ink);
+  --st-tab: color-mix(in oklab, var(--st-score-text), white 30%);
+  --st-footer-accent: var(--st-league-tint);
+  --st-header-bg: var(--st-league-base);
+  --st-button-bg: var(--st-league-base);
 }
