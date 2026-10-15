@@ -199,8 +199,8 @@ img.st-brand__badge,
   padding: var(--st-space-md) calc(var(--st-gutter) - 0.125rem);
   overflow-x: auto;
   scrollbar-width: none;
-  background: var(--st-panel-bg);
-  color: var(--st-panel-text);
+  background: var(--st-footer-bg);
+  color: var(--st-footer-link);
   font-family: var(--st-font-body);
   font-size: var(--st-fs-meta);
   font-weight: var(--st-w-strong);
@@ -216,13 +216,11 @@ img.st-brand__badge,
   flex: none;
 }
 .st-ticker__tag {
-  color: var(--st-league-tint);
+  color: var(--st-score-text);
 }
-.st-ticker__sep {
-  color: color-mix(in oklab, var(--st-panel-text) 30%, transparent);
-}
+.st-ticker__sep,
 .st-ticker__item--quiet {
-  color: var(--st-panel-muted);
+  color: var(--st-footer-muted);
 }
 
 /* ------------------------------------------------------------ footer */
@@ -298,7 +296,30 @@ img.st-brand__badge,
   font-size: var(--st-fs-meta);
 }
 .st-page .st-footer__credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--st-tap);
+  margin-block: calc((var(--st-tap) - 1lh) / -2);
   color: var(--st-footer-link);
+}
+
+/* Focus rings: --st-focus can vanish on a coloured bar, so inside the header, nav and
+   footer the ring takes the bar's own text colour. */
+.st-page .st-header :is(a, button):focus-visible {
+  outline-color: var(--st-header-text);
+}
+.st-page .st-nav :is(a, button):focus-visible {
+  outline-color: var(--st-header-text);
+}
+[data-layout="classic"] .st-page .st-nav :is(a, button):focus-visible {
+  outline-color: var(--st-nav-text);
+}
+.st-page .st-footer :is(a, button):focus-visible {
+  outline-color: var(--st-footer-link);
+}
+.st-page .st-ticker:focus-visible {
+  outline-color: var(--st-footer-link);
+  outline-offset: -3px;
 }
 
 /* --------------------------------------------------- page title block

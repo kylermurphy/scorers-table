@@ -42,7 +42,7 @@ def _nav(league: dict, current: str) -> str:
     return f'<nav class="st-nav" aria-label="Main">{links}</nav>'
 
 
-def _header(league: dict, current: str = "Home") -> str:
+def _header(league: dict, current: str = "Home", theme: str = "light") -> str:
     return (
         '<header class="st-header">'
         '<div class="st-header__top">'
@@ -52,7 +52,7 @@ def _header(league: dict, current: str = "Home") -> str:
         f'<span class="st-brand__name">{_brand_name(league)}</span>'
         f'<span class="st-brand__meta">{esc(league["tagline"])}</span>'
         '</span></a>'
-        f'{_toggle("to-dark")}'
+        f'{_toggle("to-light" if theme == "dark" else "to-dark")}'
         '</div>'
         f'{_nav(league, current)}'
         '<div class="st-header__scene" aria-hidden="true"></div>'
@@ -63,7 +63,7 @@ def _header(league: dict, current: str = "Home") -> str:
 # -------------------------------------------------------------------- parts
 
 def render_header(ctx: Ctx) -> str:
-    return _header(ctx.league, "Home")
+    return _header(ctx.league, "Home", ctx.theme)
 
 
 def render_nav(ctx: Ctx) -> str:

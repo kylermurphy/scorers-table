@@ -1,0 +1,979 @@
+/* scorers-table: data parts.
+ * Standings (table and the Scoreboard's race), leader tile / row / table / board,
+ * game row, next-game panel, team card.  Anatomy: docs/design.md, "Data".
+ *
+ * Reads --st-* roles only (tokens.css, layouts/*.css); no raw colours.  A layout
+ * restyles a part through tokens first; the [data-layout="<id>"] rules below are
+ * only for shapes the approved mockups draw differently.
+ * Phone first (360-390 px); desktop is stage 9.
+ *
+ * Links inside parts say `.st-page a.st-x` so they beat `.st-page a` in base.css.
+ */
+
+/* ============================================================== standings table */
+
+.st-table--standings abbr,
+.st-table--leaders abbr {
+  text-decoration: none;
+}
+
+/* The team cell is a row header (th scope="row"): undo the head styling base.css
+   gives every th, so it reads like the mockups' bold team cell. */
+.st-table--standings tbody th,
+.st-table--leaders tbody th {
+  padding-block: 0.6875rem;
+  border-bottom: var(--st-border) solid var(--st-line);
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-table);
+  font-weight: var(--st-w-strong);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--st-text);
+}
+.st-table--standings tbody tr:last-child th,
+.st-table--leaders tbody tr:last-child th {
+  border-bottom: 0;
+}
+.st-rank {
+  display: inline-block;
+  min-width: 1.125rem;
+  font-weight: 500;
+  color: var(--st-muted);
+}
+.st-table--standings .st-chip {
+  margin-right: var(--st-space-sm);
+  vertical-align: 0.05em;
+}
+.st-table__team {
+  white-space: nowrap;
+}
+
+/* Scoreboard: the full table is the heavy one; ranks in the display face */
+[data-layout="scoreboard"] .st-table--standings .st-rank {
+  min-width: 1.5rem;
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-2xl);
+  font-weight: var(--st-w-display);
+  color: var(--st-text);
+}
+
+/* Classic: the table runs edge to edge between two rules, not in a rounded card */
+[data-layout="classic"] .st-table-wrap--standings {
+  margin-inline: calc(var(--st-gutter) * -1);
+  border-inline: 0;
+  border-radius: 0;
+}
+[data-layout="classic"] .st-table--standings :is(th, td):first-child {
+  padding-left: var(--st-gutter);
+}
+[data-layout="classic"] .st-table--standings :is(th, td):last-child {
+  padding-right: var(--st-gutter);
+}
+
+/* ====================================================================== the race
+   Scoreboard's standings: black row for the leader, grey rows, rank in the display
+   face, name + record, a bar for points out of the maximum, points at the right. */
+
+.st-race {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-xs);
+}
+.st-race > li {
+  display: block;
+}
+.st-page a.st-race__row {
+  display: grid;
+  grid-template-columns: 1.875rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 var(--st-space-md);
+  min-height: var(--st-tap);
+  padding: var(--st-space-md) var(--st-space-md) var(--st-space-md);
+  border-radius: var(--st-radius-card);
+  background: var(--st-surface-2);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-race__row:hover {
+  background: var(--st-line);
+}
+.st-race__rank {
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-4xl);
+  font-weight: var(--st-w-display);
+  line-height: 1;
+}
+.st-race__who {
+  display: block;
+  min-width: 0;
+}
+.st-race__name {
+  font-weight: 700;
+  font-size: var(--st-fs-name);
+}
+.st-race__sub {
+  font-size: var(--st-fs-meta);
+  font-weight: 500;
+  color: var(--st-muted);
+}
+.st-race__bar {
+  display: block;
+  height: 0.375rem;
+  margin-top: var(--st-space-xs);
+  border-radius: var(--st-radius-pill);
+  background: var(--st-bar-track);
+  overflow: hidden;
+}
+.st-race__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--st-radius-pill);
+  background: var(--st-bar-fill);
+}
+.st-race__points {
+  font-family: var(--st-font-num);
+  font-size: var(--st-step-3xl);
+  font-weight: 700;
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-page a.st-race__row--lead {
+  background: var(--st-panel-bg);
+  color: var(--st-panel-text);
+}
+.st-page a.st-race__row--lead:hover {
+  background: var(--st-panel-bg);
+}
+.st-race__row--lead .st-race__rank {
+  color: var(--st-score-text);
+}
+.st-race__row--lead .st-race__sub {
+  color: var(--st-panel-muted);
+}
+.st-race__row--lead .st-race__bar {
+  background: color-mix(in oklab, var(--st-panel-text) 22%, transparent);
+}
+.st-race__row--lead .st-race__fill {
+  background: var(--st-bar-lead);
+}
+
+/* =================================================================== leader tile */
+
+.st-leader-group {
+  margin-top: var(--st-space-lg);
+  margin-bottom: var(--st-space-xs);
+}
+.st-leader-group:first-child {
+  margin-top: 0;
+}
+.st-leader-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--st-space-sm);
+}
+.st-page a.st-leader-tile {
+  display: block;
+  min-width: 0;
+  padding: var(--st-card-pad-y) var(--st-card-pad-x);
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-top: 0.25rem solid var(--tile-edge, var(--st-line));
+  border-radius: var(--st-radius-card);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-leader-tile:hover {
+  background: var(--st-surface-2);
+}
+.st-leader-tile--hot {
+  --tile-edge: var(--st-hot);
+}
+.st-leader-tile--accent {
+  --tile-edge: var(--st-accent);
+}
+.st-leader-tile__label,
+.st-leader-tile__value,
+.st-leader-tile__name,
+.st-leader-tile__meta {
+  display: block;
+}
+.st-leader-tile__label {
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-leader-tile__value {
+  margin-top: var(--st-space-xs);
+  font-family: var(--st-font-num);
+  font-size: var(--st-fs-stat);
+  font-weight: var(--st-w-display);
+  font-variant-numeric: var(--st-num-variant);
+  line-height: 1;
+  color: var(--tile-ink, var(--st-accent));
+}
+.st-leader-tile__name {
+  margin-top: var(--st-space-xs);
+  font-size: var(--st-fs-body);
+  font-weight: 700;
+  line-height: 1.25;
+}
+.st-leader-tile__meta {
+  font-size: var(--st-fs-meta);
+  color: var(--st-muted);
+}
+
+/* Curling: no coloured edge; the number carries the colour (red or blue) */
+[data-layout="curling"] .st-page a.st-leader-tile,
+[data-layout="curling"] a.st-leader-tile {
+  border-top: var(--st-border) solid var(--st-line);
+}
+[data-layout="curling"] .st-leader-tile--hot {
+  --tile-ink: var(--st-hot);
+}
+/* Classic: one edge colour (the league's) for every tile */
+[data-layout="classic"] .st-leader-tile--hot {
+  --tile-edge: var(--st-accent);
+}
+/* Scoreboard: boxed in black, a fat edge, arena numerals in the text colour */
+[data-layout="scoreboard"] .st-leader-tile__value {
+  font-family: var(--st-font-display);
+}
+[data-layout="scoreboard"] a.st-leader-tile {
+  --tile-ink: var(--st-text);
+  border: var(--st-border-strong) solid var(--st-line-strong);
+  border-top: 0.5rem solid var(--tile-edge, var(--st-line));
+  border-radius: var(--st-radius-panel);
+}
+
+/* ================================================================== leader list
+   Rows inside a card: rank, name (+ team), value.  Rank 1 sits in the tile above
+   in the sport layouts, so the list starts at 2 there. */
+
+.st-leader-lists > * + * {
+  margin-top: var(--st-space-sm);
+}
+.st-leader-list {
+  overflow: hidden;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-radius: var(--st-radius-card);
+}
+.st-leader-list__title {
+  padding: 0.625rem var(--st-card-pad-x) var(--st-space-2xs);
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-page a.st-leader-row {
+  display: grid;
+  grid-template-columns: 1.625rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--st-space-sm);
+  min-height: var(--st-tap);
+  padding: 0.6875rem var(--st-card-pad-x);
+  border-bottom: var(--st-border) solid var(--st-line);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-leader-row:last-child {
+  border-bottom: 0;
+}
+.st-page a.st-leader-row:hover {
+  background: var(--st-surface-2);
+}
+.st-leader-row__rank {
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-3xl);
+  font-size: 1.125rem;
+  font-weight: var(--st-w-display);
+  font-variant-numeric: var(--st-num-variant);
+  color: var(--st-muted);
+}
+.st-leader-row__who {
+  min-width: 0;
+}
+.st-leader-row__name {
+  font-size: var(--st-fs-body);
+  font-weight: var(--st-w-strong);
+}
+.st-leader-row__team {
+  margin-left: var(--st-space-2xs);
+  font-size: var(--st-fs-meta);
+  font-weight: 400;
+  color: var(--st-muted);
+}
+.st-leader-row__value {
+  font-family: var(--st-font-num);
+  font-size: var(--st-step-2xl);
+  font-weight: var(--st-w-display);
+  font-variant-numeric: var(--st-num-variant);
+  color: var(--st-accent);
+  text-align: right;
+}
+.st-leader-row__unit {
+  display: block;
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-label);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--st-muted);
+}
+
+/* Round rank chip: hockey's points table, and every rank in Classic's rows */
+.st-rank-chip,
+[data-layout="classic"] .st-leader-row__rank {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: var(--st-radius-pill);
+  background: var(--st-rank-bg);
+  color: var(--st-rank-text);
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-md);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-rank-chip.is-first,
+[data-layout="classic"] .st-leader-row__rank.is-first {
+  background: var(--st-rank-1-bg);
+  color: var(--st-rank-1-text);
+}
+
+/* Classic: bigger rows, the team line under the name, "PTS" or "steals" under the value */
+[data-layout="classic"] .st-leader-row {
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: var(--st-space-md);
+  padding-block: var(--st-space-md);
+}
+[data-layout="classic"] .st-leader-row__rank {
+  width: 2rem;
+  height: 2rem;
+  font-size: var(--st-step-xl);
+}
+[data-layout="classic"] .st-leader-row__name {
+  display: block;
+  font-size: var(--st-fs-name);
+}
+[data-layout="classic"] .st-leader-row__team {
+  display: block;
+  margin-left: 0;
+}
+[data-layout="classic"] .st-leader-row__value {
+  font-size: var(--st-step-4xl);
+  line-height: 1;
+}
+
+/* Hockey's leaders table: link fills the cell so the target is >= 44 px */
+.st-table--leaders tbody th {
+  padding-block: 0;
+}
+.st-table--leaders td {
+  padding-block: 0;
+}
+.st-page a.st-leader-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-sm);
+  min-height: 3.25rem;
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-leader-cell__who {
+  display: block;
+  line-height: 1.15;
+}
+.st-leader-cell__name,
+.st-leader-cell__sub {
+  display: block;
+}
+.st-leader-cell__sub {
+  font-size: var(--st-fs-label);
+  font-weight: 400;
+  color: var(--st-muted);
+}
+.st-table--leaders td.is-key {
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-2xl);
+  font-weight: 800;
+}
+
+/* ============================================================ Scoreboard's boards
+   Ranked boards: arena numerals at the left, name and team beside them, first row
+   heavier.  A list with one row is a single black pill with amber digits. */
+
+.st-leader-board + .st-leader-board {
+  margin-top: var(--st-space-lg);
+}
+.st-leader-board__title {
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-leader-board__rows {
+  margin-top: var(--st-space-2xs);
+}
+.st-page a.st-leader-board__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--st-space-md);
+  min-height: var(--st-tap);
+  padding: var(--st-space-md) 0;
+  border-bottom: var(--st-border) solid var(--st-line);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-leader-board__row:hover {
+  background: var(--st-surface-2);
+}
+.st-leader-board__value {
+  flex: none;
+  width: 5.75rem;
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-5xl);
+  font-weight: var(--st-w-display);
+  font-variant-numeric: var(--st-num-variant);
+  line-height: 1;
+}
+.st-leader-board__who {
+  flex: 1;
+  min-width: 0;
+}
+.st-leader-board__name,
+.st-leader-board__sub {
+  display: block;
+}
+.st-leader-board__name {
+  font-size: var(--st-fs-body);
+  font-weight: 700;
+}
+.st-leader-board__sub {
+  font-size: var(--st-fs-meta);
+  color: var(--st-muted);
+}
+.st-page a.st-leader-board__row--first {
+  border-bottom: var(--st-border-strong) solid var(--st-line-strong);
+}
+.st-leader-board__row--first .st-leader-board__value {
+  font-size: var(--st-step-6xl);
+}
+.st-leader-board__row--first .st-leader-board__name {
+  font-size: var(--st-fs-name);
+}
+.st-page a.st-leader-board__pill {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-md);
+  min-height: var(--st-tap);
+  margin-top: var(--st-space-xs);
+  padding: var(--st-space-md);
+  border-radius: var(--st-radius-card);
+  background: var(--st-panel-bg);
+  color: var(--st-panel-text);
+  text-decoration: none;
+}
+.st-leader-board__digits {
+  padding: var(--st-space-2xs) var(--st-space-sm);
+  border: var(--st-border) solid var(--st-score-line);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  font-family: var(--st-font-num);
+  font-size: var(--st-step-4xl);
+  font-weight: 700;
+  font-variant-numeric: var(--st-num-variant);
+  line-height: 1;
+}
+.st-leader-board__pill .st-leader-board__sub {
+  color: var(--st-panel-muted);
+}
+.st-page a.st-leader-more {
+  display: flex;
+  width: 100%;
+  margin-top: var(--st-space-lg);
+  min-height: 3rem;
+  font-size: var(--st-fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===================================================================== game row
+   Grid areas: surface | teams | time.  A layout reorders by redefining the areas
+   (Scoreboard puts the time first).  Colours come from three local variables that
+   a panel overrides, so one row works on the page and on a panel. */
+
+.st-specimen-label {
+  margin: var(--st-space-lg) 0 var(--st-space-xs);
+}
+.st-specimen-label:first-child {
+  margin-top: 0;
+}
+
+.st-game-row {
+  --row-text: var(--st-text);
+  --row-muted: var(--st-muted);
+  --row-tile-bg: var(--st-score-bg);
+  --row-tile-text: var(--st-score-text);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "surface teams time";
+  align-items: center;
+  column-gap: var(--st-space-md);
+  min-height: var(--st-tap);
+  padding: 0.625rem var(--st-space-md);
+  color: var(--row-text);
+  font-size: var(--st-fs-body);
+  text-decoration: none;
+}
+.st-game-row--no-surface {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "teams time";
+}
+.st-game-row--no-time {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "surface teams";
+}
+.st-game-row--no-surface.st-game-row--no-time {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "teams";
+}
+.st-game-row__surface {
+  grid-area: surface;
+}
+.st-game-row__teams {
+  grid-area: teams;
+  min-width: 0;
+}
+.st-game-row__time {
+  grid-area: time;
+  text-align: right;
+  font-weight: var(--st-w-strong);
+  font-variant-numeric: var(--st-num-variant);
+  white-space: nowrap;
+  line-height: 1.15;
+}
+.st-game-row__sub {
+  display: block;
+  font-size: var(--st-fs-label);
+  font-weight: 400;
+  color: var(--row-muted);
+}
+.st-game-row__vs {
+  color: inherit;
+}
+
+/* surface: letter tile (curling) */
+.st-game-row__surface--tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: var(--st-radius-xs);
+  background: var(--row-tile-bg);
+  color: var(--row-tile-text);
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-xl);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: none;
+}
+/* surface: text label (Classic) */
+.st-game-row__surface--label {
+  min-width: 3.875rem;
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-md);
+  font-weight: var(--st-w-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--row-muted);
+}
+/* surface: diamond icon + "Diamond 1" (slo-pitch), wraps to two lines */
+.st-game-row__surface--icon {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-xs);
+  width: 4.625rem;
+  font-size: var(--st-fs-meta);
+  font-weight: var(--st-w-strong);
+  line-height: 1.15;
+  color: var(--row-muted);
+}
+.st-game-row__surface--icon svg {
+  flex: none;
+}
+/* surface: "D1" tag (Scoreboard) */
+.st-game-row__surface--tag {
+  min-width: 2.5rem;
+  padding: var(--st-space-2xs) 0;
+  border-radius: var(--st-radius-xs);
+  background: var(--row-tile-bg);
+  color: var(--row-tile-text);
+  font-size: var(--st-step-md);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Scoreboard: time first, then the tag, then the teams */
+[data-layout="scoreboard"] .st-game-row {
+  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-areas: "time surface teams";
+  padding: var(--st-space-sm) 0.625rem;
+  font-size: var(--st-fs-table);
+  column-gap: 0.625rem;
+}
+[data-layout="scoreboard"] .st-game-row--no-surface {
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "time teams";
+}
+[data-layout="scoreboard"] .st-game-row__time {
+  min-width: 3rem;
+  text-align: left;
+  font-weight: 700;
+}
+[data-layout="scoreboard"] .st-game-row__teams {
+  font-weight: 600;
+}
+[data-layout="scoreboard"] .st-game-row__vs {
+  font-weight: 500;
+  color: var(--row-muted);
+}
+
+/* On a panel: translucent row */
+.st-next-game .st-game-row {
+  --row-text: var(--ng-text);
+  --row-muted: var(--ng-muted);
+  --row-tile-bg: var(--ng-tile-bg);
+  --row-tile-text: var(--ng-tile-text);
+  border-radius: var(--st-radius-sm);
+  background: var(--ng-row);
+}
+[data-layout="hockey"] .st-next-game .st-game-row {
+  border-radius: var(--st-radius-card);
+}
+[data-layout="curling"] .st-next-game .st-game-row {
+  padding-block: var(--st-space-sm);
+}
+[data-layout="hockey"] .st-game-row__time {
+  font-weight: 700;
+}
+
+/* On the page: a list in a card, rows divided by a line */
+.st-game-rows--list {
+  overflow: hidden;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-radius: var(--st-radius-card);
+}
+.st-page a.st-game-row {
+  color: var(--row-text);
+}
+.st-game-rows--list .st-game-row {
+  padding: var(--st-space-md) var(--st-card-pad-x);
+  border-top: var(--st-border) solid var(--st-line);
+}
+.st-game-rows--list .st-game-row:first-child {
+  border-top: 0;
+}
+.st-game-rows--list a.st-game-row:hover {
+  background: var(--st-surface-2);
+}
+[data-layout="scoreboard"] .st-game-rows--list {
+  border: var(--st-border-strong) solid var(--st-line-strong);
+  border-radius: var(--st-radius-panel);
+}
+
+/* ============================================================ next-game panel
+   Local variables --ng-* default to the panel roles; the Scoreboard repoints them
+   because its panel is an outlined white box with a black title bar. */
+
+.st-next-game {
+  --ng-bg: var(--st-panel-bg);
+  --ng-text: var(--st-panel-text);
+  --ng-muted: var(--st-panel-muted);
+  --ng-label: var(--st-panel-label);
+  --ng-row: var(--st-panel-row);
+  --ng-line: var(--st-panel-line);
+  --ng-tile-bg: var(--st-panel-tile-bg);
+  --ng-tile-text: var(--st-panel-tile-text);
+  position: relative;
+  overflow: hidden;
+  padding: var(--st-space-lg);
+  background: var(--ng-bg);
+  border-radius: var(--st-radius-panel);
+  color: var(--ng-text);
+}
+.st-next-game__head,
+.st-next-game__body {
+  position: relative;
+}
+.st-next-game__label {
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-meta);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ng-label);
+}
+.st-next-game__date {
+  margin-top: var(--st-space-3xs);
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-4xl);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: 1.1;
+  text-transform: var(--st-display-transform);
+}
+.st-next-game__where {
+  margin-top: var(--st-space-3xs);
+  font-size: var(--st-fs-small);
+  color: var(--ng-muted);
+}
+.st-next-game__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-sm);
+  margin-top: var(--st-space-md);
+}
+.st-next-game__group-label {
+  margin-top: 0.875rem;
+  font-size: var(--st-fs-meta);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ng-muted);
+}
+.st-next-game__group-label + .st-next-game__rows {
+  margin-top: var(--st-space-xs);
+}
+.st-next-game__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--st-space-md);
+  margin-top: var(--st-space-sm);
+  font-size: var(--st-fs-meta);
+  color: var(--ng-muted);
+}
+.st-next-game__foot > span {
+  padding-block: var(--st-space-xs);
+}
+.st-page .st-next-game__foot a,
+.st-page .st-next-game__foot a:hover {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--st-tap);
+  color: var(--ng-text);
+  font-weight: var(--st-w-strong);
+  text-decoration: none;
+}
+.st-page .st-next-game__foot a:hover {
+  text-decoration: underline;
+}
+.st-page .st-next-game :is(a, button, [tabindex]):focus-visible,
+.st-page a.st-race__row--lead:focus-visible,
+.st-page a.st-leader-board__pill:focus-visible {
+  outline-color: var(--st-panel-text);
+}
+.st-next-game--demo {
+  padding: var(--st-space-md);
+}
+.st-next-game--demo .st-next-game__rows:first-child,
+.st-next-game--demo .st-next-game__group-label:first-child {
+  margin-top: 0;
+}
+
+/* Emblems: decoration drawn in the specimen's inline svg, coloured with roles */
+.st-next-game__emblem {
+  position: absolute;
+  pointer-events: none;
+}
+.st-next-game--house .st-next-game__head {
+  padding-right: 3.5rem;
+}
+.st-next-game__emblem--house {
+  top: 1.25rem;
+  right: var(--st-space-lg);
+}
+.st-next-game__emblem--house .r1 { fill: var(--st-link); }
+.st-next-game__emblem--house .r2 { fill: var(--st-panel-text); }
+.st-next-game__emblem--house .r3 { fill: var(--st-hot); }
+.st-next-game__emblem--house .r4 { fill: var(--st-panel-text); }
+.st-next-game__emblem--faceoff {
+  top: -2.5rem;
+  right: -2.5rem;
+  opacity: 0.55;
+}
+.st-next-game__emblem--faceoff .ring { fill: none; stroke: var(--st-hot); stroke-width: 3; }
+.st-next-game__emblem--faceoff .dot { fill: var(--st-hot); }
+.st-next-game__emblem--faceoff .ticks { fill: none; stroke: var(--st-hot); stroke-width: 3; }
+
+/* Scoreboard: outlined white box, black title bar, grey rows */
+[data-layout="scoreboard"] .st-next-game {
+  --ng-bg: var(--st-surface);
+  --ng-text: var(--st-text);
+  --ng-muted: var(--st-muted);
+  --ng-label: var(--st-score-text);
+  --ng-row: var(--st-surface-2);
+  --ng-tile-bg: var(--st-score-bg);
+  --ng-tile-text: var(--st-score-text);
+  padding: 0;
+  border: var(--st-border-strong) solid var(--st-line-strong);
+  border-radius: var(--st-radius-panel);
+}
+[data-layout="scoreboard"] .st-next-game__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--st-space-md);
+  padding: var(--st-space-md) var(--st-card-pad-x);
+  background: var(--st-panel-bg);
+  color: var(--st-panel-text);
+}
+[data-layout="scoreboard"] .st-next-game__label {
+  order: 0;
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-3xl);
+  font-weight: var(--st-w-display);
+  letter-spacing: 0.03em;
+  color: var(--st-panel-text);
+}
+[data-layout="scoreboard"] .st-next-game__date {
+  margin: 0;
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-meta);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-align: right;
+  text-transform: uppercase;
+  color: var(--st-score-text);
+}
+[data-layout="scoreboard"] .st-next-game__body {
+  padding: var(--st-space-2xs) var(--st-card-pad-x) var(--st-space-md);
+}
+[data-layout="scoreboard"] .st-next-game__where {
+  padding-top: var(--st-space-sm);
+}
+[data-layout="scoreboard"] .st-next-game__rows {
+  gap: var(--st-space-xs);
+  margin-top: var(--st-space-sm);
+}
+[data-layout="scoreboard"] .st-next-game--demo {
+  padding: 0;
+}
+
+/* ================================================================== team card
+   NOT MOCKED in round 1: please review.  From the Masters site's team card (colour
+   top edge, name, big record, rank line); each layout bends it toward its own cards. */
+
+.st-list > .st-team-card {
+  margin: 0;
+}
+.st-page a.st-team-card {
+  display: block;
+  padding: 0.875rem var(--st-space-lg);
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-top: 0.25rem solid var(--st-team, var(--st-line-strong));
+  border-radius: var(--st-radius-card);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-team-card:hover {
+  border-color: var(--st-accent);
+  border-top-color: var(--st-team, var(--st-line-strong));
+}
+.st-team-card__name,
+.st-team-card__record,
+.st-team-card__sub,
+.st-team-card__rank {
+  display: block;
+}
+.st-team-card__name {
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-h2);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: 1.1;
+  text-transform: var(--st-display-transform);
+}
+.st-team-card__record {
+  margin-top: var(--st-space-xs);
+  font-family: var(--st-font-num);
+  font-size: var(--st-fs-stat);
+  font-weight: var(--st-w-display);
+  font-variant-numeric: var(--st-num-variant);
+  line-height: 1;
+  color: var(--st-accent);
+}
+.st-team-card__points {
+  font-size: var(--st-fs-h3);
+  color: var(--st-text);
+}
+.st-team-card__sub {
+  margin-top: var(--st-space-xs);
+  font-size: var(--st-fs-small);
+  color: var(--st-text);
+}
+.st-team-card__rank {
+  margin-top: var(--st-space-xs);
+  font-size: var(--st-fs-meta);
+  color: var(--st-muted);
+}
+
+/* Curling: a stone-coloured band down the left, plain card elsewhere */
+[data-layout="curling"] a.st-team-card {
+  border-top: var(--st-border) solid var(--st-line);
+  border-left: 0.375rem solid var(--st-team, var(--st-line-strong));
+}
+[data-layout="curling"] a.st-team-card:hover {
+  border-top-color: var(--st-accent);
+  border-left-color: var(--st-team, var(--st-line-strong));
+}
+/* Slo-pitch: scorebook ruling, a dotted rule above the rank line */
+[data-layout="slopitch"] .st-team-card__rank {
+  margin-top: var(--st-space-sm);
+  padding-top: var(--st-space-xs);
+  border-top: var(--st-border) dotted var(--st-line-strong);
+}
+/* Scoreboard: boxed in black, a fat team-colour edge, the record as lit digits */
+[data-layout="scoreboard"] a.st-team-card {
+  border: var(--st-border-strong) solid var(--st-line-strong);
+  border-top: 0.5rem solid var(--st-team, var(--st-line-strong));
+  border-radius: var(--st-radius-panel);
+}
+[data-layout="scoreboard"] a.st-team-card:hover {
+  border-color: var(--st-line-strong);
+  border-top-color: var(--st-team, var(--st-line-strong));
+}
+[data-layout="scoreboard"] .st-team-card__record {
+  display: inline-block;
+  padding: var(--st-space-xs) var(--st-space-md);
+  border: var(--st-border) solid var(--st-score-line);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  font-size: var(--st-step-5xl);
+}
+[data-layout="scoreboard"] .st-team-card__points {
+  color: var(--st-score-text);
+}
+
+/* Scoreboard: the note's link is bold ink, as in the mockup */
+[data-layout="scoreboard"] .st-note a {
+  color: var(--st-text);
+  font-weight: 700;
+}

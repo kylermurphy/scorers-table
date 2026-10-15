@@ -16,10 +16,10 @@ body.ds { margin: 0; background: var(--ds-bg); color: var(--ds-text); font: 16px
   display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; padding: 8px 16px; font-size: 14px; }
 .ds-top strong { margin-right: 8px; }
 .ds-wrap { max-width: 1500px; margin: 0 auto; padding: 24px 16px 80px; }
-.ds h1 { font-size: 32px; margin: 8px 0 4px; }
-.ds h2 { font-size: 26px; margin: 48px 0 8px; padding-top: 16px; border-top: 2px solid var(--ds-text); }
-.ds h3 { font-size: 20px; margin: 32px 0 4px; }
-.ds h4 { font-size: 15px; margin: 18px 0 6px; text-transform: uppercase; letter-spacing: .06em; color: var(--ds-muted); }
+.ds-wrap > h1 { font-size: 32px; margin: 8px 0 4px; }
+.ds-wrap > h2 { font-size: 26px; margin: 48px 0 8px; padding-top: 16px; border-top: 2px solid var(--ds-text); }
+.ds-wrap > h3 { font-size: 20px; margin: 32px 0 4px; }
+.ds-wrap > .ds-layout-head > h4, .ds-wrap > h4 { font-size: 15px; margin: 18px 0 6px; text-transform: uppercase; letter-spacing: .06em; color: var(--ds-muted); }
 .ds p.lead { color: var(--ds-muted); max-width: 70ch; margin: 4px 0 12px; }
 .ds code { font: 13px ui-monospace, monospace; background: #0000000d; padding: 1px 4px; border-radius: 3px; }
 .ds-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(390px, 390px)); gap: 20px; align-items: start; margin: 12px 0 28px; }
@@ -35,7 +35,7 @@ body.ds { margin: 0; background: var(--ds-bg); color: var(--ds-text); font: 16px
 .ds-sw i { flex: none; width: 28px; height: 28px; border-radius: 4px; border: 1px solid #00000033; }
 .ds-sw small { display: block; color: var(--ds-muted); font-size: 11px; word-break: break-all; }
 .ds-layout-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 28px 0 0; }
-.ds-layout-head h3 { margin: 0; }
+.ds-layout-head h3 { margin: 0; font-size: 20px; }
 .ds-tag { font-size: 12px; padding: 1px 8px; border-radius: 999px; background: #0000000f; color: var(--ds-muted); }
 .ds-scale { display: grid; gap: 4px; }
 .ds-scale > div { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px dotted var(--ds-line); }

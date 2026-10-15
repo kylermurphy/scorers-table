@@ -193,7 +193,7 @@ def build(parts: list[Part]) -> str:
 </head>
 <body class="ds">
 <nav class="ds-top" aria-label="Sections"><strong>scorers-table design system</strong>
-<a href="#tokens">Tokens</a>{nav_groups}<a href="#league-colour">League colour</a><a href="contrast.html">Contrast</a>
+<a href="#tokens">Tokens</a>{nav_groups}<a href="#league-colour">League colour</a><a href="../contrast.md">Contrast</a>
 </nav>
 <main class="ds-wrap">
 <h1>scorers-table design system</h1>
