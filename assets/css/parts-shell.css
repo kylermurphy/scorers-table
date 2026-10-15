@@ -100,7 +100,7 @@ img.st-brand__badge,
 .st-brand__name {
   display: block;
   font-family: var(--st-font-display);
-  font-size: 1.4375rem;   /* mockup: 23px; one step up (24px) would wrap "Maple Park Slo-Pitch" */
+  font-size: var(--st-step-3xl);   /* mockup: 23px, within 1px of the step */
   font-weight: var(--st-w-display);
   letter-spacing: var(--st-display-tracking);
   line-height: 1.05;

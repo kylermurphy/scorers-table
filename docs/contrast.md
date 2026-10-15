@@ -17,46 +17,34 @@
 
 | Layout | Theme | Pairs checked | Pass | Fail | Accepted | Decor below target |
 |---|---|---:|---:|---:|---:|---:|
-| basketball | light | 82 | 79 | 2 | 0 | 1 |
-| basketball | dark | 82 | 79 | 2 | 0 | 1 |
-| classic | light | 81 | 76 | 3 | 0 | 2 |
-| classic | dark | 82 | 77 | 3 | 0 | 2 |
+| basketball | light | 82 | 81 | 0 | 0 | 1 |
+| basketball | dark | 82 | 81 | 0 | 0 | 1 |
+| classic | light | 81 | 79 | 0 | 0 | 2 |
+| classic | dark | 82 | 80 | 0 | 0 | 2 |
 | curling | light | 76 | 74 | 0 | 1 | 1 |
 | curling | dark | 79 | 78 | 0 | 0 | 1 |
 | hockey | light | 80 | 78 | 1 | 0 | 1 |
 | hockey | dark | 82 | 79 | 1 | 0 | 2 |
-| scoreboard | light | 86 | 84 | 2 | 0 | 0 |
+| scoreboard | light | 86 | 86 | 0 | 0 | 0 |
 | scoreboard | dark | 87 | 87 | 0 | 0 | 0 |
 | slopitch | light | 76 | 75 | 0 | 0 | 1 |
 | slopitch | dark | 78 | 76 | 0 | 0 | 2 |
 
 Pairs that need no enforcement (decor) count as passing unless they miss their target.
 
-**14 enforced pair(s) fail.** The two dark blocks of every file are identical, and the dark custom-colour blocks restate everything their light block sets.
+**2 enforced pair(s) fail.** The two dark blocks of every file are identical, and the dark custom-colour blocks restate everything their light block sets.
 
 ## Failures
 
-* **basketball, light theme, `mark-line/surface`** (ui 3): #FFA3A2 on #FFFFFF = **1.90:1**, needs 3:1.
-* **basketball, light theme, `mark-line/mark-bg`** (ui 3): #FFA3A2 on #FFE8E7 = **1.62:1**, needs 3:1.
-* **basketball, dark theme, `mark-line/surface`** (ui 3): #9E363C on #131B34 = **2.46:1**, needs 3:1.
-* **basketball, dark theme, `mark-line/mark-bg`** (ui 3): #9E363C on #2E0A0C = **2.61:1**, needs 3:1.
-* **classic, light theme, `panel-muted/ls-box-blank`** (text 4.5): #CED5E2 on #4C648D = **4.05:1**, needs 4.5:1.
-* **classic, light theme, `mark-line/surface`** (ui 3): #E2AEAF on #FFFFFF = **1.92:1**, needs 3:1.
-* **classic, light theme, `mark-line/mark-bg`** (ui 3): #E2AEAF on #F7E5E4 = **1.58:1**, needs 3:1.
-* **classic, dark theme, `panel-muted/ls-box-blank`** (text 4.5): #CED5E2 on #4C648D = **4.05:1**, needs 4.5:1.
-* **classic, dark theme, `mark-line/surface`** (ui 3): #A93643 on #141D30 = **2.64:1**, needs 3:1.
-* **classic, dark theme, `mark-line/mark-bg`** (ui 3): #A93643 on #510915 = **2.35:1**, needs 3:1.
 * **hockey, light theme, `muted/rink`** (text 4.5): #5A6478 on #EFB7C0 = **3.45:1**, needs 4.5:1 (worst: case 2 of 2 (#C8102E4D)).
-* **hockey, dark theme, `muted/rink`** (text 4.5): #A3AEBD on #64424F = **3.83:1**, needs 4.5:1 (worst: case 2 of 2 (#FF74824D)).
-* **scoreboard, light theme, `mark-text/surface`** (text 4.5): #FFC233 on #FFFFFF = **1.61:1**, needs 4.5:1.
-* **scoreboard, light theme, `mark-line/surface`** (ui 3): #FFC233 on #FFFFFF = **1.61:1**, needs 3:1.
-* **League colour example Navy** fails (see League colour examples for the messages): scoreboard (light, dark).
-* **League colour example Deep red** fails (see League colour examples for the messages): basketball (light, dark); scoreboard (light, dark).
-* **League colour example Forest green** fails (see League colour examples for the messages): basketball (light, dark); classic (light, dark); curling (dark); scoreboard (light).
-* **League colour example Teal** fails (see League colour examples for the messages): basketball (light, dark); classic (light, dark); curling (dark); scoreboard (light); slopitch (light).
-* **League colour example Purple** fails (see League colour examples for the messages): basketball (light, dark); scoreboard (light, dark).
-* **League colour example Brown** fails (see League colour examples for the messages): basketball (light, dark); classic (light, dark); curling (dark); scoreboard (light).
-* **League colour example Mid blue** fails (see League colour examples for the messages): basketball (light, dark); classic (light, dark); curling (dark); scoreboard (light).
+* **hockey, dark theme, `muted/rink`** (text 4.5): #A3AEBD on #3B4E69 = **3.76:1**, needs 4.5:1 (worst: case 1 of 2 (#8DB8FF3D)).
+* **League colour example Navy** fails (see League colour examples for the messages): basketball (light).
+* **League colour example Deep red** fails (see League colour examples for the messages): basketball (light).
+* **League colour example Forest green** fails (see League colour examples for the messages): basketball (light).
+* **League colour example Teal** fails (see League colour examples for the messages): basketball (light).
+* **League colour example Purple** fails (see League colour examples for the messages): basketball (light).
+* **League colour example Brown** fails (see League colour examples for the messages): basketball (light).
+* **League colour example Mid blue** fails (see League colour examples for the messages): basketball (light).
 
 ## Every pair
 
@@ -117,10 +105,10 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-link/footer-bg` | text | #FFFFFF | #0B1B3F | 16.89 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #FF5C66 | #0B1B3F | 5.61 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2F3D5C | #0B1B3F | 1.56 |  | decor | decorative divider; carries no information |
-| `mark-text/mark-bg` | text | #631F23 | #FFE8E7 | 10.25 | 4.5 | pass |  |
-| `mark-text/surface` | text | #631F23 | #FFFFFF | 11.99 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #FFA3A2 | #FFFFFF | 1.90 | 3 | **FAIL** | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #FFA3A2 | #FFE8E7 | 1.62 | 3 | **FAIL** | the same outline against the tint it encloses |
+| `mark-text/mark-bg` | text | #8F3036 | #FFE8E7 | 6.78 | 4.5 | pass |  |
+| `mark-text/surface` | text | #8F3036 | #FFFFFF | 7.94 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
+| `mark-line/surface` | ui | #DE4F58 | #FFFFFF | 3.91 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
+| `mark-line/mark-bg` | ui | #DE4F58 | #FFE8E7 | 3.34 | 3 | pass | the same outline against the tint it encloses |
 | `won-line/surface` | ui | #FF5C66 | #FFFFFF | 3.01 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `won-line/panel-bg` | ui | #FF5C66 | #032F98 | 3.74 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #032F98 | #E4EAF6 | 9.33 | 4.5 | pass |  |
@@ -204,10 +192,10 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-link/footer-bg` | text | #FFFFFF | #18214D | 15.40 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #FF5C66 | #18214D | 5.11 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #3A4268 | #18214D | 1.58 |  | decor | decorative divider; carries no information |
-| `mark-text/mark-bg` | text | #FFC5C4 | #2E0A0C | 12.04 | 4.5 | pass |  |
-| `mark-text/surface` | text | #FFC5C4 | #131B34 | 11.37 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #9E363C | #131B34 | 2.46 | 3 | **FAIL** | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #9E363C | #2E0A0C | 2.61 | 3 | **FAIL** | the same outline against the tint it encloses |
+| `mark-text/mark-bg` | text | #FF8284 | #2E0A0C | 7.53 | 4.5 | pass |  |
+| `mark-text/surface` | text | #FF8284 | #131B34 | 7.11 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
+| `mark-line/surface` | ui | #CE4951 | #131B34 | 3.80 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
+| `mark-line/mark-bg` | ui | #CE4951 | #2E0A0C | 4.03 | 3 | pass | the same outline against the tint it encloses |
 | `won-line/surface` | ui | #FF5C66 | #131B34 | 5.65 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `won-line/panel-bg` | ui | #FF5C66 | #022274 | 4.70 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #9AB1DC | #0E2769 | 6.40 | 4.5 | pass |  |
@@ -274,19 +262,19 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `header-text/theme-button-hover` | ui | #1D3A6E | #E4E7EE | 9.01 | 3 | pass | the sun/moon icon is a graphic (3:1); parts-shell.css .st-theme-toggle:hover (currentColor 12% over the header) |
 | `panel-text/panel-bg` | text | #FFFFFF | #1D3A6E | 11.15 | 4.5 | pass |  |
 | `panel-text/panel-row` | text | #FFFFFF | #344E7D | 8.29 | 4.5 | pass |  |
-| `panel-muted/panel-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass |  |
-| `panel-muted/panel-row` | text | #CED5E2 | #344E7D | 5.62 | 4.5 | pass |  |
+| `panel-muted/panel-bg` | text | #E1E6ED | #1D3A6E | 8.89 | 4.5 | pass |  |
+| `panel-muted/panel-row` | text | #E1E6ED | #344E7D | 6.61 | 4.5 | pass |  |
 | `panel-label/panel-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass |  |
 | `panel-label/panel-row` | text | #CED5E2 | #344E7D | 5.62 | 4.5 | pass |  |
 | `panel-tile-text/panel-tile-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass | parts-data.css .st-game-row__surface--tile/--tag on the panel (--ng-tile-bg) |
 | `panel-tile-text/tile-on-row` | text | #CED5E2 | #344E7D | 5.62 | 4.5 | pass | the same tile, sitting on its translucent game row (panel-row) on the panel |
 | `panel-line/panel-bg` | decor | #395482 | #1D3A6E | 1.46 |  | decor | decorative divider; carries no information |
 | `panel-text/ls-box` | text | #FFFFFF | #2F4B7B | 8.70 | 4.5 | pass | parts-scores.css :is(basketball, classic) .st-final: --ls-bg is panel-text 9% over panel-bg |
-| `panel-muted/ls-box` | text | #CED5E2 | #2F4B7B | 5.90 | 4.5 | pass | same box: --ls-muted (loser rows, ends, column heads) |
+| `panel-muted/ls-box` | text | #E1E6ED | #2F4B7B | 6.93 | 4.5 | pass | same box: --ls-muted (loser rows, ends, column heads) |
 | `panel-text/ls-box-blank` | text | #FFFFFF | #4C648D | 5.97 | 4.5 | pass | parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% over the score box |
-| `panel-muted/ls-box-blank` | text | #CED5E2 | #4C648D | 4.05 | 4.5 | **FAIL** | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
+| `panel-muted/ls-box-blank` | text | #E1E6ED | #4C648D | 4.76 | 4.5 | pass | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
 | `panel-text-80/panel-bg` | text | #D2D8E2 | #1D3A6E | 7.78 | 4.5 | pass | parts-scores.css .st-final__head--board .st-final__team:not(.is-winner) .st-final__name (panel-text at opacity .8) |
-| `panel-muted/score-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass | parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or periods sport (not Slo-pitch or Curling, which have no period tiles) |
+| `panel-muted/score-bg` | text | #E1E6ED | #1D3A6E | 8.89 | 4.5 | pass | parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or periods sport (not Slo-pitch or Curling, which have no period tiles) |
 | `footer-text/footer-bg` | text | #C9D4F2 | #0B1B3F | 11.41 | 4.5 | pass |  |
 | `footer-muted/footer-bg` | text | #A9B6DA | #0B1B3F | 8.36 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #0B1B3F | 16.89 | 4.5 | pass |  |
@@ -294,8 +282,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2F3D5C | #0B1B3F | 1.56 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #9E1B32 | #F7E5E4 | 6.50 | 4.5 | pass |  |
 | `mark-text/surface` | text | #9E1B32 | #FFFFFF | 7.90 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #E2AEAF | #FFFFFF | 1.92 | 3 | **FAIL** | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #E2AEAF | #F7E5E4 | 1.58 | 3 | **FAIL** | the same outline against the tint it encloses |
+| `mark-line/surface` | ui | #BC5C62 | #FFFFFF | 4.33 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
+| `mark-line/mark-bg` | ui | #BC5C62 | #F7E5E4 | 3.56 | 3 | pass | the same outline against the tint it encloses |
 | `won-line/panel-bg` | ui | #FFFFFF | #1D3A6E | 11.15 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #1D3A6E | #E6EAF0 | 9.23 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #17602A | #DDF1E0 | 6.46 | 4.5 | pass |  |
@@ -360,19 +348,19 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `header-text/theme-button-hover` | ui | #AAB6CC | #262F43 | 6.54 | 3 | pass | the sun/moon icon is a graphic (3:1); parts-shell.css .st-theme-toggle:hover (currentColor 12% over the header) |
 | `panel-text/panel-bg` | text | #FFFFFF | #1D3A6E | 11.15 | 4.5 | pass |  |
 | `panel-text/panel-row` | text | #FFFFFF | #344E7D | 8.29 | 4.5 | pass |  |
-| `panel-muted/panel-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass |  |
-| `panel-muted/panel-row` | text | #CED5E2 | #344E7D | 5.62 | 4.5 | pass |  |
+| `panel-muted/panel-bg` | text | #E1E6ED | #1D3A6E | 8.89 | 4.5 | pass |  |
+| `panel-muted/panel-row` | text | #E1E6ED | #344E7D | 6.61 | 4.5 | pass |  |
 | `panel-label/panel-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass |  |
 | `panel-label/panel-row` | text | #CED5E2 | #344E7D | 5.62 | 4.5 | pass |  |
 | `panel-tile-text/panel-tile-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass | parts-data.css .st-game-row__surface--tile/--tag on the panel (--ng-tile-bg) |
 | `panel-tile-text/tile-on-row` | text | #CED5E2 | #344E7D | 5.62 | 4.5 | pass | the same tile, sitting on its translucent game row (panel-row) on the panel |
 | `panel-line/panel-bg` | decor | #395482 | #1D3A6E | 1.46 |  | decor | decorative divider; carries no information |
 | `panel-text/ls-box` | text | #FFFFFF | #2F4B7B | 8.70 | 4.5 | pass | parts-scores.css :is(basketball, classic) .st-final: --ls-bg is panel-text 9% over panel-bg |
-| `panel-muted/ls-box` | text | #CED5E2 | #2F4B7B | 5.90 | 4.5 | pass | same box: --ls-muted (loser rows, ends, column heads) |
+| `panel-muted/ls-box` | text | #E1E6ED | #2F4B7B | 6.93 | 4.5 | pass | same box: --ls-muted (loser rows, ends, column heads) |
 | `panel-text/ls-box-blank` | text | #FFFFFF | #4C648D | 5.97 | 4.5 | pass | parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% over the score box |
-| `panel-muted/ls-box-blank` | text | #CED5E2 | #4C648D | 4.05 | 4.5 | **FAIL** | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
+| `panel-muted/ls-box-blank` | text | #E1E6ED | #4C648D | 4.76 | 4.5 | pass | same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td) |
 | `panel-text-80/panel-bg` | text | #D2D8E2 | #1D3A6E | 7.78 | 4.5 | pass | parts-scores.css .st-final__head--board .st-final__team:not(.is-winner) .st-final__name (panel-text at opacity .8) |
-| `panel-muted/score-bg` | text | #CED5E2 | #1D3A6E | 7.56 | 4.5 | pass | parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or periods sport (not Slo-pitch or Curling, which have no period tiles) |
+| `panel-muted/score-bg` | text | #E1E6ED | #1D3A6E | 8.89 | 4.5 | pass | parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or periods sport (not Slo-pitch or Curling, which have no period tiles) |
 | `footer-text/footer-bg` | text | #C9D4F2 | #060A14 | 13.36 | 4.5 | pass |  |
 | `footer-muted/footer-bg` | text | #A9B6DA | #060A14 | 9.79 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #060A14 | 19.78 | 4.5 | pass |  |
@@ -380,8 +368,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #26324A | #060A14 | 1.54 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #DA9B9C | #510915 | 6.53 | 4.5 | pass |  |
 | `mark-text/surface` | text | #DA9B9C | #141D30 | 7.33 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #A93643 | #141D30 | 2.64 | 3 | **FAIL** | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #A93643 | #510915 | 2.35 | 3 | **FAIL** | the same outline against the tint it encloses |
+| `mark-line/surface` | ui | #BC5C62 | #141D30 | 3.88 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
+| `mark-line/mark-bg` | ui | #BC5C62 | #510915 | 3.46 | 3 | pass | the same outline against the tint it encloses |
 | `won-line/panel-bg` | ui | #FFFFFF | #1D3A6E | 11.15 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #AAB6CC | #192D51 | 6.68 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #8FDC9A | #17361F | 8.12 | 4.5 | pass |  |
@@ -429,7 +417,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `hot/surface` | text | #A60B24 | #FFFFFF | 7.79 | 4.5 | pass |  |
 | `hot/bg` | text | #A60B24 | #EEF4F8 | 7.02 | 4.5 | pass |  |
 | `hot/surface-2` | text | #A60B24 | #F4F7FA | 7.24 | 4.5 | pass |  |
-| `rule/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass |  |
+| `rule/surface` | ui | #0E2233 | #FFFFFF | 16.21 | 3 | pass |  |
 | `line-strong/surface` | decor | #C9D3DD | #FFFFFF | 1.51 | 3 | decor, below target | outline of cards and tables and the dotted divider; what is inside them is readable without the outline |
 | `focus/bg` | ui | #1D4E89 | #EEF4F8 | 7.56 | 3 | pass |  |
 | `focus/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass |  |
@@ -667,9 +655,9 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `muted/bg` | text | #A3AEBD | #17202B | 7.31 | 4.5 | pass |  |
 | `muted/surface` | text | #A3AEBD | #212C39 | 6.29 | 4.5 | pass |  |
 | `muted/surface-2` | text | #A3AEBD | #2A3646 | 5.45 | 4.5 | pass |  |
-| `link/bg` | text | #96ADCB | #17202B | 7.14 | 4.5 | pass |  |
-| `link/surface` | text | #96ADCB | #212C39 | 6.15 | 4.5 | pass |  |
-| `link/surface-2` | text | #96ADCB | #2A3646 | 5.32 | 4.5 | pass |  |
+| `link/bg` | text | #8DB8FF | #17202B | 8.16 | 4.5 | pass |  |
+| `link/surface` | text | #8DB8FF | #212C39 | 7.03 | 4.5 | pass |  |
+| `link/surface-2` | text | #8DB8FF | #2A3646 | 6.08 | 4.5 | pass |  |
 | `link-hover/bg` | text | #FFFFFF | #17202B | 16.43 | 4.5 | pass |  |
 | `link-hover/surface` | text | #FFFFFF | #212C39 | 14.15 | 4.5 | pass |  |
 | `link-hover/surface-2` | text | #FFFFFF | #2A3646 | 12.24 | 4.5 | pass |  |
@@ -679,10 +667,10 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `hot/surface` | text | #FF7482 | #212C39 | 5.43 | 4.5 | pass |  |
 | `hot/bg` | text | #FF7482 | #17202B | 6.31 | 4.5 | pass |  |
 | `hot/surface-2` | text | #FF7482 | #2A3646 | 4.70 | 4.5 | pass |  |
-| `rule/surface` | ui | #96ADCB | #212C39 | 6.15 | 3 | pass |  |
+| `rule/surface` | ui | #6FA8FF | #212C39 | 5.87 | 3 | pass |  |
 | `line-strong/surface` | decor | #4A5A70 | #212C39 | 2.01 | 3 | decor, below target | outline of cards and tables and the dotted divider; what is inside them is readable without the outline |
-| `focus/bg` | ui | #96ADCB | #17202B | 7.14 | 3 | pass |  |
-| `focus/surface` | ui | #96ADCB | #212C39 | 6.15 | 3 | pass |  |
+| `focus/bg` | ui | #8DB8FF | #17202B | 8.16 | 3 | pass |  |
+| `focus/surface` | ui | #8DB8FF | #212C39 | 7.03 | 3 | pass |  |
 | `line/surface` | decor | #334255 | #212C39 | 1.38 |  | decor | decorative divider; carries no information |
 | `on-accent/button-bg` | text | #FFFFFF | #386298 | 6.23 | 4.5 | pass |  |
 | `button-bg/bg` | decor | #386298 | #17202B | 2.63 | 3 | decor, below target | the label (on-accent on button-bg) identifies the button; the edge is reported for information |
@@ -717,7 +705,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `mark-text/surface` | text | #F2A900 | #212C39 | 7.04 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #F2A900 | #212C39 | 7.04 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
 | `mark-line/mark-bg` | ui | #F2A900 | #190E00 | 9.46 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #96ADCB | #212C39 | 6.15 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/surface` | ui | #6FA8FF | #212C39 | 5.87 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #14181F | #F2A900 | 8.85 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #386298 | 6.23 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #EEF2F7 | #2E3A4B | 10.24 | 4.5 | pass |  |
@@ -726,9 +714,9 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `score-dim/score-bg` | text | #D7DCE3 | #090B0F | 14.28 | 4.5 | pass |  |
 | `score-line/score-bg` | decor | #334255 | #090B0F | 1.92 |  | decor | decorative divider; carries no information |
 | `bar-fill/bar-track` | ui | #A3AEBD | #334255 | 4.55 | 3 | pass |  |
-| `bar-lead/bar-track` | ui | #96ADCB | #334255 | 4.45 | 3 | pass |  |
-| `muted/rink` | text | #A3AEBD | #64424F | 3.83 | 4.5 | **FAIL** | worst: case 2 of 2 (#FF74824D). parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text |
-| `text-80/rink` | text | #D2CFD5 | #64424F | 5.59 | 4.5 | pass | worst: case 2 of 2 (#FF74824D). parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines) |
+| `bar-lead/bar-track` | ui | #6FA8FF | #334255 | 4.25 | 3 | pass |  |
+| `muted/rink` | text | #A3AEBD | #3B4E69 | 3.76 | 4.5 | **FAIL** | worst: case 1 of 2 (#8DB8FF3D). parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text |
+| `text-80/rink` | text | #CAD1DB | #3B4E69 | 5.50 | 4.5 | pass | worst: case 1 of 2 (#8DB8FF3D). parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines) |
 | `team-1/surface` | decor | #FF6B7A | #212C39 | 5.14 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-1/bg` | decor | #FF6B7A | #17202B | 5.97 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-2/surface` | decor | #6FA8FF | #212C39 | 5.87 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
@@ -801,11 +789,11 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-accent/footer-bg` | ui | #CB0E1D | #111111 | 3.25 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2A2A2A | #111111 | 1.31 |  | decor | decorative divider; carries no information |
 | `score-text/footer-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass | parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg) |
-| `mark-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
-| `mark-text/surface` | text | #FFC233 | #FFFFFF | 1.61 | 4.5 | **FAIL** | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #FFC233 | #FFFFFF | 1.61 | 3 | **FAIL** | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the same outline against the tint it encloses |
-| `mark-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile |
+| `mark-text/mark-bg` | text | #947019 | #000000 | 4.59 | 4.5 | pass |  |
+| `mark-text/surface` | text | #947019 | #FFFFFF | 4.57 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
+| `mark-line/surface` | ui | #B38720 | #FFFFFF | 3.27 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
+| `mark-line/mark-bg` | ui | #B38720 | #000000 | 6.40 | 3 | pass | the same outline against the tint it encloses |
+| `mark-line/score-bg` | ui | #B38720 | #000000 | 6.40 | 3 | pass | parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile |
 | `score-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass | parts-scores.css [scoreboard] .st-legend__key--limit: score-text on the key's mark-bg |
 | `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass |  |
@@ -1018,22 +1006,22 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `muted/bg` | text | #BDB29C | #131A14 | 8.44 | 4.5 | pass |  |
 | `muted/surface` | text | #BDB29C | #22201A | 7.76 | 4.5 | pass |  |
 | `muted/surface-2` | text | #BDB29C | #2B2820 | 7.01 | 4.5 | pass |  |
-| `link/bg` | text | #A0BBA2 | #131A14 | 8.53 | 4.5 | pass |  |
-| `link/surface` | text | #A0BBA2 | #22201A | 7.85 | 4.5 | pass |  |
-| `link/surface-2` | text | #A0BBA2 | #2B2820 | 7.09 | 4.5 | pass |  |
+| `link/bg` | text | #86CC92 | #131A14 | 9.33 | 4.5 | pass |  |
+| `link/surface` | text | #86CC92 | #22201A | 8.58 | 4.5 | pass |  |
+| `link/surface-2` | text | #86CC92 | #2B2820 | 7.75 | 4.5 | pass |  |
 | `link-hover/bg` | text | #FFFFFF | #131A14 | 17.71 | 4.5 | pass |  |
 | `link-hover/surface` | text | #FFFFFF | #22201A | 16.28 | 4.5 | pass |  |
 | `link-hover/surface-2` | text | #FFFFFF | #2B2820 | 14.71 | 4.5 | pass |  |
-| `accent/surface` | large | #A0BBA2 | #22201A | 7.85 | 3 | pass | big numbers (24 px and up) |
-| `accent/bg` | large | #A0BBA2 | #131A14 | 8.53 | 3 | pass | big numbers (24 px and up) |
-| `accent/surface-2` | large | #A0BBA2 | #2B2820 | 7.09 | 3 | pass | big numbers (24 px and up) |
-| `hot/surface` | text | #D08970 | #22201A | 5.81 | 4.5 | pass |  |
-| `hot/bg` | text | #D08970 | #131A14 | 6.32 | 4.5 | pass |  |
-| `hot/surface-2` | text | #D08970 | #2B2820 | 5.25 | 4.5 | pass |  |
+| `accent/surface` | large | #86CC92 | #22201A | 8.58 | 3 | pass | big numbers (24 px and up) |
+| `accent/bg` | large | #86CC92 | #131A14 | 9.33 | 3 | pass | big numbers (24 px and up) |
+| `accent/surface-2` | large | #86CC92 | #2B2820 | 7.75 | 3 | pass | big numbers (24 px and up) |
+| `hot/surface` | text | #E8875E | #22201A | 6.24 | 4.5 | pass |  |
+| `hot/bg` | text | #E8875E | #131A14 | 6.79 | 4.5 | pass |  |
+| `hot/surface-2` | text | #E8875E | #2B2820 | 5.64 | 4.5 | pass |  |
 | `rule/surface` | ui | #D9CFB6 | #22201A | 10.50 | 3 | pass |  |
 | `line-strong/surface` | decor | #57503F | #22201A | 2.03 | 3 | decor, below target | outline of cards and tables and the dotted divider; what is inside them is readable without the outline |
-| `focus/bg` | ui | #A0BBA2 | #131A14 | 8.53 | 3 | pass |  |
-| `focus/surface` | ui | #A0BBA2 | #22201A | 7.85 | 3 | pass |  |
+| `focus/bg` | ui | #86CC92 | #131A14 | 9.33 | 3 | pass |  |
+| `focus/surface` | ui | #86CC92 | #22201A | 8.58 | 3 | pass |  |
 | `line/surface` | decor | #3A362C | #22201A | 1.35 |  | decor | decorative divider; carries no information |
 | `on-accent/button-bg` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
 | `button-bg/bg` | decor | #2F6B3A | #131A14 | 2.77 | 3 | decor, below target | the label (on-accent on button-bg) identifies the button; the edge is reported for information |
@@ -1055,27 +1043,27 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `panel-label/panel-row` | text | #FBF0D9 | #2A4D31 | 8.42 | 4.5 | pass |  |
 | `panel-tile-text/panel-tile-bg` | text | #22201C | #F3E3C3 | 12.84 | 4.5 | pass | parts-data.css .st-game-row__surface--tile/--tag on the panel (--ng-tile-bg) |
 | `panel-tile-text/tile-on-row` | text | #22201C | #F3E3C3 | 12.84 | 4.5 | pass | the same tile, sitting on its translucent game row (panel-row) on the panel |
-| `panel-line/panel-bg` | decor | #2F6B3A | #183E1F | 1.87 |  | decor | decorative divider; carries no information |
+| `panel-line/panel-bg` | decor | #2F5E39 | #183E1F | 1.59 |  | decor | decorative divider; carries no information |
 | `panel-text-80/panel-bg` | text | #D1D8D2 | #183E1F | 8.27 | 4.5 | pass | parts-scores.css .st-final__head--board .st-final__team:not(.is-winner) .st-final__name (panel-text at opacity .8) |
 | `footer-text/footer-bg` | text | #FFFFFF | #0B0F0B | 19.31 | 4.5 | pass |  |
 | `footer-muted/footer-bg` | text | #C9C0AD | #0B0F0B | 10.69 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #0B0F0B | 19.31 | 4.5 | pass |  |
 | `footer-line/footer-bg` | decor | #2A3326 | #0B0F0B | 1.47 |  | decor | decorative divider; carries no information |
-| `mark-text/mark-bg` | text | #D08970 | #22201A | 5.81 | 4.5 | pass |  |
-| `mark-text/surface` | text | #D08970 | #22201A | 5.81 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
-| `mark-line/surface` | ui | #D08970 | #22201A | 5.81 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
-| `mark-line/mark-bg` | ui | #D08970 | #22201A | 5.81 | 3 | pass | the same outline against the tint it encloses |
-| `won-line/surface` | ui | #A0BBA2 | #22201A | 7.85 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `mark-text/mark-bg` | text | #E8875E | #22201A | 6.24 | 4.5 | pass |  |
+| `mark-text/surface` | text | #E8875E | #22201A | 6.24 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
+| `mark-line/surface` | ui | #E0835A | #22201A | 5.86 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
+| `mark-line/mark-bg` | ui | #E0835A | #22201A | 5.86 | 3 | pass | the same outline against the tint it encloses |
+| `won-line/surface` | ui | #86CC92 | #22201A | 8.58 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #F4ECD9 | #3A362C | 10.23 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #F4ECD9 | #3A362C | 10.23 | 4.5 | pass |  |
-| `rank-1-text/rank-1-bg` | text | #131A14 | #A0BBA2 | 8.53 | 4.5 | pass |  |
+| `rank-1-text/rank-1-bg` | text | #131A14 | #86CC92 | 9.33 | 4.5 | pass |  |
 | `score-text/score-bg` | text | #F4ECD9 | #22201A | 13.83 | 4.5 | pass |  |
 | `score-dim/score-bg` | text | #BDB29C | #22201A | 7.76 | 4.5 | pass |  |
 | `score-line/score-bg` | decor | #57503F | #22201A | 2.03 |  | decor | decorative divider; carries no information |
 | `bar-fill/bar-track` | ui | #BDB29C | #3A362C | 5.74 | 3 | pass |  |
-| `bar-lead/bar-track` | ui | #A0BBA2 | #3A362C | 5.80 | 3 | pass |  |
-| `accent-small/slopitch-total` | text | #A0BBA2 | #2B2820 | 7.09 | 4.5 | pass | worst: case 2 of 2 (#2B2820). parts-scores.css [slopitch] tr.is-winner td.st-line-score__total: accent at 17 px (card) on surface, 24 px (full) on surface-2 |
+| `bar-lead/bar-track` | ui | #86CC92 | #3A362C | 6.34 | 3 | pass |  |
+| `accent-small/slopitch-total` | text | #86CC92 | #2B2820 | 7.75 | 4.5 | pass | worst: case 2 of 2 (#2B2820). parts-scores.css [slopitch] tr.is-winner td.st-line-score__total: accent at 17 px (card) on surface, 24 px (full) on surface-2 |
 | `team-1/surface` | decor | #F27463 | #22201A | 5.78 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-1/bg` | decor | #F27463 | #131A14 | 6.28 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-2/surface` | decor | #A8825A | #22201A | 4.65 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
@@ -1095,13 +1083,13 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 
 A league sets ONE colour (`colour`, optionally `colour_dark`) in `league.yml`. Stage 4 writes it as an inline `--st-league-color` (and `--st-league-color-dark`) on `<html>` and adds the attribute `data-league-colour` next to `data-layout`; each layout's `[data-league-colour]` blocks then re-derive everything that depends on the colour. The table below runs every pair of every layout in that mode, in both themes, with each example colour (no `colour_dark`, so the dark theme derives from the same colour). Failures here are information, not failures of the layouts: they are what a league picking that colour would be told. Only the example colours not marked as expected failures must pass.
 
-* **Navy #1D3A6E** passes in basketball, classic, curling, hockey, slopitch; fails in scoreboard.
-* **Deep red #9E1B32** passes in classic, curling, hockey, slopitch; fails in basketball, scoreboard.
-* **Forest green #2F6B3A** passes in hockey, slopitch; fails in basketball, classic, curling, scoreboard.
-* **Teal #0E6B6B** passes in hockey; fails in basketball, classic, curling, scoreboard, slopitch.
-* **Purple #5B3A8C** passes in classic, curling, hockey, slopitch; fails in basketball, scoreboard.
-* **Brown #7A4A1E** passes in hockey, slopitch; fails in basketball, classic, curling, scoreboard.
-* **Mid blue #1F5FA8** passes in hockey, slopitch; fails in basketball, classic, curling, scoreboard.
+* **Navy #1D3A6E** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Deep red #9E1B32** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Forest green #2F6B3A** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Teal #0E6B6B** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Purple #5B3A8C** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Brown #7A4A1E** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
+* **Mid blue #1F5FA8** passes in classic, curling, hockey, scoreboard, slopitch; fails in basketball.
 * **Gold #C98A12** fails in every layout (expected: the deliberate hard case).
 * **Gold is an expected failure**: white text on it fails AA, so stage 4 stops with `league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour.`
 * There is no second league colour: `colour_2` is not a league setting. A layout's own second accent (`--st-layout-accent`) is fixed by the layout and never set by a league.
@@ -1110,232 +1098,102 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 
 | Colour | basketball light | basketball dark | classic light | classic dark | curling light | curling dark | hockey light | hockey dark | scoreboard light | scoreboard dark | slopitch light | slopitch dark |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Navy #1D3A6E | pass | pass | pass | pass | pass | pass | pass | pass | **1** | **1** | pass | pass |
-| Deep red #9E1B32 | **5** | **2** | pass | pass | pass | pass | pass | pass | **1** | **1** | pass | pass |
-| Forest green #2F6B3A | **5** | **4** | **4** | **5** | pass | **3** | pass | pass | **1** | pass | pass | pass |
-| Teal #0E6B6B | **5** | **4** | **4** | **5** | pass | **3** | pass | pass | **1** | pass | **1** | pass |
-| Purple #5B3A8C | **4** | **1** | pass | pass | pass | pass | pass | pass | **1** | **1** | pass | pass |
-| Brown #7A4A1E | **5** | **1** | **4** | **5** | pass | **3** | pass | pass | **1** | pass | pass | pass |
-| Mid blue #1F5FA8 | **5** | **4** | **4** | **5** | pass | **3** | pass | pass | **1** | pass | pass | pass |
-| Gold #C98A12 (expected fail) | **24** | **15** | **22** | **12** | **11** | **4** | **8** | **3** | **13** | **10** | **20** | **5** |
+| Navy #1D3A6E | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Deep red #9E1B32 | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Forest green #2F6B3A | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Teal #0E6B6B | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Purple #5B3A8C | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Brown #7A4A1E | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Mid blue #1F5FA8 | **1** | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass | pass |
+| Gold #C98A12 (expected fail) | **21** | **9** | **15** | **5** | **11** | **4** | **8** | **3** | **13** | **10** | **19** | **5** |
+
+**basketball with Navy (#1D3A6E)**
+
+* league.yml colour #1D3A6E: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Deep red (#9E1B32)**
 
-* league.yml colour #9E1B32: the active tab underline is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #9E1B32: the theme button ring on the header is 2.7:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
-* league.yml colour #9E1B32: small panel text on rows in the panel is 4.45:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #9E1B32: panel labels on rows in the panel is 4.45:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #9E1B32: the won-period underline on the next-game panel is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #9E1B32: the active tab underline is 2.8:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #9E1B32: the theme button ring on the header is 2.99:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
+* league.yml colour #9E1B32: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Forest green (#2F6B3A)**
 
-* league.yml colour #2F6B3A: the active tab underline is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #2F6B3A: the theme button ring on the header is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
-* league.yml colour #2F6B3A: small panel text on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #2F6B3A: panel labels on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #2F6B3A: the won-period underline on the next-game panel is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #2F6B3A: small header text on the header is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-muted/header-bg`
-* league.yml colour #2F6B3A: small nav text on the nav bar is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #2F6B3A: the active tab underline is 2.4:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #2F6B3A: the theme button ring on the header is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
+* league.yml colour #2F6B3A: the won-period underline on cards is 1.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Teal (#0E6B6B)**
 
-* league.yml colour #0E6B6B: the active tab underline is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #0E6B6B: the theme button ring on the header is 2.5:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
-* league.yml colour #0E6B6B: small panel text on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #0E6B6B: panel labels on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #0E6B6B: the won-period underline on the next-game panel is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #0E6B6B: small header text on the header is 4.1:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-muted/header-bg`
-* league.yml colour #0E6B6B: small nav text on the nav bar is 4.1:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #0E6B6B: the active tab underline is 2.4:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #0E6B6B: the theme button ring on the header is 2.8:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
+* league.yml colour #0E6B6B: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Purple (#5B3A8C)**
 
-* league.yml colour #5B3A8C: the active tab underline is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #5B3A8C: small panel text on rows in the panel is 4.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #5B3A8C: panel labels on rows in the panel is 4.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #5B3A8C: the won-period underline on the next-game panel is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #5B3A8C: the active tab underline is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
+* league.yml colour #5B3A8C: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Brown (#7A4A1E)**
 
-* league.yml colour #7A4A1E: the active tab underline is 2.5:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #7A4A1E: the theme button ring on the header is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
-* league.yml colour #7A4A1E: small panel text on rows in the panel is 4.0:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #7A4A1E: panel labels on rows in the panel is 4.0:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #7A4A1E: the won-period underline on the next-game panel is 2.5:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #7A4A1E: the active tab underline is 2.6:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
+* league.yml colour #7A4A1E: the won-period underline on cards is 1.2:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Mid blue (#1F5FA8)**
 
-* league.yml colour #1F5FA8: the active tab underline is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #1F5FA8: the theme button ring on the header is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
-* league.yml colour #1F5FA8: small panel text on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #1F5FA8: panel labels on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #1F5FA8: the won-period underline on the next-game panel is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #1F5FA8: small header text on the header is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-muted/header-bg`
-* league.yml colour #1F5FA8: small nav text on the nav bar is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #1F5FA8: the active tab underline is 2.4:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #1F5FA8: the theme button ring on the header is 2.8:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
+* league.yml colour #1F5FA8: the won-period underline on cards is 1.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 
 **basketball with Gold (#C98A12)**
 
-* league.yml colour #C98A12: links on shaded rows is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
+* league.yml colour #C98A12: links on shaded rows is 3.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
 * league.yml colour #C98A12: big numbers on shaded rows is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `accent/surface-2`
 * league.yml colour #C98A12: table rules on cards is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `rule/surface`
 * league.yml colour #C98A12: the focus ring on the page background is 2.7:1 in the light theme (needs 3:1). Pick a darker colour. `focus/bg`
 * league.yml colour #C98A12: button text on buttons is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `on-accent/button-bg`
-* league.yml colour #C98A12: the theme button's icon when hovered is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-text/theme-button-hover`
-* league.yml colour #C98A12: small header text on the header is 2.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-muted/header-bg`
-* league.yml colour #C98A12: nav text on the nav bar is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 1.0:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #C98A12: the theme button ring on the header is 1.7:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
+* league.yml colour #C98A12: header text on the header is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-text/header-bg`
+* league.yml colour #C98A12: small header text on the header is 3.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-muted/header-bg`
+* league.yml colour #C98A12: nav text on the nav bar is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
+* league.yml colour #C98A12: small nav text on the nav bar is 3.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
 * league.yml colour #C98A12: the logo monogram is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-monogram`
-* league.yml colour #C98A12: panel text on rows in the panel is 2.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/panel-row`
-* league.yml colour #C98A12: small panel text on rows in the panel is 2.1:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #C98A12: panel labels on rows in the panel is 2.1:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
+* league.yml colour #C98A12: small text in the final panel's score box is 3.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/ls-box`
+* league.yml colour #C98A12: panel labels on the next-game panel is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-bg`
 * league.yml colour #C98A12: text on the panel's tile is 4.3:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/panel-tile-bg`
-* league.yml colour #C98A12: the losing team's name is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text-80/panel-bg`
-* league.yml colour #C98A12: the won-period underline on the next-game panel is 1.0:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #C98A12: badge text on badges is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-text/badge-bg`
+* league.yml colour #C98A12: text in the final panel's score box is 4.0:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box`
+* league.yml colour #C98A12: the losing team's name is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text-80/panel-bg`
+* league.yml colour #C98A12: the won-period underline on cards is 1.1:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
+* league.yml colour #C98A12: badge text on badges is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-text/badge-bg`
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-1-text/rank-1-bg`
-* league.yml colour #C98A12: scores on the score panel is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `score-text/score-bg`
-* league.yml colour #C98A12: losing scores on the score panel is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `score-dim/score-bg`
+* league.yml colour #C98A12: losing scores on the score panel is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `score-dim/score-bg`
 * league.yml colour #C98A12: bars on bar tracks is 2.4:1 in the light theme (needs 3:1). Pick a darker colour. `bar-fill/bar-track`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
-* league.yml colour #C98A12: header text on the header is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-text/header-bg`
-* league.yml colour #C98A12: small header text on the header is 2.5:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-muted/header-bg`
-* league.yml colour #C98A12: nav text on the nav bar is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.5:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 1.5:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #C98A12: the theme button ring on the header is 2.1:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
+* league.yml colour #C98A12: the theme button ring on the header is 2.7:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
 * league.yml colour #C98A12: the logo monogram is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `badge-monogram`
 * league.yml colour #C98A12: text in the final panel's score box is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box`
-* league.yml colour #C98A12: small text in the final panel's score box is 3.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/ls-box`
-* league.yml colour #C98A12: panel labels on rows in the panel is 3.3:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
+* league.yml colour #C98A12: small text in the final panel's score box is 3.5:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/ls-box`
+* league.yml colour #C98A12: panel labels on rows in the panel is 3.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
 * league.yml colour #C98A12: text on the panel's tile is 4.3:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-tile-text/panel-tile-bg`
 * league.yml colour #C98A12: the losing team's name is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text-80/panel-bg`
-* league.yml colour #C98A12: the won-period underline on the next-game panel is 1.6:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `won-line/panel-bg`
-* league.yml colour #C98A12: losing scores on the score panel is 3.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `score-dim/score-bg`
+* league.yml colour #C98A12: losing scores on the score panel is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `score-dim/score-bg`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-base`
-
-**classic with Forest green (#2F6B3A)**
-
-* league.yml colour #2F6B3A: small panel text on rows in the panel is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #2F6B3A: panel labels on rows in the panel is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #2F6B3A: text on the panel's tile is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/tile-on-row`
-* league.yml colour #2F6B3A: a blank cell in the final panel's score box is 3.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
-* league.yml colour #2F6B3A: small nav text on the nav bar is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #2F6B3A: small panel text on rows in the panel is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/panel-row`
-* league.yml colour #2F6B3A: panel labels on rows in the panel is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
-* league.yml colour #2F6B3A: text on the panel's tile is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-tile-text/tile-on-row`
-* league.yml colour #2F6B3A: a blank cell in the final panel's score box is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
-
-**classic with Teal (#0E6B6B)**
-
-* league.yml colour #0E6B6B: small panel text on rows in the panel is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #0E6B6B: panel labels on rows in the panel is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #0E6B6B: text on the panel's tile is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/tile-on-row`
-* league.yml colour #0E6B6B: a blank cell in the final panel's score box is 3.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
-* league.yml colour #0E6B6B: small nav text on the nav bar is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #0E6B6B: small panel text on rows in the panel is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/panel-row`
-* league.yml colour #0E6B6B: panel labels on rows in the panel is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
-* league.yml colour #0E6B6B: text on the panel's tile is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-tile-text/tile-on-row`
-* league.yml colour #0E6B6B: a blank cell in the final panel's score box is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
-
-**classic with Brown (#7A4A1E)**
-
-* league.yml colour #7A4A1E: small panel text on rows in the panel is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #7A4A1E: panel labels on rows in the panel is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #7A4A1E: text on the panel's tile is 4.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/tile-on-row`
-* league.yml colour #7A4A1E: a blank cell in the final panel's score box is 4.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
-* league.yml colour #7A4A1E: small nav text on the nav bar is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #7A4A1E: small panel text on rows in the panel is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/panel-row`
-* league.yml colour #7A4A1E: panel labels on rows in the panel is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
-* league.yml colour #7A4A1E: text on the panel's tile is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-tile-text/tile-on-row`
-* league.yml colour #7A4A1E: a blank cell in the final panel's score box is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
-
-**classic with Mid blue (#1F5FA8)**
-
-* league.yml colour #1F5FA8: small panel text on rows in the panel is 3.8:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #1F5FA8: panel labels on rows in the panel is 3.8:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #1F5FA8: text on the panel's tile is 3.8:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/tile-on-row`
-* league.yml colour #1F5FA8: a blank cell in the final panel's score box is 4.0:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
-* league.yml colour #1F5FA8: small nav text on the nav bar is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #1F5FA8: small panel text on rows in the panel is 3.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/panel-row`
-* league.yml colour #1F5FA8: panel labels on rows in the panel is 3.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
-* league.yml colour #1F5FA8: text on the panel's tile is 3.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-tile-text/tile-on-row`
-* league.yml colour #1F5FA8: a blank cell in the final panel's score box is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
 
 **classic with Gold (#C98A12)**
 
-* league.yml colour #C98A12: links on shaded rows is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
+* league.yml colour #C98A12: links on shaded rows is 3.3:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
 * league.yml colour #C98A12: big numbers on shaded rows is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `accent/surface-2`
 * league.yml colour #C98A12: table rules on cards is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `rule/surface`
 * league.yml colour #C98A12: the focus ring on the page background is 2.7:1 in the light theme (needs 3:1). Pick a darker colour. `focus/bg`
 * league.yml colour #C98A12: button text on buttons is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `on-accent/button-bg`
 * league.yml colour #C98A12: the theme button's icon when hovered is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-text/theme-button-hover`
-* league.yml colour #C98A12: nav text on the nav bar is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #C98A12: a blank cell in the final panel's score box is 2.3:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
-* league.yml colour #C98A12: small panel text on rows in the panel is 2.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #C98A12: panel labels on rows in the panel is 2.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #C98A12: text on the panel's tile is 2.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-tile-text/tile-on-row`
-* league.yml colour #C98A12: the losing team's name is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text-80/panel-bg`
-* league.yml colour #C98A12: the won-period underline on the next-game panel is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/panel-bg`
-* league.yml colour #C98A12: badge text on badges is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-text/badge-bg`
-* league.yml colour #C98A12: rank numbers on rank numbers' background is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-text/rank-bg`
+* league.yml colour #C98A12: nav text on the nav bar is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
+* league.yml colour #C98A12: small nav text on the nav bar is 3.2:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
+* league.yml colour #C98A12: a blank cell in the final panel's score box is 4.1:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/ls-box-blank`
+* league.yml colour #C98A12: small text in a blank cell of the final panel's score box is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/ls-box-blank`
+* league.yml colour #C98A12: badge text on badges is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-text/badge-bg`
+* league.yml colour #C98A12: rank numbers on rank numbers' background is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-text/rank-bg`
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-1-text/rank-1-bg`
-* league.yml colour #C98A12: scores on the score panel is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `score-text/score-bg`
-* league.yml colour #C98A12: losing scores on the score panel is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `score-dim/score-bg`
 * league.yml colour #C98A12: bars on bar tracks is 2.4:1 in the light theme (needs 3:1). Pick a darker colour. `bar-fill/bar-track`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
-* league.yml colour #C98A12: nav text on the nav bar is 2.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 2.6:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #C98A12: a blank cell in the final panel's score box is 2.3:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
-* league.yml colour #C98A12: small panel text on rows in the panel is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/panel-row`
-* league.yml colour #C98A12: panel labels on rows in the panel is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-label/panel-row`
-* league.yml colour #C98A12: text on the panel's tile is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-tile-text/tile-on-row`
-* league.yml colour #C98A12: the losing team's name is 2.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text-80/panel-bg`
-* league.yml colour #C98A12: the won-period underline on the next-game panel is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `won-line/panel-bg`
-* league.yml colour #C98A12: scores on the score panel is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `score-text/score-bg`
-* league.yml colour #C98A12: losing scores on the score panel is 2.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `score-dim/score-bg`
-* league.yml colour #C98A12: white text on the lightened version of it is 2.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
-
-**curling with Forest green (#2F6B3A)**
-
-* league.yml colour #2F6B3A: button text on buttons is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
-* league.yml colour #2F6B3A: WIN badge text on WIN badges is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
-* league.yml colour #2F6B3A: white text on the lightened version of it is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
-
-**curling with Teal (#0E6B6B)**
-
-* league.yml colour #0E6B6B: button text on buttons is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
-* league.yml colour #0E6B6B: WIN badge text on WIN badges is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
-* league.yml colour #0E6B6B: white text on the lightened version of it is 3.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
-
-**curling with Brown (#7A4A1E)**
-
-* league.yml colour #7A4A1E: button text on buttons is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
-* league.yml colour #7A4A1E: WIN badge text on WIN badges is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
-* league.yml colour #7A4A1E: white text on the lightened version of it is 4.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
-
-**curling with Mid blue (#1F5FA8)**
-
-* league.yml colour #1F5FA8: button text on buttons is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
-* league.yml colour #1F5FA8: WIN badge text on WIN badges is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
-* league.yml colour #1F5FA8: white text on the lightened version of it is 4.0:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
+* league.yml colour #C98A12: nav text on the nav bar is 3.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-text/nav-bg`
+* league.yml colour #C98A12: small nav text on the nav bar is 3.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
+* league.yml colour #C98A12: a blank cell in the final panel's score box is 4.1:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-text/ls-box-blank`
+* league.yml colour #C98A12: small text in a blank cell of the final panel's score box is 3.7:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `panel-muted/ls-box-blank`
+* league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-base`
 
 **curling with Gold (#C98A12)**
 
-* league.yml colour #C98A12: links on the page background is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/bg`
+* league.yml colour #C98A12: links on the page background is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/bg`
 * league.yml colour #C98A12: big numbers on the page background is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `accent/bg`
 * league.yml colour #C98A12: table rules on cards is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `rule/surface`
 * league.yml colour #C98A12: the focus ring on the page background is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `focus/bg`
@@ -1346,14 +1204,14 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-1-text/rank-1-bg`
 * league.yml colour #C98A12: the leader's bar on bar tracks is 2.2:1 in the light theme (needs 3:1). Pick a darker colour. `bar-lead/bar-track`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
-* league.yml colour #C98A12: button text on buttons is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
+* league.yml colour #C98A12: button text on buttons is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
 * league.yml colour #C98A12: the logo monogram is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `badge-monogram`
-* league.yml colour #C98A12: WIN badge text on WIN badges is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
-* league.yml colour #C98A12: white text on the lightened version of it is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
+* league.yml colour #C98A12: WIN badge text on WIN badges is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
+* league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-base`
 
 **hockey with Gold (#C98A12)**
 
-* league.yml colour #C98A12: links on shaded rows is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
+* league.yml colour #C98A12: links on shaded rows is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
 * league.yml colour #C98A12: table rules on cards is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `rule/surface`
 * league.yml colour #C98A12: the focus ring on the page background is 2.8:1 in the light theme (needs 3:1). Pick a darker colour. `focus/bg`
 * league.yml colour #C98A12: button text on buttons is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `on-accent/button-bg`
@@ -1361,92 +1219,56 @@ Failing roles per layout and theme (`pass`, or the number of foreground roles th
 * league.yml colour #C98A12: WIN badge text on WIN badges is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `win-text/win-bg`
 * league.yml colour #C98A12: the leader's bar on bar tracks is 2.3:1 in the light theme (needs 3:1). Pick a darker colour. `bar-lead/bar-track`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
-* league.yml colour #C98A12: button text on buttons is 2.5:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
-* league.yml colour #C98A12: WIN badge text on WIN badges is 2.5:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
-* league.yml colour #C98A12: white text on the lightened version of it is 2.5:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
-
-**scoreboard with Navy (#1D3A6E)**
-
-* league.yml colour #1D3A6E: the footer accent on the footer is 1.7:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
-* league.yml colour #1D3A6E: the footer accent on the footer is 2.1:1 in the dark theme (needs 3:1). Set colour_dark to a lighter colour (the dark theme uses colour until you do). `footer-accent/footer-bg`
-
-**scoreboard with Deep red (#9E1B32)**
-
-* league.yml colour #9E1B32: the footer accent on the footer is 2.4:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
-* league.yml colour #9E1B32: the footer accent on the footer is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a lighter colour (the dark theme uses colour until you do). `footer-accent/footer-bg`
-
-**scoreboard with Forest green (#2F6B3A)**
-
-* league.yml colour #2F6B3A: the footer accent on the footer is 2.95:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
-
-**scoreboard with Teal (#0E6B6B)**
-
-* league.yml colour #0E6B6B: the footer accent on the footer is 2.99:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
-
-**scoreboard with Purple (#5B3A8C)**
-
-* league.yml colour #5B3A8C: the footer accent on the footer is 2.2:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
-* league.yml colour #5B3A8C: the footer accent on the footer is 2.7:1 in the dark theme (needs 3:1). Set colour_dark to a lighter colour (the dark theme uses colour until you do). `footer-accent/footer-bg`
-
-**scoreboard with Brown (#7A4A1E)**
-
-* league.yml colour #7A4A1E: the footer accent on the footer is 2.5:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
-
-**scoreboard with Mid blue (#1F5FA8)**
-
-* league.yml colour #1F5FA8: the footer accent on the footer is 2.9:1 in the light theme (needs 3:1). Pick a lighter colour. `footer-accent/footer-bg`
+* league.yml colour #C98A12: button text on buttons is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
+* league.yml colour #C98A12: WIN badge text on WIN badges is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `win-text/win-bg`
+* league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-base`
 
 **scoreboard with Gold (#C98A12)**
 
-* league.yml colour #C98A12: hovered links on shaded rows is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link-hover/surface-2`
-* league.yml colour #C98A12: highlight text on shaded rows is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `hot/surface-2`
+* league.yml colour #C98A12: hovered links on shaded rows is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `link-hover/surface-2`
+* league.yml colour #C98A12: highlight text on shaded rows is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `hot/surface-2`
 * league.yml colour #C98A12: the focus ring on the page background is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `focus/bg`
 * league.yml colour #C98A12: button text on buttons is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `on-accent/button-bg`
 * league.yml colour #C98A12: the theme button's icon when hovered is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-text/theme-button-hover`
-* league.yml colour #C98A12: small header text on the header is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-muted/header-bg`
+* league.yml colour #C98A12: small header text on the header is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-muted/header-bg`
 * league.yml colour #C98A12: nav text on the nav bar is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 1.8:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #C98A12: the theme button ring on the header is 2.2:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
+* league.yml colour #C98A12: small nav text on the nav bar is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
+* league.yml colour #C98A12: the active tab underline is 2.1:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
+* league.yml colour #C98A12: the theme button ring on the header is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
 * league.yml colour #C98A12: the logo monogram is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-monogram`
 * league.yml colour #C98A12: the last word of the league name is 2.4:1 in the light theme (needs 3:1). Pick a darker colour. `brand-tint/header-bg`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
-* league.yml colour #C98A12: button text on buttons is 2.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
-* league.yml colour #C98A12: the theme button's icon when hovered is 2.4:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-text/theme-button-hover`
-* league.yml colour #C98A12: small header text on the header is 2.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-muted/header-bg`
-* league.yml colour #C98A12: nav text on the nav bar is 2.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 1.7:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
-* league.yml colour #C98A12: the theme button ring on the header is 2.1:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
+* league.yml colour #C98A12: button text on buttons is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
+* league.yml colour #C98A12: the theme button's icon when hovered is 2.6:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-text/theme-button-hover`
+* league.yml colour #C98A12: small header text on the header is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-muted/header-bg`
+* league.yml colour #C98A12: nav text on the nav bar is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-text/nav-bg`
+* league.yml colour #C98A12: small nav text on the nav bar is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `nav-muted/nav-bg`
+* league.yml colour #C98A12: the active tab underline is 2.1:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `tab/header-bg`
+* league.yml colour #C98A12: the theme button ring on the header is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
 * league.yml colour #C98A12: the logo monogram is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `badge-monogram`
-* league.yml colour #C98A12: the last word of the league name is 2.3:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `brand-tint/header-bg`
-* league.yml colour #C98A12: white text on the lightened version of it is 2.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-lift`
-
-**slopitch with Teal (#0E6B6B)**
-
-* league.yml colour #0E6B6B: the theme button ring on the header is 2.96:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
+* league.yml colour #C98A12: the last word of the league name is 2.4:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `brand-tint/header-bg`
+* league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `league-ink/league-base`
 
 **slopitch with Gold (#C98A12)**
 
-* league.yml colour #C98A12: links on shaded rows is 2.6:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
-* league.yml colour #C98A12: big numbers on shaded rows is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `accent/surface-2`
+* league.yml colour #C98A12: links on shaded rows is 3.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `link/surface-2`
 * league.yml colour #C98A12: the focus ring on the page background is 2.8:1 in the light theme (needs 3:1). Pick a darker colour. `focus/bg`
 * league.yml colour #C98A12: button text on buttons is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `on-accent/button-bg`
-* league.yml colour #C98A12: the theme button's icon when hovered is 2.6:1 in the light theme (needs 3:1). Pick a darker colour. `header-text/theme-button-hover`
-* league.yml colour #C98A12: small header text on the header is 2.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-muted/header-bg`
-* league.yml colour #C98A12: nav text on the nav bar is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
-* league.yml colour #C98A12: small nav text on the nav bar is 2.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
-* league.yml colour #C98A12: the active tab underline is 2.3:1 in the light theme (needs 3:1). Pick a darker colour. `tab/header-bg`
-* league.yml colour #C98A12: the theme button ring on the header is 1.8:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
+* league.yml colour #C98A12: header text on the header is 4.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-text/header-bg`
+* league.yml colour #C98A12: small header text on the header is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `header-muted/header-bg`
+* league.yml colour #C98A12: nav text on the nav bar is 4.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-text/nav-bg`
+* league.yml colour #C98A12: small nav text on the nav bar is 3.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `nav-muted/nav-bg`
+* league.yml colour #C98A12: the theme button ring on the header is 2.8:1 in the light theme (needs 3:1). Pick a darker colour. `header-button-line/header-bg`
 * league.yml colour #C98A12: the logo monogram is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `badge-monogram`
-* league.yml colour #C98A12: panel text on rows in the panel is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/panel-row`
-* league.yml colour #C98A12: small panel text on rows in the panel is 2.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
-* league.yml colour #C98A12: panel labels on rows in the panel is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
-* league.yml colour #C98A12: the losing team's name is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text-80/panel-bg`
+* league.yml colour #C98A12: panel text on rows in the panel is 3.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text/panel-row`
+* league.yml colour #C98A12: small panel text on rows in the panel is 3.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-muted/panel-row`
+* league.yml colour #C98A12: panel labels on rows in the panel is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-label/panel-row`
+* league.yml colour #C98A12: the losing team's name is 3.4:1 in the light theme (needs 4.5:1). Pick a darker colour. `panel-text-80/panel-bg`
 * league.yml colour #C98A12: the won-period underline on cards is 2.9:1 in the light theme (needs 3:1). Pick a darker colour. `won-line/surface`
 * league.yml colour #C98A12: WIN badge text on WIN badges is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `win-text/win-bg`
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `rank-1-text/rank-1-bg`
 * league.yml colour #C98A12: the leader's bar on bar tracks is 2.2:1 in the light theme (needs 3:1). Pick a darker colour. `bar-lead/bar-track`
+* league.yml colour #C98A12: the winner's total is 3.5:1 in the light theme (needs 4.5:1). Pick a darker colour. `accent-small/slopitch-total`
 * league.yml colour #C98A12: white text on it is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour. `league-ink/league-base`
 * league.yml colour #C98A12: button text on buttons is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `on-accent/button-bg`
 * league.yml colour #C98A12: the theme button ring on the header is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do). `header-button-line/header-bg`
