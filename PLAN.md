@@ -98,8 +98,8 @@ drafts with flags. Built per sport from the sport folder's spec.
 ## Stage 8: making it a template others can use
 - "Use this template" works out of the box: the sample season shows until the
   league adds its own.
-- A setup guide for a non-developer; maybe a `/new-league` Claude Code command
-  that asks questions and writes `league.yml`, teams and the schedule.
+- A written setup guide for a non-developer (decided: no `/new-league` Claude
+  Code command for now).
 - A live demo for each sport (the sample leagues on GitHub Pages).
 - **Model:** Sonnet, Opus for the guide's review.
 

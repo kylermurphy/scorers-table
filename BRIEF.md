@@ -188,6 +188,7 @@ for example "Riverside Masters Basketball", "Pine Lake Curling Club",
 ## Not decided yet
 
 - ~~Licence~~: MIT.
-- Whether the default for search engines should be off (noindex) or on.
-- How much setup help: a written guide, or also a Claude Code command
-  (`/new-league`) that asks questions and writes the config.
+- ~~Search engines default~~: off (noindex), decided October 2026.
+- ~~Setup help~~: a written guide only, decided October 2026. No `/new-league`
+  command for now; it can come later if leagues ask for it.
+- ~~Desktop~~: stays at stage 9; phone first until then (decided October 2026).

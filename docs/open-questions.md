@@ -59,8 +59,8 @@ or `[placeholder]`s.
 The stage 3 decisions are written out in `docs/design.md`, under "Decisions made in stage 3", and were
 **confirmed by the owner on 15 October 2026** (team palettes follow the layout; the team card design; the
 changed mockup colours; the curling header line exception; the structure the mockups did not draw; the
-old-browser floor; fixed scenes; the "Scored with hammer" 3 of 5 correction). Still open, from `BRIEF.md`:
+old-browser floor; fixed scenes; the "Scored with hammer" 3 of 5 correction). The three open items from
+`BRIEF.md` were settled the same day: search engines default **off** (noindex); setup help is a **written
+guide** only; **desktop** layouts wait for stage 9.
 
-1. **Search engines.** Default off (noindex) or on? (`BRIEF.md`, "Not decided yet".)
-2. **Setup help.** A written guide only, or also a `/new-league` Claude Code command? (`BRIEF.md`.)
-3. **Desktop** layouts are stage 9; phone first until then.
+Nothing is waiting for the owner at the end of stage 3.
