@@ -231,6 +231,14 @@
 [data-layout="curling"] .st-leader-tile--hot {
   --tile-ink: var(--st-hot);
 }
+/* Hockey: accent is ink here, but the mockup's first tile has a blue edge (and a red second) */
+[data-layout="hockey"] .st-leader-tile--accent {
+  --tile-edge: var(--st-link);
+}
+/* ... and its label is set a touch tighter (mockup .06em), so "Goals-against avg" fits one line */
+[data-layout="hockey"] .st-leader-tile__label {
+  letter-spacing: 0.06em;
+}
 /* Classic: one edge colour (the league's) for every tile */
 [data-layout="classic"] .st-leader-tile--hot {
   --tile-edge: var(--st-accent);
@@ -287,8 +295,7 @@
 }
 .st-leader-row__rank {
   font-family: var(--st-font-display);
-  font-size: var(--st-step-3xl);
-  font-size: 1.125rem;
+  font-size: var(--st-step-xl);   /* mockup: 18px, within 1px of the step */
   font-weight: var(--st-w-display);
   font-variant-numeric: var(--st-num-variant);
   color: var(--st-muted);

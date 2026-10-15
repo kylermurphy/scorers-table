@@ -142,15 +142,22 @@ LAYOUT_BY_ID = {l["id"]: l for l in LAYOUTS}
 
 
 # ---------------------------------------------------------------------------
-# 4. ALT_LEAGUE_COLOURS  (recolouring demo; Gold is the deliberate AA failure)
+# 4. ALT_LEAGUE_COLOURS  (recolouring demo and the stage 4 colour check's examples)
 # ---------------------------------------------------------------------------
 
+# Example league colours (`colour` in league.yml). Every one with white text at 4.5:1 or more must
+# pass every pair in every layout, both themes (scripts/check_contrast.py runs them in custom-colour
+# mode). Gold is the deliberate hard case: white text on it fails AA (about 2.9:1), so the data
+# check stops with a message naming `colour`; it is marked expected_fail.
 ALT_LEAGUE_COLOURS = [
     {"name": "Navy", "hex": "#1D3A6E"},
     {"name": "Deep red", "hex": "#9E1B32"},
     {"name": "Forest green", "hex": "#2F6B3A"},
-    # Deliberately hard: white text on this fails WCAG AA (about 2.9:1).
-    {"name": "Gold", "hex": "#C98A12"},
+    {"name": "Teal", "hex": "#0E6B6B"},
+    {"name": "Purple", "hex": "#5B3A8C"},
+    {"name": "Brown", "hex": "#7A4A1E"},
+    {"name": "Mid blue", "hex": "#1F5FA8"},
+    {"name": "Gold", "hex": "#C98A12", "expected_fail": True},
 ]
 
 
@@ -2023,8 +2030,8 @@ def check():
     for c in ALT_LEAGUE_COLOURS:
         if not _HEX_RE.match(c["hex"]):
             _fail("alt colour %r" % c)
-    if len(ALT_LEAGUE_COLOURS) != 4:
-        _fail("ALT_LEAGUE_COLOURS should have 3 examples + Gold")
+    if sum(1 for c in ALT_LEAGUE_COLOURS if c.get("expected_fail")) != 1:
+        _fail("ALT_LEAGUE_COLOURS should have exactly one expected_fail colour (Gold)")
     # leagues
     people = 0
     for sport, lg in LEAGUES.items():

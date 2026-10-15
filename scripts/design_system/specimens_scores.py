@@ -71,8 +71,9 @@ def legend_item(kind: str, text: str, mark: str = "") -> str:
     return f'<span class="st-legend__item">{key}<span>{esc(text)}</span></span>'
 
 
-def legend(items: list[str], stack: bool = False) -> str:
-    cls = "st-legend st-legend--stack" if stack else "st-legend"
+def legend(items: list[str], stack: bool = False, full: bool = False) -> str:
+    """full=True: the legend of a full-size line score (its keys get the cells' 2 px frame)."""
+    cls = "st-legend" + (" st-legend--stack" if stack else "") + (" st-legend--full" if full else "")
     return f'<div class="{cls}">{"".join(items)}</div>'
 
 
@@ -313,7 +314,7 @@ def render_result_cards(ctx: Ctx) -> str:
         note = L["results_legend"][0]
         # "5 = inning ended at the 5-run limit. X = not needed."
         first, rest = note.split(" = ", 1)
-        out.append(f'<p class="st-note" style="margin-top:.5rem"><span class="st-legend__key st-legend__key--limit st-legend__key--text">{esc(first)}</span>'
+        out.append(f'<p class="st-note"><span class="st-legend__key st-legend__key--limit st-legend__key--text">{esc(first)}</span>'
                    f' = {esc(rest)}</p>')
     else:
         out.append('<div class="st-list">' + "".join(result_card(ctx, r) for r in res) + "</div>")
@@ -406,13 +407,13 @@ def final_foot(ctx: Ctx) -> str:
     ls = L["game"]["line_score"]
     s = ctx.sport
     if s == "basketball":
-        return f'<div class="st-final__foot">{legend([legend_item("won", ls["note"])])}</div>'
+        return f'<div class="st-final__foot">{legend([legend_item("won", ls["note"])], full=True)}</div>'
     if s == "curling":
         note = esc(ls["note"])
         team = tm(L, ls["first_end_hammer"])["name"]
         note = note.replace(esc(team), f"<b>{esc(team)}</b>", 1)
         items = [legend_item(legend_kind(t), t) for t in ls["legend"]]
-        return f'<div class="st-final__foot"><p class="st-final__note">{note}</p>{legend(items)}</div>'
+        return f'<div class="st-final__foot"><p class="st-final__note">{note}</p>{legend(items, full=True)}</div>'
     if s == "hockey":
         gl = " · ".join(f"<b>{esc(p['label'])}</b>" for p in ls["foot_goalies"])
         ids = [r["team"] for r in ls["rows"]]
@@ -422,7 +423,7 @@ def final_foot(ctx: Ctx) -> str:
     items = []
     for n in ls["notes"]:
         items.append(legend_item("limit" if n["kind"] == "limit" else "x", n["text"], n["mark"]))
-    return f'<div class="st-final__foot">{legend(items, stack=True)}</div>'
+    return f'<div class="st-final__foot">{legend(items, stack=True, full=True)}</div>'
 
 
 def render_final(ctx: Ctx) -> str:
@@ -461,7 +462,7 @@ def render_line_score(ctx: Ctx) -> str:
     elif ctx.sport == "slopitch":
         leg = [legend_item("limit" if n["kind"] == "limit" else "x", n["text"], n["mark"]) for n in ls["notes"]]
     if leg:
-        out.append(f'<div style="margin-top:.75rem">{legend(leg, stack=ctx.sport == "slopitch")}</div>')
+        out.append(f'<div style="margin-top:.75rem">{legend(leg, stack=ctx.sport == "slopitch", full=True)}</div>')
     return pad("".join(out))
 
 
@@ -488,7 +489,7 @@ def render_events(ctx: Ctx) -> str:
                 sub = "Unassisted"
             out.append(
                 f'<li class="st-event"><span class="st-event__time">{esc(e["time"])}</span>'
-                f'<span class="st-chip st-team--{t["slot"]}" role="img" aria-label="{esc(t["name"])}"></span>'
+                f'<span class="st-event__team">{chip(t)}<abbr class="st-team-code" title="{esc(t["name"])}">{esc(t["code"])}</abbr></span>'
                 f'<span class="st-event__who"><span class="st-event__name">{esc(e["scorer"]["label"])}{gwg}</span>'
                 f'<span class="st-event__sub">{sub}</span></span>'
                 f'<span class="st-event__score">{dash(*e["score"])}</span></li>')
@@ -504,7 +505,8 @@ def render_events(ctx: Ctx) -> str:
         t = tm(L, r["team"])
         rows.append(
             f'<tr><td>{r["period"]}</td><td>{esc(r["time"])}</td>'
-            f'<td class="is-left st-table__strong">{chip(t, "sm")}<span class="st-visually-hidden">{esc(t["name"])}: </span>'
+            f'<td class="is-left st-table__strong">{chip(t, "sm")}'
+            f'<abbr class="st-team-code" title="{esc(t["name"])}">{esc(t["code"])}</abbr>'
             f'{esc(r["player"]["label"])}</td><td class="is-left">{esc(r["infraction"])}</td><td>{r["minutes"]}</td></tr>')
     out.append(
         '<div class="st-table-wrap" role="region" aria-label="Penalties, scrolls sideways" tabindex="0">'

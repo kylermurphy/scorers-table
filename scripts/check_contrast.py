@@ -4,17 +4,21 @@
 What it does
 ------------
 1. Reads assets/css/tokens.css and assets/css/layouts/<id>.css and works out, for every
-   layout and both themes, the value of every --st-* custom property by running the
-   cascade the way a browser does (specificity, then source order; var() with
-   fallbacks; color-mix() in oklab/srgb; hex and rgb(); linear-gradient()).
+   layout, theme (light, dark, or the OS preference with no data-theme) and "custom
+   colour" state (the <html> carries data-league-colour or not), the value of every
+   --st-* custom property by running a small cascade the way a browser does: every
+   matching rule, sorted by specificity and then source order; var() with fallbacks;
+   color-mix() in oklab/srgb; hex and rgb(); linear-gradient().
 2. Measures every text / background / UI pair the design needs (PAIRS below), with
    alpha colours composited over what they sit on, and gradients checked on every
    stop. Writes docs/contrast.md (generated).
-3. Runs the league colour examples (--st-league-color overridden) through the same
-   pairs. `check_league_colour()` is the function stage 4's data check calls.
+3. Runs the league colour examples (--st-league-color set inline and the
+   data-league-colour attribute on, as stage 4 does) through the same pairs.
+   `check_league_colour()` is the function stage 4's data check calls.
 4. Lints the tokens (roles read but undefined, roles never read, raw colours in the
    parts CSS) and checks that each layout's two dark blocks (the media query and the
-   [data-theme="dark"] one) are identical.
+   [data-theme="dark"] one) are identical, for the custom-colour blocks too, and that
+   a dark custom block restates every property its light custom block sets.
 5. `--verify-browser` compares the colour maths with real Chromium (optional).
 
 Usage (from the repo root)
@@ -23,6 +27,7 @@ Usage (from the repo root)
     python scripts/check_contrast.py --check         # same, but fail if docs/contrast.md is stale
     python scripts/check_contrast.py --tokens        # token lint only
     python scripts/check_contrast.py --verify-browser  # also compare the maths with Chromium
+    python scripts/check_contrast.py --trace classic "#2F6B3A"  # how every role resolves in custom mode
 Exit code 1 when an enforced pair fails, the dark blocks differ, the lint finds an
 ERROR, or the Chromium comparison is out by more than 1/255.
 
@@ -70,8 +75,11 @@ class Colour:
 
 @dataclass(frozen=True)
 class Gradient:
-    """A linear-gradient: a list of (Colour, position 0..1 or None)."""
+    """A linear-gradient: a list of (Colour, position 0..1 or None). With `either` it is
+    not a gradient but a list of alternative colours (`either(a, b)`): a pair is measured
+    on each of them and the worst counts (the same text sits on one OR the other)."""
     stops: tuple
+    either: bool = False
 
 
 class ColourError(ValueError):
@@ -332,8 +340,11 @@ def _parse_color_mix(args: str) -> Colour:
 
 
 def parse_paint(text: str) -> Union[Colour, Gradient]:
-    """A colour, or a linear-gradient() (kept as its colour stops)."""
+    """A colour, a linear-gradient() (kept as its colour stops), or `either(c1, c2, ...)`
+    (this checker's own form for "one of these colours", see Gradient.either)."""
     s = text.strip()
+    if re.match(r"^either\(", s, re.I):
+        return Gradient(tuple((parse_colour(a.strip()), None) for a in split_top(_func_args(s, "either"))), either=True)
     if re.match(r"^(repeating-)?linear-gradient\(", s, re.I):
         fn = s[:s.index("(")]
         args = split_top(_func_args(s, fn))
@@ -479,7 +490,8 @@ def match_selector(selector: str, attrs: dict) -> Optional[tuple]:
     """Specificity (a, b, c) if `selector` matches an element with these attributes
     (a dict, absent attribute = missing), else None. Only the selector shapes tokens
     and layouts use are understood: `:root`, `[attr]`, `[attr="v"]`, `:not([attr="v"])`,
-    several of them joined without spaces. Anything else (classes, descendants) never matches."""
+    several of them joined without spaces (each counts one attribute-level of specificity,
+    a :not() counts its argument). Anything else (classes, descendants) never matches."""
     s = selector.strip()
     if s == ":root":
         return (0, 1, 0)
@@ -519,14 +531,19 @@ def media_matches(media: Optional[str], prefers_dark: bool) -> bool:
 
 
 def cascade_rules(rule_lists: list, layout: str, theme: Optional[str], prefers_dark: bool = False,
-                  overrides: Optional[dict] = None) -> dict:
-    """The custom properties on an element carrying data-layout=<layout> and
-    data-theme=<theme> (None = attribute absent), as a browser computes them. `rule_lists`
-    is one list of Rules per stylesheet, in load order: specificity first, source order
-    second. `overrides` act like an inline style (they win)."""
+                  overrides: Optional[dict] = None, custom: bool = False) -> dict:
+    """The custom properties on an element carrying data-layout=<layout>, data-theme=<theme>
+    (None = attribute absent) and, if `custom`, the data-league-colour attribute, as a
+    browser computes them. `prefers_dark` is the OS preference (matters for the @media
+    blocks). `rule_lists` is one list of Rules per stylesheet, in load order. Every rule whose
+    selector matches and whose @media holds applies; they are sorted by specificity first,
+    then by stylesheet, then by source order, and the last declaration of a property wins.
+    `overrides` act like an inline style (they beat every rule)."""
     attrs = {"data-layout": layout}
     if theme:
         attrs["data-theme"] = theme
+    if custom:
+        attrs["data-league-colour"] = ""
     matched = []
     for idx, rules in enumerate(rule_lists):
         for rule in rules:
@@ -545,11 +562,12 @@ def cascade_rules(rule_lists: list, layout: str, theme: Optional[str], prefers_d
 
 
 def cascade(layout: str, theme: Optional[str], prefers_dark: bool = False,
-            overrides: Optional[dict] = None, css_files: Optional[list] = None) -> dict:
+            overrides: Optional[dict] = None, css_files: Optional[list] = None,
+            custom: bool = False) -> dict:
     """`cascade_rules` over assets/css/tokens.css and layouts/<layout>.css (or `css_files`)."""
     if css_files is None:
         css_files = [CSS_DIR / "tokens.css", LAYOUT_DIR / (layout + ".css")]
-    return cascade_rules([load_rules(f) for f in css_files], layout, theme, prefers_dark, overrides)
+    return cascade_rules([load_rules(f) for f in css_files], layout, theme, prefers_dark, overrides, custom)
 
 
 def _match_paren(s: str, open_idx: int) -> int:
@@ -616,27 +634,33 @@ COLOUR_ROLES = (
     "rank-bg rank-text rank-1-bg rank-1-text bar-track bar-fill bar-lead score-bg score-text "
     "score-dim score-line team-1 team-2 team-3 team-4 team-5 team-6"
 ).split()
-LEAGUE_HELPERS = ("league-base", "league-2-base", "league-dim", "league-lift", "league-tint",
-                  "league-wash", "league-2-tint", "league-ink")
+LEAGUE_HELPERS = ("league-base", "layout-accent-base", "league-dim", "league-lift", "league-tint",
+                  "league-wash", "layout-accent-tint", "league-ink")
 OTHER_REQUIRED_ROLES = ("bg-image", "scene-image", "scene-image-footer", "team-lift")
+
+
+_EXPR_PREFIXES = ("color-mix(", "either(")
 
 
 class Palette:
     """Resolved colours of one layout and theme. `theme` is 'light' or 'dark' (the
-    data-theme attribute), or None with prefers_dark=True for the OS-dark path."""
+    data-theme attribute), or None with prefers_dark=True for the OS-dark path. `custom` is
+    custom-colour mode: the <html> carries data-league-colour (stage 4 sets it whenever the
+    league sets a colour), so the layouts' [data-league-colour] blocks apply."""
 
     def __init__(self, layout: str, theme: Optional[str], prefers_dark: bool = False,
-                 overrides: Optional[dict] = None, decls: Optional[dict] = None):
+                 overrides: Optional[dict] = None, decls: Optional[dict] = None, custom: bool = False):
         self.layout = layout
         self.theme = theme
         self.prefers_dark = prefers_dark
-        self.decls = decls if decls is not None else cascade(layout, theme, prefers_dark, overrides)
+        self.custom = custom
+        self.decls = decls if decls is not None else cascade(layout, theme, prefers_dark, overrides, custom=custom)
         self._cache = {}
 
     @classmethod
-    def from_decls(cls, decls: dict, layout: str = "test", theme: str = "light") -> "Palette":
+    def from_decls(cls, decls: dict, layout: str = "test", theme: str = "light", custom: bool = False) -> "Palette":
         """A palette over an explicit {--st-name: value} dict (tests, experiments)."""
-        return cls(layout, theme, decls=dict(decls))
+        return cls(layout, theme, decls=dict(decls), custom=custom)
 
     @property
     def name(self) -> str:
@@ -650,11 +674,12 @@ class Palette:
 
     def paint(self, role: str) -> Optional[Union[Colour, Gradient]]:
         """The role's colour (or Gradient); None when undefined or not resolvable. A string
-        starting with `color-mix(` is taken as a CSS expression (var(--st-*) allowed) instead
-        of a role name, for backgrounds that are not a role (a translucent track)."""
+        starting with `color-mix(` or `either(` is taken as a CSS expression (var(--st-*)
+        allowed) instead of a role name, for colours that are not a role (a translucent
+        track, a text colour at 80%, "one of these backgrounds")."""
         if role not in self._cache:
             try:
-                if role.startswith("color-mix("):
+                if role.startswith(_EXPR_PREFIXES):
                     src = role
                 elif self.defined(role):
                     src = self.raw(role)
@@ -678,9 +703,9 @@ class Palette:
         return any(needle in v and not k.startswith("--st-league-") for k, v in self.decls.items())
 
 
-def palette(layout: str, theme: str, overrides: Optional[dict] = None) -> Palette:
-    """The palette for an explicit data-theme ('light' or 'dark')."""
-    return Palette(layout, theme, False, overrides)
+def palette(layout: str, theme: str, overrides: Optional[dict] = None, custom: bool = False) -> Palette:
+    """The palette for an explicit data-theme ('light' or 'dark'); `custom` = custom-colour mode."""
+    return Palette(layout, theme, False, overrides, custom=custom)
 
 
 # =============================================================================
@@ -707,13 +732,15 @@ ROLE_WORDS = {
     "rank-text": "rank numbers", "rank-1-bg": "the first-place rank background", "rank-1-text": "the first-place rank",
     "bar-track": "bar tracks", "bar-fill": "bars", "bar-lead": "the leader's bar",
     "score-bg": "the score panel", "score-text": "scores", "score-dim": "losing scores",
-    "score-line": "score dividers", "league-ink": "white text",
+    "score-line": "score dividers", "league-ink": "white text", "league-color": "the league colour",
     "league-base": "the league colour", "league-dim": "the darkened league colour",
     "league-lift": "the lightened league colour",
 }
 
 
 def _role_word(role: str) -> str:
+    if role.startswith(_EXPR_PREFIXES):
+        return "a derived colour"
     if role.startswith("team-"):
         return "team colour " + role[5:]
     return ROLE_WORDS.get(role, role.replace("-", " "))
@@ -751,13 +778,34 @@ def _pair(fg, bg, kind, pid=None, **kw) -> Pair:
 
 _TEAM_WHY = "team chips never carry information alone (the team name is always beside them)"
 _HAIR = "decorative divider; carries no information"
-_LEAD_TRACK = "color-mix(in oklab, var(--st-panel-text) 22%, transparent)"
+
+
+def _v(role: str) -> str:
+    return "var(--st-%s)" % role
+
+
+def _mix(role: str, pct: int, over: str = "transparent") -> str:
+    """CSS for `role` at pct% over `over` (a colour or var()); a translucent colour when over is transparent."""
+    return "color-mix(in oklab, %s %d%%, %s)" % (_v(role), pct, over)
+
+
+def _either(*exprs: str) -> str:
+    """One of several backgrounds (the same text sits on one OR the other; the worst counts)."""
+    return "either(%s)" % ", ".join(exprs)
+
+
+_LEAD_TRACK = _mix("panel-text", 22)                                   # parts-data.css .st-race__row--lead .st-race__bar
+_LS_TINT = "color-mix(in oklab, %s 9%%, %s)" % (_v("panel-text"), _v("panel-bg"))   # --ls-bg of .st-final (basketball, classic)
+_LS_BLANK = _mix("panel-text", 14)                                     # .st-final .is-blank cell on that box
+_SB_BLANK = "color-mix(in oklab, %s, %s 16%%)" % (_v("score-bg"), _v("score-text"))  # scoreboard .is-blank and blank key
+_RINK = _either(_mix("link", 24), _mix("hot", 30))                     # hockey .st-final::before lines behind the text
 
 
 def build_pairs() -> list:
-    """The full pair list."""
+    """The full pair list. Each comment names the CSS rule that draws the pair, so a
+    reviewer can check it (assets/css/parts-*.css, base.css)."""
     P = []
-    # page text
+    # page text (base.css: .st-page, a, .st-table, .st-note, .st-card ...)
     for fg in ("text", "muted", "link", "link-hover"):
         for bg in ("bg", "surface", "surface-2"):
             P.append(_pair(fg, bg, "text"))
@@ -768,15 +816,27 @@ def build_pairs() -> list:
     P += [
         _pair("rule", "surface", "ui"),
         _pair("line-strong", "surface", "decor", required=3.0,
-              why="decorative outline and dotted divider; the content inside carries the information"),
+              why="outline of cards and tables and the dotted divider; what is inside them is readable without "
+                  "the outline"),
         _pair("focus", "bg", "ui"),
         _pair("focus", "surface", "ui"),
         _pair("line", "surface", "decor", why=_HAIR),
         _pair("on-accent", "button-bg", "text"),
         _pair("button-bg", "bg", "decor", required=3.0,
               why="the label (on-accent on button-bg) identifies the button; the edge is reported for information"),
+        # blank-end cells (parts-scores.css .st-line-score .is-blank: blank-bg, text in ls-text / ls-muted).
+        # Scoreboard paints its own tile instead (see score-text/blank-tile below).
+        _pair("text", ("surface", "blank-bg"), "text", "text/blank-bg", not_in=("scoreboard",),
+              why="a blank-end cell (parts-scores.css .is-blank)"),
+        _pair("muted", ("surface", "blank-bg"), "text", "muted/blank-bg", not_in=("scoreboard",),
+              why="a blank end with an X or an ends row (.st-line-score--ends .is-blank)"),
+        # hover rows and buttons
+        _pair("text", "line", "text", "text/line:race-hover", only=("scoreboard",),
+              why="a hovered race row (parts-data.css a.st-race__row:hover)"),
+        _pair("muted", "line", "text", "muted/line:race-hover", only=("scoreboard",),
+              why="the sub line of a hovered race row"),
     ]
-    # header and nav
+    # header and nav (parts-shell.css)
     P += [
         _pair("header-text", "header-bg", "text"),
         _pair("header-muted", "header-bg", "text"),
@@ -787,29 +847,82 @@ def build_pairs() -> list:
         _pair("header-button-line", "header-bg", "ui"),
         _pair("header-line", "header-bg", "decor", required=3.0,
               why="decorative edge or accent bar under the header; carries no information"),
+        _pair("header-text", ("header-bg", _mix("header-text", 12)), "ui", "header-text/theme-button-hover",
+              plain="the theme button's icon when hovered",
+              why="the sun/moon icon is a graphic (3:1); parts-shell.css .st-theme-toggle:hover (currentColor 12% over the header)"),
+        # parts-shell.css .st-brand__badge: monogram in league-color on a header-text disc
+        _pair("league-color", "header-text", "text", "badge-monogram", not_in=("hockey", "classic"),
+              plain="the logo monogram",
+              why="parts-shell.css .st-brand__badge (colour: --st-league-color on a header-text disc; "
+                  "the same colour in both themes); Classic paints it league-ink on league-base"),
+        _pair("header-bg", "header-text", "text", "badge-monogram-hockey", only=("hockey",),
+              plain="the logo monogram",
+              why="Hockey's badge colour is header-bg on a header-text disc (parts-shell.css)"),
+        # parts-shell.css [data-layout=scoreboard] .st-brand__tint
+        _pair("color-mix(in oklab, var(--st-header-text) 78%, var(--st-league-base))", "header-bg", "large",
+              "brand-tint/header-bg", only=("scoreboard",), plain="the last word of the league name",
+              why="parts-shell.css .st-brand__tint: header-text 78% with the league colour, 25 px"),
     ]
-    # next-game panel
+    # next-game panel (parts-data.css .st-next-game, --ng-*; parts-scores.css .st-final, hero)
     for fg in ("panel-text", "panel-muted", "panel-label"):
         P.append(_pair(fg, "panel-bg", "text"))
         P.append(_pair(fg, ("panel-bg", "panel-row"), "text", "%s/panel-row" % fg))
     P += [
-        _pair("panel-tile-text", ("panel-bg", "panel-tile-bg"), "text", "panel-tile-text/panel-tile-bg"),
+        _pair("panel-tile-text", ("panel-bg", "panel-tile-bg"), "text", "panel-tile-text/panel-tile-bg",
+              plain="text on the panel's tile",
+              why="parts-data.css .st-game-row__surface--tile/--tag on the panel (--ng-tile-bg)"),
+        _pair("panel-tile-text", ("panel-bg", "panel-row", "panel-tile-bg"), "text", "panel-tile-text/tile-on-row",
+              plain="text on the panel's tile",
+              why="the same tile, sitting on its translucent game row (panel-row) on the panel"),
         _pair("panel-line", "panel-bg", "decor", why=_HAIR),
+        # the final panel / hero card in Basketball and Classic: line score in an inset box
+        _pair("panel-text", _LS_TINT, "text", "panel-text/ls-box", only=("basketball", "classic"),
+              plain="text in the final panel's score box",
+              why="parts-scores.css :is(basketball, classic) .st-final: --ls-bg is panel-text 9% over panel-bg"),
+        _pair("panel-muted", _LS_TINT, "text", "panel-muted/ls-box", only=("basketball", "classic"),
+              plain="small text in the final panel's score box",
+              why="same box: --ls-muted (loser rows, ends, column heads)"),
+        _pair("panel-text", ("panel-bg", _LS_TINT, _LS_BLANK), "text", "panel-text/ls-box-blank",
+              only=("classic",), plain="a blank cell in the final panel's score box",
+              why="parts-scores.css .st-final .is-blank (curling's blank end, shown by Classic): panel-text 14% "
+                  "over the score box"),
+        _pair("panel-muted", ("panel-bg", _LS_TINT, _LS_BLANK), "text", "panel-muted/ls-box-blank",
+              only=("classic",), plain="small text in a blank cell of the final panel's score box",
+              why="same cell with --ls-muted text (an ends row: .st-line-score--ends tbody td)"),
+        # the hero card's board look (every layout) and Scoreboard's final panel
+        _pair(_mix("panel-text", 80), "panel-bg", "text", "panel-text-80/panel-bg", plain="the losing team's name",
+              why="parts-scores.css .st-final__head--board .st-final__team:not(.is-winner) .st-final__name "
+                  "(panel-text at opacity .8)"),
+        _pair("panel-muted", "score-bg", "text", "panel-muted/score-bg", not_in=("slopitch", "curling"),
+              plain="a period tile's label",
+              why="parts-scores.css .st-period-tile__label on the tile (score-bg), hero card of a quarters or "
+                  "periods sport (not Slo-pitch or Curling, which have no period tiles)"),
     ]
-    # footer
+    # footer (parts-shell.css)
     for fg in ("footer-text", "footer-muted", "footer-link"):
         P.append(_pair(fg, "footer-bg", "text"))
     P += [
         _pair("footer-accent", "footer-bg", "ui"),
         _pair("footer-line", "footer-bg", "decor", why=_HAIR),
+        _pair("score-text", "footer-bg", "text", "score-text/footer-bg", only=("scoreboard",),
+              plain="the ticker's status tag",
+              why="parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg)"),
     ]
-    # marks, badges, ranks
+    # marks, badges, ranks (parts-scores.css .is-mark, .st-legend__key--mark/--limit; base.css .st-badge)
     P += [
         _pair("mark-text", ("surface", "mark-bg"), "text", "mark-text/mark-bg"),
-        _pair("mark-line", "surface", "ui", only=("slopitch",),
-              why="slo-pitch draws the run-limit circle with it"),
-        _pair("mark-line", "surface", "decor", required=3.0, not_in=("slopitch",),
-              why="outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning"),
+        _pair("mark-text", "surface", "text", "mark-text/surface",
+              why="a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key)"),
+        _pair("mark-line", "surface", "ui",
+              why="the outline of a stolen end or run-limit inning against the card (it carries the meaning "
+                  "together with the text colour)"),
+        _pair("mark-line", ("surface", "mark-bg"), "ui", "mark-line/mark-bg",
+              why="the same outline against the tint it encloses"),
+        _pair("mark-line", "score-bg", "ui", "mark-line/score-bg", only=("scoreboard",),
+              why="parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile"),
+        _pair("score-text", ("surface", "mark-bg"), "text", "score-text/mark-bg", only=("scoreboard",),
+              plain="the run-limit legend key", why="parts-scores.css [scoreboard] .st-legend__key--limit: "
+              "score-text on the key's mark-bg"),
         _pair("won-line", "surface", "ui", only=("basketball", "curling", "hockey", "slopitch"),
               why="the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere"),
         _pair("won-line", "panel-bg", "ui", "won-line/panel-bg", only=("basketball", "classic"),
@@ -823,11 +936,33 @@ def build_pairs() -> list:
         _pair("score-text", "score-bg", "text"),
         _pair("score-dim", "score-bg", "text"),
         _pair("score-line", "score-bg", "decor", why=_HAIR),
+        _pair("panel-text", "score-bg", "text", "panel-text/score-bg", only=("scoreboard",),
+              plain="the total column", why="parts-scores.css [scoreboard] .st-line-score td.st-line-score__total"),
+        _pair("score-text", "panel-bg", "text", "score-text/panel-bg", only=("scoreboard",),
+              plain="the dates and ranks on the black bars",
+              why="parts-data.css [scoreboard] .st-next-game__date, .st-race__row--lead .st-race__rank, "
+                  "parts-scores.css [scoreboard] .st-roster__link (all on panel-bg)"),
+        _pair("score-text", _SB_BLANK, "text", "score-text/blank-tile", only=("scoreboard",),
+              plain="a blank end's tile", why="parts-scores.css [scoreboard] .is-blank: the tile is score-bg with "
+              "score-text 16% mixed in"),
+        _pair("score-dim", _SB_BLANK, "text", "score-dim/blank-tile", only=("scoreboard",),
+              plain="a blank end's dimmed tile text", why="same tile with the ends-row text (score-dim)"),
         _pair("bar-fill", "bar-track", "ui"),
         _pair("bar-lead", ("panel-bg", _LEAD_TRACK), "ui", "bar-lead/lead-track", only=("scoreboard",),
               why="Scoreboard's race draws the leader's bar on the lead row (panel-bg with a panel-text "
                   "track at 22%, parts-data.css)"),
         _pair("bar-lead", "bar-track", "ui", not_in=("scoreboard",)),
+        _pair("accent", ("either(%s, %s)" % (_v("surface"), _v("surface-2")),), "text", "accent-small/slopitch-total",
+              only=("slopitch",), plain="the winner's total",
+              why="parts-scores.css [slopitch] tr.is-winner td.st-line-score__total: accent at 17 px (card) on "
+                  "surface, 24 px (full) on surface-2"),
+        # Hockey's rink lines sit behind the final panel's text (parts-scores.css [hockey] .st-final::before)
+        _pair("muted", ("surface", _RINK), "text", "muted/rink", only=("hockey",),
+              plain="small text over the rink lines",
+              why="parts-scores.css [hockey] .st-final::before: link 24% and hot 30% lines behind the text"),
+        _pair(_mix("text", 80), ("surface", _RINK), "text", "text-80/rink", only=("hockey",),
+              plain="the losing team's name",
+              why="parts-scores.css [hockey] .st-final__team:not(.is-winner) .st-final__name (text at .8, over the lines)"),
     ]
     # team colours
     for n in range(1, 7):
@@ -897,8 +1032,8 @@ def _zone_stops(stops: tuple, zone: Optional[float]) -> list:
 def backdrops(pal: Palette, roles: tuple, zone: Optional[float] = None) -> Optional[list]:
     """The opaque backgrounds a pair's foreground can sit on: the `roles` painted bottom to
     top, a gradient fanning out into one backdrop per colour stop (limited to `zone`, see
-    GRADIENT_TEXT_ZONE). [(label, Colour)], or None if a role is undefined. The first role
-    must be opaque."""
+    GRADIENT_TEXT_ZONE) and an `either(...)` into one per alternative. [(label, Colour)], or
+    None if a role is undefined. The first role must be opaque."""
     cur = [("", None)]
     for role in roles:
         paint = pal.paint(role)
@@ -907,10 +1042,11 @@ def backdrops(pal: Palette, roles: tuple, zone: Optional[float] = None) -> Optio
         nxt = []
         for label, base in cur:
             if isinstance(paint, Gradient):
-                stops = _zone_stops(paint.stops, zone)
+                stops = list(paint.stops) if paint.either else _zone_stops(paint.stops, zone)
                 for i, (c, pos) in enumerate(stops):
-                    where = "stop %d of %d (%s%s)" % (
-                        i + 1, len(stops), to_hex(c), " @%d%%" % round(pos * 100) if pos is not None else "")
+                    where = "%s %d of %d (%s%s)" % (
+                        "case" if paint.either else "stop", i + 1, len(stops), to_hex(c),
+                        " @%d%%" % round(pos * 100) if pos is not None else "")
                     nxt.append(((label + "; " if label else "") + where,
                                 composite(c, base) if base else _need_opaque(c)))
             else:
@@ -1003,15 +1139,12 @@ def _norm_hex(value: Optional[str], what: str) -> Optional[str]:
     return value.strip().upper()
 
 
-def league_overrides(hex_: str, hex_dark=None, hex_2=None, hex_2_dark=None) -> dict:
-    """The inline-style custom properties a league's colours become."""
+def league_overrides(hex_: str, hex_dark: Optional[str] = None) -> dict:
+    """The inline-style custom properties a league's colour setting becomes on <html>
+    (stage 4 also sets the data-league-colour attribute there: custom-colour mode)."""
     o = {"--st-league-color": hex_}
     if hex_dark:
         o["--st-league-color-dark"] = hex_dark
-    if hex_2:
-        o["--st-layout-accent"] = hex_2
-    if hex_2_dark:
-        o["--st-layout-accent-dark"] = hex_2_dark
     return o
 
 
@@ -1021,80 +1154,69 @@ def _shift(hex_: str, toward: str, amount: float = 0.12) -> str:
 
 
 def _ratio_for(layout: str, theme: str, pair_id: str, overrides: dict) -> Optional[float]:
-    for r in evaluate_palette(palette(layout, theme, overrides)):
+    for r in evaluate_palette(palette(layout, theme, overrides, custom=True)):
         if r.pair.id == pair_id:
             return r.ratio
     return None
 
 
-def check_league_colour(layout: str, hex: str, hex_dark: Optional[str] = None,
-                        hex_2: Optional[str] = None, hex_2_dark: Optional[str] = None) -> list:
-    """Run every pair for `layout` with the league's colours in place of the layout's
-    defaults, in both themes. Returns a list of Problem (empty = fine): one per foreground
-    role and theme (the worst background), for enforced pairs that pass with the layout's own
-    colours and fail with the league's. (Pairs that already fail with the layout's own colours
-    are the design's business, reported by the main run, not the league's.)
-    Each Problem.message names the league.yml setting and what to do."""
+def check_league_colour(layout: str, hex: str, hex_dark: Optional[str] = None) -> list:
+    """Stage 4's data check. Run every pair for `layout` in custom-colour mode (the league's
+    colour inline as --st-league-color, `hex_dark` as --st-league-color-dark if given, and the
+    layout's [data-league-colour] blocks active), in both themes. Returns a list of Problem
+    (empty = fine): one per foreground role and theme (at its worst background), for enforced
+    pairs that pass with the layout's own colours and fail with the league's. That includes
+    "white text on the colour" (league-ink on league-base, and on league-dim / league-lift where
+    the layout uses them as fills). Pairs that already fail with the layout's own colours are
+    the design's business, reported by the main run, not the league's.
+    Each Problem.message names the league.yml setting (`colour` or `colour_dark`) and says
+    whether to pick a lighter or a darker colour."""
     hex = _norm_hex(hex, "colour")
     hex_dark = _norm_hex(hex_dark, "colour_dark")
-    hex_2 = _norm_hex(hex_2, "colour_2")
-    hex_2_dark = _norm_hex(hex_2_dark, "colour_2_dark")
-    over = league_overrides(hex, hex_dark, hex_2, hex_2_dark)
+    over = league_overrides(hex, hex_dark)
     problems = []
     for theme in THEMES:
         base = {r.pair.id: r for r in evaluate_palette(palette(layout, theme))}
         worst = {}      # (foreground role) -> the lowest-ratio failure, so one fix is one message
-        for r in evaluate_palette(palette(layout, theme, over)):
+        for r in evaluate_palette(palette(layout, theme, over, custom=True)):
             if r.status != "FAIL" or base[r.pair.id].status == "FAIL":
                 continue
             if r.pair.fg not in worst or r.ratio < worst[r.pair.fg].ratio:
                 worst[r.pair.fg] = r
         for r in worst.values():
-            problems.append(_make_problem(layout, theme, r, over, hex, hex_dark, hex_2, hex_2_dark))
+            problems.append(_make_problem(layout, theme, r, over, hex, hex_dark))
     return problems
 
 
-def _responsible(layout, theme, r, over, hex_, hex_dark, hex_2, hex_2_dark):
-    """(setting name, its value, direction word) for the league input that moves this pair's ratio."""
+def _responsible(layout, theme, r, over, hex_, hex_dark):
+    """(setting name, its value, direction word) for the league input that fixes this pair:
+    `colour` in the light theme; in the dark theme `colour_dark` if the league sets it, else
+    `colour` (the value in use; the advice is then to set `colour_dark`). The direction is found
+    by moving that value 12% toward white and toward black and seeing which raises the ratio."""
     if theme == "light":
-        cands = [("colour", "--st-league-color", hex_), ("colour_2", "--st-layout-accent", hex_2)]
+        setting, prop, value = "colour", "--st-league-color", hex_
     else:
-        cands = [("colour_dark" if hex_dark else "colour", "--st-league-color-dark" if hex_dark else "--st-league-color",
-                  hex_dark or hex_),
-                 ("colour_2_dark" if hex_2_dark else "colour_2",
-                  "--st-layout-accent-dark" if hex_2_dark else "--st-layout-accent", hex_2_dark or hex_2)]
-    for setting, prop, value in cands:
-        if value is None:
-            # colour 2 not set by the league: the layout's own colour 2 is in use
-            value = palette(layout, theme).text_of("league-2-base") if "2" in prop else None
-            if value is None:
-                continue
-            value = to_hex(parse_colour(value))
-        ratios = {}
-        for toward in ("#FFFFFF", "#000000"):
-            o = dict(over)
-            o[prop] = _shift(value, toward)
-            ratios[toward] = _ratio_for(layout, theme, r.pair.id, o)
-        if ratios["#FFFFFF"] is None or ratios["#000000"] is None:
-            continue
-        if abs(ratios["#FFFFFF"] - r.ratio) < 0.005 and abs(ratios["#000000"] - r.ratio) < 0.005:
-            continue
-        direction = "lighter" if ratios["#FFFFFF"] > ratios["#000000"] else "darker"
-        return setting, value, direction
-    return "colour", hex_, "darker"
+        setting = "colour_dark" if hex_dark else "colour"
+        prop, value = "--st-league-color-dark", hex_dark or hex_
+    ratios = {}
+    for toward in ("#FFFFFF", "#000000"):
+        o = dict(over)
+        o[prop] = _shift(value, toward)
+        ratios[toward] = _ratio_for(layout, theme, r.pair.id, o)
+    if ratios["#FFFFFF"] is None or ratios["#000000"] is None:
+        return setting, value, "darker"
+    return setting, value, "lighter" if ratios["#FFFFFF"] > ratios["#000000"] else "darker"
 
 
-def _make_problem(layout, theme, r, over, hex_, hex_dark, hex_2, hex_2_dark) -> Problem:
-    setting, value, direction = _responsible(layout, theme, r, over, hex_, hex_dark, hex_2, hex_2_dark)
+def _make_problem(layout, theme, r, over, hex_, hex_dark) -> Problem:
+    setting, value, direction = _responsible(layout, theme, r, over, hex_, hex_dark)
     shown = floor2(r.ratio)
     plain = r.pair.plain or "%s on %s" % (_role_word(r.pair.fg), _role_word(r.pair.bg[-1]))
     need = r.need
     if theme == "light":
-        fix = "Pick a %s colour%s." % (direction, "" if setting == "colour" else " for " + setting)
-    elif setting in ("colour_dark", "colour_2_dark"):
-        fix = "Change %s: pick a %s one." % (setting, direction)
-    elif setting == "colour_2":
-        fix = "Set colour_2_dark to a %s colour (the dark theme uses colour_2 until you do)." % direction
+        fix = "Pick a %s colour." % direction
+    elif hex_dark:
+        fix = "Change colour_dark: pick a %s one." % direction
     else:
         fix = "Set colour_dark to a %s colour (the dark theme uses colour until you do)." % direction
     msg = "league.yml %s %s: %s is %s:1 in the %s theme (needs %s:1). %s" % (
@@ -1104,13 +1226,16 @@ def _make_problem(layout, theme, r, over, hex_, hex_dark, hex_2, hex_2_dark) -> 
 
 
 def alt_league_colours() -> list:
-    """[(name, hex)] from scripts/design_system/sample.py (ALT_LEAGUE_COLOURS)."""
+    """[{name, hex, expected_fail}] from scripts/design_system/sample.py (ALT_LEAGUE_COLOURS).
+    `expected_fail` colours are the deliberate hard cases (white text on them fails AA)."""
     sys.path.insert(0, str(ROOT))
     try:
         from scripts.design_system.sample import ALT_LEAGUE_COLOURS
-        return [(c["name"], c["hex"]) for c in ALT_LEAGUE_COLOURS]
+        return [{"name": c["name"], "hex": c["hex"], "expected_fail": bool(c.get("expected_fail"))}
+                for c in ALT_LEAGUE_COLOURS]
     except Exception:       # keep the checker usable if the sample module is missing
-        return [("Navy", "#1D3A6E"), ("Deep red", "#9E1B32"), ("Forest green", "#2F6B3A"), ("Gold", "#C98A12")]
+        return [{"name": n, "hex": h, "expected_fail": n == "Gold"} for n, h in (
+            ("Navy", "#1D3A6E"), ("Deep red", "#9E1B32"), ("Forest green", "#2F6B3A"), ("Gold", "#C98A12"))]
 
 
 # =============================================================================
@@ -1118,6 +1243,7 @@ def alt_league_colours() -> list:
 # =============================================================================
 
 _NOT_LIGHT = ':not([data-theme="light"])'
+_CUSTOM_ATTR = "[data-league-colour]"
 
 
 def _norm_value(v: str) -> str:
@@ -1125,18 +1251,23 @@ def _norm_value(v: str) -> str:
 
 
 def dark_parity_errors(rules: list, name: str) -> list:
-    """Compare, in one stylesheet's Rules, each `@media (prefers-color-scheme: dark)` block
-    (selector `X:not([data-theme="light"])`) with the `X[data-theme="dark"]` block: the
-    declarations must be identical (whitespace aside). Returns error strings."""
-    media, explicit, errors = {}, {}, []
+    """Check one stylesheet's dark blocks. (1) Each `@media (prefers-color-scheme: dark)`
+    block (selector `X:not([data-theme="light"])`) must declare exactly what the `X[data-theme="dark"]`
+    block does (whitespace aside). (2) For the custom-colour blocks (X ends in
+    `[data-league-colour]`): the dark blocks must restate every property the light block `X` sets,
+    because the light block, which comes after the normal dark block and has the same specificity,
+    would otherwise win in dark mode. Returns error strings."""
+    media, explicit, light, errors = {}, {}, {}, []
     not_light = _NOT_LIGHT.replace(" ", "")
     for rule in rules:
         sel = rule.selector.replace(" ", "")
+        decls = {k: _norm_value(v) for k, v in rule.decls.items()}
         if rule.media and rule.media.replace(" ", "") == "(prefers-color-scheme:dark)" and sel.endswith(not_light):
-            media.setdefault(sel[:-len(not_light)], {}).update({k: _norm_value(v) for k, v in rule.decls.items()})
+            media.setdefault(sel[:-len(not_light)], {}).update(decls)
         elif rule.media is None and sel.endswith('[data-theme="dark"]'):
-            explicit.setdefault(sel[:-len('[data-theme="dark"]')], {}).update(
-                {k: _norm_value(v) for k, v in rule.decls.items()})
+            explicit.setdefault(sel[:-len('[data-theme="dark"]')], {}).update(decls)
+        elif rule.media is None and sel.endswith(_CUSTOM_ATTR):
+            light.setdefault(sel, {}).update(decls)
     for base in sorted(set(media) | set(explicit)):
         a, b = media.get(base), explicit.get(base)
         if a is None or b is None:
@@ -1147,6 +1278,19 @@ def dark_parity_errors(rules: list, name: str) -> list:
             if a.get(k) != b.get(k):
                 errors.append("%s: dark blocks of %s differ at %s: media query has %s, "
                               "[data-theme=\"dark\"] has %s" % (name, base, k, a.get(k, "(missing)"), b.get(k, "(missing)")))
+    for base, props in sorted(light.items()):
+        if not props:
+            continue
+        dark = media.get(base)
+        if dark is None:
+            dark = explicit.get(base)
+        if dark is None:
+            errors.append("%s: %s sets %s but there is no dark custom block for it (the dark blocks must restate "
+                          "every property of the light custom block)" % (name, base, ", ".join(sorted(props))))
+            continue
+        for k in sorted(set(props) - set(dark)):
+            errors.append("%s: the dark custom blocks of %s do not restate %s, which the light custom block "
+                          "sets: in dark mode the light value would win" % (name, base, k))
     return errors
 
 
@@ -1163,13 +1307,15 @@ def check_dark_parity(css_files: Optional[list] = None, layouts: Optional[list] 
 
 def check_dark_equivalence(layout: str) -> list:
     """The resolved palette via the OS preference equals the one via data-theme="dark"
-    (and the same for light). Returns error strings."""
+    (and the same for light), with and without custom-colour mode. Returns error strings."""
     errs = []
-    for a, b, label in ((Palette(layout, None, True), Palette(layout, "dark"), "dark"),
-                        (Palette(layout, None, False), Palette(layout, "light"), "light")):
-        for k in sorted(set(a.decls) | set(b.decls)):
-            if a.decls.get(k) != b.decls.get(k):
-                errs.append("%s: %s differs between the OS preference and data-theme=\"%s\"" % (layout, k, label))
+    for custom in (False, True):
+        for a, b, label in ((Palette(layout, None, True, custom=custom), Palette(layout, "dark", custom=custom), "dark"),
+                            (Palette(layout, None, False, custom=custom), Palette(layout, "light", custom=custom), "light")):
+            for k in sorted(set(a.decls) | set(b.decls)):
+                if a.decls.get(k) != b.decls.get(k):
+                    errs.append("%s: %s differs between the OS preference and data-theme=\"%s\"%s" % (
+                        layout, k, label, " (data-league-colour on)" if custom else ""))
     return errs
 
 
@@ -1185,9 +1331,9 @@ class Finding:
 
 
 # Custom properties set outside CSS: by stage 4 (inline style from league.yml / teams.yml) or
-# by class rules; reading them without a definition is fine.
-INLINE_INPUTS = {"--st-league-color", "--st-league-color-dark", "--st-layout-accent",
-                 "--st-layout-accent-dark", "--st-team-hex"}
+# by class rules; reading them without a definition is fine. (There is no second league colour:
+# --st-layout-accent is the layout's own, set in the layout file, never by a league.)
+INLINE_INPUTS = {"--st-league-color", "--st-league-color-dark", "--st-team-hex"}
 
 # Raw colour in a parts file
 _RAW_PATTERNS = [
@@ -1334,11 +1480,11 @@ def _is_selector_or_ident(line: str, m: re.Match) -> bool:
 @dataclass
 class Report:
     results: dict = field(default_factory=dict)       # (layout, theme) -> [Result]
-    league: dict = field(default_factory=dict)        # (layout, name, hex) -> [Problem]
+    league: dict = field(default_factory=dict)        # (layout, colour name, hex) -> [Problem]
     parity: list = field(default_factory=list)
     findings: list = field(default_factory=list)
     layouts: list = field(default_factory=list)
-    colours: list = field(default_factory=list)
+    colours: list = field(default_factory=list)       # [{name, hex, expected_fail}]
 
     @property
     def failures(self) -> list:
@@ -1348,9 +1494,23 @@ class Report:
     def errors(self) -> list:
         return [f for f in self.findings if f.level == "ERROR"]
 
+    def league_problems(self, colour: dict) -> list:
+        return [p for lid in self.layouts for p in self.league.get((lid, colour["name"], colour["hex"]), [])]
+
+    @property
+    def league_failures(self) -> list:
+        """(layout, colour name, Problem) for example colours that must pass but do not."""
+        return [(lid, c["name"], p) for c in self.colours if not c["expected_fail"]
+                for lid in self.layouts for p in self.league.get((lid, c["name"], c["hex"]), [])]
+
+    @property
+    def expected_fail_passes(self) -> list:
+        """Example colours marked expected_fail that nevertheless raise no problem anywhere."""
+        return [c["name"] for c in self.colours if c["expected_fail"] and self.league and not self.league_problems(c)]
+
     @property
     def ok(self) -> bool:
-        return not (self.failures or self.parity or self.errors)
+        return not (self.failures or self.parity or self.errors or self.league_failures or self.expected_fail_passes)
 
 
 def run_checks(layouts: Optional[list] = None, with_league: bool = True) -> Report:
@@ -1362,8 +1522,8 @@ def run_checks(layouts: Optional[list] = None, with_league: bool = True) -> Repo
             rep.results[(lid, theme)] = evaluate_palette(palette(lid, theme))
         rep.parity += check_dark_equivalence(lid)
         if with_league:
-            for name, hx in rep.colours:
-                rep.league[(lid, name, hx)] = check_league_colour(lid, hx)
+            for c in rep.colours:
+                rep.league[(lid, c["name"], c["hex"])] = check_league_colour(lid, c["hex"])
     rep.parity += check_dark_parity(layouts=rep.layouts)
     rep.findings = lint_tokens()
     return rep
@@ -1402,12 +1562,15 @@ def render_markdown(rep: Report) -> str:
     add("")
     add("## How to read this")
     add("")
-    add("* Every colour role is resolved the way a browser does it: tokens, then the layout, then the dark "
-        "block (var() with fallbacks, `color-mix()` in oklab, gradients). Translucent colours are "
-        "composited over what they sit on before they are measured. A gradient is measured on every "
-        "colour stop and the worst stop is shown.")
+    add("* Every colour role is resolved the way a browser does it: every rule that matches the element "
+        "(tokens, the layout, the dark block, and with a league colour the layout's `[data-league-colour]` "
+        "blocks) is applied in order of specificity, then source order (var() with fallbacks, `color-mix()` "
+        "in oklab, gradients). Translucent colours are composited over what they sit on before they are "
+        "measured. A gradient is measured on every colour stop and the worst stop is shown; a text colour "
+        "that sits on one of several backgrounds is measured on each and the worst is shown.")
     add("* **text** pairs need 4.5:1, **large** (24 px and up, or 18.66 px bold) and **ui** (borders of "
-        "controls, the focus ring, bar fills, marks that carry meaning) need 3:1 (WCAG 2.1 AA).")
+        "controls, the focus ring, bar fills, the outline of a marked cell, which carry meaning) need 3:1 "
+        "(WCAG 2.1 AA).")
     add("* **decor** pairs are reported but never fail the run. `decor, below target` means a decorative "
         "pair (team chips, dividers, header edge) is below the 3:1 a meaningful one would need; the "
         "reason is in the Note column.")
@@ -1432,14 +1595,15 @@ def render_markdown(rep: Report) -> str:
     add("Pairs that need no enforcement (decor) count as passing unless they miss their target.")
     add("")
     status = ("**All enforced pairs pass.**" if not rep.failures else "**%d enforced pair(s) fail.**" % len(rep.failures))
-    add(status + (" The two dark blocks of every file are identical." if not rep.parity else
+    add(status + (" The two dark blocks of every file are identical, and the dark custom-colour blocks "
+                  "restate everything their light block sets." if not rep.parity else
                   " **The dark blocks differ: see Failures.**"))
     add("")
 
     # failures first
     add("## Failures")
     add("")
-    if not (rep.failures or rep.parity or rep.errors):
+    if rep.ok:
         add("None.")
         add("")
     for e in rep.parity:
@@ -1450,7 +1614,15 @@ def render_markdown(rep: Report) -> str:
             _need_label(r), (" (worst: %s)" % r.worst) if r.worst else ""))
     for f in rep.errors:
         add("* **Lint ERROR** `%s`: %s" % (f.where, f.message))
-    if rep.failures or rep.parity or rep.errors:
+    seen = {}
+    for lid, name, p in rep.league_failures:
+        seen.setdefault(name, {}).setdefault(lid, set()).add(p.theme)
+    for name, by_layout in seen.items():
+        add("* **League colour example %s** fails (see League colour examples for the messages): %s." % (
+            name, "; ".join("%s (%s)" % (lid, ", ".join(t for t in THEMES if t in th)) for lid, th in by_layout.items())))
+    for name in rep.expected_fail_passes:
+        add("* **League colour example %s** is marked expected_fail but raises no problem: unmark it." % name)
+    if not rep.ok:
         add("")
 
     # per layout / theme
@@ -1477,32 +1649,87 @@ def render_markdown(rep: Report) -> str:
     # league colours
     add("## League colour examples")
     add("")
-    add("Each layout with the league's own colour in place of the layout's default "
-        "(`--st-league-color` set inline, as stage 4 does from `league.yml`; no `colour_dark`, "
-        "so the dark theme derives from the same colour). Failures here are information, not "
-        "failures of the run: they are what a league picking that colour would be told. "
-        "Gold is the deliberate hard case.")
+    add("A league sets ONE colour (`colour`, optionally `colour_dark`) in `league.yml`. Stage 4 writes it as an "
+        "inline `--st-league-color` (and `--st-league-color-dark`) on `<html>` and adds the attribute "
+        "`data-league-colour` next to `data-layout`; each layout's `[data-league-colour]` blocks then re-derive "
+        "everything that depends on the colour. The table below runs every pair of every layout in that "
+        "mode, in both themes, with each example colour (no `colour_dark`, so the dark theme derives from the "
+        "same colour). Failures here are information, not failures of the layouts: they are what a league "
+        "picking that colour would be told. Only the example colours not marked as expected failures must pass.")
     add("")
     cols = rep.colours
-    add("| Layout | " + " | ".join("%s %s" % (n, h) for n, h in cols) + " |")
-    add("|---|" + "---|" * len(cols))
-    for lid in rep.layouts:
-        cells = []
-        for n, h in cols:
-            ps = rep.league.get((lid, n, h), [])
-            cells.append("ok" if not ps else "%d problem%s" % (len(ps), "" if len(ps) == 1 else "s"))
-        add("| %s | %s |" % (lid, " | ".join(cells)))
-    add("")
-    for lid in rep.layouts:
-        for n, h in cols:
-            ps = rep.league.get((lid, n, h), [])
-            if not ps:
+    if rep.league:
+        for c in cols:
+            ok_in = [lid for lid in rep.layouts if not rep.league.get((lid, c["name"], c["hex"]))]
+            bad_in = [lid for lid in rep.layouts if lid not in ok_in]
+            if not bad_in:
+                add("* **%s %s** passes in every layout, light and dark." % (c["name"], c["hex"]))
+            elif not ok_in:
+                add("* **%s %s** fails in every layout%s." % (
+                    c["name"], c["hex"], " (expected: the deliberate hard case)" if c["expected_fail"] else ""))
+            else:
+                add("* **%s %s** passes in %s; fails in %s%s." % (
+                    c["name"], c["hex"], ", ".join(ok_in), ", ".join(bad_in),
+                    " (expected)" if c["expected_fail"] else ""))
+        for c in cols:
+            if not c["expected_fail"]:
                 continue
-            add("**%s with %s (%s)**" % (lid, n, h))
-            add("")
-            for p in ps:
-                add("* %s" % p.message)
-            add("")
+            ink = [p for lid in rep.layouts for p in rep.league.get((lid, c["name"], c["hex"]), [])
+                   if p.pair == "league-ink/league-base" and p.theme == "light"]
+            add("* **%s is an expected failure**: white text on it fails AA, so stage 4 stops with %s"
+                % (c["name"], ("`%s`" % ink[0].message) if ink else "a message naming `colour`"))
+        add("* There is no second league colour: `colour_2` is not a league setting. A layout's own second "
+            "accent (`--st-layout-accent`) is fixed by the layout and never set by a league.")
+        add("")
+        add("Failing roles per layout and theme (`pass`, or the number of foreground roles that fail; "
+            "one message per role, at its worst background):")
+        add("")
+        head = ["Colour"] + ["%s %s" % (lid, th) for lid in rep.layouts for th in THEMES]
+        add("| " + " | ".join(head) + " |")
+        add("|---|" + "---:|" * (len(head) - 1))
+        for c in cols:
+            cells = []
+            for lid in rep.layouts:
+                ps = rep.league.get((lid, c["name"], c["hex"]), [])
+                for th in THEMES:
+                    n = sum(1 for p in ps if p.theme == th)
+                    cells.append("pass" if not n else "**%d**" % n)
+            add("| %s %s%s | %s |" % (c["name"], c["hex"], " (expected fail)" if c["expected_fail"] else "", " | ".join(cells)))
+        add("")
+        for lid in rep.layouts:
+            for c in cols:
+                ps = rep.league.get((lid, c["name"], c["hex"]), [])
+                if not ps:
+                    continue
+                add("**%s with %s (%s)**" % (lid, c["name"], c["hex"]))
+                add("")
+                for p in ps:
+                    add("* %s `%s`" % (p.message, p.pair))
+                add("")
+    else:
+        add("(Not run.)")
+        add("")
+
+    # stage 4
+    add("## How stage 4 calls this")
+    add("")
+    add("```python")
+    add("from scripts.check_contrast import check_league_colour")
+    add("problems = check_league_colour(layout_id, league[\"colour\"], league.get(\"colour_dark\"))")
+    add("# [] = fine. Otherwise stop the build and print problem.message for each: every message names")
+    add("# league.yml `colour` or `colour_dark` and says whether to pick a lighter or darker colour.")
+    add("```")
+    add("")
+    add("* The data check runs only when the league sets a colour. It runs the layout in custom-colour mode (the "
+        "league's colour inline, the layout's `[data-league-colour]` blocks active) in both themes and reports "
+        "the pairs that pass with the layout's own colours and fail with the league's (white text on the colour "
+        "itself included).")
+    add("* The page must carry the attribute `data-league-colour` on the same `<html>` element as `data-layout` "
+        "exactly when the league sets a colour (with `style=\"--st-league-color:#RRGGBB\"`, plus "
+        "`--st-league-color-dark` when `colour_dark` is set). Without the attribute a layout is exactly the "
+        "approved mockup look; with it, the layout's override blocks apply. A league that sets no colour gets "
+        "no attribute and no inline style.")
+    add("")
 
     # lint
     add("## Token lint")
@@ -1605,29 +1832,98 @@ _STOPS_JS = r"""
 """
 
 
+# A throwaway layout, to prove that this module's cascade orders rules the way a browser does:
+# specificity first, then source order; the OS-dark media block versus [data-theme]; and the
+# custom-colour blocks (--st-g is the deliberate trap: set in the light custom block but not
+# restated in the dark one, so in dark mode the light custom block beats the normal dark block).
+_SYNTHETIC_CSS = """
+[data-layout="zz"] { --st-a: #101010; --st-b: #202020; --st-c: #303030; --st-d: #404040; --st-e: #505050;
+  --st-f: color-mix(in oklab, var(--st-league-color, #123456) 50%, white); --st-g: #707070; --st-h: #808080; }
+@media (prefers-color-scheme: dark) {
+  [data-layout="zz"]:not([data-theme="light"]) { --st-a: #A01010; --st-b: #B02020; --st-g: #C07070; --st-h: #C08080; }
+}
+[data-layout="zz"][data-theme="dark"] { --st-a: #A01010; --st-b: #B02020; --st-g: #C07070; --st-h: #C08080; }
+[data-layout="zz"][data-league-colour] { --st-a: #1010A0; --st-c: #10A010; --st-d: var(--st-league-color); --st-g: #1070A0; --st-h: #1080A0; }
+@media (prefers-color-scheme: dark) {
+  [data-layout="zz"][data-league-colour]:not([data-theme="light"]) {
+    --st-a: #2020D0; --st-c: #20D020; --st-d: var(--st-league-color-dark, #FFFFFF); --st-h: #2080D0; }
+}
+[data-layout="zz"][data-league-colour][data-theme="dark"] {
+  --st-a: #2020D0; --st-c: #20D020; --st-d: var(--st-league-color-dark, #FFFFFF); --st-h: #2080D0; }
+[data-layout] { --st-a: #FFFFFF; --st-e: #606060; }
+[data-layout="zz"] { --st-e: #707070; }
+"""
+_SYNTHETIC_ROLES = ["a", "b", "c", "d", "e", "f", "g", "h"]
+
+
+def _probe_page(browser, tmp: str, name: str, scheme: str, css_files: list, cases: list):
+    """Render one wrapper per case (data-layout / data-theme / data-league-colour / inline style),
+    one probe per role, and read back each probe's painted colour over white and over black.
+    Returns (page, {case id: record})."""
+    html = ["<!doctype html><meta charset=utf-8>"]
+    for f in css_files:
+        html.append('<link rel=stylesheet href="file://%s">' % f)
+    for c in cases:
+        style = ";".join("%s:%s" % (k, v) for k, v in c["over"].items())
+        html.append('<div class=wrap data-id="%s" data-layout="%s"%s%s style="%s">' % (
+            c["id"], c["layout"], (' data-theme="%s"' % c["attr"]) if c["attr"] else "",
+            " data-league-colour" if c["custom"] else "", style))
+        for role in c["roles"]:
+            html.append('<div class=probe data-role="%s" style="background-color:var(--st-%s)"></div>' % (role, role))
+        if c.get("team"):
+            html.append('<div class="probe st-team--custom" data-role="team-custom" style="--st-team-hex:#D9621A;'
+                        'background-color:var(--st-team)"></div>')
+        html.append("</div>")
+    path = Path(tmp) / ("probe-%s-%s.html" % (name, scheme))
+    path.write_text("\n".join(html), encoding="utf-8")
+    ctx = browser.new_context(color_scheme=scheme)
+    page = ctx.new_page()
+    page.goto("file://%s" % path)
+    return ctx, page, {r["id"]: r for r in page.evaluate(_VERIFY_JS)}
+
+
 def verify_browser(layouts: Optional[list] = None, verbose: bool = False) -> tuple:
-    """Compare this module's colour maths with Chromium for every layout x theme x
-    league-colour override x (data-theme / OS scheme) combination. Returns
-    (status, max_channel_diff, lines) where status is 'ok', 'fail' or 'skipped'."""
+    """Compare this module's cascade and colour maths with Chromium: every layout x theme
+    (light, dark, none) x OS scheme x league-colour variant (none, each example colour with and
+    without `colour_dark`, in custom-colour mode and, for one colour, without it), plus a
+    synthetic throwaway layout that exercises specificity, source order, the OS-dark block
+    versus [data-theme] and the custom-colour blocks. Returns (status, max_channel_diff, lines)
+    where status is 'ok', 'fail' or 'skipped'."""
     try:
         from playwright.sync_api import sync_playwright
     except Exception:
         return "skipped", 0, ["Playwright is not installed: browser comparison skipped."]
     layouts = layouts or layout_ids()
     exe = _find_chromium()
-    overrides = [("default", {})]
-    overrides += [(n, {"--st-league-color": h}) for n, h in alt_league_colours()]
-    overrides.append(("two-colour set", {"--st-league-color": "#C98A12", "--st-league-color-dark": "#E3B341",
-                                         "--st-layout-accent": "#2F6B3A", "--st-layout-accent-dark": "#7FC08A"}))
+    colours = alt_league_colours()
+    # (name, custom-colour mode?, inline overrides)
+    variants = [("default", False, {})]
+    variants += [(c["name"], True, {"--st-league-color": c["hex"]}) for c in colours]
+    variants.append(("colour+dark", True, {"--st-league-color": "#9E1B32", "--st-league-color-dark": "#E58A9A"}))
+    variants.append(("inline, no attribute", False, {"--st-league-color": colours[-1]["hex"]}))
     roles = list(COLOUR_ROLES) + list(LEAGUE_HELPERS)
-    cases = []     # (id, layout, attr theme or None, scheme, override name, overrides)
+    real, synth = [], []
     for lid in layouts:
-        for oname, o in overrides:
+        for vname, custom, o in variants:
             for scheme in ("light", "dark"):
                 for attr in (None, "light", "dark"):
-                    cases.append(("%s|%s|%s|%s" % (lid, oname, scheme, attr or "-"), lid, attr, scheme, oname, o))
+                    real.append({"id": "%s|%s|%s|%s" % (lid, vname, scheme, attr or "-"), "layout": lid, "attr": attr,
+                                 "scheme": scheme, "custom": custom, "over": o, "roles": roles, "team": True})
+    syn_over = [("none", {}), ("light only", {"--st-league-color": "#2F6B3A"}),
+                ("light+dark", {"--st-league-color": "#2F6B3A", "--st-league-color-dark": "#7FC08A"})]
+    for custom in (False, True):
+        for oname, o in syn_over:
+            for scheme in ("light", "dark"):
+                for attr in (None, "light", "dark"):
+                    synth.append({"id": "zz|%s|%s|%s|%s" % ("custom" if custom else "plain", oname, scheme, attr or "-"),
+                                  "layout": "zz", "attr": attr, "scheme": scheme, "custom": custom, "over": o,
+                                  "roles": _SYNTHETIC_ROLES, "team": False})
     lines, max_diff, worst, compared = [], 0, None, 0
     tmp = tempfile.TemporaryDirectory()
+    syn_path = Path(tmp.name) / "synthetic.css"
+    syn_path.write_text(_SYNTHETIC_CSS, encoding="utf-8")
+    syn_rules = [parse_css(_SYNTHETIC_CSS, "synthetic.css")]
+    real_css = [CSS_DIR / "tokens.css"] + [LAYOUT_DIR / (i + ".css") for i in layouts]
     try:
         with sync_playwright() as pw:
             launch = {"args": ["--no-sandbox"]}
@@ -1639,82 +1935,93 @@ def verify_browser(layouts: Optional[list] = None, verbose: bool = False) -> tup
                 return "skipped", 0, ["Chromium could not be started (%s): browser comparison skipped." % str(e).splitlines()[0]]
             lines.append("Chromium %s" % browser.version)
             for scheme in ("light", "dark"):
-                sub = [c for c in cases if c[3] == scheme]
-                html = ["<!doctype html><meta charset=utf-8>"]
-                for f in [CSS_DIR / "tokens.css"] + [LAYOUT_DIR / (i + ".css") for i in layouts]:
-                    html.append('<link rel=stylesheet href="file://%s">' % f)
-                for cid, lid, attr, _, _, o in sub:
-                    style = ";".join("%s:%s" % (k, v) for k, v in o.items())
-                    html.append('<div class=wrap data-id="%s" data-layout="%s"%s style="%s">' % (
-                        cid, lid, (' data-theme="%s"' % attr) if attr else "", style))
-                    for role in roles:
-                        html.append('<div class=probe data-role="%s" style="background-color:var(--st-%s)"></div>' % (role, role))
-                    html.append('<div class="probe st-team--custom" data-role="team-custom" style="--st-team-hex:#D9621A;'
-                                'background-color:var(--st-team)"></div></div>')
-                path = Path(tmp.name) / ("probe-%s.html" % scheme)
-                path.write_text("\n".join(html), encoding="utf-8")
-                ctx = browser.new_context(color_scheme=scheme)
-                page = ctx.new_page()
-                page.goto("file://%s" % path)
-                data = {r["id"]: r for r in page.evaluate(_VERIFY_JS)}
-                stop_jobs = []
-                for cid, lid, attr, _, oname, o in sub:
-                    rec = data[cid]
-                    theme = attr or scheme
-                    pal = Palette(lid, attr, prefers_dark=(scheme == "dark"), overrides=o)
-                    exp_roles = {r: pal.paint(r) for r in roles}
-                    lift = pal.text_of("team-lift")
-                    try:
-                        exp_roles["team-custom"] = parse_colour("color-mix(in oklab, #D9621A, white %s)" % lift)
-                    except ColourError:
-                        pass
-                    for role, paint in exp_roles.items():
-                        got = rec["roles"].get(role)
-                        if paint is None or isinstance(paint, Gradient) or got is None or got[0] is None:
-                            continue
-                        for k, base in ((0, WHITE), (1, BLACK)):
-                            exp = rgb8(composite(paint, base))
-                            diff = max(abs(a - b) for a, b in zip(exp, got[k]))
-                            compared += 1
-                            if diff > max_diff or worst is None:
-                                if diff >= max_diff:
-                                    max_diff = diff
-                                    worst = "%s %s (%s): mine %s, Chromium %s, css %s" % (cid, role, "over white" if k == 0 else "over black", exp, tuple(got[k]), got[2])
-                    grad = pal.paint("header-bg")
-                    if isinstance(grad, Gradient):
-                        text = rec["grad"]["header-bg"].strip()
-                        parts = split_top(text[text.index("(") + 1:text.rindex(")")]) if "gradient" in text else []
-                        if parts and re.match(r"^\s*(to\s|[-+]?[\d.]+(deg|turn))", parts[0]):
-                            parts = parts[1:]
-                        css_stops = []
-                        for a in parts:
-                            toks = split_ws(a)
-                            if len(toks) > 1 and re.match(r"^[-+]?[\d.]+(%|px)?$", toks[-1]):
-                                toks = toks[:-1]
-                            css_stops.append(" ".join(toks))
-                        stop_jobs.append((cid, css_stops, grad))
-                for cid, css_stops, grad in stop_jobs:
-                    got = page.evaluate(_STOPS_JS, css_stops)
-                    if len(got) != len(grad.stops):
-                        lines.append("gradient stop count differs for %s: mine %d, Chromium %d" % (cid, len(grad.stops), len(got)))
-                        max_diff = 255
-                        continue
-                    for (c, _), g in zip(grad.stops, got):
-                        for k, base in ((0, WHITE), (1, BLACK)):
-                            if g[k] is None:
+                for name, files, cases in (("real", real_css, real), ("synthetic", [syn_path], synth)):
+                    sub = [c for c in cases if c["scheme"] == scheme]
+                    ctx, page, data = _probe_page(browser, tmp.name, name, scheme, files, sub)
+                    stop_jobs = []
+                    for c in sub:
+                        rec = data[c["id"]]
+                        if name == "real":
+                            pal = Palette(c["layout"], c["attr"], prefers_dark=(scheme == "dark"), overrides=c["over"],
+                                          custom=c["custom"])
+                        else:
+                            pal = Palette.from_decls(cascade_rules(syn_rules, "zz", c["attr"], scheme == "dark", c["over"], c["custom"]),
+                                                     "zz", c["attr"] or scheme)
+                        exp_roles = {r: pal.paint(r) for r in c["roles"]}
+                        if c.get("team"):
+                            lift = pal.text_of("team-lift")
+                            try:
+                                exp_roles["team-custom"] = parse_colour("color-mix(in oklab, #D9621A, white %s)" % lift)
+                            except ColourError:
+                                pass
+                        for role, paint in exp_roles.items():
+                            got = rec["roles"].get(role)
+                            if paint is None or isinstance(paint, Gradient) or got is None or got[0] is None:
                                 continue
-                            diff = max(abs(a - b) for a, b in zip(rgb8(composite(c, base)), g[k]))
-                            compared += 1
-                            if diff > max_diff:
-                                max_diff, worst = diff, "%s header-bg stop" % cid
-                ctx.close()
+                            for k, base in ((0, WHITE), (1, BLACK)):
+                                exp = rgb8(composite(paint, base))
+                                diff = max(abs(a - b) for a, b in zip(exp, got[k]))
+                                compared += 1
+                                if diff > max_diff or worst is None:
+                                    if diff >= max_diff:
+                                        max_diff = diff
+                                        worst = "%s %s (%s): mine %s, Chromium %s, css %s" % (
+                                            c["id"], role, "over white" if k == 0 else "over black", exp, tuple(got[k]), got[2])
+                        grad = pal.paint("header-bg") if name == "real" else None
+                        if isinstance(grad, Gradient):
+                            text = rec["grad"]["header-bg"].strip()
+                            parts = split_top(text[text.index("(") + 1:text.rindex(")")]) if "gradient" in text else []
+                            if parts and re.match(r"^\s*(to\s|[-+]?[\d.]+(deg|turn))", parts[0]):
+                                parts = parts[1:]
+                            css_stops = []
+                            for a in parts:
+                                toks = split_ws(a)
+                                if len(toks) > 1 and re.match(r"^[-+]?[\d.]+(%|px)?$", toks[-1]):
+                                    toks = toks[:-1]
+                                css_stops.append(" ".join(toks))
+                            stop_jobs.append((c["id"], css_stops, grad))
+                    for cid, css_stops, grad in stop_jobs:
+                        got = page.evaluate(_STOPS_JS, css_stops)
+                        if len(got) != len(grad.stops):
+                            lines.append("gradient stop count differs for %s: mine %d, Chromium %d" % (cid, len(grad.stops), len(got)))
+                            max_diff = 255
+                            continue
+                        for (col, _), g in zip(grad.stops, got):
+                            for k, base in ((0, WHITE), (1, BLACK)):
+                                if g[k] is None:
+                                    continue
+                                diff = max(abs(a - b) for a, b in zip(rgb8(composite(col, base)), g[k]))
+                                compared += 1
+                                if diff > max_diff:
+                                    max_diff, worst = diff, "%s header-bg stop" % cid
+                    ctx.close()
             browser.close()
     finally:
         tmp.cleanup()
-    lines.append("compared %d colour samples (%d wrappers x %d roles + gradient stops)" % (
-        compared, len(cases), len(roles) + 1))
+    lines.append("compared %d colour samples (%d layout wrappers x %d roles, %d synthetic-layout wrappers x %d roles, "
+                 "plus gradient stops)" % (compared, len(real), len(roles) + 1, len(synth), len(_SYNTHETIC_ROLES)))
     lines.append("max channel difference: %d/255%s" % (max_diff, (" at " + worst) if worst and max_diff > 0 else ""))
     return ("ok" if max_diff <= 1 else "fail"), max_diff, lines
+
+
+
+def trace_custom(layout: str, hex_: str, hex_dark: Optional[str] = None) -> list:
+    """Lines showing how every colour role resolves for `layout` in custom-colour mode: the
+    cascade's raw value, the value with var() substituted, and the colour it paints."""
+    hex_, hex_dark = _norm_hex(hex_, "colour"), _norm_hex(hex_dark, "colour_dark")
+    over = league_overrides(hex_, hex_dark)
+    out = ["%s in custom-colour mode, %s%s" % (layout, hex_, " / dark " + hex_dark if hex_dark else "")]
+    for theme in THEMES:
+        pal = palette(layout, theme, over, custom=True)
+        out += ["", "[%s theme]" % theme]
+        for role in list(LEAGUE_HELPERS) + COLOUR_ROLES:
+            if not pal.defined(role):
+                out.append("  --st-%-20s (undefined)" % role)
+                continue
+            paint = pal.paint(role)
+            shown = ("gradient" if isinstance(paint, Gradient) else to_hex(paint)) if paint is not None else "(unresolved)"
+            out.append("  --st-%-20s %-9s %s" % (role, shown, pal.raw(role)))
+    return out
 
 
 # =============================================================================
@@ -1728,10 +2035,18 @@ def main(argv: Optional[list] = None) -> int:
     mode.add_argument("--check", action="store_true", help="do not write; fail if docs/contrast.md is out of date")
     mode.add_argument("--tokens", action="store_true", help="token lint only")
     ap.add_argument("--verify-browser", action="store_true", help="also compare the colour maths with Chromium (needs Playwright)")
+    ap.add_argument("--trace", nargs="+", metavar=("LAYOUT", "HEX"),
+                    help="print how every colour role resolves in custom-colour mode: --trace LAYOUT HEX [HEX_DARK]")
     ap.add_argument("--out", default=str(DOC_PATH), help="where --write puts the report")
     args = ap.parse_args(argv)
 
     code = 0
+    if args.trace:
+        if len(args.trace) not in (2, 3):
+            ap.error("--trace takes LAYOUT HEX [HEX_DARK]")
+        for ln in trace_custom(args.trace[0], args.trace[1], args.trace[2] if len(args.trace) == 3 else None):
+            print(ln)
+        return 0
     if args.tokens:
         findings = lint_tokens()
         for f in findings:
@@ -1750,10 +2065,15 @@ def main(argv: Optional[list] = None) -> int:
                 (" worst: " + r.worst) if r.worst else ""))
         for f in rep.findings:
             print("%s %s: %s" % (f.level, f.where, f.message))
+        for lid, name, p in rep.league_failures:
+            print("LEAGUE-COLOUR %s %s %s: %s" % (lid, name, p.theme, p.message))
+        for name in rep.expected_fail_passes:
+            print("LEAGUE-COLOUR %s is marked expected_fail but raises no problem" % name)
         n_pairs = sum(1 for rs in rep.results.values() for r in rs if r.status != "skip")
-        print("%d pairs checked across %d layouts x 2 themes: %d fail, %d dark-block mismatch, %d lint error(s), %d lint warning(s)" % (
-            n_pairs, len(rep.layouts), len(rep.failures), len(rep.parity), len(rep.errors),
-            len(rep.findings) - len(rep.errors)))
+        print("%d pairs checked across %d layouts x 2 themes: %d fail, %d dark-block mismatch, %d lint error(s), %d lint warning(s); "
+              "%d league-colour example problem(s) that must not occur" % (
+                  n_pairs, len(rep.layouts), len(rep.failures), len(rep.parity), len(rep.errors),
+                  len(rep.findings) - len(rep.errors), len(rep.league_failures)))
         if not rep.ok:
             code = 1
         out = Path(args.out)

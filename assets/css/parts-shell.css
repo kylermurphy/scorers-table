@@ -62,7 +62,7 @@
   background: var(--st-header-text);
   color: var(--st-league-color, var(--st-header-bg));
   font-family: var(--st-font-display);
-  font-size: 1.1875rem;
+  font-size: var(--st-step-2xl);   /* mockup: 19px, within 1px of the step */
   font-weight: var(--st-w-display);
   letter-spacing: 0.04em;
   line-height: 1;
@@ -71,7 +71,7 @@
 .st-brand__badge--sm {
   width: var(--st-badge-size-sm);
   height: var(--st-badge-size-sm);
-  font-size: 0.9375rem;
+  font-size: var(--st-step-base);
 }
 img.st-brand__badge,
 .st-brand__badge > img {
@@ -100,7 +100,7 @@ img.st-brand__badge,
 .st-brand__name {
   display: block;
   font-family: var(--st-font-display);
-  font-size: 1.4375rem;
+  font-size: 1.4375rem;   /* mockup: 23px; one step up (24px) would wrap "Maple Park Slo-Pitch" */
   font-weight: var(--st-w-display);
   letter-spacing: var(--st-display-tracking);
   line-height: 1.05;
@@ -255,7 +255,7 @@ img.st-brand__badge,
 .st-footer__name {
   color: var(--st-footer-link);
   font-family: var(--st-font-display);
-  font-size: 1.125rem;
+  font-size: var(--st-step-xl);   /* mockup: 18px, within 1px of the step */
   font-weight: var(--st-w-display);
   letter-spacing: var(--st-display-tracking);
   line-height: 1.15;
@@ -392,7 +392,7 @@ img.st-brand__badge,
   column-gap: var(--st-space-md);
 }
 [data-layout="basketball"] .st-footer__name {
-  font-size: 1.1875rem;
+  font-size: var(--st-step-2xl);   /* mockup: 19px, within 1px of the step */
   letter-spacing: 0.03em;
 }
 
@@ -574,7 +574,7 @@ img.st-brand__badge,
   box-shadow: none;
 }
 [data-layout="classic"] .st-brand__name {
-  font-size: 1.375rem;
+  font-size: 1.375rem;   /* mockup: 22px */
 }
 [data-layout="classic"] .st-brand__meta {
   margin-top: var(--st-space-3xs);
@@ -633,14 +633,14 @@ img.st-brand__badge,
 [data-layout="scoreboard"] .st-brand__badge {
   width: 2.875rem;
   height: 2.875rem;
-  font-size: 1.0625rem;
+  font-size: var(--st-step-xl);
   letter-spacing: 0.02em;
 }
 [data-layout="scoreboard"] .st-brand__text {
   line-height: 1;
 }
 [data-layout="scoreboard"] .st-brand__name {
-  font-size: 1.5625rem;
+  font-size: var(--st-step-3xl);   /* mockup: 25px, within 1px of the step */
   letter-spacing: 0.03em;
   line-height: 1;
 }
@@ -670,7 +670,7 @@ img.st-brand__badge,
   padding-top: 1.25rem;
 }
 [data-layout="scoreboard"] .st-footer__name {
-  font-size: 1.375rem;
+  font-size: 1.375rem;   /* mockup: 22px */
   letter-spacing: 0.03em;
 }
 [data-layout="scoreboard"] .st-footer__nav a {

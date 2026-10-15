@@ -25,7 +25,15 @@ def _brand_name(league: dict) -> str:
 
 
 def _toggle(state: str = "to-dark") -> str:
-    """state 'to-dark' = light page, shows the moon; 'to-light' = dark page, shows the sun."""
+    """state 'to-dark' = light page, shows the moon; 'to-light' = dark page, shows the sun.
+
+    ARIA: the button names the ACTION and the name changes with the page ("Switch to dark
+    theme" / "Switch to light theme"). That is the "changing label" pattern, so it must NOT
+    also carry aria-pressed (a toggle button keeps one fixed label and flips aria-pressed;
+    doing both announces "Switch to dark theme, pressed" and reads as contradictory).
+    Stage 4's site.js swaps aria-label (and the icon) on every press and keeps no
+    aria-pressed. The button stays hidden until JS runs.
+    """
     if state == "to-dark":
         return ('<button class="st-theme-toggle" type="button" aria-label="Switch to dark theme">'
                 f'{MOON_SVG}</button>')
@@ -177,7 +185,7 @@ PARTS = [
     ),
     Part(
         id="theme-toggle", title="Theme button", group="Shell", render=render_toggle,
-        note="44 px round button: the moon (page is light, switches to dark) and the sun (page is dark, switches to light).",
+        note="44 px round button: the moon (page is light, switches to dark) and the sun (page is dark, switches to light). The label names the action and changes with the page, so no aria-pressed.",
     ),
     Part(
         id="ticker", title="Ticker", group="Shell", render=render_ticker, layouts=("scoreboard",),

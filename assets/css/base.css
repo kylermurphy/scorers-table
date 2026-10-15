@@ -99,6 +99,18 @@
   width: 0.75rem;
   height: 0.75rem;
 }
+/* Team code (BLA, WOL): the visible name beside a chip where the full name has no room.
+   A chip alone is colour only; the code is what tells the teams apart. */
+.st-team-code {
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+abbr.st-team-code {
+  text-decoration: none;
+}
 
 /* Tag: Final, Tie, WIN, GWG, Spare, Forfeit */
 .st-badge {
