@@ -509,7 +509,8 @@ def test_games_behind_count_from_the_best_co_leader_and_use_a_real_minus():
     games = [g("g1", "a", "c", [9, 9, 9, 9], [0, 0, 0, 0]), g("g2", "a", "d", [9, 9, 9, 9], [0, 0, 0, 0]),
              g("g3", "b", "c", [1, 1, 0, 0], [0, 0, 1, 1], final={"home": 3, "away": 2}),
              g("g4", "b", "d", [1, 1, 0, 0], [0, 0, 1, 1], final={"home": 3, "away": 2}),
-             g("g5", "b", "c", [1, 1, 0, 0], [0, 0, 1, 1], final={"home": 3, "away": 2})]
+             g("g5", "c", "a", [1, 0, 0, 0], [0, 0, 0, 0])]
+    # a 2-1 with 7 + 7 + 0 = 14 points; b 2-0 with 5 + 5 = 10: b is half a game ahead of the leader
     res = table(games, st, periods=4)
     assert [r["team"] for r in res.rows][:2] == ["a", "b"] and col(res, "pts")["a"] == "14"
     assert col(res, "gb")["b"] == "−0.5" and col(res, "gb", shown=False)["b"] == -0.5
@@ -531,14 +532,15 @@ def test_four_way_tie_split_by_head_to_head_into_different_sub_groups():
 
 
 def test_cycle_is_then_split_by_the_next_breaker():
-    games = [g("g1", "a", "b", 1, 0), g("g2", "b", "c", 5, 0), g("g3", "c", "a", 3, 0)]
+    # a beat b, b beat c, c beat a: head-to-head is all level, so diff decides (b +4, a -1, c -3)
+    games = [g("g1", "a", "b", 1, 0), g("g2", "b", "c", 5, 0), g("g3", "c", "a", 2, 0)]
     res = table(games, S(tiebreakers=["head_to_head", "diff"]), teams={t: TEAMS[t] for t in "abc"})
-    assert order(res) == [("b", 1), ("c", 2), ("a", 3)] and {r["broke_by"] for r in res.rows} == {"diff"}
+    assert order(res) == [("b", 1), ("a", 2), ("c", 3)] and {r["broke_by"] for r in res.rows} == {"diff"}
 
 
 def test_small_seasons_one_game_a_bye_only_playoffs_and_a_single_team():
     one = table([g("g1", "a", "b", 3, 1)], S(columns=ALL_COLUMNS))
-    assert order(one) == [("a", 1), ("c", 2), ("d", 2), ("b", 4)]            # c and d (byes) level on 0 with b? no:
+    assert order(one) == [("a", 1), ("b", 2), ("c", 2), ("d", 2)]            # c and d had a bye: level with b on 0
     rows = {r["team"]: r for r in one.rows}
     assert rows["c"]["display"]["gp"] == "0" and rows["c"]["display"]["pct"] == ".000"
     assert rows["c"]["display"]["gb"] == "0.5" and rows["b"]["display"]["gb"] == "1"
