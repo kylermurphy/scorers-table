@@ -45,3 +45,5 @@ body.ds { margin: 0; background: var(--ds-bg); color: var(--ds-text); font: 16px
 .ds-bars i { display: block; height: 14px; background: var(--ds-link); border-radius: 2px; }
 .ds-radii { display: flex; flex-wrap: wrap; gap: 12px; }
 .ds-radii > div { width: 96px; height: 64px; border: 2px solid var(--ds-link); display: grid; place-items: center; font: 12px ui-monospace, monospace; background: var(--ds-card); }
+.ds-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; margin: 0; padding: 0; list-style: none; }
+.ds-chiprow { display: flex; align-items: center; gap: 8px; min-width: 0; }

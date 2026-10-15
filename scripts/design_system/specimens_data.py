@@ -471,6 +471,30 @@ def render_team_card(ctx: Ctx) -> str:
 
 # --------------------------------------------------------------------------- the parts
 
+CUSTOM_TEAM_COLOURS = [("Navy", "#1D3A6E"), ("Black", "#000000"), ("Green", "#2F6B3A"), ("Brown", "#7A4A1E"),
+                       ("Purple", "#5B3A8C"), ("Red", "#9E1B32"), ("Gold", "#F2A900"), ("Yellow", "#FFC233")]
+
+
+def render_team_colour(ctx: Ctx) -> str:
+    """A league's own team colours: chips and a team card using .st-team--custom (lifted in dark mode)."""
+    team = ctx.league["teams"][0]
+    rows = "".join(
+        f'<li class="ds-chiprow"><span class="st-chip st-chip--lg st-team--custom" style="--st-team-hex:{hexv}" '
+        f'aria-hidden="true"></span><span>{esc(name)} <span class="st-note">{hexv}</span></span></li>'
+        for name, hexv in CUSTOM_TEAM_COLOURS
+    )
+    card = (
+        '<a class="st-team-card st-team--custom" style="--st-team-hex:#1D3A6E" href="#">'
+        f'<span class="st-team-card__name">{esc(team["name"])}</span>'
+        f'<span class="st-team-card__record">{esc(team["record"])}</span>'
+        '<span class="st-team-card__rank">Team colour #1D3A6E, set by the league</span></a>'
+    )
+    return (
+        '<div class="ds-pad"><ul class="ds-chips" role="list">' + rows + '</ul>'
+        '<div class="st-list" style="margin-top:var(--st-space-md)">' + card + '</div></div>'
+    )
+
+
 PARTS = [
     Part(
         "standings", "Standings", "Data", render_standings,
@@ -504,5 +528,11 @@ PARTS = [
     Part(
         "team-card", "Team card", "Data", render_team_card,
         note="Not mocked in round 1: please review. Colour edge from --st-team; name, record and points, rank line.",
+    ),
+    Part(
+        "team-colour", "Team colours (a league's own hex)", "Data", render_team_colour,
+        sports=("basketball",),
+        note="A team colour set by the league with --st-team-hex. In dark mode it is lifted toward white by "
+             "--st-team-lift so dark colours such as navy stay visible. The team name is always beside the chip.",
     ),
 ]
