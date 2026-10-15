@@ -80,7 +80,7 @@
   --st-header-text: #FFFFFF;
   --st-header-muted: #B8C0CC;
   --st-header-line: var(--st-league-2-base);
-  --st-header-button-line: #FFFFFF40;
+  --st-header-button-line: #FFFFFF59;
   --st-tab: var(--st-league-2-base);
   --st-nav-bg: transparent;
   --st-nav-text: #FFFFFF;
@@ -160,7 +160,7 @@
     --st-link: var(--st-league-tint);
     --st-link-hover: #FFFFFF;
     --st-accent: #EEF2F7;
-    --st-hot: #FF6B7A;
+    --st-hot: #FF7482;
     --st-rule: var(--st-league-tint);
     --st-focus: var(--st-league-tint);
 
@@ -216,7 +216,7 @@
   --st-link: var(--st-league-tint);
   --st-link-hover: #FFFFFF;
   --st-accent: #EEF2F7;
-  --st-hot: #FF6B7A;
+  --st-hot: #FF7482;
   --st-rule: var(--st-league-tint);
   --st-focus: var(--st-league-tint);
 

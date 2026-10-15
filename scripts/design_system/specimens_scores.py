@@ -64,6 +64,7 @@ def legend_item(kind: str, text: str, mark: str = "") -> str:
     if kind == "hammer":
         key = hammer(None, 12)
     elif kind in ("limit", "x"):
+        mark = mark or "X"
         key = f'<span class="st-legend__key st-legend__key--{kind}" aria-hidden="true">{esc(mark)}</span>'
     else:
         key = f'<span class="st-legend__key st-legend__key--{kind}" aria-hidden="true"></span>'
@@ -312,12 +313,12 @@ def render_result_cards(ctx: Ctx) -> str:
         note = L["results_legend"][0]
         # "5 = inning ended at the 5-run limit. X = not needed."
         first, rest = note.split(" = ", 1)
-        out.append(f'<p class="st-note"><span class="st-legend__key st-legend__key--limit st-legend__key--text">{esc(first)}</span>'
+        out.append(f'<p class="st-note" style="margin-top:.5rem"><span class="st-legend__key st-legend__key--limit st-legend__key--text">{esc(first)}</span>'
                    f' = {esc(rest)}</p>')
     else:
         out.append('<div class="st-list">' + "".join(result_card(ctx, r) for r in res) + "</div>")
         first = next(r for r in res if r["period_scores"])
-        out.append('<p class="st-note">The same game with its line score (<code>--lines</code>):</p>')
+        out.append('<p class="st-note" style="margin:.75rem 0 .5rem">The same game with its line score (<code>--lines</code>):</p>')
         out.append('<div class="st-list">' + result_card(ctx, first, True) + "</div>")
     return pad("".join(out))
 
@@ -394,7 +395,7 @@ def final_head(ctx: Ctx) -> str:
             f'<div class="st-final__team{" is-winner" if t["winner"] else ""}">'
             f'<span class="st-final__name">{chip(tt, "lg")}<span>{esc(tt["name"])}{badge}</span></span>'
             f'<span class="st-final__record">{esc(rec)}</span></div>')
-        nums.append(f'<span class="st-final__num{"" if t["winner"] else " is-dim"}">{t["score"]}</span>')
+        nums.append(f'<span class="st-final__num {"is-first" if not nums else "is-second"}{"" if t["winner"] else " is-dim"}">{t["score"]}</span>')
     score = (f'<div class="st-final__score"><span class="st-visually-hidden">Final score: </span>'
              f'{nums[0]}<span class="st-final__sep" aria-hidden="true">–</span>{nums[1]}</div>')
     return f'<div class="st-final__head">{"".join(parts)}{teams[0]}{score}{teams[1]}</div>'
@@ -443,7 +444,7 @@ def render_line_score(ctx: Ctx) -> str:
     r = L["results"][0]
     out = [
         '<p class="st-label">Full size (game page)</p>',
-        ls_from_game(ctx, "full", region=True),
+        f'<div class="st-card" style="padding:.75rem .5rem .25rem">{ls_from_game(ctx, "full", region=True)}</div>',
         '<p class="st-label" style="margin-top:1.25rem">Card size (inside a result card)</p>',
         f'<div class="st-card" style="padding:.75rem .875rem">{ls_from_result(ctx, r, "card", region=True)}</div>',
     ]
