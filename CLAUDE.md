@@ -47,6 +47,39 @@ Checks to run after any CSS change: `python scripts/check_contrast.py` (WCAG AA 
 themes and every example league colour; rewrites `docs/contrast.md`; must pass) and `python -m pytest`
 (`pip install pytest`). `python scripts/build_css_fallbacks.py` regenerates `fallbacks.css`.
 
-## Stack (planned, stage 4)
-Jekyll on GitHub Pages, built by GitHub Actions after a Python step that
-checks the data and works out the numbers. No JavaScript framework.
+## The core (stage 4, delivered in a pull request awaiting review)
+Read `docs/stage-4-spec.md` (the design, with the decisions the owner approved), `docs/data.md` (the data files)
+and `docs/sports.md` (the sport folder) before touching it.
+```
+league.yml                  the league's settings (the one file a setup person edits)
+data/                       seasons.yml and one folder per season: teams.yml, players.yml, schedule.csv,
+                            games/ (finished sheets), drafts/ (never built), sheets/ (photos)
+sports/<id>/                a sport: sport.yml, rules.py (check, read, present, derive), sample.py, README.md
+scripts/core/               the Python package: model (types), problems, config, sports, loader, standings,
+                            compute*, calendars, writer
+scripts/build.py            load -> check -> compute -> write _data/computed/, stub pages, calendars
+_layouts/ _includes/        Jekyll: one include per design-system part (_includes/parts, _includes/shell)
+index.html schedule/ ...    the pages; assets/css (stage 3), assets/js/site.js (theme toggle only)
+tests/                      pytest: unit, golden (tests/golden), Jekyll smoke, parity with the design-system page
+.github/workflows/build.yml tests -> contrast -> build -> Jekyll -> preview -> link check -> deploy
+```
+Commands: `python scripts/build.py [--sample] [--check]` (always run it before previewing data changes: it also
+writes the stub pages and the active season), `bundle exec jekyll serve`, `python -m pytest`,
+`python scripts/make_sample.py` (rewrites `data/sample-*/`: made-up, deterministic, committed).
+Rules that came with the core:
+- **`_data/computed/`, `_games/`, `_players/`, `_teams/`, `_archive/`, `calendar/` are generated** (git-ignored):
+  never edit them. The golden files in `tests/golden/` are regenerated with `UPDATE_GOLDEN=1 pytest tests/test_golden.py`
+  and reviewed by eye.
+- **Every problem names its box** (`file: path: message`); the build stops with all of them and writes nothing.
+- **Includes never test the sport** and read only the computed JSON; sports supply data (words, flags, blocks),
+  not templates. A new part is added to the design system first (specimen, CSS, contrast pairs) and then to
+  `_includes/parts/` with a parity case.
+- **Sport rules live in `sports/<id>/rules.py`** (Python first; the JavaScript copy for the entry page comes
+  with stage 5/7 and shares the test fixtures).
+- Unset "league decides" settings build with the sport's typical default, show a visible `[placeholder]` and
+  appear in the build's "Still to decide" list: never invent a league fact.
+
+## Stack
+Jekyll 4.4 on GitHub Pages, deployed by GitHub Actions after a Python step (PyYAML + standard library) that
+checks the data and works out the numbers. No Ruby plugins beyond Pages-safe ones. No JavaScript framework:
+`assets/js/site.js` is the theme toggle; the pages work with JavaScript off.

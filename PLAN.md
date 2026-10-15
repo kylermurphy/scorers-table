@@ -11,7 +11,7 @@ stage says which Claude model fits it:
 A stage can run unattended (overnight) once its spec is approved: it ends in a
 pull request, never a merge.
 
-Status: stages 0-2 done (October 2026). Stage 3 (design system) is in review as a pull request; stage 4 starts once it is approved.
+Status: stages 0-3 done (October 2026). Stage 4 (the core) is in review as a pull request; stage 5 starts once it is approved.
 
 ## Stage 0: brief and plan (done in the Masters website session)
 - `BRIEF.md` (what it is, the core, the sports and their club rules, layouts,
@@ -74,6 +74,16 @@ The sport-neutral skeleton, with no sport yet beyond a stub:
   Pages).
 - **Model:** Opus designs the sport-folder interface (a short spec reviewed
   first); Sonnet builds it.
+
+**Delivered (spec: `docs/stage-4-spec.md`):** `league.yml`; the data loader and checks with box paths
+(`scripts/core/loader.py`); the sport interface (`sports/<id>/`: `sport.yml` + `check`, `read`, `present`,
+`derive`) and the `stub` test sport with made-up sample seasons; the standings engine with a pluggable points
+rule and named tiebreakers (Opus-reviewed against the Masters site); compute, calendars and an atomic writer;
+`scripts/build.py`; one Jekyll include per design-system part, kept equal to the stage 3 page by a parity
+test; the pages, head, theme toggle and sample banner; CI (tests, contrast, build, Jekyll, preview, link check,
+deploy). **Left for stage 5:** the real sports and their extra parts (event log, roster, numbers, facts, top
+performer, penalties), JS rules ports, and the `line_score` extras a sport needs. **Left for stage 6:** the
+screenshot sweep across six layouts per sport and small CSS for empty states.
 
 ## Stage 5: one sport at a time, one PR each
 Basketball first (ported from the Masters site, so it can be checked against a
