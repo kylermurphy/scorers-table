@@ -1,0 +1,268 @@
+/* scorers-table layout: hockey
+ * Hockey: old-timers and rec leagues (the sport default). Rink boards, lines and
+ * kickplate; scoring summary, penalties, goals/assists/points.
+ * Fonts: Saira Condensed (display, numbers; UPPERCASE) + Saira (text).
+ * Source: design canvas Hockey-Home, Hockey-Home-Dark, Hockey-Game; dark values from
+ * docs/dark-palettes.md. League colour = blue-line blue, colour 2 = kickplate gold
+ * (never used as text on light). The boards and the red line stay literal.
+ *
+ * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
+ * team palette, league-colour defaults and the header scene. This is the one place
+ * raw hex is allowed. Dark values are written twice (OS preference, and the
+ * [data-theme="dark"] button) and must stay identical.
+ */
+
+[data-layout="hockey"] {
+  color-scheme: light;
+
+  /* League inputs (a league overrides these inline on <html>) */
+  --st-league-color: #1D4E89;
+  --st-league-color-2: #F2A900;
+
+  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
+  --st-tint: 55%;
+
+  /* Type */
+  --st-font-display: "Saira Condensed", "Arial Narrow", sans-serif;
+  --st-font-body: "Saira", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);
+  --st-w-display: 800;
+  --st-w-strong: 600;
+  --st-display-transform: uppercase;
+  --st-display-tracking: 0.02em;
+  --st-num-variant: tabular-nums;
+  --st-fs-label: var(--st-step-sm); /* 13 px */
+  --st-fs-h3: 1.375rem; /* 22 px */
+  --st-fs-h2: 1.5625rem; /* 25 px */
+  --st-fs-stat: 2.625rem; /* 42 px */
+  --st-fs-score-card: var(--st-step-4xl); /* 28 px */
+  --st-fs-score-hero: var(--st-step-9xl); /* 72 px */
+
+  /* Shape */
+  --st-radius-card: 0.875rem;
+  --st-radius-panel: 0.875rem;
+  --st-radius-chip: var(--st-radius-pill);
+  --st-radius-sm: 0.625rem;
+
+  /* Team palette, in the order the standings list the sample teams */
+  --st-team-1: #C8102E;
+  --st-team-2: #1D4E89;
+  --st-team-3: #2F6B3A;
+  --st-team-4: #0E7C8A;
+  --st-team-5: #6B7280;
+  --st-team-6: #A8561C;
+  --st-team-lift: 0%;
+
+  /* Ground */
+  --st-bg: #F6F8FA;
+  --st-bg-image: none;
+  --st-surface: #FFFFFF;
+  --st-surface-2: #EDF1F5;
+  --st-line: #DCE2EA;
+  --st-line-strong: #C3CAD4;
+
+  /* Text */
+  --st-text: #151A22;
+  --st-muted: #5A6478;
+  --st-link: var(--st-league-base);
+  --st-link-hover: #14181F;
+  --st-accent: #151A22;
+  --st-hot: #C8102E;
+  --st-rule: var(--st-league-base);
+  --st-focus: var(--st-league-base);
+
+  /* Buttons */
+  --st-button-bg: var(--st-league-base);
+  --st-on-accent: var(--st-league-ink);
+
+  /* Header */
+  --st-header-bg: #14181F;
+  --st-header-text: #FFFFFF;
+  --st-header-muted: #B8C0CC;
+  --st-header-line: var(--st-league-2-base);
+  --st-header-button-line: #FFFFFF40;
+  --st-tab: var(--st-league-2-base);
+  --st-nav-bg: transparent;
+  --st-nav-text: #FFFFFF;
+  --st-nav-muted: #C3CAD4;
+
+  /* Panel (next game night) */
+  --st-panel-bg: #14181F;
+  --st-panel-text: #FFFFFF;
+  --st-panel-muted: #B8C0CC;
+  --st-panel-label: var(--st-league-2-base);
+  --st-panel-row: #FFFFFF14;
+  --st-panel-line: transparent;
+  --st-panel-tile-bg: #FFFFFF;
+  --st-panel-tile-text: #14181F;
+
+  /* Footer */
+  --st-footer-bg: #14181F;
+  --st-footer-text: #FFFFFF;
+  --st-footer-muted: #B8C0CC;
+  --st-footer-link: #FFFFFF;
+  --st-footer-line: #FFFFFF26;
+  --st-footer-accent: var(--st-league-2-base);
+
+  /* Marks and badges */
+  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), white 85%);
+  --st-mark-text: #151A22;
+  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), black 30%);
+  --st-won-line: var(--st-league-base);
+  --st-blank-bg: #EDF1F5;
+  --st-badge-bg: var(--st-league-2-base);
+  --st-badge-text: #14181F;
+  --st-win-bg: var(--st-league-base);
+  --st-win-text: var(--st-league-ink);
+
+  /* Rank */
+  --st-rank-bg: #EDF1F5;
+  --st-rank-text: #14181F;
+  --st-rank-1-bg: var(--st-league-2-base);
+  --st-rank-1-text: #14181F;
+
+  /* Bars */
+  --st-bar-track: #DCE2EA;
+  --st-bar-fill: #5A6478;
+  --st-bar-lead: var(--st-league-base);
+
+  /* Score board */
+  --st-score-bg: #14181F;
+  --st-score-text: #FFFFFF;
+  --st-score-dim: #D7DCE3;
+  --st-score-line: #3A4250;
+
+  /* Scenes: data-URI SVGs, colours baked in, one per theme (placement rules at the end) */
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='14'><rect width='100%25' height='14' fill='%23FFFFFF'/><rect x='33.5%25' width='5' height='14' transform='translate(-2.5 0)' fill='%231D4E89'/><rect x='50%25' width='5' height='14' transform='translate(-2.5 0)' fill='%23C8102E'/><rect x='66.5%25' width='5' height='14' transform='translate(-2.5 0)' fill='%231D4E89'/><rect y='13' width='100%25' height='1' fill='%23DCE2EA'/></svg>");
+  --st-scene-image-footer: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="hockey"]:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --st-team-1: #FF6B7A;
+    --st-team-2: #6FA8FF;
+    --st-team-3: #4FB164;
+    --st-team-4: #7FDDE6;
+    --st-team-5: #8E96A3;
+    --st-team-6: #F0965A;
+    --st-team-lift: 40%;
+
+    --st-bg: #17202B;
+    --st-surface: #212C39;
+    --st-surface-2: #2A3646;
+    --st-line: #334255;
+    --st-line-strong: #4A5A70;
+
+    --st-text: #EEF2F7;
+    --st-muted: #A3AEBD;
+    --st-link: var(--st-league-tint);
+    --st-link-hover: #FFFFFF;
+    --st-accent: #EEF2F7;
+    --st-hot: #FF6B7A;
+    --st-rule: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+
+    --st-button-bg: var(--st-league-lift);
+
+    --st-header-bg: #090B0F;
+
+    --st-panel-bg: #090B0F;
+    --st-panel-line: #334255;
+
+    --st-footer-bg: #090B0F;
+
+    --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 78%);
+    --st-mark-text: var(--st-league-2-base);
+    --st-mark-line: var(--st-league-2-base);
+    --st-won-line: var(--st-league-tint);
+    --st-blank-bg: #2A3646;
+    --st-win-bg: var(--st-league-lift);
+
+    --st-rank-bg: #2E3A4B;
+    --st-rank-text: #EEF2F7;
+
+    --st-bar-track: #334255;
+    --st-bar-fill: #A3AEBD;
+    --st-bar-lead: var(--st-league-tint);
+
+    --st-score-bg: #090B0F;
+    --st-score-line: #334255;
+
+    --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='14'><rect width='100%25' height='14' fill='%231E2935'/><rect x='33.5%25' width='15' height='14' transform='translate(-7.5 0)' fill='%235C9BFF' opacity='.18'/><rect x='33.5%25' width='9' height='14' transform='translate(-4.5 0)' fill='%235C9BFF' opacity='.3'/><rect x='33.5%25' width='5' height='14' transform='translate(-2.5 0)' fill='%237DB2FF'/><rect x='50%25' width='15' height='14' transform='translate(-7.5 0)' fill='%23FF4D5E' opacity='.2'/><rect x='50%25' width='9' height='14' transform='translate(-4.5 0)' fill='%23FF4D5E' opacity='.32'/><rect x='50%25' width='5' height='14' transform='translate(-2.5 0)' fill='%23FF6B7A'/><rect x='66.5%25' width='15' height='14' transform='translate(-7.5 0)' fill='%235C9BFF' opacity='.18'/><rect x='66.5%25' width='9' height='14' transform='translate(-4.5 0)' fill='%235C9BFF' opacity='.3'/><rect x='66.5%25' width='5' height='14' transform='translate(-2.5 0)' fill='%237DB2FF'/><rect y='13' width='100%25' height='1' fill='%23334255'/></svg>");
+  }
+}
+
+[data-layout="hockey"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --st-team-1: #FF6B7A;
+  --st-team-2: #6FA8FF;
+  --st-team-3: #4FB164;
+  --st-team-4: #7FDDE6;
+  --st-team-5: #8E96A3;
+  --st-team-6: #F0965A;
+  --st-team-lift: 40%;
+
+  --st-bg: #17202B;
+  --st-surface: #212C39;
+  --st-surface-2: #2A3646;
+  --st-line: #334255;
+  --st-line-strong: #4A5A70;
+
+  --st-text: #EEF2F7;
+  --st-muted: #A3AEBD;
+  --st-link: var(--st-league-tint);
+  --st-link-hover: #FFFFFF;
+  --st-accent: #EEF2F7;
+  --st-hot: #FF6B7A;
+  --st-rule: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+
+  --st-button-bg: var(--st-league-lift);
+
+  --st-header-bg: #090B0F;
+
+  --st-panel-bg: #090B0F;
+  --st-panel-line: #334255;
+
+  --st-footer-bg: #090B0F;
+
+  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 78%);
+  --st-mark-text: var(--st-league-2-base);
+  --st-mark-line: var(--st-league-2-base);
+  --st-won-line: var(--st-league-tint);
+  --st-blank-bg: #2A3646;
+  --st-win-bg: var(--st-league-lift);
+
+  --st-rank-bg: #2E3A4B;
+  --st-rank-text: #EEF2F7;
+
+  --st-bar-track: #334255;
+  --st-bar-fill: #A3AEBD;
+  --st-bar-lead: var(--st-league-tint);
+
+  --st-score-bg: #090B0F;
+  --st-score-line: #334255;
+
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='14'><rect width='100%25' height='14' fill='%231E2935'/><rect x='33.5%25' width='15' height='14' transform='translate(-7.5 0)' fill='%235C9BFF' opacity='.18'/><rect x='33.5%25' width='9' height='14' transform='translate(-4.5 0)' fill='%235C9BFF' opacity='.3'/><rect x='33.5%25' width='5' height='14' transform='translate(-2.5 0)' fill='%237DB2FF'/><rect x='50%25' width='15' height='14' transform='translate(-7.5 0)' fill='%23FF4D5E' opacity='.2'/><rect x='50%25' width='9' height='14' transform='translate(-4.5 0)' fill='%23FF4D5E' opacity='.32'/><rect x='50%25' width='5' height='14' transform='translate(-2.5 0)' fill='%23FF6B7A'/><rect x='66.5%25' width='15' height='14' transform='translate(-7.5 0)' fill='%235C9BFF' opacity='.18'/><rect x='66.5%25' width='9' height='14' transform='translate(-4.5 0)' fill='%235C9BFF' opacity='.3'/><rect x='66.5%25' width='5' height='14' transform='translate(-2.5 0)' fill='%237DB2FF'/><rect y='13' width='100%25' height='1' fill='%23334255'/></svg>");
+}
+
+/* Rink strip under the boards: the gold kickplate bar (the scene's own top
+   border, coloured by --st-header-line) and then 14 px of rink lines. The
+   header's own bottom border is turned off so the bar is not drawn twice and
+   the strip can follow it inside the header. The scene is the header's last child. */
+[data-layout="hockey"] header.st-header {
+  border-bottom: 0;
+}
+[data-layout="hockey"] .st-header__scene {
+  display: block;
+  height: 14px;
+  border-top: 6px solid var(--st-header-line);
+  background: var(--st-scene-image) center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+[data-layout="hockey"] .st-footer__scene {
+  display: none;
+}

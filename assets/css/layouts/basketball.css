@@ -1,0 +1,244 @@
+/* scorers-table layout: BASKETBALL (sport layout).
+ *
+ * For: basketball leagues; the default for the Masters-style site (any sport can use it).
+ * Fonts: Barlow Condensed (headings, numbers) + Barlow (text).
+ * Source: the Masters site's "6 Recommended" canvas, via the scorers-table mockups
+ * Basketball-Home, Basketball-Game and Basketball-Home-Dark; dark values from
+ * docs/dark-palettes.md ("Basketball").
+ *
+ * League colour: deep blue (default #032F98), second colour coral (#FF5C66: tab underline,
+ * won-quarter underline, hot tile edge, badge ring). A league that sets --st-league-color
+ * recolours the header bar, links, big numbers, table rule, buttons and next-game panel in
+ * both themes. The dark header is a night sky mixed from the league colour and the page
+ * ink. The sunrise stops, hills and court arcs in the scenes are fixed (a neutral scene).
+ * Dark knobs: --st-dim 18% (panel = league colour toward black), --st-tint 62% (text accent).
+ */
+
+[data-layout="basketball"] {
+  color-scheme: light;
+  /* league colour inputs (a league overrides them on <html>) */
+  --st-league-color: #032F98;
+  --st-league-color-2: #FF5C66;
+  /* knobs for the league helpers (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
+  --st-dim: 18%;
+  /* fonts and type roles */
+  --st-font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --st-font-body: "Barlow", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);
+  --st-w-display: 700;
+  --st-w-strong: 600;
+  --st-display-transform: uppercase;
+  --st-display-tracking: 0.02em;
+  --st-num-variant: tabular-nums;
+  /* shape */
+  --st-radius-card: 0.625rem;
+  --st-radius-panel: 0.75rem;
+  --st-radius-chip: 0.1875rem;
+  --st-radius-sm: 0.5rem;
+  /* team palette: slots 1-6 (tuned for this theme) */
+  --st-team-1: #1F6FB5;
+  --st-team-2: #0F7F86;
+  --st-team-3: #D9621A;
+  --st-team-4: #2E7D32;
+  --st-team-5: #6B3FA0;
+  --st-team-6: #B3306E;
+  --st-team-lift: 0%;
+  /* Ground */
+  --st-bg: #F4F6FB;
+  --st-bg-image: none;
+  --st-surface: #FFFFFF;
+  --st-surface-2: #ECEFF8;
+  --st-line: #E3E8F2;
+  --st-line-strong: #C8D0E4;
+  /* Text */
+  --st-text: #0B1B3F;
+  --st-muted: #5A6478;
+  --st-link: var(--st-league-base);
+  --st-link-hover: #0B1B3F;
+  --st-accent: var(--st-league-base);
+  --st-hot: color-mix(in oklab, var(--st-league-2-base), black 22%);
+  --st-rule: var(--st-league-base);
+  --st-focus: var(--st-league-base);
+  /* Buttons */
+  --st-button-bg: var(--st-league-base);
+  --st-on-accent: var(--st-league-ink);
+  /* Header and nav */
+  --st-header-bg: linear-gradient(180deg, var(--st-league-base) 0%, var(--st-league-base) 58%, #3A2A8C 74%, #B23A5E 88%, #EE6A2F 100%);
+  --st-header-text: var(--st-league-ink);
+  --st-header-muted: color-mix(in oklab, var(--st-league-base), white 84%);
+  --st-header-line: transparent;
+  --st-header-button-line: #FFFFFF73;
+  --st-tab: var(--st-league-2-base);
+  --st-nav-bg: transparent;
+  --st-nav-text: var(--st-league-ink);
+  --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 84%);
+  /* Next-game panel */
+  --st-panel-bg: var(--st-league-base);
+  --st-panel-text: var(--st-league-ink);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-panel-row: #FFFFFF1F;
+  --st-panel-line: #FFFFFF26;
+  --st-panel-tile-bg: var(--st-league-wash);
+  --st-panel-tile-text: var(--st-league-dim);
+  /* Footer */
+  --st-footer-bg: #0B1B3F;
+  --st-footer-text: #C9D4F2;
+  --st-footer-muted: #A9B6DA;
+  --st-footer-link: #FFFFFF;
+  --st-footer-line: #FFFFFF26;
+  --st-footer-accent: var(--st-league-2-base);
+  /* Marks and badges */
+  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), white 85%);
+  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), black 50%);
+  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 40%);
+  --st-won-line: var(--st-league-2-base);
+  --st-blank-bg: var(--st-surface-2);
+  --st-badge-bg: var(--st-league-wash);
+  --st-badge-text: var(--st-league-base);
+  --st-win-bg: #DDF1E0;
+  --st-win-text: #17602A;
+  /* Rank */
+  --st-rank-bg: transparent;
+  --st-rank-text: var(--st-muted);
+  --st-rank-1-bg: transparent;
+  --st-rank-1-text: var(--st-league-base);
+  /* Bars */
+  --st-bar-track: var(--st-line);
+  --st-bar-fill: var(--st-league-base);
+  --st-bar-lead: var(--st-hot);
+  /* Score board */
+  --st-score-bg: var(--st-league-base);
+  --st-score-text: var(--st-league-ink);
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-score-line: #FFFFFF40;
+  /* scenes (data-URI SVG; colours baked in) */
+  --st-scene-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Cpath d='M0 56V38C34 30 70 27 108 33C140 38 162 41 196 36C232 31 252 22 290 22C326 22 356 30 390 38V56Z' fill='%231E2A5E'/%3E%3Cpath d='M0 56V46C40 41 82 39 128 43C170 47 204 48 246 43C292 38 336 40 390 46V56Z' fill='%230B1B3F'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Cpath d='M70 56A125 125 0 0 1 320 56' fill='none' stroke='%23FFFFFF' stroke-opacity='.38' stroke-width='2'/%3E%3Cpath d='M150 56A45 45 0 0 1 240 56' fill='none' stroke='%23FFFFFF' stroke-opacity='.3' stroke-width='2' stroke-dasharray='5 5'/%3E%3C/svg%3E");
+  --st-scene-image-footer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='40' viewBox='0 0 390 40' %3E%3Crect width='390' height='40' fill='%23F4F6FB'/%3E%3Cpath d='M0 40V22C34 14 70 11 108 17C140 22 162 25 196 20C232 15 252 6 290 6C326 6 356 14 390 22V40Z' fill='%231E2A5E'/%3E%3Cpath d='M0 40V30C40 25 82 23 128 27C170 31 204 32 246 27C292 22 336 24 390 30V40Z' fill='%230B1B3F'/%3E%3C/svg%3E");
+}
+
+/* Dark: only the values that differ. Held twice (OS preference, and the button);
+   scripts/check_contrast.py fails if the two copies differ. */
+@media (prefers-color-scheme: dark) {
+  [data-layout="basketball"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --st-team-1: #5B9DF0;
+    --st-team-2: #3CC8C0;
+    --st-team-3: #FF9A52;
+    --st-team-4: #6CC46F;
+    --st-team-5: #B08CF0;
+    --st-team-6: #F27AB0;
+    --st-team-lift: 20%;
+    --st-bg: #0A1022;
+    --st-surface: #131B34;
+    --st-surface-2: #1A2444;
+    --st-line: #243052;
+    --st-line-strong: #3A4A7A;
+    --st-text: #EEF2FF;
+    --st-muted: #9AA6C4;
+    --st-link: var(--st-league-tint);
+    --st-link-hover: #EEF2FF;
+    --st-accent: var(--st-league-tint);
+    --st-hot: var(--st-league-2-base);
+    --st-rule: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+    --st-button-bg: var(--st-league-tint);
+    --st-on-accent: #0A1022;
+    --st-header-bg: linear-gradient(180deg, #0A1022 0%, color-mix(in oklab, #0A1022, var(--st-league-base) 26%) 50%, color-mix(in oklab, color-mix(in oklab, #0A1022, var(--st-league-base) 70%), white 10%) 76%, color-mix(in oklab, color-mix(in oklab, #0A1022, var(--st-league-base) 85%), white 26%) 100%);
+    --st-header-muted: #B8C3E0;
+    --st-nav-muted: #B8C3E0;
+    --st-panel-bg: var(--st-league-dim);
+    --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 75%);
+    --st-panel-label: color-mix(in oklab, var(--st-league-base), white 75%);
+    --st-panel-row: #FFFFFF14;
+    --st-footer-bg: #18214D;
+    --st-footer-text: #B8C3E0;
+    --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 70%);
+    --st-mark-text: var(--st-league-2-tint);
+    --st-mark-line: color-mix(in oklab, var(--st-league-2-base), black 30%);
+    --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
+    --st-badge-text: var(--st-league-tint);
+    --st-win-bg: #17361F;
+    --st-win-text: #8FDC9A;
+    --st-rank-1-text: var(--st-league-tint);
+    --st-bar-fill: var(--st-league-tint);
+    --st-score-bg: var(--st-league-dim);
+    --st-score-dim: color-mix(in oklab, var(--st-league-base), white 75%);
+    --st-scene-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Cpath d='M0 56V38C34 30 70 27 108 33C140 38 162 41 196 36C232 31 252 22 290 22C326 22 356 30 390 38V56Z' fill='%23141C42'/%3E%3Cpath d='M0 56V46C40 41 82 39 128 43C170 47 204 48 246 43C292 38 336 40 390 46V56Z' fill='%2303060C'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Ccircle cx='352' cy='16' r='18' fill='%23C9D4F2' opacity='.10'/%3E%3Ccircle cx='352' cy='16' r='8' fill='%23E8ECF7'/%3E%3Ccircle cx='349' cy='14' r='1.6' fill='%23C9D0E2'/%3E%3Ccircle cx='355' cy='18' r='1.2' fill='%23C9D0E2'/%3E%3Ccircle cx='24' cy='8' r='1' fill='%23FFFFFF' opacity='.7'/%3E%3Ccircle cx='58' cy='18' r='1.2' fill='%23FFFFFF' opacity='.6'/%3E%3Ccircle cx='112' cy='5' r='1' fill='%23FFFFFF' opacity='.8'/%3E%3Ccircle cx='176' cy='12' r='1.2' fill='%23FFFFFF' opacity='.6'/%3E%3Ccircle cx='236' cy='4' r='1' fill='%23FFFFFF' opacity='.7'/%3E%3Ccircle cx='300' cy='9' r='1.3' fill='%23FFFFFF' opacity='.8'/%3E%3Ccircle cx='380' cy='4' r='1' fill='%23FFFFFF' opacity='.6'/%3E%3Cpath d='M70 56A125 125 0 0 1 320 56' fill='none' stroke='%23C9D4F2' stroke-opacity='.32' stroke-width='2'/%3E%3Cpath d='M150 56A45 45 0 0 1 240 56' fill='none' stroke='%23C9D4F2' stroke-opacity='.26' stroke-width='2' stroke-dasharray='5 5'/%3E%3C/svg%3E");
+    --st-scene-image-footer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='40' viewBox='0 0 390 40' %3E%3Crect width='390' height='40' fill='%230A1022'/%3E%3Cpath d='M0 40V22C34 14 70 11 108 17C140 22 162 25 196 20C232 15 252 6 290 6C326 6 356 14 390 22V40Z' fill='%2324306A'/%3E%3Cpath d='M0 40V30C40 25 82 23 128 27C170 31 204 32 246 27C292 22 336 24 390 30V40Z' fill='%2318214D'/%3E%3C/svg%3E");
+  }
+}
+[data-layout="basketball"][data-theme="dark"] {
+  color-scheme: dark;
+  --st-team-1: #5B9DF0;
+  --st-team-2: #3CC8C0;
+  --st-team-3: #FF9A52;
+  --st-team-4: #6CC46F;
+  --st-team-5: #B08CF0;
+  --st-team-6: #F27AB0;
+  --st-team-lift: 20%;
+  --st-bg: #0A1022;
+  --st-surface: #131B34;
+  --st-surface-2: #1A2444;
+  --st-line: #243052;
+  --st-line-strong: #3A4A7A;
+  --st-text: #EEF2FF;
+  --st-muted: #9AA6C4;
+  --st-link: var(--st-league-tint);
+  --st-link-hover: #EEF2FF;
+  --st-accent: var(--st-league-tint);
+  --st-hot: var(--st-league-2-base);
+  --st-rule: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+  --st-button-bg: var(--st-league-tint);
+  --st-on-accent: #0A1022;
+  --st-header-bg: linear-gradient(180deg, #0A1022 0%, color-mix(in oklab, #0A1022, var(--st-league-base) 26%) 50%, color-mix(in oklab, color-mix(in oklab, #0A1022, var(--st-league-base) 70%), white 10%) 76%, color-mix(in oklab, color-mix(in oklab, #0A1022, var(--st-league-base) 85%), white 26%) 100%);
+  --st-header-muted: #B8C3E0;
+  --st-nav-muted: #B8C3E0;
+  --st-panel-bg: var(--st-league-dim);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 75%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 75%);
+  --st-panel-row: #FFFFFF14;
+  --st-footer-bg: #18214D;
+  --st-footer-text: #B8C3E0;
+  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 70%);
+  --st-mark-text: var(--st-league-2-tint);
+  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), black 30%);
+  --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
+  --st-badge-text: var(--st-league-tint);
+  --st-win-bg: #17361F;
+  --st-win-text: #8FDC9A;
+  --st-rank-1-text: var(--st-league-tint);
+  --st-bar-fill: var(--st-league-tint);
+  --st-score-bg: var(--st-league-dim);
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 75%);
+  --st-scene-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Cpath d='M0 56V38C34 30 70 27 108 33C140 38 162 41 196 36C232 31 252 22 290 22C326 22 356 30 390 38V56Z' fill='%23141C42'/%3E%3Cpath d='M0 56V46C40 41 82 39 128 43C170 47 204 48 246 43C292 38 336 40 390 46V56Z' fill='%2303060C'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='56' viewBox='0 0 390 56' %3E%3Ccircle cx='352' cy='16' r='18' fill='%23C9D4F2' opacity='.10'/%3E%3Ccircle cx='352' cy='16' r='8' fill='%23E8ECF7'/%3E%3Ccircle cx='349' cy='14' r='1.6' fill='%23C9D0E2'/%3E%3Ccircle cx='355' cy='18' r='1.2' fill='%23C9D0E2'/%3E%3Ccircle cx='24' cy='8' r='1' fill='%23FFFFFF' opacity='.7'/%3E%3Ccircle cx='58' cy='18' r='1.2' fill='%23FFFFFF' opacity='.6'/%3E%3Ccircle cx='112' cy='5' r='1' fill='%23FFFFFF' opacity='.8'/%3E%3Ccircle cx='176' cy='12' r='1.2' fill='%23FFFFFF' opacity='.6'/%3E%3Ccircle cx='236' cy='4' r='1' fill='%23FFFFFF' opacity='.7'/%3E%3Ccircle cx='300' cy='9' r='1.3' fill='%23FFFFFF' opacity='.8'/%3E%3Ccircle cx='380' cy='4' r='1' fill='%23FFFFFF' opacity='.6'/%3E%3Cpath d='M70 56A125 125 0 0 1 320 56' fill='none' stroke='%23C9D4F2' stroke-opacity='.32' stroke-width='2'/%3E%3Cpath d='M150 56A45 45 0 0 1 240 56' fill='none' stroke='%23C9D4F2' stroke-opacity='.26' stroke-width='2' stroke-dasharray='5 5'/%3E%3C/svg%3E");
+  --st-scene-image-footer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='390' height='40' viewBox='0 0 390 40' %3E%3Crect width='390' height='40' fill='%230A1022'/%3E%3Cpath d='M0 40V22C34 14 70 11 108 17C140 22 162 25 196 20C232 15 252 6 290 6C326 6 356 14 390 22V40Z' fill='%2324306A'/%3E%3Cpath d='M0 40V30C40 25 82 23 128 27C170 31 204 32 246 27C292 22 336 24 390 30V40Z' fill='%2318214D'/%3E%3C/svg%3E");
+}
+
+/* Scenes. The header is position: relative and the scene div is its last child: court arcs
+   (a centred layer) behind rolling hills (repeat-x, seamless), sitting at the bottom of the
+   sunrise / night sky gradient. The footer scene is the hills above the footer body; it carries
+   the page colour in its own image, so it works whether the footer background sits on
+   .st-footer or on .st-footer__body. */
+[data-layout="basketball"] .st-header__scene {
+  display: block;
+  height: 56px;
+  margin-top: 6px;
+  pointer-events: none;
+  background-color: transparent;
+  background-image: var(--st-scene-image);
+  background-repeat: repeat-x, no-repeat;
+  background-position: center bottom, center bottom;
+  background-size: auto 100%, auto 100%;
+}
+[data-layout="basketball"] .st-footer__scene {
+  display: block;
+  height: 40px;
+  pointer-events: none;
+  background-color: transparent;
+  background-image: var(--st-scene-image-footer);
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 100%;
+}

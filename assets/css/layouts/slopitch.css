@@ -1,0 +1,275 @@
+/* scorers-table layout: slopitch
+ * Slo-pitch: rec and masters leagues (the sport default). Scorebook paper, outfield
+ * green and clay, inning line score with the run-limit mark.
+ * Fonts: Zilla Slab (display, scores) + Work Sans (text).
+ * Source: design canvas Slopitch-Home, Slopitch-Home-Dark, Slopitch-Game; dark values
+ * from docs/dark-palettes.md. League colour = outfield green, colour 2 = clay. The
+ * scorebook-ink footer stays literal.
+ *
+ * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
+ * team palette, league-colour defaults and the header scene. This is the one place
+ * raw hex is allowed. Dark values are written twice (OS preference, and the
+ * [data-theme="dark"] button) and must stay identical.
+ */
+
+[data-layout="slopitch"] {
+  color-scheme: light;
+
+  /* League inputs (a league overrides these inline on <html>) */
+  --st-league-color: #2F6B3A;
+  --st-league-color-2: #B5532E;
+
+  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
+  --st-dim: 25%;
+  --st-lift: 31%;
+  --st-tint: 55%;
+
+  /* Type */
+  --st-font-display: "Zilla Slab", Georgia, serif;
+  --st-font-body: "Work Sans", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);
+  --st-w-display: 700;
+  --st-w-strong: 600;
+  --st-display-transform: none;
+  --st-display-tracking: 0;
+  --st-num-variant: tabular-nums;
+  --st-fs-h3: 1.375rem; /* 22 px */
+  --st-fs-title: 1.875rem; /* 30 px */
+  --st-fs-score-hero: 2.875rem; /* 46 px */
+
+  /* Shape */
+  --st-radius-card: 0.625rem;
+  --st-radius-panel: 0.75rem;
+  --st-radius-chip: 0.125rem;
+  --st-radius-sm: 0.5rem;
+
+  /* Team palette, in the order the standings list the sample teams */
+  --st-team-1: #B23A2E;
+  --st-team-2: #5C3F8F;
+  --st-team-3: #2F5DA8;
+  --st-team-4: #BE8210;
+  --st-team-5: #7A5A3A;
+  --st-team-6: #2B8C8C;
+  --st-team-lift: 0%;
+
+  /* Ground */
+  --st-bg: #FBF7EE;
+  --st-bg-image: none;
+  --st-surface: #FFFFFF;
+  --st-surface-2: #F8F2E4;
+  --st-line: #E6DDC8;
+  --st-line-strong: #CFC3A8;
+
+  /* Text */
+  --st-text: #22201C;
+  --st-muted: #5E574B;
+  --st-link: var(--st-league-base);
+  --st-link-hover: #22201C;
+  --st-accent: var(--st-league-base);
+  --st-hot: color-mix(in oklab, var(--st-league-2-base), black 13%);
+  --st-rule: #22201C;
+  --st-focus: var(--st-league-base);
+
+  /* Buttons */
+  --st-button-bg: var(--st-league-base);
+  --st-on-accent: var(--st-league-ink);
+
+  /* Header */
+  --st-header-bg: var(--st-league-base);
+  --st-header-text: #FFFFFF;
+  --st-header-muted: #E3EEDF;
+  --st-header-line: transparent;
+  --st-header-button-line: #FFFFFF55;
+  --st-tab: #F3E3C3;
+  --st-nav-bg: transparent;
+  --st-nav-text: #FFFFFF;
+  --st-nav-muted: #E3EEDF;
+
+  /* Panel (next game day) */
+  --st-panel-bg: var(--st-league-base);
+  --st-panel-text: #FFFFFF;
+  --st-panel-muted: #F1F7EE;
+  --st-panel-label: #FBF0D9;
+  --st-panel-row: #FFFFFF14;
+  --st-panel-line: transparent;
+  --st-panel-tile-bg: #F3E3C3;
+  --st-panel-tile-text: #22201C;
+
+  /* Footer */
+  --st-footer-bg: #22201C;
+  --st-footer-text: #FFFFFF;
+  --st-footer-muted: #C9C0AD;
+  --st-footer-link: #FFFFFF;
+  --st-footer-line: #3A3731;
+  --st-footer-accent: transparent;
+
+  /* Marks and badges */
+  --st-mark-bg: transparent;
+  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), black 13%);
+  --st-mark-line: var(--st-league-2-base);
+  --st-won-line: var(--st-league-base);
+  --st-blank-bg: #F3EBDA;
+  --st-badge-bg: #EAE0C9;
+  --st-badge-text: #22201C;
+  --st-win-bg: var(--st-league-base);
+  --st-win-text: var(--st-league-ink);
+
+  /* Rank */
+  --st-rank-bg: #F3EBDA;
+  --st-rank-text: #22201C;
+  --st-rank-1-bg: var(--st-league-base);
+  --st-rank-1-text: var(--st-league-ink);
+
+  /* Bars */
+  --st-bar-track: #E6DDC8;
+  --st-bar-fill: #867B66;
+  --st-bar-lead: var(--st-league-base);
+
+  /* Score board */
+  --st-score-bg: #FFFFFF;
+  --st-score-text: #22201C;
+  --st-score-dim: #5E574B;
+  --st-score-line: #CFC3A8;
+
+  /* Scenes: data-URI SVGs, colours baked in, one per theme (placement rules at the end) */
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='40'><svg width='100%25' height='40' viewBox='0 0 390 40' preserveAspectRatio='none'><path d='M0 40V31Q195 2 390 31V40Z' fill='%23B5532E'/><path d='M0 40V36Q195 12 390 36V40Z' fill='%23FBF7EE'/></svg><svg x='50%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><path d='M0 37L23 25L0 13L-23 25Z' fill='none' stroke='%23FBF7EE' stroke-width='1.5' stroke-opacity='.9'/><circle cx='0' cy='25' r='2.4' fill='%23FBF7EE'/><rect x='20.5' y='22.5' width='5' height='5' transform='rotate(45 23 25)' fill='%23FFFFFF'/><rect x='-2.5' y='10.5' width='5' height='5' transform='rotate(45 0 13)' fill='%23FFFFFF'/><rect x='-25.5' y='22.5' width='5' height='5' transform='rotate(45 -23 25)' fill='%23FFFFFF'/></svg></svg>");
+  --st-scene-image-footer: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="slopitch"]:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --st-team-1: #F27463;
+    --st-team-2: #B9A3F0;
+    --st-team-3: #6E98EA;
+    --st-team-4: #F0C04A;
+    --st-team-5: #A8825A;
+    --st-team-6: #5CC7C2;
+    --st-team-lift: 37%;
+
+    --st-bg: #131A14;
+    --st-bg-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(244, 236, 214, 0.045) 27px, rgba(244, 236, 214, 0.045) 28px);
+    --st-surface: #22201A;
+    --st-surface-2: #2B2820;
+    --st-line: #3A362C;
+    --st-line-strong: #57503F;
+
+    --st-text: #F4ECD9;
+    --st-muted: #BDB29C;
+    --st-link: var(--st-league-tint);
+    --st-link-hover: #FFFFFF;
+    --st-accent: var(--st-league-tint);
+    --st-hot: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+    --st-rule: #D9CFB6;
+    --st-focus: var(--st-league-tint);
+
+    --st-header-bg: var(--st-league-dim);
+
+    --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+    --st-panel-line: var(--st-league-base);
+
+    --st-footer-bg: #0B0F0B;
+    --st-footer-line: #2A3326;
+
+    --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+    --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+    --st-won-line: var(--st-league-tint);
+    --st-blank-bg: #2B2820;
+    --st-badge-bg: #3A362C;
+    --st-badge-text: #F4ECD9;
+
+    --st-rank-bg: #3A362C;
+    --st-rank-text: #F4ECD9;
+    --st-rank-1-bg: var(--st-league-tint);
+    --st-rank-1-text: #131A14;
+
+    --st-bar-track: #3A362C;
+    --st-bar-fill: #BDB29C;
+    --st-bar-lead: var(--st-league-tint);
+
+    --st-score-bg: #22201A;
+    --st-score-text: #F4ECD9;
+    --st-score-dim: #BDB29C;
+    --st-score-line: #57503F;
+
+    --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='40'><svg width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M20 6h12M20 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg x='100%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='-26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M-32 6h12M-32 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M-26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg width='100%25' height='40' viewBox='0 0 390 40' preserveAspectRatio='none'><path d='M0 40V31Q195 2 390 31V40Z' fill='%23C4643C'/><path d='M0 40V36Q195 12 390 36V40Z' fill='%23131A14'/></svg><svg x='50%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><path d='M0 37L23 25L0 13L-23 25Z' fill='none' stroke='%23F4ECD6' stroke-width='1.5' stroke-opacity='.9'/><circle cx='0' cy='25' r='2.4' fill='%23F4ECD6'/><rect x='20.5' y='22.5' width='5' height='5' transform='rotate(45 23 25)' fill='%23FFFFFF'/><rect x='-2.5' y='10.5' width='5' height='5' transform='rotate(45 0 13)' fill='%23FFFFFF'/><rect x='-25.5' y='22.5' width='5' height='5' transform='rotate(45 -23 25)' fill='%23FFFFFF'/></svg></svg>");
+  }
+}
+
+[data-layout="slopitch"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --st-team-1: #F27463;
+  --st-team-2: #B9A3F0;
+  --st-team-3: #6E98EA;
+  --st-team-4: #F0C04A;
+  --st-team-5: #A8825A;
+  --st-team-6: #5CC7C2;
+  --st-team-lift: 37%;
+
+  --st-bg: #131A14;
+  --st-bg-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(244, 236, 214, 0.045) 27px, rgba(244, 236, 214, 0.045) 28px);
+  --st-surface: #22201A;
+  --st-surface-2: #2B2820;
+  --st-line: #3A362C;
+  --st-line-strong: #57503F;
+
+  --st-text: #F4ECD9;
+  --st-muted: #BDB29C;
+  --st-link: var(--st-league-tint);
+  --st-link-hover: #FFFFFF;
+  --st-accent: var(--st-league-tint);
+  --st-hot: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+  --st-rule: #D9CFB6;
+  --st-focus: var(--st-league-tint);
+
+  --st-header-bg: var(--st-league-dim);
+
+  --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+  --st-panel-line: var(--st-league-base);
+
+  --st-footer-bg: #0B0F0B;
+  --st-footer-line: #2A3326;
+
+  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+  --st-won-line: var(--st-league-tint);
+  --st-blank-bg: #2B2820;
+  --st-badge-bg: #3A362C;
+  --st-badge-text: #F4ECD9;
+
+  --st-rank-bg: #3A362C;
+  --st-rank-text: #F4ECD9;
+  --st-rank-1-bg: var(--st-league-tint);
+  --st-rank-1-text: #131A14;
+
+  --st-bar-track: #3A362C;
+  --st-bar-fill: #BDB29C;
+  --st-bar-lead: var(--st-league-tint);
+
+  --st-score-bg: #22201A;
+  --st-score-text: #F4ECD9;
+  --st-score-dim: #BDB29C;
+  --st-score-line: #57503F;
+
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='40'><svg width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M20 6h12M20 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg x='100%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='-26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M-32 6h12M-32 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M-26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg width='100%25' height='40' viewBox='0 0 390 40' preserveAspectRatio='none'><path d='M0 40V31Q195 2 390 31V40Z' fill='%23C4643C'/><path d='M0 40V36Q195 12 390 36V40Z' fill='%23131A14'/></svg><svg x='50%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><path d='M0 37L23 25L0 13L-23 25Z' fill='none' stroke='%23F4ECD6' stroke-width='1.5' stroke-opacity='.9'/><circle cx='0' cy='25' r='2.4' fill='%23F4ECD6'/><rect x='20.5' y='22.5' width='5' height='5' transform='rotate(45 23 25)' fill='%23FFFFFF'/><rect x='-2.5' y='10.5' width='5' height='5' transform='rotate(45 0 13)' fill='%23FFFFFF'/><rect x='-25.5' y='22.5' width='5' height='5' transform='rotate(45 -23 25)' fill='%23FFFFFF'/></svg></svg>");
+}
+
+/* 40 px of clay arc with the infield diamond, hung under the green header (the
+   header's own background shows through the top of the picture). In dark the
+   floodlights sit at both ends. The scene is the header's last child. The header has
+   no bottom line of its own, so any border it might get is dropped (it would show
+   the green again under the arc). */
+[data-layout="slopitch"] header.st-header {
+  border-bottom: 0;
+}
+[data-layout="slopitch"] .st-header__scene {
+  display: block;
+  height: 40px;
+  background: var(--st-scene-image) center bottom / 100% 100% no-repeat;
+  pointer-events: none;
+}
+[data-layout="slopitch"] .st-footer__scene {
+  display: none;
+}

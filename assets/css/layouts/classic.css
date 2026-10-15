@@ -1,0 +1,218 @@
+/* scorers-table layout: CLASSIC (general layout).
+ *
+ * For: any sport, the safe choice: a white header, one bar in the league's colour (the
+ * nav), page #F4F6FB, ink-navy footer.
+ * Fonts: Barlow Condensed (headings, numbers) + Barlow (text).
+ * Source: the Masters site's "1 Classic Club" canvas, via the mockups Classic-Curling-Home,
+ * Classic-Curling-Home-Dark and Classic-Hockey-Home; dark values from docs/dark-palettes.md
+ * ("Classic (shown with curling's navy)").
+ *
+ * Default league colour: curling navy #1D3A6E (the colour the dark palette was drawn with),
+ * second colour burgundy #9E1B32 (stolen-end / scoring marks, hot text, lead bar).
+ * League-driven: nav bar, panel, links, big numbers, table rule, buttons, header title,
+ * rank chips, bar fill; the stolen-end marks follow the second colour.
+ * Dark knobs: --st-lift 8% (nav bar), --st-tint 65% (text accent, rank 1 chip).
+ * Team palette is curling's (red, green, blue, purple, amber, grey).
+ * No scene: the scene boxes are hidden.
+ */
+
+[data-layout="classic"] {
+  color-scheme: light;
+  /* league colour inputs (a league overrides them on <html>) */
+  --st-league-color: #1D3A6E;
+  --st-league-color-2: #9E1B32;
+  /* knobs for the league helpers (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
+  --st-lift: 8%;
+  --st-tint: 65%;
+  /* fonts and type roles */
+  --st-font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --st-font-body: "Barlow", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);
+  --st-w-display: 700;
+  --st-w-strong: 600;
+  --st-display-transform: uppercase;
+  --st-display-tracking: 0.02em;
+  --st-num-variant: tabular-nums;
+  /* shape */
+  --st-radius-card: 0.625rem;
+  --st-radius-panel: 0.75rem;
+  --st-radius-chip: 0.1875rem;
+  --st-radius-sm: 0.5rem;
+  /* team palette: slots 1-6 (tuned for this theme) */
+  --st-team-1: #C8102E;
+  --st-team-2: #2E7D4F;
+  --st-team-3: #1D4E89;
+  --st-team-4: #6B3FA0;
+  --st-team-5: #B07D00;
+  --st-team-6: #56636F;
+  --st-team-lift: 0%;
+  /* Ground */
+  --st-bg: #F4F6FB;
+  --st-bg-image: none;
+  --st-surface: #FFFFFF;
+  --st-surface-2: #EDF0F7;
+  --st-line: #E3E8F2;
+  --st-line-strong: #C8D0E4;
+  /* Text */
+  --st-text: #0B1B3F;
+  --st-muted: #5A6478;
+  --st-link: var(--st-league-base);
+  --st-link-hover: #0B1B3F;
+  --st-accent: var(--st-league-base);
+  --st-hot: var(--st-league-2-base);
+  --st-rule: var(--st-league-base);
+  --st-focus: var(--st-league-base);
+  /* Buttons */
+  --st-button-bg: var(--st-league-base);
+  --st-on-accent: var(--st-league-ink);
+  /* Header and nav */
+  --st-header-bg: #FFFFFF;
+  --st-header-text: var(--st-league-base);
+  --st-header-muted: var(--st-muted);
+  --st-header-line: var(--st-line);
+  --st-header-button-line: transparent;
+  --st-tab: #FFFFFF;
+  --st-nav-bg: var(--st-league-base);
+  --st-nav-text: var(--st-league-ink);
+  --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 80%);
+  /* Next-game panel */
+  --st-panel-bg: var(--st-league-base);
+  --st-panel-text: var(--st-league-ink);
+  --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-panel-label: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-panel-row: #FFFFFF1A;
+  --st-panel-line: color-mix(in oklab, var(--st-league-base), white 14%);
+  --st-panel-tile-bg: transparent;
+  --st-panel-tile-text: color-mix(in oklab, var(--st-league-base), white 80%);
+  /* Footer */
+  --st-footer-bg: #0B1B3F;
+  --st-footer-text: #C9D4F2;
+  --st-footer-muted: #A9B6DA;
+  --st-footer-link: #FFFFFF;
+  --st-footer-line: #FFFFFF26;
+  --st-footer-accent: var(--st-league-tint);
+  /* Marks and badges */
+  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), white 88%);
+  --st-mark-text: var(--st-league-2-base);
+  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 63%);
+  --st-won-line: var(--st-league-ink);
+  --st-blank-bg: var(--st-surface-2);
+  --st-badge-bg: var(--st-league-wash);
+  --st-badge-text: var(--st-league-base);
+  --st-win-bg: #DDF1E0;
+  --st-win-text: #17602A;
+  /* Rank */
+  --st-rank-bg: var(--st-league-wash);
+  --st-rank-text: var(--st-league-base);
+  --st-rank-1-bg: var(--st-league-base);
+  --st-rank-1-text: var(--st-league-ink);
+  /* Bars */
+  --st-bar-track: var(--st-line);
+  --st-bar-fill: var(--st-league-base);
+  --st-bar-lead: var(--st-league-2-base);
+  /* Score board */
+  --st-score-bg: var(--st-league-base);
+  --st-score-text: var(--st-league-ink);
+  --st-score-dim: color-mix(in oklab, var(--st-league-base), white 80%);
+  --st-score-line: #FFFFFF40;
+  /* scenes (data-URI SVG; colours baked in) */
+  --st-scene-image: none;
+  --st-scene-image-footer: none;
+}
+
+/* Dark: only the values that differ. Held twice (OS preference, and the button);
+   scripts/check_contrast.py fails if the two copies differ. */
+@media (prefers-color-scheme: dark) {
+  [data-layout="classic"]:not([data-theme="light"]) {
+    color-scheme: dark;
+    --st-team-1: #E8475A;
+    --st-team-2: #34A464;
+    --st-team-3: #6FA3EA;
+    --st-team-4: #B391EE;
+    --st-team-5: #E9B940;
+    --st-team-6: #C3CDD7;
+    --st-team-lift: 20%;
+    --st-bg: #0B1220;
+    --st-surface: #141D30;
+    --st-surface-2: #1B2740;
+    --st-line: #26324A;
+    --st-line-strong: #3A4A6E;
+    --st-text: #EEF2FA;
+    --st-muted: #A0AAC0;
+    --st-link: var(--st-league-tint);
+    --st-link-hover: #EEF2FA;
+    --st-accent: var(--st-league-tint);
+    --st-hot: color-mix(in oklab, var(--st-league-2-base), white 54%);
+    --st-rule: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+    --st-button-bg: var(--st-league-tint);
+    --st-on-accent: #0B1220;
+    --st-header-bg: #141D30;
+    --st-header-text: var(--st-league-tint);
+    --st-nav-bg: var(--st-league-lift);
+    --st-footer-bg: #060A14;
+    --st-footer-line: #26324A;
+    --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 38%);
+    --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white 54%);
+    --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 9%);
+    --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
+    --st-badge-text: var(--st-league-tint);
+    --st-win-bg: #17361F;
+    --st-win-text: #8FDC9A;
+    --st-rank-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
+    --st-rank-text: color-mix(in oklab, var(--st-league-base), white 78%);
+    --st-rank-1-bg: var(--st-league-tint);
+    --st-rank-1-text: #0B1220;
+    --st-bar-fill: var(--st-league-tint);
+    --st-bar-lead: color-mix(in oklab, var(--st-league-2-base), white 54%);
+  }
+}
+[data-layout="classic"][data-theme="dark"] {
+  color-scheme: dark;
+  --st-team-1: #E8475A;
+  --st-team-2: #34A464;
+  --st-team-3: #6FA3EA;
+  --st-team-4: #B391EE;
+  --st-team-5: #E9B940;
+  --st-team-6: #C3CDD7;
+  --st-team-lift: 20%;
+  --st-bg: #0B1220;
+  --st-surface: #141D30;
+  --st-surface-2: #1B2740;
+  --st-line: #26324A;
+  --st-line-strong: #3A4A6E;
+  --st-text: #EEF2FA;
+  --st-muted: #A0AAC0;
+  --st-link: var(--st-league-tint);
+  --st-link-hover: #EEF2FA;
+  --st-accent: var(--st-league-tint);
+  --st-hot: color-mix(in oklab, var(--st-league-2-base), white 54%);
+  --st-rule: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+  --st-button-bg: var(--st-league-tint);
+  --st-on-accent: #0B1220;
+  --st-header-bg: #141D30;
+  --st-header-text: var(--st-league-tint);
+  --st-nav-bg: var(--st-league-lift);
+  --st-footer-bg: #060A14;
+  --st-footer-line: #26324A;
+  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 38%);
+  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white 54%);
+  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 9%);
+  --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
+  --st-badge-text: var(--st-league-tint);
+  --st-win-bg: #17361F;
+  --st-win-text: #8FDC9A;
+  --st-rank-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
+  --st-rank-text: color-mix(in oklab, var(--st-league-base), white 78%);
+  --st-rank-1-bg: var(--st-league-tint);
+  --st-rank-1-text: #0B1220;
+  --st-bar-fill: var(--st-league-tint);
+  --st-bar-lead: color-mix(in oklab, var(--st-league-2-base), white 54%);
+}
+
+/* No scene in this layout. */
+[data-layout="classic"] .st-header__scene,
+[data-layout="classic"] .st-footer__scene {
+  display: none;
+}
