@@ -1,0 +1,75 @@
+{%- comment -%}
+  parts/line-score.html: the line score table in its scroll box. One include for the four shapes (quarters, ends,
+  periods, innings): the sport's present() hands over the cells and their flags, this prints them.
+  Params:
+    line_score  a present() line_score (game.line_score, or game.card.line_score for the compact one)
+    game        the game, for the two sides (name, code, chip colour, result)
+    size        "card" (compact, inside a result card or the hero) or "full" (game page); the class only
+    region      true: make the scroll box a keyboard-reachable region (not inside a link)
+    codes       true: show each team's code, with its name as the abbr title (the hero; end-by-end tables)
+  Cell flags map to the stage 3 classes: won -> is-won, mark -> is-mark, void -> is-void (X),
+  hammer -> svg.st-hammer; a column's blank / open flags mark the header and every cell under it.
+  Words (caption, mark_word, won_word, void_word, blank_word, hammer_word) come with the line score.
+{%- endcomment -%}
+{%- assign _ls_l = include.line_score -%}
+{%- assign _ls_g = include.game -%}
+{%- assign _ls_cap = _ls_l.caption | default: "Score by period" -%}
+{%- capture _ls_o -%}
+<div class="st-line-scroll"{% if include.region %} role="region" aria-label="{{ _ls_cap | escape }}, scrolls sideways" tabindex="0"{% endif %}>
+<table class="st-line-score st-line-score--{{ _ls_l.shape }} st-line-score--{% if include.size == "full" %}full{% else %}card{% endif %}">
+<caption class="st-visually-hidden">{{ _ls_cap | escape }}: {{ _ls_g.home.name | escape }} {{ _ls_l.rows.home.total }}, {{ _ls_g.away.name | escape }} {{ _ls_l.rows.away.total }}</caption>
+<thead><tr>
+<th scope="col" class="st-line-score__team">{{ _ls_l.corner | escape }}</th>
+{%- for _ls_c in _ls_l.columns -%}
+<th scope="col"{% if _ls_c.blank or _ls_c.open %} class="{% if _ls_c.blank %}is-blank{% endif %}{% if _ls_c.blank and _ls_c.open %} {% endif %}{% if _ls_c.open %}is-open{% endif %}"{% endif %}>{{ _ls_c.label | escape }}
+{%- if _ls_c.open -%}<span class="st-line-score__open">open</span>{%- endif -%}
+{%- if _ls_c.blank -%}<span class="st-visually-hidden"> ({{ _ls_l.blank_word | default: "blank" | escape }})</span>{%- endif -%}
+</th>
+{%- endfor -%}
+<th scope="col" class="st-line-score__total">{{ _ls_l.total_label | escape }}</th>
+{%- if _ls_l.extra_label.size > 0 -%}<th scope="col" class="st-line-score__extra">{{ _ls_l.extra_label | escape }}</th>{%- endif -%}
+</tr></thead>
+<tbody>
+{%- assign _sides = "home,away" | split: "," -%}{%- for _ls_side in _sides -%}
+  {%- assign _ls_row = _ls_l.rows[_ls_side] -%}
+  {%- assign _ls_gs = _ls_g[_ls_side] -%}
+<tr{% if _ls_gs.result == "win" or _ls_gs.result == "ot_win" %} class="is-winner"{% elsif _ls_gs.result == "loss" or _ls_gs.result == "ot_loss" %} class="is-loser"{% endif %}>
+<th scope="row" class="st-line-score__team">
+{%- include parts/chip.html team=_ls_gs size="sm" -%}
+<span class="st-line-score__name">{% if include.codes %}<abbr title="{{ _ls_gs.name | escape }}">{{ _ls_gs.code | escape }}</abbr>{% else %}{{ _ls_gs.name | escape }}{% endif %}</span>
+{%- if _ls_row.hammer_first -%}
+  {%- capture _ls_hl -%}{{ _ls_l.hammer_word | default: "Hammer" }} in {{ league.words.period.one | default: "period" | downcase }} 1{%- endcapture -%}
+  {%- include parts/hammer.html label=_ls_hl -%}
+{%- endif -%}
+</th>
+{%- for _ls_cell in _ls_row.cells -%}
+  {%- assign _ls_col = _ls_l.columns[forloop.index0] -%}
+  {%- assign _ls_cls = "" -%}
+  {%- if _ls_cell.void -%}{%- assign _ls_cls = "is-void" -%}
+  {%- else -%}
+    {%- if _ls_cell.won -%}{%- assign _ls_cls = "is-won" -%}{%- endif -%}
+    {%- if _ls_cell.mark -%}{%- assign _ls_cls = _ls_cls | append: " is-mark" -%}{%- endif -%}
+  {%- endif -%}
+  {%- if _ls_col.blank -%}{%- assign _ls_cls = _ls_cls | append: " is-blank" -%}{%- endif -%}
+  {%- if _ls_col.open -%}{%- assign _ls_cls = _ls_cls | append: " is-open" -%}{%- endif -%}
+  {%- assign _ls_cls = _ls_cls | strip -%}
+<td{% if _ls_cls.size > 0 %} class="{{ _ls_cls }}"{% endif %}>
+  {%- if _ls_cell.void -%}
+<span aria-hidden="true">X</span><span class="st-visually-hidden">{{ _ls_l.void_word | default: "not played" | escape }}</span>
+  {%- elsif _ls_cell.mark -%}
+<span class="st-line-score__n">{{ _ls_cell.v }}</span><span class="st-visually-hidden"> ({{ _ls_l.mark_word | default: "highlight" | escape }})</span>
+  {%- else -%}
+{{ _ls_cell.v }}{% if _ls_cell.won and _ls_l.won_word.size > 0 %}<span class="st-visually-hidden"> ({{ _ls_l.won_word | escape }})</span>{% endif %}
+  {%- endif -%}
+  {%- if _ls_cell.hammer -%}{%- include parts/hammer.html label=_ls_l.hammer_word -%}{%- endif -%}
+</td>
+{%- endfor -%}
+<td class="st-line-score__total">{{ _ls_row.total }}</td>
+{%- if _ls_l.extra_label.size > 0 -%}<td class="st-line-score__extra">{{ _ls_row.extra }}</td>{%- endif -%}
+</tr>
+{%- endfor -%}
+</tbody></table></div>
+{%- endcapture -%}
+{%- assign _ls_lines = _ls_o | split: "
+" -%}
+{%- for _ls_line in _ls_lines -%}{{ _ls_line | strip }}{%- endfor -%}

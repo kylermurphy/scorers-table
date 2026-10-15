@@ -1,0 +1,7 @@
+{%- comment -%}
+  parts/chip.html: the team colour chip (decoration: the team's name or code is always beside it).
+  Params: team (anything with slot and colour: a teams.json entry, or a game's home/away side), size ("sm" or "lg"; none = default).
+  A team with a colour of its own (a #RRGGBB in team.colour) gets .st-team--custom and --st-team-hex; every other
+  team takes the palette colour of its slot (.st-team--1 to --6).
+{%- endcomment -%}
+<span class="st-chip{% if include.size == "sm" or include.size == "lg" %} st-chip--{{ include.size }}{% endif %}{% if include.team.colour.size > 0 %} st-team--custom" style="--st-team-hex:{{ include.team.colour | escape }}{% else %} st-team--{{ include.team.slot }}{% endif %}" aria-hidden="true"></span>

@@ -702,3 +702,55 @@ img.st-brand__badge,
     );
   vertical-align: -0.02em;
 }
+
+/* ============================================================ sample banner (stage 4)
+   The notice shown on every page while the site shows the sample season, and on the
+   /preview/ copy. Existing roles only: text and links on `surface-2` (both measured in
+   docs/contrast.md), a rule in `hot` under it. It sits above the header. */
+.st-banner {
+  padding: var(--st-space-sm) var(--st-space-lg);
+  border-bottom: var(--st-border) solid var(--st-hot);
+  background: var(--st-surface-2);
+  color: var(--st-text);
+  font-size: var(--st-fs-small);
+  line-height: var(--st-lh-body);
+}
+.st-banner__text strong {
+  font-weight: var(--st-w-strong);
+}
+.st-page a.st-banner__link {
+  color: var(--st-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.st-page a.st-banner__link:hover {
+  color: var(--st-link-hover, var(--st-link));
+}
+
+/* ============================================================ skip link (stage 4)
+   Off screen until a keyboard user tabs to it, then drawn over the top of the page on a
+   `surface` chip with its own `focus` border (the ring round a link can vanish on a coloured
+   header). The local helper --sk-shift moves it; the design-system specimen sets it to 0 on a
+   wrapper to show the link without focusing it. */
+.st-skip-link,
+.st-page a.st-skip-link {
+  position: absolute;
+  z-index: 10;
+  top: var(--st-space-sm);
+  left: var(--st-space-sm);
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--st-tap);
+  padding-inline: var(--st-space-lg);
+  border: 2px solid var(--st-focus);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-surface);
+  color: var(--st-link);
+  font-weight: var(--st-w-strong);
+  text-decoration: none;
+  transform: translateY(var(--sk-shift, -300%));
+}
+.st-skip-link:focus,
+.st-page a.st-skip-link:focus {
+  --sk-shift: 0px;
+}

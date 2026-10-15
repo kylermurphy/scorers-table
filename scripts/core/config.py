@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError, available_timezones
 
 from scripts.core.fmt import humanize
 from scripts.core.problems import Checker, display_path, join_path, read_yaml
@@ -20,7 +20,7 @@ from scripts.core.sports import (
     ID_RE, REPO_ROOT, SPORTS_ROOT, check_option_value, check_standings, discover_sports, is_wrapped, load_sport,
     team_stat_keys, unknown_sport_message, unwrap,
 )
-from scripts.core.types import LAYOUTS, League, Placeholder, Problem, SportDef
+from scripts.core.model import LAYOUTS, League, Placeholder, Problem, SportDef
 
 LEAGUE_FILE = "league.yml"
 LEAGUE_KEYS = ("name", "short_name", "code", "sport", "layout", "colour", "colour_dark", "logo", "tagline",
@@ -149,11 +149,17 @@ def default_code(name: str) -> str:
 def _check_timezone(c: Checker, value: Any) -> None:
     if c.text(value, "timezone") is None:
         return
+    known = available_timezones()      # empty when the machine has no time zone database (then trust ZoneInfo)
     try:
         ZoneInfo(value)
+        found = not known or value in known     # 'america/toronto' loads on a Mac but not on the Linux build
     except (ZoneInfoNotFoundError, ValueError, OSError):
-        c.error("timezone", f"{value!r} is not a time zone name. Use a name such as 'America/Toronto' or "
-                            "'Europe/London' (the 'TZ identifier' column of the Wikipedia list of tz database time zones).")
+        found = False
+    if not found:
+        exact = next((k for k in known if k.lower() == value.lower()), None)
+        c.error("timezone", f"{value!r} is not a time zone name."
+                + (f" Did you mean {exact!r}?" if exact else " Use a name such as 'America/Toronto' or 'Europe/London' "
+                   "(the 'TZ identifier' column of the Wikipedia list of tz database time zones)."))
 
 
 def _check_contact(c: Checker, value: Any) -> str | None:
@@ -199,7 +205,8 @@ def _check_colours(c: Checker, raw: dict, layout: str | None) -> tuple[str | Non
             out[key] = raw[key].upper()
     if "colour_dark" in raw and "colour" not in raw:
         c.error("colour_dark", "needs 'colour' as well: colour_dark is the dark-theme version of the league colour.")
-    if out["colour"] and layout in LAYOUTS:
+    dark_ok = "colour_dark" not in raw or out["colour_dark"] is not None   # else the gate would blame `colour`
+    if out["colour"] and dark_ok and layout in LAYOUTS:
         from scripts.check_contrast import check_league_colour    # loaded only when a colour is set
         for p in check_league_colour(layout, out["colour"], out["colour_dark"]):
             c.error(p.setting or "colour", p.message)
@@ -316,10 +323,11 @@ def load_league(path: Path | None = None, *, sports_root: Path = SPORTS_ROOT,
 
 @dataclass(frozen=True)
 class Settings:
-    """The rules, standings and minimums that hold for one season."""
+    """The rules, standings and minimums that hold for one season, and what is still undecided for it."""
     rules: dict
     standings: dict
     minimums: dict[str, int]
+    placeholders: tuple[Placeholder, ...] = ()     # the league's, less those the season's overrides set
 
 
 def effective_settings(league: League, overrides: Any = None, *, file: str = "data/seasons.yml",
@@ -327,8 +335,11 @@ def effective_settings(league: League, overrides: Any = None, *, file: str = "da
     """The league's settings with a season's `overrides:` (from seasons.yml) deep-merged over them, so a
     changed points rule does not rewrite an archived season. Overrides take `rules`, `standings` and
     `stats.minimums`, and are checked like league.yml; problems carry `file` and a path starting with `at`
-    (the caller passes e.g. "1.overrides" for the second season). With no overrides, the league's own."""
-    base = Settings(league.rules, league.standings, league.minimums)
+    (the caller passes e.g. "1.overrides" for the second season). With no overrides, the league's own.
+    A `decide` setting the overrides set is no longer a placeholder for that season. The dicts returned are
+    copies: changing them never changes the League."""
+    base = Settings(copy.deepcopy(league.rules), copy.deepcopy(league.standings), dict(league.minimums),
+                    league.placeholders)
     if overrides is None:
         return base, []
     c, spec = Checker(file), league.sport_def.spec
@@ -345,4 +356,5 @@ def effective_settings(league: League, overrides: Any = None, *, file: str = "da
     rules = deep_merge(league.rules, overrides.get("rules") or {})
     standings = normalise_standings(deep_merge(league.standings_merged, overrides.get("standings") or {}))
     minimums = deep_merge(league.minimums, (overrides.get("stats") or {}).get("minimums") or {})
-    return Settings(rules, standings, minimums), c.problems
+    placeholders = tuple(ph for ph in league.placeholders if not _is_set(overrides, ph.setting))
+    return Settings(rules, standings, minimums, placeholders), c.problems

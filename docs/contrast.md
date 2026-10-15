@@ -17,24 +17,24 @@
 
 | Layout | Theme | Pairs checked | Pass | Fail | Accepted | Decor below target |
 |---|---|---:|---:|---:|---:|---:|
-| basketball | light | 81 | 80 | 0 | 0 | 1 |
-| basketball | dark | 81 | 80 | 0 | 0 | 1 |
-| classic | light | 81 | 79 | 0 | 0 | 2 |
-| classic | dark | 82 | 80 | 0 | 0 | 2 |
-| curling | light | 76 | 74 | 0 | 1 | 1 |
-| curling | dark | 79 | 78 | 0 | 0 | 1 |
-| hockey | light | 80 | 79 | 0 | 0 | 1 |
-| hockey | dark | 82 | 80 | 0 | 0 | 2 |
-| scoreboard | light | 81 | 81 | 0 | 0 | 0 |
-| scoreboard | dark | 82 | 82 | 0 | 0 | 0 |
-| slopitch | light | 76 | 75 | 0 | 0 | 1 |
-| slopitch | dark | 78 | 76 | 0 | 0 | 2 |
+| basketball | light | 86 | 85 | 0 | 0 | 1 |
+| basketball | dark | 86 | 85 | 0 | 0 | 1 |
+| classic | light | 86 | 84 | 0 | 0 | 2 |
+| classic | dark | 87 | 85 | 0 | 0 | 2 |
+| curling | light | 81 | 79 | 0 | 1 | 1 |
+| curling | dark | 84 | 83 | 0 | 0 | 1 |
+| hockey | light | 85 | 84 | 0 | 0 | 1 |
+| hockey | dark | 87 | 85 | 0 | 0 | 2 |
+| scoreboard | light | 86 | 86 | 0 | 0 | 0 |
+| scoreboard | dark | 87 | 87 | 0 | 0 | 0 |
+| slopitch | light | 81 | 80 | 0 | 0 | 1 |
+| slopitch | dark | 83 | 81 | 0 | 0 | 2 |
 
 Pairs that need no enforcement (decor) count as passing unless they miss their target.
 
 **All enforced pairs pass.** The two dark blocks of every file are identical, and the dark custom-colour blocks restate everything their light block sets.
 
-Browsers without `color-mix()`: **all 1902 enforced and decor pairs pass** (1902 pairs over 6 layouts x 2 themes x default / `data-league-colour`, `fallbacks.css` active).
+Browsers without `color-mix()`: **all 2022 enforced and decor pairs pass** (2022 pairs over 6 layouts x 2 themes x default / `data-league-colour`, `fallbacks.css` active).
 
 ## Browsers without color-mix()
 
@@ -103,6 +103,11 @@ None.
 | `footer-link/footer-bg` | text | #FFFFFF | #0B1B3F | 16.89 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #FF5C66 | #0B1B3F | 5.61 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2F3D5C | #0B1B3F | 1.56 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #0B1B3F | #ECEFF8 | 14.69 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #032F98 | #ECEFF8 | 9.80 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #B74047 | #ECEFF8 | 4.76 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #032F98 | #FFFFFF | 11.26 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #032F98 | #FFFFFF | 11.26 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #8F3036 | #FFE8E7 | 6.78 | 4.5 | pass |  |
 | `mark-text/surface` | text | #8F3036 | #FFFFFF | 7.94 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #DE4F58 | #FFFFFF | 3.91 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -189,6 +194,11 @@ None.
 | `footer-link/footer-bg` | text | #FFFFFF | #18214D | 15.40 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #FF5C66 | #18214D | 5.11 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #3A4268 | #18214D | 1.58 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #EEF2FF | #1A2444 | 13.61 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #9AB1DC | #1A2444 | 7.02 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #FF5C66 | #1A2444 | 5.05 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #9AB1DC | #131B34 | 7.85 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #9AB1DC | #131B34 | 7.85 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #FF8284 | #2E0A0C | 7.53 | 4.5 | pass |  |
 | `mark-text/surface` | text | #FF8284 | #131B34 | 7.11 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #CE4951 | #131B34 | 3.80 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -276,6 +286,11 @@ None.
 | `footer-link/footer-bg` | text | #FFFFFF | #0B1B3F | 16.89 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #AAB6CC | #0B1B3F | 8.26 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2F3D5C | #0B1B3F | 1.56 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #0B1B3F | #EDF0F7 | 14.81 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #1D3A6E | #EDF0F7 | 9.77 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #9E1B32 | #EDF0F7 | 6.92 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #1D3A6E | #FFFFFF | 11.15 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #1D3A6E | #FFFFFF | 11.15 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #9E1B32 | #F7E5E4 | 6.50 | 4.5 | pass |  |
 | `mark-text/surface` | text | #9E1B32 | #FFFFFF | 7.90 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #BC5C62 | #FFFFFF | 4.33 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -362,6 +377,11 @@ None.
 | `footer-link/footer-bg` | text | #FFFFFF | #060A14 | 19.78 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #AAB6CC | #060A14 | 9.67 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #26324A | #060A14 | 1.54 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #EEF2FA | #1B2740 | 13.26 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #AAB6CC | #1B2740 | 7.28 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #DA9B9C | #1B2740 | 6.48 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #AAB6CC | #141D30 | 8.22 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #AAB6CC | #141D30 | 8.22 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #DA9B9C | #510915 | 6.53 | 4.5 | pass |  |
 | `mark-text/surface` | text | #DA9B9C | #141D30 | 7.33 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #BC5C62 | #141D30 | 3.88 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -444,6 +464,11 @@ None.
 | `footer-muted/footer-bg` | text | #C5D3E2 | #0E2233 | 10.64 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #0E2233 | 16.21 | 4.5 | pass |  |
 | `footer-line/footer-bg` | decor | #324351 | #0E2233 | 1.58 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #0E2233 | #F4F7FA | 15.07 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #1D4E89 | #F4F7FA | 7.80 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #A60B24 | #F4F7FA | 7.24 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #1D4E89 | #FFFFFF | 8.38 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #A60B24 | #FDE4E3 | 6.45 | 4.5 | pass |  |
 | `mark-text/surface` | text | #A60B24 | #FFFFFF | 7.79 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #D95658 | #FFFFFF | 3.87 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -526,6 +551,11 @@ None.
 | `footer-muted/footer-bg` | text | #C5D3E2 | #060D15 | 12.81 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #060D15 | 19.51 | 4.5 | pass |  |
 | `footer-line/footer-bg` | decor | #2B3138 | #060D15 | 1.48 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #E8F0F6 | #1A2D3D | 12.25 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #9DB2CE | #1A2D3D | 6.51 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #EB8D8A | #1A2D3D | 5.85 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #9DB2CE | #13222F | 7.47 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #9DB2CE | #13222F | 7.47 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #EB8D8A | #53030D | 6.28 | 4.5 | pass |  |
 | `mark-text/surface` | text | #EB8D8A | #13222F | 6.71 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #D85154 | #13222F | 4.02 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -611,6 +641,11 @@ None.
 | `footer-link/footer-bg` | text | #FFFFFF | #14181F | 17.79 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #F2A900 | #14181F | 8.85 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #373A40 | #14181F | 1.56 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #151A22 | #EDF1F5 | 15.38 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #1D4E89 | #EDF1F5 | 7.39 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #C8102E | #EDF1F5 | 5.18 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #1D4E89 | #FFFFFF | 8.38 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #151A22 | #FEF3E2 | 15.90 | 4.5 | pass |  |
 | `mark-text/surface` | text | #151A22 | #FFFFFF | 17.46 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #966700 | #FFFFFF | 4.95 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -697,6 +732,11 @@ None.
 | `footer-link/footer-bg` | text | #FFFFFF | #090B0F | 19.69 | 4.5 | pass |  |
 | `footer-accent/footer-bg` | ui | #F2A900 | #090B0F | 9.80 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2E2F33 | #090B0F | 1.47 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #EEF2F7 | #2A3646 | 10.89 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #8DB8FF | #2A3646 | 6.08 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #FF7482 | #2A3646 | 4.70 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #8DB8FF | #212C39 | 7.03 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #8DB8FF | #212C39 | 7.03 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #F2A900 | #190E00 | 9.46 | 4.5 | pass |  |
 | `mark-text/surface` | text | #F2A900 | #212C39 | 7.04 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #F2A900 | #212C39 | 7.04 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -785,6 +825,11 @@ None.
 | `footer-accent/footer-bg` | ui | #CB0E1D | #111111 | 3.25 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2A2A2A | #111111 | 1.31 |  | decor | decorative divider; carries no information |
 | `score-text/footer-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass | parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg) |
+| `text/banner` | text | #111111 | #F2F2F2 | 16.86 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #111111 | #F2F2F2 | 16.86 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #CB0E1D | #F2F2F2 | 5.18 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #111111 | #FFFFFF | 18.88 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #CB0E1D | #FFFFFF | 5.80 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-line/score-bg` | ui | #B38720 | #000000 | 6.40 | 3 | pass | parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile |
 | `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass |  |
@@ -871,6 +916,11 @@ None.
 | `footer-accent/footer-bg` | ui | #CF2528 | #000000 | 3.94 | 3 | pass |  |
 | `footer-line/footer-bg` | decor | #2A2A2A | #000000 | 1.46 |  | decor | decorative divider; carries no information |
 | `score-text/footer-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass | parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg) |
+| `text/banner` | text | #F2F2F2 | #232323 | 14.03 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #F2A39A | #232323 | 7.84 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #F2A39A | #232323 | 7.84 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #F2A39A | #1A1A1A | 8.68 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #FFC233 | #1A1A1A | 10.78 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | parts-scores.css [scoreboard] .st-line-score td.is-mark: 2 px outline on the black digit tile |
 | `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
@@ -953,6 +1003,11 @@ None.
 | `footer-muted/footer-bg` | text | #C9C0AD | #22201C | 9.00 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #22201C | 16.26 | 4.5 | pass |  |
 | `footer-line/footer-bg` | decor | #3A3731 | #22201C | 1.37 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #22201C | #F8F2E4 | 14.56 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #2F6B3A | #F8F2E4 | 5.72 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #964324 | #F8F2E4 | 6.01 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #2F6B3A | #FFFFFF | 6.39 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #2F6B3A | #FFFFFF | 6.39 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #964324 | #FFFFFF | 6.71 | 4.5 | pass |  |
 | `mark-text/surface` | text | #964324 | #FFFFFF | 6.71 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #B5532E | #FFFFFF | 4.95 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |
@@ -1035,6 +1090,11 @@ None.
 | `footer-muted/footer-bg` | text | #C9C0AD | #0B0F0B | 10.69 | 4.5 | pass |  |
 | `footer-link/footer-bg` | text | #FFFFFF | #0B0F0B | 19.31 | 4.5 | pass |  |
 | `footer-line/footer-bg` | decor | #2A3326 | #0B0F0B | 1.47 |  | decor | decorative divider; carries no information |
+| `text/banner` | text | #F4ECD9 | #2B2820 | 12.50 | 4.5 | pass | parts-shell.css .st-banner (text on surface-2) |
+| `link/banner` | text | #86CC92 | #2B2820 | 7.75 | 4.5 | pass | parts-shell.css .st-banner__link (link on surface-2, underlined) |
+| `hot/banner-rule` | ui | #E8875E | #2B2820 | 5.64 | 3 | pass | parts-shell.css .st-banner border-bottom (hot against the banner fill) |
+| `link/skip-link` | text | #86CC92 | #22201A | 8.58 | 4.5 | pass | parts-shell.css .st-skip-link (link on its surface chip, shown on focus) |
+| `focus/skip-link-border` | ui | #86CC92 | #22201A | 8.58 | 3 | pass | parts-shell.css .st-skip-link border (focus against the surface chip it frames) |
 | `mark-text/mark-bg` | text | #E8875E | #22201A | 6.24 | 4.5 | pass |  |
 | `mark-text/surface` | text | #E8875E | #22201A | 6.24 | 4.5 | pass | a mark drawn with text and no tint (Slo-pitch's circled number, the underlined legend key) |
 | `mark-line/surface` | ui | #E0835A | #22201A | 5.86 | 3 | pass | the outline of a stolen end or run-limit inning against the card (it carries the meaning together with the text colour) |

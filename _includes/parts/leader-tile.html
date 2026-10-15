@@ -1,0 +1,10 @@
+{%- comment -%}
+  parts/leader-tile.html: one leader tile: the stat, its value, the leader and a small line under the name.
+  Params: board (a leaders.json board; its first row is the leader). Reads: board.label, board.edge ("hot" or
+  "accent": the colour of the top edge or of the number, the layout decides), stats.players / stats.teams (the link).
+{%- endcomment -%}
+{%- assign _lt_r = include.board.rows | first -%}
+{%- assign _lt_url = nil -%}
+{%- if _lt_r.player.size > 0 -%}{%- assign _lt_url = stats.players[_lt_r.player].url -%}{%- endif -%}
+{%- assign _lt_url = _lt_url | default: stats.teams[_lt_r.team].url -%}
+<a class="st-leader-tile st-leader-tile--{{ include.board.edge }}" href="{{ _lt_url | relative_url }}"><span class="st-leader-tile__label">{{ include.board.label | escape }}</span><span class="st-leader-tile__value">{{ _lt_r.display | escape }}</span><span class="st-leader-tile__name">{{ _lt_r.label | escape }}</span><span class="st-leader-tile__meta">{% include parts/leader-sub.html row=_lt_r board=include.board %}</span></a>

@@ -1,0 +1,18 @@
+{%- comment -%}
+  parts/legend.html: the key under a line score or a list of cards.
+  Params: items ([{kind, text, mark}]; kind is hammer, won, mark, blank, limit or x; mark is the character in a
+  limit or x key, default X), stack (one item per line), full (the keys of a full-size line score: 2 px frames).
+{%- endcomment -%}
+<div class="st-legend{% if include.stack %} st-legend--stack{% endif %}{% if include.full %} st-legend--full{% endif %}">
+{%- for _lg_i in include.items -%}
+<span class="st-legend__item">
+{%- if _lg_i.kind == "hammer" -%}
+  {%- include parts/hammer.html px=12 -%}
+{%- elsif _lg_i.kind == "limit" or _lg_i.kind == "x" -%}
+<span class="st-legend__key st-legend__key--{{ _lg_i.kind }}" aria-hidden="true">{{ _lg_i.mark | default: "X" | escape }}</span>
+{%- else -%}
+<span class="st-legend__key st-legend__key--{{ _lg_i.kind }}" aria-hidden="true"></span>
+{%- endif -%}
+<span>{{ _lg_i.text | escape }}</span></span>
+{%- endfor -%}
+</div>

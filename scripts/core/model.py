@@ -1,7 +1,9 @@
-"""The shared types (docs/stage-4-spec.md, section 3.1).
+"""The shared types (docs/stage-4-spec.md, section 3.1): `from scripts.core.model import Problem, Score, ...`.
 
 Sports (`sports/<id>/rules.py`, `sample.py`) import these and nothing else from the core, so this module
 has no imports beyond the standard library. Everything here is plain data: no I/O, no clock.
+(Named `model`, not `types`: a `types.py` shadows the standard library's `types` module whenever this folder
+is the current directory or on sys.path, and Python then fails to start its own imports.)
 """
 from __future__ import annotations
 
@@ -11,8 +13,11 @@ from types import ModuleType
 from typing import Literal
 
 LEVELS = ("error", "warning")
+SIDES = ("home", "away")                                   # sheet sides, never team ids (section 2.4)
+DECIDED_IN = ("regulation", "overtime", "shootout")         # Score.decided_in
 
 # The closed vocabularies a sport's `present()` may use (section 3.4). The contract test checks against these.
+PRESENT_KEYS = ("line_score", "card", "tiles", "blocks")
 BLOCK_TYPES = ("stat_table", "note")
 CELL_FLAGS = ("won", "mark", "blank", "void", "open", "hammer")
 
@@ -84,7 +89,8 @@ class Score:
     periods: dict[str, list[int | None]]                            # regulation periods; None = not played (X)
     extra: dict[str, list[int]] = field(default_factory=dict)       # overtime / extra ends / extra innings
     decided_in: str = "regulation"                                  # "regulation" | "overtime" | "shootout"
-    final_at: dict[str, str] = field(default_factory=dict)          # the box holding each final score
+    final_at: dict[str, str] = field(default_factory=dict)          # the box holding each final score; both
+                                                                    # sides required (call_sport checks it)
 
 
 @dataclass

@@ -1,0 +1,67 @@
+{%- comment -%}
+  parts/leader-list.html: one leaderboard as a list. The form follows the layout:
+    Scoreboard         a ranked board (huge numbers, first row heavier, three rows; a one-row board is a pill)
+    Hockey + columns   a table with round rank chips (points, goals, assists...)
+    anything else      rows with a rank number; Classic shows the unit under the value and hides the title
+                       (the section heading is the title); a board that has a tile starts at rank 2
+  Params: board (a leaders.json board with list: true). Reads: board {title, title_board, unit, note via min.note,
+  columns, first_row_in_tile, rows [{rank, player, team, label, display, detail, cells}]}.
+{%- endcomment -%}
+{%- assign _ll_b = include.board -%}
+{%- capture _ll_o -%}
+{%- if league.layout == "scoreboard" -%}
+  {%- assign _ll_n = _ll_b.rows.size -%}
+  {%- if _ll_n > 3 -%}{%- assign _ll_n = 3 -%}{%- endif -%}
+<div class="st-leader-board"><h3 class="st-leader-board__title">{{ _ll_b.title_board | default: _ll_b.title | escape }}</h3>
+  {%- if _ll_n == 1 -%}
+    {%- assign _ll_r = _ll_b.rows | first -%}
+    {%- assign _ll_url = nil -%}{%- if _ll_r.player.size > 0 -%}{%- assign _ll_url = stats.players[_ll_r.player].url -%}{%- endif -%}
+    {%- assign _ll_url = _ll_url | default: stats.teams[_ll_r.team].url -%}
+<a class="st-leader-board__pill" href="{{ _ll_url | relative_url }}"><span class="st-leader-board__digits">{{ _ll_r.display | escape }}</span><span class="st-leader-board__who"><span class="st-leader-board__name">{{ _ll_r.label | escape }}</span><span class="st-leader-board__sub">{% include parts/leader-sub.html row=_ll_r board=_ll_b %}</span></span></a>
+  {%- else -%}
+<ol class="st-leader-board__rows">
+    {%- for _ll_r in _ll_b.rows limit: 3 -%}
+      {%- assign _ll_url = nil -%}{%- if _ll_r.player.size > 0 -%}{%- assign _ll_url = stats.players[_ll_r.player].url -%}{%- endif -%}
+      {%- assign _ll_url = _ll_url | default: stats.teams[_ll_r.team].url -%}
+<li><a class="st-leader-board__row{% if forloop.first %} st-leader-board__row--first{% endif %}" href="{{ _ll_url | relative_url }}"><span class="st-leader-board__value"><span class="st-visually-hidden">{{ _ll_r.rank }}. </span>{{ _ll_r.display | escape }}</span><span class="st-leader-board__who"><span class="st-leader-board__name">{{ _ll_r.label | escape }}</span><span class="st-leader-board__sub">{% include parts/leader-sub.html row=_ll_r board=_ll_b %}</span></span></a></li>
+    {%- endfor -%}
+</ol>
+  {%- endif -%}
+</div>
+{%- elsif league.layout == "hockey" and _ll_b.columns.size > 0 -%}
+<p class="st-label st-leader-group">{{ _ll_b.title | escape }}</p>
+<div class="st-table-wrap" role="region" aria-label="{{ _ll_b.title | escape }} leaders" tabindex="0">
+<table class="st-table st-table--leaders"><caption class="st-visually-hidden">{{ _ll_b.title | escape }} leaders</caption>
+<thead><tr><th scope="col" class="is-left">Player</th>
+  {%- for _ll_c in _ll_b.columns -%}
+<th scope="col" class="st-num{% if _ll_c.key_col %} is-key{% endif %}"><abbr title="{{ _ll_c.title | escape }}">{{ _ll_c.label | escape }}</abbr></th>
+  {%- endfor -%}
+</tr></thead>
+<tbody>
+  {%- for _ll_r in _ll_b.rows -%}
+    {%- assign _ll_url = nil -%}{%- if _ll_r.player.size > 0 -%}{%- assign _ll_url = stats.players[_ll_r.player].url -%}{%- endif -%}
+    {%- assign _ll_url = _ll_url | default: stats.teams[_ll_r.team].url -%}
+<tr><th scope="row"><a class="st-leader-cell" href="{{ _ll_url | relative_url }}"><span class="st-rank-chip{% if _ll_r.rank == 1 %} is-first{% endif %}">{{ _ll_r.rank }}</span><span class="st-leader-cell__who"><span class="st-leader-cell__name">{{ _ll_r.label | escape }}</span><span class="st-leader-cell__sub">{% include parts/leader-sub.html row=_ll_r board=_ll_b %}</span></span></a></th>
+    {%- for _ll_c in _ll_b.columns -%}
+<td{% if _ll_c.key_col %} class="is-key"{% endif %}>{{ _ll_r.cells[_ll_c.key] | escape }}</td>
+    {%- endfor -%}
+</tr>
+  {%- endfor -%}
+</tbody></table></div>
+{%- else -%}
+<div class="st-leader-list"><h3 class="st-leader-list__title{% if league.layout == 'classic' %} st-visually-hidden{% endif %}">{{ _ll_b.title | escape }}</h3>
+  {%- for _ll_r in _ll_b.rows -%}
+    {%- unless _ll_b.first_row_in_tile and forloop.first -%}
+      {%- assign _ll_url = nil -%}{%- if _ll_r.player.size > 0 -%}{%- assign _ll_url = stats.players[_ll_r.player].url -%}{%- endif -%}
+      {%- assign _ll_url = _ll_url | default: stats.teams[_ll_r.team].url -%}
+      {%- capture _ll_sub -%}{%- include parts/leader-sub.html row=_ll_r board=_ll_b values=true -%}{%- endcapture -%}
+<a class="st-leader-row" href="{{ _ll_url | relative_url }}"><span class="st-leader-row__rank{% if _ll_r.rank == 1 %} is-first{% endif %}">{{ _ll_r.rank }}</span><span class="st-leader-row__who"><span class="st-leader-row__name">{{ _ll_r.label | escape }}</span>{% if _ll_sub.size > 0 %} <span class="st-leader-row__team">{{ _ll_sub }}</span>{% endif %}</span><span class="st-leader-row__value">{{ _ll_r.display | escape }}{% if _ll_b.unit.size > 0 and league.layout == "classic" %}<span class="st-leader-row__unit">{{ _ll_b.unit | escape }}</span>{% endif %}</span></a>
+    {%- endunless -%}
+  {%- endfor -%}
+</div>
+  {%- if _ll_b.min.note.size > 0 -%}<p class="st-note">{{ _ll_b.min.note | escape }}</p>{%- endif -%}
+{%- endif -%}
+{%- endcapture -%}
+{%- assign _ll_lines = _ll_o | split: "
+" -%}
+{%- for _ll_line in _ll_lines -%}{{ _ll_line | strip }}{%- endfor -%}

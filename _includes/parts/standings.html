@@ -1,0 +1,45 @@
+{%- comment -%}
+  parts/standings.html: the standings table, or "the race" (Scoreboard Home: a bar per team), and the note under it.
+  Goes inside <section class="st-section"> under shell/section-head.html.
+  Params: standings (standings.json), mode ("table" or "race"; default: the race on the Scoreboard layout, the
+  table everywhere else; the Scoreboard's full-standings page passes "table"), full_url (where the race's
+  "Full table" link goes; default /stats/).
+  Reads: league.labels (standings, team, full_table), league.name, stats.teams.
+  Rows: {rank, team, display{}, race{pct, value, unit, sub}}; race.basis is "win_pct" or "points" (with max).
+{%- endcomment -%}
+{%- assign _sd_s = include.standings -%}
+{%- assign _sd_mode = include.mode | default: "" -%}
+{%- if _sd_mode == "" -%}{%- if league.layout == "scoreboard" -%}{%- assign _sd_mode = "race" -%}{%- else -%}{%- assign _sd_mode = "table" -%}{%- endif -%}{%- endif -%}
+{%- capture _sd_o -%}
+{%- if _sd_mode == "race" -%}
+<ol class="st-race" aria-label="{{ league.labels.standings | escape }}">
+  {%- for _sd_r in _sd_s.rows -%}
+    {%- assign _sd_t = stats.teams[_sd_r.team] -%}
+<li><a class="st-race__row{% if forloop.first %} st-race__row--lead{% endif %}" href="{{ _sd_t.url | relative_url }}"><span class="st-race__rank">{{ _sd_r.rank }}</span><span class="st-race__who"><span class="st-race__name">{{ _sd_t.name | escape }}</span> <span class="st-race__sub">{{ _sd_r.race.sub | escape }}</span><span class="st-race__bar" aria-hidden="true"><span class="st-race__fill" style="width:{{ _sd_r.race.pct }}%"></span></span></span><span class="st-race__points">{{ _sd_r.race.value | escape }}{% if _sd_r.race.unit.size > 0 %}<span class="st-visually-hidden">{{ _sd_r.race.unit | escape }}</span>{% endif %}</span></a></li>
+  {%- endfor -%}
+</ol>
+<p class="st-note">Bar = {% if _sd_s.race.basis == "win_pct" %}win %{% else %}points out of {{ _sd_s.race.max }} possible{% endif %}. {{ _sd_s.note | escape }} <a href="{{ include.full_url | default: '/stats/' | relative_url }}">{{ league.labels.full_table | escape }}</a></p>
+{%- else -%}
+<div class="st-table-wrap st-table-wrap--standings" role="region" aria-label="{{ league.labels.standings | escape }} table" tabindex="0">
+<table class="st-table st-table--standings"><caption class="st-visually-hidden">{{ league.labels.standings | escape }}, {{ league.name | escape }}</caption>
+<thead><tr><th scope="col" class="is-left">{{ league.labels.team | default: "Team" | escape }}</th>
+  {%- for _sd_c in _sd_s.columns -%}
+<th scope="col" class="st-num{% if _sd_c.key_col %} is-key{% endif %}"><abbr title="{{ _sd_c.title | escape }}">{{ _sd_c.label | escape }}</abbr></th>
+  {%- endfor -%}
+</tr></thead>
+<tbody>
+  {%- for _sd_r in _sd_s.rows -%}
+    {%- assign _sd_t = stats.teams[_sd_r.team] -%}
+<tr><th scope="row"><span class="st-rank">{{ _sd_r.rank }}</span>{% include parts/chip.html team=_sd_t size="sm" %}<span class="st-table__team">{{ _sd_t.name | escape }}</span></th>
+    {%- for _sd_c in _sd_s.columns -%}
+<td{% if _sd_c.key_col %} class="is-key"{% endif %}>{{ _sd_r.display[_sd_c.key] | escape }}</td>
+    {%- endfor -%}
+</tr>
+  {%- endfor -%}
+</tbody></table></div>
+<p class="st-note">{{ _sd_s.note | escape }}</p>
+{%- endif -%}
+{%- endcapture -%}
+{%- assign _sd_lines = _sd_o | split: "
+" -%}
+{%- for _sd_line in _sd_lines -%}{{ _sd_line | strip }}{%- endfor -%}

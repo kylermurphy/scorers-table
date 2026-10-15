@@ -10,7 +10,7 @@ from scripts.core.config import (
     FALLBACK_STANDINGS, LEAGUE_KEYS, REQUIRED_KEYS, build_league, deep_merge, default_code, effective_settings,
     load_league,
 )
-from scripts.core.types import LAYOUTS, League
+from scripts.core.model import LAYOUTS, League
 
 ROOT = Path(__file__).resolve().parent.parent
 GOLD, NAVY = "#C98A12", "#1D3A6E"
@@ -435,3 +435,28 @@ def test_the_shipped_league_loads_with_the_real_stub_sport():
 def test_fallback_standings_cover_every_key():
     assert set(FALLBACK_STANDINGS) == {"rank_by", "points", "period_points", "ties", "forfeit", "tiebreakers",
                                        "columns", "playoffs"}
+
+
+def test_overrides_that_set_a_decide_setting_remove_its_placeholder_for_that_season(sports_root):
+    lg = ok(sports_root)
+    settings, _ = effective_settings(lg, {"standings": {"tiebreakers": ["wins"]}, "rules": {"overtime": "none"}})
+    assert [p.setting for p in settings.placeholders] == ["standings.forfeit", "stats.minimums.ppg_min_games"]
+    assert effective_settings(lg, None)[0].placeholders == lg.placeholders
+
+
+def test_effective_settings_returns_copies(sports_root):
+    lg = ok(sports_root)
+    settings, _ = effective_settings(lg, None)
+    settings.standings["points"]["win"] = 99
+    settings.rules["periods"] = 99
+    assert lg.standings["points"]["win"] == 2 and lg.rules["periods"] == 2
+
+
+def test_a_malformed_colour_dark_does_not_run_the_gate_against_colour(sports_root):
+    league, problems = make(sports_root, colour=GOLD, colour_dark="blue")
+    assert league is None and set(errors(problems)) == {"colour_dark"}
+
+
+def test_timezone_names_are_case_sensitive_like_on_the_linux_build(sports_root):
+    _, problems = make(sports_root, timezone="america/toronto")
+    assert "Did you mean 'America/Toronto'?" in errors(problems)["timezone"]

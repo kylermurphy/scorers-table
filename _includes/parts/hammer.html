@@ -1,0 +1,4 @@
+{%- comment -%}
+  parts/hammer.html: the hammer marker (three rings). Params: px (the size in pixels, default 10), label (its accessible name; none = decoration).
+{%- endcomment -%}
+<svg class="st-hammer" width="{{ include.px | default: 10 }}" height="{{ include.px | default: 10 }}" viewBox="0 0 10 10" {% if include.label.size > 0 %}role="img" aria-label="{{ include.label | escape }}"{% else %}aria-hidden="true"{% endif %} focusable="false"><circle class="st-hammer__ring" cx="5" cy="5" r="5"/><circle class="st-hammer__mid" cx="5" cy="5" r="3.3"/><circle class="st-hammer__core" cx="5" cy="5" r="2.1"/></svg>

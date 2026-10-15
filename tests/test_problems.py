@@ -10,7 +10,7 @@ from scripts.core.problems import (
     format_problem, github_annotation, has_errors, join_path, read_yaml, report, report_internal_error,
     sort_problems, suggest, with_file, with_prefix,
 )
-from scripts.core.types import Placeholder, Problem
+from scripts.core.model import Line, Placeholder, Problem, Reading, Score, SportContext
 
 
 def err(at, message="m", file=""):
@@ -125,13 +125,20 @@ def test_report_prints_and_returns_the_exit_code():
     assert "f.yml: a: bad" in out.getvalue() and "Still to decide" in out.getvalue()
 
 
-def test_report_json_and_annotations():
-    out = io.StringIO()
-    code = report([err("a", "bad", "f.yml")], json_lines=True, annotations=True, out=out)
-    lines = out.getvalue().splitlines()
-    assert code == 1
+def test_report_json_and_annotations_go_to_the_data_stream():
+    out, data = io.StringIO(), io.StringIO()
+    code = report([err("a", "bad", "f.yml")], json_lines=True, annotations=True, out=out, data_out=data)
+    lines = data.getvalue().splitlines()
+    assert code == 1 and out.getvalue() == ""
     assert json.loads(lines[0])["at"] == "a"
     assert lines[1] == "::error file=f.yml,title=a::bad"
+
+
+def test_report_defaults_human_text_to_stderr_and_data_to_stdout(capsys):
+    report([err("a", "bad", "f.yml")], annotations=True)
+    captured = capsys.readouterr()
+    assert captured.err.strip() == "f.yml: a: bad"
+    assert captured.out.strip() == "::error file=f.yml,title=a::bad"
 
 
 def test_report_with_only_warnings_returns_zero():
@@ -147,7 +154,7 @@ def test_call_sport_turns_a_raise_into_an_internal_error_naming_the_file():
         call_sport("check", sport_function_that_raises, {}, None)
     assert "check()" in str(info.value) and "test_problems.py" in str(info.value)
     assert isinstance(info.value.__cause__, KeyError)
-    assert call_sport("check", lambda a, b: [a, b], 1, 2) == [1, 2]
+    assert call_sport("other", lambda a, b: [a, b], 1, 2) == [1, 2]       # no shape check for other names
 
 
 def test_report_internal_error_prints_a_traceback_and_returns_two():
@@ -241,3 +248,116 @@ def test_checker_ok_ignores_warnings():
 def test_suggest():
     assert suggest("head2head", ["head_to_head", "wins"]) == "head_to_head"
     assert suggest("zzzz", ["head_to_head", "wins"]) is None
+
+
+def test_read_yaml_keeps_yaml_1_1_surprises_as_text(tmp_path):
+    f = tmp_path / "x.yml"
+    f.write_text("a: no\nb: ON\nc: 007\nd: 00\ne: 12:34\nf: 2026-11-05\ng: 010\nh: yes\ni: off\n"
+                 "j: 7\nk: true\nl: False\nm: 1.5\nn: null\no: -3\np: 0\nq: =\n", encoding="utf-8")
+    data, problems = read_yaml(f, "x.yml")
+    assert problems == []
+    assert data == {"a": "no", "b": "ON", "c": "007", "d": "00", "e": "12:34", "f": "2026-11-05", "g": "010",
+                    "h": "yes", "i": "off", "j": 7, "k": True, "l": False, "m": 1.5, "n": None, "o": -3, "p": 0,
+                    "q": "="}
+
+
+def test_read_yaml_rejects_a_key_written_twice(tmp_path):
+    f = tmp_path / "x.yml"
+    f.write_text("home: otters\naway: ravens\nhome: moose\n", encoding="utf-8")
+    data, problems = read_yaml(f, "x.yml")
+    assert data is None and len(problems) == 1
+    assert problems[0].message == "Line 3: the key 'home' is written twice in one block (also on line 1). Keep one of them."
+
+
+def test_read_yaml_allows_anchors_and_merge_keys(tmp_path):
+    f = tmp_path / "x.yml"
+    f.write_text("base: &b {win: 2, loss: 0}\nover:\n  <<: *b\n  win: 3\n", encoding="utf-8")
+    data, problems = read_yaml(f, "x.yml")
+    assert problems == [] and data["over"] == {"win": 3, "loss": 0}
+
+
+def test_read_yaml_handles_a_bom_and_reports_non_utf8(tmp_path):
+    f = tmp_path / "x.yml"
+    f.write_bytes("\ufeffname: Caf\u00e9\n".encode("utf-8"))
+    assert read_yaml(f, "x.yml") == ({"name": "Caf\u00e9"}, [])
+    f.write_bytes("name: Caf\u00e9\n".encode("latin-1"))
+    data, problems = read_yaml(f, "x.yml")
+    assert data is None and "not saved as UTF-8" in problems[0].message
+
+
+def test_read_yaml_of_an_empty_file_or_a_list(tmp_path):
+    f = tmp_path / "x.yml"
+    f.write_text("", encoding="utf-8")
+    assert read_yaml(f, "x.yml") == (None, [])
+    f.write_text("- a\n- b\n", encoding="utf-8")
+    assert read_yaml(f, "x.yml") == (["a", "b"], [])
+
+
+def test_checker_ident_accepts_ids_and_whole_numbers():
+    c = Checker("f.yml")
+    assert c.ident("ann-b", "a") == "ann-b" and c.ident(12, "b") == "12" and c.ident("2026-27", "c") == "2026-27"
+    assert c.ident("Ann B", "d") is None and c.ident(True, "e") is None and c.ident("a--b", "f") is None
+    assert [p.at for p in c.problems] == ["d", "e", "f"]
+
+
+def test_checker_text_says_to_quote_a_number():
+    c = Checker("f.yml")
+    c.text(1985, "name")
+    assert "Put it in quotes" in c.problems[0].message
+
+
+# ------------------------------------------------------------------ call_sport checks what a sport returns
+
+SPEC = {"stats": {"player": [{"key": "pts"}], "goalie": [{"key": "ga"}], "derived": [{"key": "ppg"}],
+                  "team": [{"key": "ends"}]}}
+CTX = SportContext(sport=SPEC, options={}, teams={}, players={}, sides={"home": "a", "away": "b"},
+                   game_type="regular", folder="games")
+
+
+def score(**changes):
+    base = dict(final={"home": 2, "away": 1}, periods={"home": [1, 1], "away": [1, None]},
+                final_at={"home": "sheet.final.home", "away": "sheet.final.away"})
+    return Score(**{**base, **changes})
+
+
+def shape_error(name, value):
+    with pytest.raises(InternalError) as info:
+        call_sport(name, lambda *a: value, {}, CTX)
+    assert "returned the wrong shape" in str(info.value)
+    return str(info.value)
+
+
+def test_call_sport_accepts_good_shapes():
+    reading = Reading(score(), [Line("home", "ann-b", "player", {"pts": 2}), Line("away", "joe-k", "goalie", {"ga": 2})],
+                      {"home": {"ends": 3}}, {"hammer": "home"})
+    assert call_sport("read", lambda *a: reading, {}, CTX) is reading
+    assert call_sport("check", lambda *a: [err("x")], {}, CTX) == [err("x")]
+    assert call_sport("present", lambda *a: {"blocks": [{"type": "note", "text": "x"}]}, None, CTX)
+    assert call_sport("derive", lambda *a: {"ppg": 2.5, "x": None, "n": 1}, {}, "player")
+
+
+@pytest.mark.parametrize("name, value, words", [
+    ("check", None, "list of Problem"),
+    ("check", ["oops"], "not a Problem"),
+    ("read", {}, "must return a Reading"),
+    ("read", Reading(score(final={"home": 2})), "Score.final"),
+    ("read", Reading(score(final={"home": 2, "away": True})), "Score.final['away']"),
+    ("read", Reading(score(periods={"home": [1], "away": [1, 2]})), "same number of periods"),
+    ("read", Reading(score(extra={"home": [1], "away": []})), "Score.extra"),
+    ("read", Reading(score(decided_in="ot")), "decided_in"),
+    ("read", Reading(score(final_at={})), "Score.final_at"),
+    ("read", Reading(score(final_at={"home": "final.home", "away": "final.away"})), "sheet.final.home"),
+    ("read", Reading(score(), [Line("left", "ann-b")]), "side 'home' or 'away'"),
+    ("read", Reading(score(), [Line("home", "ann-b", "skater", {})]), "not a stats group"),
+    ("read", Reading(score(), [Line("home", "ann-b", "player", {"goals": 1})]), "goals"),
+    ("read", Reading(score(), [Line("home", "ann-b", "player", {"pts": 1.5})]), "whole numbers"),
+    ("read", Reading(score(), [], {"otters": {}}), "team_lines"),
+    ("read", Reading(score(), [], {"home": {"stolen": 1}}), "stolen"),
+    ("present", [], "must return a dict"),
+    ("present", {"blocks": [{"type": "chart"}]}, "stat_table, note"),
+    ("present", {"extra": 1}, "unknown keys"),
+    ("derive", {"ppg": "2.5"}, "numbers or None"),
+    ("derive", {"ppg": True}, "numbers or None"),
+])
+def test_call_sport_refuses_a_wrong_shape(name, value, words):
+    assert words in shape_error(name, value)

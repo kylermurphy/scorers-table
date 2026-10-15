@@ -938,6 +938,20 @@ def build_pairs() -> list:
               plain="the ticker's status tag",
               why="parts-shell.css .st-ticker__tag (score-text on the ticker strip, footer-bg)"),
     ]
+    # sample banner and skip link (parts-shell.css, stage 4). Same roles as the page text, listed here
+    # so a change to either rule is measured under its own name.
+    P += [
+        _pair("text", "surface-2", "text", "text/banner", plain="the sample banner's text",
+              why="parts-shell.css .st-banner (text on surface-2)"),
+        _pair("link", "surface-2", "text", "link/banner", plain="the link in the sample banner",
+              why="parts-shell.css .st-banner__link (link on surface-2, underlined)"),
+        _pair("hot", "surface-2", "ui", "hot/banner-rule", plain="the rule under the sample banner",
+              why="parts-shell.css .st-banner border-bottom (hot against the banner fill)"),
+        _pair("link", "surface", "text", "link/skip-link", plain="the skip link's label",
+              why="parts-shell.css .st-skip-link (link on its surface chip, shown on focus)"),
+        _pair("focus", "surface", "ui", "focus/skip-link-border", plain="the skip link's border",
+              why="parts-shell.css .st-skip-link border (focus against the surface chip it frames)"),
+    ]
     # marks, badges, ranks (parts-scores.css .is-mark, .st-legend__key--mark/--limit; base.css .st-badge)
     P += [
         _pair("mark-text", ("surface", "mark-bg"), "text", "mark-text/mark-bg", not_in=("scoreboard",)),

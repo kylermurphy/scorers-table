@@ -5,7 +5,9 @@ import pytest
 from scripts.core.sports import (
     check_sport_spec, discover_sports, is_wrapped, load_all_sports, load_sport, normalise_spec, unwrap,
 )
-from scripts.core.types import SportDef
+from scripts.core.model import SportDef
+from scripts.core.problems import InternalError
+import shutil
 import yaml
 
 
@@ -140,3 +142,34 @@ def test_normalise_spec_does_not_change_its_input(sports_root):
     before = yaml.safe_dump(spec)
     normalise_spec(spec)
     assert yaml.safe_dump(spec) == before
+
+
+def test_gp_is_the_cores_and_cannot_be_a_sport_stat(sports_root):
+    spec = spec_of(sports_root)
+    spec["stats"]["player"].append({"key": "gp", "label": "GP", "title": "Games played"})
+    [p] = check_sport_spec(spec, "sport.yml")
+    assert p.at == "stats.player.1.key" and "worked out by the core" in p.message
+
+
+def test_detail_and_note_templates_may_only_name_known_values(sports_root):
+    spec = spec_of(sports_root)
+    assert check_sport_spec(spec, "sport.yml") == []          # {gp}, {pts} and {value} are all known
+    spec["leaderboards"][0]["detail"] = "{gp} GP, {pst} pts"
+    spec["leaderboards"][1]["detail"] = "{pts"
+    spec["leaderboards"][1]["min"]["stat"] = "games"
+    spec["minimums"]["ppg_min_games"]["note"] = "Minimum {games} games."
+    found = {p.at: p.message for p in check_sport_spec(spec, "sport.yml")}
+    assert set(found) == {"leaderboards.0.detail", "leaderboards.1.detail", "leaderboards.1.min.stat",
+                          "minimums.ppg_min_games.note"}
+    assert "{pst} is not a value" in found["leaderboards.0.detail"] and "{pts}" in found["leaderboards.0.detail"]
+    assert "not a valid template" in found["leaderboards.1.detail"]
+    assert "{value}" in found["minimums.ppg_min_games.note"]
+
+
+def test_a_sport_file_that_fails_to_import_is_an_internal_error_naming_it(sports_root, tmp_path):
+    shutil.copytree(sports_root / "tiny", tmp_path / "crash", ignore=shutil.ignore_patterns("__pycache__"))
+    (tmp_path / "crash" / "rules.py").write_text("import nothing_called_this\n", encoding="utf-8")
+    with pytest.raises(InternalError) as info:
+        load_sport("crash", tmp_path, root=tmp_path)
+    assert "crash/rules.py" in str(info.value) and "ModuleNotFoundError" in str(info.value)
+    assert isinstance(info.value.__cause__, ModuleNotFoundError)

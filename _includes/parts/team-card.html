@@ -1,0 +1,8 @@
+{%- comment -%}
+  parts/team-card.html: a team as a card: colour edge, name, record (and points), a sub line, the standings rank.
+  Params: team (a teams.json entry), rank_text (optional; replaces "No. 3 in the standings").
+  Reads: team {name, url, slot, colour, record, points, sub, rank}. A team colour of its own gives
+  .st-team--custom and --st-team-hex (lifted in dark mode by the layout); otherwise the slot's palette colour.
+{%- endcomment -%}
+{%- assign _tc_t = include.team -%}
+<a class="st-team-card{% if _tc_t.colour.size > 0 %} st-team--custom" style="--st-team-hex:{{ _tc_t.colour | escape }}{% else %} st-team--{{ _tc_t.slot }}{% endif %}" href="{{ _tc_t.url | relative_url }}"><span class="st-team-card__name">{{ _tc_t.name | escape }}</span><span class="st-team-card__record">{{ _tc_t.record | escape }}{% if _tc_t.points.size > 0 %}<span class="st-team-card__points"> · {{ _tc_t.points | escape }} pts</span>{% endif %}</span>{% if _tc_t.sub.size > 0 %}<span class="st-team-card__sub">{{ _tc_t.sub | escape }}</span>{% endif %}<span class="st-team-card__rank">{% if include.rank_text.size > 0 %}{{ include.rank_text | escape }}{% else %}No. {{ _tc_t.rank }} in the standings{% endif %}</span></a>

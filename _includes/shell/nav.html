@@ -1,0 +1,4 @@
+{%- comment -%}
+  shell/nav.html: the tabs. Params: current (a nav key: home, schedule, stats, teams, archive). Reads: league.nav.
+{%- endcomment -%}
+<nav class="st-nav" aria-label="Main">{% for item in league.nav %}<a class="st-nav__link" href="{{ item.url | relative_url }}"{% if item.key == include.current %} aria-current="page"{% endif %}>{{ item.label | escape }}</a>{% endfor %}</nav>

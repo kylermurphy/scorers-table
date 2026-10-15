@@ -207,7 +207,7 @@ by listing `sports/*/sport.yml`, and loads `rules.py` and `sample.py` from that 
 | `rules.js` | stage 7 | the JavaScript port for the entry page |
 | `sheet.py`, spec | later | the printable sheet and its spec |
 
-### 3.1 Types (in `scripts/core/types.py`, imported by sports)
+### 3.1 Types (in `scripts/core/model.py`, imported by sports)
 
 ```python
 @dataclass(frozen=True)

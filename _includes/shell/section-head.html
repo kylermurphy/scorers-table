@@ -1,0 +1,5 @@
+{%- comment -%}
+  shell/section-head.html: a section's title with an optional aside (a date, or a link when aside_url is given).
+  Params: title, aside (optional), aside_url (optional site path). Goes first inside <section class="st-section">.
+{%- endcomment -%}
+<div class="st-section__head"><h2 class="st-section__title">{{ include.title | escape }}</h2>{% if include.aside.size > 0 %}{% if include.aside_url.size > 0 %}<a class="st-section__aside" href="{{ include.aside_url | relative_url }}">{{ include.aside | escape }}</a>{% else %}<span class="st-section__aside">{{ include.aside | escape }}</span>{% endif %}{% endif %}</div>

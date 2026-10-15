@@ -1,0 +1,49 @@
+{%- comment -%}
+  parts/result-card.html: a finished game as a card; the whole card is the link to the game page.
+  Params: game (a games.json entry), lines (true: the card holds a compact line score instead of two score rows;
+  default league.display.card == "lines"; a game with no line score always gets the two rows).
+  Reads: league.display (card, card_foot, card_head), league.layout, league.labels.tie, game.card
+  {note, strong, link_label, meta [], line_score}. The foot's wording follows league.display.card_foot:
+    note         the note, its `strong` part in bold                      (Scoreboard puts "Final · " in front)
+    meta         the meta parts joined with " · "                         (curling: "Sheet A · 6:30 PM")
+    status_note  "Final · " and the note                                  (hockey: "Final · GWG #12 Gord P.")
+  Classic's foot is one quiet line: the status, "Tie", and the meta parts except the time.
+{%- endcomment -%}
+{%- assign _rc_g = include.game -%}
+{%- assign _rc_ls = _rc_g.card.line_score | default: _rc_g.line_score -%}
+{%- assign _rc_lines = include.lines -%}
+{%- if _rc_lines == nil -%}{%- if league.display.card == "lines" -%}{%- assign _rc_lines = true -%}{%- endif -%}{%- endif -%}
+{%- if _rc_ls == nil -%}{%- assign _rc_lines = false -%}{%- endif -%}
+{%- assign _rc_tie = league.labels.tie | default: "Tie" -%}
+{%- capture _rc_o -%}
+<a class="st-card st-result-card{% if _rc_lines %} st-result-card--lines{% endif %}{% if _rc_g.tie %} st-result-card--tie{% endif %}" href="{{ _rc_g.url | relative_url }}">
+{%- if _rc_lines and league.display.card_head == "status_surface" -%}
+<span class="st-result-card__head">{{ _rc_g.status | escape }}{% if _rc_g.tie %} · {{ _rc_tie | escape }}{% endif %}{% for _rc_m in _rc_g.card.meta %} · {{ _rc_m | escape }}{% endfor %}</span>
+{%- endif -%}
+{%- if _rc_lines -%}
+  {%- include parts/line-score.html line_score=_rc_ls game=_rc_g size="card" region=false codes=false -%}
+{%- else -%}
+  {%- assign _sides = "home,away" | split: "," -%}{%- for _rc_side in _sides -%}
+    {%- assign _rc_s = _rc_g[_rc_side] -%}
+<span class="st-result-card__team{% if _rc_s.result == 'win' or _rc_s.result == 'ot_win' %} is-winner{% endif %}">
+{%- include parts/chip.html team=_rc_s -%}
+<span class="st-result-card__name">{{ _rc_s.name | escape }}</span><span class="st-result-card__score">{{ _rc_s.score }}</span></span>
+  {%- endfor -%}
+{%- endif -%}
+<span class="st-result-card__foot"><span class="st-result-card__note">
+{%- if league.layout == "classic" -%}
+{{ _rc_g.status | escape }}{% if _rc_g.tie %} · {{ _rc_tie | escape }}{% endif %}
+  {%- if league.display.card_foot == "meta" -%}{%- for _rc_m in _rc_g.card.meta -%}{%- if _rc_m != _rc_g.time_display %} · {{ _rc_m | escape }}{% endif -%}{%- endfor -%}{%- endif -%}
+{%- elsif league.display.card_foot == "meta" -%}
+{{ _rc_g.card.meta | join: " · " | escape }}
+{%- elsif league.display.card_foot == "status_note" -%}
+{{ _rc_g.status | escape }} · {% include parts/bold-text.html text=_rc_g.card.note strong=_rc_g.card.strong %}
+{%- else -%}
+{%- if league.layout == "scoreboard" -%}{{ _rc_g.status | escape }} · {% endif -%}
+{%- include parts/bold-text.html text=_rc_g.card.note strong=_rc_g.card.strong -%}
+{%- endif -%}
+</span><span class="st-result-card__link">{{ _rc_g.card.link_label | escape }}<span class="st-chevron" aria-hidden="true"> ›</span></span></span></a>
+{%- endcapture -%}
+{%- assign _rc_lines_out = _rc_o | split: "
+" -%}
+{%- for _rc_line in _rc_lines_out -%}{{ _rc_line | strip }}{%- endfor -%}

@@ -11,18 +11,20 @@ import copy
 import importlib.util
 import inspect
 import re
+import string
 import sys
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Callable
 
-from scripts.core.problems import Checker, display_path, join_path, one_of, read_yaml, suggest
-from scripts.core.types import LAYOUTS, Problem, SportDef
+from scripts.core.model import LAYOUTS, Problem, SportDef
+from scripts.core.problems import (
+    ID_RE, Checker, InternalError, display_path, join_path, one_of, read_yaml, suggest,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SPORTS_ROOT = REPO_ROOT / "sports"
 
-ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 KEY_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 
 # The four functions of rules.py and how many positional arguments each takes (spec 3.3).
@@ -30,6 +32,7 @@ RULES_FUNCTIONS = {"check": 2, "read": 2, "present": 2, "derive": 2}
 SAMPLE_FUNCTION = ("sheet", 3)
 
 OPTION_TYPES = ("int", "bool", "choice", "text")
+RESERVED_STATS = ("gp",)       # stats the core counts itself; a sport never lists them
 SHAPES = ("quarters", "ends", "periods", "innings")
 CARD = ("rows", "lines")
 CARD_FOOT = ("note", "meta", "status_note")
@@ -290,7 +293,10 @@ def _check_stat_list(c: Checker, items: Any, at: str, *, derived: bool = False) 
         if "places" in stat:
             c.integer(stat["places"], join_path(s_at, "places"), 0, 4)
         if "key" in stat and c.pattern(stat["key"], join_path(s_at, "key"), KEY_RE, "a lower-case name like 'pts'"):
-            if stat["key"] in keys:
+            if stat["key"] in RESERVED_STATS:
+                c.error(join_path(s_at, "key"), f"{stat['key']!r} is worked out by the core (games played); "
+                                                "leave it out of sport.yml.")
+            elif stat["key"] in keys:
                 c.error(join_path(s_at, "key"), f"{stat['key']!r} is listed twice.")
             keys.append(stat["key"])
     return keys
@@ -327,6 +333,8 @@ def _check_minimums(c: Checker, minimums: Any) -> None:
         for k in ("note", "label"):
             if k in m:
                 c.text(m[k], join_path(at, k))
+        if isinstance(m.get("note"), str):
+            check_template(c, m["note"], join_path(at, "note"), ["value"])
 
 
 def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]], minimums: Any) -> None:
@@ -360,15 +368,34 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
             continue
         if "stat" in board and of and board["stat"] not in available:
             c.error(join_path(at, "stat"), f"{board['stat']!r} is not a stat of this board. Use one of: {one_of(available)}.")
+        # The row's display values a `detail` may name: the board's stats and gp (team boards: the standings too).
+        fields = [*RESERVED_STATS, *available, *(COLUMNS if of == "team" else ())]
+        if isinstance(board.get("detail"), str):
+            check_template(c, board["detail"], join_path(at, "detail"), fields)
         if "min" in board:
-            _check_board_min(c, board["min"], join_path(at, "min"), known_minimums)
+            _check_board_min(c, board["min"], join_path(at, "min"), known_minimums, fields)
 
 
-def _check_board_min(c: Checker, m: Any, at: str, known_minimums: list[str]) -> None:
+def check_template(c: Checker, text: str, at: str, fields: list[str]) -> None:
+    """A `detail` or `note` template (Python str.format over named values): every {name} must be one the core
+    supplies, so a typo fails here and not while a page is being built."""
+    try:
+        names = [f for _, f, _, _ in string.Formatter().parse(text) if f is not None]
+    except ValueError as exc:
+        c.error(at, f"{text!r} is not a valid template ({exc}). Write a value as {{name}}, a brace as {{{{ or }}}}.")
+        return
+    for name in names:
+        base = re.split(r"[.\[]", name, maxsplit=1)[0]
+        if base not in fields:
+            c.error(at, f"{{{name}}} is not a value this template can use. Use one of: "
+                        + ", ".join("{" + f + "}" for f in dict.fromkeys(fields)) + ".")
+
+
+def _check_board_min(c: Checker, m: Any, at: str, known_minimums: list[str], fields: list[str]) -> None:
     if c.mapping(m, at, allowed=("cap_at_team_games",), required=("stat", "setting")) is None:
         return
     if "stat" in m:
-        c.text(m["stat"], join_path(at, "stat"))
+        c.choice(m["stat"], join_path(at, "stat"), list(dict.fromkeys(fields)))
     if "cap_at_team_games" in m:
         c.boolean(m["cap_at_team_games"], join_path(at, "cap_at_team_games"))
     if "setting" in m and m["setting"] not in known_minimums:
@@ -482,7 +509,8 @@ def load_sport(sport_id: str, sports_root: Path = SPORTS_ROOT, *, root: Path = R
     """Load one sport folder: parse and check `sport.yml`, import `rules.py` (and `sample.py` when
     `with_sample`), check the functions exist with the right arity. Returns (SportDef, problems); the
     SportDef is None when any problem is an error. A missing README.md is only a warning.
-    An exception raised while importing a sport file is not caught: it is a bug, not a data problem."""
+    An exception raised while importing a sport file is a bug, not a data problem: it becomes an InternalError
+    (exit 2) naming the file, with the original traceback on `__cause__`."""
     folder = sports_root / sport_id
     shown = display_path(folder, root)
     if not (folder / "sport.yml").is_file():
@@ -498,7 +526,10 @@ def load_sport(sport_id: str, sports_root: Path = SPORTS_ROOT, *, root: Path = R
         if not (folder / f"{stem}.py").is_file():
             problems.append(Problem("error", "", f"is missing. Every sport folder needs {stem}.py.", py_file))
             continue
-        module = _load_module(folder / f"{stem}.py", f"scorers_sport_{re.sub(r'[^a-z0-9]', '_', sport_id)}_{stem}")
+        try:
+            module = _load_module(folder / f"{stem}.py", f"scorers_sport_{re.sub(r'[^a-z0-9]', '_', sport_id)}_{stem}")
+        except Exception as exc:       # a bug in the sport's file (SyntaxError, a bad import...): exit 2
+            raise InternalError(f"importing the sport file {py_file} raised {type(exc).__name__}: {exc}") from exc
         modules[stem] = module
         problems.extend(checker(module, py_file))
     if not (folder / "README.md").is_file():

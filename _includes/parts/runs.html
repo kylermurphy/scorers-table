@@ -1,0 +1,4 @@
+{%- comment -%}
+  parts/runs.html: a line of text in pieces, some bold. Params: runs ([{t: "text", b: true}]). Prints inline, escaped.
+{%- endcomment -%}
+{%- for _rn in include.runs -%}{%- if _rn.b -%}<b>{{ _rn.t | escape }}</b>{%- else -%}{{ _rn.t | escape }}{%- endif -%}{%- endfor -%}

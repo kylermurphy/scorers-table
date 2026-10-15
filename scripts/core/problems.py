@@ -17,7 +17,12 @@ from typing import Any, Callable, Iterable, Literal, Sequence, TextIO
 
 import yaml
 
-from scripts.core.types import Placeholder, Problem
+from scripts.core.model import (
+    BLOCK_TYPES, DECIDED_IN, PRESENT_KEYS, SIDES, Line, Placeholder, Problem, Reading, Score, SportContext,
+)
+
+# Ids of teams, players, seasons, sports: lower-case words joined by single hyphens (spec section 2).
+ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 EXIT_OK = 0          # built (warnings and placeholders listed)
 EXIT_DATA = 1        # data problems: all listed, nothing written
@@ -117,17 +122,25 @@ def report(
     json_lines: bool = False,
     annotations: bool = False,
     out: TextIO | None = None,
+    data_out: TextIO | None = None,
 ) -> int:
-    """Print every problem (human text, or JSON lines with `json_lines`), plus GitHub annotations when
-    `annotations` is true, and return the exit code (0 or 1). Text goes to `out` (default stderr)."""
+    """Print every problem and return the exit code (0 or 1). The human report goes to `out` (default
+    stderr); with `json_lines` the JSON lines go to `data_out` instead (default stdout, so they can be piped),
+    and with `annotations` the GitHub workflow commands go to `data_out` too (stdout is the channel GitHub
+    documents for them)."""
     problems = list(problems)
     out = out or sys.stderr
-    text = format_json(problems) if json_lines else format_human(problems, placeholders)
-    if text:
-        print(text, file=out)
+    data_out = data_out or sys.stdout
+    if json_lines:
+        if problems:
+            print(format_json(problems), file=data_out)
+    else:
+        text = format_human(problems, placeholders)
+        if text:
+            print(text, file=out)
     if annotations:
         for p in sort_problems(problems):
-            print(github_annotation(p), file=out)
+            print(github_annotation(p), file=data_out)
     return exit_code(problems)
 
 
@@ -138,13 +151,147 @@ class InternalError(Exception):
 
 
 def call_sport(name: str, func: Callable[..., Any], *args: Any) -> Any:
-    """Call a sport function (check, read, present, derive). If it raises, the error names the function,
-    its file and (through `__cause__`) the traceback, and becomes an InternalError."""
+    """Call a sport function (check, read, present, derive) and check the shape of what it returns, so a
+    sport bug stops the build with exit 2 here instead of crashing the core later. If the function raises,
+    or returns the wrong shape, the InternalError names the function and its file (the traceback rides on
+    `__cause__`). Any other `name` is called without a shape check."""
+    where = getattr(getattr(func, "__code__", None), "co_filename", "a sport file")
     try:
-        return func(*args)
+        result = func(*args)
     except Exception as exc:
-        where = getattr(getattr(func, "__code__", None), "co_filename", "a sport file")
         raise InternalError(f"the sport function {name}() in {where} raised {type(exc).__name__}: {exc}") from exc
+    validator = _RESULT_CHECKS.get(name)
+    wrong = validator(result, args) if validator else None
+    if wrong:
+        raise InternalError(f"the sport function {name}() in {where} returned the wrong shape: {wrong}")
+    return result
+
+
+def _is_int(v: Any) -> bool:
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def _ctx_of(args: tuple) -> SportContext | None:
+    return args[1] if len(args) > 1 and isinstance(args[1], SportContext) else None
+
+
+def _check_result_check(value: Any, args: tuple) -> str | None:
+    if not isinstance(value, list):
+        return f"check() must return a list of Problem, not {type(value).__name__}"
+    for i, p in enumerate(value):
+        if not isinstance(p, Problem):
+            return f"item {i} of check()'s list is a {type(p).__name__}, not a Problem"
+    return None
+
+
+def _check_side_map(value: Any, what: str, item_ok: Callable[[Any], bool], item_words: str,
+                    *, both: bool = True) -> str | None:
+    if not isinstance(value, dict) or not set(value) <= set(SIDES) or (both and set(value) != set(SIDES)):
+        need = "both 'home' and 'away'" if both else "only 'home' and/or 'away'"
+        return f"{what} must be a dict with {need} as keys, not {value!r}"
+    for side, v in value.items():
+        if not item_ok(v):
+            return f"{what}[{side!r}] must be {item_words}, not {v!r}"
+    return None
+
+
+def _check_score(s: Any) -> str | None:
+    if not isinstance(s, Score):
+        return f"Reading.score must be a Score, not {type(s).__name__}"
+    int_list = lambda allow_none: lambda v: isinstance(v, list) and all(_is_int(x) or (allow_none and x is None) for x in v)
+    found = (_check_side_map(s.final, "Score.final", lambda v: _is_int(v) and v >= 0, "a whole number of 0 or more")
+             or _check_side_map(s.periods, "Score.periods", int_list(True), "a list of whole numbers or None")
+             or _check_side_map(s.extra, "Score.extra", int_list(False), "a list of whole numbers", both=False)
+             or _check_side_map(s.final_at, "Score.final_at", lambda v: isinstance(v, str) and v.startswith("sheet."),
+                                "the path of the box holding that final score, from the top of the file "
+                                "('sheet.final.home'; unlike check(), whose paths start inside the sheet)"))
+    if found:
+        return found
+    if len(s.periods["home"]) != len(s.periods["away"]):
+        return "Score.periods must have the same number of periods for home and away"
+    if len(s.extra) == 2 and len(s.extra["home"]) != len(s.extra["away"]):
+        return "Score.extra must have the same length for home and away"
+    if s.decided_in not in DECIDED_IN:
+        return f"Score.decided_in must be one of {', '.join(DECIDED_IN)}, not {s.decided_in!r}"
+    return None
+
+
+def _counts_ok(counts: Any) -> bool:
+    return isinstance(counts, dict) and all(isinstance(k, str) and _is_int(v) for k, v in counts.items())
+
+
+def _stat_keys(spec: Any, group: str) -> set[str] | None:
+    """The stat keys sport.yml lists for `group`, or None when the spec is not at hand."""
+    stats = spec.get("stats") if isinstance(spec, dict) else None
+    if not isinstance(stats, dict):
+        return None
+    items = stats.get(group)
+    return {s["key"] for s in items if isinstance(s, dict) and "key" in s} if isinstance(items, list) else set()
+
+
+def _check_result_read(value: Any, args: tuple) -> str | None:
+    if not isinstance(value, Reading):
+        return f"read() must return a Reading, not {type(value).__name__}"
+    found = _check_score(value.score)
+    if found:
+        return found
+    ctx = _ctx_of(args)
+    spec = ctx.sport if ctx else None
+    groups = {g for g in (spec or {}).get("stats", {}) if g not in ("derived", "team")} if spec else None
+    if not isinstance(value.lines, list):
+        return f"Reading.lines must be a list of Line, not {type(value.lines).__name__}"
+    for i, line in enumerate(value.lines):
+        if not isinstance(line, Line):
+            return f"Reading.lines[{i}] is a {type(line).__name__}, not a Line"
+        if line.side not in SIDES or not isinstance(line.player, str) or not _counts_ok(line.counts):
+            return f"Reading.lines[{i}] needs side 'home' or 'away', a player id and counts of whole numbers: {line!r}"
+        if groups is not None and line.group not in groups:
+            return f"Reading.lines[{i}].group {line.group!r} is not a stats group in sport.yml ({', '.join(sorted(groups))})"
+        known = _stat_keys(spec, line.group)
+        if known is not None and not set(line.counts) <= known:
+            return f"Reading.lines[{i}].counts has keys sport.yml does not list under stats.{line.group}: " \
+                   f"{', '.join(sorted(set(line.counts) - known))}"
+    found = _check_side_map(value.team_lines, "Reading.team_lines", _counts_ok, "a dict of whole numbers", both=False)
+    if found:
+        return found
+    known = _stat_keys(spec, "team")
+    for side, counts in value.team_lines.items():
+        if known is not None and not set(counts) <= known:
+            return f"Reading.team_lines[{side!r}] has keys sport.yml does not list under stats.team: " \
+                   f"{', '.join(sorted(set(counts) - known))}"
+    if not isinstance(value.facts, dict):
+        return f"Reading.facts must be a dict, not {type(value.facts).__name__}"
+    return None
+
+
+def _check_result_present(value: Any, args: tuple) -> str | None:
+    if not isinstance(value, dict):
+        return f"present() must return a dict, not {type(value).__name__}"
+    unknown = [k for k in value if k not in PRESENT_KEYS]
+    if unknown:
+        return f"present() returned unknown keys {unknown}; use only {', '.join(PRESENT_KEYS)}"
+    blocks = value.get("blocks", [])
+    if not isinstance(blocks, list):
+        return "present()['blocks'] must be a list"
+    for i, block in enumerate(blocks):
+        if not isinstance(block, dict) or block.get("type") not in BLOCK_TYPES:
+            return f"present()['blocks'][{i}] must be a dict whose 'type' is one of {', '.join(BLOCK_TYPES)}"
+    return None
+
+
+def _check_result_derive(value: Any, args: tuple) -> str | None:
+    if not isinstance(value, dict):
+        return f"derive() must return a dict, not {type(value).__name__}"
+    for k, v in value.items():
+        if not isinstance(k, str) or not (v is None or (isinstance(v, (int, float)) and not isinstance(v, bool))):
+            return f"derive() must map stat keys to numbers or None, not {k!r}: {v!r}"
+    return None
+
+
+_RESULT_CHECKS: dict[str, Callable[[Any, tuple], str | None]] = {
+    "check": _check_result_check, "read": _check_result_read, "present": _check_result_present,
+    "derive": _check_result_derive,
+}
 
 
 def report_internal_error(exc: BaseException, out: TextIO | None = None) -> int:
@@ -165,19 +312,67 @@ def display_path(path: Path, root: Path) -> str:
         return str(path)
 
 
+class _DuplicateKey(yaml.constructor.ConstructorError):
+    pass
+
+
+class StrictLoader(yaml.SafeLoader):
+    """PyYAML's safe loader without the YAML 1.1 surprises a volunteer would never expect:
+    only true/false are booleans (`no`, `off`, `on`, `yes`, a team code `NO` stay text); a number with a
+    leading zero stays text (`007`, jersey `00`); `12:34` stays text (not 754, base 60); dates stay text
+    (`2026-11-05`, parsed by the code that reads them); and a key written twice in one block is an error
+    instead of the last one silently winning."""
+
+    def construct_mapping(self, node: yaml.Node, deep: bool = False) -> dict:
+        if isinstance(node, yaml.MappingNode):
+            seen: dict[str, int] = {}
+            for key_node, _ in node.value:
+                if isinstance(key_node, yaml.ScalarNode) and key_node.tag != "tag:yaml.org,2002:merge":
+                    if key_node.value in seen:
+                        raise _DuplicateKey(None, None, f"the key {key_node.value!r} is written twice in one block "
+                                            f"(also on line {seen[key_node.value] + 1})", key_node.start_mark)
+                    seen[key_node.value] = key_node.start_mark.line
+        return super().construct_mapping(node, deep=deep)
+
+
+_DROPPED_TAGS = {f"tag:yaml.org,2002:{t}" for t in ("bool", "int", "float", "timestamp", "value")}
+StrictLoader.yaml_implicit_resolvers = {
+    first: [(tag, regex) for tag, regex in resolvers if tag not in _DROPPED_TAGS]
+    for first, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
+}
+StrictLoader.add_implicit_resolver("tag:yaml.org,2002:bool", re.compile(r"^(?:true|True|TRUE|false|False|FALSE)$"),
+                                   list("tTfF"))
+StrictLoader.add_implicit_resolver("tag:yaml.org,2002:int", re.compile(r"^[-+]?(?:0|[1-9][0-9]*)$"),
+                                   list("-+0123456789"))
+StrictLoader.add_implicit_resolver("tag:yaml.org,2002:float",
+                                   re.compile(r"^[-+]?(?:[0-9]+\.[0-9]*|\.[0-9]+)(?:[eE][-+]?[0-9]+)?$"),
+                                   list("-+.0123456789"))
+
+
+def parse_yaml(text: str) -> Any:
+    """Parse YAML text with StrictLoader (raises yaml.YAMLError). Every data file goes through this."""
+    return yaml.load(text, Loader=StrictLoader)
+
+
 def read_yaml(path: Path, file: str) -> tuple[Any, list[Problem]]:
-    """Parse a YAML file. Returns (data, problems); data is None for an empty file or when there are problems.
-    A file that cannot be read or is not valid YAML is one error (with the line) rather than a crash."""
+    """Parse a YAML file with StrictLoader. Returns (data, problems); data is None for an empty file or when
+    there are problems. A file that cannot be read, is not UTF-8 or is not valid YAML is one error (with the
+    line) rather than a crash."""
     try:
-        text = path.read_text(encoding="utf-8")
+        text = path.read_bytes().decode("utf-8-sig")
     except OSError as exc:
         return None, [Problem("error", "", f"Cannot read this file ({exc.strerror or exc}).", file)]
+    except UnicodeDecodeError:
+        return None, [Problem("error", "", "This file is not saved as UTF-8 text. Save it again as UTF-8 "
+                                           "(most editors offer it under 'Save as' or 'Encoding').", file)]
     try:
-        return yaml.safe_load(text), []
+        return parse_yaml(text), []
     except yaml.YAMLError as exc:
         mark = getattr(exc, "problem_mark", None)
         where = f" (line {mark.line + 1}, column {mark.column + 1})" if mark else ""
         reason = getattr(exc, "problem", None) or "invalid YAML"
+        if isinstance(exc, _DuplicateKey):
+            return None, [Problem("error", "", f"Line {mark.line + 1}: {reason}. Keep one of them.", file)]
         return None, [Problem("error", "", f"This file is not valid YAML{where}: {reason}. Check the indentation and colons.", file)]
 
 
@@ -244,7 +439,19 @@ class Checker:
     def text(self, value: Any, at: str, *, allow_empty: bool = False) -> str | None:
         if isinstance(value, str) and (value.strip() or allow_empty):
             return value
-        self.error(at, "must be some text" + ("" if allow_empty else " (not empty)") + f", not {_describe(value)}.")
+        self.error(at, "must be some text" + ("" if allow_empty else " (not empty)") + f", not {_describe(value)}."
+                   + _quote_hint(value))
+        return None
+
+    def ident(self, value: Any, at: str) -> str | None:
+        """An id (lower-case letters and digits, words joined by single hyphens: 'otters', 'ann-b', '2026-27').
+        A whole number written without quotes (`id: 12`) is accepted as the text '12'."""
+        if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+            value = str(value)
+        if isinstance(value, str) and ID_RE.fullmatch(value):
+            return value
+        self.error(at, f"must be an id: lower-case letters and digits, words joined by single hyphens (like "
+                       f"'otters' or 'ann-b'), not {_describe(value)}.")
         return None
 
     def integer(self, value: Any, at: str, lo: int | None = None, hi: int | None = None) -> int | None:
@@ -278,8 +485,15 @@ class Checker:
         """Text that fully matches `regex`; `what` finishes the sentence "must be ..." in the message."""
         if isinstance(value, str) and regex.fullmatch(value):
             return value
-        self.error(at, f"must be {what}, not {_describe(value)}.")
+        self.error(at, f"must be {what}, not {_describe(value)}." + _quote_hint(value))
         return None
+
+
+def _quote_hint(value: Any) -> str:
+    """A number or true/false where text was wanted: YAML read it as a number, so say how to keep it text."""
+    if isinstance(value, (int, float)):
+        return " Put it in quotes if it is meant as text."
+    return ""
 
 
 def _describe(value: Any) -> str:

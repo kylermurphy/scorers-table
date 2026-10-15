@@ -1,0 +1,8 @@
+{%- comment -%}
+  shell/ticker.html: Scoreboard's strip of the latest scores. The page renders it only when league.layout == "scoreboard".
+  Params: day (the schedule.json day of the latest results: games with score{home,away}, and byes).
+  Reads: stats.teams (codes), league.labels.final.
+{%- endcomment -%}
+{%- assign _tk_played = include.day.games | where: "played", true -%}
+{%- assign _tk_byes = include.day.byes | default: empty -%}
+<div class="st-ticker" role="region" tabindex="0" aria-label="Latest scores">{% for _tk_g in _tk_played %}<span class="st-ticker__tag">{{ league.labels.final | default: "Final" | escape }}</span><span class="st-ticker__item">{{ stats.teams[_tk_g.home].code | escape }} {{ _tk_g.score.home }} · {{ stats.teams[_tk_g.away].code | escape }} {{ _tk_g.score.away }}</span>{% unless forloop.last and _tk_byes.size == 0 %}<span class="st-ticker__sep" aria-hidden="true">|</span>{% endunless %}{% endfor %}{% for _tk_b in _tk_byes %}<span class="st-ticker__item st-ticker__item--quiet">{{ stats.teams[_tk_b].code | escape }} bye</span>{% endfor %}</div>

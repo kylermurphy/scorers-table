@@ -1,0 +1,14 @@
+<div class="ds-pad">
+{% assign _ids = stats.results[0].games %}
+{% if fixture.variant == "curling" %}
+{% include parts/legend.html items=fixture.legend %}
+<div class="st-list">{% for _id in _ids %}{% assign _g = stats.games[_id] %}{% include parts/result-card.html game=_g %}{% endfor %}</div>
+{% elsif fixture.variant == "slopitch" %}
+<div class="st-list">{% for _id in _ids %}{% assign _g = stats.games[_id] %}{% include parts/result-card.html game=_g %}{% endfor %}</div>
+<p class="st-note"><span class="st-legend__key st-legend__key--limit st-legend__key--text">{{ fixture.note_parts.key | escape }}</span> = {{ fixture.note_parts.rest | escape }}</p>
+{% else %}
+<div class="st-list">{% for _id in _ids %}{% assign _g = stats.games[_id] %}{% include parts/result-card.html game=_g %}{% endfor %}</div>
+<p class="st-note" style="margin:.75rem 0 .5rem">The same game with its line score (<code>--lines</code>):</p>
+<div class="st-list">{% assign _g = stats.games[fixture.first_lines_id] %}{% include parts/result-card.html game=_g lines=true %}</div>
+{% endif %}
+</div>

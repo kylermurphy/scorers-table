@@ -1,0 +1,64 @@
+{%- comment -%}
+  parts/stat-table.html: a game-page stat table (present() block type "stat_table"): a team heading (when the block
+  names a side), the table in its scroll box, totals row, and a note. With number_col it is the box score table
+  (.st-table--box: the number column and the player column both stay put when the table scrolls).
+  Params: block, game (for the side's name, chip and score). Reads: block {side, title, caption, number_col,
+  number_label, player_label, columns [{key, label, title, key_col}], rows [{player, num, cells{}}],
+  totals {label, cells{}}, note}, stats.players (name, label, url).
+  With number_col the player cell shows the name ("Dave M.") and the row's num the number; without it the
+  player cell shows the label ("#12 Gord P.").
+{%- endcomment -%}
+{%- assign _stb_b = include.block -%}
+{%- assign _stb_s = nil -%}
+{%- if _stb_b.side.size > 0 -%}{%- assign _stb_s = include.game[_stb_b.side] -%}{%- endif -%}
+{%- capture _stb_o -%}
+<section class="st-game-block">
+{%- if _stb_s != nil -%}
+<h2 class="st-team-heading">{% include parts/chip.html team=_stb_s size="lg" %}<span class="st-team-heading__name">{{ _stb_b.title | default: _stb_s.name | escape }}</span><span class="st-team-heading__score">{{ _stb_s.score }}</span></h2>
+{%- endif -%}
+<div class="st-table-wrap" role="region" aria-label="{{ _stb_b.caption | escape }}, scrolls sideways" tabindex="0">
+<table class="st-table{% if _stb_b.number_col %} st-table--box{% endif %}"><caption class="st-visually-hidden">{{ _stb_b.caption | escape }}</caption>
+<thead><tr>
+{%- if _stb_b.number_col -%}
+<th scope="col">{{ _stb_b.number_label | default: "#" | escape }}</th><th scope="col" class="is-left">{{ _stb_b.player_label | default: "Player" | escape }}</th>
+{%- else -%}
+<th scope="col">{{ _stb_b.player_label | default: "Player" | escape }}</th>
+{%- endif -%}
+{%- for _stb_c in _stb_b.columns -%}
+<th scope="col"{% if _stb_c.key_col %} class="is-key"{% endif %}><abbr title="{{ _stb_c.title | escape }}">{{ _stb_c.label | escape }}</abbr></th>
+{%- endfor -%}
+</tr></thead>
+<tbody>
+{%- for _stb_r in _stb_b.rows -%}
+  {%- assign _stb_p = stats.players[_stb_r.player] -%}
+<tr>
+  {%- if _stb_b.number_col -%}
+<td>{{ _stb_r.num | escape }}</td><td class="is-left"><a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.name | escape }}</a></td>
+  {%- else -%}
+<td><a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.label | escape }}</a></td>
+  {%- endif -%}
+  {%- for _stb_c in _stb_b.columns -%}
+<td{% if _stb_c.key_col %} class="is-key"{% endif %}>{{ _stb_r.cells[_stb_c.key] | escape }}</td>
+  {%- endfor -%}
+</tr>
+{%- endfor -%}
+</tbody>
+{%- if _stb_b.totals.size > 0 -%}
+<tfoot><tr>
+  {%- if _stb_b.number_col -%}
+<td></td><td class="is-left">{{ _stb_b.totals.label | escape }}</td>
+  {%- else -%}
+<td>{{ _stb_b.totals.label | escape }}</td>
+  {%- endif -%}
+  {%- for _stb_c in _stb_b.columns -%}
+<td{% if _stb_c.key_col %} class="is-key"{% endif %}>{{ _stb_b.totals.cells[_stb_c.key] | escape }}</td>
+  {%- endfor -%}
+</tr></tfoot>
+{%- endif -%}
+</table></div>
+{%- if _stb_b.note.size > 0 -%}<p class="st-note">{{ _stb_b.note | escape }}</p>{%- endif -%}
+</section>
+{%- endcapture -%}
+{%- assign _stb_lines = _stb_o | split: "
+" -%}
+{%- for _stb_line in _stb_lines -%}{{ _stb_line | strip }}{%- endfor -%}

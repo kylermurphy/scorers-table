@@ -1,0 +1,12 @@
+{%- comment -%}
+  parts/blocks.html: a game page's blocks, below the final panel: each present() block is drawn by the part that
+  owns its type. Stage 4 knows stat_table and note; a type it does not know is left out (stage 5 adds the
+  sports' own: numbers, facts, events, roster, top performer).
+  Params: blocks (game.blocks), game.
+{%- endcomment -%}
+{%- for _bk in include.blocks -%}
+  {%- case _bk.type -%}
+    {%- when "stat_table" -%}{%- include parts/stat-table.html block=_bk game=include.game -%}
+    {%- when "note" -%}{%- include parts/note.html block=_bk -%}
+  {%- endcase -%}
+{%- endfor -%}

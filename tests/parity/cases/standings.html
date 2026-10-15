@@ -1,0 +1,4 @@
+<div class="ds-pad"><section class="st-section">
+{% if league.layout == "scoreboard" %}{% include shell/section-head.html title=league.labels.standings %}{% else %}{% include shell/section-head.html title=league.labels.standings aside=league.labels.full_table aside_url="/stats/" %}{% endif %}
+{% include parts/standings.html standings=stats.standings %}
+</section></div>

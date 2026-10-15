@@ -1,0 +1,55 @@
+{%- comment -%}
+  parts/final-panel.html: the top of a game page: both teams, the big score with the loser dimmed, their record
+  line, then the line score and its foot. One markup for every layout; the layouts reshape it.
+  Params: game. Reads: game.final {status, sub}, each side {name, score, result, record, record_line, badge},
+  game.line_score (title, meta, legend, legend_stack, note, note_strong, split).
+  Foot: split (two bold-capable lines side by side) wins over note + legend. The full-size end-by-end table
+  shows team codes (its columns are wide); other shapes show names.
+{%- endcomment -%}
+{%- assign _fp_g = include.game -%}
+{%- assign _fp_l = _fp_g.line_score -%}
+{%- capture _fp_o -%}
+<section class="st-final" aria-label="Final score">
+<div class="st-final__head">
+{%- if _fp_g.final.status.size > 0 -%}<p class="st-final__status">{{ _fp_g.final.status | escape }}</p>{%- endif -%}
+{%- if _fp_g.final.sub.size > 0 -%}<p class="st-final__sub">{{ _fp_g.final.sub | escape }}</p>{%- endif -%}
+{%- assign _sides = "home,away" | split: "," -%}{%- for _fp_side in _sides -%}
+  {%- assign _fp_s = _fp_g[_fp_side] -%}
+<div class="st-final__team{% if _fp_s.result == 'win' or _fp_s.result == 'ot_win' %} is-winner{% endif %}">
+<span class="st-final__name">{% include parts/chip.html team=_fp_s size="lg" %}<span>{{ _fp_s.name | escape }}{% if _fp_s.badge.size > 0 %} <span class="st-badge st-badge--win">{{ _fp_s.badge | escape }}</span>{% endif %}</span></span>
+<span class="st-final__record">{{ _fp_s.record_line | default: _fp_s.record | escape }}</span></div>
+  {%- if forloop.first -%}
+<div class="st-final__score"><span class="st-visually-hidden">Final score: </span>
+    {%- assign _sides = "home,away" | split: "," -%}{%- for _fp_n in _sides -%}
+      {%- assign _fp_ns = _fp_g[_fp_n] -%}
+<span class="st-final__num {% if forloop.first %}is-first{% else %}is-second{% endif %}{% if _fp_ns.result == 'loss' or _fp_ns.result == 'ot_loss' %} is-dim{% endif %}">{{ _fp_ns.score }}</span>
+      {%- if forloop.first -%}<span class="st-final__sep" aria-hidden="true">–</span>{%- endif -%}
+    {%- endfor -%}
+</div>
+  {%- endif -%}
+{%- endfor -%}
+</div>
+<div class="st-final__body">
+{%- if _fp_l.title.size > 0 or _fp_l.meta.size > 0 -%}
+<div class="st-final__titlerow">
+  {%- if _fp_l.title.size > 0 -%}<h2 class="st-final__title">{{ _fp_l.title | escape }}</h2>{%- endif -%}
+  {%- if _fp_l.meta.size > 0 -%}<span class="st-final__meta">{{ _fp_l.meta | escape }}</span>{%- endif -%}
+</div>
+{%- endif -%}
+{%- if _fp_l.shape == "ends" -%}{%- assign _fp_codes = true -%}{%- else -%}{%- assign _fp_codes = false -%}{%- endif -%}
+{%- include parts/line-score.html line_score=_fp_l game=_fp_g size="full" region=true codes=_fp_codes -%}
+{%- if _fp_l.split.size > 0 -%}
+<div class="st-final__foot st-final__foot--split">
+  {%- for _fp_line in _fp_l.split -%}<span>{% include parts/runs.html runs=_fp_line %}</span>{%- endfor -%}
+</div>
+{%- elsif _fp_l.note.size > 0 or _fp_l.legend.size > 0 -%}
+<div class="st-final__foot">
+  {%- if _fp_l.note.size > 0 -%}<p class="st-final__note">{% include parts/bold-text.html text=_fp_l.note strong=_fp_l.note_strong %}</p>{%- endif -%}
+  {%- if _fp_l.legend.size > 0 -%}{%- include parts/legend.html items=_fp_l.legend stack=_fp_l.legend_stack full=true -%}{%- endif -%}
+</div>
+{%- endif -%}
+</div></section>
+{%- endcapture -%}
+{%- assign _fp_lines = _fp_o | split: "
+" -%}
+{%- for _fp_line in _fp_lines -%}{{ _fp_line | strip }}{%- endfor -%}
