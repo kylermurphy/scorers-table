@@ -572,8 +572,8 @@ def _check_sides(err, cell: dict[str, str], kind: str, teams: dict[str, Team]) -
         value = cell[side]
         if value and value not in teams and kind != "playoff":
             hint = suggest(value, teams)
-            err(side, f"{value!r} is not a team id in teams.yml" + (f". Did you mean {hint!r}?" if hint else "")
-                + ". (Only a playoff game may name a team that is not known yet, like TBD or 1st)")
+            err(side, f"{value!r} is not a team id in teams.yml." + (f" Did you mean {hint!r}?" if hint else "")
+                + " Only a playoff game may name a team that is not known yet, like TBD or 1st.")
     known = all(cell[side] in teams for side in ("home", "away"))
     if known and cell["home"] == cell["away"]:
         err("away", f"{cell['away']!r} cannot play itself")
