@@ -1,0 +1,63 @@
+---
+layout: default
+---
+{%- include core/context.html -%}
+{%- comment -%}
+  A team page: the team card as its header, the roster, the results, the upcoming games and the calendar link.
+  Reads the team from the stub's `team_id`.
+{%- endcomment -%}
+{%- assign team = stats.teams[page.team_id] -%}
+{%- capture _sub %}{{ season_label }} season{% endcapture -%}
+{% include shell/page-title.html back="/teams/" back_label="‹ Teams" title=team.name sub=_sub %}
+{% include parts/team-card.html team=team %}
+
+<section class="st-section">
+{% include shell/section-head.html title="Roster" %}
+  {%- if team.players.size > 0 %}
+{% include core/player-table.html ids=team.players caption="Roster" %}
+  {%- else %}
+{% include core/empty.html text="No players have been added to this team yet." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+{% include shell/section-head.html title="Results" %}
+  {%- if team.results.size > 0 %}
+<div class="st-list">
+    {%- for _gid in team.results %}
+      {%- assign _game = stats.games[_gid] %}
+{% include parts/result-card.html game=_game %}
+    {%- endfor %}
+</div>
+  {%- else %}
+{% include core/empty.html text="No games played yet." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+  {%- if stats.schedule.all_times_pm %}
+{% include shell/section-head.html title="Upcoming" aside="All times PM." %}
+  {%- else %}
+{% include shell/section-head.html title="Upcoming" %}
+  {%- endif %}
+  {%- if team.upcoming.size > 0 %}
+    {%- for _day in stats.schedule.days %}
+      {%- assign _mine = _day.games | where_exp: "g", "team.upcoming contains g.id" %}
+      {%- if _mine.size > 0 %}
+<p class="st-label st-leader-group">{{ _day.date_long | escape }} · {{ _day.label | escape }}</p>
+<div class="st-game-rows st-game-rows--list">{% for _row in _mine %}{% include parts/game-row.html row=_row %}{% endfor %}</div>
+      {%- endif %}
+    {%- endfor %}
+  {%- else %}
+{% include core/empty.html text="No upcoming games are scheduled." %}
+  {%- endif %}
+</section>
+
+{%- capture _calendar %}{% include core/calendar-links.html team=team.id %}{% endcapture %}
+{%- assign _calendar = _calendar | strip %}
+{%- if _calendar.size > 0 %}
+<section class="st-section">
+{% include shell/section-head.html title="Calendar" %}
+{{ _calendar }}
+</section>
+{%- endif %}

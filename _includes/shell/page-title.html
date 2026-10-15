@@ -1,6 +1,7 @@
 {%- comment -%}
   shell/page-title.html: back link, eyebrow, h1 and the date/venue line of a game or team page.
-  Params: back (site path of the page to go back to), back_label, eyebrow (optional), title, sub, sub2
-  (optional second line under sub). Goes inside .st-main, which gives the gutters.
+  Params: back (site path of the page to go back to; none = no back link, as on Schedule or Stats), back_label,
+  eyebrow (optional), title, sub, sub2 (optional second line under sub). Goes inside .st-main, which gives the
+  gutters.
 {%- endcomment -%}
-<div class="st-page-title"><a class="st-back" href="{{ include.back | relative_url }}">{{ include.back_label | escape }}</a>{% if include.eyebrow.size > 0 %}<p class="st-page-title__eyebrow">{{ include.eyebrow | escape }}</p>{% endif %}<h1 class="st-page-title__title">{{ include.title | escape }}</h1><p class="st-page-title__sub">{{ include.sub | escape }}{% if include.sub2.size > 0 %}<br>{{ include.sub2 | escape }}{% endif %}</p></div>
+<div class="st-page-title">{% if include.back.size > 0 %}<a class="st-back" href="{{ include.back | relative_url }}">{{ include.back_label | escape }}</a>{% endif %}{% if include.eyebrow.size > 0 %}<p class="st-page-title__eyebrow">{{ include.eyebrow | escape }}</p>{% endif %}<h1 class="st-page-title__title">{{ include.title | escape }}</h1><p class="st-page-title__sub">{{ include.sub | escape }}{% if include.sub2.size > 0 %}<br>{{ include.sub2 | escape }}{% endif %}</p></div>

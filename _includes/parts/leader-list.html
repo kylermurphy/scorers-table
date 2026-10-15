@@ -4,10 +4,12 @@
     Hockey layout + columns   a table with round rank chips (points, goals, assists...)
     anything else      rows with a rank number; Classic shows the unit under the value and hides the title
                        (the section heading is the title); a board that has a tile starts at rank 2
-  Params: board (a leaders.json board with list: true). Reads: board {title, title_board, unit, note via min.note,
+  Params: board (a leaders.json board with list: true), limit (show only the first N rows of a list or hockey
+  table; default all, the Home page passes 5). Reads: board {title, title_board, unit, note via min.note,
   columns, first_row_in_tile, rows [{rank, player, team, label, display, detail, cells}]}.
 {%- endcomment -%}
 {%- assign _ll_b = include.board -%}
+{%- assign _ll_limit = include.limit | default: 1000 -%}
 {%- capture _ll_o -%}
 {%- if league.layout == "scoreboard" -%}
   {%- assign _ll_n = _ll_b.rows.size -%}
@@ -38,7 +40,7 @@
   {%- endfor -%}
 </tr></thead>
 <tbody>
-  {%- for _ll_r in _ll_b.rows -%}
+  {%- for _ll_r in _ll_b.rows limit: _ll_limit -%}
     {%- assign _ll_url = nil -%}{%- if _ll_r.player.size > 0 -%}{%- assign _ll_url = stats.players[_ll_r.player].url -%}{%- endif -%}
     {%- assign _ll_url = _ll_url | default: stats.teams[_ll_r.team].url -%}
 <tr><th scope="row"><a class="st-leader-cell" href="{{ _ll_url | relative_url }}"><span class="st-rank-chip{% if _ll_r.rank == 1 %} is-first{% endif %}">{{ _ll_r.rank }}</span><span class="st-leader-cell__who"><span class="st-leader-cell__name">{{ _ll_r.label | escape }}</span><span class="st-leader-cell__sub">{% include parts/leader-sub.html row=_ll_r board=_ll_b %}</span></span></a></th>
@@ -50,7 +52,7 @@
 </tbody></table></div>
 {%- else -%}
 <div class="st-leader-list"><h3 class="st-leader-list__title{% if league.layout == 'classic' %} st-visually-hidden{% endif %}">{{ _ll_b.title | escape }}</h3>
-  {%- for _ll_r in _ll_b.rows -%}
+  {%- for _ll_r in _ll_b.rows limit: _ll_limit -%}
     {%- unless _ll_b.first_row_in_tile and forloop.first -%}
       {%- assign _ll_url = nil -%}{%- if _ll_r.player.size > 0 -%}{%- assign _ll_url = stats.players[_ll_r.player].url -%}{%- endif -%}
       {%- assign _ll_url = _ll_url | default: stats.teams[_ll_r.team].url -%}

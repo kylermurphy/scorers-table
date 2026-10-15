@@ -6,7 +6,7 @@
   number_label, player_label, columns [{key, label, title, key_col}], rows [{player, num, cells{}}],
   totals {label, cells{}}, note}, stats.players (name, label, url).
   With number_col the player cell shows the name ("Dave M.") and the row's num the number; without it the
-  player cell shows the label ("#12 Gord P.").
+  player cell shows the label ("#12 Gord P."). A player with no page (url null: a past season) is plain text.
 {%- endcomment -%}
 {%- assign _stb_b = include.block -%}
 {%- assign _stb_s = nil -%}
@@ -33,9 +33,9 @@
   {%- assign _stb_p = stats.players[_stb_r.player] -%}
 <tr>
   {%- if _stb_b.number_col -%}
-<td>{{ _stb_r.num | escape }}</td><td class="is-left"><a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.name | escape }}</a></td>
+<td>{{ _stb_r.num | escape }}</td><td class="is-left">{% if _stb_p.url.size > 0 %}<a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.name | escape }}</a>{% else %}{{ _stb_p.name | escape }}{% endif %}</td>
   {%- else -%}
-<td><a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.label | escape }}</a></td>
+<td>{% if _stb_p.url.size > 0 %}<a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.label | escape }}</a>{% else %}{{ _stb_p.label | escape }}{% endif %}</td>
   {%- endif -%}
   {%- for _stb_c in _stb_b.columns -%}
 <td{% if _stb_c.key_col %} class="is-key"{% endif %}>{{ _stb_r.cells[_stb_c.key] | escape }}</td>

@@ -1,0 +1,21 @@
+---
+layout: page
+nav: teams
+title: Teams
+permalink: /teams/
+description: Every team in the league, with its record.
+---
+{% include core/context.html %}
+{%- capture _sub %}{{ season_label }} season{% endcapture %}
+{% include shell/page-title.html title="Teams" sub=_sub %}
+
+{%- if stats.standings.rows.size > 0 %}
+<div class="st-list">
+  {%- for _row in stats.standings.rows %}
+    {%- assign _team = stats.teams[_row.team] %}
+{% include parts/team-card.html team=_team %}
+  {%- endfor %}
+</div>
+{%- else %}
+{% include core/empty.html text="No teams have been added yet. They show up here once the season's teams are set up." %}
+{%- endif %}

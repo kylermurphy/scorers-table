@@ -1,0 +1,29 @@
+{%- comment -%}
+  core/game-log.html: a player's games, one row each (date, opponent, result, score, and the player's numbers in
+  that game). The date links to the game page. Params: log (player.log). Reads: stats.leaders.columns (the columns
+  of the log's stat group; the games-played column is left out: it is 1 in every row).
+{%- endcomment -%}
+{%- assign _gl_first = include.log | first -%}
+{%- assign _gl_cols = stats.leaders.columns[_gl_first.group] -%}
+<div class="st-table-wrap" role="region" aria-label="Game log, scrolls sideways" tabindex="0">
+<table class="st-table"><caption class="st-visually-hidden">Game log</caption>
+<thead><tr><th scope="col">Date</th><th scope="col" class="is-left">Opponent</th><th scope="col" class="is-left">Result</th><th scope="col">Score</th>
+{%- for _gl_c in _gl_cols -%}{%- unless _gl_c.key == "gp" -%}<th scope="col"{% if _gl_c.key_col %} class="is-key"{% endif %}><abbr title="{{ _gl_c.title | escape }}">{{ _gl_c.label | escape }}</abbr></th>{%- endunless -%}{%- endfor -%}
+</tr></thead>
+<tbody>
+{%- for _gl_r in include.log -%}
+<tr><td><a class="st-player" href="{{ _gl_r.url | relative_url }}">{{ _gl_r.date_short | escape }}</a></td><td class="is-left">{{ _gl_r.opponent | escape }}{% if _gl_r.type == "playoff" %} <span class="st-badge st-badge--outline">Playoff</span>{% endif %}</td>
+<td class="is-left">
+  {%- case _gl_r.result -%}
+    {%- when "win" -%}Win
+    {%- when "loss" -%}Loss
+    {%- when "tie" -%}Tie
+    {%- when "ot_win" -%}Win (OT)
+    {%- when "ot_loss" -%}Loss (OT)
+    {%- else -%}{{ _gl_r.result | escape }}
+  {%- endcase -%}
+</td><td>{{ _gl_r.score | escape }}</td>
+  {%- for _gl_c in _gl_cols -%}{%- unless _gl_c.key == "gp" -%}<td{% if _gl_c.key_col %} class="is-key"{% endif %}>{{ _gl_r.display[_gl_c.key] | escape }}</td>{%- endunless -%}{%- endfor -%}
+</tr>
+{%- endfor -%}
+</tbody></table></div>

@@ -1,0 +1,36 @@
+---
+layout: default
+---
+{%- include core/context.html -%}
+{%- comment -%}
+  A player page: name and team, the season totals (one table per stat group, with the player's ranks), and the
+  game log. Reads the player from the stub's `player_id`.
+{%- endcomment -%}
+{%- assign player = stats.players[page.player_id] -%}
+{%- assign _team = stats.teams[player.team] -%}
+{%- assign _eyebrow = player.team_name | default: "Spare" -%}
+{%- capture _sub %}{% if player.position.size > 0 %}{{ player.position | capitalize }} · {% endif %}{{ season_label }} season{% endcapture -%}
+{% include shell/page-title.html back="/stats/" back_label="‹ Stats" eyebrow=_eyebrow title=player.label sub=_sub %}
+
+<section class="st-section">
+  {%- if _team.url.size > 0 %}
+{% include shell/section-head.html title="Season totals" aside=_team.name aside_url=_team.url %}
+  {%- else %}
+{% include shell/section-head.html title="Season totals" %}
+  {%- endif %}
+  {%- for _g in player.groups %}
+    {%- assign _gname = _g[0] %}
+    {%- assign _gdata = _g[1] %}
+    {%- assign _playoffs = player.playoffs[_gname] %}
+{% include core/stat-line.html group=_gname data=_gdata playoffs=_playoffs %}
+  {%- endfor %}
+</section>
+
+<section class="st-section">
+{% include shell/section-head.html title="Game log" %}
+  {%- if player.log.size > 0 %}
+{% include core/game-log.html log=player.log %}
+  {%- else %}
+{% include core/empty.html text="No games played yet." %}
+  {%- endif %}
+</section>

@@ -125,6 +125,11 @@ img.st-brand__badge,
 }
 
 /* ------------------------------------------------------ theme button */
+/* Hidden until site.js runs: a dead button (no JavaScript) must not show. The attribute alone loses to the
+   display below, so say it again here. */
+.st-theme-toggle[hidden] {
+  display: none;
+}
 .st-theme-toggle {
   display: inline-flex;
   flex: none;

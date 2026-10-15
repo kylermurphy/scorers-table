@@ -1,0 +1,16 @@
+{%- comment -%}
+  core/context.html: what every page and layout reads. Include it first (a layout and a page are rendered
+  separately, so each needs its own).
+  Assigns: league (league.json), active (active.json), season (the id of the season this page shows: the page's
+  own `season` from its stub file, else the active one), stats (that season's computed files: teams, standings,
+  schedule, results, games, players, leaders), season_label ("2026–27"), season_is_active (true/false).
+  Includes read these, never site.data.
+{%- endcomment -%}
+{%- assign league = site.data.computed.league -%}
+{%- assign active = site.data.computed.active -%}
+{%- assign season = page.season | default: active.season -%}
+{%- assign stats = site.data.computed[season] -%}
+{%- assign season_label = season -%}
+{%- for _cx_s in site.data.computed.seasons -%}{%- if _cx_s.id == season -%}{%- assign season_label = _cx_s.label -%}{%- endif -%}{%- endfor -%}
+{%- assign season_is_active = false -%}
+{%- if season == active.season -%}{%- assign season_is_active = true -%}{%- endif -%}

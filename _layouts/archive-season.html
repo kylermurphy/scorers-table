@@ -1,0 +1,56 @@
+---
+layout: default
+---
+{%- include core/context.html -%}
+{%- comment -%}
+  A past season, read-only: its standings, its results (newest game day first) and its leaders. A past season
+  has no team or player pages (ids repeat from season to season), so names are plain text; the game pages exist.
+  The stub's `season` picks the season.
+{%- endcomment -%}
+{%- assign _info = site.data.computed.archive | where: "season", season | first -%}
+{%- capture _title %}{{ season_label }} season{% endcapture -%}
+{%- capture _sub %}{{ _info.teams }} teams · {{ _info.games }} games{% endcapture -%}
+{%- assign _boards = stats.leaders.boards | where_exp: "b", "b.rows.size > 0" -%}
+{% include shell/page-title.html back="/archive/" back_label="‹ Archive" eyebrow="Past season" title=_title sub=_sub %}
+
+<section class="st-section">
+{% include shell/section-head.html title=league.labels.standings %}
+  {%- if stats.standings.rows.size > 0 %}
+{% include parts/standings.html standings=stats.standings mode="table" %}
+    {%- if stats.standings.tiebreak_note.size > 0 %}
+<p class="st-note">{{ stats.standings.tiebreak_note | escape }}</p>
+    {%- endif %}
+  {%- else %}
+{% include core/empty.html text="No standings were kept for this season." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+{% include shell/section-head.html title="Results" %}
+  {%- if stats.results.size > 0 %}
+    {%- for _r in stats.results %}
+      {%- assign _day = stats.schedule.days | where: "n", _r.day | first %}
+<p class="st-label st-leader-group">{{ _day.label | escape }} · {{ _day.date_short | escape }}</p>
+<div class="st-list">
+      {%- for _gid in _r.games %}
+        {%- assign _game = stats.games[_gid] %}
+{% include parts/result-card.html game=_game %}
+      {%- endfor %}
+</div>
+    {%- endfor %}
+  {%- else %}
+{% include core/empty.html text="No games were played in this season." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+{% include shell/section-head.html title=league.labels.leaders %}
+  {%- if _boards.size > 0 %}
+    {%- for _b in _boards %}
+<p class="st-label st-leader-group">{{ _b.title | escape }}</p>
+{% include core/board-table.html board=_b limit=10 %}
+    {%- endfor %}
+  {%- else %}
+{% include core/empty.html text="No stats were kept for this season." %}
+  {%- endif %}
+</section>
