@@ -53,6 +53,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CSS_DIR = ROOT / "assets" / "css"
 LAYOUT_DIR = CSS_DIR / "layouts"
 DOC_PATH = ROOT / "docs" / "contrast.md"
+FALLBACKS_PATH = CSS_DIR / "fallbacks.css"
 THEMES = ("light", "dark")
 
 # WCAG 2.x thresholds
@@ -369,15 +370,23 @@ def parse_paint(text: str) -> Union[Colour, Gradient]:
 # 2. CSS reading and the cascade
 # =============================================================================
 
+# The one @supports condition the checker understands: assets/css/fallbacks.css puts the rules for
+# browsers without color-mix() in `@supports not (color: color-mix(in oklab, red, red))`. Such rules
+# apply only in fallback mode (see cascade_rules); other @supports blocks are skipped.
+NO_COLOR_MIX = "not (color: color-mix(in oklab, red, red))"
+
+
 @dataclass
 class Rule:
     """One style rule: selector text, its custom-property declarations, the @media
-    condition it sits in (None = none), the file, and a global source-order number."""
+    condition it sits in (None = none), the file, a global source-order number, and
+    `supports` (NO_COLOR_MIX inside the fallbacks' @supports block, else None)."""
     selector: str
     decls: dict
     media: Optional[str]
     source: str
     order: int
+    supports: Optional[str] = None      # NO_COLOR_MIX when the rule sits in the fallbacks' @supports block
 
 
 def strip_comments(text: str) -> str:
@@ -420,9 +429,10 @@ def _parse_decls(body: str) -> dict:
     return out
 
 
-def parse_css(text: str, source: str = "", media: Optional[str] = None, _counter: Optional[list] = None) -> list:
-    """Parse CSS text into Rules (custom properties only). Understands @media nesting;
-    other at-rules are skipped."""
+def parse_css(text: str, source: str = "", media: Optional[str] = None, _counter: Optional[list] = None,
+              supports: Optional[str] = None) -> list:
+    """Parse CSS text into Rules (custom properties only). Understands @media nesting and the
+    fallbacks' `@supports not (color: color-mix(...))` block; other at-rules are skipped."""
     text = strip_comments(text)
     counter = _counter if _counter is not None else [0]
     rules, i, n = [], 0, len(text)
@@ -453,14 +463,17 @@ def parse_css(text: str, source: str = "", media: Optional[str] = None, _counter
         k = _matching_brace(text, j)
         body = text[j + 1:k]
         if prelude.lower().startswith("@media"):
-            rules += parse_css(body, source, prelude[6:].strip(), counter)
+            rules += parse_css(body, source, prelude[6:].strip(), counter, supports)
+        elif prelude.lower().startswith("@supports"):
+            if re.sub(r"\s+", " ", prelude[9:]).strip().lower() == NO_COLOR_MIX:
+                rules += parse_css(body, source, media, counter, NO_COLOR_MIX)
         elif prelude.startswith("@"):
             pass
         elif prelude:
             for sel in split_top(prelude):
                 sel = re.sub(r"\s+", " ", sel.strip())
                 counter[0] += 1
-                rules.append(Rule(sel, _parse_decls(body), media, source, counter[0]))
+                rules.append(Rule(sel, _parse_decls(body), media, source, counter[0], supports))
         i = k + 1
     return rules
 
@@ -531,14 +544,16 @@ def media_matches(media: Optional[str], prefers_dark: bool) -> bool:
 
 
 def cascade_rules(rule_lists: list, layout: str, theme: Optional[str], prefers_dark: bool = False,
-                  overrides: Optional[dict] = None, custom: bool = False) -> dict:
+                  overrides: Optional[dict] = None, custom: bool = False, fallback: bool = False) -> dict:
     """The custom properties on an element carrying data-layout=<layout>, data-theme=<theme>
     (None = attribute absent) and, if `custom`, the data-league-colour attribute, as a
     browser computes them. `prefers_dark` is the OS preference (matters for the @media
     blocks). `rule_lists` is one list of Rules per stylesheet, in load order. Every rule whose
     selector matches and whose @media holds applies; they are sorted by specificity first,
     then by stylesheet, then by source order, and the last declaration of a property wins.
-    `overrides` act like an inline style (they beat every rule)."""
+    `overrides` act like an inline style (they beat every rule). `fallback` models a browser
+    without color-mix(): the rules in the `@supports not (color: color-mix(...))` block apply
+    (otherwise they never do, because the browser supports color-mix())."""
     attrs = {"data-layout": layout}
     if theme:
         attrs["data-theme"] = theme
@@ -547,6 +562,8 @@ def cascade_rules(rule_lists: list, layout: str, theme: Optional[str], prefers_d
     matched = []
     for idx, rules in enumerate(rule_lists):
         for rule in rules:
+            if rule.supports and not fallback:
+                continue
             if not media_matches(rule.media, prefers_dark):
                 continue
             spec = match_selector(rule.selector, attrs)
@@ -563,11 +580,15 @@ def cascade_rules(rule_lists: list, layout: str, theme: Optional[str], prefers_d
 
 def cascade(layout: str, theme: Optional[str], prefers_dark: bool = False,
             overrides: Optional[dict] = None, css_files: Optional[list] = None,
-            custom: bool = False) -> dict:
-    """`cascade_rules` over assets/css/tokens.css and layouts/<layout>.css (or `css_files`)."""
+            custom: bool = False, fallback: bool = False) -> dict:
+    """`cascade_rules` over assets/css/tokens.css and layouts/<layout>.css (or `css_files`);
+    with `fallback`, over tokens, the layout and fallbacks.css, the block for browsers without
+    color-mix() active."""
     if css_files is None:
         css_files = [CSS_DIR / "tokens.css", LAYOUT_DIR / (layout + ".css")]
-    return cascade_rules([load_rules(f) for f in css_files], layout, theme, prefers_dark, overrides, custom)
+        if fallback:
+            css_files.append(FALLBACKS_PATH)
+    return cascade_rules([load_rules(f) for f in css_files], layout, theme, prefers_dark, overrides, custom, fallback)
 
 
 def _match_paren(s: str, open_idx: int) -> int:
@@ -646,15 +667,19 @@ class Palette:
     """Resolved colours of one layout and theme. `theme` is 'light' or 'dark' (the
     data-theme attribute), or None with prefers_dark=True for the OS-dark path. `custom` is
     custom-colour mode: the <html> carries data-league-colour (stage 4 sets it whenever the
-    league sets a colour), so the layouts' [data-league-colour] blocks apply."""
+    league sets a colour), so the layouts' [data-league-colour] blocks apply. `fallback` is a
+    browser without color-mix(): fallbacks.css's @supports block applies (see cascade_rules)."""
 
     def __init__(self, layout: str, theme: Optional[str], prefers_dark: bool = False,
-                 overrides: Optional[dict] = None, decls: Optional[dict] = None, custom: bool = False):
+                 overrides: Optional[dict] = None, decls: Optional[dict] = None, custom: bool = False,
+                 fallback: bool = False):
         self.layout = layout
         self.theme = theme
         self.prefers_dark = prefers_dark
         self.custom = custom
-        self.decls = decls if decls is not None else cascade(layout, theme, prefers_dark, overrides, custom=custom)
+        self.fallback = fallback
+        self.decls = decls if decls is not None else cascade(layout, theme, prefers_dark, overrides, custom=custom,
+                                                              fallback=fallback)
         self._cache = {}
 
     @classmethod
