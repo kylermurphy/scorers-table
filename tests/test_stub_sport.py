@@ -17,7 +17,7 @@ TEAMS = {"otters": Team("otters", "Otters", "OTT"), "ravens": Team("ravens", "Ra
 PLAYERS = {p.id: p for p in (
     Player("ann-b", "Ann B.", "otters", "7"), Player("joe-k", "Joe K.", "otters"),
     Player("tom-w", "Tom W.", "ravens", "3"), Player("sam-p", "Sam P.", None, sub=True),
-    Player("lou-d", "Lou D.", "ravens", "12"))}
+    Player("lou-d", "Lou D.", "ravens", "12"), Player("rex-x", "Rex X.", "badgers"))}
 
 
 def make_ctx(overtime="none", periods=2, folder="games", game_type="regular"):
@@ -190,16 +190,16 @@ def test_a_player_must_be_in_players_yml_and_listed_once():
     base = good_sheet()
     level, at, message = only(with_change(base, "players", "home", 1, "player", value="zed-q"))
     assert (level, at) == ("error", "players.home.1.player") and "'zed-q' is not a player id in players.yml" in message
-    twice = with_change(base, "players", "away", 1, "player", value="ann-b")
+    twice = with_change(base, "players", "away", 1, "player", value="tom-w")
     level, at, message = only(twice)
-    assert (level, at) == ("error", "players.away.1.player") and "listed twice" in message and "players.home.0.player" in message
+    assert (level, at) == ("error", "players.away.1.player") and "listed twice" in message and "players.away.0.player" in message
 
 
 def test_a_player_of_another_team_is_a_warning_unless_a_sub():
     base = with_change(good_sheet(), "players", "away", value=[{"player": "lou-d"}, {"player": "sam-p"}])
     assert run_check(base) == []                                      # lou-d is on the away team; sam-p is a sub
-    level, at, message = only(with_change(base, "players", "away", 0, "player", value="joe-k"))
-    assert (level, at) == ("warning", "players.away.0.player") and "Joe K." in message
+    level, at, message = only(with_change(base, "players", "away", 0, "player", value="rex-x"))
+    assert (level, at) == ("warning", "players.away.0.player") and "Rex X." in message
 
 
 def test_a_players_points_must_be_a_whole_number():

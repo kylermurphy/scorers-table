@@ -135,14 +135,15 @@ def _check_periods(out, sheet, ctx):
 
 
 def _check_overtime(out, sheet, ctx, regulation):
-    """Returns {side: points} for each side whose overtime points are good (empty if overtime is not allowed)."""
+    """Returns {side: points} for each side whose overtime points are good."""
     if "overtime" not in sheet:
         return {}
     one, many = _words(ctx)
     if not _overtime_allowed(ctx):
         out.error("overtime", "is not allowed: the league's rules have no overtime. Delete the overtime lines, "
                               "or set the overtime rule in league.yml.")
-        return {}
+        raw = sheet["overtime"]      # its numbers still count in the Final box check, so there is one clear error
+        return {side: raw[side] for side in SIDE_KEYS if isinstance(raw, dict) and _whole(raw.get(side), 0, MAX_PERIOD)}
     if len(regulation) == 2:
         home, away = sum(regulation["home"]), sum(regulation["away"])
         if home != away:
@@ -191,7 +192,7 @@ def _check_final(out, sheet, ctx, regulation, overtime):
             out.error(at, f"must be a whole number from 0 to {MAX_PTS}, not {value!r}.")
             continue
         good[side] = value
-        with_overtime = "overtime" in sheet and _overtime_allowed(ctx)
+        with_overtime = "overtime" in sheet
         if side in regulation and (not with_overtime or side in overtime):
             total = sum(regulation[side]) + (overtime[side] if with_overtime else 0)
             if value != total:
