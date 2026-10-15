@@ -173,3 +173,44 @@ def test_a_sport_file_that_fails_to_import_is_an_internal_error_naming_it(sports
         load_sport("crash", tmp_path, root=tmp_path)
     assert "crash/rules.py" in str(info.value) and "ModuleNotFoundError" in str(info.value)
     assert isinstance(info.value.__cause__, ModuleNotFoundError)
+
+
+# ---- line_score.periods: how many regulation periods (needed for forfeits scored 1-0 in every period)
+
+def test_regulation_periods_reads_a_number_or_an_int_option():
+    from scripts.core.sports import regulation_periods
+    options = {"periods": {"type": "int", "default": 2}}
+    assert regulation_periods({"line_score": {"periods": 4}}, {}) == 4
+    spec = {"line_score": {"periods": "periods"}, "options": options}
+    assert regulation_periods(spec, {}) == 2                      # the option's default
+    assert regulation_periods(spec, {"periods": 3}) == 3          # the league's own setting
+    assert regulation_periods({"line_score": {}}, {}) is None    # the sport does not say
+
+
+def test_line_score_periods_must_be_a_number_or_name_an_int_option():
+    from scripts.core.problems import Checker
+    from scripts.core.sports import _check_line_score
+    base = {"shape": "periods", "total_label": "Final", "corner": "Team"}
+    opts = {"periods": {"type": "int", "default": 2}, "mode": {"type": "choice", "default": "a", "values": ["a"]}}
+    def problems(value):
+        c = Checker("sport.yml")
+        _check_line_score(c, {**base, "periods": value}, opts)
+        return {(p.at, p.message) for p in c.problems}
+    assert problems(4) == set() and problems("periods") == set()
+    assert any(at == "line_score.periods" for at, _ in problems(0))
+    assert any("not an int option" in m for _, m in problems("mode"))
+    assert any("not an int option" in m for _, m in problems("nope"))
+    assert any(at == "line_score.periods" for at, _ in problems(True))
+    assert any(at == "line_score.periods" for at, _ in problems([4]))
+
+
+def test_forfeit_score_winner_must_be_higher():
+    from scripts.core.problems import Checker
+    from scripts.core.sports import _check_forfeit
+    def problems(score):
+        c = Checker("sport.yml")
+        _check_forfeit(c, {"score": score}, "standings.forfeit")
+        return [p.at for p in c.problems]
+    assert problems([7, 0]) == [] and problems("per_period") == []
+    assert problems([0, 7]) == ["standings.forfeit.score"]
+    assert problems([3, 3]) == ["standings.forfeit.score"]

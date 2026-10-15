@@ -122,6 +122,9 @@ def _check_forfeit(c: Checker, v: Any, at: str) -> None:
         else:
             for i, n in enumerate(score):
                 c.integer(n, join_path(score_at, i), 0, 999)
+            first, second = score
+            if all(isinstance(n, int) and not isinstance(n, bool) for n in score) and first <= second:
+                c.error(score_at, "the winner's score (first) must be higher than the loser's (second), like [7, 0].")
     else:
         c.error(score_at, "must be [winner, loser] like [7, 0], or per_period (1-0 in every regulation period).")
 
@@ -198,7 +201,7 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
     if "words" in spec:
         _check_words(c, spec["words"])
     if "line_score" in spec:
-        _check_line_score(c, spec["line_score"])
+        _check_line_score(c, spec["line_score"], spec.get("options"))
     if "options" in spec:
         _check_options(c, spec["options"])
     team_cols = team_stat_keys(spec)
@@ -237,14 +240,44 @@ def _check_words(c: Checker, words: Any) -> None:
                     c.text(words[k][sub], f"words.{k}.{sub}")
 
 
-def _check_line_score(c: Checker, line: Any) -> None:
-    if c.mapping(line, "line_score", required=("shape", "total_label", "corner")) is None:
+def _check_line_score(c: Checker, line: Any, options: Any = None) -> None:
+    if c.mapping(line, "line_score", required=("shape", "total_label", "corner"), allowed=("periods",)) is None:
         return
     if "shape" in line:
         c.choice(line["shape"], "line_score.shape", SHAPES)
     for k in ("total_label", "corner"):
         if k in line:
             c.text(line[k], f"line_score.{k}")
+    if "periods" in line:
+        value = line["periods"]
+        if isinstance(value, bool) or not isinstance(value, (int, str)):
+            c.error("line_score.periods", "must be a number of regulation periods (like 4) or the name of an int option "
+                                          "(like 'periods').")
+        elif isinstance(value, int) and value < 1:
+            c.error("line_score.periods", "must be at least 1.")
+        elif isinstance(value, str):
+            opt = (options or {}).get(value) if isinstance(options, dict) else None
+            if not isinstance(opt, dict) or opt.get("type") != "int":
+                c.error("line_score.periods", f"{value!r} is not an int option in this sport.yml. Name an option "
+                                              "with `type: int`, or write a number.")
+
+
+def regulation_periods(spec: dict, options: dict) -> int | None:
+    """How many regulation periods (quarters, halves, ends, innings) a game has.
+
+    `spec` is a checked `sport.yml` (`SportDef.spec`), `options` the league's effective rules. Reads
+    `line_score.periods`: a number, or the name of an int option (its effective value, else its default).
+    None when the sport does not say (the core then cannot score a `per_period` forfeit)."""
+    value = spec.get("line_score", {}).get("periods")
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        chosen = options.get(value)
+        if isinstance(chosen, int) and not isinstance(chosen, bool):
+            return chosen
+        default = spec.get("options", {}).get(value, {}).get("default")
+        return default if isinstance(default, int) and not isinstance(default, bool) else None
+    return None
 
 
 def _check_options(c: Checker, options: Any) -> None:

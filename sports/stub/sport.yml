@@ -11,7 +11,7 @@ words:
   day: Week
   points_for: {label: PF, title: Points for}
   points_against: {label: PA, title: Points against}
-line_score: {shape: periods, total_label: Final, corner: Team}
+line_score: {shape: periods, total_label: Final, corner: Team, periods: periods}
 options:
   periods:
     type: int
