@@ -46,11 +46,21 @@ def load_parts() -> list[Part]:
     return parts
 
 
-def frame(layout: str, theme: str, inner: str, caption: str, bleed: bool = False, style: str = "") -> str:
+# The mockups show these layout + sport pairs in a league colour other than the layout's default
+# (Classic with hockey is burgundy, Scoreboard with slo-pitch is green). A real league sets its colour
+# the same way: an inline --st-league-color and the data-league-colour attribute on <html>.
+SAMPLE_LEAGUE_COLOUR = {("classic", "hockey"): "#9E1B32", ("scoreboard", "slopitch"): "#2F6B3A"}
+
+
+def frame(layout: str, theme: str, inner: str, caption: str, bleed: bool = False, style: str = "",
+          league_colour: str = "") -> str:
     cls = "st-page ds-bleed" if bleed else "st-page"
+    if league_colour:
+        style = f"--st-league-color:{league_colour};{style}"
     st = f' style="{esc(style)}"' if style else ""
+    marker = " data-league-colour" if league_colour else ""
     return (
-        f'<div class="ds-frame" data-layout="{layout}" data-theme="{theme}"{st}>'
+        f'<div class="ds-frame" data-layout="{layout}" data-theme="{theme}"{marker}{st}>'
         f'<div class="ds-cap">{esc(caption)}</div><div class="{cls}">{inner}</div></div>'
     )
 
@@ -82,9 +92,10 @@ def parts_html(parts: list[Part]) -> str:
                 for theme in ("light", "dark"):
                     ctx = Ctx(layout=lay["id"], theme=theme, sport=sport,
                               league=sample.LEAGUES[sport], layout_meta=lay)
+                    colour = SAMPLE_LEAGUE_COLOUR.get((lay["id"], sport), "")
                     pair.append(frame(lay["id"], theme, part.render(ctx),
-                                      f'{lay["name"]} · {sport} · {theme}',
-                                      bleed=part.group == "Shell"))
+                                      f'{lay["name"]} · {sport} · {theme}' + (f' · league colour {colour}' if colour else ""),
+                                      bleed=part.group == "Shell", league_colour=colour))
                 out.append('<div class="ds-pair">' + "".join(pair) + "</div>")
     return "\n".join(out)
 
@@ -167,7 +178,7 @@ def league_colour_html(parts: list[Part]) -> str:
                 ctx = Ctx(layout=lay["id"], theme=theme, sport=sport, league=sample.LEAGUES[sport], layout_meta=lay)
                 inner = "".join(f'<div class="ds-pad" style="margin-top:12px">{by_id[i].render(ctx)}</div>' if by_id[i].group != "Shell" else by_id[i].render(ctx) for i in wanted)
                 pair.append(frame(lay["id"], theme, inner, f'{lay["name"]} · league colour {alt["name"]} {alt["hex"]} · {theme}',
-                                  bleed=True, style=f'--st-league-color:{alt["hex"]}'))
+                                  bleed=True, league_colour=alt["hex"]))
             out.append('<div class="ds-pair">' + "".join(pair) + "</div>")
     return "\n".join(out)
 
