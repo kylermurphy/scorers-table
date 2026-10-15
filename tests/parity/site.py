@@ -14,6 +14,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import copy
+
 from scripts.design_system import contract
 
 from . import cases as cases_mod
@@ -51,6 +53,32 @@ layout: case
 """
 
 
+def _extras() -> dict[str, tuple[dict, list[str]]]:
+    """Pages for behaviour no specimen draws: {key: (data files, case templates)}. The test checks them in
+    test_parity.py (a league logo, a plain stat table, an unknown block type, two byes, a card without a line score)."""
+    base = contract.build("basketball", "scoreboard")
+    logo = copy.deepcopy(base)
+    logo["league"]["logo"] = "assets/league/logo.svg"
+    plain = copy.deepcopy(base)
+    gid = plain["case"]["game_id"]
+    plain["games"][gid]["blocks"] = [
+        {"type": "stat_table", "title": None, "side": None, "caption": "Skaters", "number_col": False,
+         "columns": [{"key": "g", "label": "G", "title": "Goals", "key_col": False},
+                     {"key": "pts", "label": "PTS", "title": "Points", "key_col": True}],
+         "rows": [{"player": "dave-m", "cells": {"g": "2", "pts": "4"}}],
+         "totals": {"label": "Total", "cells": {"g": "2", "pts": "4"}}, "note": None},
+        {"type": "mystery", "text": "a block type the includes do not know"},
+        {"type": "note", "text": "End of blocks."},
+    ]
+    plain["games"][gid]["line_score"] = None
+    plain["games"][gid]["card"].pop("line_score", None)
+    plain["schedule"]["days"][0]["byes"] = ["foxes", "herons"]
+    return {
+        "extras-logo": (logo, ["x-logo"]),
+        "extras-plain": (plain, ["x-blocks", "x-ticker", "x-card"]),
+    }
+
+
 def jekyll_command() -> list[str] | None:
     """The command that runs Jekyll, or None when Ruby, Bundler or the gems are missing."""
     bundle = shutil.which("bundle")
@@ -76,6 +104,14 @@ def build_site(dest: Path, command: list[str]) -> dict[tuple[str, str], dict[str
         shutil.copy(f, src / "_includes" / "cases" / f.name)
     contract.write(src / "_data" / "parity")
 
+    for key, (data, templates) in _extras().items():
+        folder = src / "_data" / "parity" / key
+        folder.mkdir(parents=True)
+        for name, value in data.items():
+            (folder / f"{name}.json").write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
+        body = PAGE_HEAD.format(key=key) + "".join(BLOCK.format(case=t, template=t) for t in templates)
+        (src / f"{key}.html").write_text(body)
+
     run = cases_mod.all_cases()
     per_page: dict[tuple[str, str], list[str]] = {}
     for case, part in run:
@@ -96,10 +132,12 @@ def build_site(dest: Path, command: list[str]) -> dict[tuple[str, str], dict[str
         raise RuntimeError("Liquid problem:\n" + proc.stdout + proc.stderr)
 
     rendered: dict[tuple[str, str], dict[str, str]] = {}
-    for (layout, sport) in per_page:
-        html = (out / f"{layout}--{sport}.html").read_text(encoding="utf-8")
+    pages = {(layout, sport): f"{layout}--{sport}" for (layout, sport) in per_page}
+    pages.update({("extras", key): key for key in _extras()})
+    for combo, name in pages.items():
+        html = (out / f"{name}.html").read_text(encoding="utf-8")
         blocks = {}
         for m in re.finditer(r'<div data-case="([^"]+)">(.*?)</div>\n(?=<div data-case=|</body>)', html, re.S):
             blocks[m.group(1)] = m.group(2)
-        rendered[(layout, sport)] = blocks
+        rendered[combo] = blocks
     return rendered

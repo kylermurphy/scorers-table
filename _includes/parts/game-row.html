@@ -1,10 +1,10 @@
 {%- comment -%}
   parts/game-row.html: one game as a row: surface (sheet, diamond, pad), teams, time. A CSS grid with named
   areas, so a layout can reorder them. Params: row (a schedule.json game row), tag ("div", or "a" for a row that
-  links to the game; default "div"), show_time (default true; curling prints the time once per group instead).
-  The surface follows the layout: Scoreboard a tag ("D1"), Curling a letter tile, Slo-pitch a diamond icon + label,
-  otherwise a text label or, when league.display.surface == "sub", a second line under the time (hockey).
-  No league.words.surface (basketball): no surface. When stats.schedule.all_times_pm the " PM" is dropped from the time.
+  links to the game; default "div"), show_time (default true; the Curling layout prints the time once per group instead).
+  The surface follows the layout: Scoreboard a tag ("D1"), the Curling layout a letter tile, the Slo-pitch layout an icon + label,
+  otherwise a text label or, when league.display.surface == "sub", a second line under the time.
+  No league.words.surface: no surface. When stats.schedule.all_times_pm the " PM" is dropped from the time.
 {%- endcomment -%}
 {%- assign _gr_row = include.row -%}
 {%- assign _gr_tag = include.tag | default: "div" -%}

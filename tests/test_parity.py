@@ -90,3 +90,67 @@ def test_every_specimen_part_is_a_case_or_skipped():
     covered = {c.part for c, _ in CASES} | set(cases_mod.SKIPPED)
     missing = [p.id for p in cases_mod.load_parts() if p.id not in covered]
     assert not missing, f"specimen parts without a parity case or a listed skip: {missing}"
+
+
+# ---------------------------------------------------------------- what no specimen draws
+
+def test_logo_replaces_the_monogram(rendered):
+    html = rendered[("extras", "extras-logo")]["x-logo"]
+    assert html.count("<img ") == 2
+    assert 'src="/assets/league/logo.svg"' in html
+    assert 'role="img"' not in html                      # no monogram badge any more
+    assert 'alt=""' in html                              # the footer's copy is decoration
+
+
+def test_plain_stat_table_unknown_block_and_no_line_score(rendered):
+    page = rendered[("extras", "extras-plain")]
+    blocks = page["x-blocks"]
+    assert '<table class="st-table"><caption' in blocks and "st-table--box" not in blocks
+    assert "<td>Total</td>" in blocks and 'class="st-player"' in blocks and ">#4 " not in blocks
+    assert "mystery" not in blocks and "End of blocks." in blocks     # an unknown block type is left out
+    card = page["x-card"]                                              # lines=true without a line score: two rows
+    assert "st-result-card--lines" not in card and "st-result-card__score" in card
+
+
+def test_ticker_lists_every_bye_and_ends_without_a_separator(rendered):
+    html = rendered[("extras", "extras-plain")]["x-ticker"]
+    assert html.count("st-ticker__item--quiet") == 2 and "FOX bye" in html and "HER bye" in html
+    assert html.count("st-ticker__sep") == html.count("st-ticker__tag")   # one after each score, none after the byes
+
+
+def test_every_rendered_link_has_a_target(rendered):
+    import re
+    for combo, blocks in rendered.items():
+        for case_id, html in blocks.items():
+            for tag in re.findall(r"<a [^>]*>", html):
+                m = re.search(r'href="([^"]*)"', tag)
+                assert m and m.group(1), f"{combo} {case_id}: link without a target: {tag}"
+
+
+# ---------------------------------------------------------------- source checks (no Jekyll needed)
+
+@pytest.mark.parametrize("name", ["league.sport", "sport ==", "sport_name"])
+def test_includes_never_test_the_sport(name):
+    """Sport differences arrive as data (spec 5.2); an include may branch on the layout, never on the sport."""
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent / "_includes"
+    hits = [str(p.relative_to(root)) for p in root.rglob("*.html") if name in p.read_text()]
+    assert not hits, f"{name!r} found in {hits}"
+
+
+def test_includes_do_not_write_a_root_relative_path():
+    """Every internal path goes through relative_url (CLAUDE.md); a leading '/' in an href or src is a bug."""
+    import re
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent / "_includes"
+    bad = []
+    for p in root.rglob("*.html"):
+        for m in re.finditer(r'(?:href|src)="/[^"]*"', p.read_text()):
+            bad.append((p.name, m.group(0)))
+    assert not bad, bad
+
+
+def test_no_liquid_error_message_reached_a_page(rendered):
+    for combo, blocks in rendered.items():
+        for case_id, html in blocks.items():
+            assert "Liquid error" not in html and "Liquid syntax" not in html, (combo, case_id)

@@ -5,8 +5,8 @@
   Reads: league.display (card, card_foot, card_head), league.layout, league.labels.tie, game.card
   {note, strong, link_label, meta [], line_score}. The foot's wording follows league.display.card_foot:
     note         the note, its `strong` part in bold                      (Scoreboard puts "Final · " in front)
-    meta         the meta parts joined with " · "                         (curling: "Sheet A · 6:30 PM")
-    status_note  "Final · " and the note                                  (hockey: "Final · GWG #12 Gord P.")
+    meta         the meta parts joined with " · "                         (e.g. "Sheet A · 6:30 PM")
+    status_note  "Final · " and the note                                  (e.g. "Final · GWG #12 Gord P.")
   Classic's foot is one quiet line: the status, "Tie", and the meta parts except the time.
 {%- endcomment -%}
 {%- assign _rc_g = include.game -%}
