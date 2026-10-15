@@ -1,0 +1,2468 @@
+{
+  "2026-10-15-1": {
+    "id": "2026-10-15-1",
+    "url": "/games/2026-10-15-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 1",
+    "date_short": "Thu Oct 15",
+    "date_long": "Thursday, October 15, 2026",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 1",
+    "home": {
+      "team": "lynx",
+      "name": "Lynx",
+      "code": "LYN",
+      "slot": 5,
+      "colour": null,
+      "score": 30,
+      "result": "win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "away": {
+      "team": "ravens",
+      "name": "Ravens",
+      "code": "RAV",
+      "slot": 2,
+      "colour": null,
+      "score": 21,
+      "result": "loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Lynx by 9"
+    },
+    "summary": "Lynx by 9",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 12,
+              "won": true
+            },
+            {
+              "v": 18,
+              "won": true
+            }
+          ],
+          "total": 30,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 8
+            },
+            {
+              "v": 13
+            }
+          ],
+          "total": 21,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #77 Amy P. 9 pts",
+      "strong": "#77 Amy P.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 1",
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Lynx box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "tam-k",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "4"
+          },
+          {
+            "player": "dax-d",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "59"
+          },
+          {
+            "player": "ola-t",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "29"
+          },
+          {
+            "player": "amy-p",
+            "cells": {
+              "pts": "9"
+            },
+            "num": "77"
+          },
+          {
+            "player": "eli-f",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "3"
+          },
+          {
+            "player": "cal-b",
+            "cells": {
+              "pts": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "30"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Ravens box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "eve-b",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "1"
+          },
+          {
+            "player": "jax-f",
+            "cells": {
+              "pts": "7"
+            },
+            "num": "42"
+          },
+          {
+            "player": "noa-a",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "80"
+          },
+          {
+            "player": "jax-d",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kai-g",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "49"
+          },
+          {
+            "player": "alf-g",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "14"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          },
+          {
+            "player": "cal-p",
+            "cells": {
+              "pts": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "21"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-10-15-2": {
+    "id": "2026-10-15-2",
+    "url": "/games/2026-10-15-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 1",
+    "date_short": "Thu Oct 15",
+    "date_long": "Thursday, October 15, 2026",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 2",
+    "home": {
+      "team": "badgers",
+      "name": "Badgers",
+      "code": "BAD",
+      "slot": 3,
+      "colour": null,
+      "score": 15,
+      "result": "loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "moose",
+      "name": "Moose",
+      "code": "MOO",
+      "slot": 4,
+      "colour": null,
+      "score": 23,
+      "result": "win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Moose by 8"
+    },
+    "summary": "Moose by 8",
+    "notes": [
+      "Started ten minutes late."
+    ],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 11
+            },
+            {
+              "v": 4
+            }
+          ],
+          "total": 15,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 15,
+              "won": true
+            },
+            {
+              "v": 8,
+              "won": true
+            }
+          ],
+          "total": 23,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #61 Kai M. 7 pts",
+      "strong": "#61 Kai M.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 2",
+        "8:15 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Badgers box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "noa-f",
+            "cells": {
+              "pts": "6"
+            },
+            "num": "72"
+          },
+          {
+            "player": "ben-e",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "41"
+          },
+          {
+            "player": "quin-m",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "42"
+          },
+          {
+            "player": "pax-w",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "29"
+          },
+          {
+            "player": "val-d",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "10"
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "15"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Moose box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-m",
+            "cells": {
+              "pts": "7"
+            },
+            "num": "61"
+          },
+          {
+            "player": "wes-t",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "18"
+          },
+          {
+            "player": "cleo-a",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "13"
+          },
+          {
+            "player": "finn-f",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "80"
+          },
+          {
+            "player": "mae-f",
+            "cells": {
+              "pts": "0"
+            },
+            "num": "8"
+          },
+          {
+            "player": "oz-l",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "41"
+          },
+          {
+            "player": "gwen-w",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 7 played",
+          "cells": {
+            "pts": "23"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-10-22-1": {
+    "id": "2026-10-22-1",
+    "url": "/games/2026-10-22-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 2",
+    "date_short": "Thu Oct 22",
+    "date_long": "Thursday, October 22, 2026",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 1",
+    "home": {
+      "team": "lynx",
+      "name": "Lynx",
+      "code": "LYN",
+      "slot": 5,
+      "colour": null,
+      "score": 1,
+      "result": "win",
+      "record": "2–0",
+      "record_line": "Win · now 2–0",
+      "badge": ""
+    },
+    "away": {
+      "team": "otters",
+      "name": "Otters",
+      "code": "OTT",
+      "slot": 1,
+      "colour": null,
+      "score": 0,
+      "result": "loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": "otters",
+    "decided_in": "regulation",
+    "status": "Forfeit",
+    "final": {
+      "status": "Forfeit",
+      "sub": "Otters forfeited"
+    },
+    "summary": "Otters forfeited",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": null,
+    "card": {
+      "note": "Otters forfeited",
+      "strong": "Otters",
+      "link_label": "Details",
+      "meta": [
+        "Court 1",
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": null,
+    "blocks": []
+  },
+  "2026-10-22-2": {
+    "id": "2026-10-22-2",
+    "url": "/games/2026-10-22-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 2",
+    "date_short": "Thu Oct 22",
+    "date_long": "Thursday, October 22, 2026",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 2",
+    "home": {
+      "team": "badgers",
+      "name": "Badgers",
+      "code": "BAD",
+      "slot": 3,
+      "colour": null,
+      "score": 17,
+      "result": "loss",
+      "record": "0–2",
+      "record_line": "Loss · now 0–2",
+      "badge": ""
+    },
+    "away": {
+      "team": "ravens",
+      "name": "Ravens",
+      "code": "RAV",
+      "slot": 2,
+      "colour": null,
+      "score": 25,
+      "result": "win",
+      "record": "1–1",
+      "record_line": "Win · now 1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Ravens by 8"
+    },
+    "summary": "Ravens by 8",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 12,
+              "won": true
+            },
+            {
+              "v": 5
+            }
+          ],
+          "total": 17,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 11
+            },
+            {
+              "v": 14,
+              "won": true
+            }
+          ],
+          "total": 25,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #80 Noa A. 8 pts",
+      "strong": "#80 Noa A.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 2",
+        "8:15 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Badgers box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "noa-f",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "72"
+          },
+          {
+            "player": "ben-e",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "41"
+          },
+          {
+            "player": "quin-n",
+            "cells": {
+              "pts": "7"
+            },
+            "num": "45"
+          },
+          {
+            "player": "pax-w",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "29"
+          },
+          {
+            "player": "val-d",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "10"
+          },
+          {
+            "player": "dee-s",
+            "cells": {
+              "pts": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "17"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Ravens box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "jax-f",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "42"
+          },
+          {
+            "player": "noa-a",
+            "cells": {
+              "pts": "8"
+            },
+            "num": "80"
+          },
+          {
+            "player": "jax-d",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kai-g",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "49"
+          },
+          {
+            "player": "alf-g",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "14"
+          },
+          {
+            "player": "cal-p",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "25"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-10-29-1": {
+    "id": "2026-10-29-1",
+    "url": "/games/2026-10-29-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 3",
+    "date_short": "Thu Oct 29",
+    "date_long": "Thursday, October 29, 2026",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 1",
+    "home": {
+      "team": "otters",
+      "name": "Otters",
+      "code": "OTT",
+      "slot": 1,
+      "colour": null,
+      "score": 13,
+      "result": "win",
+      "record": "1–1",
+      "record_line": "Win · now 1–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "moose",
+      "name": "Moose",
+      "code": "MOO",
+      "slot": 4,
+      "colour": null,
+      "score": 10,
+      "result": "loss",
+      "record": "1–1",
+      "record_line": "Loss · now 1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Otters by 3"
+    },
+    "summary": "Otters by 3",
+    "notes": [
+      "Started ten minutes late."
+    ],
+    "checked_by": "Sam T.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 9,
+              "won": true
+            },
+            {
+              "v": 4
+            }
+          ],
+          "total": 13,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 6
+            },
+            {
+              "v": 4
+            }
+          ],
+          "total": 10,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #00 Una W. 6 pts",
+      "strong": "#00 Una W.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 1",
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Otters box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "una-w",
+            "cells": {
+              "pts": "6"
+            },
+            "num": "00"
+          },
+          {
+            "player": "mae-t",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "33"
+          },
+          {
+            "player": "val-j",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "5"
+          },
+          {
+            "player": "eve-l",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "37"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "13"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Moose box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-m",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "61"
+          },
+          {
+            "player": "wes-t",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "18"
+          },
+          {
+            "player": "cleo-a",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "13"
+          },
+          {
+            "player": "finn-f",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "80"
+          },
+          {
+            "player": "gwen-w",
+            "cells": {
+              "pts": "1"
+            },
+            "num": ""
+          },
+          {
+            "player": "cal-p",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "10"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-11-05-1": {
+    "id": "2026-11-05-1",
+    "url": "/games/2026-11-05-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 4",
+    "date_short": "Thu Nov 5",
+    "date_long": "Thursday, November 5, 2026",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 1",
+    "home": {
+      "team": "badgers",
+      "name": "Badgers",
+      "code": "BAD",
+      "slot": 3,
+      "colour": null,
+      "score": 35,
+      "result": "tie",
+      "record": "0–2–1",
+      "record_line": "Tie · now 0–2–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "otters",
+      "name": "Otters",
+      "code": "OTT",
+      "slot": 1,
+      "colour": null,
+      "score": 35,
+      "result": "tie",
+      "record": "1–1–1",
+      "record_line": "Tie · now 1–1–1",
+      "badge": ""
+    },
+    "tie": true,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Tied 35–35"
+    },
+    "summary": "Tied 35–35",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 1,
+      "away": 1
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 18,
+              "won": true
+            },
+            {
+              "v": 17
+            }
+          ],
+          "total": 35,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 16
+            },
+            {
+              "v": 19,
+              "won": true
+            }
+          ],
+          "total": 35,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #37 Eve L. 12 pts",
+      "strong": "#37 Eve L.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 1",
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Badgers box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "noa-f",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "72"
+          },
+          {
+            "player": "ben-e",
+            "cells": {
+              "pts": "7"
+            },
+            "num": "41"
+          },
+          {
+            "player": "quin-n",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "45"
+          },
+          {
+            "player": "quin-m",
+            "cells": {
+              "pts": "10"
+            },
+            "num": "42"
+          },
+          {
+            "player": "val-d",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "10"
+          },
+          {
+            "player": "dee-s",
+            "cells": {
+              "pts": "7"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "35"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Otters box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "una-w",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "00"
+          },
+          {
+            "player": "max-t",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "64"
+          },
+          {
+            "player": "ada-c",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "90"
+          },
+          {
+            "player": "mae-t",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "33"
+          },
+          {
+            "player": "val-j",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "5"
+          },
+          {
+            "player": "eve-l",
+            "cells": {
+              "pts": "12"
+            },
+            "num": "37"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "1"
+            },
+            "num": ""
+          },
+          {
+            "player": "cal-p",
+            "cells": {
+              "pts": "7"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "35"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-11-05-2": {
+    "id": "2026-11-05-2",
+    "url": "/games/2026-11-05-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 4",
+    "date_short": "Thu Nov 5",
+    "date_long": "Thursday, November 5, 2026",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 2",
+    "home": {
+      "team": "moose",
+      "name": "Moose",
+      "code": "MOO",
+      "slot": 4,
+      "colour": null,
+      "score": 19,
+      "result": "loss",
+      "record": "1–2",
+      "record_line": "Loss · now 1–2",
+      "badge": ""
+    },
+    "away": {
+      "team": "ravens",
+      "name": "Ravens",
+      "code": "RAV",
+      "slot": 2,
+      "colour": null,
+      "score": 24,
+      "result": "win",
+      "record": "2–1",
+      "record_line": "Win · now 2–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Ravens by 5"
+    },
+    "summary": "Ravens by 5",
+    "notes": [
+      "Started ten minutes late."
+    ],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Lee M.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 6
+            },
+            {
+              "v": 13,
+              "won": true
+            }
+          ],
+          "total": 19,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 16,
+              "won": true
+            },
+            {
+              "v": 8
+            }
+          ],
+          "total": 24,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #8 Mae F. 8 pts",
+      "strong": "#8 Mae F.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 2",
+        "8:15 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Moose box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-m",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "61"
+          },
+          {
+            "player": "wes-t",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "18"
+          },
+          {
+            "player": "finn-f",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "80"
+          },
+          {
+            "player": "mae-f",
+            "cells": {
+              "pts": "8"
+            },
+            "num": "8"
+          },
+          {
+            "player": "gwen-w",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "19"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Ravens box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "eve-b",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "1"
+          },
+          {
+            "player": "jax-f",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "42"
+          },
+          {
+            "player": "noa-a",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "80"
+          },
+          {
+            "player": "jax-d",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kai-g",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "49"
+          },
+          {
+            "player": "alf-g",
+            "cells": {
+              "pts": "7"
+            },
+            "num": "14"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          },
+          {
+            "player": "pax-f",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "24"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-11-12-1": {
+    "id": "2026-11-12-1",
+    "url": "/games/2026-11-12-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 5",
+    "date_short": "Thu Nov 12",
+    "date_long": "Thursday, November 12, 2026",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 1",
+    "home": {
+      "team": "otters",
+      "name": "Otters",
+      "code": "OTT",
+      "slot": 1,
+      "colour": null,
+      "score": 17,
+      "result": "loss",
+      "record": "1–2–1",
+      "record_line": "Loss · now 1–2–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "ravens",
+      "name": "Ravens",
+      "code": "RAV",
+      "slot": 2,
+      "colour": null,
+      "score": 19,
+      "result": "win",
+      "record": "3–1",
+      "record_line": "Win · now 3–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Ravens by 2"
+    },
+    "summary": "Ravens by 2",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 4
+            },
+            {
+              "v": 13,
+              "won": true
+            }
+          ],
+          "total": 17,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 15,
+              "won": true
+            },
+            {
+              "v": 4
+            }
+          ],
+          "total": 19,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #80 Noa A. 8 pts",
+      "strong": "#80 Noa A.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 1",
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Otters box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "una-w",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "00"
+          },
+          {
+            "player": "max-t",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "64"
+          },
+          {
+            "player": "ada-c",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "90"
+          },
+          {
+            "player": "mae-t",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "33"
+          },
+          {
+            "player": "val-j",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "5"
+          },
+          {
+            "player": "eve-l",
+            "cells": {
+              "pts": "6"
+            },
+            "num": "37"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 7 played",
+          "cells": {
+            "pts": "17"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Ravens box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "eve-b",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "1"
+          },
+          {
+            "player": "noa-a",
+            "cells": {
+              "pts": "8"
+            },
+            "num": "80"
+          },
+          {
+            "player": "jax-d",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "57"
+          },
+          {
+            "player": "alf-g",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "14"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "19"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-11-12-2": {
+    "id": "2026-11-12-2",
+    "url": "/games/2026-11-12-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 5",
+    "date_short": "Thu Nov 12",
+    "date_long": "Thursday, November 12, 2026",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 2",
+    "home": {
+      "team": "moose",
+      "name": "Moose",
+      "code": "MOO",
+      "slot": 4,
+      "colour": null,
+      "score": 23,
+      "result": "loss",
+      "record": "1–3",
+      "record_line": "Loss · now 1–3",
+      "badge": ""
+    },
+    "away": {
+      "team": "lynx",
+      "name": "Lynx",
+      "code": "LYN",
+      "slot": 5,
+      "colour": null,
+      "score": 28,
+      "result": "win",
+      "record": "3–0",
+      "record_line": "Win · now 3–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Lynx by 5"
+    },
+    "summary": "Lynx by 5",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 5
+            },
+            {
+              "v": 18,
+              "won": true
+            }
+          ],
+          "total": 23,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 18,
+              "won": true
+            },
+            {
+              "v": 10
+            }
+          ],
+          "total": 28,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #29 Ola T. 10 pts",
+      "strong": "#29 Ola T.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 2",
+        "8:15 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Moose box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "wes-t",
+            "cells": {
+              "pts": "2"
+            },
+            "num": "18"
+          },
+          {
+            "player": "cleo-a",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "13"
+          },
+          {
+            "player": "finn-f",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "80"
+          },
+          {
+            "player": "mae-f",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "8"
+          },
+          {
+            "player": "gwen-w",
+            "cells": {
+              "pts": "8"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "23"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Lynx box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "tam-k",
+            "cells": {
+              "pts": "6"
+            },
+            "num": "4"
+          },
+          {
+            "player": "joy-n",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "78"
+          },
+          {
+            "player": "dax-d",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "59"
+          },
+          {
+            "player": "ola-t",
+            "cells": {
+              "pts": "10"
+            },
+            "num": "29"
+          },
+          {
+            "player": "amy-p",
+            "cells": {
+              "pts": "6"
+            },
+            "num": "77"
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "28"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  },
+  "2026-11-19-1": {
+    "id": "2026-11-19-1",
+    "url": "/games/2026-11-19-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 6",
+    "date_short": "Thu Nov 19",
+    "date_long": "Thursday, November 19, 2026",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": "Court 1",
+    "home": {
+      "team": "ravens",
+      "name": "Ravens",
+      "code": "RAV",
+      "slot": 2,
+      "colour": null,
+      "score": 26,
+      "result": "win",
+      "record": "4–1",
+      "record_line": "Win · now 4–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "lynx",
+      "name": "Lynx",
+      "code": "LYN",
+      "slot": 5,
+      "colour": null,
+      "score": 21,
+      "result": "loss",
+      "record": "3–1",
+      "record_line": "Loss · now 3–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Ravens by 5"
+    },
+    "summary": "Ravens by 5",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "periods",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "H1"
+        },
+        {
+          "label": "H2"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 15
+            },
+            {
+              "v": 11,
+              "won": true
+            }
+          ],
+          "total": 26,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 16,
+              "won": true
+            },
+            {
+              "v": 5
+            }
+          ],
+          "total": 21,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "mark_word": null,
+      "won_word": "won the half",
+      "legend": [],
+      "note": null,
+      "caption": "Score by half",
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #77 Amy P. 9 pts",
+      "strong": "#77 Amy P.",
+      "link_label": "Box score",
+      "meta": [
+        "Court 1",
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": [],
+    "blocks": [
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Ravens box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "eve-b",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "1"
+          },
+          {
+            "player": "jax-f",
+            "cells": {
+              "pts": "4"
+            },
+            "num": "42"
+          },
+          {
+            "player": "noa-a",
+            "cells": {
+              "pts": "8"
+            },
+            "num": "80"
+          },
+          {
+            "player": "jax-d",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kai-g",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "49"
+          },
+          {
+            "player": "alf-g",
+            "cells": {
+              "pts": "3"
+            },
+            "num": "14"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "1"
+            },
+            "num": ""
+          },
+          {
+            "player": "cal-p",
+            "cells": {
+              "pts": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "26"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Lynx box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          }
+        ],
+        "rows": [
+          {
+            "player": "tam-k",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "4"
+          },
+          {
+            "player": "joy-n",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "78"
+          },
+          {
+            "player": "ola-t",
+            "cells": {
+              "pts": "1"
+            },
+            "num": "29"
+          },
+          {
+            "player": "amy-p",
+            "cells": {
+              "pts": "9"
+            },
+            "num": "77"
+          },
+          {
+            "player": "eli-f",
+            "cells": {
+              "pts": "5"
+            },
+            "num": "3"
+          },
+          {
+            "player": "cal-b",
+            "cells": {
+              "pts": "4"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "21"
+          }
+        },
+        "note": null,
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Points come from the Final box and each player's row."
+      }
+    ]
+  }
+}

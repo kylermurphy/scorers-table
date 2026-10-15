@@ -1,0 +1,3936 @@
+{
+  "kai-p": {
+    "id": "kai-p",
+    "name": "Kai P.",
+    "label": "#00 Kai P.",
+    "number": "00",
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 17,
+          "ppg": 4.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "17",
+          "ppg": "4.3"
+        },
+        "ranks": {
+          "pts": 7,
+          "ppg": 8
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ppg": "8.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "16–26",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "cal-c": {
+    "id": "cal-c",
+    "name": "Cal C.",
+    "label": "#54 Cal C.",
+    "number": "54",
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 7,
+          "ppg": 1.8
+        },
+        "display": {
+          "gp": "4",
+          "pts": "7",
+          "ppg": "1.8"
+        },
+        "ranks": {
+          "pts": 29,
+          "ppg": 32
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "16–26",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Lynx",
+        "result": "win",
+        "score": "22–14",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ppg": "10.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 15,
+          "ppg": 7.5
+        },
+        "display": {
+          "gp": "2",
+          "pts": "15",
+          "ppg": "7.5"
+        }
+      }
+    }
+  },
+  "oz-m": {
+    "id": "oz-m",
+    "name": "Oz M.",
+    "label": "#44 Oz M.",
+    "number": "44",
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 18,
+          "ppg": 4.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "18",
+          "ppg": "4.5"
+        },
+        "ranks": {
+          "pts": 5,
+          "ppg": 6
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "16–26",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Lynx",
+        "result": "win",
+        "score": "22–14",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 6,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "6",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "nell-l": {
+    "id": "nell-l",
+    "name": "Nell L.",
+    "label": "#99 Nell L.",
+    "number": "99",
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 5,
+          "ppg": 1.7
+        },
+        "display": {
+          "gp": "3",
+          "pts": "5",
+          "ppg": "1.7"
+        },
+        "ranks": {
+          "pts": 33,
+          "ppg": 34
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "0",
+          "ppg": "0.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Lynx",
+        "result": "win",
+        "score": "22–14",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ppg": "8.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 13,
+          "ppg": 6.5
+        },
+        "display": {
+          "gp": "2",
+          "pts": "13",
+          "ppg": "6.5"
+        }
+      }
+    }
+  },
+  "rae-w": {
+    "id": "rae-w",
+    "name": "Rae W.",
+    "label": "#67 Rae W.",
+    "number": "67",
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 8,
+          "ppg": 2.7
+        },
+        "display": {
+          "gp": "3",
+          "pts": "8",
+          "ppg": "2.7"
+        },
+        "ranks": {
+          "pts": 25,
+          "ppg": 25
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Lynx",
+        "result": "win",
+        "score": "22–14",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 7,
+          "ppg": 3.5
+        },
+        "display": {
+          "gp": "2",
+          "pts": "7",
+          "ppg": "3.5"
+        }
+      }
+    }
+  },
+  "pia-k": {
+    "id": "pia-k",
+    "name": "Pia K.",
+    "label": "#46 Pia K.",
+    "number": "46",
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 15,
+          "ppg": 3.8
+        },
+        "display": {
+          "gp": "4",
+          "pts": "15",
+          "ppg": "3.8"
+        },
+        "ranks": {
+          "pts": 11,
+          "ppg": 15
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "16–26",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Lynx",
+        "result": "win",
+        "score": "22–14",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 6,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "6",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "fay-a": {
+    "id": "fay-a",
+    "name": "Fay A.",
+    "label": "Fay A.",
+    "number": null,
+    "team": "otters",
+    "team_name": "Otters",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 12,
+          "ppg": 4.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "12",
+          "ppg": "4.0"
+        },
+        "ranks": {
+          "pts": 16,
+          "ppg": 11
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "28–12",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "17–16",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "16–26",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 4,
+          "ppg": 4.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    }
+  },
+  "quin-w": {
+    "id": "quin-w",
+    "name": "Quin W.",
+    "label": "#55 Quin W.",
+    "number": "55",
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 9,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "9",
+          "ppg": "3.0"
+        },
+        "ranks": {
+          "pts": 23,
+          "ppg": 19
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "21–20",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "31–33",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ppg": "9.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 12,
+          "ppg": 6.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "12",
+          "ppg": "6.0"
+        }
+      }
+    }
+  },
+  "hal-b": {
+    "id": "hal-b",
+    "name": "Hal B.",
+    "label": "#82 Hal B.",
+    "number": "82",
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 16,
+          "ppg": 5.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "16",
+          "ppg": "5.3"
+        },
+        "ranks": {
+          "pts": 9,
+          "ppg": 3
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "21–20",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "finn-b": {
+    "id": "finn-b",
+    "name": "Finn B.",
+    "label": "#50 Finn B.",
+    "number": "50",
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 12,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "12",
+          "ppg": "3.0"
+        },
+        "ranks": {
+          "pts": 16,
+          "ppg": 19
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "29–23",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "21–20",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 5,
+          "ppg": 5.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      }
+    }
+  },
+  "hal-j": {
+    "id": "hal-j",
+    "name": "Hal J.",
+    "label": "#99 Hal J.",
+    "number": "99",
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 11,
+          "ppg": 2.8
+        },
+        "display": {
+          "gp": "4",
+          "pts": "11",
+          "ppg": "2.8"
+        },
+        "ranks": {
+          "pts": 21,
+          "ppg": 24
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "29–23",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "31–33",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "ada-e": {
+    "id": "ada-e",
+    "name": "Ada E.",
+    "label": "#52 Ada E.",
+    "number": "52",
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 16,
+          "ppg": 4.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "16",
+          "ppg": "4.0"
+        },
+        "ranks": {
+          "pts": 9,
+          "ppg": 11
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "29–23",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "21–20",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "31–33",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 11,
+          "ppg": 5.5
+        },
+        "display": {
+          "gp": "2",
+          "pts": "11",
+          "ppg": "5.5"
+        }
+      }
+    }
+  },
+  "jax-p": {
+    "id": "jax-p",
+    "name": "Jax P.",
+    "label": "#45 Jax P.",
+    "number": "45",
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 12,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "12",
+          "ppg": "3.0"
+        },
+        "ranks": {
+          "pts": 16,
+          "ppg": 19
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "29–23",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "31–33",
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ppg": "13.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 13,
+          "ppg": 13.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ppg": "13.0"
+        }
+      }
+    }
+  },
+  "dee-f": {
+    "id": "dee-f",
+    "name": "Dee F.",
+    "label": "Dee F.",
+    "number": null,
+    "team": "ravens",
+    "team_name": "Ravens",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 18,
+          "ppg": 4.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "18",
+          "ppg": "4.5"
+        },
+        "ranks": {
+          "pts": 5,
+          "ppg": 6
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "14–26",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "25–22",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "29–23",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ppg": "11.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Otters",
+        "result": "win",
+        "score": "26–16",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "21–20",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "31–33",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 5,
+          "ppg": 2.5
+        },
+        "display": {
+          "gp": "2",
+          "pts": "5",
+          "ppg": "2.5"
+        }
+      }
+    }
+  },
+  "kit-b": {
+    "id": "kit-b",
+    "name": "Kit B.",
+    "label": "#83 Kit B.",
+    "number": "83",
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 12,
+          "ppg": 4.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "12",
+          "ppg": "4.0"
+        },
+        "ranks": {
+          "pts": 16,
+          "ppg": 11
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "22–25",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "16–17",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "alf-h": {
+    "id": "alf-h",
+    "name": "Alf H.",
+    "label": "#43 Alf H.",
+    "number": "43",
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 8,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "8",
+          "ppg": "2.0"
+        },
+        "ranks": {
+          "pts": 25,
+          "ppg": 30
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "22–25",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "16–17",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "quin-p": {
+    "id": "quin-p",
+    "name": "Quin P.",
+    "label": "#78 Quin P.",
+    "number": "78",
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 7,
+          "ppg": 1.8
+        },
+        "display": {
+          "gp": "4",
+          "pts": "7",
+          "ppg": "1.8"
+        },
+        "ranks": {
+          "pts": 29,
+          "ppg": 32
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "22–25",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "16–17",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "amy-s": {
+    "id": "amy-s",
+    "name": "Amy S.",
+    "label": "#52 Amy S.",
+    "number": "52",
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 13,
+          "ppg": 4.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "13",
+          "ppg": "4.3"
+        },
+        "ranks": {
+          "pts": 14,
+          "ppg": 8
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "16–17",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "ike-h": {
+    "id": "ike-h",
+    "name": "Ike H.",
+    "label": "#14 Ike H.",
+    "number": "14",
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 8,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "8",
+          "ppg": "2.0"
+        },
+        "ranks": {
+          "pts": 25,
+          "ppg": 30
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "0",
+          "ppg": "0.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "22–25",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "16–17",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "gwen-e": {
+    "id": "gwen-e",
+    "name": "Gwen E.",
+    "label": "#85 Gwen E.",
+    "number": "85",
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 20,
+          "ppg": 5.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "20",
+          "ppg": "5.0"
+        },
+        "ranks": {
+          "pts": 4,
+          "ppg": 5
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "22–25",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ppg": "13.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "16–17",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "sal-f": {
+    "id": "sal-f",
+    "name": "Sal F.",
+    "label": "Sal F.",
+    "number": null,
+    "team": "badgers",
+    "team_name": "Badgers",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 5,
+          "ppg": 2.5
+        },
+        "display": {
+          "gp": "2",
+          "pts": "5",
+          "ppg": "2.5"
+        },
+        "ranks": {
+          "pts": 33,
+          "ppg": 26
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Lynx",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "lars-d": {
+    "id": "lars-d",
+    "name": "Lars D.",
+    "label": "#80 Lars D.",
+    "number": "80",
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 4,
+          "ppg": 1.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "4",
+          "ppg": "1.3"
+        },
+        "ranks": {
+          "pts": 36,
+          "ppg": 35
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "23–29",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "13–32",
+        "display": {
+          "gp": "1",
+          "pts": "0",
+          "ppg": "0.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "20–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "gwen-h": {
+    "id": "gwen-h",
+    "name": "Gwen H.",
+    "label": "#54 Gwen H.",
+    "number": "54",
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 7,
+          "ppg": 2.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "7",
+          "ppg": "2.3"
+        },
+        "ranks": {
+          "pts": 29,
+          "ppg": 28
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "12–28",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "23–29",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "tam-c": {
+    "id": "tam-c",
+    "name": "Tam C.",
+    "label": "#20 Tam C.",
+    "number": "20",
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 9,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "9",
+          "ppg": "3.0"
+        },
+        "ranks": {
+          "pts": 23,
+          "ppg": 19
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "12–28",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "23–29",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "20–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "cleo-s": {
+    "id": "cleo-s",
+    "name": "Cleo S.",
+    "label": "#83 Cleo S.",
+    "number": "83",
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 5,
+          "ppg": 1.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "5",
+          "ppg": "1.3"
+        },
+        "ranks": {
+          "pts": 33,
+          "ppg": 35
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "12–28",
+        "display": {
+          "gp": "1",
+          "pts": "0",
+          "ppg": "0.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "23–29",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "13–32",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "20–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "abe-b": {
+    "id": "abe-b",
+    "name": "Abe B.",
+    "label": "#15 Abe B.",
+    "number": "15",
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 21,
+          "ppg": 7.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "21",
+          "ppg": "7.0"
+        },
+        "ranks": {
+          "pts": 2,
+          "ppg": 1
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ppg": "8.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "12–28",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "13–32",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ppg": "8.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "20–21",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 6,
+          "ppg": 6.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ppg": "6.0"
+        }
+      }
+    }
+  },
+  "kit-r": {
+    "id": "kit-r",
+    "name": "Kit R.",
+    "label": "#47 Kit R.",
+    "number": "47",
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 7,
+          "ppg": 2.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "7",
+          "ppg": "2.3"
+        },
+        "ranks": {
+          "pts": 29,
+          "ppg": 28
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "23–29",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "13–32",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "20–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      }
+    }
+  },
+  "yara-w": {
+    "id": "yara-w",
+    "name": "Yara W.",
+    "label": "Yara W.",
+    "number": null,
+    "team": "moose",
+    "team_name": "Moose",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 14,
+          "ppg": 3.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "14",
+          "ppg": "3.5"
+        },
+        "ranks": {
+          "pts": 12,
+          "ppg": 16
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Badgers",
+        "result": "win",
+        "score": "19–13",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "12–28",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "23–29",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ppg": "9.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Lynx",
+        "result": "loss",
+        "score": "13–32",
+        "display": {
+          "gp": "1",
+          "pts": "0",
+          "ppg": "0.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "20–21",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 2,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    }
+  },
+  "una-a": {
+    "id": "una-a",
+    "name": "Una A.",
+    "label": "#48 Una A.",
+    "number": "48",
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 14,
+          "ppg": 3.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "14",
+          "ppg": "3.5"
+        },
+        "ranks": {
+          "pts": 12,
+          "ppg": 16
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "14–22",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 2,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    }
+  },
+  "sky-f": {
+    "id": "sky-f",
+    "name": "Sky F.",
+    "label": "#79 Sky F.",
+    "number": "79",
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 12,
+          "ppg": 3.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "12",
+          "ppg": "3.0"
+        },
+        "ranks": {
+          "pts": 16,
+          "ppg": 19
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "noa-h": {
+    "id": "noa-h",
+    "name": "Noa H.",
+    "label": "#6 Noa H.",
+    "number": "6",
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 13,
+          "ppg": 3.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "13",
+          "ppg": "3.3"
+        },
+        "ranks": {
+          "pts": 14,
+          "ppg": 18
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ppg": "8.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "14–22",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 2,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    }
+  },
+  "ola-p": {
+    "id": "ola-p",
+    "name": "Ola P.",
+    "label": "#12 Ola P.",
+    "number": "12",
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 22,
+          "ppg": 5.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "22",
+          "ppg": "5.5"
+        },
+        "ranks": {
+          "pts": 1,
+          "ppg": 2
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ppg": "13.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "14–22",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 5,
+          "ppg": 5.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ppg": "5.0"
+        }
+      }
+    }
+  },
+  "fay-c": {
+    "id": "fay-c",
+    "name": "Fay C.",
+    "label": "#57 Fay C.",
+    "number": "57",
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 21,
+          "ppg": 5.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "21",
+          "ppg": "5.3"
+        },
+        "ranks": {
+          "pts": 2,
+          "ppg": 3
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ppg": "7.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "14–22",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 2,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    }
+  },
+  "kai-h": {
+    "id": "kai-h",
+    "name": "Kai H.",
+    "label": "#54 Kai H.",
+    "number": "54",
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 10,
+          "ppg": 2.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "10",
+          "ppg": "2.5"
+        },
+        "ranks": {
+          "pts": 22,
+          "ppg": 26
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ppg": "3.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "14–22",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 1,
+          "ppg": 1.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      }
+    }
+  },
+  "pax-c": {
+    "id": "pax-c",
+    "name": "Pax C.",
+    "label": "Pax C.",
+    "number": null,
+    "team": "lynx",
+    "team_name": "Lynx",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 17,
+          "ppg": 4.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "17",
+          "ppg": "4.3"
+        },
+        "ranks": {
+          "pts": 7,
+          "ppg": 8
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "26–14",
+        "display": {
+          "gp": "1",
+          "pts": "1",
+          "ppg": "1.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Otters",
+        "result": "tie",
+        "score": "21–21",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Badgers",
+        "result": "tie",
+        "score": "30–30",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Moose",
+        "result": "win",
+        "score": "32–13",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ppg": "10.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Otters",
+        "result": "loss",
+        "score": "14–22",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 2,
+          "ppg": 2.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ppg": "2.0"
+        }
+      }
+    }
+  },
+  "mae-d": {
+    "id": "mae-d",
+    "name": "Mae D.",
+    "label": "Mae D.",
+    "number": null,
+    "team": null,
+    "team_name": null,
+    "sub": true,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 8,
+          "ppg": 4.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "8",
+          "ppg": "4.0"
+        },
+        "ranks": {
+          "pts": 25,
+          "ppg": 11
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Moose",
+        "result": "loss",
+        "score": "13–19",
+        "display": {
+          "gp": "1",
+          "pts": "0",
+          "ppg": "0.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Ravens",
+        "result": "loss",
+        "score": "22–25",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ppg": "8.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Ravens",
+        "result": "win",
+        "score": "33–31",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 4,
+          "ppg": 4.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ppg": "4.0"
+        }
+      }
+    }
+  },
+  "una-e": {
+    "id": "una-e",
+    "name": "Una E.",
+    "label": "Una E.",
+    "number": null,
+    "team": null,
+    "team_name": null,
+    "sub": true,
+    "position": null,
+    "url": null,
+    "groups": {},
+    "log": [],
+    "playoffs": {}
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "otters": {
+    "id": "otters",
+    "name": "Otters",
+    "code": "OTT",
+    "slot": 1,
+    "colour": null,
+    "url": "/teams/otters/",
+    "rank": 3,
+    "record": "1–2–1",
+    "points": "3",
+    "sub": null,
+    "players": [
+      "una-w",
+      "max-t",
+      "ada-c",
+      "mae-t",
+      "val-j",
+      "eve-l",
+      "tam-c"
+    ],
+    "results": [
+      "2026-11-12-1",
+      "2026-11-05-1",
+      "2026-10-29-1",
+      "2026-10-22-1"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-1",
+      "2026-12-10-1",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "ravens": {
+    "id": "ravens",
+    "name": "Ravens",
+    "code": "RAV",
+    "slot": 2,
+    "colour": null,
+    "url": "/teams/ravens/",
+    "rank": 1,
+    "record": "4–1",
+    "points": "8",
+    "sub": null,
+    "players": [
+      "eve-b",
+      "jax-f",
+      "noa-a",
+      "jax-d",
+      "kai-g",
+      "alf-g",
+      "noa-h"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-1",
+      "2026-11-05-2",
+      "2026-10-22-2",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-10-2",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "badgers": {
+    "id": "badgers",
+    "name": "Badgers",
+    "code": "BAD",
+    "slot": 3,
+    "colour": null,
+    "url": "/teams/badgers/",
+    "rank": 5,
+    "record": "0–2–1",
+    "points": "1",
+    "sub": null,
+    "players": [
+      "noa-f",
+      "ben-e",
+      "quin-n",
+      "quin-m",
+      "pax-w",
+      "val-d",
+      "dee-s"
+    ],
+    "results": [
+      "2026-11-05-1",
+      "2026-10-22-2",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-03-2",
+      "2026-12-10-1"
+    ],
+    "calendar": null
+  },
+  "moose": {
+    "id": "moose",
+    "name": "Moose",
+    "code": "MOO",
+    "slot": 4,
+    "colour": null,
+    "url": "/teams/moose/",
+    "rank": 4,
+    "record": "1–3",
+    "points": "2",
+    "sub": null,
+    "players": [
+      "kai-m",
+      "wes-t",
+      "cleo-a",
+      "finn-f",
+      "mae-f",
+      "oz-l",
+      "gwen-w"
+    ],
+    "results": [
+      "2026-11-12-2",
+      "2026-11-05-2",
+      "2026-10-29-1",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-12-03-1",
+      "2026-12-10-2",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  },
+  "lynx": {
+    "id": "lynx",
+    "name": "Lynx",
+    "code": "LYN",
+    "slot": 5,
+    "colour": null,
+    "url": "/teams/lynx/",
+    "rank": 2,
+    "record": "3–1",
+    "points": "6",
+    "sub": null,
+    "players": [
+      "tam-k",
+      "joy-n",
+      "dax-d",
+      "ola-t",
+      "amy-p",
+      "eli-f",
+      "cal-b"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-2",
+      "2026-10-22-1",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-2",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  }
+}

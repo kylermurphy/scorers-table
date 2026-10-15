@@ -1,0 +1,1383 @@
+{
+  "days": [
+    {
+      "n": 1,
+      "label": "Week 1",
+      "date": "2026-10-15",
+      "date_short": "Thu Oct 15",
+      "date_long": "Thursday, October 15, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-10-15-1",
+          "url": "/games/2026-10-15-1/",
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "lynx",
+          "away": "ravens",
+          "home_name": "Lynx",
+          "away_name": "Ravens",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 30,
+            "away": 21
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-15-2",
+          "url": "/games/2026-10-15-2/",
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "badgers",
+          "away": "moose",
+          "home_name": "Badgers",
+          "away_name": "Moose",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 15,
+            "away": 23
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "otters"
+      ],
+      "eyebrow": "Week 1",
+      "where": "[Venue] · Week 1",
+      "foot": "All times PM. Otters have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-10-15-1",
+              "url": "/games/2026-10-15-1/",
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "lynx",
+              "away": "ravens",
+              "home_name": "Lynx",
+              "away_name": "Ravens",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 30,
+                "away": 21
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-15-2",
+              "url": "/games/2026-10-15-2/",
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "badgers",
+              "away": "moose",
+              "home_name": "Badgers",
+              "away_name": "Moose",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 15,
+                "away": 23
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "label": "Week 2",
+      "date": "2026-10-22",
+      "date_short": "Thu Oct 22",
+      "date_long": "Thursday, October 22, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-10-22-1",
+          "url": "/games/2026-10-22-1/",
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "lynx",
+          "away": "otters",
+          "home_name": "Lynx",
+          "away_name": "Otters",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-22-2",
+          "url": "/games/2026-10-22-2/",
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "badgers",
+          "away": "ravens",
+          "home_name": "Badgers",
+          "away_name": "Ravens",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 17,
+            "away": 25
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "moose"
+      ],
+      "eyebrow": "Week 2",
+      "where": "[Venue] · Week 2",
+      "foot": "All times PM. Moose have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-10-22-1",
+              "url": "/games/2026-10-22-1/",
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "lynx",
+              "away": "otters",
+              "home_name": "Lynx",
+              "away_name": "Otters",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 1,
+                "away": 0
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-22-2",
+              "url": "/games/2026-10-22-2/",
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "badgers",
+              "away": "ravens",
+              "home_name": "Badgers",
+              "away_name": "Ravens",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 17,
+                "away": 25
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "label": "Week 3",
+      "date": "2026-10-29",
+      "date_short": "Thu Oct 29",
+      "date_long": "Thursday, October 29, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-10-29-1",
+          "url": "/games/2026-10-29-1/",
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "otters",
+          "away": "moose",
+          "home_name": "Otters",
+          "away_name": "Moose",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 13,
+            "away": 10
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-29-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "badgers",
+          "away": "lynx",
+          "home_name": "Badgers",
+          "away_name": "Lynx",
+          "status": "cancelled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "ravens"
+      ],
+      "eyebrow": "Week 3",
+      "where": "[Venue] · Week 3",
+      "foot": "All times PM. Ravens have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-10-29-1",
+              "url": "/games/2026-10-29-1/",
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "otters",
+              "away": "moose",
+              "home_name": "Otters",
+              "away_name": "Moose",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 13,
+                "away": 10
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-29-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "badgers",
+              "away": "lynx",
+              "home_name": "Badgers",
+              "away_name": "Lynx",
+              "status": "cancelled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "label": "Week 4",
+      "date": "2026-11-05",
+      "date_short": "Thu Nov 5",
+      "date_long": "Thursday, November 5, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-11-05-1",
+          "url": "/games/2026-11-05-1/",
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "badgers",
+          "away": "otters",
+          "home_name": "Badgers",
+          "away_name": "Otters",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 35,
+            "away": 35
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": true
+        },
+        {
+          "id": "2026-11-05-2",
+          "url": "/games/2026-11-05-2/",
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "moose",
+          "away": "ravens",
+          "home_name": "Moose",
+          "away_name": "Ravens",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 19,
+            "away": 24
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "lynx"
+      ],
+      "eyebrow": "Week 4",
+      "where": "[Venue] · Week 4",
+      "foot": "All times PM. Lynx have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-05-1",
+              "url": "/games/2026-11-05-1/",
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "badgers",
+              "away": "otters",
+              "home_name": "Badgers",
+              "away_name": "Otters",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 35,
+                "away": 35
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": true
+            },
+            {
+              "id": "2026-11-05-2",
+              "url": "/games/2026-11-05-2/",
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "moose",
+              "away": "ravens",
+              "home_name": "Moose",
+              "away_name": "Ravens",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 19,
+                "away": 24
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "label": "Week 5",
+      "date": "2026-11-12",
+      "date_short": "Thu Nov 12",
+      "date_long": "Thursday, November 12, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-11-12-1",
+          "url": "/games/2026-11-12-1/",
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "otters",
+          "away": "ravens",
+          "home_name": "Otters",
+          "away_name": "Ravens",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 17,
+            "away": 19
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-12-2",
+          "url": "/games/2026-11-12-2/",
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "moose",
+          "away": "lynx",
+          "home_name": "Moose",
+          "away_name": "Lynx",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 23,
+            "away": 28
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "badgers"
+      ],
+      "eyebrow": "Week 5",
+      "where": "[Venue] · Week 5",
+      "foot": "All times PM. Badgers have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-12-1",
+              "url": "/games/2026-11-12-1/",
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "otters",
+              "away": "ravens",
+              "home_name": "Otters",
+              "away_name": "Ravens",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 17,
+                "away": 19
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-12-2",
+              "url": "/games/2026-11-12-2/",
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "moose",
+              "away": "lynx",
+              "home_name": "Moose",
+              "away_name": "Lynx",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 23,
+                "away": 28
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "label": "Week 6",
+      "date": "2026-11-19",
+      "date_short": "Thu Nov 19",
+      "date_long": "Thursday, November 19, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "partial",
+      "games": [
+        {
+          "id": "2026-11-19-1",
+          "url": "/games/2026-11-19-1/",
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "ravens",
+          "away": "lynx",
+          "home_name": "Ravens",
+          "away_name": "Lynx",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 26,
+            "away": 21
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-19-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "moose",
+          "away": "badgers",
+          "home_name": "Moose",
+          "away_name": "Badgers",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "otters"
+      ],
+      "eyebrow": "Week 6",
+      "where": "[Venue] · Week 6",
+      "foot": "All times PM. Otters have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-19-1",
+              "url": "/games/2026-11-19-1/",
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "ravens",
+              "away": "lynx",
+              "home_name": "Ravens",
+              "away_name": "Lynx",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 26,
+                "away": 21
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-19-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "moose",
+              "away": "badgers",
+              "home_name": "Moose",
+              "away_name": "Badgers",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Week 7",
+      "date": "2026-11-26",
+      "date_short": "Thu Nov 26",
+      "date_long": "Thursday, November 26, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-11-26-1",
+          "url": null,
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "otters",
+          "away": "lynx",
+          "home_name": "Otters",
+          "away_name": "Lynx",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-26-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "ravens",
+          "away": "badgers",
+          "home_name": "Ravens",
+          "away_name": "Badgers",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "moose"
+      ],
+      "eyebrow": "Next game day",
+      "where": "[Venue] · Week 7",
+      "foot": "All times PM. Moose have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-26-1",
+              "url": null,
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "otters",
+              "away": "lynx",
+              "home_name": "Otters",
+              "away_name": "Lynx",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-26-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "ravens",
+              "away": "badgers",
+              "home_name": "Ravens",
+              "away_name": "Badgers",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "label": "Week 8",
+      "date": "2026-12-03",
+      "date_short": "Thu Dec 3",
+      "date_long": "Thursday, December 3, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-03-1",
+          "url": null,
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "moose",
+          "away": "otters",
+          "home_name": "Moose",
+          "away_name": "Otters",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-03-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "lynx",
+          "away": "badgers",
+          "home_name": "Lynx",
+          "away_name": "Badgers",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "ravens"
+      ],
+      "eyebrow": "Week 8",
+      "where": "[Venue] · Week 8",
+      "foot": "All times PM. Ravens have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-03-1",
+              "url": null,
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "moose",
+              "away": "otters",
+              "home_name": "Moose",
+              "away_name": "Otters",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-03-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "lynx",
+              "away": "badgers",
+              "home_name": "Lynx",
+              "away_name": "Badgers",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "label": "Week 9",
+      "date": "2026-12-10",
+      "date_short": "Thu Dec 10",
+      "date_long": "Thursday, December 10, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-10-1",
+          "url": null,
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "otters",
+          "away": "badgers",
+          "home_name": "Otters",
+          "away_name": "Badgers",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-10-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "ravens",
+          "away": "moose",
+          "home_name": "Ravens",
+          "away_name": "Moose",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "lynx"
+      ],
+      "eyebrow": "Week 9",
+      "where": "[Venue] · Week 9",
+      "foot": "All times PM. Lynx have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-10-1",
+              "url": null,
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "otters",
+              "away": "badgers",
+              "home_name": "Otters",
+              "away_name": "Badgers",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-10-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "ravens",
+              "away": "moose",
+              "home_name": "Ravens",
+              "away_name": "Moose",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "label": "Week 10",
+      "date": "2026-12-17",
+      "date_short": "Thu Dec 17",
+      "date_long": "Thursday, December 17, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-17-1",
+          "url": null,
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "ravens",
+          "away": "otters",
+          "home_name": "Ravens",
+          "away_name": "Otters",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "badgers",
+        "moose",
+        "lynx"
+      ],
+      "eyebrow": "Week 10",
+      "where": "[Venue] · Week 10",
+      "foot": "All times PM. Badgers, Moose and Lynx have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-17-1",
+              "url": null,
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "ravens",
+              "away": "otters",
+              "home_name": "Ravens",
+              "away_name": "Otters",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "label": "Week 11",
+      "date": "2026-12-22",
+      "date_short": "Tue Dec 22",
+      "date_long": "Tuesday, December 22, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-17-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "lynx",
+          "away": "moose",
+          "home_name": "Lynx",
+          "away_name": "Moose",
+          "status": "scheduled",
+          "moved_from_display": "Thu Dec 17",
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "otters",
+        "ravens",
+        "badgers"
+      ],
+      "eyebrow": "Week 11",
+      "where": "[Venue] · Week 11",
+      "foot": "All times PM. Otters, Ravens and Badgers have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-17-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "lynx",
+              "away": "moose",
+              "home_name": "Lynx",
+              "away_name": "Moose",
+              "status": "scheduled",
+              "moved_from_display": "Thu Dec 17",
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "label": "Semifinal",
+      "date": "2027-01-07",
+      "date_short": "Thu Jan 7",
+      "date_long": "Thursday, January 7, 2027",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2027-01-07-1",
+          "url": null,
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "1st",
+          "away": "4th",
+          "home_name": "1st",
+          "away_name": "4th",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": false,
+          "tie": false
+        },
+        {
+          "id": "2027-01-07-2",
+          "url": null,
+          "time_display": "8:15 PM",
+          "surface": "2",
+          "surface_label": "Court 2",
+          "home": "2nd",
+          "away": "3rd",
+          "home_name": "2nd",
+          "away_name": "3rd",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": false,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Semifinal",
+      "where": "[Venue] · Semifinal",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2027-01-07-1",
+              "url": null,
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "1st",
+              "away": "4th",
+              "home_name": "1st",
+              "away_name": "4th",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": false,
+              "tie": false
+            },
+            {
+              "id": "2027-01-07-2",
+              "url": null,
+              "time_display": "8:15 PM",
+              "surface": "2",
+              "surface_label": "Court 2",
+              "home": "2nd",
+              "away": "3rd",
+              "home_name": "2nd",
+              "away_name": "3rd",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": false,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "label": "Final",
+      "date": "2027-01-14",
+      "date_short": "Thu Jan 14",
+      "date_long": "Thursday, January 14, 2027",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2027-01-14-1",
+          "url": null,
+          "time_display": "7:00 PM",
+          "surface": "1",
+          "surface_label": "Court 1",
+          "home": "Winner SF1",
+          "away": "Winner SF2",
+          "home_name": "Winner SF1",
+          "away_name": "Winner SF2",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": "Final",
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": false,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Final",
+      "where": "[Venue] · Final",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2027-01-14-1",
+              "url": null,
+              "time_display": "7:00 PM",
+              "surface": "1",
+              "surface_label": "Court 1",
+              "home": "Winner SF1",
+              "away": "Winner SF2",
+              "home_name": "Winner SF1",
+              "away_name": "Winner SF2",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": "Final",
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": false,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "latest": 6,
+  "next": 7,
+  "all_times_pm": true
+}
