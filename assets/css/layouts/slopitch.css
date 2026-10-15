@@ -1,0 +1,352 @@
+/* scorers-table layout: slopitch
+ * Slo-pitch: rec and masters leagues (the sport default). Scorebook paper, outfield
+ * green and clay, inning line score with the run-limit mark.
+ * Fonts: Zilla Slab (display, scores) + Work Sans (text).
+ * Source: design canvas Slopitch-Home, Slopitch-Home-Dark, Slopitch-Game; dark values
+ * from docs/dark-palettes.md. League colour = outfield green; layout accent = clay
+ * (layout-owned, a league never sets it). The scorebook-ink footer stays literal.
+ *
+ * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
+ * team palette, league-colour defaults and the header scene. This is the one place
+ * raw hex is allowed. Dark values are written twice (OS preference, and the
+ * [data-theme="dark"] button) and must stay identical.
+ *
+ * Deviations from the mockup, kept for contrast (AA): panel-row #FFFFFF1F -> #FFFFFF14,
+ * panel-muted #E3EEDF -> #F1F7EE, panel-label #F3E3C3 -> #FBF0D9, team 4 #C98A12 ->
+ * #BE8210, and bar-fill (none in the mockup). Details in docs/design.md ('Mockup colours changed for AA').
+ *
+ * CUSTOM-COLOUR MODE. Stage 4 writes a league's colour inline (--st-league-color,
+ * optionally --st-league-color-dark) AND sets data-league-colour on <html>. Without
+ * that attribute this file is exactly the approved mockup (its own greens, in dark the
+ * mockup's #86CC92 accent). With it, the blocks at the end of this file re-derive the
+ * roles that follow the league colour so any colour with white text on it at 4.5:1 or
+ * more passes every pair of scripts/check_contrast.py. The clay accent sits on the
+ * paper and dark grounds, not on the league colour, so it needs nothing. What changes:
+ *   light  The coloured header and panel are the league colour 15% toward black:
+ *          the fixed light texts on them (muted #E3EEDF, panel muted/label, white at
+ *          80% on the hero card, the cream tab) and the white panel rows only reach
+ *          4.5:1 on a colour that is darker than the 4.5:1-for-white limit, which
+ *          leaves no room for them. Links and the accent (the winner's total) are the
+ *          colour 10% toward black (the colour itself reaches only 4.2:1 on the paper
+ *          and 4.0:1 on the shaded rows at the limit). The theme button ring is
+ *          raised to 65% white (53% gives 2.96:1 on Teal). Buttons, WIN badge, rank 1
+ *          and bars use the colour itself.
+ *   dark   Links, accent, focus ring, rank 1, leader bar, won line and panel edge use
+ *          the league colour 70% toward white (--st-tint: 70%): a near-black colour
+ *          such as #000 needs about 66% to reach 4.5:1 on the dark paper and for the
+ *          dark text on the rank 1 chip. The header and panel keep their default
+ *          dark derivation (the colour 25% toward black).
+ */
+
+[data-layout="slopitch"] {
+  color-scheme: light;
+
+  /* League inputs (a league overrides these inline on <html>) */
+  --st-league-color: #2F6B3A;
+  --st-layout-accent: #B5532E;
+
+  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90).
+     Only dim is used by the default look (the dark header and panel); the custom-colour
+     blocks at the end set their own tint. */
+  --st-dim: 25%;
+
+  /* Type */
+  --st-font-display: "Zilla Slab", Georgia, serif;
+  --st-font-body: "Work Sans", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);
+  --st-w-display: 700;
+  --st-w-strong: 600;
+  --st-display-transform: none;
+  --st-display-tracking: 0;
+  --st-num-variant: tabular-nums;
+  --st-fs-h3: 1.375rem; /* mockup: 22px */
+  --st-fs-title: 1.875rem; /* mockup: 30px */
+  --st-fs-score-hero: 2.875rem; /* mockup: 46px */
+
+  /* Shape */
+  --st-radius-card: 0.625rem;
+  --st-radius-panel: 0.75rem;
+  --st-radius-chip: 0.125rem;
+  --st-radius-sm: 0.5rem;
+
+  /* Team palette, in the order the standings list the sample teams */
+  --st-team-1: #B23A2E;
+  --st-team-2: #7A5A3A;
+  --st-team-3: #2F5DA8;
+  --st-team-4: #BE8210;
+  --st-team-5: #5C3F8F;
+  --st-team-6: #2B8C8C;
+  --st-team-lift: 0%;
+
+  /* Ground */
+  --st-bg: #FBF7EE;
+  --st-bg-image: none;
+  --st-surface: #FFFFFF;
+  --st-surface-2: #F8F2E4;
+  --st-line: #E6DDC8;
+  --st-line-strong: #CFC3A8;
+
+  /* Text */
+  --st-text: #22201C;
+  --st-muted: #5E574B;
+  --st-link: var(--st-league-base);
+  --st-link-hover: #22201C;
+  --st-accent: var(--st-league-base);
+  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
+  --st-rule: #22201C;
+  --st-focus: var(--st-league-base);
+
+  /* Buttons */
+  --st-button-bg: var(--st-league-base);
+  --st-on-accent: var(--st-league-ink);
+
+  /* Header */
+  --st-header-bg: var(--st-league-base);
+  --st-header-text: #FFFFFF;
+  --st-header-muted: #E3EEDF;
+  --st-header-line: transparent;
+  --st-header-button-line: #FFFFFF88;
+  --st-tab: #F3E3C3;
+  --st-nav-bg: transparent;
+  --st-nav-text: #FFFFFF;
+  --st-nav-muted: #E3EEDF;
+
+  /* Panel (next game day) */
+  --st-panel-bg: var(--st-league-base);
+  --st-panel-text: #FFFFFF;
+  --st-panel-muted: #F1F7EE;
+  --st-panel-label: #FBF0D9;
+  --st-panel-row: #FFFFFF14;
+  --st-panel-line: transparent;
+  --st-panel-tile-bg: #F3E3C3;
+  --st-panel-tile-text: #22201C;
+
+  /* Footer */
+  --st-footer-bg: #22201C;
+  --st-footer-text: #FFFFFF;
+  --st-footer-muted: #C9C0AD;
+  --st-footer-link: #FFFFFF;
+  --st-footer-line: #3A3731;
+  --st-footer-accent: transparent;
+
+  /* Marks and badges */
+  --st-mark-bg: transparent;
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
+  --st-mark-line: var(--st-layout-accent-base);
+  --st-won-line: var(--st-league-base);
+  --st-blank-bg: #F3EBDA;
+  --st-badge-bg: #EAE0C9;
+  --st-badge-text: #22201C;
+  --st-win-bg: var(--st-league-base);
+  --st-win-text: var(--st-league-ink);
+
+  /* Rank */
+  --st-rank-bg: #F3EBDA;
+  --st-rank-text: #22201C;
+  --st-rank-1-bg: var(--st-league-base);
+  --st-rank-1-text: var(--st-league-ink);
+
+  /* Bars */
+  --st-bar-track: #E6DDC8;
+  --st-bar-fill: #867B66;
+  --st-bar-lead: var(--st-league-base);
+
+  /* Score board */
+  --st-score-bg: #FFFFFF;
+  --st-score-text: #22201C;
+  --st-score-dim: #5E574B;
+  --st-score-line: #CFC3A8;
+
+  /* Scenes: data-URI SVGs, colours baked in, one per theme (placement rules at the end) */
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='40'><svg width='100%25' height='40' viewBox='0 0 390 40' preserveAspectRatio='none'><path d='M0 40V31Q195 2 390 31V40Z' fill='%23B5532E'/><path d='M0 40V36Q195 12 390 36V40Z' fill='%23FBF7EE'/></svg><svg x='50%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><path d='M0 37L23 25L0 13L-23 25Z' fill='none' stroke='%23FBF7EE' stroke-width='1.5' stroke-opacity='.9'/><circle cx='0' cy='25' r='2.4' fill='%23FBF7EE'/><rect x='20.5' y='22.5' width='5' height='5' transform='rotate(45 23 25)' fill='%23FFFFFF'/><rect x='-2.5' y='10.5' width='5' height='5' transform='rotate(45 0 13)' fill='%23FFFFFF'/><rect x='-25.5' y='22.5' width='5' height='5' transform='rotate(45 -23 25)' fill='%23FFFFFF'/></svg></svg>");
+  --st-scene-image-footer: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="slopitch"]:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --st-team-1: #F27463;
+    --st-team-2: #A8825A;
+    --st-team-3: #6E98EA;
+    --st-team-4: #F0C04A;
+    --st-team-5: #B9A3F0;
+    --st-team-6: #5CC7C2;
+    /* Custom team colours (st-team--custom) in dark: this share of white is mixed in.
+       30% gives 3:1 or more against --st-surface and --st-bg for #1D3A6E navy 3.3,
+       #2F6B3A green 4.9, #7A4A1E brown 4.4, #5B3A8C purple 4.0, #9E1B32 red 4.2, and
+       leaves light colours themselves (#F2A900 -> #F7CE92, #FFC233 -> #FFDB9C, #7FDDE6
+       -> #ACE9EF; 10 to 12:1). Pure black needs 53% (3.0:1), which would turn #F2A900
+       into #FAD8A4; at 30% it stays 1.2:1 (a chip never carries information alone).
+       Navy reaches 3:1 at 28%; 20% gave 2.5. */
+    --st-team-lift: 30%;
+
+    --st-bg: #131A14;
+    --st-bg-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(244, 236, 214, 0.045) 27px, rgba(244, 236, 214, 0.045) 28px);
+    --st-surface: #22201A;
+    --st-surface-2: #2B2820;
+    --st-line: #3A362C;
+    --st-line-strong: #57503F;
+
+    --st-text: #F4ECD9;
+    --st-muted: #BDB29C;
+    --st-link: #86CC92;
+    --st-link-hover: #FFFFFF;
+    --st-accent: #86CC92;
+    --st-hot: #E8875E;
+    --st-rule: #D9CFB6;
+    --st-focus: #86CC92;
+
+    --st-header-bg: var(--st-league-dim);
+
+    --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+    --st-panel-line: #2F5E39;
+
+    --st-footer-bg: #0B0F0B;
+    --st-footer-line: #2A3326;
+
+    --st-mark-text: #E8875E;
+    --st-mark-line: #E0835A;
+    --st-won-line: #86CC92;
+    --st-blank-bg: #2B2820;
+    --st-badge-bg: #3A362C;
+    --st-badge-text: #F4ECD9;
+
+    --st-rank-bg: #3A362C;
+    --st-rank-text: #F4ECD9;
+    --st-rank-1-bg: #86CC92;
+    --st-rank-1-text: #131A14;
+
+    --st-bar-track: #3A362C;
+    --st-bar-fill: #BDB29C;
+    --st-bar-lead: #86CC92;
+
+    --st-score-bg: #22201A;
+    --st-score-text: #F4ECD9;
+    --st-score-dim: #BDB29C;
+    --st-score-line: #57503F;
+
+    --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='40'><svg width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M20 6h12M20 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg x='100%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='-26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M-32 6h12M-32 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M-26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg width='100%25' height='40' viewBox='0 0 390 40' preserveAspectRatio='none'><path d='M0 40V31Q195 2 390 31V40Z' fill='%23C4643C'/><path d='M0 40V36Q195 12 390 36V40Z' fill='%23131A14'/></svg><svg x='50%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><path d='M0 37L23 25L0 13L-23 25Z' fill='none' stroke='%23F4ECD6' stroke-width='1.5' stroke-opacity='.9'/><circle cx='0' cy='25' r='2.4' fill='%23F4ECD6'/><rect x='20.5' y='22.5' width='5' height='5' transform='rotate(45 23 25)' fill='%23FFFFFF'/><rect x='-2.5' y='10.5' width='5' height='5' transform='rotate(45 0 13)' fill='%23FFFFFF'/><rect x='-25.5' y='22.5' width='5' height='5' transform='rotate(45 -23 25)' fill='%23FFFFFF'/></svg></svg>");
+  }
+}
+
+[data-layout="slopitch"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --st-team-1: #F27463;
+  --st-team-2: #A8825A;
+  --st-team-3: #6E98EA;
+  --st-team-4: #F0C04A;
+  --st-team-5: #B9A3F0;
+  --st-team-6: #5CC7C2;
+  --st-team-lift: 30%; /* see the comment in the media-query block above */
+
+  --st-bg: #131A14;
+  --st-bg-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(244, 236, 214, 0.045) 27px, rgba(244, 236, 214, 0.045) 28px);
+  --st-surface: #22201A;
+  --st-surface-2: #2B2820;
+  --st-line: #3A362C;
+  --st-line-strong: #57503F;
+
+  --st-text: #F4ECD9;
+  --st-muted: #BDB29C;
+  --st-link: #86CC92;
+  --st-link-hover: #FFFFFF;
+  --st-accent: #86CC92;
+  --st-hot: #E8875E;
+  --st-rule: #D9CFB6;
+  --st-focus: #86CC92;
+
+  --st-header-bg: var(--st-league-dim);
+
+  --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+  --st-panel-line: #2F5E39;
+
+  --st-footer-bg: #0B0F0B;
+  --st-footer-line: #2A3326;
+
+  --st-mark-text: #E8875E;
+  --st-mark-line: #E0835A;
+  --st-won-line: #86CC92;
+  --st-blank-bg: #2B2820;
+  --st-badge-bg: #3A362C;
+  --st-badge-text: #F4ECD9;
+
+  --st-rank-bg: #3A362C;
+  --st-rank-text: #F4ECD9;
+  --st-rank-1-bg: #86CC92;
+  --st-rank-1-text: #131A14;
+
+  --st-bar-track: #3A362C;
+  --st-bar-fill: #BDB29C;
+  --st-bar-lead: #86CC92;
+
+  --st-score-bg: #22201A;
+  --st-score-text: #F4ECD9;
+  --st-score-dim: #BDB29C;
+  --st-score-line: #57503F;
+
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='40'><svg width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M20 6h12M20 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg x='100%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><circle cx='-26' cy='9' r='12' fill='%23FFF4D6' opacity='.12'/><path d='M-32 6h12M-32 10h12' stroke='%23FFF4D6' stroke-width='2.4' stroke-linecap='round'/><path d='M-26 12v6' stroke='%238FA58F' stroke-width='1.2'/></svg><svg width='100%25' height='40' viewBox='0 0 390 40' preserveAspectRatio='none'><path d='M0 40V31Q195 2 390 31V40Z' fill='%23C4643C'/><path d='M0 40V36Q195 12 390 36V40Z' fill='%23131A14'/></svg><svg x='50%25' width='1' height='40' viewBox='0 0 1 40' overflow='visible'><path d='M0 37L23 25L0 13L-23 25Z' fill='none' stroke='%23F4ECD6' stroke-width='1.5' stroke-opacity='.9'/><circle cx='0' cy='25' r='2.4' fill='%23F4ECD6'/><rect x='20.5' y='22.5' width='5' height='5' transform='rotate(45 23 25)' fill='%23FFFFFF'/><rect x='-2.5' y='10.5' width='5' height='5' transform='rotate(45 0 13)' fill='%23FFFFFF'/><rect x='-25.5' y='22.5' width='5' height='5' transform='rotate(45 -23 25)' fill='%23FFFFFF'/></svg></svg>");
+}
+
+/* 40 px of clay arc with the infield diamond, hung under the green header (the
+   header's own background shows through the top of the picture). In dark the
+   floodlights sit at both ends. The scene is the header's last child. The header has
+   no bottom line of its own, so any border it might get is dropped (it would show
+   the green again under the arc). */
+[data-layout="slopitch"] header.st-header {
+  border-bottom: 0;
+}
+[data-layout="slopitch"] .st-header__scene {
+  display: block;
+  height: 40px;
+  background: var(--st-scene-image) center bottom / 100% 100% no-repeat;
+  pointer-events: none;
+}
+[data-layout="slopitch"] .st-footer__scene {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Custom-colour mode (the header comment says what and why). The light block, then
+   the same dark overrides twice; the dark blocks restate every property of the light
+   block, because the light block would otherwise win in dark. */
+[data-layout="slopitch"][data-league-colour] {
+  --st-link: color-mix(in oklab, var(--st-league-base), black 10%);
+  --st-accent: color-mix(in oklab, var(--st-league-base), black 10%);
+  --st-header-bg: color-mix(in oklab, var(--st-league-base), black 15%);
+  --st-panel-bg: color-mix(in oklab, var(--st-league-base), black 15%);
+  --st-header-button-line: #FFFFFFA6;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="slopitch"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 70%;
+
+    --st-link: var(--st-league-tint);
+    --st-accent: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+    --st-rank-1-bg: var(--st-league-tint);
+    --st-bar-lead: var(--st-league-tint);
+    --st-won-line: var(--st-league-tint);
+    --st-panel-line: var(--st-league-base);
+    --st-header-bg: var(--st-league-dim);
+    --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+    --st-header-button-line: #FFFFFF88;
+  }
+}
+
+[data-layout="slopitch"][data-league-colour][data-theme="dark"] {
+  --st-tint: 70%;
+
+  --st-link: var(--st-league-tint);
+  --st-accent: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+  --st-rank-1-bg: var(--st-league-tint);
+  --st-bar-lead: var(--st-league-tint);
+  --st-won-line: var(--st-league-tint);
+  --st-panel-line: var(--st-league-base);
+  --st-header-bg: var(--st-league-dim);
+  --st-panel-bg: color-mix(in oklab, var(--st-league-dim), black 8%);
+  --st-header-button-line: #FFFFFF88;
+}

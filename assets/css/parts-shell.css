@@ -1,0 +1,704 @@
+/* scorers-table: shell parts. Header, brand, nav, theme button, ticker, footer, page
+ * title block and the section heading's per-layout skin.
+ *
+ * Reads only --st-* roles (tokens.css, layouts/<id>.css): no raw colours here.
+ * Colour comes from tokens; shape differences (a rule under the meta line, a gold
+ * bar, a separate nav bar...) are the few `[data-layout="<id>"] .st-...` rules at the
+ * end of each section. The header/footer SCENES (.st-header__scene, .st-footer__scene)
+ * are placed by each layout file, not here.
+ *
+ * Anchors are selected as `.st-page .st-x` where needed to beat base.css's
+ * `.st-page a { color: var(--st-link) }`. (The margin reset in base.css is `:where()`,
+ * so plain class selectors already beat it.)
+ */
+
+/* ============================================================ header */
+.st-header {
+  position: relative;
+  background: var(--st-header-bg);
+  color: var(--st-header-text);
+}
+/* Content sits above any scene a layout draws behind or after it. */
+.st-header__top,
+.st-nav {
+  position: relative;
+  z-index: 1;
+}
+.st-header__top {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-md);
+  padding: var(--st-space-md) var(--st-space-md) 0 var(--st-space-lg);
+}
+
+/* ------------------------------------------------------------ brand */
+.st-page a.st-brand,
+.st-page .st-brand {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--st-space-md);
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+.st-page a.st-brand:hover {
+  color: inherit;
+}
+
+/* Badge: a text monogram in a circle. A league that supplies a logo puts an <img>
+   in the same element (<span class="st-brand__badge"><img ...></span>) or gives the
+   <img> the class itself; the monogram colours then step aside. */
+.st-brand__badge {
+  display: inline-flex;
+  position: relative;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--st-badge-size);
+  height: var(--st-badge-size);
+  box-sizing: border-box;
+  border-radius: var(--st-radius-pill);
+  background: var(--st-header-text);
+  color: var(--st-league-color, var(--st-header-bg));
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-2xl);   /* mockup: 19px, within 1px of the step */
+  font-weight: var(--st-w-display);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: none;
+}
+.st-brand__badge--sm {
+  width: var(--st-badge-size-sm);
+  height: var(--st-badge-size-sm);
+  font-size: var(--st-step-base);
+}
+img.st-brand__badge,
+.st-brand__badge > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--st-radius-pill);
+}
+img.st-brand__badge,
+.st-brand__badge:has(> img) {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.st-brand__badge:has(> img)::after,
+.st-brand__badge:has(> img)::before {
+  content: none;
+}
+
+.st-brand__text {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.05;
+}
+.st-brand__name {
+  display: block;
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-3xl);   /* mockup: 23px, within 1px of the step */
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: 1.05;
+  text-transform: var(--st-display-transform);
+}
+/* Last word of the name in a quieter tone: only Scoreboard changes it. */
+.st-brand__tint {
+  color: inherit;
+}
+.st-brand__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-sm);
+  margin-top: 0.1875rem;
+  color: var(--st-header-muted);
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-meta);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------ theme button */
+.st-theme-toggle {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--st-tap);
+  height: var(--st-tap);
+  padding: 0;
+  border: var(--st-border) solid var(--st-header-button-line);
+  border-radius: var(--st-radius-pill);
+  background: transparent;
+  color: var(--st-header-text);
+  font: inherit;
+  cursor: pointer;
+}
+.st-theme-toggle:hover {
+  background: color-mix(in oklab, currentColor 12%, transparent);
+}
+.st-theme-toggle svg {
+  display: block;
+}
+
+/* ----------------------------------------------------------- nav tabs
+   Five tabs fit a 360 px phone in every layout; if a league has more, or the
+   visitor enlarges the text, the bar scrolls inside itself (no page scroll). */
+.st-nav {
+  display: flex;
+  gap: var(--st-space-3xs);
+  padding: var(--st-space-sm) var(--st-space-sm) 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.st-nav::-webkit-scrollbar {
+  display: none;
+}
+.st-page .st-nav__link {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--st-tap);
+  min-height: var(--st-tap);
+  padding: 0.75rem 0.4375rem 0.5625rem;
+  border-bottom: 3px solid transparent;
+  color: var(--st-header-muted);
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-base);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.st-page .st-nav__link:hover,
+.st-page .st-nav__link[aria-current="page"] {
+  color: var(--st-header-text);
+}
+.st-page .st-nav__link[aria-current="page"] {
+  border-bottom-color: var(--st-tab);
+}
+.st-page .st-nav__link:focus-visible {
+  outline-offset: -3px;
+}
+
+/* ------------------------------------------------------------ ticker
+   Scoreboard only: a dark strip of the latest scores under the header. */
+.st-ticker {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-sm);
+  padding: var(--st-space-md) calc(var(--st-gutter) - 0.125rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: var(--st-footer-bg);
+  color: var(--st-footer-link);
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-meta);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.st-ticker::-webkit-scrollbar {
+  display: none;
+}
+.st-ticker > * {
+  flex: none;
+}
+.st-ticker__tag {
+  color: var(--st-score-text);
+}
+.st-ticker__sep,
+.st-ticker__item--quiet {
+  color: var(--st-footer-muted);
+}
+
+/* ------------------------------------------------------------ footer */
+.st-main ~ .st-footer {
+  margin-top: 1.75rem;
+}
+.st-footer {
+  color: var(--st-footer-text);
+  font-size: var(--st-fs-small);
+}
+.st-footer__body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.375rem var(--st-gutter) 1.75rem;
+  background: var(--st-footer-bg);
+}
+.st-footer__brand {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.625rem;
+  line-height: 1.15;
+}
+.st-footer__brand > .st-brand__badge {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.st-footer__name,
+.st-footer__meta {
+  grid-column: 2;
+}
+.st-footer__name {
+  color: var(--st-footer-link);
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-xl);   /* mockup: 18px, within 1px of the step */
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: 1.15;
+  text-transform: var(--st-display-transform);
+}
+.st-footer__meta {
+  font-size: var(--st-fs-meta);
+}
+.st-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.125rem;
+  margin-top: var(--st-space-sm);
+}
+.st-page .st-footer__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--st-tap);
+  min-height: var(--st-tap);
+  color: var(--st-footer-link);
+  font-weight: var(--st-w-strong);
+  text-decoration: none;
+}
+.st-page .st-footer__nav a:hover,
+.st-page .st-footer__credit a:hover {
+  color: var(--st-footer-link);
+  text-decoration: underline;
+}
+.st-page .st-footer__where {
+  margin-top: var(--st-space-sm);
+  font-size: var(--st-fs-meta);
+}
+.st-page .st-footer__credit {
+  margin-top: var(--st-space-sm);
+  padding-top: var(--st-space-md);
+  border-top: var(--st-border) solid var(--st-footer-line);
+  color: var(--st-footer-muted);
+  font-size: var(--st-fs-meta);
+}
+.st-page .st-footer__credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--st-tap);
+  margin-block: calc((var(--st-tap) - 1lh) / -2);
+  color: var(--st-footer-link);
+}
+
+/* Focus rings: --st-focus can vanish on a coloured bar, so inside the header, nav and
+   footer the ring takes the bar's own text colour. */
+.st-page .st-header :is(a, button):focus-visible {
+  outline-color: var(--st-header-text);
+}
+.st-page .st-nav :is(a, button):focus-visible {
+  outline-color: var(--st-header-text);
+}
+[data-layout="classic"] .st-page .st-nav :is(a, button):focus-visible {
+  outline-color: var(--st-nav-text);
+}
+.st-page .st-footer :is(a, button):focus-visible {
+  outline-color: var(--st-footer-link);
+}
+.st-page .st-ticker:focus-visible {
+  outline-color: var(--st-footer-link);
+  outline-offset: -3px;
+}
+
+/* --------------------------------------------------- page title block
+   Game and team pages: back link, eyebrow, h1, date / venue line. Place it in
+   .st-main (the gutters come from there). */
+.st-page-title__eyebrow,
+.st-page .st-page-title__eyebrow {
+  color: var(--st-muted);
+  font-size: var(--st-fs-meta);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.st-page .st-page-title__title {
+  margin-top: var(--st-space-3xs);
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-title);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: var(--st-lh-tight);
+  text-transform: var(--st-display-transform);
+}
+.st-page .st-page-title__sub {
+  margin-top: var(--st-space-2xs);
+  color: var(--st-muted);
+  font-size: var(--st-step-base);
+  line-height: 1.4;
+}
+.st-page-title .st-back {
+  font-size: var(--st-step-base);
+}
+.st-page .st-page-title .st-back {
+  color: var(--st-link);
+}
+[data-layout="curling"] .st-page-title .st-back {
+  font-size: var(--st-fs-body);
+  font-weight: 700;
+}
+
+/* ============================================ per-layout shape rules */
+
+/* ---- Basketball: rule + uppercase meta, coral-ringed badge, hills footer */
+[data-layout="basketball"] .st-brand__meta::before,
+[data-layout="hockey"] .st-brand__meta::before {
+  content: "";
+  flex: none;
+  width: 1.125rem;
+  height: 3px;
+  background: var(--st-tab);
+}
+[data-layout="basketball"] .st-brand__badge {
+  border: 3px solid var(--st-tab);
+}
+[data-layout="basketball"] .st-brand__badge--sm {
+  width: var(--st-tap);
+  height: var(--st-tap);
+  border-width: 3px;
+}
+[data-layout="basketball"] .st-brand__meta {
+  letter-spacing: 0.12em;
+}
+[data-layout="basketball"] .st-nav {
+  padding-inline: 0.5625rem;
+}
+[data-layout="basketball"] .st-footer__body {
+  padding-top: var(--st-space-sm);
+}
+[data-layout="basketball"] .st-footer__brand {
+  column-gap: var(--st-space-md);
+}
+[data-layout="basketball"] .st-footer__name {
+  font-size: var(--st-step-2xl);   /* mockup: 19px, within 1px of the step */
+  letter-spacing: 0.03em;
+}
+
+/* ---- Curling: ink header, red rule at the bottom, serif name, plain tabs */
+[data-layout="curling"] .st-header {
+  overflow: hidden;
+  border-bottom: 4px solid var(--st-header-line);
+}
+[data-layout="curling"] .st-header__top {
+  padding-top: 0.875rem;
+}
+[data-layout="curling"] .st-brand__badge {
+  /* the house: blue ring, white, red ring, white button */
+  border: 3px solid var(--st-link);
+  box-shadow:
+    inset 0 0 0 2px var(--st-header-text),
+    inset 0 0 0 5px var(--st-hot),
+    inset 0 0 0 7px var(--st-header-text);
+}
+[data-layout="curling"] .st-brand__badge--sm {
+  border-width: 2px;
+  box-shadow:
+    inset 0 0 0 1px var(--st-header-text),
+    inset 0 0 0 3px var(--st-hot),
+    inset 0 0 0 4px var(--st-header-text);
+}
+[data-layout="curling"] .st-brand__name {
+  letter-spacing: 0.005em;
+  line-height: 1.1;
+}
+[data-layout="curling"] .st-brand__meta {
+  margin-top: 0.1875rem;
+  font-size: var(--st-fs-small);
+  letter-spacing: 0;
+  text-transform: none;
+}
+[data-layout="curling"] .st-nav {
+  padding: 0.625rem 0.375rem 0;
+}
+[data-layout="curling"] .st-nav__link {
+  padding: 0.75rem 0.625rem 0.625rem;
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-body);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0;
+  text-transform: none;
+}
+[data-layout="curling"] .st-nav__link[aria-current="page"] {
+  font-weight: 700;
+}
+[data-layout="curling"] .st-footer__body {
+  padding-top: 1.375rem;
+}
+[data-layout="curling"] .st-footer__brand {
+  column-gap: 0.625rem;
+}
+[data-layout="curling"] .st-footer__where {
+  order: -1;
+  margin-top: 0;
+  margin-left: calc(var(--st-badge-size-sm) + 0.625rem);
+}
+[data-layout="curling"] .st-footer__brand {
+  order: -2;
+}
+
+/* ---- Hockey: boards header, gold bar under the nav, gold strip above the footer */
+[data-layout="hockey"] .st-brand__badge {
+  /* rink: white disc, red ring, a blue line across the lower half */
+  box-shadow:
+    inset 0 0 0 3px var(--st-header-text),
+    inset 0 0 0 5.5px var(--st-hot);
+  color: var(--st-header-bg);
+}
+[data-layout="hockey"] .st-brand__badge::after {
+  content: "";
+  position: absolute;
+  left: 17%;
+  right: 17%;
+  bottom: 24%;
+  height: 2px;
+  background: var(--st-link);
+}
+[data-layout="hockey"] .st-brand__badge--sm {
+  box-shadow:
+    inset 0 0 0 2px var(--st-header-text),
+    inset 0 0 0 3.5px var(--st-hot);
+}
+[data-layout="hockey"] .st-brand__meta {
+  letter-spacing: 0.1em;
+}
+[data-layout="hockey"] .st-brand__text {
+  line-height: 1.02;
+}
+[data-layout="hockey"] .st-brand__meta {
+  margin-top: var(--st-space-2xs);
+}
+[data-layout="hockey"] .st-nav__link {
+  padding: 0.6875rem 0.5rem 0.5625rem;
+  font-size: var(--st-fs-body);
+  letter-spacing: 0.06em;
+}
+[data-layout="hockey"] .st-footer__body {
+  padding-top: 1.125rem;
+  border-top: 6px solid var(--st-footer-accent);
+}
+[data-layout="hockey"] .st-footer__name {
+  letter-spacing: 0.04em;
+}
+[data-layout="hockey"] .st-footer__credit {
+  padding-top: 0;
+  border-top: 0;
+  margin-top: var(--st-space-2xs);
+}
+[data-layout="hockey"] .st-footer__credit a {
+  font-weight: var(--st-w-strong);
+}
+[data-layout="basketball"] .st-footer__credit {
+  padding-top: 0;
+  border-top: 0;
+  margin-top: var(--st-space-2xs);
+}
+
+/* ---- Slo-pitch: green header, slab name, cream underline, dark footer */
+[data-layout="slopitch"] .st-brand__badge {
+  box-shadow:
+    inset 0 0 0 3px var(--st-header-text),
+    inset 0 0 0 4.5px var(--st-league-color, currentColor);
+}
+[data-layout="slopitch"] .st-brand__badge--sm {
+  box-shadow: none;
+}
+[data-layout="slopitch"] .st-brand__name {
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+[data-layout="slopitch"] .st-brand__meta {
+  letter-spacing: 0.1em;
+}
+[data-layout="slopitch"] .st-nav__link {
+  font-family: var(--st-font-body);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+[data-layout="slopitch"] .st-nav__link[aria-current="page"] {
+  font-weight: var(--st-w-strong);
+}
+[data-layout="slopitch"] .st-footer__brand {
+  column-gap: 0.625rem;
+}
+[data-layout="slopitch"] .st-footer__name {
+  font-size: var(--st-step-2xl);
+}
+[data-layout="slopitch"] .st-brand__badge--sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* ---- Classic: a WHITE header bar, then a separate league-colour nav bar */
+[data-layout="classic"] .st-header {
+  background: var(--st-header-bg);
+}
+[data-layout="classic"] .st-header__top {
+  padding: 0.625rem var(--st-space-md) 0.625rem var(--st-space-lg);
+  border-bottom: var(--st-border) solid var(--st-header-line);
+}
+[data-layout="classic"] .st-brand__badge {
+  width: 3rem;
+  height: 3rem;
+  background: var(--st-league-base);
+  color: var(--st-league-ink);
+  box-shadow:
+    inset 0 0 0 3px var(--st-league-base),
+    inset 0 0 0 4.5px var(--st-league-ink);
+}
+[data-layout="classic"] .st-brand__badge--sm {
+  width: var(--st-badge-size-sm);
+  height: var(--st-badge-size-sm);
+  box-shadow: none;
+}
+[data-layout="classic"] .st-brand__name {
+  font-size: 1.375rem;   /* mockup: 22px */
+}
+[data-layout="classic"] .st-brand__meta {
+  margin-top: var(--st-space-3xs);
+  letter-spacing: 0.08em;
+}
+[data-layout="classic"] .st-nav {
+  padding: 0 var(--st-space-sm);
+  background: var(--st-nav-bg);
+}
+[data-layout="classic"] .st-nav__link {
+  padding: 0.8125rem 0.5625rem 0.6875rem;
+  color: var(--st-nav-muted);
+  letter-spacing: 0.06em;
+}
+[data-layout="classic"] .st-nav__link:hover,
+[data-layout="classic"] .st-nav__link[aria-current="page"] {
+  color: var(--st-nav-text);
+}
+[data-layout="classic"] .st-footer__body {
+  padding-top: 1.25rem;
+}
+[data-layout="classic"] .st-footer__brand > .st-brand__badge,
+[data-layout="scoreboard"] .st-footer__brand > .st-brand__badge {
+  display: none;
+}
+[data-layout="classic"] .st-footer__brand,
+[data-layout="scoreboard"] .st-footer__brand {
+  grid-template-columns: minmax(0, 1fr);
+}
+[data-layout="classic"] .st-footer__name,
+[data-layout="classic"] .st-footer__meta,
+[data-layout="scoreboard"] .st-footer__name,
+[data-layout="scoreboard"] .st-footer__meta {
+  grid-column: 1;
+}
+[data-layout="classic"] .st-footer__name {
+  font-size: var(--st-step-xl);
+  letter-spacing: 0.04em;
+}
+[data-layout="classic"] .st-footer__where {
+  order: -1;
+  margin-top: var(--st-space-2xs);
+}
+[data-layout="classic"] .st-footer__brand {
+  order: -2;
+}
+
+/* ---- Scoreboard: flat league-colour bar, Anton name, 4 px tab, ticker */
+[data-layout="scoreboard"] .st-header__top {
+  gap: var(--st-space-sm);
+  padding: var(--st-space-md) var(--st-space-sm) var(--st-space-2xs) 0.875rem;
+}
+[data-layout="scoreboard"] .st-brand {
+  gap: 0.625rem;
+}
+[data-layout="scoreboard"] .st-brand__badge {
+  width: 2.875rem;
+  height: 2.875rem;
+  font-size: var(--st-step-xl);
+  letter-spacing: 0.02em;
+}
+[data-layout="scoreboard"] .st-brand__text {
+  line-height: 1;
+}
+[data-layout="scoreboard"] .st-brand__name {
+  font-size: var(--st-step-3xl);   /* mockup: 25px, within 1px of the step */
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+[data-layout="scoreboard"] .st-brand__tint {
+  color: color-mix(in oklab, var(--st-header-text) 78%, var(--st-league-base));
+}
+[data-layout="scoreboard"] .st-brand__meta {
+  margin-top: var(--st-space-xs);
+  font-size: var(--st-fs-label);
+  letter-spacing: 0.12em;
+}
+[data-layout="scoreboard"] .st-theme-toggle {
+  border-width: var(--st-border-strong);
+}
+[data-layout="scoreboard"] .st-nav {
+  padding: 0 var(--st-space-xs);
+}
+[data-layout="scoreboard"] .st-nav__link {
+  padding: 0.625rem 0.375rem 0.5rem;
+  border-bottom-width: 4px;
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-meta);
+  letter-spacing: 0.04em;
+}
+[data-layout="scoreboard"] .st-footer__body {
+  padding-inline: 0.875rem;
+  padding-top: 1.25rem;
+}
+[data-layout="scoreboard"] .st-footer__name {
+  font-size: 1.375rem;   /* mockup: 22px */
+  letter-spacing: 0.03em;
+}
+[data-layout="scoreboard"] .st-footer__nav a {
+  font-size: var(--st-fs-small);
+}
+[data-layout="scoreboard"] .st-footer {
+  font-size: var(--st-fs-meta);
+}
+
+/* ---- Page title: serif/slab layouts have no uppercase; sizes come from
+   --st-fs-title and --st-display-transform in the layout file. */
+
+/* ---- Section heading skin ---------------------------------------------
+   Hockey: three rink-line bars (blue, red, blue) before the title. */
+[data-layout="hockey"] .st-section__title::before {
+  content: "";
+  display: inline-block;
+  width: 0.9375rem;
+  height: 0.75em;
+  margin-right: var(--st-space-sm);
+  background:
+    linear-gradient(
+      90deg,
+      var(--st-link) 0 3px,
+      transparent 3px 6px,
+      var(--st-hot) 6px 9px,
+      transparent 9px 12px,
+      var(--st-link) 12px 15px
+    );
+  vertical-align: -0.02em;
+}

@@ -1,0 +1,1824 @@
+/* scorers-table: score parts.
+ * Result card (rows, --lines, --tie, --hero), final panel, line score (quarters, ends,
+ * periods, innings; --card and --full), event log, roster, and the stat tables on game
+ * pages.  Anatomy: docs/design.md, "Part anatomy > Scores".
+ *
+ * Reads --st-* roles only (tokens.css, layouts/*.css); no raw colours.  Translucent
+ * colours are color-mix(in oklab, <role> N%, transparent).  A layout restyles a
+ * part through its tokens first; the [data-layout="<id>"] rules are only for shapes the
+ * approved mockups draw differently.  Phone first (360-390 px).
+ *
+ * Local helpers (not colour roles, only aliases of roles, set where the context changes):
+ *   --ls-text --ls-muted --ls-line --ls-rule --ls-bg --ls-pad-x   line score + final panel foot
+ *   --hm-ring --hm-mid --hm-core                                  hammer marker colours
+ *   --fp-text --fp-muted                                          final panel head
+ * Links inside parts say `.st-page a.st-x` so they beat `.st-page a` in base.css.
+ */
+
+/* ================================================================== shared pieces */
+
+/* Hammer marker (curling): house rings, drawn from roles so it follows every theme. */
+.st-hammer {
+  display: inline-block;
+  flex: none;
+  vertical-align: -0.05em;
+}
+.st-hammer__ring { fill: var(--hm-ring, var(--st-link)); }
+.st-hammer__mid { fill: var(--hm-mid, var(--st-surface)); }
+.st-hammer__core { fill: var(--hm-core, var(--st-hot)); }
+
+/* Legend: a row of keys, each a swatch + words. */
+.st-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--st-space-xs) var(--st-space-lg);
+  font-size: var(--st-fs-meta);
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-legend--stack {
+  flex-direction: column;
+  gap: var(--st-space-xs);
+  line-height: 1.4;
+}
+.st-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--st-space-xs);
+}
+.st-legend--stack .st-legend__item {
+  display: flex;
+  gap: var(--st-space-sm);
+}
+.st-legend__key {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 0.1875rem;
+  box-sizing: border-box;
+}
+.st-legend__key--mark {
+  background: var(--st-mark-bg);
+  border: var(--ls-mark-w, var(--st-border)) solid var(--st-mark-line);
+}
+/* a legend for a full-size line score draws its keys with the same 2 px frame the cells have */
+.st-legend--full {
+  --ls-mark-w: var(--st-border-strong);
+}
+.st-legend__key--blank {
+  background: var(--st-blank-bg);
+  border: 1px solid var(--st-line-strong);
+}
+.st-legend__key--won {
+  height: 0.1875rem;
+  border-radius: 0;
+  background: var(--ls-won, var(--st-won-line));
+}
+[data-layout="classic"] .st-legend__key--won {
+  --ls-won: var(--st-accent);
+}
+[data-layout="classic"] .st-final .st-legend__key--won {
+  --ls-won: var(--st-won-line);
+}
+.st-legend__key--limit,
+.st-legend__key--x {
+  width: 1.375rem;
+  height: 1.375rem;
+  font-family: var(--st-font-num);
+  font-size: var(--st-fs-label);
+  font-weight: 700;
+  color: var(--ls-text, var(--st-text));
+}
+.st-legend__key--limit {
+  background: var(--st-mark-bg);
+  border: var(--ls-mark-w, var(--st-border)) solid var(--st-mark-line);
+  border-radius: var(--st-radius-xs);
+  color: var(--st-mark-text);
+}
+[data-layout="slopitch"] .st-legend__key--limit {
+  background: none;
+  border: 2px solid var(--st-mark-line);
+  border-radius: 50%;
+}
+/* Scoreboard: the key is a digit tile (black ground, amber figure, amber frame), the
+   same as the boxed cell it explains; amber text straight on the page would fail AA. */
+[data-layout="scoreboard"] .st-legend__key--limit {
+  background: var(--st-score-bg);
+  border: 2px solid var(--st-mark-line);
+  border-radius: 0.1875rem;
+  color: var(--st-score-text);
+}
+[data-layout="scoreboard"] .st-legend__key--mark,
+[data-layout="scoreboard"] .st-legend__key--blank {
+  border-width: 2px;
+}
+[data-layout="scoreboard"] .st-legend__key--blank {
+  background: color-mix(in oklab, var(--st-score-bg), var(--st-score-text) 16%);
+  border-color: color-mix(in oklab, var(--st-score-bg), var(--st-score-text) 16%);
+}
+.st-legend__key--x {
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-small);
+}
+[data-layout] .st-legend__key--text {
+  background: none;
+  color: var(--st-mark-text);
+  display: inline-block;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  line-height: 1;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+/* The same key written inside a sentence ("5 = inning ended at the 5-run limit") */
+[data-layout="scoreboard"] .st-legend__key--text {
+  padding: 0.0625rem 0.375rem;
+  background: var(--st-score-bg);
+  border: 2px solid var(--st-mark-line);
+  border-radius: 0.1875rem;
+  color: var(--st-score-text);
+  text-decoration: none;
+}
+.st-chevron { font-weight: 700; }
+
+/* ===================================================================== line score */
+
+.st-line-scroll {
+  overflow-x: auto;
+}
+
+.st-line-score {
+  /* knobs (a shape or size modifier sets them) */
+  --ls-col: 1.1875rem;   /* one period column */
+  --ls-h: 1.75rem;       /* body row height */
+  --ls-fs: var(--st-step-md);
+  --ls-tot-fs: var(--st-step-2xl);
+  --ls-tot-w: 2.125rem;
+  --ls-name-fs: var(--st-fs-name);
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--st-font-num);
+  font-variant-numeric: var(--st-num-variant);
+  color: var(--ls-text, var(--st-text));
+}
+.st-line-score abbr {
+  text-decoration: none;
+}
+.st-line-score :is(th, td) {
+  padding: 0;
+  text-align: center;
+  font-weight: inherit;
+  background: none;
+}
+.st-line-score thead th {
+  padding: 0 0 var(--st-space-xs);
+  border-bottom: var(--st-border-strong) solid var(--ls-rule, var(--st-rule));
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  line-height: 1;
+  vertical-align: bottom;
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-line-score--card thead th {
+  border-bottom-width: var(--st-border);
+  font-size: var(--st-fs-micro);
+}
+.st-line-score :is(thead th, tbody td):not(.st-line-score__team):not(.st-line-score__total):not(.st-line-score__extra):not(.is-open) {
+  width: var(--ls-col);
+  min-width: var(--ls-col);
+}
+.st-line-score tbody td {
+  position: relative;
+  height: var(--ls-h);
+  border-bottom: var(--st-border) solid var(--ls-line, var(--st-line));
+  font-size: var(--ls-fs);
+  font-weight: 700;
+  line-height: 1;
+}
+.st-line-score tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+/* first column: team (chip + name), fixed while the table scrolls */
+.st-line-score .st-line-score__team {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: auto;
+  padding-left: var(--ls-pad-x, 0);
+  padding-right: var(--st-space-sm);
+  text-align: left;
+  white-space: nowrap;
+  background: var(--ls-bg, var(--st-surface));
+}
+.st-line-score thead .st-line-score__team {
+  font-size: var(--st-fs-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.st-line-score--card thead .st-line-score__team {
+  font-size: var(--st-fs-micro);
+}
+.st-line-score tbody .st-line-score__team {
+  height: var(--ls-h);
+  border-bottom: var(--st-border) solid var(--ls-line, var(--st-line));
+  font-family: var(--st-font-body);
+  font-size: var(--ls-name-fs);
+  font-weight: var(--st-w-strong);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ls-text, var(--st-text));
+}
+.st-line-score tbody tr:last-child .st-line-score__team {
+  border-bottom: 0;
+}
+.st-line-score .st-chip {
+  margin-right: 0.4375rem;
+  vertical-align: 0.06em;
+}
+/* In a result card the name may wrap on a narrow phone so the total stays in view. */
+.st-line-score--card tbody .st-line-score__team {
+  min-width: 4.5rem;
+  white-space: normal;
+  line-height: 1.15;
+}
+.st-line-score tr.is-winner .st-line-score__team {
+  font-weight: 700;
+}
+.st-line-score tr.is-loser .st-line-score__team {
+  font-weight: 400;
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-line-score .st-line-score__team .st-hammer {
+  margin-left: 0.375rem;
+}
+
+/* total and extra columns */
+.st-line-score .st-line-score__total {
+  width: var(--ls-tot-w);
+  min-width: var(--ls-tot-w);
+  padding-right: var(--ls-pad-x, 0);
+  font-size: var(--ls-tot-fs);
+}
+.st-line-score thead .st-line-score__total {
+  font-size: var(--st-fs-label);
+}
+.st-line-score--card thead .st-line-score__total {
+  font-size: var(--st-fs-micro);
+}
+.st-line-score--card .st-line-score__total {
+  text-align: right;
+  padding-left: var(--st-space-xs);
+}
+.st-line-score .st-line-score__extra {
+  width: 1.75rem;
+  min-width: 1.75rem;
+  font-size: var(--ls-fs);
+}
+.st-line-score thead .st-line-score__extra {
+  font-size: var(--st-fs-label);
+}
+.st-line-score--card thead .st-line-score__extra {
+  font-size: var(--st-fs-micro);
+}
+.st-line-score .st-line-score__extra:last-child {
+  padding-right: var(--ls-pad-x, 0);
+}
+
+/* sizes and shapes */
+.st-line-score--full {
+  --ls-h: 2.75rem;
+  --ls-fs: var(--st-step-2xl);
+  --ls-tot-fs: var(--st-step-3xl);
+  --ls-col: 2.75rem;
+  --ls-tot-w: 3.5rem;
+}
+.st-line-score--full.st-line-score--ends {
+  --ls-col: 1.625rem;
+  --ls-h: 3.375rem;
+  --ls-fs: 1.375rem;        /* mockup: 22px */
+  --ls-tot-fs: 1.875rem;    /* mockup: 30px */
+  --ls-tot-w: 3rem;
+}
+.st-line-score--full.st-line-score--innings {
+  --ls-col: 1.625rem;
+  --ls-h: 3.125rem;
+  --ls-fs: 1.375rem;        /* mockup: 22px */
+  --ls-tot-fs: var(--st-step-3xl);
+  --ls-tot-w: 2.0625rem;    /* mockup: 33px R */
+  --ls-name-fs: var(--st-step-base);
+}
+.st-line-score--card.st-line-score--quarters,
+.st-line-score--card.st-line-score--periods {
+  --ls-col: 2.25rem;
+  --ls-h: 2rem;
+  --ls-fs: var(--st-step-xl);
+  --ls-tot-fs: var(--st-step-3xl);
+  --ls-tot-w: 2.75rem;
+}
+.st-line-score--card.st-line-score--ends {
+  --ls-col: 1.125rem;
+  --ls-name-fs: var(--st-step-base);
+}
+.st-line-score--card.st-line-score--innings {
+  --ls-col: 1.4375rem;      /* mockup: 23px */
+  --ls-h: 1.9375rem;
+  --ls-fs: var(--st-step-base);
+  --ls-tot-fs: var(--st-step-xl);
+  --ls-tot-w: 1.875rem;
+  --ls-name-fs: var(--st-step-md);
+}
+
+/* Full size (every shape): a fixed layout.  The team, total and extra columns get set
+   widths and the period columns share what is left, so the table fits a 360 px phone with
+   no sideways scroll (slo-pitch mockup: 76 px team, 33 px R, 30 px H, the innings share the
+   rest).  A long team name wraps inside its column.  The widths include --ls-pad-x. */
+.st-line-score.st-line-score--full {
+  --ls-col: auto;
+  --ls-team-w: 6.25rem;
+  --ls-extra-w: 1.875rem;
+  table-layout: fixed;
+}
+.st-line-score--full .st-line-score__team {
+  width: var(--ls-team-w);
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.st-line-score--full .st-line-score__total {
+  min-width: 0;
+}
+.st-line-score--full .st-line-score__total:last-child {
+  width: calc(var(--ls-tot-w) + var(--ls-pad-x, 0px));
+}
+.st-line-score--full .st-line-score__total:not(:last-child) {
+  padding-right: 0;
+}
+.st-line-score--full .st-line-score__extra {
+  width: calc(var(--ls-extra-w) + var(--ls-pad-x, 0px));
+  min-width: 0;
+}
+
+/* zero-heavy shape: ends that scored stand out, the rest are quiet */
+.st-line-score--ends tbody td {
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-line-score tbody td.st-line-score__total {
+  color: var(--ls-text, var(--st-text));
+}
+.st-line-score tr.is-loser td.st-line-score__total {
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-line-score--ends tbody td.is-won {
+  color: var(--ls-text, var(--st-text));
+}
+/* quarters / periods: the highlighted quarter is underlined */
+.st-line-score--quarters tbody td.is-won,
+.st-line-score--periods tbody td.is-won {
+  box-shadow: inset 0 calc(var(--st-border-strong) * -1.5) 0 var(--ls-won, var(--st-won-line));
+}
+/* Classic's won-line is white (made for its coloured panel): off the panel, underline in the accent. */
+[data-layout="classic"] .st-line-score {
+  --ls-won: var(--st-accent);
+}
+[data-layout="classic"] .st-final .st-line-score {
+  --ls-won: var(--st-won-line);
+}
+
+/* cell states.  A marked cell (stolen end, run-limit inning) carries its meaning in three
+   ways, so colour is never the only one: a tint, a visible frame (--st-mark-line, 1 px on a
+   card, 2 px on the full size) and the hidden words in the markup.  Slo-pitch (a circle,
+   or an underline on a card) and Scoreboard (an amber outline) draw their own below. */
+.st-line-score--full {
+  --ls-mark-w: var(--st-border-strong);
+}
+.st-line-score tbody td.is-mark {
+  background: var(--st-mark-bg);
+  color: var(--st-mark-text);
+  outline: var(--ls-mark-w, var(--st-border)) solid var(--st-mark-line);
+  outline-offset: calc(var(--ls-mark-w, var(--st-border)) * -1);
+}
+.st-line-score--card tbody td.is-mark {
+  border-radius: var(--st-radius-xs);
+}
+.st-line-score tbody td.is-void {
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-small);
+  font-weight: var(--st-w-strong);
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-line-score :is(thead th, tbody td).is-blank {
+  background: var(--st-blank-bg);
+}
+.st-line-score thead th.is-blank {
+  color: var(--ls-text, var(--st-text));
+}
+.st-line-score thead th.is-open,
+.st-line-score tbody td.is-open {
+  width: 2.25rem;
+  min-width: 2.25rem;
+}
+.st-line-score__open {
+  display: block;
+  margin-top: 0.125rem;
+  font-size: var(--st-fs-micro);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.st-line-score tbody td .st-hammer {
+  position: absolute;
+  left: 50%;
+  bottom: 0.3125rem;
+  margin-left: -0.3125rem;
+}
+.st-line-score__n {
+  display: inline-block;
+}
+
+/* ----------------------------------------------------------- skins by layout */
+
+/* Curling: the Tot column is fenced off by a heavy rule and a pale fill. */
+[data-layout="curling"] .st-line-score--full :is(th, td).st-line-score__total {
+  border-left: var(--st-border-strong) solid var(--st-score-line);
+}
+[data-layout="curling"] .st-line-score--full tbody td.st-line-score__total {
+  background: var(--st-surface-2);
+}
+[data-layout="curling"] .st-line-score--full tbody td {
+  font-weight: 800;
+}
+
+/* Hockey: the total is a dark block (the T column), loser dimmed. */
+[data-layout="hockey"] .st-line-score--full {
+  --ls-fs: var(--st-step-4xl);
+  --ls-tot-fs: var(--st-step-5xl);
+}
+[data-layout="hockey"] .st-line-score--full.st-line-score--ends,
+[data-layout="hockey"] .st-line-score--full.st-line-score--innings {
+  --ls-fs: 1.375rem;        /* mockup: 22px */
+  --ls-tot-fs: var(--st-step-4xl);
+}
+[data-layout="hockey"] .st-line-score :is(thead th, tbody td).st-line-score__total {
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  border-bottom-color: var(--st-score-line);
+}
+[data-layout="hockey"] .st-line-score thead th.st-line-score__total {
+  border-bottom-color: var(--st-score-bg);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+[data-layout="hockey"] .st-line-score tbody tr:last-child td.st-line-score__total {
+  border-bottom: 0;
+}
+[data-layout="hockey"] .st-line-score tbody tr.is-loser td.st-line-score__total {
+  color: var(--st-score-dim);
+}
+[data-layout="hockey"] .st-line-score--card .st-line-score__total {
+  text-align: center;
+  padding-inline: 0;
+}
+[data-layout="hockey"] .st-line-score--full thead th:not(.st-line-score__team):not(.st-line-score__total) {
+  font-size: var(--st-fs-body);
+  font-weight: 700;
+}
+
+/* Slo-pitch: the scorebook.  Full size: every cell is boxed by one ruled grid, a limit
+   inning is circled, R and H sit in tinted boxes.  Card size (mockup): no boxes, only
+   hairlines between the innings, a rule under the heads and between the rows, a darker
+   rule left of R, and a limit inning underlined. */
+[data-layout="slopitch"] .st-line-score {
+  --ls-grid: var(--st-score-line);
+  --ls-team-w: 5rem;   /* mockup: 76px */
+}
+[data-layout="slopitch"] .st-line-score :is(th, td) {
+  border-style: solid;
+  border-color: var(--ls-grid);
+  border-width: 0 var(--st-border) var(--st-border) 0;
+}
+[data-layout="slopitch"] .st-line-score :is(th, td):first-child {
+  border-left-width: var(--st-border);
+}
+[data-layout="slopitch"] .st-line-score thead th {
+  padding-block: var(--st-space-xs);
+  border-top-width: var(--st-border);
+  background: var(--st-surface-2);
+}
+[data-layout="slopitch"] .st-line-score .st-line-score__team {
+  padding-left: var(--st-space-sm);
+  padding-right: 0;
+}
+[data-layout="slopitch"] .st-line-score--full .st-line-score__team .st-chip {
+  display: none;
+}
+[data-layout="slopitch"] .st-line-score tbody tr:last-child :is(th, td) {
+  border-bottom-width: var(--st-border);
+}
+[data-layout="slopitch"] .st-line-score :is(thead th, tbody td).st-line-score__total {
+  background: var(--st-surface-2);
+  font-weight: 700;
+}
+/* R is ink on a card; on the game page the winner's R takes the accent (mockup) */
+[data-layout="slopitch"] .st-line-score--full tbody tr.is-winner td.st-line-score__total {
+  color: var(--st-accent);
+}
+[data-layout="slopitch"] .st-line-score :is(thead th, tbody td).st-line-score__extra {
+  background: var(--st-surface-2);
+}
+[data-layout="slopitch"] .st-line-score tbody td.is-mark {
+  background: none;
+  outline: 0;
+  color: var(--st-mark-text);
+}
+/* the circle never outgrows its cell: 28 px where there is room, a little less on a 360 px phone */
+[data-layout="slopitch"] .st-line-score--full .st-line-score__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(1.75rem, calc(100% - 0.25rem));
+  aspect-ratio: 1;
+  border: var(--st-border-strong) solid var(--st-mark-line);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+[data-layout="slopitch"] .st-line-score tbody td.is-blank {
+  background: var(--st-blank-bg);
+}
+[data-layout="slopitch"] .st-line-score--full tbody td.st-line-score__total {
+  font-size: var(--ls-tot-fs);
+}
+
+/* card size */
+[data-layout="slopitch"] .st-line-score--card {
+  --ls-grid: var(--st-line);
+}
+[data-layout="slopitch"] .st-line-score--card :is(th, td) {
+  border-width: 0;
+}
+[data-layout="slopitch"] .st-line-score--card thead th {
+  padding-block: 0 var(--st-space-2xs);
+  border-bottom: var(--st-border) solid var(--st-line-strong);
+  background: none;
+}
+[data-layout="slopitch"] .st-line-score--card tbody :is(th, td) {
+  border-bottom: var(--st-border) solid var(--ls-grid);
+}
+[data-layout="slopitch"] .st-line-score--card tbody tr:last-child :is(th, td) {
+  border-bottom-width: 0;
+}
+[data-layout="slopitch"] .st-line-score--card tbody td {
+  border-left: var(--st-border) solid var(--ls-grid);
+  font-weight: var(--st-w-strong);
+}
+[data-layout="slopitch"] .st-line-score--card .st-line-score__team {
+  padding-left: 0;
+}
+[data-layout="slopitch"] .st-line-score--card :is(thead th, tbody td).st-line-score__total,
+[data-layout="slopitch"] .st-line-score--card :is(thead th, tbody td).st-line-score__extra {
+  background: none;
+}
+[data-layout="slopitch"] .st-line-score--card .st-line-score__total {
+  padding-inline: 0;
+  text-align: center;
+}
+[data-layout="slopitch"] .st-line-score--card tbody td.st-line-score__total {
+  border-left-color: var(--st-line-strong);
+  font-weight: 700;
+}
+[data-layout="slopitch"] .st-line-score--card .st-line-score__n {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Scoreboard: digit tiles.  Every number sits on its own black tile in amber. */
+[data-layout="scoreboard"] .st-line-score {
+  --ls-team-w: 5.25rem;
+  border-spacing: 2px;
+  margin: -2px;
+  width: calc(100% + 4px);
+}
+/* the 2 px of tile spacing that hang over the table's edge sit in the box's own padding,
+   so the scroll box has nothing to scroll */
+[data-layout="scoreboard"] .st-line-scroll {
+  margin-inline: -2px;
+  padding-inline: 2px;
+}
+[data-layout="scoreboard"] .st-line-score thead th {
+  border-bottom: 0;
+}
+[data-layout="scoreboard"] .st-line-score tbody td {
+  border-bottom: 0;
+  border-radius: 0.1875rem;
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  font-weight: 700;
+}
+[data-layout="scoreboard"] .st-line-score tbody .st-line-score__team {
+  border-bottom: 0;
+}
+[data-layout="scoreboard"] .st-line-score--ends tbody td {
+  color: var(--st-score-dim);
+}
+[data-layout="scoreboard"] .st-line-score tbody td.is-won {
+  color: var(--st-score-text);
+}
+[data-layout="scoreboard"] .st-line-score tbody td.is-mark {
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  outline: var(--st-border-strong) solid var(--st-mark-line);
+  outline-offset: -4px;
+}
+[data-layout="scoreboard"] .st-line-score tbody td.is-void {
+  color: var(--st-score-dim);
+}
+[data-layout="scoreboard"] .st-line-score tbody td.is-blank {
+  background: color-mix(in oklab, var(--st-score-bg), var(--st-score-text) 16%);
+}
+[data-layout="scoreboard"] .st-line-score thead th.is-blank {
+  background: none;
+}
+[data-layout="scoreboard"] .st-line-score tbody td.st-line-score__total {
+  color: var(--st-panel-text);
+}
+[data-layout="scoreboard"] .st-line-score tbody tr.is-loser td.st-line-score__total {
+  color: var(--st-score-dim);
+}
+[data-layout="scoreboard"] .st-line-score tbody td.st-line-score__extra {
+  color: var(--st-score-text);
+}
+[data-layout="scoreboard"] .st-line-score {
+  --hm-ring: var(--st-score-text);
+  --hm-mid: var(--st-score-bg);
+  --hm-core: var(--st-score-text);
+}
+[data-layout="scoreboard"] .st-line-score tbody .st-line-score__team {
+  font-size: var(--st-fs-meta);
+  letter-spacing: 0.06em;
+}
+[data-layout="scoreboard"] .st-line-score .st-chip {
+  display: none;
+}
+[data-layout="scoreboard"] .st-line-score--card.st-line-score--innings {
+  --ls-col: 1.25rem;   /* tiles and 2 px gaps: one column narrower than the slo-pitch card */
+}
+[data-layout="scoreboard"] .st-line-score--card .st-line-score__total {
+  padding-left: 0;
+  text-align: center;
+}
+
+/* ==================================================================== result card */
+
+.st-result-card {
+  padding: var(--st-card-pad-y) var(--st-card-pad-x);
+}
+.st-page a.st-result-card:hover {
+  border-color: var(--st-line-strong);
+}
+.st-result-card__head {
+  display: block;
+  margin-bottom: var(--st-space-xs);
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-result-card__team {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: var(--st-fs-name);
+  font-weight: var(--st-w-strong);
+  color: var(--st-muted);
+}
+.st-result-card__team + .st-result-card__team {
+  margin-top: var(--st-space-xs);
+}
+.st-result-card__team.is-winner,
+.st-result-card--tie .st-result-card__team {
+  color: var(--st-text);
+}
+.st-result-card__team.is-winner {
+  font-weight: 700;
+}
+.st-result-card__name {
+  flex: 1;
+  min-width: 0;
+}
+.st-result-card__score {
+  font-family: var(--st-font-num);
+  font-size: var(--st-fs-score-card);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-result-card__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--st-space-sm);
+  margin-top: 0.625rem;
+  padding-top: var(--st-space-sm);
+  border-top: var(--st-border) solid var(--st-line);
+  font-size: var(--st-fs-meta);
+}
+.st-result-card--lines .st-result-card__foot {
+  margin-top: var(--st-space-sm);
+}
+.st-result-card__note {
+  min-width: 0;
+  color: var(--st-muted);
+}
+.st-result-card__note b {
+  color: var(--st-text);
+}
+.st-result-card__link {
+  flex: none;
+  font-weight: 700;
+  color: var(--st-link);
+  white-space: nowrap;
+}
+.st-result-card--lines .st-line-score {
+  --ls-bg: var(--st-surface);
+}
+.st-result-card .st-line-scroll {
+  margin-inline: calc(var(--st-card-pad-x) * -1);
+  padding-inline: var(--st-card-pad-x);
+}
+
+/* hockey: the score numbers are the loudest thing on the card */
+[data-layout="hockey"] .st-result-card__score {
+  font-weight: 800;
+}
+[data-layout="hockey"] .st-result-card__link {
+  font-weight: var(--st-w-strong);
+}
+
+/* classic: a quiet card; the foot is one line, "Final · Sheet A · Game", all in the link colour */
+[data-layout="classic"] .st-result-card__foot {
+  justify-content: flex-start;
+  gap: 0;   /* the separator carries its own spaces: " · " */
+  margin-top: var(--st-space-sm);
+  padding-top: 0;
+  border-top: 0;
+  font-weight: 700;
+  color: var(--st-link);
+}
+[data-layout="classic"] .st-result-card__note {
+  color: var(--st-link);
+  flex: none;
+}
+[data-layout="classic"] .st-result-card__note::after {
+  content: " · ";
+  white-space: pre;
+}
+[data-layout="classic"] .st-result-card .st-chevron {
+  display: none;
+}
+
+/* scoreboard: a 2 px ink outline, names in Chakra, no chips, a shouty link */
+[data-layout="scoreboard"] .st-result-card:not(.st-result-card--hero) {
+  border: var(--st-border-strong) solid var(--st-line-strong);
+}
+[data-layout="scoreboard"] .st-result-card .st-chip {
+  display: none;
+}
+[data-layout="scoreboard"] .st-result-card__team {
+  font-weight: var(--st-w-strong);
+}
+[data-layout="scoreboard"] .st-result-card__team.is-winner {
+  font-weight: 700;
+}
+[data-layout="scoreboard"] .st-result-card__link {
+  color: var(--st-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+[data-layout="scoreboard"] .st-result-card:not(.st-result-card--hero) .st-line-score tbody .st-line-score__team {
+  color: var(--st-text);
+}
+
+/* ------------------------------------------------------ hero (game of the week) */
+
+.st-result-card--hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-md);
+  padding: var(--st-space-lg);
+  background: var(--st-panel-bg);
+  border: 0;
+  border-radius: var(--st-radius-panel);
+  color: var(--st-panel-text);
+  --ls-text: var(--st-panel-text);
+  --ls-muted: var(--st-panel-muted);
+  --ls-bg: var(--st-panel-bg);
+}
+.st-result-card__eyebrow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--st-space-sm);
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--st-panel-label);
+}
+.st-result-card--hero .st-final__head {
+  padding: 0;
+}
+.st-result-card__periods {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--st-space-2xs);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.st-period-tile {
+  padding: var(--st-space-xs) 0;
+  border: var(--st-border) solid var(--st-panel-line);
+  border-radius: 0.375rem;
+  background: var(--st-score-bg);
+  text-align: center;
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-period-tile__label {
+  display: block;
+  font-size: var(--st-fs-micro);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.1em;
+  color: var(--st-panel-muted);
+}
+.st-period-tile__pair {
+  display: flex;
+  justify-content: center;
+  gap: var(--st-space-xs);
+  font-family: var(--st-font-num);
+  font-size: var(--st-step-xl);
+  font-weight: 700;
+}
+.st-period-tile .is-lead { color: var(--st-score-text); }
+.st-period-tile .is-dim { color: var(--st-score-dim); }
+.st-result-card__top {
+  padding-top: var(--st-space-md);
+  border-top: var(--st-border) solid var(--st-panel-line);
+  font-size: var(--st-fs-small);
+  color: var(--st-panel-text);
+}
+.st-result-card--hero .st-button {
+  width: 100%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===================================================================== final panel */
+
+.st-final {
+  --fp-text: var(--st-panel-text);
+  --fp-muted: var(--st-panel-muted);
+  background: var(--st-panel-bg);
+  border-radius: var(--st-radius-panel);
+  color: var(--st-panel-text);
+  overflow: hidden;
+}
+.st-final__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--st-space-sm);
+  padding: var(--st-space-lg) var(--st-space-lg) 0;
+}
+.st-final__status,
+.st-final__sub {
+  grid-row: 1;
+  margin-bottom: var(--st-space-md);
+  font-size: var(--st-fs-label);
+  color: var(--fp-muted);
+}
+.st-final__status {
+  grid-column: 1 / 3;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.st-final__sub {
+  grid-column: 3;
+  text-align: right;
+  font-size: var(--st-fs-meta);
+}
+.st-final__team,
+.st-final__score {
+  grid-row: 2;
+  min-width: 0;
+}
+.st-final__team:last-child {
+  text-align: right;
+}
+.st-final__name {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-sm);
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-h3);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: 1.1;
+  text-transform: var(--st-display-transform);
+  overflow-wrap: break-word;
+}
+.st-final__team:last-child .st-final__name {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+.st-final__team:not(.is-winner) .st-final__name {
+  color: var(--fp-muted);
+}
+.st-final__record {
+  display: block;
+  margin-top: var(--st-space-3xs);
+  font-size: var(--st-fs-meta);
+  color: var(--fp-muted);
+}
+.st-final__score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--st-space-sm);
+  font-family: var(--st-font-num);
+  font-size: min(var(--st-fs-score-hero), 13vw);
+  font-weight: var(--st-w-display);
+  line-height: 1;
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-final__sep {
+  font-size: 0.5em;   /* relative: half the score beside it */
+  color: var(--fp-muted);
+}
+.st-final__num.is-dim {
+  color: var(--fp-muted);
+}
+.st-final__body {
+  padding: 0.875rem var(--st-space-lg) var(--st-space-lg);
+}
+.st-final__titlerow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--st-space-md);
+  padding-bottom: var(--st-space-sm);
+}
+.st-final__title {
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-h3);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  text-transform: var(--st-display-transform);
+}
+.st-final__meta {
+  font-size: var(--st-fs-meta);
+}
+.st-final__foot {
+  margin-top: var(--st-space-md);
+  font-size: var(--st-fs-meta);
+  color: var(--ls-muted, var(--st-muted));
+}
+.st-final__foot b {
+  color: var(--ls-text, var(--st-text));
+}
+.st-final__note {
+  color: var(--ls-text, var(--st-text));
+}
+.st-page .st-final__foot > * + * {
+  margin-top: var(--st-space-sm);
+}
+.st-final__foot--split {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--st-space-sm);
+}
+.st-page .st-final__foot--split > * + * {
+  margin-top: 0;
+}
+
+/* Basketball and Classic: a coloured panel; the line score sits in a lighter inset box. */
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final {
+  --ls-text: var(--st-panel-text);
+  --ls-muted: var(--st-panel-muted);
+  --ls-line: var(--st-panel-line);
+  --ls-rule: var(--st-panel-line);
+  --ls-bg: color-mix(in oklab, var(--st-panel-text) 9%, var(--st-panel-bg));
+  --ls-pad-x: var(--st-space-md);
+  --hm-ring: var(--st-panel-text);
+  --hm-mid: var(--ls-bg);
+  --hm-core: var(--st-panel-muted);
+}
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final .st-line-scroll {
+  background: var(--ls-bg);
+  border-radius: var(--st-radius-sm);
+}
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final .st-line-score thead th {
+  padding-top: var(--st-space-sm);
+}
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final .st-line-score--card,
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final .st-line-score {
+  padding-bottom: var(--st-space-2xs);
+}
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final__title {
+  color: var(--st-panel-text);
+}
+
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final :is(thead th, tbody td).is-blank {
+  background: color-mix(in oklab, var(--st-panel-text) 8%, transparent);
+}
+:is([data-layout="basketball"], [data-layout="classic"]) .st-final .st-legend__key--blank {
+  background: color-mix(in oklab, var(--st-panel-text) 8%, transparent);
+  border-color: var(--st-panel-muted);
+}
+
+/* Curling: an ink band with the score, then the end-by-end card under it. */
+[data-layout="curling"] .st-final {
+  --fp-text: var(--st-panel-text);
+  --fp-muted: var(--st-panel-muted);
+  --ls-pad-x: 0.25rem;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  color: var(--st-text);
+}
+[data-layout="curling"] .st-final__head {
+  padding: 0.875rem var(--st-space-lg);
+  background: var(--st-panel-bg);
+  color: var(--st-panel-text);
+}
+[data-layout="curling"] .st-final__name {
+  font-family: var(--st-font-body);
+  font-size: var(--st-fs-name);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+[data-layout="curling"] .st-final__head .st-chip {
+  box-shadow: 0 0 0 2px var(--st-panel-text);
+}
+[data-layout="curling"] .st-final__body {
+  padding: 0.875rem var(--st-space-sm) 0;
+}
+[data-layout="curling"] .st-final__titlerow {
+  padding-inline: var(--st-space-2xs);
+  padding-bottom: var(--st-space-md);
+}
+[data-layout="curling"] .st-final__title {
+  font-size: var(--st-fs-h3);
+}
+[data-layout="curling"] .st-final__foot {
+  margin: var(--st-space-xs) var(--st-space-md) 0;
+  padding: var(--st-space-md) 0 0.875rem;
+  border-top: var(--st-border) solid var(--st-line);
+  font-size: var(--st-fs-small);
+}
+[data-layout="curling"] .st-page .st-final__foot > * + *,
+[data-layout="curling"].st-page .st-final__foot > * + * {
+  margin-top: 0.4375rem;
+}
+[data-layout="curling"] .st-final .st-legend {
+  font-size: var(--st-fs-small);
+}
+
+/* Hockey: the rink.  3 px boards, a 30 px corner, blue lines and the red centre line
+   drawn behind the score; the period table sits under a boards-coloured rule. */
+[data-layout="hockey"] .st-final {
+  --fp-text: var(--st-text);
+  --fp-muted: var(--st-muted);
+  --ls-pad-x: 1.125rem;
+  position: relative;
+  background: var(--st-surface);
+  border: 3px solid var(--st-score-bg);
+  border-radius: 1.875rem;
+  color: var(--st-text);
+}
+[data-layout="hockey"] .st-final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(color-mix(in oklab, var(--st-link) 11%, transparent), color-mix(in oklab, var(--st-link) 11%, transparent)) 28% 0 / 4px 100% no-repeat,
+    linear-gradient(color-mix(in oklab, var(--st-hot) 11%, transparent), color-mix(in oklab, var(--st-hot) 11%, transparent)) 50% 0 / 4px 100% no-repeat,
+    linear-gradient(color-mix(in oklab, var(--st-link) 11%, transparent), color-mix(in oklab, var(--st-link) 11%, transparent)) 72% 0 / 4px 100% no-repeat;
+}
+[data-layout="hockey"] .st-final > * {
+  position: relative;
+}
+[data-layout="hockey"] .st-final__head {
+  padding: 0.875rem 0.75rem 0.875rem;
+  text-align: center;
+}
+[data-layout="hockey"] .st-final__status {
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-bottom: var(--st-space-xs);
+  padding: 0.1875rem 0.625rem;
+  border-radius: var(--st-radius-xs);
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-label);
+  letter-spacing: 0.12em;
+}
+[data-layout="hockey"] .st-final__sub {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin: var(--st-space-sm) 0 0;
+  text-align: center;
+}
+[data-layout="hockey"] .st-final__team:last-child {
+  text-align: center;
+}
+[data-layout="hockey"] .st-final__name,
+[data-layout="hockey"] .st-final__team:last-child .st-final__name {
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--st-space-3xs);
+}
+[data-layout="hockey"] .st-final__head .st-chip {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+[data-layout="hockey"] .st-final__team:not(.is-winner) .st-final__name {
+  color: var(--st-text);
+  opacity: 0.8;
+}
+[data-layout="hockey"] .st-final__score {
+  font-size: min(var(--st-fs-score-hero), 17vw);
+  line-height: 0.95;
+}
+[data-layout="hockey"] .st-final__body {
+  padding: 0;
+  border-top: 2px solid var(--st-score-bg);
+  background: var(--st-surface);
+}
+[data-layout="hockey"] .st-final__titlerow {
+  padding: var(--st-space-md) 1.125rem var(--st-space-xs);
+}
+[data-layout="hockey"] .st-final .st-line-score thead th {
+  padding-top: var(--st-space-md);
+  padding-bottom: var(--st-space-xs);
+}
+[data-layout="hockey"] .st-final .st-line-score thead th.st-line-score__total {
+  padding-top: var(--st-space-md);
+}
+[data-layout="hockey"] .st-final__foot {
+  margin-top: 0;
+  padding: var(--st-space-md) 1.125rem 0.875rem;
+  border-top: var(--st-border) solid var(--st-line);
+}
+[data-layout="hockey"] .st-final .st-line-score tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Slo-pitch: a two-row score card, then the line score as its own scorebook card. */
+[data-layout="slopitch"] .st-final {
+  --fp-text: var(--st-text);
+  --fp-muted: var(--st-muted);
+  background: none;
+  border-radius: 0;
+  color: var(--st-text);
+  overflow: visible;
+}
+[data-layout="slopitch"] .st-final__head {
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 0;
+  padding: 0;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-radius: var(--st-radius-panel);
+  overflow: hidden;
+}
+[data-layout="slopitch"] .st-final__score {
+  display: contents;
+}
+[data-layout="slopitch"] .st-final__sep {
+  display: none;
+}
+[data-layout="slopitch"] .st-final__team {
+  grid-column: 1;
+  grid-row: 1;
+  padding: var(--st-space-md) var(--st-space-md) var(--st-space-md) var(--st-space-lg);
+  text-align: left;
+}
+[data-layout="slopitch"] .st-final__team:last-child {
+  grid-row: 2;
+  text-align: left;
+}
+[data-layout="slopitch"] .st-final__team:not(:last-child),
+[data-layout="slopitch"] .st-final__num.is-first {
+  border-bottom: var(--st-border) solid var(--st-line);
+}
+[data-layout="slopitch"] .st-final__num {
+  grid-column: 2;
+  padding: var(--st-space-md) var(--st-space-lg) var(--st-space-md) 0;
+  font-size: var(--st-fs-score-hero);
+  font-weight: 700;
+  color: var(--st-accent);
+}
+[data-layout="slopitch"] .st-final__num.is-first {
+  grid-row: 1;
+}
+[data-layout="slopitch"] .st-final__num.is-second {
+  grid-row: 2;
+}
+[data-layout="slopitch"] .st-final__num.is-dim {
+  font-weight: 600;
+  color: var(--st-muted);
+}
+[data-layout="slopitch"] .st-final__team:last-child .st-final__name,
+[data-layout="slopitch"] .st-final__name {
+  flex-direction: row;
+  gap: var(--st-space-md);
+  font-family: var(--st-font-body);
+  font-size: var(--st-step-2xl);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+[data-layout="slopitch"] .st-final__team:not(.is-winner) .st-final__name {
+  font-weight: var(--st-w-strong);
+}
+[data-layout="slopitch"] .st-final__record {
+  padding-left: 1.5rem;
+}
+[data-layout="slopitch"] .st-final__status,
+[data-layout="slopitch"] .st-final__sub {
+  grid-row: 3;
+  margin: 0;
+  padding: var(--st-space-sm) var(--st-space-lg);
+  border-top: var(--st-border) solid var(--st-line);
+}
+[data-layout="slopitch"] .st-final__status {
+  grid-column: 1;
+}
+[data-layout="slopitch"] .st-final__sub {
+  grid-column: 2;
+}
+[data-layout="slopitch"] .st-final__body {
+  padding: 1.375rem 0 0;
+}
+[data-layout="slopitch"] .st-final__titlerow {
+  padding-bottom: var(--st-space-sm);
+}
+[data-layout="slopitch"] .st-final__title {
+  font-size: var(--st-step-3xl);
+}
+[data-layout="slopitch"] .st-final .st-line-scroll {
+  padding: var(--st-space-sm);
+  border: var(--st-border) solid var(--st-line-strong);
+  border-radius: var(--st-radius-card);
+  background-color: var(--st-surface);
+  background-image: repeating-linear-gradient(180deg, transparent 0 23px, color-mix(in oklab, var(--st-line) 60%, transparent) 23px 24px);
+}
+[data-layout="slopitch"] .st-final .st-line-score {
+  --ls-bg: var(--st-surface);
+}
+
+/* Board look: Scoreboard's final panel and every --hero card.  Names in the display font,
+   the score as two digit tiles, no chips. */
+.st-final__head--board,
+[data-layout="scoreboard"] .st-final__head {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  column-gap: var(--st-space-sm);
+  text-align: center;
+}
+.st-final__head--board .st-final__team:last-child,
+[data-layout="scoreboard"] .st-final__team:last-child {
+  text-align: center;
+}
+.st-final__head--board .st-final__name,
+[data-layout="scoreboard"] .st-final__name,
+.st-final__head--board .st-final__team:last-child .st-final__name,
+[data-layout="scoreboard"] .st-final__team:last-child .st-final__name {
+  flex-direction: column;
+  justify-content: center;
+  font-size: var(--st-fs-h3);
+  letter-spacing: var(--st-display-tracking);
+  text-transform: uppercase;
+}
+.st-final__head--board .st-chip,
+[data-layout="scoreboard"] .st-final__head .st-chip {
+  display: none;
+}
+.st-final__head--board .st-final__score,
+[data-layout="scoreboard"] .st-final__score {
+  gap: var(--st-space-xs);
+  font-size: min(var(--st-fs-score-hero), 12vw);
+  align-items: stretch;
+}
+.st-final__head--board .st-final__sep,
+[data-layout="scoreboard"] .st-final__sep {
+  display: none;
+}
+.st-final__head--board .st-final__num,
+[data-layout="scoreboard"] .st-final__num {
+  padding: var(--st-space-xs) var(--st-space-sm);
+  border: var(--st-border) solid var(--st-score-line);
+  border-radius: var(--st-radius-sm);
+  background: var(--st-score-bg);
+  color: var(--st-score-text);
+  line-height: 1;
+}
+.st-final__head--board .st-final__num.is-dim,
+[data-layout="scoreboard"] .st-final__num.is-dim {
+  color: var(--st-score-dim);
+}
+.st-final__head--board .st-final__team:not(.is-winner) .st-final__name,
+[data-layout="scoreboard"] .st-final__team:not(.is-winner) .st-final__name {
+  color: var(--st-panel-text);
+  opacity: 0.8;
+}
+.st-final__head--board .st-final__status,
+[data-layout="scoreboard"] .st-final__status {
+  text-align: left;
+}
+.st-final__head--board .st-final__record,
+[data-layout="scoreboard"] .st-final__record {
+  margin-top: var(--st-space-2xs);
+}
+[data-layout="scoreboard"] .st-final {
+  --ls-text: var(--st-panel-text);
+  --ls-muted: var(--st-panel-muted);
+  --ls-bg: var(--st-panel-bg);
+  --ls-line: var(--st-panel-line);
+  --fp-muted: var(--st-panel-label);
+}
+[data-layout="scoreboard"] .st-final__body {
+  padding-top: 0.875rem;
+}
+[data-layout="scoreboard"] .st-final__title {
+  color: var(--st-panel-text);
+}
+[data-layout="scoreboard"] .st-final__foot {
+  margin-top: var(--st-space-md);
+  padding-top: var(--st-space-md);
+  border-top: var(--st-border) solid var(--st-panel-line);
+}
+
+/* ================================================================== event log */
+
+.st-events {
+  overflow: hidden;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-radius: var(--st-radius-card);
+}
+.st-events__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-events__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--st-space-sm);
+  padding: var(--st-space-sm) var(--st-card-pad-x);
+  background: var(--st-surface-2);
+  font-family: var(--st-font-display);
+  font-size: var(--st-step-md);
+  font-weight: var(--st-w-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-events__tally {
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-event {
+  display: grid;
+  grid-template-columns: 2.875rem 3.125rem minmax(0, 1fr) auto;   /* time, team (chip + code), who, score */
+  align-items: start;
+  gap: var(--st-space-sm);
+  padding: 0.6875rem var(--st-card-pad-x);
+}
+.st-event + .st-event {
+  border-top: var(--st-border) solid var(--st-line);
+}
+.st-events__group + .st-events__group {
+  border-top: var(--st-border) solid var(--st-line);
+}
+.st-event__time {
+  padding-top: 1px;
+  font-family: var(--st-font-num);
+  font-size: var(--st-fs-body);
+  font-weight: 700;
+  font-variant-numeric: var(--st-num-variant);
+  color: var(--st-muted);
+}
+.st-event__team {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-xs);
+  min-height: 1.5rem;   /* sits on the first line of the name */
+}
+.st-table--events :is(th, td):not(:first-child):not(:last-child) {
+  padding-inline: var(--st-space-2xs);   /* five columns must fit a 360 px phone */
+}
+/* Penalties: the player, and under the name the team's chip and code (a chip alone is colour only) */
+.st-table__team-line {
+  display: flex;
+  align-items: center;
+  margin-top: var(--st-space-3xs);
+  font-weight: 400;
+  line-height: 1.2;
+}
+.st-event__who {
+  line-height: 1.3;
+  min-width: 0;
+}
+.st-event__name {
+  display: block;
+  font-size: var(--st-fs-body);
+  font-weight: 700;
+}
+.st-event__sub {
+  display: block;
+  font-size: var(--st-fs-meta);
+  color: var(--st-muted);
+}
+.st-event__name .st-badge {
+  margin-left: var(--st-space-2xs);
+  font-family: var(--st-font-display);
+  vertical-align: 0.125rem;
+}
+/* Anton has one weight (400): never ask it for bold */
+[data-layout="scoreboard"] .st-event__name .st-badge {
+  font-weight: var(--st-w-display);
+}
+.st-event__score {
+  font-family: var(--st-font-num);
+  font-size: var(--st-step-xl);
+  font-weight: 700;
+  font-variant-numeric: var(--st-num-variant);
+}
+
+/* ===================================================================== roster */
+
+.st-roster {
+  overflow: hidden;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-radius: var(--st-radius-card);
+}
+.st-page a.st-roster__head {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-sm);
+  min-height: 3rem;
+  padding: 0 var(--st-card-pad-x);
+  background: var(--st-surface-2);
+  border-bottom: var(--st-border) solid var(--st-line);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-roster__team {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-h3);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  text-transform: var(--st-display-transform);
+}
+.st-roster__link {
+  flex: none;
+  font-size: var(--st-fs-meta);
+  font-weight: 700;
+  color: var(--st-link);
+}
+.st-roster__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-roster__row {
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-md);
+  min-height: 2.6875rem;
+  padding: var(--st-space-xs) var(--st-card-pad-x);
+}
+.st-roster__row + .st-roster__row {
+  border-top: var(--st-border) solid var(--st-line);
+}
+.st-roster__role {
+  flex: none;
+  width: 4rem;
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-roster__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-2xs) var(--st-space-sm);
+  min-width: 0;
+  font-size: var(--st-fs-name);
+}
+.st-roster__name.is-key {
+  font-weight: 700;
+}
+.st-roster__for {
+  font-size: var(--st-fs-meta);
+  font-weight: 400;
+  color: var(--st-muted);
+}
+
+/* ================================================== stat tables on game pages */
+
+.st-table abbr {
+  text-decoration: none;
+}
+.st-table tfoot td {
+  border-top: var(--st-border-strong) solid var(--st-line);
+  border-bottom: 0;
+  font-weight: 700;
+  color: var(--st-text);
+}
+.st-table .st-table__strong {
+  font-weight: var(--st-w-strong);
+  color: var(--st-text);
+}
+.st-table .st-table__big {
+  font-family: var(--st-font-num);
+  font-size: var(--st-step-2xl);
+  font-weight: 800;
+}
+.st-table .is-hot {
+  color: var(--st-hot);
+}
+.st-page a.st-player {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--st-tap);
+  min-height: var(--st-tap);
+  margin-block: calc((var(--st-tap) - 1lh) / -2);
+  font-weight: var(--st-w-strong);
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-player:hover {
+  text-decoration: underline;
+}
+.st-table .st-chip {
+  margin-right: 0.375rem;
+}
+.st-table th .st-chip {
+  vertical-align: 0.05em;
+}
+
+/* Box score and batting order: a narrow number column, then the player, both fixed. */
+.st-table--box :is(th, td):first-child {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  padding-right: var(--st-space-xs);
+  text-align: right;
+  color: var(--st-muted);
+}
+.st-table--box :is(th, td):nth-child(2) {
+  position: sticky;
+  left: 2.75rem;
+  text-align: left;
+}
+.st-table--box tfoot td:first-child {
+  color: var(--st-text);
+}
+.st-table--box tfoot td[colspan] {
+  position: sticky;
+  left: 0;
+  width: auto;
+  min-width: 0;
+  padding-right: 0.375rem;
+  text-align: left;
+}
+.st-table--box tbody td:nth-child(2) {
+  color: var(--st-text);
+}
+
+.st-table--numbers tbody td:first-child {
+  font-weight: 400;
+}
+
+.st-game-block {
+  margin-top: var(--st-section-gap);
+}
+.st-game-block:first-child {
+  margin-top: 0;
+}
+.st-top-scorer + .st-game-block {
+  margin-top: var(--st-section-gap);
+}
+.st-team-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-h2);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: var(--st-lh-tight);
+  text-transform: var(--st-display-transform);
+}
+.st-team-heading__name {
+  flex: 1;
+  min-width: 0;
+}
+.st-team-heading__score {
+  font-family: var(--st-font-num);
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-team-heading--sm {
+  gap: var(--st-space-sm);
+  font-size: var(--st-step-2xl);
+  letter-spacing: 0.04em;
+}
+/* base.css zeroes heading and paragraph margins with :where() (0 specificity), so a plain
+   class wins; `.st-page` here only keeps these ahead of the layout rules. */
+.st-page .st-team-heading {
+  margin: 0 0 0.625rem;
+}
+.st-page .st-team-heading--sm {
+  margin-bottom: var(--st-space-xs);
+}
+.st-page .st-note--intro {
+  margin: calc(var(--st-space-sm) * -1) 0 var(--st-space-md);
+}
+.st-page .st-game-block > .st-team-heading--sm:not(:first-child),
+.st-page .st-game-block > .st-game-block {
+  margin-top: var(--st-space-lg);
+}
+.st-page .st-game-block > .st-game-block > .st-team-heading--sm {
+  margin-top: 0;
+}
+
+/* top performer of the game (basketball) */
+.st-top-scorer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--st-space-md);
+  margin-bottom: 0;
+  padding: var(--st-card-pad-y) var(--st-card-pad-x);
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-top: 4px solid var(--st-hot);
+  border-radius: var(--st-radius-card);
+}
+.st-top-scorer p {
+  margin: 0;
+}
+.st-top-scorer__main {
+  flex: 1;
+  min-width: 0;
+}
+.st-top-scorer__label {
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-page a.st-top-scorer__name {
+  display: block;
+  margin-top: var(--st-space-3xs);
+  font-size: var(--st-step-xl);
+  font-weight: 700;
+  color: var(--st-text);
+  text-decoration: none;
+}
+.st-page a.st-top-scorer__name:hover {
+  text-decoration: underline;
+}
+/* the whole tile is the touch target */
+.st-top-scorer__name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.st-top-scorer__detail {
+  font-size: var(--st-fs-meta);
+  color: var(--st-muted);
+}
+.st-top-scorer__value {
+  text-align: right;
+}
+.st-top-scorer__num {
+  display: block;
+  font-family: var(--st-font-num);
+  font-size: var(--st-fs-stat);
+  font-weight: var(--st-w-display);
+  line-height: 1;
+  color: var(--st-accent);
+  font-variant-numeric: var(--st-num-variant);
+}
+.st-top-scorer__unit {
+  display: block;
+  font-size: var(--st-fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+
+/* "facts" card (slo-pitch: home runs, 3 hits, limit innings) */
+.st-facts {
+  margin: 0;
+  background: var(--st-surface);
+  border: var(--st-border) solid var(--st-line);
+  border-radius: var(--st-radius-card);
+}
+.st-facts__row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--st-space-sm) var(--st-space-md);
+  padding: var(--st-space-md) var(--st-card-pad-x);
+  font-size: var(--st-fs-table);
+}
+.st-facts__row + .st-facts__row {
+  border-top: var(--st-border) solid var(--st-line);
+}
+.st-facts__label {
+  padding-top: var(--st-space-3xs);
+  font-size: var(--st-fs-label);
+  font-weight: var(--st-w-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+.st-facts__value {
+  margin: 0;
+}
+.st-facts__team {
+  color: var(--st-muted);
+}
+.st-facts + .st-game-block {
+  margin-top: var(--st-section-gap);
+}
+
+/* Slo-pitch: totals row on the paper tint with the heavy rule. */
+[data-layout="slopitch"] .st-table tfoot td {
+  border-top-color: var(--st-rule);
+  background: var(--st-surface-2);
+}
+[data-layout="slopitch"] .st-table--box tbody td:first-child {
+  font-weight: 500;
+}
+/* Hockey and Scoreboard heads in the display font */
+[data-layout="hockey"] .st-table--events th,
+[data-layout="hockey"] .st-table--box th {
+  font-family: var(--st-font-display);
+}
+
+/* ======================================================= Scoreboard card skin
+   The mockup draws every card with a 2 px ink outline (--st-line-strong). */
+[data-layout="scoreboard"] :is(.st-events, .st-roster, .st-facts, .st-top-scorer, .st-table-wrap) {
+  border: var(--st-border-strong) solid var(--st-line-strong);
+}
+[data-layout="scoreboard"] .st-top-scorer {
+  border-top: 4px solid var(--st-hot);
+}
+[data-layout="scoreboard"] .st-events__head {
+  background: var(--st-panel-bg);
+  color: var(--st-panel-text);
+}
+[data-layout="scoreboard"] .st-page a.st-roster__head,
+[data-layout="scoreboard"] a.st-roster__head {
+  background: var(--st-panel-bg);
+  color: var(--st-panel-text);
+  border-bottom: 0;
+}
+[data-layout="scoreboard"] .st-roster__link {
+  color: var(--st-score-text);
+}
+[data-layout="scoreboard"] .st-roster .st-chip {
+  display: none;
+}
+
+/* ===================================================================== focus
+   --st-focus can vanish on a coloured panel; use the panel's own text role there. */
+[data-layout] .st-final :is(a, button, [tabindex]):focus-visible,
+[data-layout] .st-result-card--hero :is(a, button, [tabindex]):focus-visible {
+  outline: 3px solid var(--st-panel-text);
+  outline-offset: 2px;
+}
+[data-layout="curling"] .st-final__body :is(a, button, [tabindex]):focus-visible,
+[data-layout="hockey"] .st-final__body :is(a, button, [tabindex]):focus-visible,
+[data-layout="slopitch"] .st-final__body :is(a, button, [tabindex]):focus-visible {
+  outline-color: var(--st-focus);
+}

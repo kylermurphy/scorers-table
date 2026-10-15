@@ -1,0 +1,342 @@
+/* scorers-table layout: curling
+ * Curling: club leagues (the sport default). Ice, the house rings, the end-by-end line
+ * score as the hero, hammer and stolen-end marks.
+ * Fonts: Alegreya (display, numbers; lining figures forced) + Source Sans 3 (text).
+ * Source: design canvas Curling-Home, Curling-Home-Dark, Curling-Game; dark values from
+ * docs/dark-palettes.md. League colour = house blue; `--st-layout-accent` (layout-owned, a league
+ * never sets it) = house red, used for the header line and the stolen-end marks. The ink
+ * (#0E2233) header, panel and footer are the sport's ground and stay literal.
+ *
+ * Every colour role of docs/design.md for light and for dark, plus fonts, shape,
+ * team palette, league-colour defaults and the header scene. This is the one place
+ * raw hex is allowed. Dark values are written twice (OS preference, and the
+ * [data-theme="dark"] button) and must stay identical.
+ *
+ * CUSTOM-COLOUR MODE. Stage 4 writes the league's colour inline AND puts data-league-colour on
+ * <html>. Without the attribute this file is exactly the approved look (house blue and red).
+ * With it, the blocks at the end re-derive the roles that would fail for an arbitrary colour with
+ * white text on it at 4.5:1 or better:
+ *   - link (light): the colour darkened 12%; a colour just inside the white-text limit is
+ *     only 4.1:1 as text on the pale rink-blue page (#EEF4F8);
+ *   - rule (light): the league colour (the default is the mockup's ink, #0E2233, which does not
+ *     depend on the league);
+ *   - button, WIN badge (dark): the colour itself instead of league-lift (22% towards white),
+ *     because the lift makes a mid-tone fill too light for white text (3.9:1 for green, teal,
+ *     brown, mid blue);
+ *   - text accent, rule, focus, leader bar, rank-1 fill (dark): tint 66% instead of 58%, so
+ *     even a black league colour gives 4.5:1 on the dark cards and dark text on the rank-1 fill.
+ * The two dark blocks restate everything the light block sets (the checker enforces it).
+ */
+
+[data-layout="curling"] {
+  color-scheme: light;
+
+  /* League inputs (a league overrides these inline on <html>) */
+  --st-league-color: #1D4E89;
+  --st-layout-accent: #C8102E;
+
+  /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
+  --st-lift: 22%;
+  --st-tint: 58%;
+
+  /* Type */
+  --st-font-display: "Alegreya", Georgia, serif;
+  --st-font-body: "Source Sans 3", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);
+  --st-w-display: 800;
+  --st-w-strong: 600;
+  --st-display-transform: none;
+  --st-display-tracking: 0;
+  --st-num-variant: lining-nums tabular-nums;
+  --st-fs-h2: 1.625rem; /* mockup: 26px (between the 24 and 28 steps) */
+  --st-fs-title: 1.8125rem; /* mockup: 29px */
+  --st-fs-stat: 2.625rem; /* mockup: 42px */
+  --st-fs-score-card: 1.375rem; /* mockup: 22px */
+  --st-fs-score-hero: var(--st-step-7xl); /* 48px, on the scale */
+
+  /* Shape */
+  --st-radius-card: 0.625rem;
+  --st-radius-panel: 0.75rem;
+  --st-radius-chip: var(--st-radius-pill);
+  --st-radius-sm: 0.5rem;
+
+  /* Team palette, in the order the standings list the sample teams */
+  --st-team-1: #C8102E;
+  --st-team-2: #2E7D4F;
+  --st-team-3: #1D4E89;
+  --st-team-4: #6B3FA0;
+  --st-team-5: #B07D00;
+  --st-team-6: #56636F;
+  --st-team-lift: 0%;
+
+  /* Ground */
+  --st-bg: #EEF4F8;
+  --st-bg-image: none;
+  --st-surface: #FFFFFF;
+  --st-surface-2: #F4F7FA;
+  --st-line: #D5E0EA;
+  --st-line-strong: #C9D3DD;
+
+  /* Text */
+  --st-text: #0E2233;
+  --st-muted: #4F5D6B;
+  --st-link: var(--st-league-base);
+  --st-link-hover: #0E2233;
+  --st-accent: var(--st-league-base);
+  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
+  --st-rule: #0E2233; /* the mockup's ink; the league colour in custom-colour mode */
+  --st-focus: var(--st-league-base);
+
+  /* Buttons */
+  --st-button-bg: var(--st-league-base);
+  --st-on-accent: var(--st-league-ink);
+
+  /* Header */
+  --st-header-bg: #0E2233;
+  --st-header-text: #FFFFFF;
+  --st-header-muted: #C5D3E2;
+  --st-header-line: var(--st-layout-accent-base);
+  --st-header-button-line: #FFFFFF59;
+  --st-tab: #FFFFFF;
+  --st-nav-bg: transparent;
+  --st-nav-text: #FFFFFF;
+  --st-nav-muted: #C5D3E2;
+
+  /* Panel (next draw) */
+  --st-panel-bg: #0E2233;
+  --st-panel-text: #FFFFFF;
+  --st-panel-muted: #C5D3E2;
+  --st-panel-label: #C5D3E2;
+  --st-panel-row: #FFFFFF1F;
+  --st-panel-line: transparent;
+  --st-panel-tile-bg: #FFFFFF;
+  --st-panel-tile-text: #0E2233;
+
+  /* Footer */
+  --st-footer-bg: #0E2233;
+  --st-footer-text: #FFFFFF;
+  --st-footer-muted: #C5D3E2;
+  --st-footer-link: #FFFFFF;
+  --st-footer-line: #FFFFFF26;
+  --st-footer-accent: transparent;
+
+  /* Marks and badges */
+  --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), white 87%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 20%);
+  --st-won-line: var(--st-league-base);
+  --st-blank-bg: #EEF2F6;
+  --st-badge-bg: var(--st-league-wash);
+  --st-badge-text: #0E2233;
+  --st-win-bg: var(--st-league-base);
+  --st-win-text: var(--st-league-ink);
+
+  /* Rank */
+  --st-rank-bg: #E3ECF4;
+  --st-rank-text: #0E2233;
+  --st-rank-1-bg: var(--st-league-base);
+  --st-rank-1-text: var(--st-league-ink);
+
+  /* Bars */
+  --st-bar-track: #D5E0EA;
+  --st-bar-fill: #56636F;
+  --st-bar-lead: var(--st-league-base);
+
+  /* Score board */
+  --st-score-bg: #0E2233;
+  --st-score-text: #FFFFFF;
+  --st-score-dim: #C5D3E2;
+  --st-score-line: #0E2233;
+
+  /* Scenes: data-URI SVGs, colours baked in, one per theme (placement rules at the end) */
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'><circle cx='110' cy='110' r='108' fill='none' stroke='%23FFFFFF' stroke-opacity='.10' stroke-width='2'/><circle cx='110' cy='110' r='80' fill='none' stroke='%23FFFFFF' stroke-opacity='.10' stroke-width='2'/><circle cx='110' cy='110' r='52' fill='none' stroke='%23FFFFFF' stroke-opacity='.10' stroke-width='2'/><circle cx='110' cy='110' r='20' fill='none' stroke='%23FFFFFF' stroke-opacity='.10' stroke-width='2'/><path d='M110 0V220M0 110H220' stroke='%23FFFFFF' stroke-opacity='.07' stroke-width='1.5'/></svg>");
+  --st-scene-image-footer: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-layout="curling"]:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --st-team-1: #E8475A;
+    --st-team-2: #34A464;
+    --st-team-3: #6FA3EA;
+    --st-team-4: #B391EE;
+    --st-team-5: #E9B940;
+    --st-team-6: #C3CDD7;
+    /* Custom team colours (st-team--custom) are lifted 54% toward white in dark (light: 0%). Measured
+       against the dark --st-surface #13222F / --st-bg #0B1620 (contrast, surface / bg):
+         colour    as given      54% lift          lift needed for 3:1 on both
+         #1D3A6E   1.5 / 1.6    #90A0BC  6.1 / 6.9     27%
+         #000000   1.3 / 1.1    #6F6F6F  3.2 / 3.6     53%  (sets the value)
+         #2F6B3A   2.5 / 2.9    #9EB9A0  7.6 / 8.6      8%
+         #7A4A1E   2.2 / 2.5    #C2A995  7.2 / 8.2     14%
+         #5B3A8C   1.9 / 2.1    #AFA2CB  6.8 / 7.7     19%
+         #9E1B32   2.0 / 2.3    #DA9B9C  7.1 / 8.0     16%
+         #F2A900 -> #FBD9A6, #FFC233 -> #FFE4B0, #7FDDE6 -> #C8F0F4 (need no lift): paler, still amber,
+         yellow, aqua.
+       53% is the least that lifts pure black to 3:1 (54% leaves a margin); 30% would do for every other listed colour
+       (navy 3.3 / 3.8) and keeps reds and greens stronger, but a black team chip would vanish. */
+    --st-team-lift: 54%;
+
+    --st-bg: #0B1620;
+    --st-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='9'><circle cx='4.5' cy='4.5' r='1' fill='%23CFE6FF' fill-opacity='.05'/></svg>");
+    --st-surface: #13222F;
+    --st-surface-2: #1A2D3D;
+    --st-line: #24394B;
+    --st-line-strong: #34506A;
+
+    --st-text: #E8F0F6;
+    --st-muted: #9DB0C2;
+    --st-link: var(--st-league-tint);
+    --st-link-hover: #E8F0F6;
+    --st-accent: var(--st-league-tint);
+    --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
+    --st-rule: var(--st-league-tint);
+    --st-focus: var(--st-league-tint);
+
+    --st-button-bg: var(--st-league-lift);
+
+    --st-header-bg: #060D15;
+    --st-header-line: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
+
+    --st-panel-bg: #16324F;
+    --st-panel-line: #2A4D70;
+    --st-panel-tile-bg: #F2F6FA;
+    --st-panel-tile-text: #0B1620;
+
+    --st-footer-bg: #060D15;
+
+    --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 47%);
+    --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
+    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 18%);
+    --st-won-line: var(--st-league-tint);
+    --st-blank-bg: #1A2D3D;
+    --st-badge-bg: var(--st-league-dim);
+    --st-badge-text: #E8F0F6;
+    --st-win-bg: var(--st-league-lift);
+
+    --st-rank-bg: #24394B;
+    --st-rank-text: #E8F0F6;
+    --st-rank-1-bg: var(--st-league-tint);
+    --st-rank-1-text: #0B1620;
+
+    --st-bar-track: #24394B;
+    --st-bar-fill: #9DB0C2;
+    --st-bar-lead: var(--st-league-tint);
+
+    --st-score-bg: #16324F;
+    --st-score-line: var(--st-league-tint);
+
+    --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'><circle cx='110' cy='110' r='108' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><circle cx='110' cy='110' r='80' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><circle cx='110' cy='110' r='52' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><circle cx='110' cy='110' r='20' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><path d='M110 0V220M0 110H220' stroke='%23BFDFFF' stroke-opacity='.10' stroke-width='1.5'/></svg>");
+  }
+}
+
+[data-layout="curling"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --st-team-1: #E8475A;
+  --st-team-2: #34A464;
+  --st-team-3: #6FA3EA;
+  --st-team-4: #B391EE;
+  --st-team-5: #E9B940;
+  --st-team-6: #C3CDD7;
+  --st-team-lift: 54%; /* see the table in the media-query block above */
+
+  --st-bg: #0B1620;
+  --st-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='9'><circle cx='4.5' cy='4.5' r='1' fill='%23CFE6FF' fill-opacity='.05'/></svg>");
+  --st-surface: #13222F;
+  --st-surface-2: #1A2D3D;
+  --st-line: #24394B;
+  --st-line-strong: #34506A;
+
+  --st-text: #E8F0F6;
+  --st-muted: #9DB0C2;
+  --st-link: var(--st-league-tint);
+  --st-link-hover: #E8F0F6;
+  --st-accent: var(--st-league-tint);
+  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
+  --st-rule: var(--st-league-tint);
+  --st-focus: var(--st-league-tint);
+
+  --st-button-bg: var(--st-league-lift);
+
+  --st-header-bg: #060D15;
+  --st-header-line: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
+
+  --st-panel-bg: #16324F;
+  --st-panel-line: #2A4D70;
+  --st-panel-tile-bg: #F2F6FA;
+  --st-panel-tile-text: #0B1620;
+
+  --st-footer-bg: #060D15;
+
+  --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 47%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 18%);
+  --st-won-line: var(--st-league-tint);
+  --st-blank-bg: #1A2D3D;
+  --st-badge-bg: var(--st-league-dim);
+  --st-badge-text: #E8F0F6;
+  --st-win-bg: var(--st-league-lift);
+
+  --st-rank-bg: #24394B;
+  --st-rank-text: #E8F0F6;
+  --st-rank-1-bg: var(--st-league-tint);
+  --st-rank-1-text: #0B1620;
+
+  --st-bar-track: #24394B;
+  --st-bar-fill: #9DB0C2;
+  --st-bar-lead: var(--st-league-tint);
+
+  --st-score-bg: #16324F;
+  --st-score-line: var(--st-league-tint);
+
+  --st-scene-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'><circle cx='110' cy='110' r='108' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><circle cx='110' cy='110' r='80' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><circle cx='110' cy='110' r='52' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><circle cx='110' cy='110' r='20' fill='none' stroke='%23BFDFFF' stroke-opacity='.16' stroke-width='2'/><path d='M110 0V220M0 110H220' stroke='%23BFDFFF' stroke-opacity='.10' stroke-width='1.5'/></svg>");
+}
+
+/* House rings, top right of the ink header, partly off-canvas, behind the text.
+   The header is the positioning box (and clips the rings); isolation makes
+   z-index:-1 land above the header's own background but below its content. */
+[data-layout="curling"] .st-header {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+[data-layout="curling"] .st-header__scene {
+  position: absolute;
+  top: -84px;
+  right: -78px;
+  z-index: -1;
+  width: 220px;
+  height: 220px;
+  background: var(--st-scene-image) center / contain no-repeat;
+  pointer-events: none;
+}
+[data-layout="curling"] .st-footer__scene {
+  display: none;
+}
+
+/* ------------------------------------------------------------- custom-colour mode
+   Only when stage 4 sets data-league-colour (the league chose its own colour). See the
+   header comment for why each role is re-derived. Light block first, then the dark copies
+   (OS preference, and the button), which must restate every property of the light block. */
+[data-layout="curling"][data-league-colour] {
+  --st-link: color-mix(in oklab, var(--st-league-base), black 12%);
+  --st-rule: var(--st-league-base);
+}
+@media (prefers-color-scheme: dark) {
+  [data-layout="curling"][data-league-colour]:not([data-theme="light"]) {
+    --st-tint: 66%;
+    --st-link: var(--st-league-tint);
+    --st-rule: var(--st-league-tint);
+    --st-button-bg: var(--st-league-base);
+    --st-win-bg: var(--st-league-base);
+  }
+}
+[data-layout="curling"][data-league-colour][data-theme="dark"] {
+  --st-tint: 66%;
+  --st-link: var(--st-league-tint);
+  --st-rule: var(--st-league-tint);
+  --st-button-bg: var(--st-league-base);
+  --st-win-bg: var(--st-league-base);
+}
