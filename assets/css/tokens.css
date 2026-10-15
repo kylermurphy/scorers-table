@@ -23,8 +23,8 @@
  * league.yml and teams.yml; each layout file supplies its own defaults):
  *   --st-league-color         the league's main colour (light theme)
  *   --st-league-color-dark    optional hand-picked dark-theme version
- *   --st-league-color-2       optional second accent (tab underline, rules)
- *   --st-league-color-2-dark  optional dark version of the second accent
+ *   --st-layout-accent       optional second accent (tab underline, rules)
+ *   --st-layout-accent-dark  optional dark version of the second accent
  *   --st-team-hex             on any element: one team's own colour (see .st-team--custom)
  * Everything else a league's colour touches is derived below with color-mix().
  */
@@ -143,12 +143,12 @@
   --st-wash: 90%;
 
   --st-league-base: var(--st-league-color);
-  --st-league-2-base: var(--st-league-color-2, var(--st-league-color));
+  --st-layout-accent-base: var(--st-layout-accent, var(--st-league-color));
   --st-league-dim: color-mix(in oklab, var(--st-league-base), black var(--st-dim));
   --st-league-lift: color-mix(in oklab, var(--st-league-base), white var(--st-lift));
   --st-league-tint: color-mix(in oklab, var(--st-league-base), white var(--st-tint));
   --st-league-wash: color-mix(in oklab, var(--st-league-base), white var(--st-wash));
-  --st-league-2-tint: color-mix(in oklab, var(--st-league-2-base), white var(--st-tint));
+  --st-layout-accent-tint: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-tint));
   --st-league-ink: #ffffff; /* text on the league colour; always white (the data check enforces it) */
 }
 
@@ -158,12 +158,12 @@
 @media (prefers-color-scheme: dark) {
   [data-layout]:not([data-theme="light"]) {
     --st-league-base: var(--st-league-color-dark, var(--st-league-color));
-    --st-league-2-base: var(--st-league-color-2-dark, var(--st-league-color-2, var(--st-league-color)));
+    --st-layout-accent-base: var(--st-layout-accent-dark, var(--st-layout-accent, var(--st-league-color)));
   }
 }
 [data-layout][data-theme="dark"] {
   --st-league-base: var(--st-league-color-dark, var(--st-league-color));
-  --st-league-2-base: var(--st-league-color-2-dark, var(--st-league-color-2, var(--st-league-color)));
+  --st-layout-accent-base: var(--st-layout-accent-dark, var(--st-layout-accent, var(--st-league-color)));
 }
 
 /* ----------------------------------------------------------------- team colour

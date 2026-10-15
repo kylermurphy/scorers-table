@@ -1009,9 +1009,9 @@ def league_overrides(hex_: str, hex_dark=None, hex_2=None, hex_2_dark=None) -> d
     if hex_dark:
         o["--st-league-color-dark"] = hex_dark
     if hex_2:
-        o["--st-league-color-2"] = hex_2
+        o["--st-layout-accent"] = hex_2
     if hex_2_dark:
-        o["--st-league-color-2-dark"] = hex_2_dark
+        o["--st-layout-accent-dark"] = hex_2_dark
     return o
 
 
@@ -1057,12 +1057,12 @@ def check_league_colour(layout: str, hex: str, hex_dark: Optional[str] = None,
 def _responsible(layout, theme, r, over, hex_, hex_dark, hex_2, hex_2_dark):
     """(setting name, its value, direction word) for the league input that moves this pair's ratio."""
     if theme == "light":
-        cands = [("colour", "--st-league-color", hex_), ("colour_2", "--st-league-color-2", hex_2)]
+        cands = [("colour", "--st-league-color", hex_), ("colour_2", "--st-layout-accent", hex_2)]
     else:
         cands = [("colour_dark" if hex_dark else "colour", "--st-league-color-dark" if hex_dark else "--st-league-color",
                   hex_dark or hex_),
                  ("colour_2_dark" if hex_2_dark else "colour_2",
-                  "--st-league-color-2-dark" if hex_2_dark else "--st-league-color-2", hex_2_dark or hex_2)]
+                  "--st-layout-accent-dark" if hex_2_dark else "--st-layout-accent", hex_2_dark or hex_2)]
     for setting, prop, value in cands:
         if value is None:
             # colour 2 not set by the league: the layout's own colour 2 is in use
@@ -1186,8 +1186,8 @@ class Finding:
 
 # Custom properties set outside CSS: by stage 4 (inline style from league.yml / teams.yml) or
 # by class rules; reading them without a definition is fine.
-INLINE_INPUTS = {"--st-league-color", "--st-league-color-dark", "--st-league-color-2",
-                 "--st-league-color-2-dark", "--st-team-hex"}
+INLINE_INPUTS = {"--st-league-color", "--st-league-color-dark", "--st-layout-accent",
+                 "--st-layout-accent-dark", "--st-team-hex"}
 
 # Raw colour in a parts file
 _RAW_PATTERNS = [
@@ -1618,7 +1618,7 @@ def verify_browser(layouts: Optional[list] = None, verbose: bool = False) -> tup
     overrides = [("default", {})]
     overrides += [(n, {"--st-league-color": h}) for n, h in alt_league_colours()]
     overrides.append(("two-colour set", {"--st-league-color": "#C98A12", "--st-league-color-dark": "#E3B341",
-                                         "--st-league-color-2": "#2F6B3A", "--st-league-color-2-dark": "#7FC08A"}))
+                                         "--st-layout-accent": "#2F6B3A", "--st-layout-accent-dark": "#7FC08A"}))
     roles = list(COLOUR_ROLES) + list(LEAGUE_HELPERS)
     cases = []     # (id, layout, attr theme or None, scheme, override name, overrides)
     for lid in layouts:

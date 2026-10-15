@@ -34,7 +34,7 @@ generated from them, so the two dark blocks are identical by construction (also 
 - **Scoreboard** default league colour red #CB0E1D (the colour of the basketball mockup). The dark mockup was drawn with
   green (#2F6B3A lifted to #2B7539), so the knobs were fitted on that pair (`--st-lift: 4%`, `--st-tint: 55%`) and the
   red derives from them. Amber #FFC233 is NOT the league colour: it is a literal in every digit role (score-text, rank-1-text,
-  mark-*, won-line, bar-lead, badge-text, tile text) and the default of `--st-league-color-2`, which drives only `tab`
+  mark-*, won-line, bar-lead, badge-text, tile text) and the default of `--st-layout-accent`, which drives only `tab`
   (tokens.css documents league-color-2 as "tab underline, rules"). A league that changes color-2 therefore changes only the tab underline.
 - Scoreboard has no team chips in its mockups (tokens.css says chips are not shown); the palette is basketball's five
   (blue, teal, orange, green, purple) plus curling's grey as slot 6. Basketball slot 6 is magenta #B3306E / #F27AB0
@@ -547,7 +547,7 @@ hockey `fs-title`, slopitch `fs-h2`, `fs-stat`). Scenes were rendered in Chromiu
 
 * **Curling league colour 2 (house red)** drives: header line, stolen-end text/tint/border
   (`hot`, `mark-*`). The mockup's #A50D26 stolen-end text and #FBE3E7 / #E8A9B4 tint are
-  written as `color-mix(in oklab, var(--st-league-2-base), black 13% | white 87% | white 20%)`
+  written as `color-mix(in oklab, var(--st-layout-accent-base), black 13% | white 87% | white 20%)`
   so a league colour 2 recolours them (achieved #A60B24 / #FDE4E3 / #D95658).
 * **Curling `rule`**: the light mockup's 2 px table rule is ink #0E2233; I followed the brief
   (rules = league blue), so light `rule` = `league-base`. The dark mockup already uses the accent
@@ -649,7 +649,7 @@ rank-1, on-accent/button-bg, score-text/score-dim on score-bg; all 6 team chips 
 
 ## New roles needed
 
-None. Used inline `color-mix(in oklab, var(--st-league-2-base), white|black N%)` (and one
+None. Used inline `color-mix(in oklab, var(--st-layout-accent-base), white|black N%)` (and one
 `color-mix(var(--st-league-dim), black 8%)`) in role values for second-colour tints and shades;
 if the checker only resolves the declared helpers, either teach it `color-mix()` over helpers or add
 `--st-league-2-dim`, `--st-league-2-lift`, `--st-league-2-wash` to tokens.css and I will swap them in.

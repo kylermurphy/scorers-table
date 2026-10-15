@@ -10,7 +10,7 @@
  * mockup was drawn with slo-pitch green (#2F6B3A lifted to #2B7539); the knobs below
  * (--st-lift 4%, --st-tint 55%) were fitted to that pair and then applied to the red.
  * Second colour amber #FFC233 is the scoreboard's fixed digit colour: it is the default of
- * --st-league-color-2 (tab underline) and a literal in the digit roles, so recolouring
+ * --st-layout-accent (tab underline) and a literal in the digit roles, so recolouring
  * league-color-2 moves only the tab underline.
  * League-driven: header bar, buttons, hot text, hover link, dark-mode links, footer accent.
  * Everything else is ink, white and grey, as in the mockups.
@@ -21,7 +21,7 @@
   color-scheme: light;
   /* league colour inputs (a league overrides them on <html>) */
   --st-league-color: #CB0E1D;
-  --st-league-color-2: #FFC233;
+  --st-layout-accent: #FFC233;
   /* knobs for the league helpers (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
   --st-lift: 4%;
   --st-tint: 55%;
@@ -75,7 +75,7 @@
   --st-header-muted: color-mix(in oklab, var(--st-league-base), white 92%);
   --st-header-line: transparent;
   --st-header-button-line: #FFFFFFB3;
-  --st-tab: var(--st-league-2-base);
+  --st-tab: var(--st-layout-accent-base);
   --st-nav-bg: transparent;
   --st-nav-text: var(--st-league-ink);
   --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 92%);

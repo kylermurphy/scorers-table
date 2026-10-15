@@ -20,7 +20,7 @@
   color-scheme: light;
   /* league colour inputs (a league overrides them on <html>) */
   --st-league-color: #1D3A6E;
-  --st-league-color-2: #9E1B32;
+  --st-layout-accent: #9E1B32;
   /* knobs for the league helpers (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
   --st-lift: 8%;
   --st-tint: 65%;
@@ -59,7 +59,7 @@
   --st-link: var(--st-league-base);
   --st-link-hover: #0B1B3F;
   --st-accent: var(--st-league-base);
-  --st-hot: var(--st-league-2-base);
+  --st-hot: var(--st-layout-accent-base);
   --st-rule: var(--st-league-base);
   --st-focus: var(--st-league-base);
   /* Buttons */
@@ -92,9 +92,9 @@
   --st-footer-line: #FFFFFF26;
   --st-footer-accent: var(--st-league-tint);
   /* Marks and badges */
-  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), white 88%);
-  --st-mark-text: var(--st-league-2-base);
-  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 63%);
+  --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), white 88%);
+  --st-mark-text: var(--st-layout-accent-base);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 63%);
   --st-won-line: var(--st-league-ink);
   --st-blank-bg: var(--st-surface-2);
   --st-badge-bg: var(--st-league-wash);
@@ -109,7 +109,7 @@
   /* Bars */
   --st-bar-track: var(--st-line);
   --st-bar-fill: var(--st-league-base);
-  --st-bar-lead: var(--st-league-2-base);
+  --st-bar-lead: var(--st-layout-accent-base);
   /* Score board */
   --st-score-bg: var(--st-league-base);
   --st-score-text: var(--st-league-ink);
@@ -142,7 +142,7 @@
     --st-link: var(--st-league-tint);
     --st-link-hover: #EEF2FA;
     --st-accent: var(--st-league-tint);
-    --st-hot: color-mix(in oklab, var(--st-league-2-base), white 54%);
+    --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
     --st-rule: var(--st-league-tint);
     --st-focus: var(--st-league-tint);
     --st-button-bg: var(--st-league-tint);
@@ -152,9 +152,9 @@
     --st-nav-bg: var(--st-league-lift);
     --st-footer-bg: #060A14;
     --st-footer-line: #26324A;
-    --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 38%);
-    --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white 54%);
-    --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 9%);
+    --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 38%);
+    --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
+    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 9%);
     --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
     --st-badge-text: var(--st-league-tint);
     --st-win-bg: #17361F;
@@ -164,7 +164,7 @@
     --st-rank-1-bg: var(--st-league-tint);
     --st-rank-1-text: #0B1220;
     --st-bar-fill: var(--st-league-tint);
-    --st-bar-lead: color-mix(in oklab, var(--st-league-2-base), white 54%);
+    --st-bar-lead: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
   }
 }
 [data-layout="classic"][data-theme="dark"] {
@@ -186,7 +186,7 @@
   --st-link: var(--st-league-tint);
   --st-link-hover: #EEF2FA;
   --st-accent: var(--st-league-tint);
-  --st-hot: color-mix(in oklab, var(--st-league-2-base), white 54%);
+  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
   --st-rule: var(--st-league-tint);
   --st-focus: var(--st-league-tint);
   --st-button-bg: var(--st-league-tint);
@@ -196,9 +196,9 @@
   --st-nav-bg: var(--st-league-lift);
   --st-footer-bg: #060A14;
   --st-footer-line: #26324A;
-  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 38%);
-  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white 54%);
-  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 9%);
+  --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 38%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 9%);
   --st-badge-bg: color-mix(in oklab, var(--st-league-base), var(--st-surface) 45%);
   --st-badge-text: var(--st-league-tint);
   --st-win-bg: #17361F;
@@ -208,7 +208,7 @@
   --st-rank-1-bg: var(--st-league-tint);
   --st-rank-1-text: #0B1220;
   --st-bar-fill: var(--st-league-tint);
-  --st-bar-lead: color-mix(in oklab, var(--st-league-2-base), white 54%);
+  --st-bar-lead: color-mix(in oklab, var(--st-layout-accent-base), white 54%);
 }
 
 /* No scene in this layout. */

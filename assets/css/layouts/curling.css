@@ -17,7 +17,7 @@
 
   /* League inputs (a league overrides these inline on <html>) */
   --st-league-color: #1D4E89;
-  --st-league-color-2: #C8102E;
+  --st-layout-accent: #C8102E;
 
   /* Knobs of the league-colour maths (tokens.css defaults: dim 30, lift 12, tint 62, wash 90) */
   --st-lift: 22%;
@@ -67,7 +67,7 @@
   --st-link: var(--st-league-base);
   --st-link-hover: #0E2233;
   --st-accent: var(--st-league-base);
-  --st-hot: color-mix(in oklab, var(--st-league-2-base), black 13%);
+  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
   --st-rule: var(--st-league-base);
   --st-focus: var(--st-league-base);
 
@@ -79,7 +79,7 @@
   --st-header-bg: #0E2233;
   --st-header-text: #FFFFFF;
   --st-header-muted: #C5D3E2;
-  --st-header-line: var(--st-league-2-base);
+  --st-header-line: var(--st-layout-accent-base);
   --st-header-button-line: #FFFFFF59;
   --st-tab: #FFFFFF;
   --st-nav-bg: transparent;
@@ -105,9 +105,9 @@
   --st-footer-accent: transparent;
 
   /* Marks and badges */
-  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), white 87%);
-  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), black 13%);
-  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 20%);
+  --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), white 87%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), black 13%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 20%);
   --st-won-line: var(--st-league-base);
   --st-blank-bg: #EEF2F6;
   --st-badge-bg: var(--st-league-wash);
@@ -161,14 +161,14 @@
     --st-link: var(--st-league-tint);
     --st-link-hover: #E8F0F6;
     --st-accent: var(--st-league-tint);
-    --st-hot: color-mix(in oklab, var(--st-league-2-base), white 45%);
+    --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
     --st-rule: var(--st-league-tint);
     --st-focus: var(--st-league-tint);
 
     --st-button-bg: var(--st-league-lift);
 
     --st-header-bg: #060D15;
-    --st-header-line: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+    --st-header-line: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
 
     --st-panel-bg: #16324F;
     --st-panel-line: #2A4D70;
@@ -177,9 +177,9 @@
 
     --st-footer-bg: #060D15;
 
-    --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 47%);
-    --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white 45%);
-    --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 18%);
+    --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 47%);
+    --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
+    --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 18%);
     --st-won-line: var(--st-league-tint);
     --st-blank-bg: #1A2D3D;
     --st-badge-bg: var(--st-league-dim);
@@ -225,14 +225,14 @@
   --st-link: var(--st-league-tint);
   --st-link-hover: #E8F0F6;
   --st-accent: var(--st-league-tint);
-  --st-hot: color-mix(in oklab, var(--st-league-2-base), white 45%);
+  --st-hot: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
   --st-rule: var(--st-league-tint);
   --st-focus: var(--st-league-tint);
 
   --st-button-bg: var(--st-league-lift);
 
   --st-header-bg: #060D15;
-  --st-header-line: color-mix(in oklab, var(--st-league-2-base), white var(--st-lift));
+  --st-header-line: color-mix(in oklab, var(--st-layout-accent-base), white var(--st-lift));
 
   --st-panel-bg: #16324F;
   --st-panel-line: #2A4D70;
@@ -241,9 +241,9 @@
 
   --st-footer-bg: #060D15;
 
-  --st-mark-bg: color-mix(in oklab, var(--st-league-2-base), black 47%);
-  --st-mark-text: color-mix(in oklab, var(--st-league-2-base), white 45%);
-  --st-mark-line: color-mix(in oklab, var(--st-league-2-base), white 18%);
+  --st-mark-bg: color-mix(in oklab, var(--st-layout-accent-base), black 47%);
+  --st-mark-text: color-mix(in oklab, var(--st-layout-accent-base), white 45%);
+  --st-mark-line: color-mix(in oklab, var(--st-layout-accent-base), white 18%);
   --st-won-line: var(--st-league-tint);
   --st-blank-bg: #1A2D3D;
   --st-badge-bg: var(--st-league-dim);
