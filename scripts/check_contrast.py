@@ -19,13 +19,18 @@ What it does
    parts CSS) and checks that each layout's two dark blocks (the media query and the
    [data-theme="dark"] one) are identical, for the custom-colour blocks too, and that
    a dark custom block restates every property its light custom block sets.
-5. `--verify-browser` compares the colour maths with real Chromium (optional).
+5. Browsers without color-mix(): runs every pair again on the cascade with the `@supports not (color:
+   color-mix(...))` block of assets/css/fallbacks.css (written by scripts/build_css_fallbacks.py) active,
+   for every layout x theme x {default, data-league-colour attribute}; any color-mix() still reachable is an
+   error, and a stale fallbacks.css fails the run (--check or not).
+6. `--verify-browser` compares the colour maths with real Chromium (optional).
 
 Usage (from the repo root)
 --------------------------
     python scripts/check_contrast.py                 # run everything, write docs/contrast.md
     python scripts/check_contrast.py --check         # same, but fail if docs/contrast.md is stale
     python scripts/check_contrast.py --tokens        # token lint only
+    python scripts/check_contrast.py --fallbacks     # only: every pair with assets/css/fallbacks.css active, color-mix() missing
     python scripts/check_contrast.py --verify-browser  # also compare the maths with Chromium
     python scripts/check_contrast.py --trace classic "#2F6B3A"  # how every role resolves in custom mode
 Exit code 1 when an enforced pair fails, the dark blocks differ, the lint finds an
@@ -1507,6 +1512,7 @@ class Report:
     findings: list = field(default_factory=list)
     layouts: list = field(default_factory=list)
     colours: list = field(default_factory=list)       # [{name, hex, expected_fail}]
+    fallback: Optional["FallbackReport"] = None       # browsers without color-mix(); None = not run
 
     @property
     def failures(self) -> list:
@@ -1532,11 +1538,97 @@ class Report:
 
     @property
     def ok(self) -> bool:
-        return not (self.failures or self.parity or self.errors or self.league_failures or self.expected_fail_passes)
+        return not (self.failures or self.parity or self.errors or self.league_failures or self.expected_fail_passes
+                    or (self.fallback is not None and not self.fallback.ok))
 
 
-def run_checks(layouts: Optional[list] = None, with_league: bool = True) -> Report:
-    """Run the pairs, the parity check, the league colour examples and the lint."""
+# =============================================================================
+# 8b. Browsers without color-mix(): assets/css/fallbacks.css
+# =============================================================================
+
+@dataclass
+class FallbackReport:
+    """The whole pair list run on every layout x theme x {default, data-league-colour attribute}
+    with fallbacks.css's `@supports not (color: color-mix(...))` block active and color-mix()
+    treated as missing (the league colour itself is not set: such a browser shows the layout's
+    default look)."""
+    results: dict = field(default_factory=dict)     # (layout, theme, custom) -> [Result]
+    errors: list = field(default_factory=list)      # color-mix still reachable, OS/data-theme mismatch, stale file ...
+    layouts: list = field(default_factory=list)
+
+    @property
+    def failures(self) -> list:
+        return [r for rs in self.results.values() for r in rs if r.status == "FAIL"]
+
+    @property
+    def n_pairs(self) -> int:
+        return sum(1 for rs in self.results.values() for r in rs if r.status != "skip")
+
+    @property
+    def ok(self) -> bool:
+        return not (self.failures or self.errors)
+
+
+def color_mix_reachable(pal: Palette) -> list:
+    """Messages for every --st-* property that still resolves through color-mix() in this
+    palette (a browser without color-mix() would drop it)."""
+    out = []
+    for name, raw in sorted(pal.decls.items()):
+        if not name.startswith("--st-"):
+            continue
+        try:
+            text = raw if "color-mix(" in raw else substitute(raw, pal.decls)
+        except ColourError:
+            continue
+        if "color-mix(" in text:
+            out.append("%s %s%s: %s still resolves through color-mix(), which this browser does not have "
+                       "(run python scripts/build_css_fallbacks.py)" % (
+                           pal.layout, pal.name, " (data-league-colour)" if pal.custom else "", name))
+    return out
+
+
+def check_fallbacks(layouts: Optional[list] = None, freshness: bool = True) -> FallbackReport:
+    """Run the pairs in fallback mode (see FallbackReport). With `freshness`, also report a stale
+    assets/css/fallbacks.css and a color-mix() in the parts that has no override."""
+    rep = FallbackReport(layouts=layouts or layout_ids())
+    if not FALLBACKS_PATH.exists():
+        rep.errors.append("assets/css/fallbacks.css does not exist: run python scripts/build_css_fallbacks.py")
+        return rep
+    if freshness and layouts is None:
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from scripts import build_css_fallbacks as gen
+        rep.errors += gen.problems()
+    # the team colour rule is a class rule, outside the cascade model: look at it directly
+    team = [r for r in load_rules(FALLBACKS_PATH) if r.selector == ".st-team--custom"]
+    if not team or "color-mix(" in team[-1].decls.get("--st-team", "color-mix("):
+        rep.errors.append("fallbacks.css has no color-mix-free `.st-team--custom { --st-team }` rule")
+    for lid in rep.layouts:
+        for custom in (False, True):
+            pals = {}
+            for theme in THEMES:
+                pal = Palette(lid, theme, custom=custom, fallback=True)
+                pals[theme] = pal
+                rep.errors += color_mix_reachable(pal)
+                rep.results[(lid, theme, custom)] = evaluate_palette(pal)
+            for osp, attr, label in ((Palette(lid, None, True, custom=custom, fallback=True), pals["dark"], "dark"),
+                                     (Palette(lid, None, False, custom=custom, fallback=True), pals["light"], "light")):
+                for k in sorted(set(osp.decls) | set(attr.decls)):
+                    if osp.decls.get(k) != attr.decls.get(k):
+                        rep.errors.append("%s: %s differs between the OS preference and data-theme=\"%s\" in fallback mode%s" % (
+                            lid, k, label, " (data-league-colour on)" if custom else ""))
+    return rep
+
+
+def fallback_summary(rep: FallbackReport) -> str:
+    return ("Browsers without color-mix() (assets/css/fallbacks.css active, %d layouts x 2 themes x default / "
+            "data-league-colour): %d pairs checked, %d fail, %d problem(s)" % (
+                len(rep.layouts), rep.n_pairs, len(rep.failures), len(rep.errors)))
+
+
+def run_checks(layouts: Optional[list] = None, with_league: bool = True, with_fallbacks: bool = True) -> Report:
+    """Run the pairs, the parity check, the league colour examples, the lint and (with_fallbacks) the
+    pairs again for browsers without color-mix()."""
     rep = Report(layouts=layouts or layout_ids())
     rep.colours = alt_league_colours()
     for lid in rep.layouts:
@@ -1548,6 +1640,8 @@ def run_checks(layouts: Optional[list] = None, with_league: bool = True) -> Repo
                 rep.league[(lid, c["name"], c["hex"])] = check_league_colour(lid, c["hex"])
     rep.parity += check_dark_parity(layouts=rep.layouts)
     rep.findings = lint_tokens()
+    if with_fallbacks:
+        rep.fallback = check_fallbacks(layouts)
     return rep
 
 
@@ -1621,6 +1715,27 @@ def render_markdown(rep: Report) -> str:
                   "restate everything their light block sets." if not rep.parity else
                   " **The dark blocks differ: see Failures.**"))
     add("")
+    if rep.fallback is not None:
+        fb = rep.fallback
+        add("Browsers without `color-mix()`: " + ("**all %d enforced and decor pairs pass**" % fb.n_pairs if fb.ok else
+            "**%d pair(s) fail and %d problem(s)**" % (len(fb.failures), len(fb.errors))) +
+            " (%d pairs over %d layouts x 2 themes x default / `data-league-colour`, `fallbacks.css` active)." % (
+                fb.n_pairs, len(fb.layouts)))
+        add("")
+        add("## Browsers without color-mix()")
+        add("")
+        add("Safari/iOS before 16.2, Chrome before 111 and Firefox before 113 do not know `color-mix()`. A custom "
+            "property that holds `var()` plus `color-mix()` is then dropped, and backgrounds go transparent. "
+            "`assets/css/fallbacks.css` (generated by `scripts/build_css_fallbacks.py`, loaded last) is one "
+            "`@supports not (color: color-mix(in oklab, red, red))` block that gives every colour role of every "
+            "layout, in light, OS-dark and `[data-theme=\"dark\"]`, with and without `data-league-colour`, its "
+            "literal value for the layout's default colour, and a literal for each part rule that mixes colours "
+            "itself. Such a browser therefore shows the layout's default look: a league loses its own colour (and "
+            "a custom team colour loses its dark-theme lift) but nothing becomes unreadable. This checker runs the "
+            "whole pair list on that cascade (`fallbacks.css` active, any `color-mix()` still reachable is an "
+            "error, the league colour not set) for every layout and theme, with and without the attribute, and "
+            "fails if `fallbacks.css` is stale (`python scripts/check_contrast.py --fallbacks` runs only this part).")
+        add("")
 
     # failures first
     add("## Failures")
@@ -1630,6 +1745,12 @@ def render_markdown(rep: Report) -> str:
         add("")
     for e in rep.parity:
         add("* **Dark blocks:** %s" % e)
+    if rep.fallback is not None:
+        for e in rep.fallback.errors:
+            add("* **Without color-mix():** %s" % e)
+        for r in rep.fallback.failures:
+            add("* **Without color-mix(), %s, %s theme, `%s`** (%s): %s on %s = **%s:1**, needs %s:1." % (
+                r.layout, r.theme, r.pair.id, _kind_label(r.pair), r.fg_hex, r.bg_hex, _fmt_ratio(r.ratio), _need_label(r)))
     for r in rep.failures:
         add("* **%s, %s theme, `%s`** (%s): %s on %s = **%s:1**, needs %s:1%s." % (
             r.layout, r.theme, r.pair.id, _kind_label(r.pair), r.fg_hex, r.bg_hex, _fmt_ratio(r.ratio),
@@ -2056,6 +2177,8 @@ def main(argv: Optional[list] = None) -> int:
     mode.add_argument("--write", action="store_true", help="write docs/contrast.md (the default)")
     mode.add_argument("--check", action="store_true", help="do not write; fail if docs/contrast.md is out of date")
     mode.add_argument("--tokens", action="store_true", help="token lint only")
+    ap.add_argument("--fallbacks", action="store_true",
+                    help="only the browsers-without-color-mix() run: every pair on the cascade with fallbacks.css active")
     ap.add_argument("--verify-browser", action="store_true", help="also compare the colour maths with Chromium (needs Playwright)")
     ap.add_argument("--trace", nargs="+", metavar=("LAYOUT", "HEX"),
                     help="print how every colour role resolves in custom-colour mode: --trace LAYOUT HEX [HEX_DARK]")
@@ -2069,7 +2192,16 @@ def main(argv: Optional[list] = None) -> int:
         for ln in trace_custom(args.trace[0], args.trace[1], args.trace[2] if len(args.trace) == 3 else None):
             print(ln)
         return 0
-    if args.tokens:
+    if args.fallbacks:
+        fb = check_fallbacks()
+        for e in fb.errors:
+            print("FALLBACK", e)
+        for r in fb.failures:
+            print("FALLBACK-FAIL %s %s %s: %s on %s = %s (needs %s)" % (
+                r.layout, r.theme, r.pair.id, r.fg_hex, r.bg_hex, _fmt_ratio(r.ratio), _need_label(r)))
+        print(fallback_summary(fb))
+        code = 0 if fb.ok else 1
+    elif args.tokens:
         findings = lint_tokens()
         for f in findings:
             print("%s %s: %s" % (f.level, f.where, f.message))
@@ -2091,6 +2223,13 @@ def main(argv: Optional[list] = None) -> int:
             print("LEAGUE-COLOUR %s %s %s: %s" % (lid, name, p.theme, p.message))
         for name in rep.expected_fail_passes:
             print("LEAGUE-COLOUR %s is marked expected_fail but raises no problem" % name)
+        if rep.fallback is not None:
+            for e in rep.fallback.errors:
+                print("FALLBACK", e)
+            for r in rep.fallback.failures:
+                print("FALLBACK-FAIL %s %s %s: %s on %s = %s (needs %s)" % (
+                    r.layout, r.theme, r.pair.id, r.fg_hex, r.bg_hex, _fmt_ratio(r.ratio), _need_label(r)))
+            print(fallback_summary(rep.fallback))
         n_pairs = sum(1 for rs in rep.results.values() for r in rs if r.status != "skip")
         print("%d pairs checked across %d layouts x 2 themes: %d fail, %d dark-block mismatch, %d lint error(s), %d lint warning(s); "
               "%d league-colour example problem(s) that must not occur" % (

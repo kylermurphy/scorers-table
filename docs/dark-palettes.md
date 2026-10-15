@@ -1,6 +1,27 @@
 # Dark palettes (from the design canvas, round 1)
 
-Each layout's dark theme, as the mockups use it. Stage 3 turns these into the
+> **Note (stage 3).** These are the colours as the mockups drew them. The CSS in
+> `assets/css/layouts/<id>.css` is now the source of truth for what the site uses; where the
+> two differ, the CSS wins. The values deliberately differ in these places:
+>
+> | Layout | Role | Here | In the CSS | Why |
+> |---|---|---|---|---|
+> | Basketball | link, accent | #8FB0FF | #9AB1DC | derived from the league colour (`league-tint`) |
+> | Basketball | next-game panel | #1A2B6B | #022274 | the league colour darkened, so a league's own colour works |
+> | Basketball | teams | five colours | six: a magenta (#F27AB0 dark) is added | six slots in every layout |
+> | Classic | accent, rank 1 chip, link | #9DB6E8 | #AAB6CC | derived (`league-tint`) |
+> | Classic | stolen-end text, tint | #FF8A9A on #4A1622 | #DA9B9C on #510915 | derived from the layout accent |
+> | Curling | accent | #8CB8E8 | #9DB2CE | derived (`league-tint`) |
+> | Curling | stolen-end text, tint, line | #FF8A9A, #4A1622, #A23A4E | #EB8D8A, #53030D, #D85154 | derived; the frame must reach 3:1 |
+> | Hockey | centre-line red (`hot`) | #FF6B7A | #FF7482 | 4.5:1 on the shaded rows (was 4.45) |
+> | Slo-pitch | header, next-game panel | #1E4527, #1A3D22 | #1D4624, #183E1F | derived from the league green |
+> | Scoreboard | header, links | green #2B7539, #6FCF7F | red #CF2528, #F2A39A | the default league colour is red; the mockup was drawn with slo-pitch's green |
+> | Scoreboard | teams | basketball's five | the same five plus grey #C3CDD7 | six slots |
+>
+> The light-theme changes made for contrast are in the "Mockup colours changed for AA" section of
+> [`design.md`](design.md). Contrast results for every pair are in [`contrast.md`](contrast.md).
+
+Each layout's dark theme, as the mockups use it. Stage 3 turned these into the
 layouts' CSS variables. Checked for AA contrast on the main pairs.
 
 ## Curling
