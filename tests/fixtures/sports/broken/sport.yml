@@ -1,0 +1,14 @@
+# The smallest valid sport.yml: only the required keys.
+name: Other
+default_layout: curling
+words:
+  period: {one: End, many: Ends, short: E}
+  day: Draw
+  points_for: {label: PF, title: Points for}
+  points_against: {label: PA, title: Points against}
+line_score: {shape: ends, total_label: Total, corner: Team}
+standings:
+  points: {win: 2, loss: 0}
+stats:
+  player:
+    - {key: games, label: G, title: Games}

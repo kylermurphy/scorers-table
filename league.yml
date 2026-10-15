@@ -1,0 +1,111 @@
+# league.yml: your league's settings. This is the one file you edit to set the site up.
+# Every key is described below. A key with a "#" in front is off; remove the "#" to use it.
+# The build (python scripts/build.py) checks this file and says which line to fix.
+
+# --- The three you must set -------------------------------------------------------------
+
+# The league's name, as shown in the header, the page titles and the calendar files.
+name: "Example Valley Stub League"
+
+# The sport: the name of a folder in sports/ that has a sport.yml.
+sport: stub
+
+# Where the league plays, as an IANA time zone name ("America/Toronto", "Europe/London").
+# It decides what "today" is and the times in the calendar files. UTC is a stand-in: change it.
+timezone: UTC
+
+# --- Names and look ---------------------------------------------------------------------
+
+# The name in the page header when "name" is too long. Its last word is tinted.
+# Default: name.
+# short_name: "Valley Stub"
+
+# 1 to 4 letters for the round badge shown when there is no logo.
+# Default: the initials of name.
+# code: EVSL
+
+# Which look to use: basketball, curling, hockey, slopitch, classic or scoreboard.
+# Default: the sport's own look.
+# layout: classic
+
+# The league colour, as #RRGGBB. The build checks that white text is readable on it in both
+# the light and the dark theme and tells you if it is not. Default: the look's own colour.
+# colour: "#1D3A6E"
+
+# A different league colour for the dark theme. Only with "colour".
+# colour_dark: "#7FA3E8"
+
+# Your logo: a square SVG or PNG (at least 96 px) in this repository. The file must exist.
+# Default: no logo, the badge made from "code" is used.
+# logo: assets/league/logo.svg
+
+# --- Words on the site ------------------------------------------------------------------
+
+# The line under the league name, followed by the season. Default: the sport's name.
+# tagline: "Thursday night stub"
+
+# The line in the footer. Default: the season's venue from data/seasons.yml.
+# footer_line: "Thursday evenings, Main Street Gym"
+
+# Where people can reach you: an email address (a mailto: link is made) or a web address.
+# Default: no contact link in the footer.
+# contact: league@example.com
+
+# Section names you want to word differently, for example: {next: "Next game day"}.
+# The names you can change are listed in your sport's sport.yml under "labels".
+# labels: {}
+
+# --- Times and language -----------------------------------------------------------------
+
+# How times are shown: 12h ("7:00 PM") or 24h ("19:00"). Default: 12h.
+# time_format: 12h
+
+# The page language code (the text itself is English only for now). Default: en.
+# lang: en
+
+# --- What the site does -----------------------------------------------------------------
+
+# true: the site shows the made-up sample season, with a banner saying so. Set it to false
+# when your real season is ready to show. Default: false (this template ships true).
+sample_data: true
+
+# true: also build a sample copy at /preview/ when the real data is showing. Default: true.
+# preview: true
+
+# true: search engines may list the site. false: every page asks them not to. Default: false.
+# search_engines: false
+
+# true: publish the score sheet photos and link them from the game pages. Default: false.
+# photos: false
+
+# --- Rules, standings and stats (leave out what you have not decided) --------------------
+
+# Your sport's options (sport.yml lists them, with what each may be). A setting the sport marks
+# "decide" and you leave out is shown on the site as [placeholder] and listed after every build
+# under "Still to decide". Setting it, even to the usual value, removes the placeholder.
+# rules: {}
+
+# How standings are worked out; the sport's usual club rules apply to whatever you leave out.
+#   rank_by: points                # points | win_pct
+#   points: {win: 2, tie: 1, loss: 0, ot_win: 2, ot_loss: 1}   # ot_win and ot_loss default to win and loss
+#   period_points: 0               # points for each period won
+#   ties: true                     # may a regular-season game end tied?
+#   forfeit: {score: [7, 0]}       # or {score: per_period}
+#   tiebreakers: [head_to_head, {diff: {cap: 7}}, points_for]
+#   columns: [gp, w, l, t, pts, pf, pa, diff]
+#   playoffs: "Top four teams make the playoffs."   # the note under the standings
+# standings: {}
+
+# The smallest number of games, and so on, before a player is ranked on a leaderboard.
+# The names are in your sport's sport.yml under "minimums".
+# stats:
+#   minimums: {}
+
+# Length of a game in the calendar files, in minutes. Default: the sport's usual length.
+# calendar:
+#   game_minutes: 60
+
+# --- Optional ----------------------------------------------------------------------------
+
+# Where the repository lives, for the score sheet entry page (a later stage).
+# github: {repo: "my-league/website", branch: main}

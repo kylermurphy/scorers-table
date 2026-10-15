@@ -1,0 +1,22 @@
+# A sport.yml full of mistakes, for the schema tests.
+name: Typo
+default_layout: hockeyy
+gamez_per_day: 1
+words:
+  period: {one: Half, many: Halves}
+  day: Week
+  points_for: {label: PF, title: Points for}
+  points_against: {label: PA, title: Points against}
+line_score: {shape: ovals, total_label: Final, corner: Team}
+options:
+  periods: {type: number, default: 2}
+  overtime: {type: choice, values: [none, overtime], default: sudden}
+standings:
+  points: {win: 2, tie: x}
+  tiebreakers: [head2head]
+  forfeit: {value: {score: [1]}, decide: true}
+stats:
+  player:
+    - {key: pts, label: PTS}
+leaderboards:
+  - {id: pts, of: player, stat: nope, label: Points, min: {stat: gp, setting: missing}}
