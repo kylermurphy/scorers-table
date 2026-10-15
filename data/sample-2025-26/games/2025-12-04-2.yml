@@ -1,0 +1,25 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+game_id: 2025-12-04-2
+status: final
+home: lynx
+away: otters
+checked_by: Pat S.
+notes:
+  - {text: Started ten minutes late.}
+sheet:
+  periods: {home: [4, 10], away: [11, 11]}
+  final: {home: 14, away: 22}
+  players:
+    home:
+      - {player: una-a, pts: 2}
+      - {player: noa-h, pts: 2}
+      - {player: ola-p, pts: 5}
+      - {player: fay-c, pts: 2}
+      - {player: kai-h, pts: 1}
+      - {player: pax-c, pts: 2}
+    away:
+      - {player: cal-c, pts: 5}
+      - {player: oz-m, pts: 3}
+      - {player: nell-l, pts: 8}
+      - {player: rae-w, pts: 4}
+      - {player: pia-k, pts: 2}

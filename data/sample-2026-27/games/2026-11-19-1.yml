@@ -1,0 +1,26 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+game_id: 2026-11-19-1
+status: final
+home: ravens
+away: lynx
+checked_by: Lee M.
+sheet:
+  periods: {home: [15, 11], away: [16, 5]}
+  final: {home: 26, away: 21}
+  players:
+    home:
+      - {player: eve-b, pts: 1}
+      - {player: jax-f, pts: 4}
+      - {player: noa-a, pts: 8}
+      - {player: jax-d, pts: 3}
+      - {player: kai-g, pts: 3}
+      - {player: alf-g, pts: 3}
+      - {player: noa-h, pts: 1}
+      - {player: cal-p, pts: 3}
+    away:
+      - {player: tam-k, pts: 1}
+      - {player: joy-n, pts: 1}
+      - {player: ola-t, pts: 1}
+      - {player: amy-p, pts: 9}
+      - {player: eli-f, pts: 5}
+      - {player: cal-b, pts: 4}

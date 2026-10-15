@@ -134,19 +134,14 @@ def test_the_active_season_and_the_shown_seasons_follow_sample_mode(sports_root)
     assert (sample.active, sample.shown) == ("sample-2026-27", ["sample-2026-27", "sample-2025-26"])
 
 
-def test_a_real_past_season_is_shown_in_both_modes(sports_root):
-    seasons = ("- {id: s1, current: true}\n- {id: s0, label: Past}\n"
-               "- {id: sample-s1, sample: true, stands_in_for: s1}\n- {id: sample-old, sample: true}\n")
-    d = Data(Path("."), seasons=None) if False else None  # (shapes only; built with tmp_path in the next test)
-    assert d is None
+def test_a_real_past_season_is_shown_in_both_modes():
     from scripts.core.loader import SeasonDef
     defs = [SeasonDef("s1", "s1", 0, current=True), SeasonDef("s0", "s0", 1),
             SeasonDef("sample-s1", "x", 2, sample=True, stands_in_for="s1"), SeasonDef("sample-old", "x", 3, sample=True)]
     assert shown_seasons(defs, False) == ["s1", "s0"]
-    assert shown_seasons(defs, True) == ["sample-s1", "s0", "sample-old"]
+    assert shown_seasons(defs, True) == ["s0", "sample-s1", "sample-old"]      # seasons.yml order
     assert choose_active(defs, True).id == "sample-s1" and choose_active(defs, False).id == "s1"
     assert choose_active([SeasonDef("a", "a", 0)], False) is None and shown_seasons([SeasonDef("a", "a", 0)], False) == []
-    assert seasons  # the text above documents the same layout as a seasons.yml
 
 
 def test_a_season_with_overrides_gets_its_own_settings(sports_root):

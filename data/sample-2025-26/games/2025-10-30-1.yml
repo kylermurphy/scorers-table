@@ -1,0 +1,27 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+game_id: 2025-10-30-1
+status: final
+home: otters
+away: moose
+checked_by: Pat S.
+scorekeeper: Sam T.
+notes:
+  - {text: Played with running time in the second half.}
+sheet:
+  periods: {home: [15, 13], away: [4, 8]}
+  final: {home: 28, away: 12}
+  players:
+    home:
+      - {player: kai-p, pts: 8}
+      - {player: cal-c, pts: 3}
+      - {player: oz-m, pts: 5}
+      - {player: nell-l, pts: 3}
+      - {player: rae-w, pts: 1}
+      - {player: pia-k, pts: 3}
+      - {player: fay-a, pts: 5}
+    away:
+      - {player: gwen-h, pts: 2}
+      - {player: tam-c, pts: 3}
+      - {player: cleo-s, pts: 0}
+      - {player: abe-b, pts: 5}
+      - {player: yara-w, pts: 2}
