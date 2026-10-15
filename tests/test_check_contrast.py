@@ -559,7 +559,8 @@ def test_mark_outline_is_an_ui_pair_in_every_layout():
     for p in marks:
         assert p.kind == "ui" and p.enforced and p.need == 3.0
     plain = [p for p in marks if p.id != "mark-line/score-bg"]
-    assert all(not p.only and not p.not_in for p in plain)             # no decor exemption, no slopitch-only split
+    # no decor exemption; Scoreboard draws its marks on the black digit tile, so it is paired on score-bg instead
+    assert all(not p.only and p.not_in == ("scoreboard",) for p in plain)
     assert [p.only for p in marks if p.id == "mark-line/score-bg"] == [("scoreboard",)]
 
 
