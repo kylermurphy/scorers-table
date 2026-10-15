@@ -45,12 +45,12 @@
   --st-radius-sm: 0.5rem;
 
   /* Team palette, in the order the standings list the sample teams */
-  --st-team-1: #56636F;
-  --st-team-2: #C8102E;
-  --st-team-3: #2E7D4F;
+  --st-team-1: #C8102E;
+  --st-team-2: #2E7D4F;
+  --st-team-3: #1D4E89;
   --st-team-4: #6B3FA0;
-  --st-team-5: #1D4E89;
-  --st-team-6: #B07D00;
+  --st-team-5: #B07D00;
+  --st-team-6: #56636F;
   --st-team-lift: 0%;
 
   /* Ground */
@@ -141,12 +141,12 @@
   [data-layout="curling"]:not([data-theme="light"]) {
     color-scheme: dark;
 
-    --st-team-1: #C3CDD7;
-    --st-team-2: #E8475A;
-    --st-team-3: #34A464;
+    --st-team-1: #E8475A;
+    --st-team-2: #34A464;
+    --st-team-3: #6FA3EA;
     --st-team-4: #B391EE;
-    --st-team-5: #6FA3EA;
-    --st-team-6: #E9B940;
+    --st-team-5: #E9B940;
+    --st-team-6: #C3CDD7;
     --st-team-lift: 40%;
 
     --st-bg: #0B1620;
@@ -205,12 +205,12 @@
 [data-layout="curling"][data-theme="dark"] {
   color-scheme: dark;
 
-  --st-team-1: #C3CDD7;
-  --st-team-2: #E8475A;
-  --st-team-3: #34A464;
+  --st-team-1: #E8475A;
+  --st-team-2: #34A464;
+  --st-team-3: #6FA3EA;
   --st-team-4: #B391EE;
-  --st-team-5: #6FA3EA;
-  --st-team-6: #E9B940;
+  --st-team-5: #E9B940;
+  --st-team-6: #C3CDD7;
   --st-team-lift: 40%;
 
   --st-bg: #0B1620;

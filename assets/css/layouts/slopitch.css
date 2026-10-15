@@ -45,10 +45,10 @@
 
   /* Team palette, in the order the standings list the sample teams */
   --st-team-1: #B23A2E;
-  --st-team-2: #5C3F8F;
+  --st-team-2: #7A5A3A;
   --st-team-3: #2F5DA8;
   --st-team-4: #BE8210;
-  --st-team-5: #7A5A3A;
+  --st-team-5: #5C3F8F;
   --st-team-6: #2B8C8C;
   --st-team-lift: 0%;
 
@@ -141,10 +141,10 @@
     color-scheme: dark;
 
     --st-team-1: #F27463;
-    --st-team-2: #B9A3F0;
+    --st-team-2: #A8825A;
     --st-team-3: #6E98EA;
     --st-team-4: #F0C04A;
-    --st-team-5: #A8825A;
+    --st-team-5: #B9A3F0;
     --st-team-6: #5CC7C2;
     --st-team-lift: 37%;
 
@@ -201,10 +201,10 @@
   color-scheme: dark;
 
   --st-team-1: #F27463;
-  --st-team-2: #B9A3F0;
+  --st-team-2: #A8825A;
   --st-team-3: #6E98EA;
   --st-team-4: #F0C04A;
-  --st-team-5: #A8825A;
+  --st-team-5: #B9A3F0;
   --st-team-6: #5CC7C2;
   --st-team-lift: 37%;
 

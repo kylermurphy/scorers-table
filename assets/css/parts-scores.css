@@ -4,7 +4,7 @@
  * pages.  Anatomy: docs/design.md, "Part anatomy > Scores".
  *
  * Reads --st-* roles only (tokens.css, layouts/*.css); no raw colours.  Translucent
- * colours are color-mix(in oklab, var(--st-role) N%, transparent).  A layout restyles a
+ * colours are color-mix(in oklab, <role> N%, transparent).  A layout restyles a
  * part through its tokens first; the [data-layout="<id>"] rules are only for shapes the
  * approved mockups draw differently.  Phone first (360-390 px).
  *
@@ -70,7 +70,13 @@
 .st-legend__key--won {
   height: 0.1875rem;
   border-radius: 0;
-  background: var(--st-won-line);
+  background: var(--ls-won, var(--st-won-line));
+}
+[data-layout="classic"] .st-legend__key--won {
+  --ls-won: var(--st-accent);
+}
+[data-layout="classic"] .st-final .st-legend__key--won {
+  --ls-won: var(--st-won-line);
 }
 .st-legend__key--limit,
 .st-legend__key--x {
@@ -108,7 +114,7 @@
   font-family: var(--st-font-body);
   font-size: var(--st-fs-small);
 }
-.st-legend__key--text {
+[data-layout] .st-legend__key--text {
   background: none;
   color: var(--st-mark-text);
   display: inline-block;
@@ -220,6 +226,12 @@
   margin-right: 0.4375rem;
   vertical-align: 0.06em;
 }
+/* In a result card the name may wrap on a narrow phone so the total stays in view. */
+.st-line-score--card tbody .st-line-score__team {
+  min-width: 4.5rem;
+  white-space: normal;
+  line-height: 1.15;
+}
 .st-line-score tr.is-winner .st-line-score__team {
   font-weight: 700;
 }
@@ -272,11 +284,11 @@
   --ls-tot-w: 3.5rem;
 }
 .st-line-score--full.st-line-score--ends {
-  --ls-col: 1.8125rem;
+  --ls-col: 1.625rem;
   --ls-h: 3.375rem;
   --ls-fs: 1.375rem;
   --ls-tot-fs: 1.875rem;
-  --ls-tot-w: 3.25rem;
+  --ls-tot-w: 3rem;
 }
 .st-line-score--full.st-line-score--innings {
   --ls-col: 1.625rem;
@@ -295,6 +307,7 @@
   --ls-tot-w: 2.75rem;
 }
 .st-line-score--card.st-line-score--ends {
+  --ls-col: 1.125rem;
   --ls-name-fs: var(--st-step-base);
 }
 .st-line-score--card.st-line-score--innings {
@@ -322,7 +335,14 @@
 /* quarters / periods: the highlighted quarter is underlined */
 .st-line-score--quarters tbody td.is-won,
 .st-line-score--periods tbody td.is-won {
-  box-shadow: inset 0 calc(var(--st-border-strong) * -1.5) 0 var(--st-won-line);
+  box-shadow: inset 0 calc(var(--st-border-strong) * -1.5) 0 var(--ls-won, var(--st-won-line));
+}
+/* Classic's won-line is white (made for its coloured panel): off the panel, underline in the accent. */
+[data-layout="classic"] .st-line-score {
+  --ls-won: var(--st-accent);
+}
+[data-layout="classic"] .st-final .st-line-score {
+  --ls-won: var(--st-won-line);
 }
 
 /* cell states */
@@ -341,6 +361,9 @@
 }
 .st-line-score :is(thead th, tbody td).is-blank {
   background: var(--st-blank-bg);
+}
+.st-line-score thead th.is-blank {
+  color: var(--ls-text, var(--st-text));
 }
 .st-line-score thead th.is-open,
 .st-line-score tbody td.is-open {
@@ -835,7 +858,7 @@
   letter-spacing: var(--st-display-tracking);
   line-height: 1.1;
   text-transform: var(--st-display-transform);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 .st-final__team:last-child .st-final__name {
   flex-direction: row-reverse;
@@ -855,7 +878,7 @@
   align-items: baseline;
   gap: var(--st-space-sm);
   font-family: var(--st-font-num);
-  font-size: min(var(--st-fs-score-hero), 15vw);
+  font-size: min(var(--st-fs-score-hero), 13vw);
   font-weight: var(--st-w-display);
   line-height: 1;
   font-variant-numeric: var(--st-num-variant);
@@ -1449,6 +1472,11 @@
   color: var(--st-hot);
 }
 .st-page a.st-player {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--st-tap);
+  min-height: var(--st-tap);
+  margin-block: calc((var(--st-tap) - 1lh) / -2);
   font-weight: var(--st-w-strong);
   color: var(--st-text);
   text-decoration: none;

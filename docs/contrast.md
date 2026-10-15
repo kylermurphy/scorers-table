@@ -19,27 +19,24 @@
 |---|---|---:|---:|---:|---:|---:|
 | basketball | light | 71 | 69 | 0 | 0 | 2 |
 | basketball | dark | 71 | 69 | 0 | 0 | 2 |
-| classic | light | 70 | 66 | 1 | 0 | 3 |
-| classic | dark | 71 | 68 | 0 | 0 | 3 |
-| curling | light | 69 | 66 | 1 | 1 | 1 |
-| curling | dark | 72 | 71 | 0 | 0 | 1 |
-| hockey | light | 70 | 68 | 1 | 0 | 1 |
-| hockey | dark | 72 | 70 | 0 | 0 | 2 |
-| scoreboard | light | 70 | 68 | 1 | 0 | 1 |
-| scoreboard | dark | 71 | 71 | 0 | 0 | 0 |
-| slopitch | light | 68 | 67 | 0 | 0 | 1 |
-| slopitch | dark | 70 | 68 | 0 | 0 | 2 |
+| classic | light | 69 | 66 | 0 | 0 | 3 |
+| classic | dark | 70 | 67 | 0 | 0 | 3 |
+| curling | light | 68 | 66 | 0 | 1 | 1 |
+| curling | dark | 71 | 70 | 0 | 0 | 1 |
+| hockey | light | 69 | 68 | 0 | 0 | 1 |
+| hockey | dark | 71 | 69 | 0 | 0 | 2 |
+| scoreboard | light | 69 | 68 | 0 | 0 | 1 |
+| scoreboard | dark | 70 | 70 | 0 | 0 | 0 |
+| slopitch | light | 67 | 66 | 0 | 0 | 1 |
+| slopitch | dark | 69 | 67 | 0 | 0 | 2 |
 
 Pairs that need no enforcement (decor) count as passing unless they miss their target.
 
-**4 enforced pair(s) fail.** The two dark blocks of every file are identical.
+**All enforced pairs pass.** The two dark blocks of every file are identical.
 
 ## Failures
 
-* **classic, light theme, `won-line/surface`** (ui 3): #FFFFFF on #FFFFFF = **1.00:1**, needs 3:1.
-* **curling, light theme, `won-line/score-bg`** (ui 3): #1D4E89 on #0E2233 = **1.93:1**, needs 3:1.
-* **hockey, light theme, `won-line/score-bg`** (ui 3): #1D4E89 on #14181F = **2.12:1**, needs 3:1.
-* **scoreboard, light theme, `won-line/surface`** (ui 3): #FFC233 on #FFFFFF = **1.61:1**, needs 3:1.
+None.
 
 ## Every pair
 
@@ -93,8 +90,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2F3D5C | #0B1B3F | 1.56 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #631F23 | #FFE8E7 | 10.25 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #FFA3A2 | #FFFFFF | 1.90 | 3 | decor, below target | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #FF5C66 | #FFFFFF | 3.01 | 3 | pass |  |
-| `won-line/score-bg` | ui | #FF5C66 | #032F98 | 3.74 | 3 | pass |  |
+| `won-line/surface` | ui | #FF5C66 | #FFFFFF | 3.01 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/panel-bg` | ui | #FF5C66 | #032F98 | 3.74 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #032F98 | #E4EAF6 | 9.33 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #17602A | #DDF1E0 | 6.46 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #5A6478 | #FFFFFF | 5.95 | 4.5 | pass |  |
@@ -169,8 +166,8 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #3A4268 | #18214D | 1.58 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #FFC5C4 | #2E0A0C | 12.04 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #9E363C | #131B34 | 2.46 | 3 | decor, below target | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #FF5C66 | #131B34 | 5.65 | 3 | pass |  |
-| `won-line/score-bg` | ui | #FF5C66 | #022274 | 4.70 | 3 | pass |  |
+| `won-line/surface` | ui | #FF5C66 | #131B34 | 5.65 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
+| `won-line/panel-bg` | ui | #FF5C66 | #022274 | 4.70 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #9AB1DC | #0E2769 | 6.40 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #8FDC9A | #17361F | 8.12 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #9AA6C4 | #131B34 | 6.98 | 4.5 | pass |  |
@@ -245,8 +242,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2F3D5C | #0B1B3F | 1.56 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #9E1B32 | #F7E5E4 | 6.50 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #E2AEAF | #FFFFFF | 1.92 | 3 | decor, below target | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #FFFFFF | #FFFFFF | 1.00 | 3 | **FAIL** |  |
-| `won-line/score-bg` | ui | #FFFFFF | #1D3A6E | 11.15 | 3 | pass |  |
+| `won-line/panel-bg` | ui | #FFFFFF | #1D3A6E | 11.15 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #1D3A6E | #E6EAF0 | 9.23 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #17602A | #DDF1E0 | 6.46 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #1D3A6E | #E6EAF0 | 9.23 | 4.5 | pass |  |
@@ -320,8 +316,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #26324A | #060A14 | 1.54 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #DA9B9C | #510915 | 6.53 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #A93643 | #141D30 | 2.64 | 3 | decor, below target | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #FFFFFF | #141D30 | 16.82 | 3 | pass |  |
-| `won-line/score-bg` | ui | #FFFFFF | #1D3A6E | 11.15 | 3 | pass |  |
+| `won-line/panel-bg` | ui | #FFFFFF | #1D3A6E | 11.15 | 3 | pass | the underline on the coloured final panel |
 | `badge-text/badge-bg` | text | #AAB6CC | #192D51 | 6.68 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #8FDC9A | #17361F | 8.12 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #C9D1DF | #192D51 | 8.90 | 4.5 | pass |  |
@@ -395,8 +390,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #324351 | #0E2233 | 1.58 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #A60B24 | #FDE4E3 | 6.45 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #D95658 | #FFFFFF | 3.87 | 3 | decor | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass |  |
-| `won-line/score-bg` | ui | #1D4E89 | #0E2233 | 1.93 | 3 | **FAIL** |  |
+| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #0E2233 | #E7ECF3 | 13.65 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #1D4E89 | 8.38 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #0E2233 | #E3ECF4 | 13.56 | 4.5 | pass |  |
@@ -406,18 +400,18 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `score-line/score-bg` | decor | #0E2233 | #0E2233 | 1.00 |  | decor | decorative divider; carries no information |
 | `bar-fill/bar-track` | ui | #56636F | #D5E0EA | 4.59 | 3 | pass |  |
 | `bar-lead/bar-track` | ui | #1D4E89 | #D5E0EA | 6.26 | 3 | pass |  |
-| `team-1/surface` | decor | #56636F | #FFFFFF | 6.15 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-1/bg` | decor | #56636F | #EEF4F8 | 5.55 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/surface` | decor | #C8102E | #FFFFFF | 5.88 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/bg` | decor | #C8102E | #EEF4F8 | 5.30 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-3/surface` | decor | #2E7D4F | #FFFFFF | 5.04 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-3/bg` | decor | #2E7D4F | #EEF4F8 | 4.54 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-1/surface` | decor | #C8102E | #FFFFFF | 5.88 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-1/bg` | decor | #C8102E | #EEF4F8 | 5.30 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/surface` | decor | #2E7D4F | #FFFFFF | 5.04 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/bg` | decor | #2E7D4F | #EEF4F8 | 4.54 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-3/surface` | decor | #1D4E89 | #FFFFFF | 8.38 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-3/bg` | decor | #1D4E89 | #EEF4F8 | 7.56 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/surface` | decor | #6B3FA0 | #FFFFFF | 7.38 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/bg` | decor | #6B3FA0 | #EEF4F8 | 6.65 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/surface` | decor | #1D4E89 | #FFFFFF | 8.38 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/bg` | decor | #1D4E89 | #EEF4F8 | 7.56 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-6/surface` | decor | #B07D00 | #FFFFFF | 3.63 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-6/bg` | decor | #B07D00 | #EEF4F8 | 3.27 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/surface` | decor | #B07D00 | #FFFFFF | 3.63 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/bg` | decor | #B07D00 | #EEF4F8 | 3.27 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-6/surface` | decor | #56636F | #FFFFFF | 6.15 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-6/bg` | decor | #56636F | #EEF4F8 | 5.55 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `league-ink/league-base` | text | #FFFFFF | #1D4E89 | 8.38 | 4.5 | pass |  |
 
 ### curling, dark
@@ -470,8 +464,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2B3138 | #060D15 | 1.48 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #EB8D8A | #53030D | 6.28 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #D85154 | #13222F | 4.02 | 3 | decor | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #9DB2CE | #13222F | 7.47 | 3 | pass |  |
-| `won-line/score-bg` | ui | #9DB2CE | #16324F | 6.04 | 3 | pass |  |
+| `won-line/surface` | ui | #9DB2CE | #13222F | 7.47 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #E8F0F6 | #0E2D53 | 11.99 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #4E74A4 | 4.81 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #E8F0F6 | #24394B | 10.34 | 4.5 | pass |  |
@@ -481,18 +474,18 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `score-line/score-bg` | decor | #9DB2CE | #16324F | 6.04 |  | decor | decorative divider; carries no information |
 | `bar-fill/bar-track` | ui | #9DB0C2 | #24394B | 5.34 | 3 | pass |  |
 | `bar-lead/bar-track` | ui | #9DB2CE | #24394B | 5.50 | 3 | pass |  |
-| `team-1/surface` | decor | #C3CDD7 | #13222F | 10.04 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-1/bg` | decor | #C3CDD7 | #0B1620 | 11.33 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/surface` | decor | #E8475A | #13222F | 4.22 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/bg` | decor | #E8475A | #0B1620 | 4.76 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-3/surface` | decor | #34A464 | #13222F | 5.11 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-3/bg` | decor | #34A464 | #0B1620 | 5.77 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-1/surface` | decor | #E8475A | #13222F | 4.22 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-1/bg` | decor | #E8475A | #0B1620 | 4.76 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/surface` | decor | #34A464 | #13222F | 5.11 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/bg` | decor | #34A464 | #0B1620 | 5.77 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-3/surface` | decor | #6FA3EA | #13222F | 6.24 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-3/bg` | decor | #6FA3EA | #0B1620 | 7.04 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/surface` | decor | #B391EE | #13222F | 6.32 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/bg` | decor | #B391EE | #0B1620 | 7.13 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/surface` | decor | #6FA3EA | #13222F | 6.24 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/bg` | decor | #6FA3EA | #0B1620 | 7.04 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-6/surface` | decor | #E9B940 | #13222F | 8.84 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-6/bg` | decor | #E9B940 | #0B1620 | 9.98 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/surface` | decor | #E9B940 | #13222F | 8.84 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/bg` | decor | #E9B940 | #0B1620 | 9.98 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-6/surface` | decor | #C3CDD7 | #13222F | 10.04 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-6/bg` | decor | #C3CDD7 | #0B1620 | 11.33 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `league-ink/league-base` | text | #FFFFFF | #1D4E89 | 8.38 | 4.5 | pass |  |
 | `league-ink/league-dim` | text | #FFFFFF | #0E2D53 | 13.82 | 4.5 | pass |  |
 | `league-ink/league-lift` | text | #FFFFFF | #4E74A4 | 4.81 | 4.5 | pass |  |
@@ -547,8 +540,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #373A40 | #14181F | 1.56 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #151A22 | #FEF3E2 | 15.90 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #966700 | #FFFFFF | 4.95 | 3 | decor | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass |  |
-| `won-line/score-bg` | ui | #1D4E89 | #14181F | 2.12 | 3 | **FAIL** |  |
+| `won-line/surface` | ui | #1D4E89 | #FFFFFF | 8.38 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #14181F | #F2A900 | 8.85 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #1D4E89 | 8.38 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #14181F | #EDF1F5 | 15.67 | 4.5 | pass |  |
@@ -623,8 +615,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2E2F33 | #090B0F | 1.47 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #F2A900 | #190E00 | 9.46 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #F2A900 | #212C39 | 7.04 | 3 | decor | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #96ADCB | #212C39 | 6.15 | 3 | pass |  |
-| `won-line/score-bg` | ui | #96ADCB | #090B0F | 8.56 | 3 | pass |  |
+| `won-line/surface` | ui | #96ADCB | #212C39 | 6.15 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #14181F | #F2A900 | 8.85 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #386298 | 6.23 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #EEF2F7 | #2E3A4B | 10.24 | 4.5 | pass |  |
@@ -699,8 +690,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2A2A2A | #111111 | 1.31 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #FFC233 | #FFFFFF | 1.61 | 3 | decor, below target | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #FFC233 | #FFFFFF | 1.61 | 3 | **FAIL** |  |
-| `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass |  |
+| `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #111111 | 11.70 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #111111 | #FFC233 | 11.70 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #111111 | #F2F2F2 | 16.86 | 4.5 | pass |  |
@@ -774,8 +764,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2A2A2A | #000000 | 1.46 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
 | `mark-line/surface` | decor | #FFC233 | #1A1A1A | 10.78 | 3 | decor | outline of a tinted cell; the cell text colour (mark-text) and a visually-hidden label carry the meaning |
-| `won-line/surface` | ui | #FFC233 | #1A1A1A | 10.78 | 3 | pass |  |
-| `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass |  |
+| `won-line/score-bg` | ui | #FFC233 | #000000 | 13.01 | 3 | pass | the underline on Scoreboard's black digit tiles |
 | `badge-text/badge-bg` | text | #FFC233 | #000000 | 13.01 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #111111 | #FFC233 | 11.70 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #F2F2F2 | #232323 | 14.03 | 4.5 | pass |  |
@@ -848,8 +837,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #3A3731 | #22201C | 1.37 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #964324 | #FFFFFF | 6.71 | 4.5 | pass |  |
 | `mark-line/surface` | ui | #B5532E | #FFFFFF | 4.95 | 3 | pass | slo-pitch draws the run-limit circle with it |
-| `won-line/surface` | ui | #2F6B3A | #FFFFFF | 6.39 | 3 | pass |  |
-| `won-line/score-bg` | ui | #2F6B3A | #FFFFFF | 6.39 | 3 | pass |  |
+| `won-line/surface` | ui | #2F6B3A | #FFFFFF | 6.39 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #22201C | #EAE0C9 | 12.39 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #22201C | #F3EBDA | 13.71 | 4.5 | pass |  |
@@ -861,14 +849,14 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `bar-lead/bar-track` | ui | #2F6B3A | #E6DDC8 | 4.73 | 3 | pass |  |
 | `team-1/surface` | decor | #B23A2E | #FFFFFF | 5.93 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-1/bg` | decor | #B23A2E | #FBF7EE | 5.55 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/surface` | decor | #5C3F8F | #FFFFFF | 8.19 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/bg` | decor | #5C3F8F | #FBF7EE | 7.66 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/surface` | decor | #7A5A3A | #FFFFFF | 6.26 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/bg` | decor | #7A5A3A | #FBF7EE | 5.86 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-3/surface` | decor | #2F5DA8 | #FFFFFF | 6.45 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-3/bg` | decor | #2F5DA8 | #FBF7EE | 6.03 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/surface` | decor | #BE8210 | #FFFFFF | 3.28 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/bg` | decor | #BE8210 | #FBF7EE | 3.07 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/surface` | decor | #7A5A3A | #FFFFFF | 6.26 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/bg` | decor | #7A5A3A | #FBF7EE | 5.86 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/surface` | decor | #5C3F8F | #FFFFFF | 8.19 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/bg` | decor | #5C3F8F | #FBF7EE | 7.66 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-6/surface` | decor | #2B8C8C | #FFFFFF | 4.01 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-6/bg` | decor | #2B8C8C | #FBF7EE | 3.75 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `league-ink/league-base` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
@@ -922,8 +910,7 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `footer-line/footer-bg` | decor | #2A3326 | #0B0F0B | 1.47 |  | decor | decorative divider; carries no information |
 | `mark-text/mark-bg` | text | #D08970 | #22201A | 5.81 | 4.5 | pass |  |
 | `mark-line/surface` | ui | #D08970 | #22201A | 5.81 | 3 | pass | slo-pitch draws the run-limit circle with it |
-| `won-line/surface` | ui | #A0BBA2 | #22201A | 7.85 | 3 | pass |  |
-| `won-line/score-bg` | ui | #A0BBA2 | #22201A | 7.85 | 3 | pass |  |
+| `won-line/surface` | ui | #A0BBA2 | #22201A | 7.85 | 3 | pass | the won-period underline on the card surface (parts-scores.css); Classic and Scoreboard draw it elsewhere |
 | `badge-text/badge-bg` | text | #F4ECD9 | #3A362C | 10.23 | 4.5 | pass |  |
 | `win-text/win-bg` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
 | `rank-text/rank-bg` | text | #F4ECD9 | #3A362C | 10.23 | 4.5 | pass |  |
@@ -935,14 +922,14 @@ Pairs that need no enforcement (decor) count as passing unless they miss their t
 | `bar-lead/bar-track` | ui | #A0BBA2 | #3A362C | 5.80 | 3 | pass |  |
 | `team-1/surface` | decor | #F27463 | #22201A | 5.78 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-1/bg` | decor | #F27463 | #131A14 | 6.28 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/surface` | decor | #B9A3F0 | #22201A | 7.41 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-2/bg` | decor | #B9A3F0 | #131A14 | 8.06 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/surface` | decor | #A8825A | #22201A | 4.65 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-2/bg` | decor | #A8825A | #131A14 | 5.06 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-3/surface` | decor | #6E98EA | #22201A | 5.69 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-3/bg` | decor | #6E98EA | #131A14 | 6.19 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/surface` | decor | #F0C04A | #22201A | 9.57 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-4/bg` | decor | #F0C04A | #131A14 | 10.41 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/surface` | decor | #A8825A | #22201A | 4.65 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
-| `team-5/bg` | decor | #A8825A | #131A14 | 5.06 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/surface` | decor | #B9A3F0 | #22201A | 7.41 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
+| `team-5/bg` | decor | #B9A3F0 | #131A14 | 8.06 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-6/surface` | decor | #5CC7C2 | #22201A | 8.06 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `team-6/bg` | decor | #5CC7C2 | #131A14 | 8.77 | 3 | decor | team chips never carry information alone (the team name is always beside them) |
 | `league-ink/league-base` | text | #FFFFFF | #2F6B3A | 6.39 | 4.5 | pass |  |
@@ -967,7 +954,7 @@ Each layout with the league's own colour in place of the layout's default (`--st
 * league.yml colour #9E1B32: the theme button ring on the header is 2.7:1 in the light theme (needs 3:1). Pick a darker colour.
 * league.yml colour #9E1B32: small panel text on rows in the panel is 4.45:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #9E1B32: panel labels on rows in the panel is 4.45:1 in the light theme (needs 4.5:1). Pick a darker colour.
-* league.yml colour #9E1B32: the won-period underline on the score panel is 2.6:1 in the light theme (needs 3:1). Pick a darker colour.
+* league.yml colour #9E1B32: the won-period underline on the next-game panel is 2.6:1 in the light theme (needs 3:1). Pick a darker colour.
 * league.yml colour #9E1B32: the active tab underline is 2.8:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #9E1B32: the theme button ring on the header is 2.99:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 
@@ -977,7 +964,7 @@ Each layout with the league's own colour in place of the layout's default (`--st
 * league.yml colour #2F6B3A: the theme button ring on the header is 2.6:1 in the light theme (needs 3:1). Pick a darker colour.
 * league.yml colour #2F6B3A: small panel text on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #2F6B3A: panel labels on rows in the panel is 3.6:1 in the light theme (needs 4.5:1). Pick a darker colour.
-* league.yml colour #2F6B3A: the won-period underline on the score panel is 2.1:1 in the light theme (needs 3:1). Pick a darker colour.
+* league.yml colour #2F6B3A: the won-period underline on the next-game panel is 2.1:1 in the light theme (needs 3:1). Pick a darker colour.
 * league.yml colour #2F6B3A: small header text on the header is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #2F6B3A: small nav text on the nav bar is 4.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #2F6B3A: the active tab underline is 2.4:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
@@ -1000,7 +987,7 @@ Each layout with the league's own colour in place of the layout's default (`--st
 * league.yml colour #C98A12: small panel text on rows in the panel is 2.1:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: panel labels on rows in the panel is 2.1:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: text on the panel tile on the panel tile is 4.3:1 in the light theme (needs 4.5:1). Pick a darker colour.
-* league.yml colour #C98A12: the won-period underline on the score panel is 1.0:1 in the light theme (needs 3:1). Pick a darker colour.
+* league.yml colour #C98A12: the won-period underline on the next-game panel is 1.0:1 in the light theme (needs 3:1). Pick a darker colour.
 * league.yml colour #C98A12: badge text on badges is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: scores on the score panel is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour.
@@ -1017,7 +1004,7 @@ Each layout with the league's own colour in place of the layout's default (`--st
 * league.yml colour #C98A12: small panel text on rows in the panel is 3.3:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: panel labels on rows in the panel is 3.3:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: text on the panel tile on the panel tile is 4.3:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
-* league.yml colour #C98A12: the won-period underline on the score panel is 1.6:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
+* league.yml colour #C98A12: the won-period underline on the next-game panel is 1.6:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: losing scores on the score panel is 3.8:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: white text on it is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 
@@ -1044,7 +1031,7 @@ Each layout with the league's own colour in place of the layout's default (`--st
 * league.yml colour #C98A12: small panel text on rows in the panel is 2.2:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: panel labels on rows in the panel is 2.2:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: text on the panel tile on the panel tile is 2.4:1 in the light theme (needs 4.5:1). Pick a darker colour.
-* league.yml colour #C98A12: the won-period underline on the score panel is 2.9:1 in the light theme (needs 3:1). Pick a darker colour.
+* league.yml colour #C98A12: the won-period underline on the next-game panel is 2.9:1 in the light theme (needs 3:1). Pick a darker colour.
 * league.yml colour #C98A12: badge text on badges is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: rank numbers on rank numbers' background is 2.7:1 in the light theme (needs 4.5:1). Pick a darker colour.
 * league.yml colour #C98A12: the first-place rank on the first-place rank background is 2.9:1 in the light theme (needs 4.5:1). Pick a darker colour.
@@ -1059,7 +1046,7 @@ Each layout with the league's own colour in place of the layout's default (`--st
 * league.yml colour #C98A12: small panel text on rows in the panel is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: panel labels on rows in the panel is 2.2:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: text on the panel tile on the panel tile is 2.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
-* league.yml colour #C98A12: the won-period underline on the score panel is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
+* league.yml colour #C98A12: the won-period underline on the next-game panel is 2.9:1 in the dark theme (needs 3:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: scores on the score panel is 2.9:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: losing scores on the score panel is 2.4:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
 * league.yml colour #C98A12: white text on the lightened version of it is 2.6:1 in the dark theme (needs 4.5:1). Set colour_dark to a darker colour (the dark theme uses colour until you do).
