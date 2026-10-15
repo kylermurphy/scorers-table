@@ -1030,10 +1030,10 @@
 }
 
 :is([data-layout="basketball"], [data-layout="classic"]) .st-final :is(thead th, tbody td).is-blank {
-  background: color-mix(in oklab, var(--st-panel-text) 14%, transparent);
+  background: color-mix(in oklab, var(--st-panel-text) 8%, transparent);
 }
 :is([data-layout="basketball"], [data-layout="classic"]) .st-final .st-legend__key--blank {
-  background: color-mix(in oklab, var(--st-panel-text) 14%, transparent);
+  background: color-mix(in oklab, var(--st-panel-text) 8%, transparent);
   border-color: var(--st-panel-muted);
 }
 
@@ -1103,9 +1103,9 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(color-mix(in oklab, var(--st-link) 24%, transparent), color-mix(in oklab, var(--st-link) 24%, transparent)) 28% 0 / 4px 100% no-repeat,
-    linear-gradient(color-mix(in oklab, var(--st-hot) 30%, transparent), color-mix(in oklab, var(--st-hot) 30%, transparent)) 50% 0 / 4px 100% no-repeat,
-    linear-gradient(color-mix(in oklab, var(--st-link) 24%, transparent), color-mix(in oklab, var(--st-link) 24%, transparent)) 72% 0 / 4px 100% no-repeat;
+    linear-gradient(color-mix(in oklab, var(--st-link) 16%, transparent), color-mix(in oklab, var(--st-link) 16%, transparent)) 28% 0 / 4px 100% no-repeat,
+    linear-gradient(color-mix(in oklab, var(--st-hot) 16%, transparent), color-mix(in oklab, var(--st-hot) 16%, transparent)) 50% 0 / 4px 100% no-repeat,
+    linear-gradient(color-mix(in oklab, var(--st-link) 16%, transparent), color-mix(in oklab, var(--st-link) 16%, transparent)) 72% 0 / 4px 100% no-repeat;
 }
 [data-layout="hockey"] .st-final > * {
   position: relative;
