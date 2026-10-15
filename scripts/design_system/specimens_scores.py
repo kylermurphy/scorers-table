@@ -305,8 +305,7 @@ def render_result_cards(ctx: Ctx) -> str:
     res = _results(L)
     out = []
     if ctx.sport == "curling":
-        items = "".join(legend_item(legend_kind(t), t) for t in L["results_legend"])
-        out.append(legend([items.replace("", "")] if False else [legend_item(legend_kind(t), t) for t in L["results_legend"]]))
+        out.append(legend([legend_item(legend_kind(t), t) for t in L["results_legend"]]))
         out.append('<div class="st-list">' + "".join(result_card(ctx, r, True) for r in res) + "</div>")
     elif ctx.sport == "slopitch":
         out.append('<div class="st-list">' + "".join(result_card(ctx, r, True) for r in res) + "</div>")
@@ -396,7 +395,6 @@ def final_head(ctx: Ctx) -> str:
             f'<span class="st-final__name">{chip(tt, "lg")}<span>{esc(tt["name"])}{badge}</span></span>'
             f'<span class="st-final__record">{esc(rec)}</span></div>')
         nums.append(f'<span class="st-final__num{"" if t["winner"] else " is-dim"}">{t["score"]}</span>')
-    a, b = f["teams"]
     score = (f'<div class="st-final__score"><span class="st-visually-hidden">Final score: </span>'
              f'{nums[0]}<span class="st-final__sep" aria-hidden="true">–</span>{nums[1]}</div>')
     return f'<div class="st-final__head">{"".join(parts)}{teams[0]}{score}{teams[1]}</div>'
@@ -449,11 +447,10 @@ def render_line_score(ctx: Ctx) -> str:
         '<p class="st-label" style="margin-top:1.25rem">Card size (inside a result card)</p>',
         f'<div class="st-card" style="padding:.75rem .875rem">{ls_from_result(ctx, r, "card", region=True)}</div>',
     ]
-    if ctx.sport in ("curling", "slopitch"):
-        # a second card with a mark and a void cell: the last result of the list
-        r2 = L["results"][-1] if ctx.sport == "curling" else L["results"][0]
-        if ctx.sport == "curling":
-            out.append(f'<div class="st-card" style="padding:.75rem .875rem;margin-top:.625rem">{ls_from_result(ctx, r2, "card", region=True)}</div>')
+    if ctx.sport == "curling":
+        # the last draw: a stolen end, a blank end and two unplayed ends (X)
+        r2 = L["results"][-1]
+        out.append(f'<div class="st-card" style="padding:.75rem .875rem;margin-top:.625rem">{ls_from_result(ctx, r2, "card", region=True)}</div>')
     ls = L["game"]["line_score"]
     leg = []
     if ctx.sport == "basketball":

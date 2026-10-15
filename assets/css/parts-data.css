@@ -158,11 +158,11 @@
 
 /* =================================================================== leader tile */
 
-.st-leader-group {
+.st-page .st-leader-group {
   margin-top: var(--st-space-lg);
   margin-bottom: var(--st-space-xs);
 }
-.st-leader-group:first-child {
+.st-page .st-leader-group:first-child {
   margin-top: 0;
 }
 .st-leader-grid {
@@ -512,10 +512,10 @@
    (Scoreboard puts the time first).  Colours come from three local variables that
    a panel overrides, so one row works on the page and on a panel. */
 
-.st-specimen-label {
+.st-page .st-specimen-label {
   margin: var(--st-space-lg) 0 var(--st-space-xs);
 }
-.st-specimen-label:first-child {
+.st-page .st-specimen-label:first-child {
   margin-top: 0;
 }
 
@@ -726,7 +726,7 @@
   text-transform: uppercase;
   color: var(--ng-label);
 }
-.st-next-game__date {
+.st-page .st-next-game__date {
   margin-top: var(--st-space-3xs);
   font-family: var(--st-font-display);
   font-size: var(--st-step-4xl);
@@ -735,7 +735,7 @@
   line-height: 1.1;
   text-transform: var(--st-display-transform);
 }
-.st-next-game__where {
+.st-page .st-next-game__where {
   margin-top: var(--st-space-3xs);
   font-size: var(--st-fs-small);
   color: var(--ng-muted);
@@ -746,7 +746,7 @@
   gap: var(--st-space-sm);
   margin-top: var(--st-space-md);
 }
-.st-next-game__group-label {
+.st-page .st-next-game__group-label {
   margin-top: 0.875rem;
   font-size: var(--st-fs-meta);
   font-weight: 700;
@@ -791,7 +791,7 @@
   padding: var(--st-space-md);
 }
 .st-next-game--demo .st-next-game__rows:first-child,
-.st-next-game--demo .st-next-game__group-label:first-child {
+.st-page .st-next-game--demo .st-next-game__group-label:first-child {
   margin-top: 0;
 }
 
