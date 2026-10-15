@@ -33,7 +33,7 @@
  *          and bars use the colour itself.
  *   dark   Links, accent, focus ring, rank 1, leader bar, won line and panel edge use
  *          the league colour 70% toward white (--st-tint: 70%): a near-black colour
- *          such as #000 needs about 65% to reach 4.5:1 on the dark paper and for the
+ *          such as #000 needs about 66% to reach 4.5:1 on the dark paper and for the
  *          dark text on the rank 1 chip. The header and panel keep their default
  *          dark derivation (the colour 25% toward black).
  */

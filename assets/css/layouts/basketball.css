@@ -6,12 +6,34 @@
  * Basketball-Home, Basketball-Game and Basketball-Home-Dark; dark values from
  * docs/dark-palettes.md ("Basketball").
  *
- * League colour: deep blue (default #032F98), second colour coral (#FF5C66: tab underline,
- * won-quarter underline, hot tile edge, badge ring). A league that sets --st-league-color
- * recolours the header bar, links, big numbers, table rule, buttons and next-game panel in
- * both themes. The dark header is a night sky mixed from the league colour and the page
- * ink. The sunrise stops, hills and court arcs in the scenes are fixed (a neutral scene).
+ * League colour: deep blue (default #032F98). The layout's own accent is coral
+ * (--st-layout-accent #FF5C66: tab underline, won-quarter underline, hot tile edge, mark
+ * tints); a league never sets it. A league that sets --st-league-color recolours the header
+ * bar, links, big numbers, table rule, buttons and next-game panel in both themes. The dark
+ * header is a night sky mixed from the league colour and the page ink. The sunrise stops,
+ * hills and court arcs in the scenes are fixed (a neutral scene).
  * Dark knobs: --st-dim 18% (panel = league colour toward black), --st-tint 62% (text accent).
+ *
+ * Custom-colour mode. Stage 4 writes data-league-colour on <html> next to data-layout whenever
+ * a league sets its colour. Without the attribute this file is exactly the approved mockup
+ * (default blue, coral accent). With it, the three [data-league-colour] blocks near the end
+ * re-derive every role that depends on the league colour, so that ANY colour with white text
+ * at 4.5:1 or better passes every pair in docs/contrast.md in both themes (checked on the
+ * eight ALT_LEAGUE_COLOURS and on ~700 random colours down to white-on-colour 4.5:1):
+ *   - the fixed coral cannot be 3:1 on an arbitrary colour, so the tab underline, the won-line
+ *     (on the final panel) and the footer accent come from the league colour (a 90% white
+ *     tint, or the dark-page tint) instead;
+ *   - light: the header top is the colour darkened 8% and the next-game / score panels are
+ *     --st-dim darker, because white text, and the translucent score box (white 9%) behind
+ *     it, on a colour that only just passes 4.5:1 cannot reach 4.5:1; row overlays turn from
+ *     white to black; muted and label text mix more white; link and badge text are the
+ *     colour nudged toward the ink so they hold 4.5:1 on the grey page too;
+ *   - dark: --st-tint is raised (62% to 70%) so even a black league colour gives readable
+ *     links; the night-sky header takes less of the colour (so white and muted text stay
+ *     4.5:1 on a light colour) and the muted texts mix more white.
+ * The coral marks, `hot` and the lead bar stay as they are: they sit on the page, not on a
+ * league-coloured ground. Off the final panel the won-quarter underline takes --st-accent
+ * (see the rules at the end), the same split Classic makes.
  */
 
 [data-layout="basketball"] {
@@ -128,6 +150,17 @@
     --st-team-4: #6CC46F;
     --st-team-5: #B08CF0;
     --st-team-6: #F27AB0;
+    /* Dark lift of a league's own team colour (st-team--custom; the six palette colours above are
+       already tuned). 53% is the least white mix that lifts black to 3:1 on the dark surface and
+       page (below 52% black stays under 3:1). Measured, contrast on surface / bg (#131B34 /
+       #0A1022), with the old 20% in brackets:
+         #1D3A6E -> #8E9EBB 6.29 / 6.99 (2.65 / 2.95)    #000000 -> #6C6C6C 3.24 / 3.60 (1.06 / 1.05)
+         #2F6B3A -> #9CB89E 7.91 / 8.79 (4.10 / 4.55)    #7A4A1E -> #C0A793 7.45 / 8.28 (3.67 / 4.08)
+         #5B3A8C -> #ADA0CA 7.02 / 7.80 (3.26 / 3.62)    #9E1B32 -> #D9999A 7.27 / 8.08 (3.49 / 3.88)
+         #F2A900 -> #FAD8A4 12.50 / 13.89                #FFC233 -> #FFE4AE 13.74 / 15.28
+         #7FDDE6 -> #C7EFF3 13.83 / 15.38
+       Trade-off: black alone sets 53%. At 35% every colour above except black is 3:1 or better
+       and the light ones stay more saturated, but black is 1.5:1. */
     --st-team-lift: 53%;
     --st-bg: #0A1022;
     --st-surface: #131B34;
@@ -176,6 +209,7 @@
   --st-team-4: #6CC46F;
   --st-team-5: #B08CF0;
   --st-team-6: #F27AB0;
+  /* 53%: see the same declaration in the media query block above. */
   --st-team-lift: 53%;
   --st-bg: #0A1022;
   --st-surface: #131B34;
@@ -218,13 +252,17 @@
 
 /* Custom-colour mode (<html data-league-colour>): see the header comment. */
 [data-layout="basketball"][data-league-colour] {
+  /* fills that carry white text: darker than the colour, so a colour that only just passes 4.5:1 still does
+     under the white 9% score box and the muted texts */
   --st-panel-bg: var(--st-league-dim);
   --st-score-bg: var(--st-league-dim);
   --st-header-bg: linear-gradient(180deg, color-mix(in oklab, var(--st-league-base), black 8%) 0%, color-mix(in oklab, var(--st-league-base), black 8%) 58%, #3A2A8C 74%, #B23A5E 88%, #EE6A2F 100%);
+  /* text in the colour, on the grey page and the pale badge wash: nudged toward the ink */
   --st-link: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
   --st-badge-text: color-mix(in oklab, var(--st-league-base), var(--st-text) 14%);
   --st-header-muted: color-mix(in oklab, var(--st-league-base), white 86%);
   --st-header-button-line: #FFFFFFD9;
+  /* accents that sit on the league colour come from the colour (near white), not from the fixed coral */
   --st-tab: color-mix(in oklab, var(--st-league-base), white 90%);
   --st-nav-muted: color-mix(in oklab, var(--st-league-base), white 86%);
   --st-panel-muted: color-mix(in oklab, var(--st-league-base), white 86%);
