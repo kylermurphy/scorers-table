@@ -244,7 +244,7 @@ def test_stands_in_for_rules(sports_root, tmp_path):
     (tmp_path / "data" / "x2").mkdir(parents=True)
     base = "- {id: s1, current: true}\n"
     f = seasons_errors(sports_root, tmp_path, base + "- {id: x1, stands_in_for: s1}\n")
-    assert set(f) == {("data/seasons.yml", "1.stands_in_for")} and "add 'sample: true'" in next(iter(f.values())).replace("Add", "add")
+    assert set(f) == {("data/seasons.yml", "1.stands_in_for")} and "Add 'sample: true'" in f[("data/seasons.yml", "1.stands_in_for")]
     f = seasons_errors(sports_root, tmp_path, base + "- {id: x1, sample: true, stands_in_for: zzz}\n")
     assert "not a season in this file" in f[("data/seasons.yml", "1.stands_in_for")]
     f = seasons_errors(sports_root, tmp_path, base + "- {id: x1, sample: true, stands_in_for: x1}\n")
@@ -370,7 +370,7 @@ def test_player_name_must_be_first_l(sports_root, tmp_path, name):
 
 
 def test_player_name_accepts_first_l_and_the_placeholder(sports_root, tmp_path):
-    text = ("- {id: a, name: Ann B., team: otters}\n- {id: b, name: \"Mary-Jo O'N.\", team: otters}\n"
+    text = ("- {id: a, name: Ann B., team: otters}\n- {id: b, name: \"Mary-Jo D'Arcy B.\", team: otters}\n"
             "- {id: c, name: '[placeholder]', team: otters}\n- {id: d, name: '[placeholder]', team: otters}\n")
     assert player_errors(sports_root, tmp_path, text) == {}
 
@@ -431,7 +431,7 @@ def test_player_team_must_exist(sports_root, tmp_path):
 
 def test_player_ids_and_keys(sports_root, tmp_path):
     f = player_errors(sports_root, tmp_path, "- {id: a, name: Ann B., team: otters}\n- {id: a, name: Bo C., team: otters}\n"
-                                             "- {id: c, name: Cy D., team: otters, nick: x, sub: maybe}\n- {name: No Id., team: otters}\n")
+                                             "- {id: c, name: Cy D., team: otters, nick: x, sub: maybe}\n- {name: No I., team: otters}\n")
     assert set(f) == {(f"{S1}/players.yml", p) for p in ("1.id", "2.nick", "2.sub", "3.id")}
 
 
@@ -544,8 +544,8 @@ def test_the_sport_can_allow_more_games_a_day(sports_root, tmp_path):
     text = HEAD + "g1,2026-11-05,19:00,otters,ravens\ng2,2026-11-05,20:00,moose,otters\n"
     assert sched(sports_root, tmp_path, text, spec={"games_per_day": 2}).ok
     text += "g3,2026-11-05,21:00,otters,ravens\n"
-    assert set(sched_errors(sports_root, tmp_path, text, spec={"games_per_day": 2})) == {(CSV, "2.home"), (CSV, "2.away")} - {(CSV, "2.away")} \
-        or set(sched_errors(sports_root, tmp_path, text, spec={"games_per_day": 2})) == {(CSV, "2.home"), (CSV, "2.away")}
+    f = sched_errors(sports_root, tmp_path, text, spec={"games_per_day": 2})
+    assert set(f) == {(CSV, "2.home")} and "allows 2 a day" in f[(CSV, "2.home")]
 
 
 def test_a_cancelled_game_does_not_use_up_the_day(sports_root, tmp_path):
@@ -558,7 +558,7 @@ def test_rows_that_are_too_long_blank_lines_and_the_row_numbering(sports_root, t
     text = HEAD + "g1,2026-11-05,19:00,otters,ravens,extra\n\n,,,,\ng2,bad,19:00,otters,moose\n"
     f = sched_errors(sports_root, tmp_path, text)
     assert set(f) == {(CSV, "0"), (CSV, "3.date")}
-    assert "(spreadsheet line 6)" in f[(CSV, "3.date")]
+    assert "(spreadsheet line 5)" in f[(CSV, "3.date")]
 
 
 def test_a_utf8_bom_quoted_cells_and_a_bad_encoding(sports_root, tmp_path):
@@ -592,7 +592,6 @@ def test_byes_are_worked_out_never_read(sports_root, tmp_path):
     s = season(sched(sports_root, tmp_path, text))
     assert s.byes == {dt.date(2026, 11, 5): ("moose",), dt.date(2026, 11, 19): ("ravens",)}
     assert work_out_byes([], s.teams) == {}
-    assert (tmp_path / "data" / "bye") is not None
 
 
 def test_a_bye_column_is_not_accepted(sports_root, tmp_path):
@@ -663,9 +662,9 @@ def test_the_file_must_be_a_mapping_and_not_empty(sports_root, tmp_path):
 
 def test_game_id_must_match_the_file_name_and_the_schedule(sports_root, tmp_path):
     f = game_errors(sports_root, tmp_path, edit(game_id="2026-11-12-1"))
-    assert set(f) == {(GF, "game_id")} or (GF, "game_id") in f
+    assert set(f) == {(GF, "game_id")}
     assert "does not match the file name 2026-11-05-1.yml" in f[(GF, "game_id")]
-    d = Data(tmp_path)
+    d = Data(tmp_path / "second")
     d.game("2026-11-06-9", GAME.replace("2026-11-05-1", "2026-11-06-9"))
     (file, at), msg = only_error(load(d, sports_root))
     assert (file, at) == (f"{S1}/games/2026-11-06-9.yml", "game_id") and "not a game in schedule.csv" in msg
@@ -769,7 +768,7 @@ def test_neither_sheet_nor_forfeit_is_an_error(sports_root, tmp_path):
 
 
 def test_the_sheet_must_be_a_mapping(sports_root, tmp_path):
-    assert set(game_errors(sports_root, tmp_path, edit(sheet=None) + "sheet: [1, 2]\n")) == {(GF, "sheet")}
+    assert set(game_errors(sports_root, tmp_path, GAME.replace("sheet:\n  final: {home: 21, away: 20}\n", "sheet: [1, 2]\n"))) == {(GF, "sheet")}
 
 
 def test_game_files_that_are_not_yml_are_noted(sports_root, tmp_path):
@@ -882,7 +881,7 @@ def test_drafts_are_never_opened(sports_root, tmp_path, monkeypatch):
     monkeypatch.setattr(Path, "open", lambda self, *a, **k: (opened.append(str(self)), real_open(self, *a, **k))[1])
     result = load(d, sports_root)
     assert result.problems == [] and list(season(result).games) == ["2026-11-05-1"]
-    assert opened and not [p for p in opened if "drafts" in p]
+    assert opened and not [p for p in opened if "/drafts/" in p or p.endswith("/drafts")]
 
 
 def test_the_fixture_drafts_file_is_garbage_and_never_read(sports_root):

@@ -212,7 +212,8 @@ def load_seasons(data_dir: Path, root: Path, league: League) -> tuple[list[Seaso
         season = _season_entry(c, i, item, data_dir, league, file, seasons, all_ids)
         if season:
             seasons.append(season)
-    _season_rules(c, seasons, all_ids, league)
+    if items:
+        _season_rules(c, seasons, all_ids, league)
     return seasons, c.problems
 
 
@@ -692,10 +693,10 @@ def _envelope_row(c: Checker, raw: dict, stem: str, ctx: _GameContext) -> Schedu
     gid = c.ident(raw["game_id"], "game_id") if "game_id" in raw else None
     if gid is not None and gid != stem:
         c.error("game_id", f"{gid!r} does not match the file name {stem}.yml. Name the file after the game_id.")
-    row = ctx.rows.get(gid or stem)
+    row = ctx.rows.get(stem)             # the file name is the game's identity; game_id must agree with it
     if row is None and gid is not None:
-        hint = suggest(gid, ctx.rows)
-        c.error("game_id", f"{gid!r} is not a game in schedule.csv." + (f" Did you mean {hint!r}?" if hint else "")
+        hint = suggest(stem, ctx.rows)
+        c.error("game_id", f"{stem!r} is not a game in schedule.csv." + (f" Did you mean {hint!r}?" if hint else "")
                 + " Add the game to the schedule first.")
     elif row is not None and row.cancelled:
         c.error("game_id", f"{row.game_id!r} is marked cancelled in schedule.csv, so it cannot have a game file. "

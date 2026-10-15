@@ -418,12 +418,21 @@ def differences(root: Path, made: dict[str, dict[str, str]]) -> list[str]:
 
 
 def run_loader(root: Path) -> list[str] | None:
-    """Problems the loader finds in the sample seasons under `root`, or None when there is no loader yet."""
+    """Every problem (errors and warnings) the loader finds in the data folder under `root`, printed as
+    "file: at: message", or None when scripts/core/loader.py does not exist."""
     try:
-        from scripts.core import loader
+        from scripts.core.loader import load_data
     except ImportError:
         return None
-    raise NotImplementedError("wire the loader here")      # replaced once scripts/core/loader.py exists
+    league, problems = load_league(root / "league.yml", sports_root=root / "sports", root=root)
+    if league is None:
+        return [f"{p.file}: {p.at}: {p.message}" for p in problems]
+    sport, problems = load_sport(league.sport, root / "sports", root=root, with_sample=True)
+    if sport is None:
+        return [f"{p.file}: {p.at}: {p.message}" for p in problems]
+    data = load_data(root, league, sport, today=dt.date(2026, 10, 15))
+    # A `.gitkeep` only keeps an empty folder in git; the loader may say it ignores it, which is not a problem.
+    return [f"{p.file}: {p.at}: {p.message}" for p in data.problems if not p.file.endswith(".gitkeep")]
 
 
 def main(argv: list[str] | None = None) -> int:
