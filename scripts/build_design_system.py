@@ -1,0 +1,252 @@
+#!/usr/bin/env python3
+"""Build docs/design-system/index.html: every token and every shared part, in all six
+layouts, light and dark. Static output (no JavaScript); pages link ../../assets/css.
+
+    python3 scripts/build_design_system.py            # writes docs/design-system/index.html
+    python3 scripts/build_design_system.py --inline   # self-contained copy (CSS + fonts inlined) at the path after --out
+
+The page is generated: edit scripts/design_system/*.py and assets/css/*.css, not the HTML.
+"""
+from __future__ import annotations
+
+import argparse
+import base64
+import importlib
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from scripts.design_system import sample  # noqa: E402
+from scripts.design_system.model import SPORTS, Ctx, Part, esc  # noqa: E402
+
+CSS_ORDER = [
+    "fonts.css", "tokens.css",
+    *[f"layouts/{l['id']}.css" for l in sample.LAYOUTS],
+    "base.css", "parts-shell.css", "parts-scores.css", "parts-data.css",
+]
+SPECIMEN_MODULES = ["specimens_shell", "specimens_scores", "specimens_data"]
+GROUP_ORDER = ["Shell", "Scores", "Data"]
+
+
+def load_parts() -> list[Part]:
+    parts: list[Part] = []
+    for name in SPECIMEN_MODULES:
+        try:
+            mod = importlib.import_module(f"scripts.design_system.{name}")
+        except ModuleNotFoundError as err:
+            if err.name != f"scripts.design_system.{name}":
+                raise
+            print(f"note: {name} not written yet, skipped", file=sys.stderr)
+            continue
+        parts.extend(mod.PARTS)
+    parts.sort(key=lambda p: GROUP_ORDER.index(p.group))
+    return parts
+
+
+def frame(layout: str, theme: str, inner: str, caption: str, bleed: bool = False, style: str = "") -> str:
+    cls = "st-page ds-bleed" if bleed else "st-page"
+    st = f' style="{esc(style)}"' if style else ""
+    return (
+        f'<div class="ds-frame" data-layout="{layout}" data-theme="{theme}"{st}>'
+        f'<div class="ds-cap">{esc(caption)}</div><div class="{cls}">{inner}</div></div>'
+    )
+
+
+def sports_for(part: Part, layout_meta: dict) -> list[str]:
+    if part.sports == "layout":
+        return list(layout_meta["sports"])
+    if part.sports == "all":
+        return list(SPORTS)
+    return list(part.sports)
+
+
+def parts_html(parts: list[Part]) -> str:
+    out: list[str] = []
+    group = None
+    for part in parts:
+        if part.group != group:
+            group = part.group
+            out.append(f'<h2 id="group-{group.lower()}">{esc(group)}</h2>')
+        out.append(f'<h3 id="part-{part.id}">{esc(part.title)}</h3>')
+        if part.note:
+            out.append(f'<p class="lead">{esc(part.note)}</p>')
+        for lay in sample.LAYOUTS:
+            if part.layouts and lay["id"] not in part.layouts:
+                continue
+            out.append(f'<div class="ds-layout-head"><h4>{esc(lay["name"])}</h4></div>')
+            for sport in sports_for(part, lay):
+                pair = []
+                for theme in ("light", "dark"):
+                    ctx = Ctx(layout=lay["id"], theme=theme, sport=sport,
+                              league=sample.LEAGUES[sport], layout_meta=lay)
+                    pair.append(frame(lay["id"], theme, part.render(ctx),
+                                      f'{lay["name"]} · {sport} · {theme}',
+                                      bleed=part.group == "Shell"))
+                out.append('<div class="ds-pair">' + "".join(pair) + "</div>")
+    return "\n".join(out)
+
+
+# ------------------------------------------------------------------ tokens section
+
+def parse_blocks(css: str) -> dict[str, dict[str, str]]:
+    """{selector-ish key: {--prop: value}} for the blocks that set --st-* roles."""
+    blocks: dict[str, dict[str, str]] = {}
+    for m in re.finditer(r"([^{}@]+)\{([^{}]*)\}", css):
+        sel = " ".join(m.group(1).split())
+        decls = dict(re.findall(r"(--st-[\w-]+)\s*:\s*([^;]+);", m.group(2)))
+        if decls:
+            blocks.setdefault(sel, {}).update({k: " ".join(v.split()) for k, v in decls.items()})
+    return blocks
+
+
+def token_swatches(layout: str) -> str:
+    css = (ROOT / "assets/css/layouts" / f"{layout}.css").read_text()
+    blocks = parse_blocks(css)
+    light = blocks.get(f'[data-layout="{layout}"]', {})
+    dark = blocks.get(f'[data-layout="{layout}"][data-theme="dark"]', {})
+    colour_keys = [k for k in light if not re.search(r"font|--st-w-|transform|tracking|variant|radius|--st-fs-|--st-step|--st-space|--st-dim|--st-lift|--st-tint|--st-wash", k)]
+    cells = {}
+    for theme, data in (("light", light), ("dark", {**light, **dark})):
+        rows = []
+        for key in colour_keys:
+            val = data.get(key, "")
+            shown = dark.get(key, light.get(key, "")) if theme == "dark" else light.get(key, "")
+            rows.append(f'<div><i style="background:var({key})"></i><span>{esc(key[5:])}<small>{esc(shown)}</small></span></div>')
+        cells[theme] = (
+            f'<div class="ds-frame" data-layout="{layout}" data-theme="{theme}" style="width:100%">'
+            f'<div class="ds-cap">{layout} · {theme}</div><div class="st-page"><div class="ds-pad"><div class="ds-sw">{"".join(rows)}</div></div></div></div>'
+        )
+    return f'<div class="ds-matrix">{cells["light"]}{cells["dark"]}</div>'
+
+
+def type_scale_html() -> str:
+    steps = [("2xs", 11), ("xs", 12), ("sm", 13), ("md", 14), ("base", 15), ("lg", 16), ("xl", 17), ("2xl", 20),
+             ("3xl", 24), ("4xl", 28), ("5xl", 32), ("6xl", 40), ("7xl", 48), ("8xl", 56), ("9xl", 72)]
+    rows = "".join(
+        f'<div><b>--st-step-{n} · {px}px</b><span style="font-size:var(--st-step-{n});font-family:var(--st-font-body)">Rapids 71 – Pines 64</span></div>'
+        for n, px in steps
+    )
+    return f'<div class="ds-scale" data-layout="basketball">{rows}</div>'
+
+
+def spacing_html() -> str:
+    sp = [("3xs", 2), ("2xs", 4), ("xs", 6), ("sm", 8), ("md", 12), ("lg", 16), ("xl", 24), ("2xl", 32), ("3xl", 40)]
+    rows = "".join(f'<div><b>--st-space-{n} · {px}px</b><i style="width:var(--st-space-{n})"></i></div>' for n, px in sp)
+    rad = [("xs", 4), ("sm", 8), ("card", 10), ("panel", 12), ("chip", 3), ("pill", 999)]
+    rrows = "".join(f'<div style="border-radius:var(--st-radius-{n})">radius-{n}<br>{px if px < 999 else "pill"}</div>' for n, px in rad)
+    return f'<div class="ds-bars" data-layout="basketball">{rows}</div><h4>Radii (shared defaults; layouts override card, panel, chip)</h4><div class="ds-radii" data-layout="basketball">{rrows}</div>'
+
+
+def font_specimens() -> str:
+    cells = []
+    for lay in sample.LAYOUTS:
+        disp, body = lay["fonts"]
+        cells.append(
+            f'<div class="ds-frame" data-layout="{lay["id"]}" data-theme="light" style="width:100%"><div class="ds-cap">{esc(lay["name"])}: {esc(disp)} + {esc(body)}</div>'
+            f'<div class="st-page"><div class="ds-pad"><div class="st-section__title">Latest results</div>'
+            f'<p class="st-num" style="font-size:var(--st-fs-stat);line-height:1;margin:8px 0">71–64 .857 12</p>'
+            f'<p>Players are shown as “First L.” with an optional number: #23 Dave M. scored 24 points.</p></div></div></div>'
+        )
+    return '<div class="ds-matrix">' + "".join(cells) + "</div>"
+
+
+def league_colour_html(parts: list[Part]) -> str:
+    """Each layout recoloured with the example league colours (light and dark)."""
+    by_id = {p.id: p for p in parts}
+    wanted = [i for i in ("header", "next-game", "standings", "leader-tile") if i in by_id]
+    out = []
+    for lay in sample.LAYOUTS:
+        out.append(f'<div class="ds-layout-head"><h4>{esc(lay["name"])}</h4></div>')
+        sport = lay["sports"][0]
+        for alt in sample.ALT_LEAGUE_COLOURS:
+            pair = []
+            for theme in ("light", "dark"):
+                ctx = Ctx(layout=lay["id"], theme=theme, sport=sport, league=sample.LEAGUES[sport], layout_meta=lay)
+                inner = "".join(f'<div class="ds-pad" style="margin-top:12px">{by_id[i].render(ctx)}</div>' if by_id[i].group != "Shell" else by_id[i].render(ctx) for i in wanted)
+                pair.append(frame(lay["id"], theme, inner, f'{lay["name"]} · league colour {alt["name"]} {alt["hex"]} · {theme}',
+                                  bleed=True, style=f'--st-league-color:{alt["hex"]}'))
+            out.append('<div class="ds-pair">' + "".join(pair) + "</div>")
+    return "\n".join(out)
+
+
+def build(parts: list[Part]) -> str:
+    nav_groups = "".join(f'<a href="#group-{g.lower()}">{g}</a>' for g in GROUP_ORDER)
+    css_links = "\n".join(f'<link rel="stylesheet" href="../../assets/css/{c}">' for c in CSS_ORDER)
+    layouts_toc = "".join(f'<a href="#tokens-{l["id"]}">{esc(l["name"])}</a>' for l in sample.LAYOUTS)
+    tokens = "\n".join(
+        f'<div class="ds-layout-head"><h3 id="tokens-{l["id"]}">{esc(l["name"])}</h3><span class="ds-tag">{esc(l["kind"])}</span>'
+        f'<span class="ds-tag">{esc(l["fonts"][0])} + {esc(l["fonts"][1])}</span></div><p class="lead">{esc(l["blurb"])}</p>{token_swatches(l["id"])}'
+        for l in sample.LAYOUTS
+    )
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>scorers-table design system</title>
+{css_links}
+<link rel="stylesheet" href="ds.css">
+</head>
+<body class="ds">
+<nav class="ds-top" aria-label="Sections"><strong>scorers-table design system</strong>
+<a href="#tokens">Tokens</a>{nav_groups}<a href="#league-colour">League colour</a><a href="contrast.html">Contrast</a>
+</nav>
+<main class="ds-wrap">
+<h1>scorers-table design system</h1>
+<p class="lead">Generated by <code>scripts/build_design_system.py</code> from <code>assets/css/*</code> and
+<code>scripts/design_system/*</code>. Six layouts, each in light and dark, phone width (390 px).
+All leagues, teams and people are made up. Frames force a theme with <code>data-theme</code>; a real page follows
+the phone's setting until the visitor presses the sun/moon button.</p>
+
+<h2 id="tokens">Tokens</h2>
+<h3>Type scale</h3>{type_scale_html()}
+<h3>Spacing and radii</h3>{spacing_html()}
+<h3>Fonts by layout</h3>{font_specimens()}
+<h3>Colour roles by layout</h3><p class="lead">Jump to: {layouts_toc}. Swatches are live (<code>var(--st-role)</code>); the small text is the value declared in the layout file.</p>
+{tokens}
+
+{parts_html(parts)}
+
+<h2 id="league-colour">League colour</h2>
+<p class="lead">Each layout recoloured with example league colours via <code>--st-league-color</code> (no other change). Gold is a deliberate failure: white text on it is below AA, which stage 4's data check would reject.</p>
+{league_colour_html(parts)}
+</main>
+</body>
+</html>
+"""
+
+
+def inline(html: str) -> str:
+    """Self-contained copy: CSS inlined, font files as data URIs (for sharing as one file)."""
+    def css_text(name: str) -> str:
+        text = (ROOT / "assets/css" / name).read_text()
+        if name == "fonts.css":
+            def repl(m):
+                data = (ROOT / "assets/css" / m.group(1)).resolve().read_bytes()
+                return 'url("data:font/woff2;base64,' + base64.b64encode(data).decode() + '")'
+            text = re.sub(r'url\("([^"]+\.woff2)"\)', repl, text)
+        return text
+    for name in CSS_ORDER:
+        html = html.replace(f'<link rel="stylesheet" href="../../assets/css/{name}">', f"<style>\n{css_text(name)}\n</style>")
+    html = html.replace('<link rel="stylesheet" href="ds.css">', f'<style>\n{(ROOT / "docs/design-system/ds.css").read_text()}\n</style>')
+    return html
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default=str(ROOT / "docs/design-system/index.html"))
+    ap.add_argument("--inline", action="store_true")
+    args = ap.parse_args()
+    html = build(load_parts())
+    if args.inline:
+        html = inline(html)
+    Path(args.out).write_text(html)
+    print(f"wrote {args.out} ({len(html) // 1024} KB)")
+
+
+if __name__ == "__main__":
+    main()

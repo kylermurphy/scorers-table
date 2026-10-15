@@ -32,6 +32,13 @@ not a dependency.
 - Before calling a page done, screenshot it at 390 px in both themes (desktop
   at 1440 px once stage 9 starts).
 
+## Design system (stage 3, done)
+CSS lives in `assets/css/` (`tokens.css`, `layouts/<id>.css`, `base.css`, `parts-*.css`, `fonts.css`);
+read `docs/design.md` before touching it. A page picks its look with `<html data-layout="<id>"
+data-theme="light|dark">`; parts read `--st-*` roles only. `python scripts/build_design_system.py`
+rebuilds `docs/design-system/index.html` (generated, never hand-edit); `python scripts/check_contrast.py`
+checks WCAG AA for every pair in both themes and must pass.
+
 ## Stack (planned, stage 4)
 Jekyll on GitHub Pages, built by GitHub Actions after a Python step that
 checks the data and works out the numbers. No JavaScript framework.

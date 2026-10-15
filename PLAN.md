@@ -11,7 +11,7 @@ stage says which Claude model fits it:
 A stage can run unattended (overnight) once its spec is approved: it ends in a
 pull request, never a merge.
 
-Status: stages 0-2 done (October 2026). Next: stage 3.
+Status: stages 0-2 done (October 2026). Stage 3 (design system) is in review as a pull request; stage 4 starts once it is approved.
 
 ## Stage 0: brief and plan (done in the Masters website session)
 - `BRIEF.md` (what it is, the core, the sports and their club rules, layouts,

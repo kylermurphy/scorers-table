@@ -1,0 +1,182 @@
+/* scorers-table: shared design tokens.
+ *
+ * Load order (stage 4 links them in this order, or concatenates them):
+ *   fonts.css, tokens.css, layouts/<the league's layout>.css, base.css,
+ *   parts-shell.css, parts-scores.css, parts-data.css
+ *
+ * HOW A PAGE PICKS ITS LOOK
+ *   <html data-layout="curling">                 one of: basketball curling hockey
+ *                                                slopitch classic scoreboard
+ *   <html data-layout="curling" data-theme="dark">   the visitor pressed the sun/moon
+ *                                                    button (saved in localStorage as
+ *                                                    "st-theme"; light is the same).
+ * With no data-theme the page follows prefers-color-scheme, so it works with
+ * JavaScript off. Every token below and in layouts/*.css lives on the element
+ * that carries data-layout, so the design-system page can put several
+ * data-layout / data-theme wrappers side by side.
+ *
+ * NAMING: every custom property is --st-<role>. Roles, never colours: parts only
+ * ever read roles (--st-surface, --st-link ...), and each layout file gives the
+ * roles their values for light and dark. No raw hex in parts-*.css or base.css.
+ *
+ * WHAT A LEAGUE PLUGS IN (stage 4 writes these as an inline style on <html>, from
+ * league.yml and teams.yml; each layout file supplies its own defaults):
+ *   --st-league-color         the league's main colour (light theme)
+ *   --st-league-color-dark    optional hand-picked dark-theme version
+ *   --st-league-color-2       optional second accent (tab underline, rules)
+ *   --st-league-color-2-dark  optional dark version of the second accent
+ *   --st-team-hex             on any element: one team's own colour (see .st-team--custom)
+ * Everything else a league's colour touches is derived below with color-mix().
+ */
+
+:root {
+  /* ---------------------------------------------------------------- type scale
+     rem, so the visitor's own text-size setting is respected (many players are
+     50+ and enlarge text). Comment = px at the default 16 px root. */
+  --st-step-2xs: 0.6875rem; /* 11 */
+  --st-step-xs: 0.75rem;    /* 12 */
+  --st-step-sm: 0.8125rem;  /* 13 */
+  --st-step-md: 0.875rem;   /* 14 */
+  --st-step-base: 0.9375rem;/* 15 */
+  --st-step-lg: 1rem;       /* 16 */
+  --st-step-xl: 1.0625rem;  /* 17 */
+  --st-step-2xl: 1.25rem;   /* 20 */
+  --st-step-3xl: 1.5rem;    /* 24 */
+  --st-step-4xl: 1.75rem;   /* 28 */
+  --st-step-5xl: 2rem;      /* 32 */
+  --st-step-6xl: 2.5rem;    /* 40 */
+  --st-step-7xl: 3rem;      /* 48 */
+  --st-step-8xl: 3.5rem;    /* 56 */
+  --st-step-9xl: 4.5rem;    /* 72 */
+
+  /* Roles bound to steps. A layout file overrides a role when its mockup uses a
+     different step (curling h2 is 26 px, scoreboard titles are 32 px, ...). */
+  --st-fs-micro: var(--st-step-2xs);   /* mini line-score head */
+  --st-fs-label: var(--st-step-xs);    /* UPPERCASE labels, table heads */
+  --st-fs-meta: var(--st-step-sm);     /* captions, notes, card footers */
+  --st-fs-small: var(--st-step-md);    /* dates beside headings, footer text */
+  --st-fs-table: var(--st-step-base);  /* table cells */
+  --st-fs-body: var(--st-step-lg);     /* running text, game rows */
+  --st-fs-name: var(--st-step-xl);     /* team / player name in a card */
+  --st-fs-h3: var(--st-step-2xl);      /* team name above a box score */
+  --st-fs-h2: var(--st-step-3xl);      /* section headings */
+  --st-fs-title: var(--st-step-5xl);   /* page title (h1) */
+  --st-fs-stat: var(--st-step-6xl);    /* big number on a leader tile */
+  --st-fs-score-card: var(--st-step-3xl); /* score on a result card */
+  --st-fs-score-hero: var(--st-step-8xl); /* final score on a game page */
+
+  --st-lh-body: 1.45;
+  --st-lh-tight: 1.05;
+
+  /* Per-layout typography knobs (layouts/*.css set them; these are fallbacks) */
+  --st-font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --st-font-body: "Barlow", system-ui, sans-serif;
+  --st-font-num: var(--st-font-display);   /* big numbers, scores */
+  --st-w-display: 700;
+  --st-w-strong: 600;
+  --st-display-transform: uppercase;
+  --st-display-tracking: 0.02em;
+  --st-num-variant: tabular-nums;          /* curling adds lining-nums */
+
+  /* ------------------------------------------------------------------ spacing
+     4-pt base with the half steps the mockups use. */
+  --st-space-3xs: 0.125rem; /* 2 */
+  --st-space-2xs: 0.25rem;  /* 4 */
+  --st-space-xs: 0.375rem;  /* 6 */
+  --st-space-sm: 0.5rem;    /* 8 */
+  --st-space-md: 0.75rem;   /* 12 */
+  --st-space-lg: 1rem;      /* 16 */
+  --st-space-xl: 1.5rem;    /* 24 */
+  --st-space-2xl: 2rem;     /* 32 */
+  --st-space-3xl: 2.5rem;   /* 40 */
+  --st-gutter: 1rem;                 /* page side padding, phone */
+  --st-card-pad-y: 0.75rem;          /* 12 */
+  --st-card-pad-x: 0.875rem;         /* 14 */
+  --st-section-gap: 1.625rem;        /* 26 between page sections */
+  --st-stack-gap: 0.625rem;          /* 10 between cards in a list */
+  --st-content-max: 1200px;
+
+  /* ------------------------------------------------------- sizes and borders */
+  --st-tap: 2.75rem;        /* 44: minimum touch target */
+  --st-badge-size: 3.375rem;/* 54: logo badge in the header */
+  --st-badge-size-sm: 2.25rem; /* 36: logo badge in the footer */
+  --st-border: 1px;
+  --st-border-strong: 2px;
+
+  /* ------------------------------------------------------------------- radii
+     Layouts override --st-radius-card / -panel / -chip (hockey is rounder,
+     slo-pitch chips are squares, scoreboard chips are not shown). */
+  --st-radius-xs: 0.25rem;  /* 4: highlighted line-score cell, badge */
+  --st-radius-sm: 0.5rem;   /* 8: rows inside a panel, buttons */
+  --st-radius-card: 0.625rem;  /* 10 */
+  --st-radius-panel: 0.75rem;  /* 12 */
+  --st-radius-chip: 0.1875rem; /* 3 */
+  --st-radius-pill: 999px;
+
+  /* Share of white mixed into a team colour when the visitor is in dark mode
+     (0% in light). Only custom team colours are lifted; the six palette colours
+     per layout are already tuned for both themes. layouts/*.css set it. */
+  --st-team-lift: 0%;
+}
+
+/* -------------------------------------------------------- league colour maths
+   Inputs are --st-league-color(-2)(-dark); each layout file declares its default
+   values on its own [data-layout] block. The helpers below are declared ONCE and
+   follow the theme, because they read --st-league-base, which the dark blocks
+   below redefine on the same element.
+
+     --st-league-base   the colour in use this theme (a hand-picked dark one wins)
+     --st-league-dim    base toward black: panels and bars that must stay dark
+     --st-league-lift   base a little toward white: a bar that must not sink into
+                        a dark page
+     --st-league-tint   base well toward white: the colour as TEXT on a dark page
+     --st-league-wash   base nearly white: pale fills behind dark text
+
+   The percentages are per-layout knobs (--st-dim, --st-lift, --st-tint, --st-wash)
+   so a layout can match its approved dark palette; defaults are below. The
+   stage 4 data check runs the same maths in Python (scripts/check_contrast.py)
+   and stops, naming league.yml's `colour`, if text on the result fails WCAG AA. */
+[data-layout] {
+  --st-dim: 30%;
+  --st-lift: 12%;
+  --st-tint: 62%;
+  --st-wash: 90%;
+
+  --st-league-base: var(--st-league-color);
+  --st-league-2-base: var(--st-league-color-2, var(--st-league-color));
+  --st-league-dim: color-mix(in oklab, var(--st-league-base), black var(--st-dim));
+  --st-league-lift: color-mix(in oklab, var(--st-league-base), white var(--st-lift));
+  --st-league-tint: color-mix(in oklab, var(--st-league-base), white var(--st-tint));
+  --st-league-wash: color-mix(in oklab, var(--st-league-base), white var(--st-wash));
+  --st-league-2-tint: color-mix(in oklab, var(--st-league-2-base), white var(--st-tint));
+  --st-league-ink: #ffffff; /* text on the league colour; always white (the data check enforces it) */
+}
+
+/* Dark: swap the two bases. The same block appears twice (OS preference, and the
+   explicit button) because CSS cannot share one declaration between a media query
+   and an attribute selector; scripts/check_contrast.py fails if they differ. */
+@media (prefers-color-scheme: dark) {
+  [data-layout]:not([data-theme="light"]) {
+    --st-league-base: var(--st-league-color-dark, var(--st-league-color));
+    --st-league-2-base: var(--st-league-color-2-dark, var(--st-league-color-2, var(--st-league-color)));
+  }
+}
+[data-layout][data-theme="dark"] {
+  --st-league-base: var(--st-league-color-dark, var(--st-league-color));
+  --st-league-2-base: var(--st-league-color-2-dark, var(--st-league-color-2, var(--st-league-color)));
+}
+
+/* ----------------------------------------------------------------- team colour
+   A part reads --st-team. Set it with a palette class (the layout's tuned six)
+   or with a league's own hex.
+     <span class="st-chip st-team--3">                      palette colour 3
+     <span class="st-chip st-team--custom" style="--st-team-hex:#D9621A"> */
+.st-team--1 { --st-team: var(--st-team-1); }
+.st-team--2 { --st-team: var(--st-team-2); }
+.st-team--3 { --st-team: var(--st-team-3); }
+.st-team--4 { --st-team: var(--st-team-4); }
+.st-team--5 { --st-team: var(--st-team-5); }
+.st-team--6 { --st-team: var(--st-team-6); }
+.st-team--custom {
+  --st-team: color-mix(in oklab, var(--st-team-hex), white var(--st-team-lift));
+}
