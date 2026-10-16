@@ -413,7 +413,9 @@ write them).
   from the sample season at `/preview/`**, so you can see how a page looks with games and stats in it. It is
   not linked from anywhere and carries a banner.
 * Do you not want the preview? Set `preview: false`. If you delete the sample seasons from `seasons.yml` (and
-  their folders in `data/`), set `preview: false` too: the preview needs a sample season to show.
+  their folders in `data/`), the preview is skipped by itself: `scripts/build_preview.sh` prints
+  `no sample season in data/seasons.yml: skipping /preview/` and carries on, and the sport previews below still
+  build. (A sample season that is listed but broken is still an error.)
 * **Sport previews** are a second, separate setting, `sport_previews` (it sits beside `preview` in `league.yml`).
   `/preview/` is *your* league with made-up games; `/basketball/` is the template's own made-up league
   ("Riverside Masters Basketball") for that sport, in the sport's own look, with the sport's usual rules and

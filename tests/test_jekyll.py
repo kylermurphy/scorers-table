@@ -29,6 +29,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 import pytest
+import yaml
 
 from scripts import build
 from tests.stub_root import use_the_stub
@@ -557,6 +558,50 @@ def test_the_script_does_nothing_when_nothing_is_asked_for(previewed, league_yml
     result = _run_preview_script(previewed[0], tmp_path)
     assert result.returncode == 0 and "Preview copies: none" in result.stdout
     assert _state(previewed[0]) == previewed[1]
+
+
+def _without_sample_seasons(previewed, tmp: Path) -> Path:
+    """A copy of the previewed source (not its _site/) whose data/seasons.yml lists no sample season and whose sample
+    folders are gone: a real league that cleaned them out and left `preview: true` (the default)."""
+    root = tmp / "no-sample"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    seasons = [s for s in yaml.safe_load((root / "data" / "seasons.yml").read_text(encoding="utf-8")) if not s.get("sample")]
+    (root / "data" / "seasons.yml").write_text(yaml.safe_dump(seasons, allow_unicode=True), encoding="utf-8")
+    for folder in root.glob("data/sample-*"):
+        shutil.rmtree(folder)
+    return root
+
+
+def test_without_a_sample_season_the_script_skips_preview_and_still_builds_the_sport_previews(previewed, tmp_path):
+    root = _without_sample_seasons(previewed, tmp_path)
+    _real_build(root)
+    before = _state(root)
+    result = _run_preview_script(root, tmp_path)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "no sample season in data/seasons.yml: skipping /preview/" in result.stdout
+    assert "sample_data is on" not in result.stdout + result.stderr
+    assert not (root / "_site" / "preview").exists()
+    assert (root / "_site" / "basketball" / "index.html").is_file()
+    assert "Sport preview copy: _site/basketball/" in result.stdout
+    assert _state(root) == before                                          # and the real build is back
+
+
+def test_without_a_sample_season_and_without_sport_previews_the_script_has_nothing_to_do(previewed, tmp_path):
+    root = _without_sample_seasons(previewed, tmp_path)
+    path = root / "league.yml"
+    path.write_text(path.read_text(encoding="utf-8").replace("sport_previews: [basketball]", "sport_previews: false"), encoding="utf-8")
+    result = _run_preview_script(root, tmp_path)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "skipping /preview/" in result.stdout and not (root / "_site" / "preview").exists()
+
+
+def test_a_broken_sample_season_still_stops_the_preview(previewed, tmp_path):
+    """Only a missing sample season skips /preview/: one that is listed but not there is a real problem."""
+    root = tmp_path / "broken"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    shutil.rmtree(next(root.glob("data/sample-2026-27")))
+    result = _run_preview_script(root, tmp_path)
+    assert result.returncode != 0 and "skipping /preview/" not in result.stdout
 
 
 def test_a_sport_id_that_is_a_page_of_the_site_stops_the_script_before_it_builds(previewed, league_yml, tmp_path):
