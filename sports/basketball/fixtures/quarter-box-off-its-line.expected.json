@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.q2",
+      "message": "the Q2 box says 11, but the Q2 line is under 12"
+    }
+  ],
+  "reading": null
+}

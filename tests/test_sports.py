@@ -3,7 +3,8 @@ rules.py and sample.py, and arity checks. They use the fake sports in tests/fixt
 import pytest
 
 from scripts.core.sports import (
-    check_sport_spec, discover_sports, is_wrapped, load_all_sports, load_sport, normalise_spec, unwrap,
+    SITE_PATHS, SPORTS_ROOT, check_sport_spec, demo_sports, discover_sports, is_wrapped, load_all_sports, load_sport,
+    normalise_spec, preview_entries, unwrap,
 )
 from scripts.core.model import SportDef
 from scripts.core.problems import InternalError
@@ -214,3 +215,105 @@ def test_forfeit_score_winner_must_be_higher():
     assert problems([7, 0]) == [] and problems("per_period") == []
     assert problems([0, 7]) == ["standings.forfeit.score"]
     assert problems([3, 3]) == ["standings.forfeit.score"]
+
+
+# ------------------------------------------------------------------ core extensions E3 and E4 (stage 5 spec, section 5)
+
+def test_leaderboard_switches_are_booleans_and_a_typo_is_named(sports_root):
+    spec = spec_of(sports_root)
+    board = spec["leaderboards"][1]
+    board.update({"zero": True, "playoffs": True, "home": False, "player_rank": False})
+    assert check_sport_spec(spec, "sport.yml") == []
+    for key in ("zero", "playoffs", "home", "player_rank"):
+        spec["leaderboards"][1][key] = "yes"
+        assert [p.at for p in check_sport_spec(spec, "sport.yml")] == [f"leaderboards.1.{key}"]
+        spec["leaderboards"][1][key] = True
+    spec["leaderboards"][1]["playoff"] = True                       # a typo is an unknown key, with its path
+    [problem] = check_sport_spec(spec, "sport.yml")
+    assert problem.at == "leaderboards.1.playoff" and "playoffs" in problem.message
+
+
+def test_column_lists_are_checked_against_the_groups_and_their_stats(sports_root):
+    spec = spec_of(sports_root)
+    spec["stats"]["columns"] = {"player": {"table": ["ppg", "pts", "gp"], "totals": ["gp", "pts"], "log": ["pts"]}}
+    assert check_sport_spec(spec, "sport.yml") == []
+    spec["stats"]["columns"] = {"player": {"table": ["ppg"]}}                       # one list is enough
+    assert check_sport_spec(spec, "sport.yml") == []
+
+    def found(columns):
+        spec["stats"]["columns"] = columns
+        return {p.at: p.message for p in check_sport_spec(spec, "sport.yml") if p.level == "error"}
+
+    got = found({"player": {"tabel": ["pts"], "table": ["pts", "nope", "pts", "ends"], "log": []}, "goalie": {"table": ["pts"]}})
+    assert set(got) == {"stats.columns.player.tabel", "stats.columns.player.table.1", "stats.columns.player.table.2",
+                        "stats.columns.player.table.3", "stats.columns.player.log", "stats.columns.goalie"}
+    assert "'pts' is listed twice" in got["stats.columns.player.table.2"]      # team stats are not player columns
+    assert "Use one of: player" in got["stats.columns.goalie"]
+    assert set(found({"player": ["pts"]})) == {"stats.columns.player"}
+    assert set(found(["pts"])) == {"stats.columns"}
+
+
+def test_columns_is_not_a_stat_group(sports_root):
+    spec = spec_of(sports_root)
+    spec["stats"]["columns"] = {"player": {"table": ["pts"]}}
+    spec["leaderboards"][0]["group"] = "columns"
+    [problem] = check_sport_spec(spec, "sport.yml")
+    assert problem.at == "leaderboards.0.group" and "Use one of: player" in problem.message
+    assert normalise_spec(spec_of(sports_root))["stats"]["columns"] == {}
+
+
+def test_player_only_switches_on_a_team_board_are_named(sports_root):
+    """zero, playoffs and player_rank change how players are ranked; a team board would ignore them silently."""
+    spec = spec_of(sports_root)
+    spec["leaderboards"].append({"id": "ends", "of": "team", "stat": "ends", "label": "Ends won", "home": False})
+    assert check_sport_spec(spec, "sport.yml") == []                 # home works on any board
+    spec["leaderboards"][-1].update({"zero": True, "playoffs": True, "player_rank": False})
+    found = {p.at: p.message for p in check_sport_spec(spec, "sport.yml")}
+    assert set(found) == {"leaderboards.2.zero", "leaderboards.2.playoffs", "leaderboards.2.player_rank"}
+    assert "of: player" in found["leaderboards.2.zero"]
+
+
+# ------------------------------------------------------------------ `demo` (stage 5 spec, section 7.1)
+
+def test_demo_is_an_optional_boolean_that_defaults_to_true(sports_root):
+    sport, problems = load_sport("tiny", sports_root)
+    assert problems == [] and sport.spec["demo"] is True
+    spec = spec_of(sports_root)
+    spec["demo"] = False
+    assert check_sport_spec(spec, "sport.yml") == []
+    assert normalise_spec(spec)["demo"] is False
+    for bad in ("no", 0, None):
+        spec["demo"] = bad
+        assert errors(check_sport_spec(spec, "sport.yml")).keys() == {("sport.yml", "demo")}, bad
+
+
+def test_the_stub_is_a_test_sport_and_the_real_sports_are_demos():
+    stub, problems = load_sport("stub", SPORTS_ROOT)
+    assert stub is not None and stub.spec["demo"] is False, problems
+    assert "demo: false" in (SPORTS_ROOT / "stub" / "sport.yml").read_text(encoding="utf-8")
+    basketball, _ = load_sport("basketball", SPORTS_ROOT)
+    assert basketball.spec["demo"] is True
+    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball"}
+
+
+def test_demo_sports_needs_a_sample_and_a_demo_that_is_not_false(sports_root, tmp_path):
+    found = demo_sports(sports_root)
+    assert "bare" not in found                       # no sample.py
+    assert found["tiny"] == "Tiny" and "typo" in found
+    quiet = tmp_path / "quiet"
+    quiet.mkdir()
+    for name in ("sport.yml", "sample.py"):
+        (quiet / name).write_text(("demo: false\n" if name == "sport.yml" else "") + "name: Quiet\n", encoding="utf-8")
+    assert demo_sports(tmp_path) == {}
+    assert demo_sports(tmp_path / "nowhere") == {}
+
+
+def test_preview_entries_give_the_name_and_the_address_on_the_live_site():
+    assert preview_entries(["basketball"], SPORTS_ROOT) == [{"id": "basketball", "name": "Basketball", "url": "/basketball/"}]
+    assert preview_entries([], SPORTS_ROOT) == []
+
+
+def test_the_site_paths_are_the_ones_the_site_builds():
+    assert SITE_PATHS == ("archive", "assets", "calendar", "games", "players", "preview", "rules", "schedule", "sheets",
+                          "stats", "teams")
+    assert not set(SITE_PATHS) & set(discover_sports(SPORTS_ROOT))

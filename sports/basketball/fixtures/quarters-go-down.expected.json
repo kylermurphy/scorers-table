@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lines.home.2",
+      "message": "the Q3 line (10) is above the Q2 line (12)"
+    },
+    {
+      "level": "error",
+      "at": "boxes.home.q3",
+      "message": "the Q3 box (10) is less than Q2 (12)"
+    }
+  ],
+  "reading": null
+}

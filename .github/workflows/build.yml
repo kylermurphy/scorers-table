@@ -134,8 +134,11 @@ jobs:
           printf 'url: "%s"\n' "$SITE_ORIGIN" > _config.ci.yml
           bundle exec jekyll build --config _config.yml,_config.ci.yml --baseurl "$BASE_PATH"
 
-      # 7. The sample copy at /preview/ (skipped when league.yml says `preview: false`). It must come after
-      #    the main build, which would remove it, and before the link check, so its links are checked too.
+      # 7. The sample copies: /preview/ (the league's own look with made-up games; only while the real data is
+      #    showing, and skipped when league.yml says `preview: false`) and one demo league per sport at
+      #    /<sport>/, e.g. /basketball/ (`sport_previews` in league.yml: true, false or a list). They must come
+      #    after the main build, which would remove them, and before the link check, so their links are checked
+      #    too. Nothing on the real site links to them, and every page of them is noindex.
       - name: Build the preview copy
         run: scripts/build_preview.sh
 

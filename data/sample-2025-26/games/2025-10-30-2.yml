@@ -1,26 +1,30 @@
 # Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
 game_id: 2025-10-30-2
 status: final
-home: badgers
-away: lynx
+home: foxes
+away: comets
 checked_by: Lee M.
-scorekeeper: Lee M.
 sheet:
-  periods: {home: [15, 15], away: [17, 13]}
-  final: {home: 30, away: 30}
   players:
     home:
-      - {player: alf-h, pts: 2}
-      - {player: quin-p, pts: 1}
-      - {player: amy-s, pts: 5}
-      - {player: ike-h, pts: 5}
-      - {player: gwen-e, pts: 13}
-      - {player: sal-f, pts: 4}
+      - {player: quin-p, num: 54, here: true, fouls: 1}
+      - {player: amy-s, num: 20, here: true, ft: XXMM, fouls: 1}
+      - {player: ike-h, num: 83, here: true, ft: MM}
+      - {player: gwen-e, num: 15, here: true, ft: MXMM, fouls: 3}
+      - {player: sal-f, num: 47, here: true, fouls: 4}
+      - {player: lars-d, num: 46, here: false}
+      - {player: gwen-h, num: 48, here: true, ft: MXX, fouls: 1}
+      - {player: tam-c, num: 99, here: true, ft: XM, fouls: 5}
     away:
-      - {player: una-a, pts: 3}
-      - {player: sky-f, pts: 3}
-      - {player: noa-h, pts: 1}
-      - {player: ola-p, pts: 13}
-      - {player: fay-c, pts: 4}
-      - {player: kai-h, pts: 2}
-      - {player: pax-c, pts: 4}
+      - {player: fay-c, num: 93, here: true, ft: M, fouls: 3}
+      - {player: mae-d, num: 87, here: true, fouls: 1}
+      - {player: una-e, num: 67, here: true, ft: MMXXMM, fouls: 3}
+      - {player: una-r, num: 57, here: true, ft: MMMM, fouls: 1}
+      - {player: kit-w, num: 24, here: true, ft: MMM, fouls: 4}
+  running:
+    home: {2: 83, 3: 20, 5: 99, 8: 48, 10: 99, 13: 15, 15: 54, 16: 15, 18: 54, 20: 20, 23: 99, 24: 15, 26: 54, 28: 15, 29: 48, 31: 47, 33: 47, 34: 20, 37: 15, 39: 47, 41: 54, 42: 99, 43: 15, 46: 47, 47: 83, 49: 47, 51: 54, 53: 47, 55: 54, 57: 47, 58: 83}
+    away: {2: 24, 4: 24, 6: 67, 7: 24, 9: 93, 12: 93, 14: 67, 17: 87, 20: 87, 21: 67, 22: 57, 25: 87, 28: 93, 29: 93, 32: 93, 34: 57, 35: 24, 37: 67, 38: 24, 39: 57, 40: 57, 41: 57, 43: 67, 45: 67, 48: 67, 51: 67, 52: 67, 55: 67, 57: 67, 59: 67, 60: 67, 61: 67}
+  lines: {home: [15, 29, 42, 58], away: [14, 29, 43, 61]}
+  boxes:
+    home: {q1: 15, q2: 29, q3: 42, q4: 58, ot: null, final: 58}
+    away: {q1: 14, q2: 29, q3: 43, q4: 61, ot: null, final: 61}

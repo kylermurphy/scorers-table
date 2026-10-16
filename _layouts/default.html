@@ -1,19 +1,17 @@
 {%- include core/context.html -%}
 {%- comment -%}
   The page shell: <html> with the league's look, skip link, sample banner, header, (Scoreboard) ticker,
-  <main id="main">, footer. The banner's "Go to the live site" link (shown on the /preview/ copy) is the site's
-  address without the trailing /preview of baseurl.
+  <main id="main">, footer. The banner's links to the live site and to the sport previews start from the live
+  site's address: `site.live_baseurl` when the build sets it (the /preview/ and /<sport>/ copies do, with the
+  live site's base path; it may be empty), else this site's own baseurl.
 {%- endcomment -%}
-{%- assign _base = site.baseurl | default: "" -%}
-{%- assign _live_base = _base -%}
-{%- if _base.size >= 8 -%}
-  {%- assign _tail = _base | slice: -8, 8 -%}
-  {%- if _tail == "/preview" -%}
-    {%- assign _keep = _base.size | minus: 8 -%}
-    {%- assign _live_base = _base | slice: 0, _keep -%}
-  {%- endif -%}
+{%- if site.live_baseurl == nil -%}
+  {%- assign _live_base = site.baseurl | default: "" -%}
+{%- else -%}
+  {%- assign _live_base = site.live_baseurl -%}
 {%- endif -%}
-{%- assign _live_url = site.url | default: "" | append: _live_base | append: "/" -%}
+{%- assign _live_root = site.url | default: "" | append: _live_base -%}
+{%- assign _live_url = _live_root | append: "/" -%}
 <!doctype html>
 <html lang="{{ league.lang | default: 'en' | escape }}" data-layout="{{ league.layout | escape }}"{% if league.colour.size > 0 %} data-league-colour style="--st-league-color:{{ league.colour | escape }}{% if league.colour_dark.size > 0 %};--st-league-color-dark:{{ league.colour_dark | escape }}{% endif %}"{% endif %}>
 <head>
@@ -21,7 +19,7 @@
 </head>
 <body class="st-page">
 {% include shell/skip-link.html %}
-{% include shell/sample-banner.html live_url=_live_url %}
+{% include shell/sample-banner.html live_url=_live_url live_root=_live_root %}
 {% include shell/header.html current=page.nav %}
 {%- if league.layout == "scoreboard" and season_is_active -%}
   {%- assign _tk_n = stats.results | first -%}

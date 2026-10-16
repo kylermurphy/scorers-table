@@ -1,6 +1,7 @@
 # The seasons the site knows. Exactly one is `current`; it may be empty.
 # The sample seasons are made-up data written by scripts/make_sample.py: delete them (and their folders)
-# once the real season has games, and set `sample_data: false` in league.yml.
+# once the real season has games, and set `sample_data: false` and `preview: false` in league.yml (the /preview/
+# copy is built from them: without them it stops the build).
 - id: 2026-27
   label: "2026–27"
   current: true

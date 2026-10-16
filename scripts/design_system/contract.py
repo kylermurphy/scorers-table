@@ -368,7 +368,10 @@ def players_json(L: dict) -> dict:
 
 def _basketball_blocks(L: dict) -> list[dict]:
     g = L["game"]
-    blocks = []
+    ts = g["top_scorer"]
+    blocks = [{"type": "top_performer", "label": ts["label"], "player": _player_id(ts["player"]["name"]),
+               "side": next(side for side, box in zip(("home", "away"), g["box_scores"]) if box["team"] == ts["team"]),
+               "value": ts["value"], "unit": ts["unit"], "detail": ts["detail"]}]
     for side, box in zip(("home", "away"), g["box_scores"]):
         t = team_of(L, box["team"])
         cols = [{"key": "pts", "label": "PTS", "title": "Points", "key_col": True},

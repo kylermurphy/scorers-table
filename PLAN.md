@@ -11,7 +11,9 @@ stage says which Claude model fits it:
 A stage can run unattended (overnight) once its spec is approved: it ends in a
 pull request, never a merge.
 
-Status: stages 0-3 done (October 2026). Stage 4 (the core) is in review as a pull request; stage 5 starts once it is approved.
+Status: stages 0-4 done (October 2026; stage 4, the core, is merged). Stage 5 is under way: **basketball is done and
+in review as a pull request** (spec: `docs/stage-5-basketball-spec.md`); curling, hockey and slo-pitch come next, one
+pull request each.
 
 ## Stage 0: brief and plan (done in the Masters website session)
 - `BRIEF.md` (what it is, the core, the sports and their club rules, layouts,
@@ -88,10 +90,38 @@ screenshot sweep across six layouts per sport and small CSS for empty states.
 ## Stage 5: one sport at a time, one PR each
 Basketball first (ported from the Masters site, so it can be checked against a
 real league), then curling, hockey, slo-pitch. Each PR adds the sport folder:
-game file format and docs, rules in Python and JavaScript with shared test
-files, stats, the line score and game page, a sample season generator, and
-the sport's default standings rule.
+game file format and docs, rules in Python with shared test fixtures (the
+JavaScript copy moves to stage 7, see below), stats, the line score and game
+page, a sample season generator, and the sport's default standings rule.
 - **Model:** Sonnet builds; Opus reviews each PR for rule mistakes.
+
+**Basketball: delivered (in review as a pull request).**
+- `sports/basketball/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`), `sample.py`, the README (the
+  game file box by box), and 89 shared fixture cases (`fixtures/`) for the stage 7 JavaScript port. The Masters rule
+  (1 point per quarter won, 3 per win) is a documented preset, not an option.
+- `convert_masters.py`: a Masters data folder in, a scorers-table `data/` folder out; `tests/test_masters_parity.py`
+  compares the two sites' numbers when `MASTERS_SITE` points at a Masters checkout (local only, never in CI).
+- Four small core extensions that any sport can use: the `top_performer` block, rates ranked before rounding,
+  leaderboard keys (`zero`, `playoffs`, `home`, `player_rank`) and `stats.columns` (the column lists).
+- `league.yml` now ships `sport: basketball`; the committed `data/sample-*` are basketball seasons; golden files
+  are per sport (`tests/golden/basketball/`), and the stub stays the core's test sport (`demo: false`).
+- **Sport previews** (owner request): `sport_previews` in `league.yml` builds a made-up demo league per sport at
+  `/<sport>/` on every deploy (`scripts/preview_root.py`, `scripts/build_preview.sh`), beside `/preview/`. That is
+  stage 8's "live demo for each sport", made early; it grows by itself as each sport lands.
+- Docs: `docs/sports.md`, `docs/data.md` (examples are basketball), `docs/open-questions.md` section 5 (the new
+  placeholders and the questions for the owner: the foul limit, the forfeit score, confirming decisions 3, 4, 6, 8, 9).
+
+**Decided: the JavaScript copy of the rules moves to stage 7**, with the entry page, its only user. Each sport's
+pull request still commits its shared fixtures, so the port can be tested against them.
+
+**Still to come, with the sport that needs it** (deliberately not built for basketball, so no option goes untested):
+- Curling, hockey and slo-pitch folders, each with its sample, golden files and README.
+- The extra display parts of stage 4's list: `numbers` (curling), `facts` (slo-pitch), `events`, a penalties table and
+  `roster`, each a reusable core part with a specimen and a parity case, plus the `line_score` extras a sport needs.
+- Leaderboard `order: asc` (lowest is best): hockey's goals-against average, where 0.00 is valid.
+- A `format:` for rates (`.333`, `.912`): slo-pitch's average, hockey's save percentage.
+- Period words chosen by an option: basketball halves (the Masters sheet had halves until October 2026).
+- Stats and boards that show only when an option is on: basketball with free throws not kept.
 
 ## Stage 6: the six layouts as a setting
 `layout:` in `league.yml` picks one of the six; the league's colours and logo
@@ -110,7 +140,9 @@ drafts with flags. Built per sport from the sport folder's spec.
   league adds its own.
 - A written setup guide for a non-developer (decided: no `/new-league` Claude
   Code command for now).
-- A live demo for each sport (the sample leagues on GitHub Pages).
+- A live demo for each sport (the sample leagues on GitHub Pages). **Exists since stage 5:** the sport previews at
+  `/<sport>/` (`sport_previews` in `league.yml`); stage 8 lists the setting in the setup guide beside `preview`, as
+  something a league may turn off.
 - **Model:** Sonnet, Opus for the guide's review.
 
 ## Stage 9: desktop layouts

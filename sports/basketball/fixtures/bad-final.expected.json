@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.away.final",
+      "message": "the Final box says 21, but the running score ends at 19"
+    }
+  ],
+  "reading": null
+}

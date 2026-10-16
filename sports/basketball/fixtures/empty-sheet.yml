@@ -1,0 +1,3 @@
+# An empty sheet: nothing filled in. In a final file the missing rosters are an error.
+fixture: {folder: games, game_type: regular, options: {}}
+sheet: {}

@@ -1,0 +1,70 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home",
+      "message": "list Alpha's players, one per roster row"
+    },
+    {
+      "level": "error",
+      "at": "running.home.2",
+      "message": "#4 scored for Alpha, but no Alpha row has #4"
+    },
+    {
+      "level": "error",
+      "at": "running.home.4",
+      "message": "#10 scored for Alpha, but no Alpha row has #10"
+    },
+    {
+      "level": "error",
+      "at": "running.home.5",
+      "message": "#4 scored for Alpha, but no Alpha row has #4"
+    },
+    {
+      "level": "error",
+      "at": "running.home.7",
+      "message": "#22 scored for Alpha, but no Alpha row has #22"
+    },
+    {
+      "level": "error",
+      "at": "running.home.10",
+      "message": "#4 scored for Alpha, but no Alpha row has #4"
+    },
+    {
+      "level": "error",
+      "at": "running.home.12",
+      "message": "#10 scored for Alpha, but no Alpha row has #10"
+    },
+    {
+      "level": "error",
+      "at": "running.home.13",
+      "message": "#22 scored for Alpha, but no Alpha row has #22"
+    },
+    {
+      "level": "error",
+      "at": "running.home.15",
+      "message": "#4 scored for Alpha, but no Alpha row has #4"
+    },
+    {
+      "level": "error",
+      "at": "running.home.17",
+      "message": "#22 scored for Alpha, but no Alpha row has #22"
+    },
+    {
+      "level": "error",
+      "at": "running.home.19",
+      "message": "#10 scored for Alpha, but no Alpha row has #10"
+    },
+    {
+      "level": "error",
+      "at": "running.home.20",
+      "message": "#4 scored for Alpha, but no Alpha row has #4"
+    },
+    {
+      "level": "error",
+      "at": "running.home.22",
+      "message": "#22 scored for Alpha, but no Alpha row has #22"
+    }
+  ],
+  "reading": null
+}

@@ -2,7 +2,7 @@
   parts/final-panel.html: the top of a game page: both teams, the big score with the loser dimmed, their record
   line, then the line score and its foot. One markup for every layout; the layouts reshape it.
   Params: game. Reads: game.final {status, sub}, each side {name, score, result, record, record_line, badge},
-  game.line_score (title, meta, legend, legend_stack, note, note_strong, split).
+  game.line_score (title, meta, legend, legend_stack, note, note_strong, split); a forfeit has none, so no body.
   Foot: split (two bold-capable lines side by side) wins over note + legend. The full-size end-by-end table
   shows team codes (its columns are wide); other shapes show names.
 {%- endcomment -%}
@@ -29,6 +29,7 @@
   {%- endif -%}
 {%- endfor -%}
 </div>
+{%- if _fp_l -%}
 <div class="st-final__body">
 {%- if _fp_l.title.size > 0 or _fp_l.meta.size > 0 -%}
 <div class="st-final__titlerow">
@@ -48,7 +49,9 @@
   {%- if _fp_l.legend.size > 0 -%}{%- include parts/legend.html items=_fp_l.legend stack=_fp_l.legend_stack full=true -%}{%- endif -%}
 </div>
 {%- endif -%}
-</div></section>
+</div>
+{%- endif -%}
+</section>
 {%- endcapture -%}
 {%- assign _fp_lines = _fp_o | split: "
 " -%}

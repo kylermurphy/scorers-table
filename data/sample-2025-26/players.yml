@@ -1,38 +1,43 @@
 # Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
-- {id: kai-p, name: Kai P., team: otters, number: '00'}
-- {id: cal-c, name: Cal C., team: otters, number: 54}
-- {id: oz-m, name: Oz M., team: otters, number: 44}
-- {id: nell-l, name: Nell L., team: otters, number: 99}
-- {id: rae-w, name: Rae W., team: otters, number: 67}
-- {id: pia-k, name: Pia K., team: otters, number: 46}
-- {id: fay-a, name: Fay A., team: otters}
-- {id: quin-w, name: Quin W., team: ravens, number: 55}
-- {id: hal-b, name: Hal B., team: ravens, number: 82}
-- {id: finn-b, name: Finn B., team: ravens, number: 50}
-- {id: hal-j, name: Hal J., team: ravens, number: 99}
-- {id: ada-e, name: Ada E., team: ravens, number: 52}
-- {id: jax-p, name: Jax P., team: ravens, number: 45}
-- {id: dee-f, name: Dee F., team: ravens}
-- {id: kit-b, name: Kit B., team: badgers, number: 83}
-- {id: alf-h, name: Alf H., team: badgers, number: 43}
-- {id: quin-p, name: Quin P., team: badgers, number: 78}
-- {id: amy-s, name: Amy S., team: badgers, number: 52}
-- {id: ike-h, name: Ike H., team: badgers, number: 14}
-- {id: gwen-e, name: Gwen E., team: badgers, number: 85}
-- {id: sal-f, name: Sal F., team: badgers}
-- {id: lars-d, name: Lars D., team: moose, number: 80}
-- {id: gwen-h, name: Gwen H., team: moose, number: 54}
-- {id: tam-c, name: Tam C., team: moose, number: 20}
-- {id: cleo-s, name: Cleo S., team: moose, number: 83}
-- {id: abe-b, name: Abe B., team: moose, number: 15}
-- {id: kit-r, name: Kit R., team: moose, number: 47}
-- {id: yara-w, name: Yara W., team: moose}
-- {id: una-a, name: Una A., team: lynx, number: 48}
-- {id: sky-f, name: Sky F., team: lynx, number: 79}
-- {id: noa-h, name: Noa H., team: lynx, number: 6}
-- {id: ola-p, name: Ola P., team: lynx, number: 12}
-- {id: fay-c, name: Fay C., team: lynx, number: 57}
-- {id: kai-h, name: Kai H., team: lynx, number: 54}
-- {id: pax-c, name: Pax C., team: lynx}
-- {id: mae-d, name: Mae D., team: null, sub: true}
-- {id: una-e, name: Una E., team: null, sub: true}
+- {id: kai-p, name: Kai P., team: rapids, number: '00'}
+- {id: cal-c, name: Cal C., team: rapids, number: 55}
+- {id: oz-m, name: Oz M., team: rapids, number: 82}
+- {id: nell-l, name: Nell L., team: rapids, number: 50}
+- {id: rae-w, name: Rae W., team: rapids, number: 99}
+- {id: pia-k, name: Pia K., team: rapids, number: 52}
+- {id: fay-a, name: Fay A., team: rapids, number: 45}
+- {id: quin-w, name: Quin W., team: rapids}
+- {id: hal-b, name: Hal B., team: herons, number: 83}
+- {id: finn-b, name: Finn B., team: herons, number: 43}
+- {id: hal-j, name: Hal J., team: herons, number: 78}
+- {id: ada-e, name: Ada E., team: herons, number: 52}
+- {id: jax-p, name: Jax P., team: herons, number: 14}
+- {id: dee-f, name: Dee F., team: herons, number: 85}
+- {id: kit-b, name: Kit B., team: herons, number: 28}
+- {id: alf-h, name: Alf H., team: herons}
+- {id: quin-p, name: Quin P., team: foxes, number: 54}
+- {id: amy-s, name: Amy S., team: foxes, number: 20}
+- {id: ike-h, name: Ike H., team: foxes, number: 83}
+- {id: gwen-e, name: Gwen E., team: foxes, number: 15}
+- {id: sal-f, name: Sal F., team: foxes, number: 47}
+- {id: lars-d, name: Lars D., team: foxes, number: 46}
+- {id: gwen-h, name: Gwen H., team: foxes, number: 48}
+- {id: tam-c, name: Tam C., team: foxes}
+- {id: cleo-s, name: Cleo S., team: pines, number: 6}
+- {id: abe-b, name: Abe B., team: pines, number: 12}
+- {id: kit-r, name: Kit R., team: pines, number: 57}
+- {id: yara-w, name: Yara W., team: pines, number: 54}
+- {id: una-a, name: Una A., team: pines, number: 69}
+- {id: sky-f, name: Sky F., team: pines, number: 3}
+- {id: noa-h, name: Noa H., team: pines, number: 73}
+- {id: ola-p, name: Ola P., team: pines}
+- {id: fay-c, name: Fay C., team: comets, number: 93}
+- {id: kai-h, name: Kai H., team: comets, number: 55}
+- {id: pax-c, name: Pax C., team: comets, number: 53}
+- {id: mae-d, name: Mae D., team: comets, number: 87}
+- {id: una-e, name: Una E., team: comets, number: 67}
+- {id: una-r, name: Una R., team: comets, number: 57}
+- {id: kit-w, name: Kit W., team: comets, number: 24}
+- {id: ida-g, name: Ida G., team: comets}
+- {id: val-r, name: Val R., team: null, sub: true}
+- {id: jax-f, name: Jax F., team: null, sub: true}

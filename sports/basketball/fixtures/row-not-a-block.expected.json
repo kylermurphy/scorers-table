@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.3",
+      "message": "a row looks like {player: dave-m, num: 4, here: true, ft: MMX, fouls: 2}"
+    }
+  ],
+  "reading": null
+}

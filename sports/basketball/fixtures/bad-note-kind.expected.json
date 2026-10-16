@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "notes.0.kind",
+      "message": "kind should be flagrant or note, not 'foul'"
+    }
+  ],
+  "reading": null
+}

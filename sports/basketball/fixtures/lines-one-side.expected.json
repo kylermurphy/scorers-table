@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lines.home",
+      "message": "where were Alpha's end-of-quarter lines drawn? Give the running total at each: [Q1, Q2, Q3, Q4]"
+    }
+  ],
+  "reading": null
+}

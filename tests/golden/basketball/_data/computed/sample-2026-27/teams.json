@@ -1,0 +1,173 @@
+{
+  "rapids": {
+    "id": "rapids",
+    "name": "Rapids",
+    "code": "RAP",
+    "slot": 1,
+    "colour": null,
+    "url": "/teams/rapids/",
+    "rank": 5,
+    "record": "1–3",
+    "points": "2",
+    "sub": null,
+    "players": [
+      "una-w",
+      "max-t",
+      "ada-c",
+      "mae-t",
+      "val-j",
+      "eve-l",
+      "tam-c",
+      "eve-b"
+    ],
+    "results": [
+      "2026-11-12-1",
+      "2026-11-05-1",
+      "2026-10-29-1",
+      "2026-10-22-1"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-1",
+      "2026-12-10-1",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "herons": {
+    "id": "herons",
+    "name": "Herons",
+    "code": "HER",
+    "slot": 2,
+    "colour": null,
+    "url": "/teams/herons/",
+    "rank": 4,
+    "record": "1–4",
+    "points": "2",
+    "sub": null,
+    "players": [
+      "jax-f",
+      "noa-a",
+      "jax-d",
+      "kai-g",
+      "alf-g",
+      "noa-h",
+      "noa-f",
+      "ben-e"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-1",
+      "2026-11-05-2",
+      "2026-10-22-2",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-10-2",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "foxes": {
+    "id": "foxes",
+    "name": "Foxes",
+    "code": "FOX",
+    "slot": 3,
+    "colour": null,
+    "url": "/teams/foxes/",
+    "rank": 3,
+    "record": "1–2",
+    "points": "2",
+    "sub": null,
+    "players": [
+      "quin-n",
+      "quin-m",
+      "pax-w",
+      "val-d",
+      "dee-s",
+      "kai-m",
+      "wes-t",
+      "cleo-a"
+    ],
+    "results": [
+      "2026-11-05-1",
+      "2026-10-22-2",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-03-2",
+      "2026-12-10-1"
+    ],
+    "calendar": null
+  },
+  "pines": {
+    "id": "pines",
+    "name": "Pines",
+    "code": "PIN",
+    "slot": 4,
+    "colour": null,
+    "url": "/teams/pines/",
+    "rank": 1,
+    "record": "4–0",
+    "points": "8",
+    "sub": null,
+    "players": [
+      "finn-f",
+      "mae-f",
+      "oz-l",
+      "gwen-w",
+      "tam-k",
+      "joy-n",
+      "dax-d",
+      "ola-t"
+    ],
+    "results": [
+      "2026-11-12-2",
+      "2026-11-05-2",
+      "2026-10-29-1",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-12-03-1",
+      "2026-12-10-2",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  },
+  "comets": {
+    "id": "comets",
+    "name": "Comets",
+    "code": "COM",
+    "slot": 5,
+    "colour": null,
+    "url": "/teams/comets/",
+    "rank": 2,
+    "record": "3–1",
+    "points": "6",
+    "sub": null,
+    "players": [
+      "amy-p",
+      "eli-f",
+      "cal-b",
+      "cal-p",
+      "pax-f",
+      "ada-m",
+      "nell-b",
+      "ted-l"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-2",
+      "2026-10-22-1",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-2",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  }
+}

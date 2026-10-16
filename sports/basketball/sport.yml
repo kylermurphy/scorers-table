@@ -1,0 +1,77 @@
+# Basketball: four quarters, a running-score sheet (each basket's scorer by jersey number), free-throw circles and
+# fouls. The sport's own knowledge only: nothing here is one league's rule. The defaults are BRIEF.md's typical
+# club rules, and every rule a league decides is marked `decide: true` (it shows as [placeholder] until the league
+# sets it). The Masters Basketball League's rule is a preset in README.md, not an option of the sport.
+name: Basketball
+default_layout: basketball
+games_per_day: 1
+words:
+  period: {one: Quarter, many: Quarters, short: Q}
+  day: Week
+  points_for: {label: PF, title: Points for}
+  points_against: {label: PA, title: Points against}
+line_score: {shape: quarters, total_label: Final, corner: Team, periods: 4}
+options:
+  overtime:
+    type: choice
+    values: [overtime, none]
+    default: overtime
+    decide: true
+    label: Overtime
+  foul_limit:
+    type: int
+    default: 5
+    min: 1
+    max: 9
+    decide: true
+    label: Most personal fouls one player can have in a game
+standings:
+  rank_by: points
+  points: {win: 2, tie: 1, loss: 0}
+  period_points: 0
+  ties: {value: false, decide: true}
+  forfeit: {value: {score: [20, 0]}, decide: true}
+  tiebreakers: {value: [head_to_head, diff, points_for], decide: true}
+  columns: [gp, w, l, pts, diff]
+stats:
+  player:
+    - {key: pts, label: PTS, title: Points}
+    - {key: ftm, label: FTM, title: Free throws made}
+    - {key: fta, label: FTA, title: Free throws attempted}
+    - {key: pf, label: PF, title: Personal fouls}
+    - {key: tech, label: T, title: Technical fouls}
+    - {key: flagrant, label: FLG, title: Flagrant fouls}
+  derived:
+    - {key: ppg, label: PPG, title: Points per game, places: 1}
+    - {key: ft_pct, label: "FT%", title: Free throw percentage, places: 1}
+  team: []
+  columns:
+    player:
+      table: [gp, pts, ppg, ftm, fta, ft_pct]
+      totals: [gp, pts, ppg, ftm, fta, ft_pct, tech]
+      log: [pts, ftm, fta, tech]
+minimums:
+  ppg_min_games:
+    default: 0
+    decide: true
+    label: Minimum games for the points per game leaders
+    note: "Minimum {value} games played."
+  ft_min_attempts:
+    default: 10
+    decide: true
+    label: Minimum free throw attempts for the free throw % leaders
+    note: "Minimum {value} free throw attempts."
+leaderboards:
+  - {id: ppg, of: player, group: player, stat: ppg, label: Points / game, tile: true, edge: hot,
+     min: {stat: gp, setting: ppg_min_games, cap_at_team_games: true}, detail: "{pts} pts in {gp} GP"}
+  - {id: ft_pct, of: player, group: player, stat: ft_pct, label: Free throw %, tile: true, edge: accent, zero: true,
+     min: {stat: fta, setting: ft_min_attempts}, detail: "{ftm}-{fta} FT"}
+  - {id: pts, of: player, group: player, stat: pts, label: Points, detail: "{gp} GP"}
+  - {id: tech, of: player, group: player, stat: tech, label: Technical fouls, playoffs: true, home: false,
+     player_rank: false, detail: "{gp} GP"}
+labels: {results: Latest results, next: Next game night, leaders: Leaders}
+labels_by_layout:
+  scoreboard: {results: Game of the week, next: Next up, leaders: Buckets}
+  classic: {leaders: Scoring leaders}
+display: {card: rows, card_foot: note, surface: label}
+positions: []

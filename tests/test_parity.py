@@ -112,6 +112,17 @@ def test_plain_stat_table_unknown_block_and_no_line_score(rendered):
     assert "st-result-card--lines" not in card and "st-result-card__score" in card
 
 
+def test_top_performer_tiles_link_a_player_with_a_page_and_use_a_span_without_one(rendered):
+    blocks = rendered[("extras", "extras-plain")]["x-blocks"]
+    first, second = blocks.split('</span></p></div>')[:2]                 # two tiles, one per tied player
+    assert first.count("st-top-scorer__name") == 1 and second.count("st-top-scorer__name") == 1
+    assert '<a class="st-top-scorer__name" href="/players/dave-m/">#23 Dave M.</a>' in first
+    assert '<p class="st-top-scorer__detail">Rapids · 6-7 free throws</p>' in first
+    assert '<span class="st-top-scorer__name">#9 Rob K.</span>' in second and "<a " not in second
+    assert "st-top-scorer__detail" not in second                          # no detail, no empty line
+    assert '<span class="st-top-scorer__num">24</span><span class="st-top-scorer__unit">Points' in second
+
+
 def test_ticker_lists_every_bye_and_ends_without_a_separator(rendered):
     html = rendered[("extras", "extras-plain")]["x-ticker"]
     assert html.count("st-ticker__item--quiet") == 2 and "FOX bye" in html and "HER bye" in html

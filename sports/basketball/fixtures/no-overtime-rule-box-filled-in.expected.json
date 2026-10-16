@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.ot",
+      "message": "the OT box is filled in, but this league plays no overtime"
+    },
+    {
+      "level": "error",
+      "at": "boxes.away.ot",
+      "message": "the OT box is filled in, but this league plays no overtime"
+    }
+  ],
+  "reading": null
+}

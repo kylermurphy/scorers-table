@@ -416,8 +416,8 @@ def test_load_league_reports_broken_yaml_and_a_missing_file(sports_root, repo):
 def test_the_shipped_league_yml_parses_and_uses_only_known_keys():
     raw = yaml.safe_load((ROOT / "league.yml").read_text(encoding="utf-8"))
     assert set(raw) <= set(LEAGUE_KEYS) and set(REQUIRED_KEYS) <= set(raw)
-    assert raw["sport"] == "stub" and raw["sample_data"] is True
-    assert raw["timezone"] == "UTC" and raw["name"] == "Example Valley Stub League"
+    assert raw["sport"] == "basketball" and raw["sample_data"] is True
+    assert raw["timezone"] == "UTC" and raw["name"] == "Riverside Masters Basketball"
 
 
 def test_every_shipped_key_is_described_in_a_comment():
@@ -426,11 +426,11 @@ def test_every_shipped_key_is_described_in_a_comment():
         assert f"{key}:" in text, f"league.yml has no line for {key}"
 
 
-@pytest.mark.skipif(not (ROOT / "sports" / "stub" / "sport.yml").is_file(), reason="sports/stub is another package's")
-def test_the_shipped_league_loads_with_the_real_stub_sport():
+@pytest.mark.skipif(not (ROOT / "sports" / "basketball" / "sport.yml").is_file(), reason="sports/basketball is another package's")
+def test_the_shipped_league_loads_with_the_real_basketball_sport():
     league, problems = load_league()
     assert league is not None and not [p for p in problems if p.level == "error"]
-    assert league.sport == "stub" and league.sample_data is True
+    assert league.sport == "basketball" and league.sample_data is True
 
 
 def test_fallback_standings_cover_every_key():
@@ -466,3 +466,77 @@ def test_timezone_names_are_case_sensitive_like_on_the_linux_build(sports_root):
 def test_nightly_hour_defaults_to_3_and_takes_0_to_23(sports_root):
     assert ok(sports_root).nightly_hour == 3
     assert [ok(sports_root, nightly_hour=h).nightly_hour for h in (0, 5, 23)] == [0, 5, 23]
+
+
+# ------------------------------------------------------------------ sport_previews (stage 5 spec, section 7.1)
+
+@pytest.fixture
+def preview_sports(tmp_path):
+    """A sports folder with two demo sports (tiny, other), a test sport (`quiet`: demo: false), a sport without a
+    sample.py (`bare`) and a sport whose id is a page of the site (`stats`)."""
+    import shutil
+    from tests.conftest import FIXTURE_SPORTS
+    root = tmp_path / "sports"
+    for name, source in (("tiny", "tiny"), ("other", "other"), ("quiet", "tiny"), ("bare", "bare"), ("stats", "other")):
+        shutil.copytree(FIXTURE_SPORTS / source, root / name, ignore=shutil.ignore_patterns("__pycache__"))
+    spec = root / "quiet" / "sport.yml"
+    spec.write_text("demo: false\n" + spec.read_text(encoding="utf-8"), encoding="utf-8")
+    return root
+
+
+def test_sport_previews_is_off_when_left_out_and_when_false(preview_sports):
+    assert ok(preview_sports).sport_previews == ()
+    assert ok(preview_sports, sport_previews=False).sport_previews == ()
+    assert ok(preview_sports, sport_previews=[]).sport_previews == ()
+
+
+def test_sport_previews_true_means_every_demo_sport_that_does_not_clash(preview_sports):
+    import shutil
+    shutil.rmtree(preview_sports / "stats")
+    assert ok(preview_sports, sport_previews=True).sport_previews == ("other", "tiny")     # not quiet (demo: false), not bare
+
+
+def test_sport_previews_takes_a_list_and_keeps_its_order(preview_sports):
+    assert ok(preview_sports, sport_previews=["tiny", "other"]).sport_previews == ("tiny", "other")
+    assert ok(preview_sports, sport_previews=["other"]).sport_previews == ("other",)
+
+
+def test_sport_previews_unknown_ids_are_errors_naming_the_sports_there_are(preview_sports):
+    _, problems = make(preview_sports, sport_previews=["tiny", "tinny", "bare"])
+    found = errors(problems)
+    assert set(found) == {"sport_previews.1", "sport_previews.2"}
+    assert "'tinny' is not a sport folder with a sample league" in found["sport_previews.1"]
+    assert "Did you mean 'tiny'?" in found["sport_previews.1"]
+    assert "Sports with a preview: other, stats, tiny." in found["sport_previews.1"]
+    assert "'bare'" in found["sport_previews.2"] and "has no sample.py" in found["sport_previews.2"]
+
+
+def test_sport_previews_a_demo_false_sport_is_an_error_even_in_a_list(preview_sports):
+    _, problems = make(preview_sports, sport_previews=["quiet"])
+    found = errors(problems)
+    assert set(found) == {"sport_previews.0"}
+    assert "test sport (its sport.yml says demo: false)" in found["sport_previews.0"]
+
+
+def test_sport_previews_an_id_that_is_a_page_of_the_site_stops_the_build(preview_sports):
+    _, problems = make(preview_sports, sport_previews=["tiny", "stats"])
+    assert "already a page or folder of the site" in errors(problems)["sport_previews.1"]
+    league, problems = make(preview_sports, sport_previews=True)         # `true` includes the clashing sport
+    assert league is None and "'stats' is already a page or folder of the site" in errors(problems)["sport_previews"]
+    assert ok(preview_sports, sport_previews=["tiny"]).sport_previews == ("tiny",)      # leaving it out is fine
+
+
+def test_sport_previews_a_repeated_id_and_a_wrong_type_are_errors(preview_sports):
+    assert "listed twice" in errors(make(preview_sports, sport_previews=["tiny", "tiny"])[1])["sport_previews.1"]
+    for value in ("tiny", 3, {"tiny": True}, [3]):
+        league, problems = make(preview_sports, sport_previews=value)
+        assert league is None and any(p.at.split(".")[0] == "sport_previews" for p in problems), value
+    assert "true, false or a list" in errors(make(preview_sports, sport_previews="tiny")[1])["sport_previews"]
+
+
+def test_the_template_ships_sport_previews_on():
+    league, problems = load_league(ROOT / "league.yml")
+    assert league is not None, problems
+    assert league.sport_previews == ("basketball",)                         # the stub has demo: false
+    text = (ROOT / "league.yml").read_text(encoding="utf-8")
+    assert "\nsport_previews: true\n" in text and "# preview: true" in text

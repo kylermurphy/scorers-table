@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.3.player",
+      "message": "player 'zoe-z' is not in players.yml"
+    }
+  ],
+  "reading": null
+}

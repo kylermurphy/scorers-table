@@ -1,0 +1,123 @@
+{
+  "name": "Riverside Masters Basketball",
+  "short_name": "Riverside Masters Basketball",
+  "code": "RMB",
+  "sport": "basketball",
+  "sport_name": "Basketball",
+  "layout": "basketball",
+  "colour": null,
+  "colour_dark": null,
+  "logo": null,
+  "tagline": "Basketball · 2026–27",
+  "footer_line": "[Venue]",
+  "footer_name": "Riverside Masters Basketball",
+  "contact_href": null,
+  "search_engines": false,
+  "lang": "en",
+  "nav": [
+    {
+      "label": "Home",
+      "url": "/",
+      "key": "home"
+    },
+    {
+      "label": "Schedule",
+      "url": "/schedule/",
+      "key": "schedule"
+    },
+    {
+      "label": "Stats",
+      "url": "/stats/",
+      "key": "stats"
+    },
+    {
+      "label": "Teams",
+      "url": "/teams/",
+      "key": "teams"
+    },
+    {
+      "label": "Archive",
+      "url": "/archive/",
+      "key": "archive"
+    }
+  ],
+  "footer_links": [
+    {
+      "label": "Teams",
+      "url": "/teams/"
+    },
+    {
+      "label": "Past seasons",
+      "url": "/archive/"
+    },
+    {
+      "label": "League rules",
+      "url": "/rules/"
+    }
+  ],
+  "labels": {
+    "standings": "Standings",
+    "full_table": "Full table",
+    "all_stats": "All stats",
+    "team": "Team",
+    "final": "Final",
+    "tie": "Tie",
+    "featured": "Game of the week",
+    "results": "Latest results",
+    "next": "Next game night",
+    "leaders": "Leaders"
+  },
+  "words": {
+    "surface": "",
+    "period": {
+      "one": "Quarter",
+      "many": "Quarters",
+      "short": "Q"
+    },
+    "day": "Week",
+    "points_for": {
+      "label": "PF",
+      "title": "Points for"
+    },
+    "points_against": {
+      "label": "PA",
+      "title": "Points against"
+    }
+  },
+  "display": {
+    "card": "rows",
+    "card_foot": "note",
+    "surface": "label",
+    "card_head": ""
+  },
+  "placeholders": [
+    {
+      "setting": "rules.overtime",
+      "text": "Overtime"
+    },
+    {
+      "setting": "rules.foul_limit",
+      "text": "Most personal fouls one player can have in a game"
+    },
+    {
+      "setting": "standings.ties",
+      "text": "Ties"
+    },
+    {
+      "setting": "standings.forfeit",
+      "text": "Forfeit"
+    },
+    {
+      "setting": "standings.tiebreakers",
+      "text": "Tiebreakers"
+    },
+    {
+      "setting": "stats.minimums.ppg_min_games",
+      "text": "Minimum games for the points per game leaders"
+    },
+    {
+      "setting": "stats.minimums.ft_min_attempts",
+      "text": "Minimum free throw attempts for the free throw % leaders"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.0.ft.20",
+      "message": "21 free throws; the sheet has 20 circles"
+    },
+    {
+      "level": "warning",
+      "at": "players.home.0.ft",
+      "message": "11 free throws made, but the running score has 5 scores for #4"
+    }
+  ],
+  "reading": null
+}

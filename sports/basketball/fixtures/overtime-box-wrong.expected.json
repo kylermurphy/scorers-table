@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.ot",
+      "message": "after overtime the OT box should hold Alpha's total, 25"
+    }
+  ],
+  "reading": null
+}

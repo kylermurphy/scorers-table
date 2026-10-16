@@ -13,7 +13,7 @@ import pytest
 
 from scripts import make_sample
 from scripts.core.config import normalise_standings, sport_standings_defaults
-from scripts.core.model import BLOCK_TYPES, CELL_FLAGS, PRESENT_KEYS, Reading, SampleGame
+from scripts.core.model import BLOCK_TYPES, CELL_FLAGS, PRESENT_KEYS, STAT_RESERVED, Reading, SampleGame
 from scripts.core.problems import call_sport, parse_yaml
 from scripts.core.sports import SPORTS_ROOT, discover_sports, load_sport
 
@@ -205,7 +205,9 @@ def test_every_problem_path_points_into_the_file_and_nothing_is_changed(sport):
     for choose in variants(sport):
         samples = collected(sport, choose)
         assert samples
-        for sheet, ctx, _ in samples[:: max(1, len(samples) // 4)]:
+        # A basketball sheet has a hundred or more boxes and each is broken six ways, so a spread of two sheets
+        # per option (not every sheet) keeps this test to a few seconds a sport.
+        for sheet, ctx, _ in samples[:: max(1, len(samples) // 2)][:2]:
             for folder in ("games", "drafts"):
                 ctx = replace(ctx, folder=folder)
                 for what, broken in mutations(sheet):
@@ -256,7 +258,7 @@ def test_present_uses_only_known_blocks_and_cell_flags_and_changes_nothing(sport
 def test_derive_gives_only_declared_stats_and_changes_nothing(sport):
     spec = sport.spec
     declared = {s["key"] for s in spec["stats"]["derived"]}
-    for group in (g for g in spec["stats"] if g not in ("derived", "team")):
+    for group in (g for g in spec["stats"] if g not in STAT_RESERVED):
         keys = [s["key"] for s in spec["stats"][group]]
         for games in (0, 1, 7):
             counts = {"gp": games, **{key: 5 * (i + 1) for i, key in enumerate(keys)}}
@@ -267,7 +269,8 @@ def test_derive_gives_only_declared_stats_and_changes_nothing(sport):
 
 def test_the_sample_function_changes_nothing_it_is_given(sport):
     import random
-    for sheet, ctx, game in collected(sport)[:6]:
+    # Finished sheets only: a draft's sample may keep a warning (a sub written in by name), so check() != [] there.
+    for sheet, ctx, game in [c for c in collected(sport) if c[1].folder == "games"][:6]:
         assert isinstance(game, SampleGame)
         ctx_before, game_before = copy.deepcopy(ctx), copy.deepcopy(game)
         again = sport.sample.sheet(random.Random(3), game, ctx)

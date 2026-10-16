@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.0.pts",
+      "message": "'pts' isn't part of a roster row"
+    }
+  ],
+  "reading": null
+}

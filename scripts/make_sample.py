@@ -12,7 +12,9 @@ placeholder teams. A season with `as_of` in seasons.yml is "today" on that date 
 played); a sample season without `as_of` is a finished past season (single round robin, playoffs played).
 
 Every sheet is run through the sport's own `check` before it is written, and the finished folder through the
-loader (when scripts/core/loader.py exists); any problem stops the script (exit 1).
+loader (when scripts/core/loader.py exists); any problem stops the script (exit 1). The one exception is the
+draft: it is never built, it is where a volunteer fixes things, so a sport's sample may leave it a warning (a
+sub written in by name, say). An error in a draft still stops the script.
 
 Players are made-up "First L." names. Nothing here looks like a real league.
 """
@@ -281,9 +283,12 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
     files: dict[str, str] = {}
     wins = {i: 0.0 for i in ids}
     playoff_winner: dict[str, str] = {}
+    seeds: list[str] | None = None                      # the regular-season order, fixed when the playoffs start
     for row in sorted(rows, key=lambda r: (r.date, r.time, r.game_id)):
         if row.type == "playoff":
-            _resolve_playoff_teams(row, ids, wins, playoff_winner, as_of)
+            if seeds is None and (as_of is None or row.date <= as_of):
+                seeds = seed_order(ids, wins)
+            _resolve_playoff_teams(row, seeds, playoff_winner, len(ids))
         if row.status == "cancelled" or (as_of is not None and row.date > as_of):
             continue
         if row.type == "playoff" and row.home not in team_map:
@@ -302,7 +307,8 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
         outcome = pick_outcome(rng, row.type, rules, standings, row.forced)
         game = SampleGame(row.game_id, pick_players(rng, roster, spares, row.home, row.away), outcome)
         sheet = call_sport("sheet", sample.sheet, rng, game, ctx)
-        problems = call_sport("check", rules_mod.check, sheet, ctx)
+        problems = [p for p in call_sport("check", rules_mod.check, sheet, ctx)
+                    if not (row.draft and p.level == "warning")]
         if problems:
             raise SampleError(f"the sample sheet for {row.game_id} in {season['id']} fails the {sport.id} rules: "
                               + "; ".join(f"{p.at}: {p.message}" for p in problems))
@@ -313,9 +319,10 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
         final = reading.score.final
         if final["home"] != final["away"]:
             winner = row.home if final["home"] > final["away"] else row.away
-            wins[winner] += 1
             if row.type == "playoff":
-                playoff_winner[row.slot] = winner
+                playoff_winner[row.slot] = winner      # playoff wins never move the seeds
+            else:
+                wins[winner] += 1
         elif row.type == "regular":
             wins[row.home] += 0.5
             wins[row.away] += 0.5
@@ -337,22 +344,27 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
     return files
 
 
-def _resolve_playoff_teams(row: Row, ids: list[str], wins: dict[str, float], winners: dict[str, str],
-                           as_of: dt.date | None) -> None:
-    """Fill a playoff row's teams from the standings so far (a proxy: wins, then roster order) once they are known."""
-    if row.slot == "final" and len(ids) >= 4:
+def seed_order(ids: list[str], wins: dict[str, float]) -> list[str]:
+    """The teams best first by regular-season wins (ties by roster order): a proxy for the real standings."""
+    return sorted(ids, key=lambda i: (-wins[i], ids.index(i)))
+
+
+def _resolve_playoff_teams(row: Row, seeds: list[str] | None, winners: dict[str, str], n_teams: int) -> None:
+    """Fill a playoff row's teams once they are known: the semifinals and a two-team final from `seeds` (fixed
+    before the first playoff game, so a semifinal win cannot move a team into the other semifinal), the final
+    from the two semifinal winners. `seeds` is None while the playoffs are still to come."""
+    if row.slot == "final" and n_teams >= 4:
         if "sf1" in winners and "sf2" in winners:
             row.home, row.away = winners["sf1"], winners["sf2"]
         return
-    if as_of is not None and as_of < row.date:
+    if seeds is None:
         return
-    order = sorted(ids, key=lambda i: (-wins[i], ids.index(i)))
     if row.slot == "sf1":
-        row.home, row.away = order[0], order[3]
+        row.home, row.away = seeds[0], seeds[3]
     elif row.slot == "sf2":
-        row.home, row.away = order[1], order[2]
+        row.home, row.away = seeds[1], seeds[2]
     else:
-        row.home, row.away = order[0], order[1]
+        row.home, row.away = seeds[0], seeds[1]
 
 
 def schedule_csv(rows: list[Row]) -> str:

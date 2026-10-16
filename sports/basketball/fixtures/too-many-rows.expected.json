@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home",
+      "message": "Alpha has 16 rows; the sheet has 15"
+    }
+  ],
+  "reading": null
+}

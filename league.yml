@@ -5,10 +5,10 @@
 # --- The three you must set -------------------------------------------------------------
 
 # The league's name, as shown in the header, the page titles and the calendar files.
-name: "Example Valley Stub League"
+name: "Riverside Masters Basketball"
 
 # The sport: the name of a folder in sports/ that has a sport.yml.
-sport: stub
+sport: basketball
 
 # Where the league plays, as an IANA time zone name ("America/Toronto", "Europe/London").
 # It decides what "today" is and the times in the calendar files. UTC is a stand-in: change it.
@@ -18,11 +18,11 @@ timezone: UTC
 
 # The name in the page header when "name" is too long. Its last word is tinted.
 # Default: name.
-# short_name: "Valley Stub"
+# short_name: "Riverside"
 
 # 1 to 4 letters for the round badge shown when there is no logo.
 # Default: the initials of name.
-# code: EVSL
+# code: RMB
 
 # Which look to use: basketball, curling, hockey, slopitch, classic or scoreboard.
 # Default: the sport's own look.
@@ -42,7 +42,7 @@ timezone: UTC
 # --- Words on the site ------------------------------------------------------------------
 
 # The line under the league name, followed by the season. Default: the sport's name.
-# tagline: "Thursday night stub"
+# tagline: "Thursday night hoops"
 
 # The line in the footer. Default: the season's venue from data/seasons.yml.
 # footer_line: "Thursday evenings, Main Street Gym"
@@ -75,6 +75,13 @@ sample_data: true
 
 # true: also build a sample copy at /preview/ when the real data is showing. Default: true.
 # preview: true
+
+# Demo copies of the template, one per sport, each with its own made-up league: /basketball/, /curling/, /hockey/
+# and /slopitch/, built on every deploy. true: every sport that has a demo. false: none. Or a list of sport ids,
+# like [basketball, hockey]. Nothing on your site links to them and search engines are told to skip them. This
+# template ships true so its own site shows what each sport looks like; a league that does not want them can set
+# it to false. Default (when the line is left out): false.
+sport_previews: true
 
 # true: search engines may list the site. false: every page asks them not to. Default: false.
 # search_engines: false

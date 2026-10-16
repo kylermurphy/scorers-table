@@ -1,0 +1,128 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "players.home.3.player",
+      "message": "#0 Bob G. is not on Alpha. If a spare filled in, mark them sub: true in players.yml"
+    }
+  ],
+  "reading": {
+    "score": {
+      "final": {
+        "home": 22,
+        "away": 19
+      },
+      "periods": {
+        "home": [
+          5,
+          7,
+          5,
+          5
+        ],
+        "away": [
+          5,
+          5,
+          6,
+          3
+        ]
+      },
+      "extra": {},
+      "decided_in": "regulation",
+      "final_at": {
+        "home": "sheet.boxes.home.final",
+        "away": "sheet.boxes.away.final"
+      }
+    },
+    "lines": [
+      {
+        "side": "home",
+        "player": "al-a",
+        "group": "player",
+        "counts": {
+          "pts": 9,
+          "ftm": 2,
+          "fta": 3,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "amy-b",
+        "group": "player",
+        "counts": {
+          "pts": 6,
+          "ftm": 0,
+          "fta": 1,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "ann-c",
+        "group": "player",
+        "counts": {
+          "pts": 7,
+          "ftm": 1,
+          "fta": 1,
+          "pf": 1,
+          "tech": 0,
+          "flagrant": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "bo-c",
+        "group": "player",
+        "counts": {
+          "pts": 8,
+          "ftm": 1,
+          "fta": 1,
+          "pf": 3,
+          "tech": 1,
+          "flagrant": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "bev-d",
+        "group": "player",
+        "counts": {
+          "pts": 7,
+          "ftm": 1,
+          "fta": 2,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "bud-e",
+        "group": "player",
+        "counts": {
+          "pts": 4,
+          "ftm": 1,
+          "fta": 2,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0
+        }
+      }
+    ],
+    "facts": {
+      "technicals": [
+        {
+          "side": "away",
+          "player": "bo-c",
+          "num": "5",
+          "count": 1
+        }
+      ],
+      "flagrants": []
+    }
+  }
+}

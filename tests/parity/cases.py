@@ -21,9 +21,9 @@ CASES_DIR = Path(__file__).parent / "cases"
 SKIPPED = {
     "event-log": "hockey's scoring summary and penalties: a stage 5 part with the hockey sport (spec section 9)",
     "roster": "curling's lineups: a stage 5 part with the curling sport (spec section 9)",
-    "game-tables": "sport game tables (top scorer, the game in numbers, goalies and skaters, facts, batting): "
-                   "stage 5 parts with each sport; the generic stat table and note are covered by the "
-                   "fragment case 'game-tables/box-score' below",
+    "game-tables": "sport game tables (the game in numbers, goalies and skaters, facts, batting): stage 5 parts "
+                   "with each sport; basketball's tables, notes and top-performer tile are covered by the "
+                   "fragment case 'game-tables-box' below",
 }
 
 
@@ -38,8 +38,9 @@ class Case:
 
 # Fragment cases: compare a piece of a specimen that is a generic part, though the specimen as a whole is not.
 FRAGMENTS = [
-    Case("game-tables-box", "game-tables", sports=("basketball",), drop=(("div", "st-top-scorer"),),
-         note="basketball's box-score tables and footnote (the generic stat_table and note blocks); the top-scorer tile is a stage 5 part"),
+    Case("game-tables-box", "game-tables", sports=("basketball",),
+         note="basketball's whole game-tables specimen: the top-performer tile, the box-score tables and the footnote "
+              "(the top_performer, stat_table and note blocks)"),
 ]
 
 

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home",
+      "message": "Alpha's score boxes look like {q1: .., q2: .., q3: .., q4: .., ot: null, final: ..}"
+    }
+  ],
+  "reading": null
+}

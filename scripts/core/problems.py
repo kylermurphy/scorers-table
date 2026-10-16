@@ -18,7 +18,7 @@ from typing import Any, Callable, Iterable, Literal, Sequence, TextIO
 import yaml
 
 from scripts.core.model import (
-    BLOCK_TYPES, DECIDED_IN, PRESENT_KEYS, SIDES, Line, Placeholder, Problem, Reading, Score, SportContext,
+    BLOCK_TYPES, DECIDED_IN, PRESENT_KEYS, SIDES, STAT_RESERVED, Line, Placeholder, Problem, Reading, Score, SportContext,
 )
 
 # Ids of teams, players, seasons, sports: lower-case words joined by single hyphens (spec section 2).
@@ -250,7 +250,7 @@ def _check_result_read(value: Any, args: tuple) -> str | None:
         return found
     ctx = _ctx_of(args)
     spec = ctx.sport if ctx else None
-    groups = {g for g in (spec or {}).get("stats", {}) if g not in ("derived", "team")} if spec else None
+    groups = {g for g in (spec or {}).get("stats", {}) if g not in STAT_RESERVED} if spec else None
     if not isinstance(value.lines, list):
         return f"Reading.lines must be a list of Line, not {type(value.lines).__name__}"
     for i, line in enumerate(value.lines):

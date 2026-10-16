@@ -1,0 +1,665 @@
+{
+  "boards": [
+    {
+      "id": "ppg",
+      "label": "Points / game",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "ppg",
+      "tile": true,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": 0,
+        "placeholder": true,
+        "note": "Minimum [placeholder] games played."
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Points / game",
+      "title_board": null,
+      "unit": "PPG",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "amy-p",
+          "team": "comets",
+          "label": "#1 Amy P.",
+          "value": 14.0,
+          "display": "14.0",
+          "detail": "42 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "val-j",
+          "team": "rapids",
+          "label": "#80 Val J.",
+          "value": 13.0,
+          "display": "13.0",
+          "detail": "26 pts in 2 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "gwen-w",
+          "team": "pines",
+          "label": "#29 Gwen W.",
+          "value": 12.3,
+          "display": "12.3",
+          "detail": "37 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "tam-c",
+          "team": "rapids",
+          "label": "#49 Tam C.",
+          "value": 11.7,
+          "display": "11.7",
+          "detail": "35 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "max-t",
+          "team": "rapids",
+          "label": "#25 Max T.",
+          "value": 11.5,
+          "display": "11.5",
+          "detail": "23 pts in 2 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "ben-e",
+          "team": "herons",
+          "label": "Ben E.",
+          "value": 10.4,
+          "display": "10.4",
+          "detail": "52 pts in 5 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "tam-k",
+          "team": "pines",
+          "label": "#77 Tam K.",
+          "value": 10.3,
+          "display": "10.3",
+          "detail": "41 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "dee-s",
+          "team": "foxes",
+          "label": "#8 Dee S.",
+          "value": 10.0,
+          "display": "10.0",
+          "detail": "30 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "pax-w",
+          "team": "foxes",
+          "label": "#13 Pax W.",
+          "value": 10.0,
+          "display": "10.0",
+          "detail": "30 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "cal-p",
+          "team": "comets",
+          "label": "#90 Cal P.",
+          "value": 9.3,
+          "display": "9.3",
+          "detail": "28 pts in 3 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "ft_pct",
+      "label": "Free throw %",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "ft_pct",
+      "tile": true,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": 10,
+        "placeholder": true,
+        "note": "Minimum [placeholder] free throw attempts."
+      },
+      "unranked": [
+        "ada-c",
+        "ada-m",
+        "alf-g",
+        "cal-b",
+        "cal-p",
+        "cleo-a",
+        "dee-s",
+        "eli-f",
+        "eve-b",
+        "eve-l",
+        "finn-f",
+        "gus-g",
+        "gwen-w",
+        "jax-f",
+        "joy-n",
+        "kai-g",
+        "kai-m",
+        "mae-t",
+        "max-t",
+        "noa-a",
+        "noa-h",
+        "ola-t",
+        "oz-l",
+        "pax-f",
+        "pax-w",
+        "quin-m",
+        "quin-n",
+        "ted-l",
+        "val-d",
+        "val-j"
+      ],
+      "columns": null,
+      "title": "Free throw %",
+      "title_board": null,
+      "unit": "FT%",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "nell-b",
+          "team": "comets",
+          "label": "#78 Nell B.",
+          "value": 86.7,
+          "display": "86.7",
+          "detail": "13-15 FT",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "ben-e",
+          "team": "herons",
+          "label": "Ben E.",
+          "value": 84.6,
+          "display": "84.6",
+          "detail": "11-13 FT",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "jax-d",
+          "team": "herons",
+          "label": "#41 Jax D.",
+          "value": 83.3,
+          "display": "83.3",
+          "detail": "10-12 FT",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "mae-f",
+          "team": "pines",
+          "label": "#59 Mae F.",
+          "value": 83.3,
+          "display": "83.3",
+          "detail": "10-12 FT",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "tam-c",
+          "team": "rapids",
+          "label": "#49 Tam C.",
+          "value": 81.3,
+          "display": "81.3",
+          "detail": "13-16 FT",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "dax-d",
+          "team": "pines",
+          "label": "#96 Dax D.",
+          "value": 70.0,
+          "display": "70.0",
+          "detail": "7-10 FT",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "noa-f",
+          "team": "herons",
+          "label": "#10 Noa F.",
+          "value": 56.3,
+          "display": "56.3",
+          "detail": "9-16 FT",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "wes-t",
+          "team": "foxes",
+          "label": "#24 Wes T.",
+          "value": 52.6,
+          "display": "52.6",
+          "detail": "10-19 FT",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "amy-p",
+          "team": "comets",
+          "label": "#1 Amy P.",
+          "value": 33.3,
+          "display": "33.3",
+          "detail": "4-12 FT",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "tam-k",
+          "team": "pines",
+          "label": "#77 Tam K.",
+          "value": 33.3,
+          "display": "33.3",
+          "detail": "6-18 FT",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "pts",
+      "label": "Points",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "pts",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Points",
+      "title_board": null,
+      "unit": "PTS",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ben-e",
+          "team": "herons",
+          "label": "Ben E.",
+          "value": 52,
+          "display": "52",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "amy-p",
+          "team": "comets",
+          "label": "#1 Amy P.",
+          "value": 42,
+          "display": "42",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "tam-k",
+          "team": "pines",
+          "label": "#77 Tam K.",
+          "value": 41,
+          "display": "41",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "noa-h",
+          "team": "herons",
+          "label": "#29 Noa H.",
+          "value": 39,
+          "display": "39",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "gwen-w",
+          "team": "pines",
+          "label": "#29 Gwen W.",
+          "value": 37,
+          "display": "37",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "noa-a",
+          "team": "herons",
+          "label": "#72 Noa A.",
+          "value": 37,
+          "display": "37",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "noa-f",
+          "team": "herons",
+          "label": "#10 Noa F.",
+          "value": 36,
+          "display": "36",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "tam-c",
+          "team": "rapids",
+          "label": "#49 Tam C.",
+          "value": 35,
+          "display": "35",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "dax-d",
+          "team": "pines",
+          "label": "#96 Dax D.",
+          "value": 32,
+          "display": "32",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "dee-s",
+          "team": "foxes",
+          "label": "#8 Dee S.",
+          "value": 30,
+          "display": "30",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "pax-w",
+          "team": "foxes",
+          "label": "#13 Pax W.",
+          "value": 30,
+          "display": "30",
+          "detail": "3 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "label": "Technical fouls",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "tech",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": false,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Technical fouls",
+      "title_board": null,
+      "unit": "T",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "dax-d",
+          "team": "pines",
+          "label": "#96 Dax D.",
+          "value": 1,
+          "display": "1",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "dee-s",
+          "team": "foxes",
+          "label": "#8 Dee S.",
+          "value": 1,
+          "display": "1",
+          "detail": "3 GP",
+          "cells": null
+        }
+      ]
+    }
+  ],
+  "table": {
+    "group": "player",
+    "columns": [
+      {
+        "key": "gp",
+        "label": "GP",
+        "title": "Games played",
+        "key_col": false
+      },
+      {
+        "key": "pts",
+        "label": "PTS",
+        "title": "Points",
+        "key_col": false
+      },
+      {
+        "key": "ppg",
+        "label": "PPG",
+        "title": "Points per game",
+        "key_col": true
+      },
+      {
+        "key": "ftm",
+        "label": "FTM",
+        "title": "Free throws made",
+        "key_col": false
+      },
+      {
+        "key": "fta",
+        "label": "FTA",
+        "title": "Free throws attempted",
+        "key_col": false
+      },
+      {
+        "key": "ft_pct",
+        "label": "FT%",
+        "title": "Free throw percentage",
+        "key_col": false
+      }
+    ],
+    "rows": [
+      "amy-p",
+      "val-j",
+      "gwen-w",
+      "tam-c",
+      "max-t",
+      "ben-e",
+      "tam-k",
+      "dee-s",
+      "pax-w",
+      "cal-p",
+      "noa-a",
+      "ada-c",
+      "cleo-a",
+      "eve-b",
+      "eve-l",
+      "jax-f",
+      "pax-f",
+      "ada-m",
+      "alf-g",
+      "dax-d",
+      "noa-h",
+      "joy-n",
+      "wes-t",
+      "mae-f",
+      "noa-f",
+      "gus-g",
+      "nell-b",
+      "cal-b",
+      "oz-l",
+      "quin-m",
+      "eli-f",
+      "kai-m",
+      "ted-l",
+      "kai-g",
+      "mae-t",
+      "ola-t",
+      "val-d",
+      "finn-f",
+      "una-w",
+      "quin-n",
+      "jax-d"
+    ]
+  },
+  "columns": {
+    "player": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": false
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "ft_pct",
+          "label": "FT%",
+          "title": "Free throw percentage",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": false
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "ft_pct",
+          "label": "FT%",
+          "title": "Free throw percentage",
+          "key_col": false
+        },
+        {
+          "key": "tech",
+          "label": "T",
+          "title": "Technical fouls",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "tech",
+          "label": "T",
+          "title": "Technical fouls",
+          "key_col": false
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "notes.0.when",
+      "message": "'when' isn't part of a note. Use side, num, q, kind, text."
+    }
+  ],
+  "reading": null
+}

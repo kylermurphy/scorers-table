@@ -1,0 +1,6284 @@
+{
+  "kai-p": {
+    "id": "kai-p",
+    "name": "Kai P.",
+    "label": "#00 Kai P.",
+    "number": "00",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 34,
+          "ftm": 4,
+          "fta": 4,
+          "pf": 5,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 11.3,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "34",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.3",
+          "ft_pct": "100.0"
+        },
+        "ranks": {
+          "ppg": 8,
+          "pts": 18
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Foxes",
+        "result": "loss",
+        "score": "47–48",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–73",
+        "display": {
+          "gp": "1",
+          "pts": "17",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "17.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "cal-c": {
+    "id": "cal-c",
+    "name": "Cal C.",
+    "label": "#55 Cal C.",
+    "number": "55",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 31,
+          "ftm": 4,
+          "fta": 5,
+          "pf": 8,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.8,
+          "ft_pct": 80.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "31",
+          "ftm": "4",
+          "fta": "5",
+          "pf": "8",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.8",
+          "ft_pct": "80.0"
+        },
+        "ranks": {
+          "ppg": 28,
+          "pts": 22
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Pines",
+        "result": "win",
+        "score": "74–66",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Foxes",
+        "result": "loss",
+        "score": "47–48",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–73",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "59–67",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "75.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 8,
+          "ftm": 3,
+          "fta": 4,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 8.0,
+          "ft_pct": 75.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "75.0"
+        }
+      }
+    }
+  },
+  "oz-m": {
+    "id": "oz-m",
+    "name": "Oz M.",
+    "label": "#82 Oz M.",
+    "number": "82",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 41,
+          "ftm": 2,
+          "fta": 4,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 13.7,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "41",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "13.7",
+          "ft_pct": "50.0"
+        },
+        "ranks": {
+          "ppg": 3,
+          "pts": 7
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Pines",
+        "result": "win",
+        "score": "74–66",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Foxes",
+        "result": "loss",
+        "score": "47–48",
+        "display": {
+          "gp": "1",
+          "pts": "16",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "16.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "nell-l": {
+    "id": "nell-l",
+    "name": "Nell L.",
+    "label": "#50 Nell L.",
+    "number": "50",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 9,
+          "ftm": 4,
+          "fta": 7,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 4.5,
+          "ft_pct": 57.1
+        },
+        "display": {
+          "gp": "2",
+          "pts": "9",
+          "ftm": "4",
+          "fta": "7",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.5",
+          "ft_pct": "57.1"
+        },
+        "ranks": {
+          "ppg": 40,
+          "pts": 39
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "4",
+          "fta": "7",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "57.1"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Pines",
+        "result": "win",
+        "score": "74–66",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "59–67",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 9,
+          "ftm": 0,
+          "fta": 1,
+          "pf": 1,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.0,
+          "ft_pct": 0.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "0.0"
+        }
+      }
+    }
+  },
+  "rae-w": {
+    "id": "rae-w",
+    "name": "Rae W.",
+    "label": "#99 Rae W.",
+    "number": "99",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 37,
+          "ftm": 2,
+          "fta": 8,
+          "pf": 8,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 12.3,
+          "ft_pct": 25.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "37",
+          "ftm": "2",
+          "fta": "8",
+          "pf": "8",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.3",
+          "ft_pct": "25.0"
+        },
+        "ranks": {
+          "ppg": 6,
+          "pts": 15
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Pines",
+        "result": "win",
+        "score": "74–66",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–73",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "0",
+          "fta": "4",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "pia-k": {
+    "id": "pia-k",
+    "name": "Pia K.",
+    "label": "#52 Pia K.",
+    "number": "52",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 38,
+          "ftm": 7,
+          "fta": 11,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 12.7,
+          "ft_pct": 63.6
+        },
+        "display": {
+          "gp": "3",
+          "pts": "38",
+          "ftm": "7",
+          "fta": "11",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.7",
+          "ft_pct": "63.6"
+        },
+        "ranks": {
+          "ppg": 5,
+          "ft_pct": 4,
+          "pts": 13
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "83.3"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Pines",
+        "result": "win",
+        "score": "74–66",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "1",
+          "fta": "4",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "25.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–73",
+        "display": {
+          "gp": "1",
+          "pts": "24",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "24.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "59–67",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 10,
+          "ftm": 0,
+          "fta": 1,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.0,
+          "ft_pct": 0.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "0.0"
+        }
+      }
+    }
+  },
+  "fay-a": {
+    "id": "fay-a",
+    "name": "Fay A.",
+    "label": "#45 Fay A.",
+    "number": "45",
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 26,
+          "ftm": 5,
+          "fta": 6,
+          "pf": 8,
+          "tech": 1,
+          "flagrant": 0,
+          "ppg": 8.7,
+          "ft_pct": 83.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "26",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "8",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "8.7",
+          "ft_pct": "83.3"
+        },
+        "ranks": {
+          "ppg": 23,
+          "pts": 28
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Foxes",
+        "result": "loss",
+        "score": "47–48",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–73",
+        "display": {
+          "gp": "1",
+          "pts": "17",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "17.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "59–67",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "66.7"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 14,
+          "ftm": 2,
+          "fta": 3,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 14.0,
+          "ft_pct": 66.7
+        },
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "66.7"
+        }
+      }
+    }
+  },
+  "quin-w": {
+    "id": "quin-w",
+    "name": "Quin W.",
+    "label": "Quin W.",
+    "number": null,
+    "team": "rapids",
+    "team_name": "Rapids",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 36,
+          "ftm": 0,
+          "fta": 3,
+          "pf": 8,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 12.0,
+          "ft_pct": 0.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "36",
+          "ftm": "0",
+          "fta": "3",
+          "pf": "8",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "0.0"
+        },
+        "ranks": {
+          "ppg": 7,
+          "pts": 16
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "49–48",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Pines",
+        "result": "win",
+        "score": "74–66",
+        "display": {
+          "gp": "1",
+          "pts": "24",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "24.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Foxes",
+        "result": "loss",
+        "score": "47–48",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "59–67",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 7,
+          "ftm": 0,
+          "fta": 1,
+          "pf": 1,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 0.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "0.0"
+        }
+      }
+    }
+  },
+  "hal-b": {
+    "id": "hal-b",
+    "name": "Hal B.",
+    "label": "#83 Hal B.",
+    "number": "83",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 34,
+          "ftm": 6,
+          "fta": 12,
+          "pf": 10,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 8.5,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "34",
+          "ftm": "6",
+          "fta": "12",
+          "pf": "10",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.5",
+          "ft_pct": "50.0"
+        },
+        "ranks": {
+          "ppg": 24,
+          "ft_pct": 10,
+          "pts": 18
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "2",
+          "fta": "7",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "28.6"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "73–82",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "2.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 16,
+          "ftm": 3,
+          "fta": 3,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 8.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "16",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "100.0"
+        }
+      }
+    }
+  },
+  "finn-b": {
+    "id": "finn-b",
+    "name": "Finn B.",
+    "label": "#43 Finn B.",
+    "number": "43",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 41,
+          "ftm": 4,
+          "fta": 5,
+          "pf": 6,
+          "tech": 1,
+          "flagrant": 0,
+          "ppg": 10.3,
+          "ft_pct": 80.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "41",
+          "ftm": "4",
+          "fta": "5",
+          "pf": "6",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "10.3",
+          "ft_pct": "80.0"
+        },
+        "ranks": {
+          "ppg": 13,
+          "pts": 7
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "73–82",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "75.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "50.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 13,
+          "ftm": 1,
+          "fta": 2,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.5,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "13",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.5",
+          "ft_pct": "50.0"
+        }
+      }
+    }
+  },
+  "hal-j": {
+    "id": "hal-j",
+    "name": "Hal J.",
+    "label": "#78 Hal J.",
+    "number": "78",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 43,
+          "ftm": 3,
+          "fta": 8,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.8,
+          "ft_pct": 37.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "43",
+          "ftm": "3",
+          "fta": "8",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.8",
+          "ft_pct": "37.5"
+        },
+        "ranks": {
+          "ppg": 10,
+          "pts": 4
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "16",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "16.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "3",
+          "fta": "8",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "37.5"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "73–82",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 14,
+          "ftm": 1,
+          "fta": 1,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "14",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      }
+    }
+  },
+  "ada-e": {
+    "id": "ada-e",
+    "name": "Ada E.",
+    "label": "#52 Ada E.",
+    "number": "52",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 61,
+          "ftm": 12,
+          "fta": 22,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 15.3,
+          "ft_pct": 54.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "61",
+          "ftm": "12",
+          "fta": "22",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.3",
+          "ft_pct": "54.5"
+        },
+        "ranks": {
+          "ppg": 1,
+          "ft_pct": 6,
+          "pts": 1
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "21",
+          "ftm": "3",
+          "fta": "8",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "21.0",
+          "ft_pct": "37.5"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "4",
+          "fta": "6",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "4",
+          "fta": "7",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "57.1"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "73–82",
+        "display": {
+          "gp": "1",
+          "pts": "25",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "25.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "83.3"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 10,
+          "ftm": 5,
+          "fta": 6,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.0,
+          "ft_pct": 83.3
+        },
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "83.3"
+        }
+      }
+    }
+  },
+  "jax-p": {
+    "id": "jax-p",
+    "name": "Jax P.",
+    "label": "#14 Jax P.",
+    "number": "14",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 14,
+          "ftm": 5,
+          "fta": 5,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 4.7,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "14",
+          "ftm": "5",
+          "fta": "5",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.7",
+          "ft_pct": "100.0"
+        },
+        "ranks": {
+          "ppg": 39,
+          "pts": 36
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "5",
+          "fta": "5",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 19,
+          "ftm": 0,
+          "fta": 0,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.5,
+          "ft_pct": null
+        },
+        "display": {
+          "gp": "2",
+          "pts": "19",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.5",
+          "ft_pct": "—"
+        }
+      }
+    }
+  },
+  "dee-f": {
+    "id": "dee-f",
+    "name": "Dee F.",
+    "label": "#85 Dee F.",
+    "number": "85",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 29,
+          "ftm": 6,
+          "fta": 9,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.7,
+          "ft_pct": 66.7
+        },
+        "display": {
+          "gp": "3",
+          "pts": "29",
+          "ftm": "6",
+          "fta": "9",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.7",
+          "ft_pct": "66.7"
+        },
+        "ranks": {
+          "ppg": 18,
+          "pts": 23
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "4",
+          "fta": "5",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "80.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "5",
+          "fta": "7",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "71.4"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "2",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "2.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 10,
+          "ftm": 5,
+          "fta": 7,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 5.0,
+          "ft_pct": 71.4
+        },
+        "display": {
+          "gp": "2",
+          "pts": "10",
+          "ftm": "5",
+          "fta": "7",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "71.4"
+        }
+      }
+    }
+  },
+  "kit-b": {
+    "id": "kit-b",
+    "name": "Kit B.",
+    "label": "#28 Kit B.",
+    "number": "28",
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 35,
+          "ftm": 7,
+          "fta": 9,
+          "pf": 8,
+          "tech": 0,
+          "flagrant": 1,
+          "ppg": 8.8,
+          "ft_pct": 77.8
+        },
+        "display": {
+          "gp": "4",
+          "pts": "35",
+          "ftm": "7",
+          "fta": "9",
+          "pf": "8",
+          "tech": "0",
+          "flagrant": "1",
+          "ppg": "8.8",
+          "ft_pct": "77.8"
+        },
+        "ranks": {
+          "ppg": 22,
+          "pts": 17
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "33.3"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "65–62",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "1",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-13-1",
+        "url": "/games/2025-11-13-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "73–82",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "13.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 23,
+          "ftm": 1,
+          "fta": 3,
+          "pf": 5,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 11.5,
+          "ft_pct": 33.3
+        },
+        "display": {
+          "gp": "2",
+          "pts": "23",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.5",
+          "ft_pct": "33.3"
+        }
+      }
+    }
+  },
+  "alf-h": {
+    "id": "alf-h",
+    "name": "Alf H.",
+    "label": "Alf H.",
+    "number": null,
+    "team": "herons",
+    "team_name": "Herons",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 8,
+          "ftm": 6,
+          "fta": 7,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 4.0,
+          "ft_pct": 85.7
+        },
+        "display": {
+          "gp": "2",
+          "pts": "8",
+          "ftm": "6",
+          "fta": "7",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "85.7"
+        },
+        "ranks": {
+          "ppg": 41,
+          "pts": 40
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "68–70",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "59–82",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "67–59",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "3",
+          "fta": "5",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "60.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Pines",
+        "result": "ot_win",
+        "score": "52–49",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 14,
+          "ftm": 7,
+          "fta": 9,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 77.8
+        },
+        "display": {
+          "gp": "2",
+          "pts": "14",
+          "ftm": "7",
+          "fta": "9",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "77.8"
+        }
+      }
+    }
+  },
+  "quin-p": {
+    "id": "quin-p",
+    "name": "Quin P.",
+    "label": "#54 Quin P.",
+    "number": "54",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 27,
+          "ftm": 1,
+          "fta": 2,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.0,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "27",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "50.0"
+        },
+        "ranks": {
+          "ppg": 20,
+          "pts": 26
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "amy-s": {
+    "id": "amy-s",
+    "name": "Amy S.",
+    "label": "#20 Amy S.",
+    "number": "20",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 20,
+          "ftm": 2,
+          "fta": 4,
+          "pf": 8,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.7,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "20",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "8",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.7",
+          "ft_pct": "50.0"
+        },
+        "ranks": {
+          "ppg": 33,
+          "pts": 33
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "50.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "ike-h": {
+    "id": "ike-h",
+    "name": "Ike H.",
+    "label": "#83 Ike H.",
+    "number": "83",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 23,
+          "ftm": 2,
+          "fta": 2,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 5.8,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "23",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.8",
+          "ft_pct": "100.0"
+        },
+        "ranks": {
+          "ppg": 38,
+          "pts": 30
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "48–47",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "gwen-e": {
+    "id": "gwen-e",
+    "name": "Gwen E.",
+    "label": "#15 Gwen E.",
+    "number": "15",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 18,
+          "ftm": 6,
+          "fta": 11,
+          "pf": 4,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.0,
+          "ft_pct": 54.5
+        },
+        "display": {
+          "gp": "3",
+          "pts": "18",
+          "ftm": "6",
+          "fta": "11",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "54.5"
+        },
+        "ranks": {
+          "ppg": 35,
+          "ft_pct": 6,
+          "pts": 34
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "3",
+          "fta": "7",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "42.9"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "75.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "sal-f": {
+    "id": "sal-f",
+    "name": "Sal F.",
+    "label": "#47 Sal F.",
+    "number": "47",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 53,
+          "ftm": 1,
+          "fta": 3,
+          "pf": 11,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 13.3,
+          "ft_pct": 33.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "53",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "11",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "13.3",
+          "ft_pct": "33.3"
+        },
+        "ranks": {
+          "ppg": 4,
+          "pts": 3
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "48–47",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "lars-d": {
+    "id": "lars-d",
+    "name": "Lars D.",
+    "label": "#46 Lars D.",
+    "number": "46",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 21,
+          "ftm": 6,
+          "fta": 9,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 66.7
+        },
+        "display": {
+          "gp": "3",
+          "pts": "21",
+          "ftm": "6",
+          "fta": "9",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "66.7"
+        },
+        "ranks": {
+          "ppg": 31,
+          "pts": 32
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "48–47",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "75.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "gwen-h": {
+    "id": "gwen-h",
+    "name": "Gwen H.",
+    "label": "#48 Gwen H.",
+    "number": "48",
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 29,
+          "ftm": 1,
+          "fta": 5,
+          "pf": 9,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.3,
+          "ft_pct": 20.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "29",
+          "ftm": "1",
+          "fta": "5",
+          "pf": "9",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.3",
+          "ft_pct": "20.0"
+        },
+        "ranks": {
+          "ppg": 30,
+          "pts": 23
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "33.3"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "48–47",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "tam-c": {
+    "id": "tam-c",
+    "name": "Tam C.",
+    "label": "Tam C.",
+    "number": null,
+    "team": "foxes",
+    "team_name": "Foxes",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 40,
+          "ftm": 1,
+          "fta": 7,
+          "pf": 13,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.0,
+          "ft_pct": 14.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "40",
+          "ftm": "1",
+          "fta": "7",
+          "pf": "13",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "14.3"
+        },
+        "ranks": {
+          "ppg": 15,
+          "pts": 10
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Pines",
+        "result": "ot_loss",
+        "score": "67–71",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "0",
+          "fta": "3",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Comets",
+        "result": "loss",
+        "score": "58–61",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-06-1",
+        "url": "/games/2025-11-06-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Rapids",
+        "result": "win",
+        "score": "48–47",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "cleo-s": {
+    "id": "cleo-s",
+    "name": "Cleo S.",
+    "label": "#6 Cleo S.",
+    "number": "6",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 13,
+          "ftm": 3,
+          "fta": 5,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.5,
+          "ft_pct": 60.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "13",
+          "ftm": "3",
+          "fta": "5",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.5",
+          "ft_pct": "60.0"
+        },
+        "ranks": {
+          "ppg": 34,
+          "pts": 37
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "61–56",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Herons",
+        "result": "ot_loss",
+        "score": "49–52",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "75.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 11,
+          "ftm": 6,
+          "fta": 7,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 5.5,
+          "ft_pct": 85.7
+        },
+        "display": {
+          "gp": "2",
+          "pts": "11",
+          "ftm": "6",
+          "fta": "7",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.5",
+          "ft_pct": "85.7"
+        }
+      }
+    }
+  },
+  "abe-b": {
+    "id": "abe-b",
+    "name": "Abe B.",
+    "label": "#12 Abe B.",
+    "number": "12",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 39,
+          "ftm": 3,
+          "fta": 10,
+          "pf": 4,
+          "tech": 1,
+          "flagrant": 0,
+          "ppg": 9.8,
+          "ft_pct": 30.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "39",
+          "ftm": "3",
+          "fta": "10",
+          "pf": "4",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "9.8",
+          "ft_pct": "30.0"
+        },
+        "ranks": {
+          "ppg": 16,
+          "ft_pct": 13,
+          "pts": 11
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "33.3"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "59–57",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "2",
+          "fta": "5",
+          "pf": "0",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "40.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Herons",
+        "result": "ot_loss",
+        "score": "49–52",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 6,
+          "ftm": 0,
+          "fta": 1,
+          "pf": 0,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.0,
+          "ft_pct": 0.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "0.0"
+        }
+      }
+    }
+  },
+  "kit-r": {
+    "id": "kit-r",
+    "name": "Kit R.",
+    "label": "#57 Kit R.",
+    "number": "57",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 41,
+          "ftm": 4,
+          "fta": 12,
+          "pf": 5,
+          "tech": 1,
+          "flagrant": 0,
+          "ppg": 10.3,
+          "ft_pct": 33.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "41",
+          "ftm": "4",
+          "fta": "12",
+          "pf": "5",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "10.3",
+          "ft_pct": "33.3"
+        },
+        "ranks": {
+          "ppg": 13,
+          "ft_pct": 12,
+          "pts": 7
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "5",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "20.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "2",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "59–57",
+        "display": {
+          "gp": "1",
+          "pts": "17",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "17.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Herons",
+        "result": "ot_loss",
+        "score": "49–52",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "0.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 10,
+          "ftm": 0,
+          "fta": 1,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.0,
+          "ft_pct": 0.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "0.0"
+        }
+      }
+    }
+  },
+  "yara-w": {
+    "id": "yara-w",
+    "name": "Yara W.",
+    "label": "#54 Yara W.",
+    "number": "54",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 38,
+          "ftm": 10,
+          "fta": 12,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.5,
+          "ft_pct": 83.3
+        },
+        "display": {
+          "gp": "4",
+          "pts": "38",
+          "ftm": "10",
+          "fta": "12",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.5",
+          "ft_pct": "83.3"
+        },
+        "ranks": {
+          "ppg": 19,
+          "ft_pct": 2,
+          "pts": 13
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "17",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "17.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "2",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "0.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "59–57",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "61–56",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Herons",
+        "result": "ot_loss",
+        "score": "49–52",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 14,
+          "ftm": 4,
+          "fta": 4,
+          "pf": 1,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "14",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      }
+    }
+  },
+  "una-a": {
+    "id": "una-a",
+    "name": "Una A.",
+    "label": "#69 Una A.",
+    "number": "69",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 34,
+          "ftm": 8,
+          "fta": 15,
+          "pf": 4,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 11.3,
+          "ft_pct": 53.3
+        },
+        "display": {
+          "gp": "3",
+          "pts": "34",
+          "ftm": "8",
+          "fta": "15",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.3",
+          "ft_pct": "53.3"
+        },
+        "ranks": {
+          "ppg": 8,
+          "ft_pct": 9,
+          "pts": 18
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "2",
+          "fta": "5",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "40.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "20",
+          "ftm": "3",
+          "fta": "5",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "20.0",
+          "ft_pct": "60.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "3",
+          "fta": "5",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "60.0"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "sky-f": {
+    "id": "sky-f",
+    "name": "Sky F.",
+    "label": "#3 Sky F.",
+    "number": "3",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 39,
+          "ftm": 2,
+          "fta": 5,
+          "pf": 10,
+          "tech": 1,
+          "flagrant": 0,
+          "ppg": 9.8,
+          "ft_pct": 40.0
+        },
+        "display": {
+          "gp": "4",
+          "pts": "39",
+          "ftm": "2",
+          "fta": "5",
+          "pf": "10",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "9.8",
+          "ft_pct": "40.0"
+        },
+        "ranks": {
+          "ppg": 16,
+          "pts": 11
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "19",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "19.0",
+          "ft_pct": "33.3"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "59–57",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "61–56",
+        "display": {
+          "gp": "1",
+          "pts": "23",
+          "ftm": "3",
+          "fta": "5",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "23.0",
+          "ft_pct": "60.0"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Herons",
+        "result": "ot_loss",
+        "score": "49–52",
+        "display": {
+          "gp": "1",
+          "pts": "16",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "16.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 39,
+          "ftm": 4,
+          "fta": 6,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 19.5,
+          "ft_pct": 66.7
+        },
+        "display": {
+          "gp": "2",
+          "pts": "39",
+          "ftm": "4",
+          "fta": "6",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "19.5",
+          "ft_pct": "66.7"
+        }
+      }
+    }
+  },
+  "noa-h": {
+    "id": "noa-h",
+    "name": "Noa H.",
+    "label": "#73 Noa H.",
+    "number": "73",
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 32,
+          "ftm": 8,
+          "fta": 12,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 8.0,
+          "ft_pct": 66.7
+        },
+        "display": {
+          "gp": "4",
+          "pts": "32",
+          "ftm": "8",
+          "fta": "12",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "66.7"
+        },
+        "ranks": {
+          "ppg": 27,
+          "ft_pct": 3,
+          "pts": 21
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "17",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "17.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "3",
+          "fta": "6",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "59–57",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "61–56",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-12-11-1",
+        "url": "/games/2025-12-11-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 11",
+        "opponent": "Herons",
+        "result": "ot_loss",
+        "score": "49–52",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "33.3"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 15,
+          "ftm": 3,
+          "fta": 6,
+          "pf": 4,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.5,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "15",
+          "ftm": "3",
+          "fta": "6",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.5",
+          "ft_pct": "50.0"
+        }
+      }
+    }
+  },
+  "ola-p": {
+    "id": "ola-p",
+    "name": "Ola P.",
+    "label": "Ola P.",
+    "number": null,
+    "team": "pines",
+    "team_name": "Pines",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 42,
+          "ftm": 5,
+          "fta": 11,
+          "pf": 9,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.5,
+          "ft_pct": 45.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "42",
+          "ftm": "5",
+          "fta": "11",
+          "pf": "9",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.5",
+          "ft_pct": "45.5"
+        },
+        "ranks": {
+          "ppg": 11,
+          "ft_pct": 11,
+          "pts": 5
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-2",
+        "url": "/games/2025-10-16-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Foxes",
+        "result": "ot_win",
+        "score": "71–67",
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ftm": "4",
+          "fta": "7",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "13.0",
+          "ft_pct": "57.1"
+        }
+      },
+      {
+        "game": "2025-10-30-1",
+        "url": "/games/2025-10-30-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "66–74",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "1",
+          "fta": "4",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "25.0"
+        }
+      },
+      {
+        "game": "2025-11-06-2",
+        "url": "/games/2025-11-06-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 6",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "82–59",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "59–57",
+        "display": {
+          "gp": "1",
+          "pts": "8",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Comets",
+        "result": "win",
+        "score": "61–56",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "3",
+          "fta": "6",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "50.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 15,
+          "ftm": 3,
+          "fta": 6,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 15.0,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "3",
+          "fta": "6",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "50.0"
+        }
+      }
+    }
+  },
+  "fay-c": {
+    "id": "fay-c",
+    "name": "Fay C.",
+    "label": "#93 Fay C.",
+    "number": "93",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 17,
+          "ftm": 3,
+          "fta": 5,
+          "pf": 4,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 8.5,
+          "ft_pct": 60.0
+        },
+        "display": {
+          "gp": "2",
+          "pts": "17",
+          "ftm": "3",
+          "fta": "5",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.5",
+          "ft_pct": "60.0"
+        },
+        "ranks": {
+          "ppg": 24,
+          "pts": 35
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "61–58",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "2",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 4,
+          "ftm": 1,
+          "fta": 1,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 4.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "100.0"
+        }
+      }
+    }
+  },
+  "kai-h": {
+    "id": "kai-h",
+    "name": "Kai H.",
+    "label": "#55 Kai H.",
+    "number": "55",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2,
+          "pts": 12,
+          "ftm": 0,
+          "fta": 0,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.0,
+          "ft_pct": null
+        },
+        "display": {
+          "gp": "2",
+          "pts": "12",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        },
+        "ranks": {
+          "ppg": 35,
+          "pts": 38
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "33.3"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 15,
+          "ftm": 1,
+          "fta": 3,
+          "pf": 1,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 15.0,
+          "ft_pct": 33.3
+        },
+        "display": {
+          "gp": "1",
+          "pts": "15",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "15.0",
+          "ft_pct": "33.3"
+        }
+      }
+    }
+  },
+  "pax-c": {
+    "id": "pax-c",
+    "name": "Pax C.",
+    "label": "#53 Pax C.",
+    "number": "53",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 27,
+          "ftm": 1,
+          "fta": 1,
+          "pf": 6,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "27",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "6",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "100.0"
+        },
+        "ranks": {
+          "ppg": 20,
+          "pts": 26
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "70–68",
+        "display": {
+          "gp": "1",
+          "pts": "19",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "19.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "1",
+          "fta": "4",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "25.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ftm": 1,
+          "fta": 4,
+          "pf": 5,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 3.0,
+          "ft_pct": 25.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "1",
+          "fta": "4",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "25.0"
+        }
+      }
+    }
+  },
+  "mae-d": {
+    "id": "mae-d",
+    "name": "Mae D.",
+    "label": "#87 Mae D.",
+    "number": "87",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 28,
+          "ftm": 7,
+          "fta": 8,
+          "pf": 5,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 87.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "28",
+          "ftm": "7",
+          "fta": "8",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "87.5"
+        },
+        "ranks": {
+          "ppg": 31,
+          "pts": 25
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "70–68",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "2",
+          "fta": "3",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "5",
+          "fta": "5",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "61–58",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "2",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "75.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 9,
+          "ftm": 3,
+          "fta": 4,
+          "pf": 2,
+          "tech": 1,
+          "flagrant": 0,
+          "ppg": 9.0,
+          "ft_pct": 75.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "2",
+          "tech": "1",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "75.0"
+        }
+      }
+    }
+  },
+  "una-e": {
+    "id": "una-e",
+    "name": "Una E.",
+    "label": "#67 Una E.",
+    "number": "67",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 56,
+          "ftm": 8,
+          "fta": 13,
+          "pf": 11,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 14.0,
+          "ft_pct": 61.5
+        },
+        "display": {
+          "gp": "4",
+          "pts": "56",
+          "ftm": "8",
+          "fta": "13",
+          "pf": "11",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "61.5"
+        },
+        "ranks": {
+          "ppg": 2,
+          "ft_pct": 5,
+          "pts": 2
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "70–68",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "75.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "12",
+          "ftm": "1",
+          "fta": "3",
+          "pf": "5",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "12.0",
+          "ft_pct": "33.3"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "61–58",
+        "display": {
+          "gp": "1",
+          "pts": "27",
+          "ftm": "4",
+          "fta": "6",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "27.0",
+          "ft_pct": "66.7"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "5",
+          "fta": "5",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 9,
+          "ftm": 5,
+          "fta": 5,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 9.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "9",
+          "ftm": "5",
+          "fta": "5",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "9.0",
+          "ft_pct": "100.0"
+        }
+      }
+    }
+  },
+  "una-r": {
+    "id": "una-r",
+    "name": "Una R.",
+    "label": "#57 Una R.",
+    "number": "57",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4,
+          "pts": 42,
+          "ftm": 11,
+          "fta": 12,
+          "pf": 8,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 10.5,
+          "ft_pct": 91.7
+        },
+        "display": {
+          "gp": "4",
+          "pts": "42",
+          "ftm": "11",
+          "fta": "12",
+          "pf": "8",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.5",
+          "ft_pct": "91.7"
+        },
+        "ranks": {
+          "ppg": 11,
+          "ft_pct": 1,
+          "pts": 5
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "70–68",
+        "display": {
+          "gp": "1",
+          "pts": "17",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "17.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "5",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "5.0",
+          "ft_pct": "83.3"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "61–58",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "4",
+          "fta": "4",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "14",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "14.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 6,
+          "ftm": 1,
+          "fta": 1,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.0,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "1",
+          "fta": "1",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      }
+    }
+  },
+  "kit-w": {
+    "id": "kit-w",
+    "name": "Kit W.",
+    "label": "#24 Kit W.",
+    "number": "24",
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 23,
+          "ftm": 6,
+          "fta": 11,
+          "pf": 7,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.7,
+          "ft_pct": 54.5
+        },
+        "display": {
+          "gp": "3",
+          "pts": "23",
+          "ftm": "6",
+          "fta": "11",
+          "pf": "7",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.7",
+          "ft_pct": "54.5"
+        },
+        "ranks": {
+          "ppg": 29,
+          "ft_pct": 6,
+          "pts": 30
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "2",
+          "fta": "6",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "33.3"
+        }
+      },
+      {
+        "game": "2025-10-30-2",
+        "url": "/games/2025-10-30-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 30",
+        "opponent": "Foxes",
+        "result": "win",
+        "score": "61–58",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "3",
+          "fta": "3",
+          "pf": "4",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "10",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "10.0",
+          "ft_pct": "50.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "83.3"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 7,
+          "ftm": 5,
+          "fta": 6,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 7.0,
+          "ft_pct": 83.3
+        },
+        "display": {
+          "gp": "1",
+          "pts": "7",
+          "ftm": "5",
+          "fta": "6",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "7.0",
+          "ft_pct": "83.3"
+        }
+      }
+    }
+  },
+  "ida-g": {
+    "id": "ida-g",
+    "name": "Ida G.",
+    "label": "Ida G.",
+    "number": null,
+    "team": "comets",
+    "team_name": "Comets",
+    "sub": false,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 3,
+          "pts": 25,
+          "ftm": 2,
+          "fta": 2,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 8.3,
+          "ft_pct": 100.0
+        },
+        "display": {
+          "gp": "3",
+          "pts": "25",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "8.3",
+          "ft_pct": "100.0"
+        },
+        "ranks": {
+          "ppg": 26,
+          "pts": 29
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-16-1",
+        "url": "/games/2025-10-16-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 16",
+        "opponent": "Herons",
+        "result": "win",
+        "score": "70–68",
+        "display": {
+          "gp": "1",
+          "pts": "13",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "0",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "13.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-11-13-2",
+        "url": "/games/2025-11-13-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 13",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "57–59",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "2",
+          "fta": "2",
+          "pf": "1",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "100.0"
+        }
+      },
+      {
+        "game": "2025-12-04-2",
+        "url": "/games/2025-12-04-2/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Pines",
+        "result": "loss",
+        "score": "56–61",
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "50.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 3,
+          "ftm": 1,
+          "fta": 2,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 3.0,
+          "ft_pct": 50.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "3",
+          "ftm": "1",
+          "fta": "2",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "3.0",
+          "ft_pct": "50.0"
+        }
+      }
+    }
+  },
+  "val-r": {
+    "id": "val-r",
+    "name": "Val R.",
+    "label": "Val R.",
+    "number": null,
+    "team": null,
+    "team_name": null,
+    "sub": true,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 6,
+          "ftm": 0,
+          "fta": 0,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 6.0,
+          "ft_pct": null
+        },
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        },
+        "ranks": {
+          "ppg": 35,
+          "pts": 41
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-1",
+        "url": "/games/2025-10-23-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Rapids",
+        "result": "loss",
+        "score": "48–49",
+        "display": {
+          "gp": "1",
+          "pts": "6",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "6.0",
+          "ft_pct": "—"
+        }
+      },
+      {
+        "game": "2025-12-04-1",
+        "url": "/games/2025-12-04-1/",
+        "type": "playoff",
+        "group": "player",
+        "date_short": "Thu Dec 4",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "59–67",
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "75.0"
+        }
+      }
+    ],
+    "playoffs": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 11,
+          "ftm": 3,
+          "fta": 4,
+          "pf": 2,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 11.0,
+          "ft_pct": 75.0
+        },
+        "display": {
+          "gp": "1",
+          "pts": "11",
+          "ftm": "3",
+          "fta": "4",
+          "pf": "2",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "11.0",
+          "ft_pct": "75.0"
+        }
+      }
+    }
+  },
+  "jax-f": {
+    "id": "jax-f",
+    "name": "Jax F.",
+    "label": "Jax F.",
+    "number": null,
+    "team": null,
+    "team_name": null,
+    "sub": true,
+    "position": null,
+    "url": null,
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 1,
+          "pts": 4,
+          "ftm": 0,
+          "fta": 0,
+          "pf": 3,
+          "tech": 0,
+          "flagrant": 0,
+          "ppg": 4.0,
+          "ft_pct": null
+        },
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "—"
+        },
+        "ranks": {
+          "ppg": 41,
+          "pts": 42
+        }
+      }
+    },
+    "log": [
+      {
+        "game": "2025-10-23-2",
+        "url": "/games/2025-10-23-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 23",
+        "opponent": "Herons",
+        "result": "loss",
+        "score": "62–65",
+        "display": {
+          "gp": "1",
+          "pts": "4",
+          "ftm": "0",
+          "fta": "0",
+          "pf": "3",
+          "tech": "0",
+          "flagrant": "0",
+          "ppg": "4.0",
+          "ft_pct": "—"
+        }
+      }
+    ],
+    "playoffs": {}
+  }
+}

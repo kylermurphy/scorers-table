@@ -3,11 +3,11 @@
   fixed. Used for the Stats page (every player), a team page (its roster).
   Params: ids (array of player ids, in the order to show), group (stat group; default leaders.table.group),
   caption (hidden table caption and the scroll box's label), team_col (true: a Team column with the chip and code).
-  Reads: stats.players (label, url, team, groups[group].display), stats.teams (code, name), stats.leaders.columns.
+  Reads: stats.players (label, url, team, groups[group].display), stats.teams (code, name), stats.leaders.columns[group].table.
   A player with no page (url null: a past season) is plain text; a spare (no team) shows "Spare".
 {%- endcomment -%}
 {%- assign _pt_group = include.group | default: stats.leaders.table.group -%}
-{%- assign _pt_cols = stats.leaders.columns[_pt_group] -%}
+{%- assign _pt_cols = stats.leaders.columns[_pt_group].table -%}
 {%- assign _pt_cap = include.caption | default: "Players" -%}
 <div class="st-table-wrap" role="region" aria-label="{{ _pt_cap | escape }}, scrolls sideways" tabindex="0">
 <table class="st-table"><caption class="st-visually-hidden">{{ _pt_cap | escape }}</caption>

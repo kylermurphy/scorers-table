@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lines.home",
+      "message": "lines for Alpha should be 4 running totals, one per quarter"
+    }
+  ],
+  "reading": null
+}

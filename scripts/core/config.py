@@ -15,17 +15,18 @@ from typing import Any
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError, available_timezones
 
 from scripts.core.fmt import humanize
-from scripts.core.problems import Checker, display_path, join_path, read_yaml
+from scripts.core.problems import Checker, display_path, join_path, one_of, read_yaml, suggest
 from scripts.core.sports import (
-    ID_RE, REPO_ROOT, SPORTS_ROOT, check_option_value, check_standings, discover_sports, is_wrapped, load_sport,
-    team_stat_keys, unknown_sport_message, unwrap,
+    ID_RE, REPO_ROOT, SITE_PATHS, SPORTS_ROOT, check_option_value, check_standings, demo_sports, discover_sports,
+    is_wrapped, load_sport, team_stat_keys, unknown_sport_message, unwrap,
 )
 from scripts.core.model import LAYOUTS, League, Placeholder, Problem, SportDef
 
 LEAGUE_FILE = "league.yml"
 LEAGUE_KEYS = ("name", "short_name", "code", "sport", "layout", "colour", "colour_dark", "logo", "tagline",
                "footer_line", "contact", "timezone", "time_format", "lang", "search_engines", "sample_data",
-               "preview", "photos", "nightly_hour", "rules", "standings", "stats", "labels", "calendar", "github")
+               "preview", "sport_previews", "photos", "nightly_hour", "rules", "standings", "stats", "labels", "calendar",
+               "github")
 REQUIRED_KEYS = ("name", "sport", "timezone")
 TIME_FORMATS = ("12h", "24h")
 HEX_RE = re.compile(r"#[0-9a-fA-F]{6}")
@@ -244,6 +245,7 @@ def build_league(raw: Any, *, file: str = LEAGUE_FILE, sports_root: Path = SPORT
     lang = c.pattern(raw["lang"], "lang", LANG_RE, "a language code like 'en' or 'fr-CA'") if "lang" in raw else "en"
     flags = {k: (c.boolean(raw[k], k) if k in raw else default)
              for k, default in (("search_engines", False), ("sample_data", False), ("preview", True), ("photos", False))}
+    previews = _check_sport_previews(c, raw["sport_previews"], sports_root) if "sport_previews" in raw else ()
     github = _check_github(c, raw["github"]) if "github" in raw else None
     game_minutes = _check_calendar(c, raw, spec)
     nightly_hour = c.integer(raw["nightly_hour"], "nightly_hour", 0, 23) if "nightly_hour" in raw else 3
@@ -260,7 +262,8 @@ def build_league(raw: Any, *, file: str = LEAGUE_FILE, sports_root: Path = SPORT
         time_format=time_format, lang=lang, search_engines=flags["search_engines"], sample_data=flags["sample_data"],
         preview=flags["preview"], photos=flags["photos"], rules=rules, standings=normalise_standings(standings_merged),
         standings_merged=standings_merged, minimums=minimums, labels=labels, game_minutes=game_minutes, github=github,
-        placeholders=find_placeholders(spec, raw), sport_def=sport, nightly_hour=nightly_hour if nightly_hour is not None else 3)
+        placeholders=find_placeholders(spec, raw), sport_def=sport, nightly_hour=nightly_hour if nightly_hour is not None else 3,
+        sport_previews=previews)
     return league, c.problems
 
 
@@ -275,6 +278,45 @@ def _load_sport(c: Checker, raw: dict, sports_root: Path, root: Path) -> SportDe
     sport, problems = load_sport(sport_id, sports_root, root=root)
     c.problems.extend(problems)
     return sport
+
+
+def _check_sport_previews(c: Checker, value: Any, sports_root: Path) -> tuple[str, ...]:
+    """`sport_previews`: false (none), true (every sport that has a demo) or a list of sport ids. Returns the ids
+    to build, in order. An id that is not a demo sport, listed twice, or the same as a top-level path of the site
+    is an error with its own path (spec 7.1, 7.2)."""
+    demos = demo_sports(sports_root)
+    if isinstance(value, bool):
+        ids = list(demos) if value else []
+        for sport_id in ids:
+            _check_preview_path(c, sport_id, "sport_previews")
+        return tuple(ids)
+    if not isinstance(value, list):
+        c.error("sport_previews", "must be true, false or a list of sport ids, like [basketball, hockey].")
+        return ()
+    ids = []
+    for i, sport_id in enumerate(value):
+        at = join_path("sport_previews", i)
+        if not isinstance(sport_id, str) or sport_id not in demos:
+            if isinstance(sport_id, str) and sport_id in discover_sports(sports_root):
+                why = (f"{sport_id!r} is a test sport (its sport.yml says demo: false) or has no sample.py, "
+                       "so there is no preview for it.")
+            else:
+                hint = suggest(str(sport_id), list(demos))
+                why = f"{sport_id!r} is not a sport folder with a sample league." + (f" Did you mean {hint!r}?" if hint else "")
+            c.error(at, f"{why} Sports with a preview: {one_of(list(demos)) or '(none found)'}.")
+        elif sport_id in ids:
+            c.error(at, f"{sport_id!r} is listed twice.")
+        elif _check_preview_path(c, sport_id, at):
+            ids.append(sport_id)
+    return tuple(ids)
+
+
+def _check_preview_path(c: Checker, sport_id: str, at: str) -> bool:
+    if sport_id in SITE_PATHS:
+        c.error(at, f"{sport_id!r} is already a page or folder of the site, so a preview cannot live at "
+                    f"/{sport_id}/. Rename the sport folder, or leave it out of sport_previews.")
+        return False
+    return True
 
 
 def _check_calendar(c: Checker, raw: dict, spec: dict | None) -> int:

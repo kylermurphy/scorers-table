@@ -1,0 +1,692 @@
+{
+  "boards": [
+    {
+      "id": "ppg",
+      "label": "Points / game",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "ppg",
+      "tile": true,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": 0,
+        "placeholder": true,
+        "note": "Minimum [placeholder] games played."
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Points / game",
+      "title_board": null,
+      "unit": "PPG",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ada-e",
+          "team": "herons",
+          "label": "#52 Ada E.",
+          "value": 15.3,
+          "display": "15.3",
+          "detail": "61 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "una-e",
+          "team": "comets",
+          "label": "#67 Una E.",
+          "value": 14.0,
+          "display": "14.0",
+          "detail": "56 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "oz-m",
+          "team": "rapids",
+          "label": "#82 Oz M.",
+          "value": 13.7,
+          "display": "13.7",
+          "detail": "41 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "sal-f",
+          "team": "foxes",
+          "label": "#47 Sal F.",
+          "value": 13.3,
+          "display": "13.3",
+          "detail": "53 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "pia-k",
+          "team": "rapids",
+          "label": "#52 Pia K.",
+          "value": 12.7,
+          "display": "12.7",
+          "detail": "38 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "rae-w",
+          "team": "rapids",
+          "label": "#99 Rae W.",
+          "value": 12.3,
+          "display": "12.3",
+          "detail": "37 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "quin-w",
+          "team": "rapids",
+          "label": "Quin W.",
+          "value": 12.0,
+          "display": "12.0",
+          "detail": "36 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "kai-p",
+          "team": "rapids",
+          "label": "#00 Kai P.",
+          "value": 11.3,
+          "display": "11.3",
+          "detail": "34 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "una-a",
+          "team": "pines",
+          "label": "#69 Una A.",
+          "value": 11.3,
+          "display": "11.3",
+          "detail": "34 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "hal-j",
+          "team": "herons",
+          "label": "#78 Hal J.",
+          "value": 10.8,
+          "display": "10.8",
+          "detail": "43 pts in 4 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "ft_pct",
+      "label": "Free throw %",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "ft_pct",
+      "tile": true,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": 10,
+        "placeholder": true,
+        "note": "Minimum [placeholder] free throw attempts."
+      },
+      "unranked": [
+        "alf-h",
+        "amy-s",
+        "cal-c",
+        "cleo-s",
+        "dee-f",
+        "fay-a",
+        "fay-c",
+        "finn-b",
+        "gwen-h",
+        "hal-j",
+        "ida-g",
+        "ike-h",
+        "jax-p",
+        "kai-p",
+        "kit-b",
+        "lars-d",
+        "mae-d",
+        "nell-l",
+        "oz-m",
+        "pax-c",
+        "quin-p",
+        "quin-w",
+        "rae-w",
+        "sal-f",
+        "sky-f",
+        "tam-c"
+      ],
+      "columns": null,
+      "title": "Free throw %",
+      "title_board": null,
+      "unit": "FT%",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "una-r",
+          "team": "comets",
+          "label": "#57 Una R.",
+          "value": 91.7,
+          "display": "91.7",
+          "detail": "11-12 FT",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "yara-w",
+          "team": "pines",
+          "label": "#54 Yara W.",
+          "value": 83.3,
+          "display": "83.3",
+          "detail": "10-12 FT",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "noa-h",
+          "team": "pines",
+          "label": "#73 Noa H.",
+          "value": 66.7,
+          "display": "66.7",
+          "detail": "8-12 FT",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "pia-k",
+          "team": "rapids",
+          "label": "#52 Pia K.",
+          "value": 63.6,
+          "display": "63.6",
+          "detail": "7-11 FT",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "una-e",
+          "team": "comets",
+          "label": "#67 Una E.",
+          "value": 61.5,
+          "display": "61.5",
+          "detail": "8-13 FT",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "ada-e",
+          "team": "herons",
+          "label": "#52 Ada E.",
+          "value": 54.5,
+          "display": "54.5",
+          "detail": "12-22 FT",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "gwen-e",
+          "team": "foxes",
+          "label": "#15 Gwen E.",
+          "value": 54.5,
+          "display": "54.5",
+          "detail": "6-11 FT",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "kit-w",
+          "team": "comets",
+          "label": "#24 Kit W.",
+          "value": 54.5,
+          "display": "54.5",
+          "detail": "6-11 FT",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "una-a",
+          "team": "pines",
+          "label": "#69 Una A.",
+          "value": 53.3,
+          "display": "53.3",
+          "detail": "8-15 FT",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "hal-b",
+          "team": "herons",
+          "label": "#83 Hal B.",
+          "value": 50.0,
+          "display": "50.0",
+          "detail": "6-12 FT",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "pts",
+      "label": "Points",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "pts",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Points",
+      "title_board": null,
+      "unit": "PTS",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ada-e",
+          "team": "herons",
+          "label": "#52 Ada E.",
+          "value": 61,
+          "display": "61",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "una-e",
+          "team": "comets",
+          "label": "#67 Una E.",
+          "value": 56,
+          "display": "56",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "sal-f",
+          "team": "foxes",
+          "label": "#47 Sal F.",
+          "value": 53,
+          "display": "53",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "hal-j",
+          "team": "herons",
+          "label": "#78 Hal J.",
+          "value": 43,
+          "display": "43",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "ola-p",
+          "team": "pines",
+          "label": "Ola P.",
+          "value": 42,
+          "display": "42",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "una-r",
+          "team": "comets",
+          "label": "#57 Una R.",
+          "value": 42,
+          "display": "42",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "finn-b",
+          "team": "herons",
+          "label": "#43 Finn B.",
+          "value": 41,
+          "display": "41",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "kit-r",
+          "team": "pines",
+          "label": "#57 Kit R.",
+          "value": 41,
+          "display": "41",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "oz-m",
+          "team": "rapids",
+          "label": "#82 Oz M.",
+          "value": 41,
+          "display": "41",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "tam-c",
+          "team": "foxes",
+          "label": "Tam C.",
+          "value": 40,
+          "display": "40",
+          "detail": "4 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "label": "Technical fouls",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "tech",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": false,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Technical fouls",
+      "title_board": null,
+      "unit": "T",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "abe-b",
+          "team": "pines",
+          "label": "#12 Abe B.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "fay-a",
+          "team": "rapids",
+          "label": "#45 Fay A.",
+          "value": 1,
+          "display": "1",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "finn-b",
+          "team": "herons",
+          "label": "#43 Finn B.",
+          "value": 1,
+          "display": "1",
+          "detail": "6 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "kit-r",
+          "team": "pines",
+          "label": "#57 Kit R.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "mae-d",
+          "team": "comets",
+          "label": "#87 Mae D.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "sky-f",
+          "team": "pines",
+          "label": "#3 Sky F.",
+          "value": 1,
+          "display": "1",
+          "detail": "6 GP",
+          "cells": null
+        }
+      ]
+    }
+  ],
+  "table": {
+    "group": "player",
+    "columns": [
+      {
+        "key": "gp",
+        "label": "GP",
+        "title": "Games played",
+        "key_col": false
+      },
+      {
+        "key": "pts",
+        "label": "PTS",
+        "title": "Points",
+        "key_col": false
+      },
+      {
+        "key": "ppg",
+        "label": "PPG",
+        "title": "Points per game",
+        "key_col": true
+      },
+      {
+        "key": "ftm",
+        "label": "FTM",
+        "title": "Free throws made",
+        "key_col": false
+      },
+      {
+        "key": "fta",
+        "label": "FTA",
+        "title": "Free throws attempted",
+        "key_col": false
+      },
+      {
+        "key": "ft_pct",
+        "label": "FT%",
+        "title": "Free throw percentage",
+        "key_col": false
+      }
+    ],
+    "rows": [
+      "ada-e",
+      "una-e",
+      "oz-m",
+      "sal-f",
+      "pia-k",
+      "rae-w",
+      "quin-w",
+      "kai-p",
+      "una-a",
+      "hal-j",
+      "ola-p",
+      "una-r",
+      "finn-b",
+      "kit-r",
+      "tam-c",
+      "abe-b",
+      "sky-f",
+      "dee-f",
+      "yara-w",
+      "pax-c",
+      "quin-p",
+      "kit-b",
+      "fay-a",
+      "fay-c",
+      "hal-b",
+      "ida-g",
+      "noa-h",
+      "cal-c",
+      "kit-w",
+      "gwen-h",
+      "lars-d",
+      "mae-d",
+      "amy-s",
+      "cleo-s",
+      "gwen-e",
+      "kai-h",
+      "val-r",
+      "ike-h",
+      "jax-p",
+      "nell-l",
+      "alf-h",
+      "jax-f"
+    ]
+  },
+  "columns": {
+    "player": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": false
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "ft_pct",
+          "label": "FT%",
+          "title": "Free throw percentage",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": false
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "ft_pct",
+          "label": "FT%",
+          "title": "Free throw percentage",
+          "key_col": false
+        },
+        {
+          "key": "tech",
+          "label": "T",
+          "title": "Technical fouls",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "tech",
+          "label": "T",
+          "title": "Technical fouls",
+          "key_col": false
+        }
+      ]
+    }
+  }
+}

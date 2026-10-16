@@ -1,0 +1,381 @@
+{
+  "boards": [
+    {
+      "id": "pts",
+      "label": "Points",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "pts",
+      "tile": true,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Points",
+      "title_board": null,
+      "unit": "PTS",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ola-p",
+          "team": "lynx",
+          "label": "#12 Ola P.",
+          "value": 22,
+          "display": "22",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "abe-b",
+          "team": "moose",
+          "label": "#15 Abe B.",
+          "value": 21,
+          "display": "21",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "fay-c",
+          "team": "lynx",
+          "label": "#57 Fay C.",
+          "value": 21,
+          "display": "21",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "gwen-e",
+          "team": "badgers",
+          "label": "#85 Gwen E.",
+          "value": 20,
+          "display": "20",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "dee-f",
+          "team": "ravens",
+          "label": "Dee F.",
+          "value": 18,
+          "display": "18",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "oz-m",
+          "team": "otters",
+          "label": "#44 Oz M.",
+          "value": 18,
+          "display": "18",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "kai-p",
+          "team": "otters",
+          "label": "#00 Kai P.",
+          "value": 17,
+          "display": "17",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "pax-c",
+          "team": "lynx",
+          "label": "Pax C.",
+          "value": 17,
+          "display": "17",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "ada-e",
+          "team": "ravens",
+          "label": "#52 Ada E.",
+          "value": 16,
+          "display": "16",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "hal-b",
+          "team": "ravens",
+          "label": "#82 Hal B.",
+          "value": 16,
+          "display": "16",
+          "detail": "3 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "ppg",
+      "label": "Points / game",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "ppg",
+      "tile": true,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": 0,
+        "placeholder": true,
+        "note": "Minimum [placeholder] games played."
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Points / game",
+      "title_board": null,
+      "unit": "PPG",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "abe-b",
+          "team": "moose",
+          "label": "#15 Abe B.",
+          "value": 7.0,
+          "display": "7.0",
+          "detail": "21 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "ola-p",
+          "team": "lynx",
+          "label": "#12 Ola P.",
+          "value": 5.5,
+          "display": "5.5",
+          "detail": "22 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "fay-c",
+          "team": "lynx",
+          "label": "#57 Fay C.",
+          "value": 5.3,
+          "display": "5.3",
+          "detail": "21 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "hal-b",
+          "team": "ravens",
+          "label": "#82 Hal B.",
+          "value": 5.3,
+          "display": "5.3",
+          "detail": "16 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "gwen-e",
+          "team": "badgers",
+          "label": "#85 Gwen E.",
+          "value": 5.0,
+          "display": "5.0",
+          "detail": "20 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "dee-f",
+          "team": "ravens",
+          "label": "Dee F.",
+          "value": 4.5,
+          "display": "4.5",
+          "detail": "18 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "oz-m",
+          "team": "otters",
+          "label": "#44 Oz M.",
+          "value": 4.5,
+          "display": "4.5",
+          "detail": "18 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "amy-s",
+          "team": "badgers",
+          "label": "#52 Amy S.",
+          "value": 4.3,
+          "display": "4.3",
+          "detail": "13 pts in 3 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "kai-p",
+          "team": "otters",
+          "label": "#00 Kai P.",
+          "value": 4.3,
+          "display": "4.3",
+          "detail": "17 pts in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "pax-c",
+          "team": "lynx",
+          "label": "Pax C.",
+          "value": 4.3,
+          "display": "4.3",
+          "detail": "17 pts in 4 GP",
+          "cells": null
+        }
+      ]
+    }
+  ],
+  "table": {
+    "group": "player",
+    "columns": [
+      {
+        "key": "gp",
+        "label": "GP",
+        "title": "Games played",
+        "key_col": false
+      },
+      {
+        "key": "pts",
+        "label": "PTS",
+        "title": "Points",
+        "key_col": true
+      },
+      {
+        "key": "ppg",
+        "label": "PPG",
+        "title": "Points per game",
+        "key_col": false
+      }
+    ],
+    "rows": [
+      "ola-p",
+      "abe-b",
+      "fay-c",
+      "gwen-e",
+      "dee-f",
+      "oz-m",
+      "kai-p",
+      "pax-c",
+      "ada-e",
+      "hal-b",
+      "pia-k",
+      "una-a",
+      "yara-w",
+      "amy-s",
+      "noa-h",
+      "fay-a",
+      "finn-b",
+      "jax-p",
+      "kit-b",
+      "sky-f",
+      "hal-j",
+      "kai-h",
+      "quin-w",
+      "tam-c",
+      "alf-h",
+      "ike-h",
+      "mae-d",
+      "rae-w",
+      "cal-c",
+      "gwen-h",
+      "kit-r",
+      "quin-p",
+      "cleo-s",
+      "nell-l",
+      "sal-f",
+      "lars-d"
+    ]
+  },
+  "columns": {
+    "player": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ]
+    }
+  }
+}

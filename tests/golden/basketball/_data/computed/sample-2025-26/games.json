@@ -1,0 +1,4727 @@
+{
+  "2025-10-16-1": {
+    "id": "2025-10-16-1",
+    "url": "/games/2025-10-16-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 1",
+    "date_short": "Thu Oct 16",
+    "date_long": "Thursday, October 16, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "comets",
+      "name": "Comets",
+      "code": "COM",
+      "slot": 5,
+      "colour": null,
+      "score": 70,
+      "result": "win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "away": {
+      "team": "herons",
+      "name": "Herons",
+      "code": "HER",
+      "slot": 2,
+      "colour": null,
+      "score": 68,
+      "result": "loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Comets by 2"
+    },
+    "summary": "Comets by 2",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Lee M.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 3,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 19,
+              "won": true
+            },
+            {
+              "v": 18
+            },
+            {
+              "v": 18
+            },
+            {
+              "v": 15
+            }
+          ],
+          "total": 70,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 18
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 16
+            },
+            {
+              "v": 20,
+              "won": true
+            }
+          ],
+          "total": 68,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #52 Ada E. 21 pts",
+      "strong": "#52 Ada E.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": "Top scorer: #52 Ada E. 21 pts, 3-8 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "ada-e",
+        "side": "away",
+        "value": 21,
+        "unit": "Points",
+        "detail": "Herons · 3-8 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Comets box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "pax-c",
+            "cells": {
+              "pts": "19",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "53"
+          },
+          {
+            "player": "mae-d",
+            "cells": {
+              "pts": "11",
+              "ft": "2-3",
+              "pf": "3"
+            },
+            "num": "87"
+          },
+          {
+            "player": "una-e",
+            "cells": {
+              "pts": "10",
+              "ft": "3-4",
+              "pf": "1"
+            },
+            "num": "67"
+          },
+          {
+            "player": "una-r",
+            "cells": {
+              "pts": "17",
+              "ft": "2-2",
+              "pf": "3"
+            },
+            "num": "57"
+          },
+          {
+            "player": "ida-g",
+            "cells": {
+              "pts": "13",
+              "ft": "0-0",
+              "pf": "0"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "70",
+            "ft": "7-9",
+            "pf": "9"
+          }
+        },
+        "note": "Free throws 77.8%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Herons box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "hal-b",
+            "cells": {
+              "pts": "5",
+              "ft": "2-7",
+              "pf": "2"
+            },
+            "num": "83"
+          },
+          {
+            "player": "finn-b",
+            "cells": {
+              "pts": "11",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "43"
+          },
+          {
+            "player": "hal-j",
+            "cells": {
+              "pts": "6",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "78"
+          },
+          {
+            "player": "ada-e",
+            "cells": {
+              "pts": "21",
+              "ft": "3-8",
+              "pf": "1"
+            },
+            "num": "52"
+          },
+          {
+            "player": "jax-p",
+            "cells": {
+              "pts": "5",
+              "ft": "5-5",
+              "pf": "0"
+            },
+            "num": "14"
+          },
+          {
+            "player": "dee-f",
+            "cells": {
+              "pts": "10",
+              "ft": "4-5",
+              "pf": "0"
+            },
+            "num": "85"
+          },
+          {
+            "player": "kit-b",
+            "cells": {
+              "pts": "6",
+              "ft": "1-3",
+              "pf": "4"
+            },
+            "num": "28"
+          },
+          {
+            "player": "alf-h",
+            "cells": {
+              "pts": "4",
+              "ft": "4-4",
+              "pf": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "68",
+            "ft": "19-32",
+            "pf": "13"
+          }
+        },
+        "note": "Free throws 59.4%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Technical fouls: #43 Finn B. (Herons)."
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-10-16-2": {
+    "id": "2025-10-16-2",
+    "url": "/games/2025-10-16-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 1",
+    "date_short": "Thu Oct 16",
+    "date_long": "Thursday, October 16, 2025",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "foxes",
+      "name": "Foxes",
+      "code": "FOX",
+      "slot": 3,
+      "colour": null,
+      "score": 67,
+      "result": "ot_loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "pines",
+      "name": "Pines",
+      "code": "PIN",
+      "slot": 4,
+      "colour": null,
+      "score": 71,
+      "result": "ot_win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "overtime",
+    "status": "Final · OT",
+    "final": {
+      "status": "Final · OT",
+      "sub": "Pines by 4"
+    },
+    "summary": "Pines by 4",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 1,
+      "away": 3
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        },
+        {
+          "label": "OT"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 17
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 18,
+              "won": true
+            },
+            {
+              "v": 5
+            }
+          ],
+          "total": 67,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 16
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 15
+            },
+            {
+              "v": 17,
+              "won": true
+            },
+            {
+              "v": 9
+            }
+          ],
+          "total": 71,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #54 Yara W. 17 pts",
+      "strong": "#54 Yara W.",
+      "link_label": "Box score",
+      "meta": [
+        "8:15 PM"
+      ],
+      "note_long": "Top scorer: #54 Yara W. 17 pts, 4-4 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "yara-w",
+        "side": "away",
+        "value": 17,
+        "unit": "Points",
+        "detail": "Pines · 4-4 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Foxes box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "quin-p",
+            "cells": {
+              "pts": "6",
+              "ft": "1-1",
+              "pf": "0"
+            },
+            "num": "54"
+          },
+          {
+            "player": "amy-s",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "20"
+          },
+          {
+            "player": "ike-h",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "0"
+            },
+            "num": "83"
+          },
+          {
+            "player": "gwen-e",
+            "cells": {
+              "pts": "3",
+              "ft": "3-7",
+              "pf": "0"
+            },
+            "num": "15"
+          },
+          {
+            "player": "sal-f",
+            "cells": {
+              "pts": "9",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "47"
+          },
+          {
+            "player": "lars-d",
+            "cells": {
+              "pts": "9",
+              "ft": "3-3",
+              "pf": "1"
+            },
+            "num": "46"
+          },
+          {
+            "player": "gwen-h",
+            "cells": {
+              "pts": "9",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "48"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "15",
+              "ft": "0-3",
+              "pf": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "67",
+            "ft": "7-14",
+            "pf": "8"
+          }
+        },
+        "note": "Free throws 50.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Pines box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "cleo-s",
+            "cells": {
+              "pts": "7",
+              "ft": "2-4",
+              "pf": "1"
+            },
+            "num": "6"
+          },
+          {
+            "player": "abe-b",
+            "cells": {
+              "pts": "12",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "12"
+          },
+          {
+            "player": "kit-r",
+            "cells": {
+              "pts": "6",
+              "ft": "1-5",
+              "pf": "2"
+            },
+            "num": "57"
+          },
+          {
+            "player": "yara-w",
+            "cells": {
+              "pts": "17",
+              "ft": "4-4",
+              "pf": "2"
+            },
+            "num": "54"
+          },
+          {
+            "player": "una-a",
+            "cells": {
+              "pts": "7",
+              "ft": "2-5",
+              "pf": "0"
+            },
+            "num": "69"
+          },
+          {
+            "player": "sky-f",
+            "cells": {
+              "pts": "6",
+              "ft": "1-2",
+              "pf": "1"
+            },
+            "num": "3"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "3",
+              "ft": "1-1",
+              "pf": "1"
+            },
+            "num": "73"
+          },
+          {
+            "player": "ola-p",
+            "cells": {
+              "pts": "13",
+              "ft": "4-7",
+              "pf": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "71",
+            "ft": "15-28",
+            "pf": "9"
+          }
+        },
+        "note": "Free throws 53.6%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-10-23-1": {
+    "id": "2025-10-23-1",
+    "url": "/games/2025-10-23-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 2",
+    "date_short": "Thu Oct 23",
+    "date_long": "Thursday, October 23, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "comets",
+      "name": "Comets",
+      "code": "COM",
+      "slot": 5,
+      "colour": null,
+      "score": 48,
+      "result": "loss",
+      "record": "1–1",
+      "record_line": "Loss · now 1–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "rapids",
+      "name": "Rapids",
+      "code": "RAP",
+      "slot": 1,
+      "colour": null,
+      "score": 49,
+      "result": "win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Rapids by 1"
+    },
+    "summary": "Rapids by 1",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 3
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 11
+            },
+            {
+              "v": 11
+            },
+            {
+              "v": 13,
+              "won": true
+            },
+            {
+              "v": 13,
+              "won": true
+            }
+          ],
+          "total": 48,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 12
+            },
+            {
+              "v": 14,
+              "won": true
+            },
+            {
+              "v": 11
+            },
+            {
+              "v": 12
+            }
+          ],
+          "total": 49,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #82 Oz M. 14 pts",
+      "strong": "#82 Oz M.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": "Top scorer: #82 Oz M. 14 pts"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "oz-m",
+        "side": "away",
+        "value": 14,
+        "unit": "Points",
+        "detail": "Rapids"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Comets box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-h",
+            "cells": {
+              "pts": "3",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "55"
+          },
+          {
+            "player": "pax-c",
+            "cells": {
+              "pts": "5",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "53"
+          },
+          {
+            "player": "mae-d",
+            "cells": {
+              "pts": "5",
+              "ft": "5-5",
+              "pf": "0"
+            },
+            "num": "87"
+          },
+          {
+            "player": "una-e",
+            "cells": {
+              "pts": "12",
+              "ft": "1-3",
+              "pf": "5"
+            },
+            "num": "67"
+          },
+          {
+            "player": "una-r",
+            "cells": {
+              "pts": "5",
+              "ft": "5-6",
+              "pf": "2"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kit-w",
+            "cells": {
+              "pts": "6",
+              "ft": "2-6",
+              "pf": "2"
+            },
+            "num": "24"
+          },
+          {
+            "player": "ida-g",
+            "cells": {
+              "pts": "6",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": ""
+          },
+          {
+            "player": "val-r",
+            "cells": {
+              "pts": "6",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "48",
+            "ft": "13-20",
+            "pf": "19"
+          }
+        },
+        "note": "Free throws 65.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Rapids box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-p",
+            "cells": {
+              "pts": "5",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "00"
+          },
+          {
+            "player": "cal-c",
+            "cells": {
+              "pts": "4",
+              "ft": "2-3",
+              "pf": "1"
+            },
+            "num": "55"
+          },
+          {
+            "player": "oz-m",
+            "cells": {
+              "pts": "14",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "82"
+          },
+          {
+            "player": "nell-l",
+            "cells": {
+              "pts": "4",
+              "ft": "4-7",
+              "pf": "2"
+            },
+            "num": "50"
+          },
+          {
+            "player": "rae-w",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": "99"
+          },
+          {
+            "player": "pia-k",
+            "cells": {
+              "pts": "5",
+              "ft": "5-6",
+              "pf": "3"
+            },
+            "num": "52"
+          },
+          {
+            "player": "fay-a",
+            "cells": {
+              "pts": "4",
+              "ft": "2-3",
+              "pf": "4"
+            },
+            "num": "45"
+          },
+          {
+            "player": "quin-w",
+            "cells": {
+              "pts": "5",
+              "ft": "0-1",
+              "pf": "4"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "49",
+            "ft": "13-20",
+            "pf": "23"
+          }
+        },
+        "note": "Free throws 65.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-10-23-2": {
+    "id": "2025-10-23-2",
+    "url": "/games/2025-10-23-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 2",
+    "date_short": "Thu Oct 23",
+    "date_long": "Thursday, October 23, 2025",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "foxes",
+      "name": "Foxes",
+      "code": "FOX",
+      "slot": 3,
+      "colour": null,
+      "score": 62,
+      "result": "loss",
+      "record": "0–2",
+      "record_line": "Loss · now 0–2",
+      "badge": ""
+    },
+    "away": {
+      "team": "herons",
+      "name": "Herons",
+      "code": "HER",
+      "slot": 2,
+      "colour": null,
+      "score": 65,
+      "result": "win",
+      "record": "1–1",
+      "record_line": "Win · now 1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Herons by 3"
+    },
+    "summary": "Herons by 3",
+    "notes": [
+      "Started ten minutes late."
+    ],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 3
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 15
+            },
+            {
+              "v": 20,
+              "won": true
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 14
+            }
+          ],
+          "total": 62,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 12
+            },
+            {
+              "v": 15
+            },
+            {
+              "v": 21,
+              "won": true
+            },
+            {
+              "v": 17
+            }
+          ],
+          "total": 65,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #78 Hal J. 16 pts",
+      "strong": "#78 Hal J.",
+      "link_label": "Box score",
+      "meta": [
+        "8:15 PM"
+      ],
+      "note_long": "Top scorer: #78 Hal J. 16 pts"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "hal-j",
+        "side": "away",
+        "value": 16,
+        "unit": "Points",
+        "detail": "Herons"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Foxes box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "quin-p",
+            "cells": {
+              "pts": "9",
+              "ft": "0-1",
+              "pf": "2"
+            },
+            "num": "54"
+          },
+          {
+            "player": "amy-s",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "5"
+            },
+            "num": "20"
+          },
+          {
+            "player": "ike-h",
+            "cells": {
+              "pts": "4",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "83"
+          },
+          {
+            "player": "gwen-e",
+            "cells": {
+              "pts": "4",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "15"
+          },
+          {
+            "player": "sal-f",
+            "cells": {
+              "pts": "15",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "47"
+          },
+          {
+            "player": "lars-d",
+            "cells": {
+              "pts": "4",
+              "ft": "0-2",
+              "pf": "1"
+            },
+            "num": "46"
+          },
+          {
+            "player": "gwen-h",
+            "cells": {
+              "pts": "6",
+              "ft": "0-0",
+              "pf": "5"
+            },
+            "num": "48"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "8",
+              "ft": "0-1",
+              "pf": "2"
+            },
+            "num": ""
+          },
+          {
+            "player": "jax-f",
+            "cells": {
+              "pts": "4",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 9 played",
+          "cells": {
+            "pts": "62",
+            "ft": "1-5",
+            "pf": "25"
+          }
+        },
+        "note": "Free throws 20.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Herons box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "hal-b",
+            "cells": {
+              "pts": "6",
+              "ft": "3-3",
+              "pf": "2"
+            },
+            "num": "83"
+          },
+          {
+            "player": "finn-b",
+            "cells": {
+              "pts": "10",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "43"
+          },
+          {
+            "player": "hal-j",
+            "cells": {
+              "pts": "16",
+              "ft": "0-0",
+              "pf": "0"
+            },
+            "num": "78"
+          },
+          {
+            "player": "ada-e",
+            "cells": {
+              "pts": "11",
+              "ft": "4-6",
+              "pf": "4"
+            },
+            "num": "52"
+          },
+          {
+            "player": "jax-p",
+            "cells": {
+              "pts": "3",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": "14"
+          },
+          {
+            "player": "dee-f",
+            "cells": {
+              "pts": "12",
+              "ft": "0-2",
+              "pf": "0"
+            },
+            "num": "85"
+          },
+          {
+            "player": "kit-b",
+            "cells": {
+              "pts": "7",
+              "ft": "3-3",
+              "pf": "1"
+            },
+            "num": "28"
+          }
+        ],
+        "totals": {
+          "label": "Team · 7 played",
+          "cells": {
+            "pts": "65",
+            "ft": "10-14",
+            "pf": "11"
+          }
+        },
+        "note": "Free throws 71.4%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Flagrant fouls: #28 Kit B. (Herons), Q4."
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-10-30-1": {
+    "id": "2025-10-30-1",
+    "url": "/games/2025-10-30-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 3",
+    "date_short": "Thu Oct 30",
+    "date_long": "Thursday, October 30, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "rapids",
+      "name": "Rapids",
+      "code": "RAP",
+      "slot": 1,
+      "colour": null,
+      "score": 74,
+      "result": "win",
+      "record": "2–0",
+      "record_line": "Win · now 2–0",
+      "badge": ""
+    },
+    "away": {
+      "team": "pines",
+      "name": "Pines",
+      "code": "PIN",
+      "slot": 4,
+      "colour": null,
+      "score": 66,
+      "result": "loss",
+      "record": "1–1",
+      "record_line": "Loss · now 1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Rapids by 8"
+    },
+    "summary": "Rapids by 8",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": "Lee M.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 3,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 23,
+              "won": true
+            },
+            {
+              "v": 20
+            },
+            {
+              "v": 17
+            },
+            {
+              "v": 14
+            }
+          ],
+          "total": 74,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 16
+            },
+            {
+              "v": 17
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 19,
+              "won": true
+            }
+          ],
+          "total": 66,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: Quin W. 24 pts",
+      "strong": "Quin W.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": "Top scorer: Quin W. 24 pts, 0-2 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "quin-w",
+        "side": "home",
+        "value": 24,
+        "unit": "Points",
+        "detail": "Rapids · 0-2 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Rapids box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "cal-c",
+            "cells": {
+              "pts": "10",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "55"
+          },
+          {
+            "player": "oz-m",
+            "cells": {
+              "pts": "11",
+              "ft": "2-4",
+              "pf": "0"
+            },
+            "num": "82"
+          },
+          {
+            "player": "nell-l",
+            "cells": {
+              "pts": "5",
+              "ft": "0-0",
+              "pf": "5"
+            },
+            "num": "50"
+          },
+          {
+            "player": "rae-w",
+            "cells": {
+              "pts": "15",
+              "ft": "2-4",
+              "pf": "2"
+            },
+            "num": "99"
+          },
+          {
+            "player": "pia-k",
+            "cells": {
+              "pts": "9",
+              "ft": "1-4",
+              "pf": "4"
+            },
+            "num": "52"
+          },
+          {
+            "player": "quin-w",
+            "cells": {
+              "pts": "24",
+              "ft": "0-2",
+              "pf": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "74",
+            "ft": "5-14",
+            "pf": "15"
+          }
+        },
+        "note": "Free throws 35.7%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Pines box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "abe-b",
+            "cells": {
+              "pts": "8",
+              "ft": "0-2",
+              "pf": "2"
+            },
+            "num": "12"
+          },
+          {
+            "player": "kit-r",
+            "cells": {
+              "pts": "4",
+              "ft": "2-4",
+              "pf": "2"
+            },
+            "num": "57"
+          },
+          {
+            "player": "yara-w",
+            "cells": {
+              "pts": "4",
+              "ft": "4-4",
+              "pf": "1"
+            },
+            "num": "54"
+          },
+          {
+            "player": "una-a",
+            "cells": {
+              "pts": "20",
+              "ft": "3-5",
+              "pf": "4"
+            },
+            "num": "69"
+          },
+          {
+            "player": "sky-f",
+            "cells": {
+              "pts": "4",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "3"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "17",
+              "ft": "2-2",
+              "pf": "0"
+            },
+            "num": "73"
+          },
+          {
+            "player": "ola-p",
+            "cells": {
+              "pts": "9",
+              "ft": "1-4",
+              "pf": "4"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 7 played",
+          "cells": {
+            "pts": "66",
+            "ft": "12-21",
+            "pf": "17"
+          }
+        },
+        "note": "Free throws 57.1%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Technical fouls: #57 Kit R. (Pines)."
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-10-30-2": {
+    "id": "2025-10-30-2",
+    "url": "/games/2025-10-30-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 3",
+    "date_short": "Thu Oct 30",
+    "date_long": "Thursday, October 30, 2025",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "foxes",
+      "name": "Foxes",
+      "code": "FOX",
+      "slot": 3,
+      "colour": null,
+      "score": 58,
+      "result": "loss",
+      "record": "0–3",
+      "record_line": "Loss · now 0–3",
+      "badge": ""
+    },
+    "away": {
+      "team": "comets",
+      "name": "Comets",
+      "code": "COM",
+      "slot": 5,
+      "colour": null,
+      "score": 61,
+      "result": "win",
+      "record": "2–1",
+      "record_line": "Win · now 2–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Comets by 3"
+    },
+    "summary": "Comets by 3",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 3
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 15
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 16,
+              "won": true
+            }
+          ],
+          "total": 58,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 14
+            },
+            {
+              "v": 15
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 18,
+              "won": true
+            }
+          ],
+          "total": 61,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #67 Una E. 27 pts",
+      "strong": "#67 Una E.",
+      "link_label": "Box score",
+      "meta": [
+        "8:15 PM"
+      ],
+      "note_long": "Top scorer: #67 Una E. 27 pts, 4-6 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "una-e",
+        "side": "away",
+        "value": 27,
+        "unit": "Points",
+        "detail": "Comets · 4-6 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Foxes box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "quin-p",
+            "cells": {
+              "pts": "12",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "54"
+          },
+          {
+            "player": "amy-s",
+            "cells": {
+              "pts": "4",
+              "ft": "2-4",
+              "pf": "1"
+            },
+            "num": "20"
+          },
+          {
+            "player": "ike-h",
+            "cells": {
+              "pts": "4",
+              "ft": "2-2",
+              "pf": "0"
+            },
+            "num": "83"
+          },
+          {
+            "player": "gwen-e",
+            "cells": {
+              "pts": "11",
+              "ft": "3-4",
+              "pf": "3"
+            },
+            "num": "15"
+          },
+          {
+            "player": "sal-f",
+            "cells": {
+              "pts": "15",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "47"
+          },
+          {
+            "player": "gwen-h",
+            "cells": {
+              "pts": "4",
+              "ft": "1-3",
+              "pf": "1"
+            },
+            "num": "48"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "8",
+              "ft": "1-2",
+              "pf": "5"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 7 played",
+          "cells": {
+            "pts": "58",
+            "ft": "9-15",
+            "pf": "15"
+          }
+        },
+        "note": "Free throws 60.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Comets box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "fay-c",
+            "cells": {
+              "pts": "12",
+              "ft": "1-1",
+              "pf": "3"
+            },
+            "num": "93"
+          },
+          {
+            "player": "mae-d",
+            "cells": {
+              "pts": "9",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "87"
+          },
+          {
+            "player": "una-e",
+            "cells": {
+              "pts": "27",
+              "ft": "4-6",
+              "pf": "3"
+            },
+            "num": "67"
+          },
+          {
+            "player": "una-r",
+            "cells": {
+              "pts": "6",
+              "ft": "4-4",
+              "pf": "1"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kit-w",
+            "cells": {
+              "pts": "7",
+              "ft": "3-3",
+              "pf": "4"
+            },
+            "num": "24"
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "61",
+            "ft": "12-14",
+            "pf": "12"
+          }
+        },
+        "note": "Free throws 85.7%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-11-06-1": {
+    "id": "2025-11-06-1",
+    "url": "/games/2025-11-06-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 4",
+    "date_short": "Thu Nov 6",
+    "date_long": "Thursday, November 6, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "foxes",
+      "name": "Foxes",
+      "code": "FOX",
+      "slot": 3,
+      "colour": null,
+      "score": 48,
+      "result": "win",
+      "record": "1–3",
+      "record_line": "Win · now 1–3",
+      "badge": ""
+    },
+    "away": {
+      "team": "rapids",
+      "name": "Rapids",
+      "code": "RAP",
+      "slot": 1,
+      "colour": null,
+      "score": 47,
+      "result": "loss",
+      "record": "2–1",
+      "record_line": "Loss · now 2–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Foxes by 1"
+    },
+    "summary": "Foxes by 1",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 3,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 14,
+              "won": true
+            },
+            {
+              "v": 11
+            },
+            {
+              "v": 11
+            },
+            {
+              "v": 12
+            }
+          ],
+          "total": 48,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 12
+            },
+            {
+              "v": 9
+            },
+            {
+              "v": 14,
+              "won": true
+            },
+            {
+              "v": 12
+            }
+          ],
+          "total": 47,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #82 Oz M. 16 pts",
+      "strong": "#82 Oz M.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": "Top scorer: #82 Oz M. 16 pts"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "oz-m",
+        "side": "away",
+        "value": 16,
+        "unit": "Points",
+        "detail": "Rapids"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Foxes box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "ike-h",
+            "cells": {
+              "pts": "7",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": "83"
+          },
+          {
+            "player": "sal-f",
+            "cells": {
+              "pts": "14",
+              "ft": "0-2",
+              "pf": "3"
+            },
+            "num": "47"
+          },
+          {
+            "player": "lars-d",
+            "cells": {
+              "pts": "8",
+              "ft": "3-4",
+              "pf": "1"
+            },
+            "num": "46"
+          },
+          {
+            "player": "gwen-h",
+            "cells": {
+              "pts": "10",
+              "ft": "0-2",
+              "pf": "2"
+            },
+            "num": "48"
+          },
+          {
+            "player": "tam-c",
+            "cells": {
+              "pts": "9",
+              "ft": "0-1",
+              "pf": "4"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "48",
+            "ft": "3-9",
+            "pf": "13"
+          }
+        },
+        "note": "Free throws 33.3%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Rapids box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-p",
+            "cells": {
+              "pts": "12",
+              "ft": "2-2",
+              "pf": "1"
+            },
+            "num": "00"
+          },
+          {
+            "player": "cal-c",
+            "cells": {
+              "pts": "7",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "55"
+          },
+          {
+            "player": "oz-m",
+            "cells": {
+              "pts": "16",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "82"
+          },
+          {
+            "player": "fay-a",
+            "cells": {
+              "pts": "5",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "45"
+          },
+          {
+            "player": "quin-w",
+            "cells": {
+              "pts": "7",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "47",
+            "ft": "2-2",
+            "pf": "8"
+          }
+        },
+        "note": "Free throws 100.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Technical fouls: #45 Fay A. (Rapids)."
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-11-06-2": {
+    "id": "2025-11-06-2",
+    "url": "/games/2025-11-06-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 4",
+    "date_short": "Thu Nov 6",
+    "date_long": "Thursday, November 6, 2025",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "pines",
+      "name": "Pines",
+      "code": "PIN",
+      "slot": 4,
+      "colour": null,
+      "score": 82,
+      "result": "win",
+      "record": "2–1",
+      "record_line": "Win · now 2–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "herons",
+      "name": "Herons",
+      "code": "HER",
+      "slot": 2,
+      "colour": null,
+      "score": 59,
+      "result": "loss",
+      "record": "1–2",
+      "record_line": "Loss · now 1–2",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Pines by 23"
+    },
+    "summary": "Pines by 23",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 3,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 18
+            },
+            {
+              "v": 25,
+              "won": true
+            },
+            {
+              "v": 17
+            },
+            {
+              "v": 22
+            }
+          ],
+          "total": 82,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 19,
+              "won": true
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 14
+            }
+          ],
+          "total": 59,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #3 Sky F. 19 pts",
+      "strong": "#3 Sky F.",
+      "link_label": "Box score",
+      "meta": [
+        "8:15 PM"
+      ],
+      "note_long": "Top scorer: #3 Sky F. 19 pts, 1-3 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "sky-f",
+        "side": "home",
+        "value": 19,
+        "unit": "Points",
+        "detail": "Pines · 1-3 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Pines box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "cleo-s",
+            "cells": {
+              "pts": "6",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "6"
+          },
+          {
+            "player": "abe-b",
+            "cells": {
+              "pts": "11",
+              "ft": "1-3",
+              "pf": "1"
+            },
+            "num": "12"
+          },
+          {
+            "player": "kit-r",
+            "cells": {
+              "pts": "14",
+              "ft": "1-2",
+              "pf": "0"
+            },
+            "num": "57"
+          },
+          {
+            "player": "yara-w",
+            "cells": {
+              "pts": "10",
+              "ft": "0-2",
+              "pf": "0"
+            },
+            "num": "54"
+          },
+          {
+            "player": "una-a",
+            "cells": {
+              "pts": "7",
+              "ft": "3-5",
+              "pf": "0"
+            },
+            "num": "69"
+          },
+          {
+            "player": "sky-f",
+            "cells": {
+              "pts": "19",
+              "ft": "1-3",
+              "pf": "4"
+            },
+            "num": "3"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "3",
+              "ft": "3-6",
+              "pf": "2"
+            },
+            "num": "73"
+          },
+          {
+            "player": "ola-p",
+            "cells": {
+              "pts": "12",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "82",
+            "ft": "10-22",
+            "pf": "12"
+          }
+        },
+        "note": "Free throws 45.5%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Herons box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "hal-b",
+            "cells": {
+              "pts": "15",
+              "ft": "1-2",
+              "pf": "2"
+            },
+            "num": "83"
+          },
+          {
+            "player": "finn-b",
+            "cells": {
+              "pts": "10",
+              "ft": "1-1",
+              "pf": "0"
+            },
+            "num": "43"
+          },
+          {
+            "player": "hal-j",
+            "cells": {
+              "pts": "6",
+              "ft": "3-8",
+              "pf": "5"
+            },
+            "num": "78"
+          },
+          {
+            "player": "ada-e",
+            "cells": {
+              "pts": "4",
+              "ft": "4-7",
+              "pf": "0"
+            },
+            "num": "52"
+          },
+          {
+            "player": "jax-p",
+            "cells": {
+              "pts": "6",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": "14"
+          },
+          {
+            "player": "dee-f",
+            "cells": {
+              "pts": "7",
+              "ft": "2-2",
+              "pf": "0"
+            },
+            "num": "85"
+          },
+          {
+            "player": "kit-b",
+            "cells": {
+              "pts": "7",
+              "ft": "2-2",
+              "pf": "1"
+            },
+            "num": "28"
+          },
+          {
+            "player": "alf-h",
+            "cells": {
+              "pts": "4",
+              "ft": "2-3",
+              "pf": "0"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "59",
+            "ft": "15-25",
+            "pf": "11"
+          }
+        },
+        "note": "Free throws 60.0%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-11-13-1": {
+    "id": "2025-11-13-1",
+    "url": "/games/2025-11-13-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 5",
+    "date_short": "Thu Nov 13",
+    "date_long": "Thursday, November 13, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "rapids",
+      "name": "Rapids",
+      "code": "RAP",
+      "slot": 1,
+      "colour": null,
+      "score": 82,
+      "result": "win",
+      "record": "3–1",
+      "record_line": "Win · now 3–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "herons",
+      "name": "Herons",
+      "code": "HER",
+      "slot": 2,
+      "colour": null,
+      "score": 73,
+      "result": "loss",
+      "record": "1–3",
+      "record_line": "Loss · now 1–3",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Rapids by 9"
+    },
+    "summary": "Rapids by 9",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 3,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 19
+            },
+            {
+              "v": 18
+            },
+            {
+              "v": 20
+            },
+            {
+              "v": 25,
+              "won": true
+            }
+          ],
+          "total": 82,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 22,
+              "won": true
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 20
+            },
+            {
+              "v": 18
+            }
+          ],
+          "total": 73,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #52 Ada E. 25 pts",
+      "strong": "#52 Ada E.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": "Top scorer: #52 Ada E. 25 pts, 1-1 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "ada-e",
+        "side": "away",
+        "value": 25,
+        "unit": "Points",
+        "detail": "Herons · 1-1 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Rapids box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "kai-p",
+            "cells": {
+              "pts": "17",
+              "ft": "2-2",
+              "pf": "2"
+            },
+            "num": "00"
+          },
+          {
+            "player": "cal-c",
+            "cells": {
+              "pts": "10",
+              "ft": "2-2",
+              "pf": "4"
+            },
+            "num": "55"
+          },
+          {
+            "player": "rae-w",
+            "cells": {
+              "pts": "14",
+              "ft": "0-4",
+              "pf": "3"
+            },
+            "num": "99"
+          },
+          {
+            "player": "pia-k",
+            "cells": {
+              "pts": "24",
+              "ft": "1-1",
+              "pf": "0"
+            },
+            "num": "52"
+          },
+          {
+            "player": "fay-a",
+            "cells": {
+              "pts": "17",
+              "ft": "3-3",
+              "pf": "2"
+            },
+            "num": "45"
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "82",
+            "ft": "8-12",
+            "pf": "11"
+          }
+        },
+        "note": "Free throws 66.7%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Herons box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "hal-b",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "83"
+          },
+          {
+            "player": "finn-b",
+            "cells": {
+              "pts": "10",
+              "ft": "3-4",
+              "pf": "3"
+            },
+            "num": "43"
+          },
+          {
+            "player": "hal-j",
+            "cells": {
+              "pts": "15",
+              "ft": "0-0",
+              "pf": "0"
+            },
+            "num": "78"
+          },
+          {
+            "player": "ada-e",
+            "cells": {
+              "pts": "25",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "52"
+          },
+          {
+            "player": "kit-b",
+            "cells": {
+              "pts": "15",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "28"
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "73",
+            "ft": "5-6",
+            "pf": "11"
+          }
+        },
+        "note": "Free throws 83.3%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-11-13-2": {
+    "id": "2025-11-13-2",
+    "url": "/games/2025-11-13-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Week 5",
+    "date_short": "Thu Nov 13",
+    "date_long": "Thursday, November 13, 2025",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "pines",
+      "name": "Pines",
+      "code": "PIN",
+      "slot": 4,
+      "colour": null,
+      "score": 59,
+      "result": "win",
+      "record": "3–1",
+      "record_line": "Win · now 3–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "comets",
+      "name": "Comets",
+      "code": "COM",
+      "slot": 5,
+      "colour": null,
+      "score": 57,
+      "result": "loss",
+      "record": "2–2",
+      "record_line": "Loss · now 2–2",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Pines by 2"
+    },
+    "summary": "Pines by 2",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 3,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 15
+            },
+            {
+              "v": 19,
+              "won": true
+            },
+            {
+              "v": 11
+            },
+            {
+              "v": 14
+            }
+          ],
+          "total": 59,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 14
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 17,
+              "won": true
+            },
+            {
+              "v": 12
+            }
+          ],
+          "total": 57,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #57 Kit R. 17 pts",
+      "strong": "#57 Kit R.",
+      "link_label": "Box score",
+      "meta": [
+        "8:15 PM"
+      ],
+      "note_long": "Top scorer: #57 Kit R. 17 pts, 0-1 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "kit-r",
+        "side": "home",
+        "value": 17,
+        "unit": "Points",
+        "detail": "Pines · 0-1 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Pines box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "abe-b",
+            "cells": {
+              "pts": "8",
+              "ft": "2-5",
+              "pf": "0"
+            },
+            "num": "12"
+          },
+          {
+            "player": "kit-r",
+            "cells": {
+              "pts": "17",
+              "ft": "0-1",
+              "pf": "1"
+            },
+            "num": "57"
+          },
+          {
+            "player": "yara-w",
+            "cells": {
+              "pts": "7",
+              "ft": "2-2",
+              "pf": "3"
+            },
+            "num": "54"
+          },
+          {
+            "player": "sky-f",
+            "cells": {
+              "pts": "10",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "3"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "9",
+              "ft": "2-3",
+              "pf": "3"
+            },
+            "num": "73"
+          },
+          {
+            "player": "ola-p",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "59",
+            "ft": "6-11",
+            "pf": "9"
+          }
+        },
+        "note": "Free throws 54.5%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Comets box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "fay-c",
+            "cells": {
+              "pts": "5",
+              "ft": "2-4",
+              "pf": "1"
+            },
+            "num": "93"
+          },
+          {
+            "player": "kai-h",
+            "cells": {
+              "pts": "9",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "55"
+          },
+          {
+            "player": "pax-c",
+            "cells": {
+              "pts": "3",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "53"
+          },
+          {
+            "player": "mae-d",
+            "cells": {
+              "pts": "3",
+              "ft": "0-0",
+              "pf": "1"
+            },
+            "num": "87"
+          },
+          {
+            "player": "una-e",
+            "cells": {
+              "pts": "7",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "67"
+          },
+          {
+            "player": "una-r",
+            "cells": {
+              "pts": "14",
+              "ft": "0-0",
+              "pf": "2"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kit-w",
+            "cells": {
+              "pts": "10",
+              "ft": "1-2",
+              "pf": "1"
+            },
+            "num": "24"
+          },
+          {
+            "player": "ida-g",
+            "cells": {
+              "pts": "6",
+              "ft": "2-2",
+              "pf": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "57",
+            "ft": "6-9",
+            "pf": "12"
+          }
+        },
+        "note": "Free throws 66.7%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Technical fouls: #12 Abe B. (Pines); #3 Sky F. (Pines)."
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-12-04-1": {
+    "id": "2025-12-04-1",
+    "url": "/games/2025-12-04-1/",
+    "type": "playoff",
+    "round": "Semifinal",
+    "day_label": "Semifinal",
+    "date_short": "Thu Dec 4",
+    "date_long": "Thursday, December 4, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "rapids",
+      "name": "Rapids",
+      "code": "RAP",
+      "slot": 1,
+      "colour": null,
+      "score": 59,
+      "result": "loss",
+      "record": "3–1",
+      "record_line": "Loss",
+      "badge": ""
+    },
+    "away": {
+      "team": "herons",
+      "name": "Herons",
+      "code": "HER",
+      "slot": 2,
+      "colour": null,
+      "score": 67,
+      "result": "win",
+      "record": "1–3",
+      "record_line": "Win",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Herons by 8"
+    },
+    "summary": "Herons by 8",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": null,
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 15
+            },
+            {
+              "v": 16,
+              "won": true
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 14
+            }
+          ],
+          "total": 59,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 13
+            },
+            {
+              "v": 20,
+              "won": true
+            },
+            {
+              "v": 16
+            },
+            {
+              "v": 18
+            }
+          ],
+          "total": 67,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #45 Fay A. and #83 Hal B. 14 pts",
+      "strong": "#45 Fay A. and #83 Hal B.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": null
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "fay-a",
+        "side": "home",
+        "value": 14,
+        "unit": "Points",
+        "detail": "Rapids · 2-3 free throws"
+      },
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "hal-b",
+        "side": "away",
+        "value": 14,
+        "unit": "Points",
+        "detail": "Herons · 1-1 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Rapids box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "cal-c",
+            "cells": {
+              "pts": "8",
+              "ft": "3-4",
+              "pf": "0"
+            },
+            "num": "55"
+          },
+          {
+            "player": "nell-l",
+            "cells": {
+              "pts": "9",
+              "ft": "0-1",
+              "pf": "1"
+            },
+            "num": "50"
+          },
+          {
+            "player": "pia-k",
+            "cells": {
+              "pts": "10",
+              "ft": "0-1",
+              "pf": "3"
+            },
+            "num": "52"
+          },
+          {
+            "player": "fay-a",
+            "cells": {
+              "pts": "14",
+              "ft": "2-3",
+              "pf": "2"
+            },
+            "num": "45"
+          },
+          {
+            "player": "quin-w",
+            "cells": {
+              "pts": "7",
+              "ft": "0-1",
+              "pf": "1"
+            },
+            "num": ""
+          },
+          {
+            "player": "val-r",
+            "cells": {
+              "pts": "11",
+              "ft": "3-4",
+              "pf": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "59",
+            "ft": "8-14",
+            "pf": "9"
+          }
+        },
+        "note": "Free throws 57.1%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Herons box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "hal-b",
+            "cells": {
+              "pts": "14",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "83"
+          },
+          {
+            "player": "finn-b",
+            "cells": {
+              "pts": "5",
+              "ft": "0-0",
+              "pf": "5"
+            },
+            "num": "43"
+          },
+          {
+            "player": "hal-j",
+            "cells": {
+              "pts": "6",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "78"
+          },
+          {
+            "player": "ada-e",
+            "cells": {
+              "pts": "10",
+              "ft": "5-6",
+              "pf": "0"
+            },
+            "num": "52"
+          },
+          {
+            "player": "jax-p",
+            "cells": {
+              "pts": "9",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "14"
+          },
+          {
+            "player": "dee-f",
+            "cells": {
+              "pts": "8",
+              "ft": "5-7",
+              "pf": "2"
+            },
+            "num": "85"
+          },
+          {
+            "player": "kit-b",
+            "cells": {
+              "pts": "10",
+              "ft": "1-2",
+              "pf": "3"
+            },
+            "num": "28"
+          },
+          {
+            "player": "alf-h",
+            "cells": {
+              "pts": "5",
+              "ft": "3-5",
+              "pf": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "67",
+            "ft": "16-22",
+            "pf": "19"
+          }
+        },
+        "note": "Free throws 72.7%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-12-04-2": {
+    "id": "2025-12-04-2",
+    "url": "/games/2025-12-04-2/",
+    "type": "playoff",
+    "round": "Semifinal",
+    "day_label": "Semifinal",
+    "date_short": "Thu Dec 4",
+    "date_long": "Thursday, December 4, 2025",
+    "time_display": "8:15 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "pines",
+      "name": "Pines",
+      "code": "PIN",
+      "slot": 4,
+      "colour": null,
+      "score": 61,
+      "result": "win",
+      "record": "3–1",
+      "record_line": "Win",
+      "badge": ""
+    },
+    "away": {
+      "team": "comets",
+      "name": "Comets",
+      "code": "COM",
+      "slot": 5,
+      "colour": null,
+      "score": 56,
+      "result": "loss",
+      "record": "2–2",
+      "record_line": "Loss",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Pines by 5"
+    },
+    "summary": "Pines by 5",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": null,
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 13
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 20,
+              "won": true
+            }
+          ],
+          "total": 61,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 14
+            },
+            {
+              "v": 13
+            },
+            {
+              "v": 14
+            },
+            {
+              "v": 15,
+              "won": true
+            }
+          ],
+          "total": 56,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #3 Sky F. 23 pts",
+      "strong": "#3 Sky F.",
+      "link_label": "Box score",
+      "meta": [
+        "8:15 PM"
+      ],
+      "note_long": "Top scorer: #3 Sky F. 23 pts, 3-5 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "sky-f",
+        "side": "home",
+        "value": 23,
+        "unit": "Points",
+        "detail": "Pines · 3-5 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Pines box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "cleo-s",
+            "cells": {
+              "pts": "8",
+              "ft": "3-3",
+              "pf": "5"
+            },
+            "num": "6"
+          },
+          {
+            "player": "yara-w",
+            "cells": {
+              "pts": "6",
+              "ft": "1-1",
+              "pf": "1"
+            },
+            "num": "54"
+          },
+          {
+            "player": "sky-f",
+            "cells": {
+              "pts": "23",
+              "ft": "3-5",
+              "pf": "1"
+            },
+            "num": "3"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "9",
+              "ft": "2-3",
+              "pf": "3"
+            },
+            "num": "73"
+          },
+          {
+            "player": "ola-p",
+            "cells": {
+              "pts": "15",
+              "ft": "3-6",
+              "pf": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 5 played",
+          "cells": {
+            "pts": "61",
+            "ft": "12-18",
+            "pf": "12"
+          }
+        },
+        "note": "Free throws 66.7%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Comets box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "fay-c",
+            "cells": {
+              "pts": "4",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "93"
+          },
+          {
+            "player": "kai-h",
+            "cells": {
+              "pts": "15",
+              "ft": "1-3",
+              "pf": "1"
+            },
+            "num": "55"
+          },
+          {
+            "player": "pax-c",
+            "cells": {
+              "pts": "3",
+              "ft": "1-4",
+              "pf": "5"
+            },
+            "num": "53"
+          },
+          {
+            "player": "mae-d",
+            "cells": {
+              "pts": "9",
+              "ft": "3-4",
+              "pf": "2"
+            },
+            "num": "87"
+          },
+          {
+            "player": "una-e",
+            "cells": {
+              "pts": "9",
+              "ft": "5-5",
+              "pf": "2"
+            },
+            "num": "67"
+          },
+          {
+            "player": "una-r",
+            "cells": {
+              "pts": "6",
+              "ft": "1-1",
+              "pf": "3"
+            },
+            "num": "57"
+          },
+          {
+            "player": "kit-w",
+            "cells": {
+              "pts": "7",
+              "ft": "5-6",
+              "pf": "3"
+            },
+            "num": "24"
+          },
+          {
+            "player": "ida-g",
+            "cells": {
+              "pts": "3",
+              "ft": "1-2",
+              "pf": "2"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 8 played",
+          "cells": {
+            "pts": "56",
+            "ft": "18-26",
+            "pf": "20"
+          }
+        },
+        "note": "Free throws 69.2%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "Technical fouls: #87 Mae D. (Comets)."
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  },
+  "2025-12-11-1": {
+    "id": "2025-12-11-1",
+    "url": "/games/2025-12-11-1/",
+    "type": "playoff",
+    "round": "Final",
+    "day_label": "Final",
+    "date_short": "Thu Dec 11",
+    "date_long": "Thursday, December 11, 2025",
+    "time_display": "7:00 PM",
+    "venue": "[Venue]",
+    "surface_label": null,
+    "home": {
+      "team": "herons",
+      "name": "Herons",
+      "code": "HER",
+      "slot": 2,
+      "colour": null,
+      "score": 52,
+      "result": "ot_win",
+      "record": "1–3",
+      "record_line": "Win",
+      "badge": ""
+    },
+    "away": {
+      "team": "pines",
+      "name": "Pines",
+      "code": "PIN",
+      "slot": 4,
+      "colour": null,
+      "score": 49,
+      "result": "ot_loss",
+      "record": "3–1",
+      "record_line": "Loss",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "overtime",
+    "status": "Final · OT",
+    "final": {
+      "status": "Final · OT",
+      "sub": "Herons by 3"
+    },
+    "summary": "Herons by 3",
+    "notes": [
+      "Played with running time in the second half."
+    ],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Lee M.",
+    "photo_url": null,
+    "standings_points": null,
+    "line_score": {
+      "shape": "quarters",
+      "corner": "Team",
+      "total_label": "Final",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "Q1"
+        },
+        {
+          "label": "Q2"
+        },
+        {
+          "label": "Q3"
+        },
+        {
+          "label": "Q4"
+        },
+        {
+          "label": "OT"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 10
+            },
+            {
+              "v": 12
+            },
+            {
+              "v": 13,
+              "won": true
+            },
+            {
+              "v": 11
+            },
+            {
+              "v": 6
+            }
+          ],
+          "total": 52,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 12
+            },
+            {
+              "v": 12
+            },
+            {
+              "v": 9
+            },
+            {
+              "v": 13,
+              "won": true
+            },
+            {
+              "v": 3
+            }
+          ],
+          "total": 49,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by quarter",
+      "won_word": "biggest quarter",
+      "mark_word": null,
+      "legend": [
+        {
+          "kind": "won",
+          "text": "Biggest quarter for each team"
+        }
+      ],
+      "note": null,
+      "title": null,
+      "meta": null,
+      "note_strong": null,
+      "split": null,
+      "legend_stack": false,
+      "void_word": "not played",
+      "blank_word": "blank",
+      "hammer_word": "Hammer"
+    },
+    "card": {
+      "note": "Top: #3 Sky F. 16 pts",
+      "strong": "#3 Sky F.",
+      "link_label": "Box score",
+      "meta": [
+        "7:00 PM"
+      ],
+      "note_long": "Top scorer: #3 Sky F. 16 pts, 1-1 FT"
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "top_performer",
+        "label": "Top scorer",
+        "player": "sky-f",
+        "side": "away",
+        "value": 16,
+        "unit": "Points",
+        "detail": "Pines · 1-1 free throws"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "home",
+        "caption": "Herons box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "hal-b",
+            "cells": {
+              "pts": "2",
+              "ft": "2-2",
+              "pf": "1"
+            },
+            "num": "83"
+          },
+          {
+            "player": "finn-b",
+            "cells": {
+              "pts": "8",
+              "ft": "1-2",
+              "pf": "2"
+            },
+            "num": "43"
+          },
+          {
+            "player": "hal-j",
+            "cells": {
+              "pts": "8",
+              "ft": "0-0",
+              "pf": "4"
+            },
+            "num": "78"
+          },
+          {
+            "player": "jax-p",
+            "cells": {
+              "pts": "10",
+              "ft": "0-0",
+              "pf": "3"
+            },
+            "num": "14"
+          },
+          {
+            "player": "dee-f",
+            "cells": {
+              "pts": "2",
+              "ft": "0-0",
+              "pf": "5"
+            },
+            "num": "85"
+          },
+          {
+            "player": "kit-b",
+            "cells": {
+              "pts": "13",
+              "ft": "0-1",
+              "pf": "2"
+            },
+            "num": "28"
+          },
+          {
+            "player": "alf-h",
+            "cells": {
+              "pts": "9",
+              "ft": "4-4",
+              "pf": "1"
+            },
+            "num": ""
+          }
+        ],
+        "totals": {
+          "label": "Team · 7 played",
+          "cells": {
+            "pts": "52",
+            "ft": "7-9",
+            "pf": "18"
+          }
+        },
+        "note": "Free throws 77.8%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "stat_table",
+        "title": null,
+        "side": "away",
+        "caption": "Pines box score",
+        "number_col": true,
+        "columns": [
+          {
+            "key": "pts",
+            "label": "PTS",
+            "title": "Points",
+            "key_col": true
+          },
+          {
+            "key": "ft",
+            "label": "FTM-FTA",
+            "title": "Free throws made-attempted",
+            "key_col": false
+          },
+          {
+            "key": "pf",
+            "label": "PF",
+            "title": "Personal fouls",
+            "key_col": false
+          }
+        ],
+        "rows": [
+          {
+            "player": "cleo-s",
+            "cells": {
+              "pts": "3",
+              "ft": "3-4",
+              "pf": "1"
+            },
+            "num": "6"
+          },
+          {
+            "player": "abe-b",
+            "cells": {
+              "pts": "6",
+              "ft": "0-1",
+              "pf": "0"
+            },
+            "num": "12"
+          },
+          {
+            "player": "kit-r",
+            "cells": {
+              "pts": "10",
+              "ft": "0-1",
+              "pf": "2"
+            },
+            "num": "57"
+          },
+          {
+            "player": "yara-w",
+            "cells": {
+              "pts": "8",
+              "ft": "3-3",
+              "pf": "0"
+            },
+            "num": "54"
+          },
+          {
+            "player": "sky-f",
+            "cells": {
+              "pts": "16",
+              "ft": "1-1",
+              "pf": "2"
+            },
+            "num": "3"
+          },
+          {
+            "player": "noa-h",
+            "cells": {
+              "pts": "6",
+              "ft": "1-3",
+              "pf": "1"
+            },
+            "num": "73"
+          }
+        ],
+        "totals": {
+          "label": "Team · 6 played",
+          "cells": {
+            "pts": "49",
+            "ft": "8-13",
+            "pf": "6"
+          }
+        },
+        "note": "Free throws 61.5%",
+        "number_label": "#",
+        "player_label": "Player"
+      },
+      {
+        "type": "note",
+        "text": "PF = personal fouls. Points come from the running score on the score sheet; free throws from its circles."
+      }
+    ]
+  }
+}

@@ -3,7 +3,8 @@ layout: page
 nav: home
 ---
 {%- comment -%}
-  Home: the next game day, the latest results, the standings (every team) and the leaders. Everything comes from
+  Home: the next game day, the latest results, the standings (every team) and the leaders (not the boards a sport
+  keeps to the Stats page with `home: false`). Everything comes from
   _data/computed through the includes; nothing is typed in here. One order for every layout (docs/stage-4-spec.md 5.1).
   An empty season shows a short message in each section instead of a blank one.
 {%- endcomment -%}
@@ -12,7 +13,7 @@ nav: home
 {%- assign _next = _sch.days | where: "n", _sch.next | first -%}
 {%- assign _latest = stats.results | first -%}
 {%- assign _latest_day = _sch.days | where: "n", _latest.day | first -%}
-{%- assign _boards = stats.leaders.boards | where_exp: "b", "b.rows.size > 0" -%}
+{%- assign _boards = stats.leaders.boards | where_exp: "b", "b.rows.size > 0 and b.home != false" -%}
 
 <h1 class="st-visually-hidden">{{ league.name | escape }}, {{ season_label | escape }} season</h1>
 
