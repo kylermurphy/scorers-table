@@ -163,3 +163,4 @@ class League:
     github: dict | None            # {"repo": ..., "branch": ...}, passed through
     placeholders: tuple[Placeholder, ...]
     sport_def: SportDef
+    nightly_hour: int = 3          # local hour (0-23) of the nightly rebuild; read by scripts/nightly_gate.py

@@ -33,7 +33,7 @@ workflow in `.github/workflows/build.yml`; nothing in `_config.yml` needs editin
    to `main`: until then the workflow's "Set up Pages" step fails.
 2. Push to `main` (or use **Actions > Build and deploy > Run workflow**). The site appears at
    `https://<owner>.github.io/<repository>/`, or at the custom domain set on the same Settings page.
-3. Every pull request runs the same checks without publishing, and a nightly run keeps "next game day" and the
+3. Every pull request runs the same checks without publishing, and a nightly run (at `nightly_hour` in `league.yml`) keeps "next game day" and the
    calendar files current. GitHub pauses scheduled runs in a repository with no activity for 60 days; the
    Actions tab has a button to turn them back on.
 

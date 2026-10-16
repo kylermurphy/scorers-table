@@ -129,6 +129,7 @@ def test_layout_default_comes_from_the_sport(sports_root):
     ("name", ""), ("name", 5), ("short_name", ""), ("timezone", 5), ("time_format", "13h"), ("lang", "english!"),
     ("search_engines", "no"), ("sample_data", 1), ("preview", None), ("photos", "yes"), ("code", "TOOLONG"),
     ("code", "A1"), ("tagline", ""), ("contact", "not a contact"), ("calendar", {"game_minutes": 0}),
+    ("nightly_hour", 24), ("nightly_hour", -1), ("nightly_hour", "3"), ("nightly_hour", True),
 ])
 def test_bad_values_are_errors_at_their_key(sports_root, key, value):
     league, problems = make(sports_root, **{key: value})
@@ -460,3 +461,8 @@ def test_a_malformed_colour_dark_does_not_run_the_gate_against_colour(sports_roo
 def test_timezone_names_are_case_sensitive_like_on_the_linux_build(sports_root):
     _, problems = make(sports_root, timezone="america/toronto")
     assert "Did you mean 'America/Toronto'?" in errors(problems)["timezone"]
+
+
+def test_nightly_hour_defaults_to_3_and_takes_0_to_23(sports_root):
+    assert ok(sports_root).nightly_hour == 3
+    assert [ok(sports_root, nightly_hour=h).nightly_hour for h in (0, 5, 23)] == [0, 5, 23]

@@ -69,6 +69,10 @@ timezone: UTC
 # when your real season is ready to show. Default: false (this template ships true).
 sample_data: true
 
+# The hour of the day (0 to 23, on the clock of "timezone") when the site rebuilds by itself, so "next game
+# day" and the calendar files stay current even when nobody changed anything. Default: 3 (3 AM).
+# nightly_hour: 3
+
 # true: also build a sample copy at /preview/ when the real data is showing. Default: true.
 # preview: true
 

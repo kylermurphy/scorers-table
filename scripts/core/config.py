@@ -25,7 +25,7 @@ from scripts.core.model import LAYOUTS, League, Placeholder, Problem, SportDef
 LEAGUE_FILE = "league.yml"
 LEAGUE_KEYS = ("name", "short_name", "code", "sport", "layout", "colour", "colour_dark", "logo", "tagline",
                "footer_line", "contact", "timezone", "time_format", "lang", "search_engines", "sample_data",
-               "preview", "photos", "rules", "standings", "stats", "labels", "calendar", "github")
+               "preview", "photos", "nightly_hour", "rules", "standings", "stats", "labels", "calendar", "github")
 REQUIRED_KEYS = ("name", "sport", "timezone")
 TIME_FORMATS = ("12h", "24h")
 HEX_RE = re.compile(r"#[0-9a-fA-F]{6}")
@@ -246,6 +246,7 @@ def build_league(raw: Any, *, file: str = LEAGUE_FILE, sports_root: Path = SPORT
              for k, default in (("search_engines", False), ("sample_data", False), ("preview", True), ("photos", False))}
     github = _check_github(c, raw["github"]) if "github" in raw else None
     game_minutes = _check_calendar(c, raw, spec)
+    nightly_hour = c.integer(raw["nightly_hour"], "nightly_hour", 0, 23) if "nightly_hour" in raw else 3
 
     rules, standings_merged, minimums, labels = {}, {}, {}, {}
     if spec:
@@ -259,7 +260,7 @@ def build_league(raw: Any, *, file: str = LEAGUE_FILE, sports_root: Path = SPORT
         time_format=time_format, lang=lang, search_engines=flags["search_engines"], sample_data=flags["sample_data"],
         preview=flags["preview"], photos=flags["photos"], rules=rules, standings=normalise_standings(standings_merged),
         standings_merged=standings_merged, minimums=minimums, labels=labels, game_minutes=game_minutes, github=github,
-        placeholders=find_placeholders(spec, raw), sport_def=sport)
+        placeholders=find_placeholders(spec, raw), sport_def=sport, nightly_hour=nightly_hour if nightly_hour is not None else 3)
     return league, c.problems
 
 

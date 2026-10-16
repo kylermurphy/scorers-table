@@ -7,7 +7,10 @@ name: Build and deploy
 #   * Only a run on main (a push, the nightly run or "Run workflow") also publishes the site to GitHub Pages.
 #     Pull requests never publish.
 #   * The nightly run rebuilds and republishes main even when nobody pushed, so the pages that depend on the
-#     date ("next game day", the calendar files) stay current.
+#     date ("next game day", the calendar files) stay current. GitHub cron cannot read league.yml, so the
+#     workflow wakes every hour and the `gate` job lets only the hour named by `nightly_hour` in league.yml
+#     (on the league's `timezone` clock, default 3 AM) go on to build. The other 23 wake-ups stop after a few
+#     seconds.
 #
 # One-time setup: GitHub Pages must be switched on for the repository (Settings > Pages > Source:
 # "GitHub Actions") before the first run on main, or the "Set up Pages" step fails.
@@ -22,18 +25,43 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # Every day at 06:23 UTC. GitHub runs scheduled workflows only on the default branch.
-    - cron: "23 6 * * *"
+    # Every hour at :23 (see the `gate` job). GitHub runs scheduled workflows only on the default branch.
+    - cron: "23 * * * *"
 
 permissions:
   contents: read
 
 concurrency:
-  group: pages-${{ github.ref }}
+  # The hourly wake-ups have a group of their own, so one that only stops at the gate can never replace a
+  # waiting push build.
+  group: pages-${{ github.ref }}-${{ github.event_name == 'schedule' && 'nightly' || 'build' }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Is this run meant to build? Always yes, except for an hourly wake-up outside the league's nightly hour.
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Is it the nightly hour?
+        id: gate
+        run: python scripts/nightly_gate.py
+
   build:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # "Set up Pages" reads the repository's Pages settings, which needs pages: read (contents: read alone gets
