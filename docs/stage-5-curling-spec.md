@@ -407,7 +407,7 @@ believability (scores, steals, concessions that look like a club league). Then t
 
 ## 10. Decisions for the owner
 
-All recommended, **awaiting the owner's confirmation**; the build follows the recommendation until then. Each rule a
+**All 13 decided by the owner as recommended (October 2026).** Each rule a
 league decides also shows as `[placeholder]` until the league sets it.
 
 1. **Ends in a game.** Recommended: an `ends` option, 4 to 10, default 8 (`BRIEF.md`; daytime and senior leagues
