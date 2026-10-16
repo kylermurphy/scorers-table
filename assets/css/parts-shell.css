@@ -724,6 +724,13 @@ img.st-brand__badge,
   font-weight: var(--st-w-strong);
 }
 .st-page a.st-banner__link {
+  /* A 44 px touch target inside running text. The link is a box of its own, centred on the text line; the
+     negative block margin takes back the extra height, so a line of the banner is as tall as before and the
+     box simply reaches into the space above and below it. */
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--st-tap);
+  margin-block: calc((var(--st-fs-small) * var(--st-lh-body) - var(--st-tap)) / 2);
   color: var(--st-link);
   text-decoration: underline;
   text-underline-offset: 0.15em;

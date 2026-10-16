@@ -850,4 +850,6 @@ the house emblem (Curling layout), the face-off emblem (Hockey layout), Scoreboa
 `.st-banner` (the sample notice, above the header; `role="note"`) and `.st-skip-link` (off screen until focused),
 in `parts-shell.css`, on existing roles only. Their contrast pairs are in `check_contrast.py` (`text/banner`,
 `link/banner`, `hot/banner-rule`, `link/skip-link`, `focus/skip-link-border`); the specimens are the `banner` and
-`skip-link` parts of the design-system page.
+`skip-link` parts of the design-system page. A link in the banner ("Go to the live site", the other sport previews) is a
+44 px touch target inside running text: `inline-flex` with `min-height: var(--st-tap)` and a negative block margin that takes
+back the extra height, so a banner line is as tall as it was.
