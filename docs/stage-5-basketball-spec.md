@@ -1,9 +1,9 @@
 # Stage 5, part 1: basketball
 
-Status: **draft for the owner's review**. Nothing is built yet. Each section is a decision to approve or
-redirect. Section 9 lists the questions that need your answer; until you answer, the build follows the
-recommendation. Basketball is a port of the Masters site (`tb-masters-basketball/website`), so wherever this
-spec says "as Masters", the Masters code is the reference and a test compares the two (section 7).
+Status: **draft for the owner's review**, amended with the owner's answers (decisions 1, 2, 5 and 7 are decided;
+section 7, sport previews, is new at the owner's request). Nothing is built yet. Section 10 lists the decisions:
+until an open one is answered, the build follows the recommendation. Basketball is a port of the Masters site (`tb-masters-basketball/website`), so wherever this
+spec says "as Masters", the Masters code is the reference and a test compares the two (section 8).
 
 Read first: `BRIEF.md` (basketball's typical club rules), `docs/stage-4-spec.md` section 3 (the sport
 interface), `docs/sports.md` (what the code does today).
@@ -17,10 +17,11 @@ interface), `docs/sports.md` (what the code does today).
 | What | Where |
 |---|---|
 | The basketball sport folder | `sports/basketball/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`), `sample.py`, `README.md` (the game file box by box, for the volunteer) |
-| Shared test files | `sports/basketball/fixtures/`: one game per case, with the expected problems and numbers (section 7) |
+| Shared test files | `sports/basketball/fixtures/`: one game per case, with the expected problems and numbers (section 8) |
 | A converter for Masters files | `sports/basketball/convert_masters.py`: a Masters data folder in, a scorers-table data folder out (section 2.4) |
 | Four small core extensions | the top performer part, ranking rates before rounding, four leaderboard keys, column lists for the stats pages (section 5) |
 | Sample seasons | two made-up basketball seasons, golden files per sport (section 6) |
+| Sport previews (owner request) | a `league.yml` setting that also publishes a made-up demo league of every sport at `/<sport>/` (section 7) |
 | Docs | `docs/sports.md` (new keys and block), `docs/open-questions.md` (basketball's placeholders), `PLAN.md` status |
 
 **Not in this pull request**
@@ -126,7 +127,7 @@ prints each one, so nothing is published by accident.
 
 Converted Masters data is **never committed** to scorers-table: the real season names real players, and the
 Masters sample seasons use Thunder Bay place names (`CLAUDE.md`: sample data must not look real). Tests convert it
-into a temporary folder (section 7).
+into a temporary folder (section 8).
 
 ## 3. The rules in Python
 
@@ -328,9 +329,109 @@ that sport, `data/seasons.yml` from the repo), runs `build.py --sample --today 2
 `UPDATE_GOLDEN=1` rewrites both; the basketball standings and leaders are checked once by hand against the sample
 files, as stage 4 did for the stub.
 
-The committed `data/sample-*` follow whatever `league.yml` names (decision 7).
+`league.yml` ships with `sport: basketball` (decision 7, decided), so the committed `data/sample-*` become the
+basketball sample seasons and `docs/data.md`'s examples move to basketball. The stub stays the core's test sport,
+with its own golden files.
 
-## 7. Tests
+## 7. Sport previews
+
+The owner asked to "build previews of all pages", each sport at its own path: `basketball/`, later `curling/`,
+`hockey/`, `slopitch/`. Each one is a full copy of the site, built from that sport's made-up sample league, as an
+option of the normal build. This is also the "live demo for each sport" that `PLAN.md` puts in stage 8, made early
+and made per sport, so it grows by itself as each stage 5 sport lands.
+
+### 7.1 The setting
+
+```yaml
+preview: true            # unchanged: /preview/ = YOUR league (name, colours, logo, layout) with made-up games
+sport_previews: false    # new: true = also /basketball/, /curling/ ... one made-up demo league per sport
+                         #      or a list: [basketball, hockey]
+```
+
+| Value | Builds |
+|---|---|
+| `false` (the default when the key is left out) | nothing extra |
+| `true` | one copy per sport folder that has a sample and is not marked `demo: false` (below) |
+| a list of sport ids | those, in that order; an id that is not such a sport is an error naming the ones there are |
+
+**Keep both settings, not merged.** They answer different questions. `/preview/` shows the league's own site with
+made-up games ("what will our site look like?"); `/<sport>/` shows the template's sample league for a sport ("what
+does scorers-table do for curling?"). Merging them into one key would make a league that wants one turn the other
+on. **No migration:** `preview` keeps its meaning and default, and `sport_previews` is new and off unless set. The
+template is not in use by any league yet, so nothing else changes.
+
+**Which sports.** Every folder in `sports/` with a `sample.py`, except one whose `sport.yml` says `demo: false` (a
+new optional key, default `true`). The stub says `demo: false`: it is a test sport, and nobody should see it as a
+real one. The league's own sport is included too: `/basketball/` is the template's Riverside Masters Basketball in
+the Basketball layout, which is not the same page as `/preview/` (the league's own name and look).
+
+**What a sport preview shows.** The sport's `sample.py` league (`LEAGUE_NAME`, `TEAMS`), the sport's
+`default_layout`, no league colour or logo, the sample seasons with their `as_of` dates, and the sport's own
+defaults, so its "Still to decide" settings show as `[placeholder]`, which is what a new league would see. Nothing
+from the league's `league.yml` reaches it except `timezone` and `time_format`. A future layout setting per preview
+(say `/basketball/classic/`) is not part of this.
+
+### 7.2 How the build makes N copies
+
+Today `scripts/build_preview.sh` runs `build.py --sample`, builds Jekyll into `_site/preview/` with baseurl
+`<BASE_PATH>/preview`, then runs `build.py` again so the working tree is left as it was. Sport previews use the same
+steps, once per sport, in the same script (its name and CI step stay):
+
+1. `python scripts/preview_root.py --list` prints the sport ids `sport_previews` asks for (and checks them).
+2. For each id, `python scripts/preview_root.py <id> <tmp>` writes a temporary root: a `league.yml` (the sample's
+   name, the sport, its default layout, `sample_data: true`, `preview: false`, `sport_previews: false`,
+   `search_engines: false`), a `data/seasons.yml` with an empty current season and the two sample seasons, the
+   sample data from `make_sample.py`'s generator (the same fixed seed, so the files are the ones the golden test
+   checks), and a link to the repo's `sports/`.
+3. `build.py --root <tmp> --out . --sport-preview <id>` writes `_data/computed/` and the stub pages into the Jekyll
+   source, then `jekyll build --destination _site/<id>` with an overlay config: `baseurl: "<BASE_PATH>/<id>"`,
+   `live_baseurl: "<BASE_PATH>"`.
+4. After the last copy, the real build runs again (also when a step fails), exactly as today.
+
+| Concern | How it is handled |
+|---|---|
+| Paths | every link already goes through `relative_url`, so a baseurl of `<BASE_PATH>/basketball` is all a copy needs. The layout's banner link to the live site reads the new `site.live_baseurl` instead of cutting `/preview` off the end of the baseurl (today's Liquid trick does not work for N copies; `/preview/` moves to the same overlay) |
+| Clashes | a sport id may not be one of the site's own top-level paths (`archive assets calendar games players preview rules schedule sheets stats teams`); the build refuses with a message. None of the four sport ids clash |
+| The banner | `build.py --sport-preview` sets `active.preview_kind: sport` and `active.sport_previews: [{id, name, url}]`. The banner says "Sport preview: a made-up basketball league, to show what the template does." with links to the other sport previews and "Go to the live site" |
+| Search engines | always `noindex, nofollow`: the generated `league.yml` sets `search_engines: false`, whatever the league chose for its own pages |
+| Calendars | none: a sport preview's current season is empty and `--sport-preview` writes no calendar files, so its pages show no subscribe links. Nothing can clash with the real site's `.ics` files or their event ids |
+| Links to the previews | none from the league's own pages, as for `/preview/` today: a league's visitors should not land on a made-up league. Each preview's banner links to the others, `/preview/`'s banner lists them when they exist, and the README gives the addresses (open question 9) |
+| Photos, entry page | none in a preview (`photos: false`; the entry page is stage 7 and will be left out of previews) |
+
+### 7.3 Cost
+
+Measured in this container (4 cores) on 16 October 2026:
+
+| Build | Pages | Python | Jekyll | Size | Link check |
+|---|---|---|---|---|---|
+| scorers-table stub sample (23 games, 5 teams of 7) | 73 | 1.6 s (`build.py --sample`) | 5.6 s | 1.9 MB | 2.3 s (0.8 s of checking) |
+| Masters basketball sample (28 games, 50 players), through the same Jekyll 4.4 | 94 | 0.6 s | 4.7 s | 3.3 MB | |
+
+The scorers-table basketball sample does not exist yet (package 3), so its numbers are an estimate from these:
+about 100-110 pages, 8-10 seconds a copy including the sample generator and its share of the link check, about
+2.5 MB. With four sports that is roughly 40 seconds more per deploy and 10 MB more in the Pages upload (the limit is
+1 GB). The copies run one after another because they share the Jekyll source folder; running them in parallel
+would need a copy of the source per sport and is not worth it at this size. Package 6 records the real basketball
+numbers in the pull request.
+
+### 7.4 Tests
+
+- `test_config.py`: `sport_previews` takes `false`, `true` and a list; an unknown id, a `demo: false` sport and a
+  clashing id are errors with their paths.
+- `test_sports.py`: the `demo` key; the stub has `demo: false`.
+- `tests/test_preview_root.py`: the temporary root is the same on two runs, its `league.yml` loads with no problem,
+  and its sample data equals what the golden test uses for that sport.
+- `test_jekyll.py` (marked `jekyll`, always run in CI): with `sport_previews: [basketball]`, `build_preview.sh`
+  makes `_site/basketball/`; every internal link and asset there starts with the copy's base path; every page has
+  the noindex tag and the sport-preview banner with a working link back; no `.ics` file is under it; the real
+  site's pages and `calendar/` are unchanged afterwards; the main site links nowhere into `/basketball/`.
+- CI's existing link check already walks all of `_site/`, so every copy is link-checked on every pull request.
+
+### 7.5 Who builds it
+
+Package 6 (section 9), after package 1 (it edits `sports.py` too) and package 3 (it needs the basketball sample).
+
+## 8. Tests
 
 | Test | What |
 |---|---|
@@ -344,57 +445,61 @@ The committed `data/sample-*` follow whatever `league.yml` names (decision 7).
 
 Nothing converted from Masters data is written outside the test's temporary folder.
 
-## 8. Work packages
+## 9. Work packages
 
-Packages 1, 2 and 4 start together; 3 needs 2 (and 1's schema keys); 5 finishes. No two packages edit the same
-file.
+Packages 1, 2 and 4 start together; 3 needs 2 (and 1's schema keys); 6 needs 1 and 3; 5 finishes. Packages that
+share a file (`sports.py`, `test_jekyll.py`, the golden files) never run at the same time.
 
 | # | Package (Sonnet builds) | Owns | Done when |
 |---|---|---|---|
 | 1 | Core extensions E1-E4 | `scripts/core/{model,sports,compute_stats}.py`, `_includes/parts/{top-performer,blocks}.html`, `_includes/core/{stat-line,game-log,player-table}.html`, `index.html`, `parts-scores.css`, `scripts/design_system/contract.py`, `tests/parity/cases.py`, `tests/test_{sports,build,parity,jekyll}.py`, stub golden regenerated | tests green, parity green with the drop removed, `check_contrast.py` passes with `docs/contrast.md` unchanged, the stub's pages unchanged |
 | 2 | Basketball rules | `sports/basketball/{sport.yml,rules.py,README.md}`, `sports/basketball/fixtures/`, `tests/test_basketball_{fixtures,sport}.py` | every row of 3.1 has a fixture; the contract test passes; the README lists every check with its path and level, the Masters preset, and the volunteer's how-tos (overtime, a tie, a sub, a flagrant) |
-| 3 | Sample and golden | `sports/basketball/sample.py`, `tests/test_golden.py`, `tests/golden/<sport>/`, `league.yml` and `data/sample-*` (per decision 7) | `make_sample.py --check` clean; golden files reviewed by eye; screenshots of Home, Schedule, a game, Stats and a player at 390 px, light and dark, Basketball layout |
+| 3 | Sample and golden | `sports/basketball/sample.py`, `tests/test_golden.py`, `tests/golden/<sport>/`, `league.yml` (`sport: basketball`) and `data/sample-*` | `make_sample.py --check` clean; golden files reviewed by eye; screenshots of Home, Schedule, a game, Stats and a player at 390 px, light and dark, Basketball layout |
 | 4 | Masters converter | `sports/basketball/convert_masters.py`, `tests/test_basketball_convert.py`, `tests/test_masters_parity.py` | offline tests green; the parity test run locally against a Masters checkout, its output pasted into the pull request |
-| 5 | Docs | `docs/sports.md`, `docs/data.md` (examples, if decision 7 makes basketball the default), `docs/open-questions.md`, `CLAUDE.md`, `PLAN.md` | the docs say what the code does |
+| 6 | Sport previews (section 7) | `scripts/preview_root.py` (new), `scripts/build_preview.sh`, `scripts/build.py` (`--sport-preview`), `scripts/core/{config,compute}.py` (the setting, `active.json`), `scripts/core/sports.py` (`demo`), `sports/stub/sport.yml` (`demo: false`), `_layouts/default.html` (`live_baseurl`), `_includes/shell/sample-banner.html`, `league.yml` (the key, with a comment), `tests/test_{config,sports,preview_root,jekyll}.py`, golden `active.json` | tests green; a CI run that publishes `/basketball/` beside the real site and passes the link check; the measured time and size per copy in the pull request; screenshots of `/basketball/` Home at 390 px, light and dark |
+| 5 | Docs | `docs/sports.md`, `docs/data.md` (examples become basketball; `sport_previews` beside `preview`), `docs/open-questions.md`, `README.md` (the preview addresses), `CLAUDE.md`, `PLAN.md` (stage 8's per-sport demo now exists) | the docs say what the code does |
 
 **Opus reviews:** package 1's interface before 2 and 3 use it; package 2 line by line against Masters
 `sheet_rules.py` (every check, every path, every level, overtime and tie handling); the Masters parity run and every
-listed difference; the basketball golden standings and leaders by hand. Then the whole pull request, before it
-goes to the owner.
+listed difference; the basketball golden standings and leaders by hand; package 6's base paths, banner and
+restore-on-failure. Then the whole pull request, before it goes to the owner.
 
-## 9. Open decisions for the owner
+## 10. Decisions for the owner
 
-Each has a recommendation; the build follows it unless you say otherwise.
+Decisions 1, 2, 5 and 7 were decided by the owner (October 2026). Decisions 3, 4, 6 and 8 are recommended and
+await the owner's confirmation; the build follows the recommendation until then. Question 9 is new.
 
-1. **Default standings.** Recommended: `BRIEF.md`'s rule, 2 points a win, ranked by points, columns GP W L PTS DIFF.
-   Alternative: the approved mockup's W L PCT GB DIFF, ranked by win %. Win % is fairer while byes leave teams with
-   different games played (a 5-team league always has one); points is what `BRIEF.md` says and is easier to read.
-   Either way the Masters rule (1 per quarter won, 3 per win) is a documented preset, not a sport option.
-2. **Ties and overtime.** Recommended: overtime when level after Q4 (`rules.overtime`) and ties not allowed
-   (`standings.ties`), both shown as `[placeholder]` until set. Masters allows a tie after one overtime; rec gyms
-   with a hard stop may want no overtime at all. Both are one line in `league.yml`.
-3. **Quarters or halves.** Recommended: quarters only for now. The Masters sheet itself had halves until October
-   2026 (form MBL-SS5), so some leagues will want them; supporting them needs period words chosen by an option (a
-   core change). The format is ready for it (box keys come from the period word).
-4. **Free-throw stats optional.** Recommended: always kept for now. A league that never fills in the circles sees
-   0-0 and "—" in the FT columns and an empty FT% board, which is honest but cluttered; hiding them needs stats
-   that depend on an option (a core change), best made when a league asks.
-5. **Fouls on the site.** Recommended: personal fouls in the game box score only (the approved mockup; Masters hid
-   them); technical fouls counted across the whole season, playoffs included, on the player page and a "Technical
-   fouls" list at the foot of Stats, as Masters; flagrant fouls counted and named on the game page with their
-   quarter, never the Notes text, and no flagrant page. Masters keeps an unlinked `/flagrant/` page with the text:
-   useful to the league's discipline, but it publishes what a scorekeeper wrote about a named player.
-6. **Default forfeit score.** Recommended: 20-0 (FIBA's rule), shown as `[placeholder]`. A big margin moves the
-   point differential, which is a tiebreaker; 2-0 or Masters' 1-0 per quarter barely does. A league can also cap
-   the differential (`{diff: {cap: 15}}`).
-7. **Which sport the template shows out of the box.** Recommended: basketball (`league.yml` `sport: basketball`,
-   the committed sample seasons become basketball). It is the first real sport and makes "Use this template"
-   useful to a basketball league now; the stub stays as the core's test sport with its own golden files. The cost
-   is a large, one-time golden and sample diff in this pull request. Alternative: keep the stub until stage 8.
-8. **JavaScript timing.** `PLAN.md` says each stage 5 pull request has the rules in Python and JavaScript.
-   Recommended: the JavaScript copy moves to stage 7 with the entry page, which is its only user; this PR commits
-   the shared fixtures it will be tested against. Doing it now means porting before the entry page's design
-   (stage 7, Opus) exists.
+1. **Default standings. DECIDED:** 2 points a win, ranked by points, columns GP W L PTS DIFF (the README tells a
+   league that allows ties to add T). The Masters rule (1 per quarter won, 3 per win) is a README preset, not a
+   sport option. Not chosen: the mockup's W L PCT GB DIFF by win %.
+2. **Ties and overtime. DECIDED:** overtime when level after Q4 (`rules.overtime`) and no ties
+   (`standings.ties: false`), both shown as `[placeholder]` until the league sets them. A Masters-style league sets
+   `ties: true`; a gym with a hard stop sets `overtime: none`.
+3. **Quarters or halves.** Recommended, awaiting owner confirmation: quarters only for now. The Masters sheet itself
+   had halves until October 2026 (form MBL-SS5), so some leagues will want them; supporting them needs period
+   words chosen by an option (a core change). The format is ready for it (box keys come from the period word).
+4. **Free-throw stats optional.** Recommended, awaiting owner confirmation: always kept for now. A league that
+   never fills in the circles sees 0-0 and "—" in the FT columns and an empty FT% board, which is honest but
+   cluttered; hiding them needs stats that depend on an option (a core change), best made when a league asks.
+5. **Fouls on the site. DECIDED:** personal fouls only in the game box score. Technical fouls count the whole
+   season, playoffs included (player page and a "Technical fouls" list at the foot of Stats). Flagrant fouls are
+   named on the game page with their quarter, never the Notes text, and there is no `/flagrant/` page.
+6. **Default forfeit score.** Recommended, awaiting owner confirmation: 20-0 (FIBA's rule), shown as
+   `[placeholder]`. A big margin moves the point differential, which is a tiebreaker; 2-0 or Masters' 1-0 per
+   quarter barely does. A league can also cap the differential (`{diff: {cap: 15}}`).
+7. **Which sport the template shows out of the box. DECIDED:** basketball. `league.yml` ships with
+   `sport: basketball`, the committed sample seasons become basketball, and the stub stays the core's test sport
+   with its own golden files. The owner also asked for a preview of every sport: section 7.
+8. **JavaScript timing.** Recommended, awaiting owner confirmation: `PLAN.md` says each stage 5 pull request has the
+   rules in Python and JavaScript; the JavaScript copy moves to stage 7 with the entry page, its only user, and this
+   PR commits the shared fixtures it will be tested against. Doing it now means porting before the entry page's
+   design (stage 7, Opus) exists.
+9. **New: sport previews in the shipped template.** Recommended: the template's `league.yml` ships with
+   `sport_previews: true`, so the template's own site is the per-sport demo; the setting's default is `false`, and
+   the stage 8 setup guide lists it beside `preview` as something a league may turn off. The trade-off: a league
+   that never reads that line publishes unlinked, noindex demo leagues at `/basketball/` and so on, and its deploys
+   take about 40 seconds longer once all four sports exist. Linking the previews from a league's own pages stays
+   off either way.
 
 ## Risks
 
@@ -406,5 +511,7 @@ Each has a recommendation; the build follows it unless you say otherwise.
 - **The contract test's mutation pass on large sheets.** A basketball sheet has a hundred or more boxes, and the
   test mutates each six ways for every sample sheet and option. If it gets slow, it samples a few sheets per
   season (a test change, not a rules change).
-- **Mockup versus brief.** The design canvas and `BRIEF.md` disagree on the standings columns (decision 1) and on
-  personal fouls (decision 5); the spec follows the brief for rules and the canvas for display until you say.
+- **Sport previews rewrite the working tree.** Like `/preview/` today, each copy writes `_data/computed/` and the
+  stub pages into the Jekyll source and the script restores the real build afterwards. Four copies mean four
+  chances to leave a local checkout showing a made-up league if the restore step breaks; the Jekyll test checks
+  the restore, and the generated files are git-ignored, so nothing wrong can be committed.
