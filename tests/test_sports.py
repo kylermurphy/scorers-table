@@ -214,3 +214,48 @@ def test_forfeit_score_winner_must_be_higher():
     assert problems([7, 0]) == [] and problems("per_period") == []
     assert problems([0, 7]) == ["standings.forfeit.score"]
     assert problems([3, 3]) == ["standings.forfeit.score"]
+
+
+# ------------------------------------------------------------------ core extensions E3 and E4 (stage 5 spec, section 5)
+
+def test_leaderboard_switches_are_booleans_and_a_typo_is_named(sports_root):
+    spec = spec_of(sports_root)
+    board = spec["leaderboards"][1]
+    board.update({"zero": True, "playoffs": True, "home": False, "player_rank": False})
+    assert check_sport_spec(spec, "sport.yml") == []
+    for key in ("zero", "playoffs", "home", "player_rank"):
+        spec["leaderboards"][1][key] = "yes"
+        assert [p.at for p in check_sport_spec(spec, "sport.yml")] == [f"leaderboards.1.{key}"]
+        spec["leaderboards"][1][key] = True
+    spec["leaderboards"][1]["playoff"] = True                       # a typo is an unknown key, with its path
+    [problem] = check_sport_spec(spec, "sport.yml")
+    assert problem.at == "leaderboards.1.playoff" and "playoffs" in problem.message
+
+
+def test_column_lists_are_checked_against_the_groups_and_their_stats(sports_root):
+    spec = spec_of(sports_root)
+    spec["stats"]["columns"] = {"player": {"table": ["ppg", "pts", "gp"], "totals": ["gp", "pts"], "log": ["pts"]}}
+    assert check_sport_spec(spec, "sport.yml") == []
+    spec["stats"]["columns"] = {"player": {"table": ["ppg"]}}                       # one list is enough
+    assert check_sport_spec(spec, "sport.yml") == []
+
+    def found(columns):
+        spec["stats"]["columns"] = columns
+        return {p.at: p.message for p in check_sport_spec(spec, "sport.yml") if p.level == "error"}
+
+    got = found({"player": {"tabel": ["pts"], "table": ["pts", "nope", "pts", "ends"], "log": []}, "goalie": {"table": ["pts"]}})
+    assert set(got) == {"stats.columns.player.tabel", "stats.columns.player.table.1", "stats.columns.player.table.2",
+                        "stats.columns.player.table.3", "stats.columns.player.log", "stats.columns.goalie"}
+    assert "'pts' is listed twice" in got["stats.columns.player.table.2"]      # team stats are not player columns
+    assert "Use one of: player" in got["stats.columns.goalie"]
+    assert set(found({"player": ["pts"]})) == {"stats.columns.player"}
+    assert set(found(["pts"])) == {"stats.columns"}
+
+
+def test_columns_is_not_a_stat_group(sports_root):
+    spec = spec_of(sports_root)
+    spec["stats"]["columns"] = {"player": {"table": ["pts"]}}
+    spec["leaderboards"][0]["group"] = "columns"
+    [problem] = check_sport_spec(spec, "sport.yml")
+    assert problem.at == "leaderboards.0.group" and "Use one of: player" in problem.message
+    assert normalise_spec(spec_of(sports_root))["stats"]["columns"] == {}

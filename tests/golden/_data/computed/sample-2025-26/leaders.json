@@ -10,6 +10,8 @@
       "tile": true,
       "list": true,
       "edge": "hot",
+      "home": true,
+      "player_rank": true,
       "min": {
         "value": null,
         "placeholder": false,
@@ -134,6 +136,8 @@
       "tile": true,
       "list": true,
       "edge": "accent",
+      "home": true,
+      "player_rank": true,
       "min": {
         "value": 0,
         "placeholder": true,
@@ -311,25 +315,67 @@
     ]
   },
   "columns": {
-    "player": [
-      {
-        "key": "gp",
-        "label": "GP",
-        "title": "Games played",
-        "key_col": false
-      },
-      {
-        "key": "pts",
-        "label": "PTS",
-        "title": "Points",
-        "key_col": true
-      },
-      {
-        "key": "ppg",
-        "label": "PPG",
-        "title": "Points per game",
-        "key_col": false
-      }
-    ]
+    "player": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ]
+    }
   }
 }

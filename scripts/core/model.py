@@ -18,7 +18,9 @@ DECIDED_IN = ("regulation", "overtime", "shootout")         # Score.decided_in
 
 # The closed vocabularies a sport's `present()` may use (section 3.4). The contract test checks against these.
 PRESENT_KEYS = ("line_score", "card", "tiles", "blocks")
-BLOCK_TYPES = ("stat_table", "note")
+BLOCK_TYPES = ("stat_table", "note", "top_performer")
+# The names under sport.yml `stats:` that are not groups of counting stats (every other key is a group).
+STAT_RESERVED = ("derived", "team", "columns")
 CELL_FLAGS = ("won", "mark", "blank", "void", "open", "hammer")
 
 # Every layout id: assets/css/layouts/<id>.css.

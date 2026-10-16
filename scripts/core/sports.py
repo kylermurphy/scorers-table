@@ -17,7 +17,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Callable
 
-from scripts.core.model import LAYOUTS, Problem, SportDef
+from scripts.core.model import LAYOUTS, STAT_RESERVED, Problem, SportDef
 from scripts.core.problems import (
     ID_RE, Checker, InternalError, display_path, join_path, one_of, read_yaml, suggest,
 )
@@ -33,6 +33,10 @@ SAMPLE_FUNCTION = ("sheet", 3)
 
 OPTION_TYPES = ("int", "bool", "choice", "text")
 RESERVED_STATS = ("gp",)       # stats the core counts itself; a sport never lists them
+# Leaderboard switches (all booleans): zero = a value of 0 is ranked; playoffs = playoff games count too;
+# home = on the Home page (false: the Stats page only); player_rank = in a player's "Ranks" line.
+BOARD_FLAGS = ("zero", "playoffs", "home", "player_rank")
+COLUMN_LISTS = ("table", "totals", "log")    # stats.columns.<group>: the Stats table, a player's totals, a game log
 SHAPES = ("quarters", "ends", "periods", "innings")
 CARD = ("rows", "lines")
 CARD_FOOT = ("note", "meta", "status_note")
@@ -336,19 +340,51 @@ def _check_stat_list(c: Checker, items: Any, at: str, *, derived: bool = False) 
 
 
 def _check_stats(c: Checker, stats: Any, at: str) -> dict[str, list[str]]:
-    """Check `stats:`; returns {group name: [stat keys]} with the special groups 'derived' and 'team' included."""
+    """Check `stats:`; returns {group name: [stat keys]} with the special groups 'derived' and 'team' included
+    (`columns` is checked against the groups and is not one of them)."""
     found: dict[str, list[str]] = {}
     if c.mapping(stats, at, any_keys=True) is None:
         return found
-    groups = [k for k in stats if k not in ("derived", "team")]
+    groups = [k for k in stats if k not in STAT_RESERVED]
     if not groups:
         c.error(at, "needs at least one group of counting stats, like 'player:' with a list of {key, label, title}.")
     for key, items in stats.items():
         key_at = join_path(at, key)
+        if key == "columns":
+            continue
         if key in groups:
             c.pattern(key, key_at, KEY_RE, "a lower-case group name like 'player'")
         found[key] = _check_stat_list(c, items, key_at, derived=(key == "derived"))
+    if "columns" in stats:
+        _check_column_lists(c, stats["columns"], join_path(at, "columns"), found, groups)
     return found
+
+
+def _check_column_lists(c: Checker, columns: Any, at: str, found: dict[str, list[str]], groups: list[str]) -> None:
+    """`stats.columns.<group>: {table, totals, log}`: each a list of stat keys (gp, the group's counting stats,
+    the derived ones) in the order the pages show them. A list left out keeps the default order."""
+    if c.mapping(columns, at, any_keys=True) is None:
+        return
+    for group, lists in columns.items():
+        g_at = join_path(at, group)
+        if group not in groups:
+            c.error(g_at, f"{group!r} is not a stats group. Use one of: {one_of(groups)}.")
+            continue
+        if c.mapping(lists, g_at, allowed=COLUMN_LISTS) is None:
+            continue
+        allowed = [*RESERVED_STATS, *found.get(group, []), *found.get("derived", [])]
+        for name in COLUMN_LISTS:
+            if name not in lists:
+                continue
+            l_at = join_path(g_at, name)
+            items = c.sequence(lists[name], l_at)
+            if items is None:
+                continue
+            if not items:
+                c.error(l_at, "must list at least one stat.")
+            for i, item in enumerate(items):
+                if c.choice(item, join_path(l_at, i), allowed) is not None and item in items[:i]:
+                    c.error(join_path(l_at, i), f"{item!r} is listed twice.")
 
 
 def _check_minimums(c: Checker, minimums: Any) -> None:
@@ -375,7 +411,7 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
     known_minimums = list(minimums) if isinstance(minimums, dict) else []
     for i, board in enumerate(c.sequence(boards, "leaderboards") or []):
         at = join_path("leaderboards", i)
-        if c.mapping(board, at, allowed=("group", "tile", "edge", "detail", "min"),
+        if c.mapping(board, at, allowed=("group", "tile", "edge", "detail", "min", *BOARD_FLAGS),
                      required=("id", "of", "stat", "label")) is None:
             continue
         if "id" in board and c.pattern(board["id"], join_path(at, "id"), KEY_RE, "a lower-case name like 'pts'"):
@@ -386,17 +422,18 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
         for k in ("label", "edge", "detail"):
             if k in board:
                 c.text(board[k], join_path(at, k))
-        if "tile" in board:
-            c.boolean(board["tile"], join_path(at, "tile"))
+        for flag in ("tile", *BOARD_FLAGS):
+            if flag in board:
+                c.boolean(board[flag], join_path(at, flag))
         if of is None:
             continue
         group = board.get("group", "player")
         if of == "team":
             available = stat_keys.get("team", [])
-        elif group in stat_keys and group not in ("derived", "team"):
+        elif group in stat_keys and group not in STAT_RESERVED:
             available = stat_keys[group] + stat_keys.get("derived", [])
         else:
-            groups = [g for g in stat_keys if g not in ("derived", "team")]
+            groups = [g for g in stat_keys if g not in STAT_RESERVED]
             c.error(join_path(at, "group"), f"{group!r} is not a stats group. Use one of: {one_of(groups)}.")
             continue
         if "stat" in board and of and board["stat"] not in available:
@@ -465,6 +502,7 @@ def normalise_spec(spec: dict) -> dict:
     out["words"].setdefault("surface", "")
     out["stats"].setdefault("derived", [])
     out["stats"].setdefault("team", [])
+    out["stats"].setdefault("columns", {})
     return out
 
 

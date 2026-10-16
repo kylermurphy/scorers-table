@@ -13,7 +13,7 @@ import pytest
 
 from scripts import make_sample
 from scripts.core.config import normalise_standings, sport_standings_defaults
-from scripts.core.model import BLOCK_TYPES, CELL_FLAGS, PRESENT_KEYS, Reading, SampleGame
+from scripts.core.model import BLOCK_TYPES, CELL_FLAGS, PRESENT_KEYS, STAT_RESERVED, Reading, SampleGame
 from scripts.core.problems import call_sport, parse_yaml
 from scripts.core.sports import SPORTS_ROOT, discover_sports, load_sport
 
@@ -256,7 +256,7 @@ def test_present_uses_only_known_blocks_and_cell_flags_and_changes_nothing(sport
 def test_derive_gives_only_declared_stats_and_changes_nothing(sport):
     spec = sport.spec
     declared = {s["key"] for s in spec["stats"]["derived"]}
-    for group in (g for g in spec["stats"] if g not in ("derived", "team")):
+    for group in (g for g in spec["stats"] if g not in STAT_RESERVED):
         keys = [s["key"] for s in spec["stats"][group]]
         for games in (0, 1, 7):
             counts = {"gp": games, **{key: 5 * (i + 1) for i, key in enumerate(keys)}}
