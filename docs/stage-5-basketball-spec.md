@@ -475,26 +475,26 @@ await the owner's confirmation; the build follows the recommendation until then.
 2. **Ties and overtime. DECIDED:** overtime when level after Q4 (`rules.overtime`) and no ties
    (`standings.ties: false`), both shown as `[placeholder]` until the league sets them. A Masters-style league sets
    `ties: true`; a gym with a hard stop sets `overtime: none`.
-3. **Quarters or halves.** Recommended, awaiting owner confirmation: quarters only for now. The Masters sheet itself
+3. **Quarters or halves.** Recommended and confirmed by the owner (October 2026): quarters only for now. The Masters sheet itself
    had halves until October 2026 (form MBL-SS5), so some leagues will want them; supporting them needs period
    words chosen by an option (a core change). The format is ready for it (box keys come from the period word).
-4. **Free-throw stats optional.** Recommended, awaiting owner confirmation: always kept for now. A league that
+4. **Free-throw stats optional.** Recommended and confirmed by the owner (October 2026): always kept for now. A league that
    never fills in the circles sees 0-0 and "—" in the FT columns and an empty FT% board, which is honest but
    cluttered; hiding them needs stats that depend on an option (a core change), best made when a league asks.
 5. **Fouls on the site. DECIDED:** personal fouls only in the game box score. Technical fouls count the whole
    season, playoffs included (player page and a "Technical fouls" list at the foot of Stats). Flagrant fouls are
    named on the game page with their quarter, never the Notes text, and there is no `/flagrant/` page.
-6. **Default forfeit score.** Recommended, awaiting owner confirmation: 20-0 (FIBA's rule), shown as
+6. **Default forfeit score.** Recommended and confirmed by the owner (October 2026): 20-0 (FIBA's rule), shown as
    `[placeholder]`. A big margin moves the point differential, which is a tiebreaker; 2-0 or Masters' 1-0 per
    quarter barely does. A league can also cap the differential (`{diff: {cap: 15}}`).
 7. **Which sport the template shows out of the box. DECIDED:** basketball. `league.yml` ships with
    `sport: basketball`, the committed sample seasons become basketball, and the stub stays the core's test sport
    with its own golden files. The owner also asked for a preview of every sport: section 7.
-8. **JavaScript timing.** Recommended, awaiting owner confirmation: `PLAN.md` says each stage 5 pull request has the
+8. **JavaScript timing.** Recommended and confirmed by the owner (October 2026): `PLAN.md` says each stage 5 pull request has the
    rules in Python and JavaScript; the JavaScript copy moves to stage 7 with the entry page, its only user, and this
    PR commits the shared fixtures it will be tested against. Doing it now means porting before the entry page's
    design (stage 7, Opus) exists.
-9. **New: sport previews in the shipped template.** Recommended: the template's `league.yml` ships with
+9. **Sport previews in the shipped template. DECIDED (October 2026):** the template's `league.yml` ships with
    `sport_previews: true`, so the template's own site is the per-sport demo; the setting's default is `false`, and
    the stage 8 setup guide lists it beside `preview` as something a league may turn off. The trade-off: a league
    that never reads that line publishes unlinked, noindex demo leagues at `/basketball/` and so on, and its deploys

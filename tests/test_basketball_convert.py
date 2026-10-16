@@ -31,7 +31,7 @@ SEASONS = """\
 - id: 2026-27
   label: "2026-27"
   current: true
-  gym: "St. Pat's"
+  gym: "Maple Street Gym"
   gym_address: "1 Main St, Anytown, ON A1A 1A1"
   ppg_min_games: 3
   ft_min_attempts: 10
@@ -40,7 +40,7 @@ SEASONS = """\
   label: "2026-27"
   sample: true
   stands_in_for: 2026-27
-  gym: "St. Pat's"
+  gym: "Maple Street Gym"
 
 - id: sample-2025-26
   label: "2025-26"
@@ -272,13 +272,13 @@ def test_seasons_gym_becomes_venue_and_minimums_move_to_overrides(converted):
     _, out = converted
     seasons = {s["id"]: s for s in load(out / "seasons.yml")}
     real = seasons["2026-27"]
-    assert real == {"id": "2026-27", "label": "2026-27", "current": True, "venue": "St. Pat's",
+    assert real == {"id": "2026-27", "label": "2026-27", "current": True, "venue": "Maple Street Gym",
                     "venue_address": "1 Main St, Anytown, ON A1A 1A1",
                     "overrides": {"stats": {"minimums": {"ppg_min_games": 3, "ft_min_attempts": 10}}}}
     assert "gym" not in real and "gym_address" not in real and "ppg_min_games" not in real
     stand_in = seasons["sample-2026-27"]
     assert stand_in == {"id": "sample-2026-27", "label": "2026-27", "sample": True, "stands_in_for": "2026-27",
-                        "venue": "St. Pat's"}                  # no minimums in Masters: none invented here
+                        "venue": "Maple Street Gym"}                  # no minimums in Masters: none invented here
     past = seasons["sample-2025-26"]
     assert past["overrides"] == {"stats": {"minimums": {"ppg_min_games": 0}}}   # only the keys that were set
     assert list(seasons) == ["2026-27", "sample-2026-27", "sample-2025-26"]    # order kept

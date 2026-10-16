@@ -112,7 +112,7 @@ Q4, no ties, both shown as `[placeholder]`), 5 (personal fouls only in the box s
 whole season; flagrant fouls named on the game page with the quarter, never the Notes text; no flagrant page) and
 7 (the template ships with basketball; the stub stays the core's test sport).
 
-**Built as recommended, awaiting the owner's confirmation:**
+**Built as recommended, confirmed by the owner (October 2026):**
 
 | # | Decision | Built as |
 |---|---|---|
