@@ -160,6 +160,7 @@ ROWS = [
     ("running: a side that is not a block", "running-side-not-a-block", "error", "running.home"),
     ("boxes missing", "no-boxes", "error", "boxes"),
     ("boxes: not a block", "boxes-not-a-block", "error", "boxes.home"),
+    ("boxes: only one side", "boxes-one-side", "error", "boxes.away"),
     ("players.<side>: not a list", "roster-not-a-list", "error", "players.home"),
     ("players.<side>: empty", "empty-roster", "error", "players.home"),
     ("players.<side>: more than 15 rows", "too-many-rows", "error", "players.home"),

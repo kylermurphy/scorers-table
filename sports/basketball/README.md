@@ -237,7 +237,7 @@ decide" list, until the league sets it (even to the usual value).
 | Setting | Values | Default |
 |---|---|---|
 | `rules.overtime` | `overtime`, `none` | `overtime` (*decide*) |
-| `rules.foul_limit` | 1 to 9: the most personal fouls one player can have | 5 |
+| `rules.foul_limit` | 1 to 9: the most personal fouls one player can have (the foul-out number) | 5 (*decide*) |
 | `standings.points` | `{win, tie, loss, ot_win, ot_loss}` | 2, 1, 0 (an overtime win and loss count as a win and a loss) |
 | `standings.ties` | `true`, `false` | `false` (*decide*) |
 | `standings.forfeit` | `{score: [20, 0]}`, `{score: per_period}`, ... | `[20, 0]` (*decide*) |

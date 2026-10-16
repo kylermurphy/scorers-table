@@ -87,9 +87,10 @@ def test_four_quarters_and_the_period_words():
 def test_the_options_and_everything_the_league_decides():
     assert SPORT.spec["options"]["overtime"]["values"] == ["overtime", "none"]
     assert SPORT.spec["options"]["overtime"]["default"] == "overtime" and SPORT.spec["options"]["overtime"]["decide"]
-    assert SPORT.spec["options"]["foul_limit"]["default"] == 5 and not SPORT.spec["options"]["foul_limit"].get("decide")
+    assert SPORT.spec["options"]["foul_limit"]["default"] == 5 and SPORT.spec["options"]["foul_limit"]["decide"]
     assert dict(sport_decide_settings(SPORT.spec)) == {
-        "rules.overtime": "Overtime", "standings.ties": "Ties", "standings.forfeit": "Forfeit",
+        "rules.overtime": "Overtime", "rules.foul_limit": "Most personal fouls one player can have in a game",
+        "standings.ties": "Ties", "standings.forfeit": "Forfeit",
         "standings.tiebreakers": "Tiebreakers",
         "stats.minimums.ppg_min_games": "Minimum games for the points per game leaders",
         "stats.minimums.ft_min_attempts": "Minimum free throw attempts for the free throw % leaders"}

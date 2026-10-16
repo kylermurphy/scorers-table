@@ -1,4 +1,4 @@
-# A line that is not part of the sheet: Masters' form line stays behind.
+# A line that is not part of the sheet: a printed form's id copied in by mistake.
 fixture: {folder: games, game_type: regular, options: {}}
 sheet:
   players:
@@ -20,4 +20,4 @@ sheet:
   boxes:
     home: {q1: 5, q2: 12, q3: 17, q4: 22, ot: null, final: 22}
     away: {q1: 5, q2: 10, q3: 16, q4: 19, ot: null, final: 19}
-  form: MBL-SS6
+  form: SS-1
