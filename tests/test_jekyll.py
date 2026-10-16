@@ -408,6 +408,14 @@ def _files(folder: Path, skip: tuple[str, ...] = ()) -> dict[str, bytes]:
             if p.is_file() and p.relative_to(folder).parts[0] not in skip}
 
 
+def _bundler_env(base: dict | None = None) -> dict:
+    """The environment for a `bundle exec` run from a copy of the site in a temporary folder. CI installs the gems
+    under the repository (ruby/setup-ruby's bundler-cache sets a relative BUNDLE_PATH), so from the copy Bundler
+    would look for them in the temporary folder and report "command not found: jekyll". Pointing it at the
+    repository's Gemfile makes the gem folder resolve against the repository, as for every other test here."""
+    return dict(os.environ if base is None else base, BUNDLE_GEMFILE=str(ROOT / "Gemfile"))
+
+
 def _real_build(root: Path) -> None:
     """The real build, as CI runs it before build_preview.sh (today is the real date, as the script's restore)."""
     assert build.main(["--root", str(root), "--out", str(root)]) == 0
@@ -421,7 +429,7 @@ def _state(root: Path) -> dict[str, dict[str, bytes]]:
 def _run_preview_script(root: Path, tmp: Path, *, fail_on: str = "") -> subprocess.CompletedProcess:
     """The CI steps for the copy at `root`: the main site into _site/ under BASE, then build_preview.sh. With
     `fail_on`, a `bundle` that fails when its arguments mention that text stands in front of the real one."""
-    env = {k: v for k, v in os.environ.items() if k != "GITHUB_ACTIONS"}
+    env = _bundler_env({k: v for k, v in os.environ.items() if k != "GITHUB_ACTIONS"})
     env.update(BASE_PATH=BASE, SITE_ORIGIN="", JEKYLL_ENV="production")
     if fail_on:
         (tmp / "bin").mkdir()
@@ -446,7 +454,7 @@ def previewed(tmp_path_factory, jekyll):
     _real_build(root)
     main = subprocess.run([*jekyll, "build", "--source", str(root), "--destination", str(root / "_site"), "--config",
                            f"{root / '_config.yml'},{root / '_config.ci.yml'}", "--baseurl", BASE, "--quiet"],
-                          cwd=root, capture_output=True, text=True)
+                          cwd=root, capture_output=True, text=True, env=_bundler_env())
     assert main.returncode == 0, main.stdout + main.stderr
     before, main_site = _state(root), _files(root / "_site")
     result = _run_preview_script(root, tmp)
