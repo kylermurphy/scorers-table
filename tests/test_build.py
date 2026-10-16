@@ -845,13 +845,20 @@ def test_a_spare_with_no_team_has_one_full_stop_in_the_page_description(sample_o
 
 # ------------------------------------------------------------------ core extensions E2-E4 (stage 5 spec, section 5)
 
-def mini_season(tmp_path: Path, *, sport_edit=None, rules_edit=(), playoff=False) -> Path:
+def mini_season(tmp_path: Path, *, sport_edit=None, rules_edit=(), playoff=False, games=None) -> Path:
     """A real (not sample) season of two teams, four players and four games, built on a copy of the stub sport.
     `sport_edit(spec)` changes the parsed sport.yml; `rules_edit` is [(old, new)] text replacements in rules.py.
     Ann plays three games for 61 points, Bob four for 81 (20.33 and 20.25 points per game), Dee scores 0 once.
-    With `playoff` a playoff game is added, won by the reds, with Ann on 30."""
+    With `playoff` a playoff game is added, won by the reds, with Ann on 30. `games` replaces the four games."""
     import yaml
     root = make_repo(tmp_path, sample_data=False)
+    # The stub sport and only the real season, whatever sport and sample seasons the repo's league uses.
+    league = root / "league.yml"
+    league.write_text(re.sub(r"(?m)^sport: .*$", "sport: stub", league.read_text(encoding="utf-8")), encoding="utf-8")
+    (root / "data" / "seasons.yml").write_text('- {id: 2026-27, label: "2026–27", current: true, venue: Gym}\n',
+                                                encoding="utf-8")
+    for sample in (root / "data").glob("sample-*"):
+        shutil.rmtree(sample)
     season = root / "data" / "2026-27"
     (season / "teams.yml").write_text("- {id: reds, name: Reds, code: RED}\n- {id: blues, name: Blues, code: BLU}\n",
                                       encoding="utf-8")
@@ -859,7 +866,7 @@ def mini_season(tmp_path: Path, *, sport_edit=None, rules_edit=(), playoff=False
         "- {id: ann-r, name: Ann R., team: reds, number: 7}\n- {id: bob-r, name: Bob R., team: reds, number: 8}\n"
         "- {id: cal-b, name: Cal B., team: blues, number: 9}\n- {id: dee-b, name: Dee B., team: blues, number: 10}\n",
         encoding="utf-8")
-    games = [  # (date, reds' points by player, blues' points by player, kind)
+    games = games or [  # (date, reds' points by player, blues' points by player, kind)
         ("2026-10-15", {"ann-r": 20, "bob-r": 20}, {"cal-b": 15, "dee-b": 0}, "regular"),
         ("2026-10-22", {"ann-r": 20, "bob-r": 20}, {"cal-b": 15}, "regular"),
         ("2026-10-29", {"ann-r": 21, "bob-r": 20}, {"cal-b": 15}, "regular"),
@@ -912,16 +919,57 @@ def test_rates_are_ranked_before_they_are_rounded(tmp_path, capsys):
     assert players["ann-r"]["groups"]["player"]["totals"]["ppg"] == 20.3 and "exact" not in players["ann-r"]["groups"]["player"]
 
 
-def test_rates_that_are_equal_before_rounding_share_a_rank(tmp_path, capsys):
+def test_rates_that_show_the_same_whole_number_still_rank_apart(tmp_path, capsys):
     leaders, _, _ = build_mini(tmp_path, capsys, rules_edit=UNROUNDED_PPG, sport_edit=lambda s: s["stats"]["derived"][0].update(places=0))
     ppg = next(b for b in leaders["boards"] if b["id"] == "ppg")
     assert [(r["player"], r["display"], r["rank"]) for r in ppg["rows"][:2]] == [("ann-r", "20", 1), ("bob-r", "20", 2)]
+
+
+# Ann and Cal both average 61 / 3 (20.33), Bob 81 / 4 (20.25): all three show 20.3.
+EQUAL_EXACT = [("2026-10-15", {"ann-r": 20, "bob-r": 20}, {"cal-b": 20, "dee-b": 0}, "regular"),
+               ("2026-10-22", {"ann-r": 20, "bob-r": 20}, {"cal-b": 20}, "regular"),
+               ("2026-10-29", {"ann-r": 21, "bob-r": 20}, {"cal-b": 21}, "regular"),
+               ("2026-11-05", {"bob-r": 21}, {"dee-b": 15}, "regular")]
+
+
+def test_rates_that_are_exactly_equal_share_a_rank(tmp_path, capsys):
+    leaders, players, _ = build_mini(tmp_path, capsys, rules_edit=UNROUNDED_PPG, games=EQUAL_EXACT)
+    ppg = next(b for b in leaders["boards"] if b["id"] == "ppg")
+    assert [(r["player"], r["display"], r["rank"]) for r in ppg["rows"][:3]] == [
+        ("ann-r", "20.3", 1), ("cal-b", "20.3", 1), ("bob-r", "20.3", 3)]
+    assert players["cal-b"]["groups"]["player"]["ranks"]["ppg"] == 1
+
+
+def test_the_stats_table_sorts_a_rate_on_its_exact_value(tmp_path, capsys):
+    """Shown alike (20.3), Ann and Cal (20.33) still come before Bob (20.25), as on the board, not by name."""
+    def spec_edit(spec):
+        spec["stats"]["columns"] = {"player": {"table": ["gp", "ppg"]}}           # PPG is the key column
+    leaders, _, _ = build_mini(tmp_path, capsys, rules_edit=UNROUNDED_PPG, games=EQUAL_EXACT, sport_edit=spec_edit)
+    assert [c["key"] for c in leaders["table"]["columns"] if c["key_col"]] == ["ppg"]
+    assert leaders["table"]["rows"] == ["ann-r", "cal-b", "bob-r", "dee-b"]
 
 
 def test_a_sport_that_rounds_in_derive_ranks_as_before(tmp_path, capsys):
     leaders, _, _ = build_mini(tmp_path, capsys)                      # the stub rounds to 20.3 and 20.3 itself
     ppg = next(b for b in leaders["boards"] if b["id"] == "ppg")
     assert [(r["player"], r["rank"]) for r in ppg["rows"][:2]] == [("ann-r", 1), ("bob-r", 1)]
+
+
+@pytest.mark.parametrize("ann, bob", [("{name: Terry N., number: 38}", "{name: Mark D., number: 5}"),
+                                      ("{name: Sam R., number: 38}", "{name: Sam R., number: 5}")])
+def test_equal_values_are_listed_by_name_then_by_number_as_a_number(tmp_path, ann, bob):
+    """Ann and Bob tie at 20.3 (the stub rounds in derive). '#38 Terry N.' sorts before '#5 Mark D.' as text;
+    the board lists Mark first (by name), and of two 'Sam R.' #5 before #38."""
+    root = mini_season(tmp_path)
+    players = root / "data" / "2026-27" / "players.yml"
+    text = players.read_text(encoding="utf-8")
+    text = text.replace("{id: ann-r, name: Ann R., team: reds, number: 7}", "{id: ann-r, team: reds, " + ann[1:])
+    text = text.replace("{id: bob-r, name: Bob R., team: reds, number: 8}", "{id: bob-r, team: reds, " + bob[1:])
+    players.write_text(text, encoding="utf-8")
+    out = tmp_path / "out"
+    assert build.main(["--root", str(root), "--out", str(out), "--today", "2027-03-01"]) == 0
+    ppg = next(b for b in computed(out, "2026-27", "leaders.json")["boards"] if b["id"] == "ppg")
+    assert [(r["player"], r["rank"]) for r in ppg["rows"][:2]] == [("bob-r", 1), ("ann-r", 1)]
 
 
 def add_boards(spec):

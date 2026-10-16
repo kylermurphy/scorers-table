@@ -259,3 +259,14 @@ def test_columns_is_not_a_stat_group(sports_root):
     [problem] = check_sport_spec(spec, "sport.yml")
     assert problem.at == "leaderboards.0.group" and "Use one of: player" in problem.message
     assert normalise_spec(spec_of(sports_root))["stats"]["columns"] == {}
+
+
+def test_player_only_switches_on_a_team_board_are_named(sports_root):
+    """zero, playoffs and player_rank change how players are ranked; a team board would ignore them silently."""
+    spec = spec_of(sports_root)
+    spec["leaderboards"].append({"id": "ends", "of": "team", "stat": "ends", "label": "Ends won", "home": False})
+    assert check_sport_spec(spec, "sport.yml") == []                 # home works on any board
+    spec["leaderboards"][-1].update({"zero": True, "playoffs": True, "player_rank": False})
+    found = {p.at: p.message for p in check_sport_spec(spec, "sport.yml")}
+    assert set(found) == {"leaderboards.2.zero", "leaderboards.2.playoffs", "leaderboards.2.player_rank"}
+    assert "of: player" in found["leaderboards.2.zero"]

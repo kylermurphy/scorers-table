@@ -36,6 +36,7 @@ RESERVED_STATS = ("gp",)       # stats the core counts itself; a sport never lis
 # Leaderboard switches (all booleans): zero = a value of 0 is ranked; playoffs = playoff games count too;
 # home = on the Home page (false: the Stats page only); player_rank = in a player's "Ranks" line.
 BOARD_FLAGS = ("zero", "playoffs", "home", "player_rank")
+PLAYER_BOARD_FLAGS = ("zero", "playoffs", "player_rank")     # meaningless on an `of: team` board: an error there
 COLUMN_LISTS = ("table", "totals", "log")    # stats.columns.<group>: the Stats table, a player's totals, a game log
 SHAPES = ("quarters", "ends", "periods", "innings")
 CARD = ("rows", "lines")
@@ -430,6 +431,10 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
         group = board.get("group", "player")
         if of == "team":
             available = stat_keys.get("team", [])
+            for flag in PLAYER_BOARD_FLAGS:          # team boards rank regular-season team stats only
+                if flag in board:
+                    c.error(join_path(at, flag), f"is for a board of players only (of: player); a team board "
+                                                 f"does not use {flag!r}. Remove it.")
         elif group in stat_keys and group not in STAT_RESERVED:
             available = stat_keys[group] + stat_keys.get("derived", [])
         else:

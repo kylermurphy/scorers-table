@@ -9,7 +9,8 @@
   pages show) and boards rank on the exact value, so 20.14 is ahead of 20.06 although both show 20.1.
 * A leaderboard is one entry of sport.yml `leaderboards`. Each becomes ONE board with `list: true`; one with
   `tile: true` also draws a leader tile from its first row, and then its list starts at rank 2
-  (`first_row_in_tile`). Ranks are competition ranks (1, 2, 2, 4); a value of 0 or "—" is not a leader,
+  (`first_row_in_tile`). Ranks are competition ranks (1, 2, 2, 4), equal values listed by name, then number
+  (`name_order`); a value of 0 or "—" is not a leader,
   except on a board with `zero: true` (a 0 is ranked, "—" never). Board switches from sport.yml: `playoffs: true`
   counts playoff games too, `home: false` keeps the board off the Home page, `player_rank: false` keeps it out
   of a player's "Ranks" line.
@@ -181,7 +182,7 @@ def _player_board(ctx: SeasonCtx, spec: dict, edge: str, totals: dict, played: d
             unranked.append(pid)
         else:
             eligible.append((pid, block, value))
-    eligible.sort(key=lambda x: (-x[2], ctx.players[x[0]].label.casefold(), x[0]))
+    eligible.sort(key=lambda x: (-x[2], *name_order(ctx.players[x[0]])))
     rank = 0
     for i, (pid, block, value) in enumerate(eligible):
         rank = rank if i and value == eligible[i - 1][2] else i + 1
@@ -195,6 +196,13 @@ def _player_board(ctx: SeasonCtx, spec: dict, edge: str, totals: dict, played: d
                 "detail": _detail(spec, block["display"]), "cells": None})
     board["unranked"] = sorted(unranked)
     return board
+
+
+def name_order(player: Player) -> tuple:
+    """Players with equal values are listed by name ("First L.", without the number), then by number as a number
+    (#5 before #38; none last), then by id, so the order is stable."""
+    number = player.number
+    return (player.name.casefold(), number is None, int(number) if number is not None else 0, number or "", player.id)
 
 
 def _needed(ctx: SeasonCtx, rule: dict, minimum: int, player: Player) -> int:
@@ -270,9 +278,10 @@ def _table(ctx: SeasonCtx, groups: list[str], totals: dict, boards: list[dict]) 
     key = next((c["key"] for c in columns if c["key_col"]), None)
     ids = [pid for (pid, g, kind) in totals if g == group and kind == "regular"]
 
-    def order(pid: str):
-        value = totals[(pid, group, "regular")]["totals"].get(key) if key else None
-        return (value is None, -(value or 0), ctx.players[pid].label.casefold(), pid)
+    def order(pid: str):                       # a rate sorts on its exact value, as the boards rank it
+        block = totals[(pid, group, "regular")]
+        value = (block["exact"][key] if key in block["exact"] else block["totals"].get(key)) if key else None
+        return (value is None, -(value or 0), *name_order(ctx.players[pid]))
 
     return {"group": group, "columns": columns, "rows": sorted(ids, key=order)}
 
