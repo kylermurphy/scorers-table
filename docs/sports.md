@@ -119,10 +119,29 @@ stats:
   team: []                                   # team counting stats (Reading.team_lines)
 ```
 
-* Any group name other than `derived` and `team` is a group of player counting stats. Most sports have one,
-  `player`; hockey has `skater` and `goalie`.
+* Any group name other than `derived`, `team` and `columns` is a group of player counting stats. Most sports
+  have one, `player`; hockey has `skater` and `goalie`.
 * Keys are lower-case words. `gp` (games played) is reserved: the core counts it, so a sport never lists it.
-* `places` (0 to 4) is the number of decimals of a derived stat.
+* `places` (0 to 4) is the number of decimals of a derived stat. `derive` may return the rate unrounded: the
+  core rounds it half up to `places` for `totals` and the pages, and ranks the leaderboards on the exact value,
+  so 20.14 is ahead of 20.06 although both show 20.1. (A `derive` that rounds itself, like the stub's, ranks on
+  what it returned.)
+* `columns` (optional) sets the columns and their order for each group, in three places:
+
+  ```yaml
+  stats:
+    columns:
+      player:
+        table:  [gp, pts, ppg, ftm, fta, ft_pct]   # the Stats page and the roster tables
+        totals: [gp, pts, ppg, ftm, fta, ft_pct, tech]   # a player's Season / Playoffs rows
+        log:    [pts, ftm, fta, tech]               # a player's game log (gp is never shown there)
+  ```
+
+  Each list holds `gp`, the group's counting stats and the derived stats, in the order shown. A list left out
+  keeps the default: GP, the counting stats, then the rates. A rate nobody has a value for yet is left out of
+  every list. The key column is the first leaderboard's stat for the group when the list has it, else the first
+  column after GP. The computed `leaders.columns[group]` is `{table, totals, log}`, each a list of
+  `{key, label, title, key_col}`.
 
 ### `minimums`
 
@@ -145,6 +164,15 @@ leaderboards:
 `id`, `of` (`player` or `team`), `stat` and `label` are required. `group` defaults to `player`. `stat` must be
 a counting or derived stat of that group (or a team stat when `of: team`). `tile: true` also makes a leader
 tile on the home page. `min` points `setting` at a key of `minimums`.
+
+Four optional switches (all true/false, all off or on as listed) change who is ranked and where a board shows:
+
+| Key | Default | Effect |
+|---|---|---|
+| `zero` | `false` | A value of 0 is ranked (free-throw percentage: 0.0% is a real result). A missing value (`None`, "—") never is; without `zero` a 0 is not ranked either. |
+| `playoffs` | `false` | The board counts playoff games too, regular season and playoffs summed (technical fouls over the whole season). Rates are worked out again from the sums. The player's own Season and Playoffs rows stay apart. |
+| `home` | `true` | `false` keeps the board off the Home page; the Stats page and an archive season still show it. |
+| `player_rank` | `true` | `false` keeps the board out of the "Ranks:" line on a player page. Ranks are kept per stat, so when two boards share a stat the first one with `player_rank` on gives the rank. |
 
 `detail` and `note` strings are Python `str.format` templates over the row's display values (`{gp}`, `{pts}`,
 and for team boards the standings columns). The schema rejects a name the core does not supply, so a typo
@@ -235,11 +263,16 @@ The contract test checks more (cell flags, column keys, that `derive` returns on
 * A cell or column holds `v` (the value) and any of the **flags** `won mark blank void open hammer`, set to
   `True` only when they apply. They map one-to-one onto the design system's classes (`is-won`, `is-mark`,
   `is-blank`, `is-void`, `is-open`, `svg.st-hammer`). Every row has one cell per column.
-* **Block types in stage 4:** `stat_table` and `note`.
+* **Block types:** `stat_table`, `note` and `top_performer`.
   * `stat_table`: `title`, `side`, `caption`, `number_col`, `columns` (`key`, `label`, `title`, `key_col`),
     `rows` (`player` id and `cells` of already-formatted text), `totals` (`label` and `cells`), `note`.
   * `note`: `text`.
-* A new kind of display (stage 5: `numbers`, `facts`, `events`, a penalties table, `roster`, `top_performer`)
+  * `top_performer`: the game's best player as a tile: `label` ("Top scorer"), `player` (a players.yml id),
+    `side` (`home` or `away`: whose player), `value` (24), `unit` ("Points") and an optional `detail` line
+    ("Rapids · 6-7 free throws"). The player is a link when the player has a page and plain text in a past
+    season. Two players tied are two blocks, so two tiles; a sport that wants no tile for three or more
+    leaves the block out.
+* A new kind of display (stage 5: `numbers`, `facts`, `events`, a penalties table, `roster`)
   becomes a **reusable core part** with CSS, a specimen on the design-system page and a parity case. It then
   joins the list `BLOCK_TYPES` in `scripts/core/model.py`. A sport never ships its own Liquid.
 
@@ -364,7 +397,7 @@ The spec (`docs/stage-4-spec.md`) is the plan. The code, as of this page, differ
 | `line_score` has `shape`, `total_label`, `corner` (3.2). | Also an optional `periods`, needed for `per_period` forfeits. |
 | `options` and `minimums` list `type`/`default`/`decide`... (3.2). | Both also take an optional `label`, the words for "Still to decide". |
 | Sports import from `scripts.core.types` (3.1, 3.3). | The module is `scripts.core.model`: a file called `types.py` shadows the standard library's `types`. |
-| `stats.player` (3.2). | Any group name works (hockey: `skater`, `goalie`); `derived` and `team` are the reserved names. |
+| `stats.player` (3.2). | Any group name works (hockey: `skater`, `goalie`); `derived`, `team` and `columns` are the reserved names. |
 | A sports folder needs four files (3). | `README.md` may be missing at load (a warning); the contract test requires it. |
 | `Score.final_at` "for core problems" (3.1). | Paths start with `sheet.` (from the top of the file), unlike `check`'s paths. `call_sport` enforces it. |
 | Forfeits (3.5): "a forfeit is a win/loss; its score is `forfeit.score`". | A fixed score earns no period points; `per_period` earns all of them. |

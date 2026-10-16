@@ -70,6 +70,12 @@ def _extras() -> dict[str, tuple[dict, list[str]]]:
         {"type": "mystery", "text": "a block type the includes do not know"},
         {"type": "note", "text": "End of blocks."},
     ]
+    plain["players"]["rob-k"]["url"] = None                    # a past season's player: no page to link to
+    plain["games"][gid]["blocks"][:0] = [
+        {"type": "top_performer", "label": "Top scorer", "player": "dave-m", "side": "home", "value": 24,
+         "unit": "Points", "detail": "Rapids · 6-7 free throws"},
+        {"type": "top_performer", "label": "Top scorer", "player": "rob-k", "side": "away", "value": 24,
+         "unit": "Points", "detail": None}]
     plain["games"][gid]["line_score"] = None
     plain["games"][gid]["card"].pop("line_score", None)
     plain["schedule"]["days"][0]["byes"] = ["foxes", "herons"]

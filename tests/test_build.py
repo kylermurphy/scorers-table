@@ -738,6 +738,11 @@ SPORT_ONLY = {
     "games.*.line_score.split[]": "hockey's goalie / PIM foot",
     "leaders.boards[].columns[]": "hockey's leaders table (a board with columns)",
     "leaders.boards[].rows[].cells.*": "hockey's leaders table",
+    "games.*.blocks[].label": "basketball's top_performer block (the stub does not draw one)",
+    "games.*.blocks[].player": "basketball's top_performer block",
+    "games.*.blocks[].value": "basketball's top_performer block",
+    "games.*.blocks[].unit": "basketball's top_performer block",
+    "games.*.blocks[].detail": "basketball's top_performer block",
     "league.labels.score_sheets": "Masters-only feature (score sheet PDFs)",
     "schedule.days[].foot_link.label": "a link under the next-game panel (the Masters site's score sheet PDFs)",
     "schedule.days[].foot_link.url": "a link under the next-game panel (the Masters site's score sheet PDFs)",
@@ -836,3 +841,153 @@ def test_a_spare_with_no_team_has_one_full_stop_in_the_page_description(sample_o
     for p in spares:
         text = (sample_out / "_players" / f"{p['id']}.md").read_text(encoding="utf-8")
         assert f'for {p["name"]}"' in text and '.."' not in text
+
+
+# ------------------------------------------------------------------ core extensions E2-E4 (stage 5 spec, section 5)
+
+def mini_season(tmp_path: Path, *, sport_edit=None, rules_edit=(), playoff=False) -> Path:
+    """A real (not sample) season of two teams, four players and four games, built on a copy of the stub sport.
+    `sport_edit(spec)` changes the parsed sport.yml; `rules_edit` is [(old, new)] text replacements in rules.py.
+    Ann plays three games for 61 points, Bob four for 81 (20.33 and 20.25 points per game), Dee scores 0 once.
+    With `playoff` a playoff game is added, won by the reds, with Ann on 30."""
+    import yaml
+    root = make_repo(tmp_path, sample_data=False)
+    season = root / "data" / "2026-27"
+    (season / "teams.yml").write_text("- {id: reds, name: Reds, code: RED}\n- {id: blues, name: Blues, code: BLU}\n",
+                                      encoding="utf-8")
+    (season / "players.yml").write_text(
+        "- {id: ann-r, name: Ann R., team: reds, number: 7}\n- {id: bob-r, name: Bob R., team: reds, number: 8}\n"
+        "- {id: cal-b, name: Cal B., team: blues, number: 9}\n- {id: dee-b, name: Dee B., team: blues, number: 10}\n",
+        encoding="utf-8")
+    games = [  # (date, reds' points by player, blues' points by player, kind)
+        ("2026-10-15", {"ann-r": 20, "bob-r": 20}, {"cal-b": 15, "dee-b": 0}, "regular"),
+        ("2026-10-22", {"ann-r": 20, "bob-r": 20}, {"cal-b": 15}, "regular"),
+        ("2026-10-29", {"ann-r": 21, "bob-r": 20}, {"cal-b": 15}, "regular"),
+        ("2026-11-05", {"bob-r": 21}, {"cal-b": 15}, "regular"),
+    ]
+    if playoff:
+        games.append(("2027-01-07", {"ann-r": 30, "bob-r": 5}, {"cal-b": 10, "dee-b": 3}, "playoff"))
+    rows = ["game_id,date,time,home,away,venue,surface,type,round,week,status,moved_from"]
+    for date, reds, blues, kind in games:
+        gid = f"{date}-1"
+        rows.append(f"{gid},{date},19:00,reds,blues,,1,{kind},{'Final' if kind == 'playoff' else ''},,,")
+        home, away = sum(reds.values()), sum(blues.values())
+        players = lambda side: "".join(f"      - {{player: {p}, pts: {n}}}\n" for p, n in side.items())
+        (season / "games" / f"{gid}.yml").write_text(
+            f"game_id: {gid}\nstatus: final\nhome: reds\naway: blues\nchecked_by: Pat S.\nscorekeeper: Sam T.\nsheet:\n  periods: {{home: [{home - 1}, 1], away: [{away - 1}, 1]}}\n"
+            f"  final: {{home: {home}, away: {away}}}\n  players:\n    home:\n{players(reds)}    away:\n{players(blues)}",
+            encoding="utf-8")
+    (season / "schedule.csv").write_text("\n".join(rows) + "\n", encoding="utf-8")
+    sport_yml = root / "sports" / "stub" / "sport.yml"
+    spec = yaml.safe_load(sport_yml.read_text(encoding="utf-8"))
+    if sport_edit:
+        sport_edit(spec)
+        sport_yml.write_text(yaml.safe_dump(spec, sort_keys=False, allow_unicode=True), encoding="utf-8")
+    rules = root / "sports" / "stub" / "rules.py"
+    text = rules.read_text(encoding="utf-8")
+    for old, new in rules_edit:
+        assert old in text, old
+        text = text.replace(old, new)
+    rules.write_text(text, encoding="utf-8")
+    return root
+
+
+def build_mini(tmp_path, capsys, **kwargs):
+    root, out = mini_season(tmp_path, **kwargs), tmp_path / "out"
+    code, _, err = run(root, out, capsys=capsys, today="2027-03-01")
+    assert code == 0, err
+    return computed(out, "2026-27", "leaders.json"), computed(out, "2026-27", "players.json"), out
+
+
+UNROUNDED_PPG = [('return {"ppg": float(value.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))}', 'return {"ppg": float(value)}')]
+
+
+def test_rates_are_ranked_before_they_are_rounded(tmp_path, capsys):
+    """E2: Ann averages 20.33 and Bob 20.25, both shown as 20.3 (one decimal, half up); Ann is still ahead."""
+    leaders, players, _ = build_mini(tmp_path, capsys, rules_edit=UNROUNDED_PPG)
+    ppg = next(b for b in leaders["boards"] if b["id"] == "ppg")
+    assert [(r["player"], r["display"], r["value"], r["rank"]) for r in ppg["rows"][:2]] == [
+        ("ann-r", "20.3", 20.3, 1), ("bob-r", "20.3", 20.3, 2)]
+    assert players["ann-r"]["groups"]["player"]["ranks"]["ppg"] == 1 and players["bob-r"]["groups"]["player"]["ranks"]["ppg"] == 2
+    assert players["ann-r"]["groups"]["player"]["totals"]["ppg"] == 20.3 and "exact" not in players["ann-r"]["groups"]["player"]
+
+
+def test_rates_that_are_equal_before_rounding_share_a_rank(tmp_path, capsys):
+    leaders, _, _ = build_mini(tmp_path, capsys, rules_edit=UNROUNDED_PPG, sport_edit=lambda s: s["stats"]["derived"][0].update(places=0))
+    ppg = next(b for b in leaders["boards"] if b["id"] == "ppg")
+    assert [(r["player"], r["display"], r["rank"]) for r in ppg["rows"][:2]] == [("ann-r", "20", 1), ("bob-r", "20", 2)]
+
+
+def test_a_sport_that_rounds_in_derive_ranks_as_before(tmp_path, capsys):
+    leaders, _, _ = build_mini(tmp_path, capsys)                      # the stub rounds to 20.3 and 20.3 itself
+    ppg = next(b for b in leaders["boards"] if b["id"] == "ppg")
+    assert [(r["player"], r["rank"]) for r in ppg["rows"][:2]] == [("ann-r", 1), ("bob-r", 1)]
+
+
+def add_boards(spec):
+    """Boards on the same two stats as the stub's, each with one switch, after the stub's own."""
+    spec["leaderboards"] += [
+        {"id": "ppg_zero", "of": "player", "group": "player", "stat": "ppg", "label": "PPG with zeros", "zero": True,
+         "player_rank": False},
+        {"id": "pts_all", "of": "player", "group": "player", "stat": "pts", "label": "Points with playoffs",
+         "playoffs": True, "home": False, "player_rank": False, "detail": "{gp} GP"},
+        {"id": "pts_plain", "of": "player", "group": "player", "stat": "pts", "label": "Points only", "home": False}]
+
+
+def test_a_zero_is_ranked_only_on_a_board_with_zero_true(tmp_path, capsys):
+    leaders, _, _ = build_mini(tmp_path, capsys, sport_edit=add_boards)
+    by_id = {b["id"]: b for b in leaders["boards"]}
+    assert "dee-b" not in [r["player"] for r in by_id["ppg"]["rows"]]
+    rows = by_id["ppg_zero"]["rows"]
+    assert (rows[-1]["player"], rows[-1]["display"], rows[-1]["rank"]) == ("dee-b", "0.0", 4)
+
+
+def test_playoffs_true_counts_playoff_games_and_the_other_boards_do_not(tmp_path, capsys):
+    leaders, players, _ = build_mini(tmp_path, capsys, sport_edit=add_boards, playoff=True)
+    by_id = {b["id"]: b for b in leaders["boards"]}
+    assert [(r["player"], r["value"]) for r in by_id["pts"]["rows"][:2]] == [("bob-r", 81), ("ann-r", 61)]
+    assert [(r["player"], r["value"], r["detail"]) for r in by_id["pts_all"]["rows"][:2]] == [
+        ("ann-r", 91, "4 GP"), ("bob-r", 86, "5 GP")]                    # 61 + 30 and 81 + 5; GP counts the playoff game
+    assert players["ann-r"]["groups"]["player"]["totals"]["pts"] == 61  # the player's season row stays regular season
+    assert players["ann-r"]["playoffs"]["player"]["totals"]["pts"] == 30
+
+
+def test_a_board_for_playoff_games_counts_a_player_with_only_playoff_games(tmp_path, capsys):
+    root = mini_season(tmp_path, sport_edit=add_boards, playoff=True)
+    season = root / "data" / "2026-27"
+    # Dee's only regular-season game goes to Cal, so her only points come in the playoff game.
+    first = season / "games" / "2026-10-15-1.yml"
+    first.write_text(first.read_text(encoding="utf-8").replace("      - {player: dee-b, pts: 0}\n", ""), encoding="utf-8")
+    out = tmp_path / "out"
+    assert build.main(["--root", str(root), "--out", str(out), "--today", "2027-03-01"]) == 0
+    board = next(b for b in computed(out, "2026-27", "leaders.json")["boards"] if b["id"] == "pts_all")
+    assert ("dee-b", 3) in [(r["player"], r["value"]) for r in board["rows"]]
+
+
+def test_home_and_player_rank_switches_reach_the_board_and_the_ranks_line(tmp_path, capsys):
+    leaders, players, _ = build_mini(tmp_path, capsys, sport_edit=add_boards, playoff=True)
+    flags = {b["id"]: (b["home"], b["player_rank"]) for b in leaders["boards"]}
+    assert flags == {"pts": (True, True), "ppg": (True, True), "ppg_zero": (True, False), "pts_all": (False, False),
+                     "pts_plain": (False, True)}
+    ranks = players["ann-r"]["groups"]["player"]["ranks"]
+    assert ranks == {"pts": 2, "ppg": 1}          # pts_all and ppg_zero are left out; the first board on a stat gives its rank
+
+
+def test_column_lists_set_the_order_of_each_table(tmp_path, capsys):
+    def spec_edit(spec):
+        spec["stats"]["columns"] = {"player": {"table": ["ppg", "pts"], "totals": ["pts", "gp"], "log": ["pts"]}}
+    leaders, _, _ = build_mini(tmp_path, capsys, sport_edit=spec_edit)
+    cols = leaders["columns"]["player"]
+    shape = {name: [(c["key"], c["key_col"]) for c in cols[name]] for name in ("table", "totals", "log")}
+    assert shape == {"table": [("ppg", False), ("pts", True)],           # the key column is the first board's stat
+                     "totals": [("pts", True), ("gp", False)], "log": [("pts", True)]}
+    assert leaders["table"]["columns"] == cols["table"]                  # the Stats table sorts on its key column
+
+
+def test_column_lists_left_out_keep_the_default_order(tmp_path, capsys):
+    def spec_edit(spec):
+        spec["stats"]["columns"] = {"player": {"table": ["pts", "gp"]}}
+    leaders, _, _ = build_mini(tmp_path, capsys, sport_edit=spec_edit)
+    cols = leaders["columns"]["player"]
+    assert [c["key"] for c in cols["table"]] == ["pts", "gp"]
+    assert [c["key"] for c in cols["totals"]] == [c["key"] for c in cols["log"]] == ["gp", "pts", "ppg"]

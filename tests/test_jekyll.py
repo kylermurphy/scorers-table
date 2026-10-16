@@ -78,10 +78,11 @@ class Site:
 
 def make_site(tmp: Path, jekyll: list[str], *, league: str = "", real: bool = False, empty: bool = False,
               sample_flag: bool = False, baseurl: str = "", url: str = "", logo: bool = False,
-              site_url: str = "") -> Site:
+              site_url: str = "", edit=None) -> Site:
     """Copy the source, change league.yml, run build.py and Jekyll.
     league: lines appended to league.yml; real: the sample season stands in as the real one (sample_data false);
-    empty: sample_data false with the real season left empty; sample_flag: build.py --sample (the /preview/ copy)."""
+    empty: sample_data false with the real season left empty; sample_flag: build.py --sample (the /preview/ copy);
+    edit: a function called with the copied source folder before build.py runs (to change a sport, say)."""
     root = tmp / "src"
     root.mkdir()
     for name in SOURCE:
@@ -99,6 +100,8 @@ def make_site(tmp: Path, jekyll: list[str], *, league: str = "", real: bool = Fa
             '<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="48" cy="48" r="44"/></svg>')
         league += "\nlogo: assets/league/logo.svg"
     (root / "league.yml").write_text(text + "\n" + league + "\n", encoding="utf-8")
+    if edit:
+        edit(root)
 
     args = ["--root", str(root), "--out", str(root), "--today", "2026-11-20"]
     if sample_flag:
@@ -439,3 +442,60 @@ def test_no_broken_internal_link_image_or_script(site, tmp_path_factory, jekyll)
     live = make_site(tmp_path_factory.mktemp("proof"), jekyll, real=True, baseurl="/club")
     result = _check_links(live.out, swap="^/club:")
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+# ------------------------------------------------------------------ core extensions E1, E3, E4 (stage 5 spec, section 5)
+
+def _extend_the_stub(root: Path) -> None:
+    """The stub with a top-performer block on every game, a board kept off Home and out of the Ranks line, and its
+    own column order on the Stats table, the player's totals and the game log."""
+    import yaml
+    sport = root / "sports" / "stub"
+    rules = (sport / "rules.py").read_text(encoding="utf-8")
+    note = '    blocks.append({"type": "note", "text": "Points come from the Final box and each player\'s row."})'
+    assert note in rules
+    rules = rules.replace(note, '''    if top is not None:
+        blocks.insert(0, {"type": "top_performer", "label": "Top scorer", "player": top.player, "side": top.side,
+                          "value": top.counts["pts"], "unit": "Points", "detail": "Made-up detail"})
+''' + note)
+    (sport / "rules.py").write_text(rules, encoding="utf-8")
+    spec = yaml.safe_load((sport / "sport.yml").read_text(encoding="utf-8"))
+    spec["leaderboards"].append({"id": "pts_stats", "of": "player", "group": "player", "stat": "pts",
+                                 "label": "Points, Stats only", "home": False, "player_rank": False})
+    spec["stats"]["columns"] = {"player": {"table": ["ppg", "pts"], "totals": ["pts", "gp"], "log": ["pts"]}}
+    (sport / "sport.yml").write_text(yaml.safe_dump(spec, sort_keys=False, allow_unicode=True), encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def extended(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("extended"), jekyll, edit=_extend_the_stub)
+
+
+def _header_labels(html: str) -> list[list[str]]:
+    """The <abbr> labels of each table header row, in order."""
+    return [re.findall(r"<abbr[^>]*>([^<]*)</abbr>", row) for row in re.findall(r"<thead>(.*?)</thead>", html, re.S)]
+
+
+def test_a_top_performer_links_the_player_and_is_plain_text_in_a_past_season(extended):
+    page = extended.html("/games/2026-11-19-1/")
+    assert re.search(r'<a class="st-top-scorer__name" href="/players/[a-z-]+/">', page)
+    assert "Made-up detail" in page and "st-top-scorer__num" in page
+    old = extended.html("/games/2025-10-16-1/")
+    assert re.search(r'<span class="st-top-scorer__name">[^<]+</span>', old) and 'class="st-top-scorer__name" href' not in old
+
+
+def test_a_board_with_home_false_is_on_the_stats_page_only(extended):
+    assert "Points, Stats only" in extended.html("/stats/") and "Points, Stats only" not in extended.html("/")
+    assert "Points / game" in extended.html("/")                       # the boards without the switch stay on Home
+
+
+def test_a_board_with_player_rank_false_is_not_in_the_ranks_line(extended):
+    page = extended.html("/players/noa-a/")
+    ranks = re.search(r'<p class="st-note">Ranks: (.*?)</p>', page).group(1)
+    assert "Points: No. 1" in ranks and "Points / game: No. 5" in ranks and "Stats only" not in ranks
+
+
+def test_column_lists_order_the_stats_table_the_totals_and_the_game_log(extended):
+    assert _header_labels(extended.html("/stats/"))[-1] == ["PPG", "PTS"]
+    totals, log = _header_labels(extended.html("/players/noa-a/"))
+    assert totals == ["PTS", "GP"] and log == ["PTS"]

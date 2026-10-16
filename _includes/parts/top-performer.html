@@ -1,0 +1,19 @@
+{%- comment -%}
+  parts/top-performer.html: the top performer of a game (present() block type "top_performer"): a tile with the
+  label ("Top scorer"), the player, a detail line ("Rapids · 6-7 free throws") and the number with its unit
+  (24 POINTS). Two players tied give two blocks, so two tiles; the sport leaves the tile out when three or more tie.
+  Params: block {type, label, player (an id), side ("home" | "away": whose player; not drawn), value, unit,
+  detail (optional)}. Reads: stats.players (label, url).
+  The player is a link (the whole tile is its touch target) when the player has a page; a player with no page
+  (url null: a past season) is a plain span.
+{%- endcomment -%}
+{%- assign _tp_b = include.block -%}
+{%- assign _tp_p = stats.players[_tp_b.player] -%}
+<div class="st-top-scorer"><div class="st-top-scorer__main"><p class="st-top-scorer__label">{{ _tp_b.label | escape }}</p>
+{%- if _tp_p.url.size > 0 -%}
+<a class="st-top-scorer__name" href="{{ _tp_p.url | relative_url }}">{{ _tp_p.label | escape }}</a>
+{%- else -%}
+<span class="st-top-scorer__name">{{ _tp_p.label | escape }}</span>
+{%- endif -%}
+{%- if _tp_b.detail.size > 0 -%}<p class="st-top-scorer__detail">{{ _tp_b.detail | escape }}</p>{%- endif -%}
+</div><p class="st-top-scorer__value"><span class="st-top-scorer__num">{{ _tp_b.value | escape }}</span><span class="st-top-scorer__unit">{{ _tp_b.unit | escape }}</span></p></div>

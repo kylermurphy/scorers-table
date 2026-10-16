@@ -1625,6 +1625,9 @@
 .st-top-scorer + .st-game-block {
   margin-top: var(--st-section-gap);
 }
+.st-top-scorer + .st-top-scorer {
+  margin-top: var(--st-space-sm);
+}
 .st-team-heading {
   display: flex;
   align-items: center;
@@ -1695,7 +1698,8 @@
   text-transform: uppercase;
   color: var(--st-muted);
 }
-.st-page a.st-top-scorer__name {
+/* the name is a link, or a plain span for a past season (no player pages) */
+.st-page .st-top-scorer__name {
   display: block;
   margin-top: var(--st-space-3xs);
   font-size: var(--st-step-xl);
@@ -1706,8 +1710,8 @@
 .st-page a.st-top-scorer__name:hover {
   text-decoration: underline;
 }
-/* the whole tile is the touch target */
-.st-top-scorer__name::after {
+/* the whole tile is the touch target (a link only) */
+a.st-top-scorer__name::after {
   content: "";
   position: absolute;
   inset: 0;

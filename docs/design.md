@@ -338,7 +338,8 @@ Small pieces in `base.css`: `.st-chip` (`--sm`, `--lg`), `.st-badge` (`--win`, `
   target without changing the row height); `tfoot` totals. Also `.st-team-heading` (+ `--sm`) = chip +
   `__name` + `__score`; `.st-game-block`; `.st-facts` > `__row` > `__label` + `__value` (+ `__team`);
   `.st-top-scorer` (`__main`, `__label`, `__name`, `__detail`, `__value`, `__num`, `__unit`; the name
-  link stretches over the whole tile); `.st-note--intro`.
+  is a link that stretches over the whole tile, or a plain `span` in a past season; two tiles for a tie are
+  spaced by `.st-top-scorer + .st-top-scorer`); `.st-note--intro`.
 
 ### Data
 
@@ -819,7 +820,8 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | `parts/next-game.html` | `day` | `day` eyebrow, date_long, date_short, where, groups [{time_label, games}], games, byes, foot, foot_link |
 | `parts/team-card.html` | `team`, `rank_text` | `team` name, url, slot, colour, record, points, sub, rank |
 | `parts/stat-table.html` | `block`, `game` | a `stat_table` block; `stats.players` |
-| `parts/note.html`, `parts/blocks.html` | `block`; `blocks`, `game` | `blocks.html` draws `stat_table` and `note`, leaves other types out |
+| `parts/top-performer.html` | `block` | a `top_performer` block {label, player, side, value, unit, detail}; `stats.players` (label, url: a link, or a `span` when null) |
+| `parts/note.html`, `parts/blocks.html` | `block`; `blocks`, `game` | `blocks.html` draws `stat_table`, `note` and `top_performer`, leaves other types out |
 | helpers | `parts/bold-text.html` (`text`, `strong`), `parts/runs.html` (`runs [{t,b}]`), `parts/hammer.html` (`px`, `label`), `parts/leader-sub.html` | |
 
 **Line score data** (present()'s `line_score`, spec 3.4, plus the fields the includes need): `shape`, `corner`,
@@ -834,8 +836,10 @@ hammer?}], total, extra, hammer_first}`, `caption` (the table caption and scroll
 `words.period.one`, `display.card/card_foot/surface/card_head`; `standings.rows[].race`, `.display`;
 `teams[].sub` = the card's sub line; `schedule.days[]` `eyebrow`, `where`, `foot`, `foot_link`, `groups`;
 `games[]` `status`, `final`, sides `record`, `record_line`, `badge`, `card`; `leaders.boards[]` `tile`, `list`,
-`edge`, `group_label`, `title`, `title_board`, `unit`, `first_row_in_tile`, `columns`, rows `cells`; blocks
-`number_col`, `number_label`, `player_label`, `rows[].num`, `totals`.
+`edge`, `group_label`, `title`, `title_board`, `unit`, `first_row_in_tile`, `columns`, `home`, `player_rank`, rows
+`cells`; `leaders.columns[group]` = `{table, totals, log}` (lists of `{key, label, title, key_col}`); blocks
+`number_col`, `number_label`, `player_label`, `rows[].num`, `totals`; a `top_performer` block `label`, `player`, `side`,
+`value`, `unit`, `detail`.
 
 **Layout branches** (as the specimens): the race on Scoreboard Home, Classic's one-line card foot and hidden list
 title, the Hockey layout's leaders table, the Scoreboard boards and "All player stats" button, grouped draws and
