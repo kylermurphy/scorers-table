@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.away.final",
+      "message": "the Final box should hold Bravo's final score, not '19'"
+    }
+  ],
+  "reading": null
+}

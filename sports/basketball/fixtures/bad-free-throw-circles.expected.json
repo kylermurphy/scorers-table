@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.0.ft",
+      "message": "ft 'MXZ' should be the circles in order: M for made (filled), X for missed (slashed), like MMXM"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players",
+      "message": "should list each team's roster rows for home and away, like 'home: ...' and 'away: ...'."
+    }
+  ],
+  "reading": null
+}

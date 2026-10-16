@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lines",
+      "message": "should list each team's end-of-quarter lines for home and away, like 'home: [5, 12, 17, 22]'"
+    }
+  ],
+  "reading": null
+}

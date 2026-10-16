@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.q2",
+      "message": "the Q2 box should hold Alpha's running total at the end of that quarter, not None"
+    }
+  ],
+  "reading": null
+}

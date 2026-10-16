@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes",
+      "message": "is empty. Fill in the score boxes, for home and away."
+    }
+  ],
+  "reading": null
+}

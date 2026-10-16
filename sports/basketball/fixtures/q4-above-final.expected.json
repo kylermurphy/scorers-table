@@ -1,0 +1,30 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.q4",
+      "message": "the Q4 box says 24, but the Q4 line is under 22"
+    },
+    {
+      "level": "error",
+      "at": "boxes.home.q4",
+      "message": "the Q4 box (24) is more than the Final box (22)"
+    },
+    {
+      "level": "error",
+      "at": "boxes.home.ot",
+      "message": "after overtime the OT box should hold Alpha's total, 22"
+    },
+    {
+      "level": "error",
+      "at": "boxes.away.ot",
+      "message": "after overtime the OT box should hold Bravo's total, 19"
+    },
+    {
+      "level": "error",
+      "at": "boxes.home.q4",
+      "message": "Q4 (Alpha 24, Bravo 19) isn't tied, so there was no overtime: Q4 should equal the final score"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "players",
+      "message": "is empty. Fill in each team's roster rows, for home and away."
+    }
+  ],
+  "reading": null
+}

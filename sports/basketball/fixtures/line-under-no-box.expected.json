@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lines.home.2",
+      "message": "the Q3 line is under 18, but Alpha has no box with that total"
+    },
+    {
+      "level": "error",
+      "at": "boxes.home.q3",
+      "message": "the Q3 box says 17, but the Q3 line is under 18"
+    }
+  ],
+  "reading": null
+}

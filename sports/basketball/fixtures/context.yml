@@ -1,0 +1,31 @@
+# The two teams, the players and the league settings every basketball fixture is checked with (Masters' made-up
+# fixture names are kept: they are test data, not a league). A case's own `fixture:` block sets folder, game_type
+# and any `options` that differ from these.
+sides: {home: aa, away: bb}
+teams:
+  - {id: aa, name: Alpha, code: AL}
+  - {id: bb, name: Bravo, code: BR}
+players:
+  - {id: al-a, name: Al A., team: aa, number: "4"}
+  - {id: amy-b, name: Amy B., team: aa, number: "10"}
+  - {id: ann-c, name: Ann C., team: aa, number: "22"}
+  - {id: ari-d, name: Ari D., team: aa, number: "7"}
+  - {id: abe-a, name: Abe A., team: aa, number: "31"}
+  - {id: ben-a, name: Ben A., team: aa, number: "32"}
+  - {id: cal-a, name: Cal A., team: aa, number: "33"}
+  - {id: dan-a, name: Dan A., team: aa, number: "34"}
+  - {id: eli-a, name: Eli A., team: aa, number: "35"}
+  - {id: fay-a, name: Fay A., team: aa, number: "36"}
+  - {id: gus-a, name: Gus A., team: aa, number: "37"}
+  - {id: hal-a, name: Hal A., team: aa, number: "38"}
+  - {id: ian-a, name: Ian A., team: aa, number: "39"}
+  - {id: jay-a, name: Jay A., team: aa, number: "40"}
+  - {id: kit-a, name: Kit A., team: aa, number: "41"}
+  - {id: lee-a, name: Lee A., team: aa, number: "42"}
+  - {id: bo-c, name: Bo C., team: bb, number: "5"}
+  - {id: bev-d, name: Bev D., team: bb, number: "11"}
+  - {id: bud-e, name: Bud E., team: bb, number: "30"}
+  - {id: bob-g, name: Bob G., team: bb, number: "0"}
+  - {id: bas-h, name: Bas H., team: bb, number: "00"}
+  - {id: sam-p, name: Sam P., team: null, sub: true}
+options: {overtime: overtime, foul_limit: 5}

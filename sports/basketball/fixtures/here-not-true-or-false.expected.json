@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.3.here",
+      "message": "here should be true (ticked) or false"
+    }
+  ],
+  "reading": null
+}

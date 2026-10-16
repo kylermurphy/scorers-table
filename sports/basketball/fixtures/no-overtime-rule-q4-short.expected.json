@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.q4",
+      "message": "the Q4 box says 22, but the running score ends at 25 and this league plays no overtime: Q4 should equal the final score"
+    },
+    {
+      "level": "error",
+      "at": "boxes.away.q4",
+      "message": "the Q4 box says 22, but the running score ends at 24 and this league plays no overtime: Q4 should equal the final score"
+    }
+  ],
+  "reading": null
+}

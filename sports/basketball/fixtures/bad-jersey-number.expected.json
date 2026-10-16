@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.3.num",
+      "message": "jersey number 100 should be 0 to 99 (or \"00\")"
+    }
+  ],
+  "reading": null
+}

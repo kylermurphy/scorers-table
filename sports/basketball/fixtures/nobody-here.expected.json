@@ -1,0 +1,60 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.away",
+      "message": "nobody on Bravo is ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.3",
+      "message": "#5 scored, but row 1 (bo-c) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.5",
+      "message": "#11 scored, but row 2 (bev-d) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.6",
+      "message": "#30 scored, but row 3 (bud-e) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.8",
+      "message": "#5 scored, but row 1 (bo-c) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.10",
+      "message": "#11 scored, but row 2 (bev-d) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.11",
+      "message": "#5 scored, but row 1 (bo-c) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.14",
+      "message": "#30 scored, but row 3 (bud-e) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.16",
+      "message": "#11 scored, but row 2 (bev-d) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.17",
+      "message": "#11 scored, but row 2 (bev-d) isn't ticked Here"
+    },
+    {
+      "level": "error",
+      "at": "running.away.19",
+      "message": "#5 scored, but row 1 (bo-c) isn't ticked Here"
+    }
+  ],
+  "reading": null
+}

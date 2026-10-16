@@ -1,0 +1,25 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.zzz",
+      "message": "'zzz' isn't a side. Use 'home' or 'away'."
+    },
+    {
+      "level": "error",
+      "at": "running.zzz",
+      "message": "'zzz' isn't a side. Use 'home' or 'away'."
+    },
+    {
+      "level": "error",
+      "at": "boxes.zzz",
+      "message": "'zzz' isn't a side. Use 'home' or 'away'."
+    },
+    {
+      "level": "error",
+      "at": "lines.zzz",
+      "message": "'zzz' isn't a side. Use 'home' or 'away'."
+    }
+  ],
+  "reading": null
+}

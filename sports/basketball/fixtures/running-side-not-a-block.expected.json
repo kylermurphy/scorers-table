@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "running.home",
+      "message": "the running score is total: jersey number, like {2: 4, 5: 10}"
+    }
+  ],
+  "reading": null
+}

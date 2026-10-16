@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.0.fouls",
+      "message": "fouls 6 should be a whole number from 0 to 5"
+    }
+  ],
+  "reading": null
+}

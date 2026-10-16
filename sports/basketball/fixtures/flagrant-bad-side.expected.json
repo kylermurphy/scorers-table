@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "notes.0.side",
+      "message": "side 'bb' should be home or away"
+    }
+  ],
+  "reading": null
+}

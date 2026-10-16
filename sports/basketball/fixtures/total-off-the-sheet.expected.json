@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "running.home.251",
+      "message": "251 isn't a running-score box (1 to 250)"
+    },
+    {
+      "level": "error",
+      "at": "running.home.x",
+      "message": "'x' isn't a running-score box (1 to 250)"
+    }
+  ],
+  "reading": null
+}

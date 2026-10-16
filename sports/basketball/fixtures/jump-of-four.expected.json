@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "running.home.11",
+      "message": "Alpha goes from 7 to 11, a jump of 4; a score is 1, 2 or 3"
+    }
+  ],
+  "reading": null
+}

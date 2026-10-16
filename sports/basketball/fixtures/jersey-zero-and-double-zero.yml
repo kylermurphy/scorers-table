@@ -1,0 +1,22 @@
+# #0 and #00 are two different jerseys: Bob G. wears 0, Bas H. wears 00.
+fixture: {folder: games, game_type: regular, options: {}}
+sheet:
+  players:
+    home:
+      - {player: al-a, num: 4, here: true, ft: MXM, fouls: 2}
+      - {player: amy-b, num: 10, here: true, ft: X}
+      - {player: ann-c, num: 22, here: true, ft: M, fouls: 1}
+      - {player: ari-d, num: 7, here: false}
+    away:
+      - {player: bo-c, num: 5, here: true, ft: M, fouls: 3, tech: 1}
+      - {player: bob-g, num: 0, here: true, ft: XM}
+      - {player: bas-h, num: '00', here: true, ft: MX}
+  running:
+    home: {2: 4, 4: 10, 5: 4, 7: 22, 10: 4, 12: 10, 13: 22, 15: 4, 17: 22, 19: 10, 20: 4, 22: 22}
+    away: {3: 5, 5: 0, 6: '00', 8: 5, 10: 0, 11: 5, 14: '00', 16: 0, 17: 0, 19: 5}
+  lines:
+    home: [5, 12, 17, 22]
+    away: [5, 10, 16, 19]
+  boxes:
+    home: {q1: 5, q2: 12, q3: 17, q4: 22, ot: null, final: 22}
+    away: {q1: 5, q2: 10, q3: 16, q4: 19, ot: null, final: 19}

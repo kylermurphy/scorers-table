@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lines",
+      "message": "is empty. Give the running total each end-of-quarter line was drawn under, for home and away, like 'home: [Q1, Q2, Q3, Q4]'"
+    }
+  ],
+  "reading": null
+}

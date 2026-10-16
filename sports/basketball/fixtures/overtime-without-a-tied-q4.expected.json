@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.q4",
+      "message": "Q4 (Alpha 22, Bravo 19) isn't tied, so there was no overtime: Q4 should equal the final score"
+    }
+  ],
+  "reading": null
+}

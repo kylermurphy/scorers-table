@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "notes",
+      "message": "notes should be a list, like - {side: away, num: 7, q: 3, kind: flagrant, text: elbow}"
+    }
+  ],
+  "reading": null
+}

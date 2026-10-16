@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.ot",
+      "message": "the OT box is filled in, but Q4 already equals the final score"
+    }
+  ],
+  "reading": null
+}

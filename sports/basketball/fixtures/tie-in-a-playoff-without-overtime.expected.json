@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.final",
+      "message": "the final score is tied 22-22 after Q4; a tied game goes to overtime (fill in the OT boxes)"
+    }
+  ],
+  "reading": null
+}

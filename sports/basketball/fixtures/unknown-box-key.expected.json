@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "boxes.home.q5",
+      "message": "'q5' isn't a score box. Use q1, q2, q3, q4, ot or final."
+    }
+  ],
+  "reading": null
+}

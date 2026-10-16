@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "",
+      "message": "the sheet should be a block with these lines: players, running, lines, boxes, notes."
+    }
+  ],
+  "reading": null
+}

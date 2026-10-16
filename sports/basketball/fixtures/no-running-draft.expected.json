@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "running",
+      "message": "is empty. Fill in the running score, for home and away."
+    }
+  ],
+  "reading": null
+}

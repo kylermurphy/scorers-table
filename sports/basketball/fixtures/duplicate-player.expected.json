@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.3.player",
+      "message": "al-a is listed twice in this game (also at sheet.players.home.0.player)"
+    }
+  ],
+  "reading": null
+}

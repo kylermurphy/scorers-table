@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.away.1.fouls",
+      "message": "1 flagrant foul in Notes, but only 0 foul boxes slashed; a flagrant is also a personal foul"
+    }
+  ],
+  "reading": null
+}

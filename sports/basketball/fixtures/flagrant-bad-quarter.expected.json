@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "notes.0.q",
+      "message": "q should be the quarter, 1 to 4 (or OT), not 5"
+    }
+  ],
+  "reading": null
+}

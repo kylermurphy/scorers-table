@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.away",
+      "message": "is empty. List Bravo's players, one per roster row."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.away.0.tech",
+      "message": "tech 3 should be a whole number from 0 to 2"
+    }
+  ],
+  "reading": null
+}

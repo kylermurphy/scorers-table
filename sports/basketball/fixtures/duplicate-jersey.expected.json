@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "players.home.3.num",
+      "message": "#4 is on two Alpha rows (rows 1 and 4); the running score can't tell them apart"
+    }
+  ],
+  "reading": null
+}
