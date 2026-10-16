@@ -224,6 +224,18 @@ def test_stub_pages_show_their_own_content(site):
     assert "Standings" in site.html("/archive/sample-2025-26/")
 
 
+def test_a_forfeit_page_has_no_empty_line_score(site):
+    """A forfeit has no sheet, so no line score: the final panel shows the score and who forfeited, and no empty
+    'Score by period' table."""
+    active = site.computed("active.json")
+    forfeits = [gid for gid, g in site.computed(active["season"], "games.json").items() if g["forfeit"]]
+    assert forfeits, "the sample has a forfeit"
+    for gid in forfeits:
+        html = site.html(f"/games/{gid}/")
+        assert "forfeited" in html and "st-final__score" in html, gid
+        assert "st-line-score" not in html and "st-final__body" not in html, gid
+
+
 def test_past_season_pages_never_link_to_missing_team_or_player_pages(site):
     for path in ("/archive/sample-2025-26/", "/games/2025-10-16-1/", "/games/2025-12-11-1/"):
         page = Page(site.html(path))

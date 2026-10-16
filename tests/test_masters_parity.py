@@ -67,8 +67,8 @@ KNOWN = {
         "core ranks a 0 only where a board says zero: true (FT% does). They would be last, so no one else's rank moves."),
     "order-inside-a-rank": (
         "4.2",
-        "Inside a shared rank Masters lists players by points, then name; the core lists equal values by player label "
-        "('#38 Terry N.' before '#5 Mark D.': the jersey number, as text, comes first; spec 4.2 says 'by name'). "
+        "Inside a shared rank Masters lists players by points, then name; the core lists equal values by name "
+        "('First L.', without the number), then number (compute_stats.name_order). "
         "Ranks and values are the same; only the order inside a shared rank differs. Not compared."),
     "no-games-dash": (
         "4.3",

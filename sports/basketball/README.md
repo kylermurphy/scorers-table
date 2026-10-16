@@ -285,6 +285,7 @@ least one of the others).
   throw %, points, and technical fouls. A player with 0.0% is ranked, if they have enough attempts.
 * **Player page.** Season and playoff rows (GP PTS PPG FTM FTA FT% T) and a game log (PTS FTM FTA T). Playoff
   stats stay apart from the regular season's. Technical fouls count both.
-* **Home page.** The two leader tiles (points per game, free throw %).
+* **Home page.** The two leader tiles (points per game, free throw %) and the top five of the points per game, free
+  throw % and points lists (not technical fouls: that list is on the Stats page only).
 
 Players are always "First L." (with the jersey number in front when `players.yml` has one). Never full names.
