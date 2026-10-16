@@ -1,0 +1,771 @@
+{
+  "days": [
+    {
+      "n": 1,
+      "label": "Week 1",
+      "date": "2025-10-16",
+      "date_short": "Thu Oct 16",
+      "date_long": "Thursday, October 16, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-10-16-1",
+          "url": "/games/2025-10-16-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "comets",
+          "away": "herons",
+          "home_name": "Comets",
+          "away_name": "Herons",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 70,
+            "away": 68
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-16-2",
+          "url": "/games/2025-10-16-2/",
+          "time_display": "8:15 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "foxes",
+          "away": "pines",
+          "home_name": "Foxes",
+          "away_name": "Pines",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 67,
+            "away": 71
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "rapids"
+      ],
+      "eyebrow": "Week 1",
+      "where": "[Venue] · Week 1",
+      "foot": "All times PM. Rapids have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-10-16-1",
+              "url": "/games/2025-10-16-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "comets",
+              "away": "herons",
+              "home_name": "Comets",
+              "away_name": "Herons",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 70,
+                "away": 68
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-10-16-2",
+              "url": "/games/2025-10-16-2/",
+              "time_display": "8:15 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "foxes",
+              "away": "pines",
+              "home_name": "Foxes",
+              "away_name": "Pines",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 67,
+                "away": 71
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "label": "Week 2",
+      "date": "2025-10-23",
+      "date_short": "Thu Oct 23",
+      "date_long": "Thursday, October 23, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-10-23-1",
+          "url": "/games/2025-10-23-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "comets",
+          "away": "rapids",
+          "home_name": "Comets",
+          "away_name": "Rapids",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 48,
+            "away": 49
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-23-2",
+          "url": "/games/2025-10-23-2/",
+          "time_display": "8:15 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "foxes",
+          "away": "herons",
+          "home_name": "Foxes",
+          "away_name": "Herons",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 62,
+            "away": 65
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "pines"
+      ],
+      "eyebrow": "Week 2",
+      "where": "[Venue] · Week 2",
+      "foot": "All times PM. Pines have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-10-23-1",
+              "url": "/games/2025-10-23-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "comets",
+              "away": "rapids",
+              "home_name": "Comets",
+              "away_name": "Rapids",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 48,
+                "away": 49
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-10-23-2",
+              "url": "/games/2025-10-23-2/",
+              "time_display": "8:15 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "foxes",
+              "away": "herons",
+              "home_name": "Foxes",
+              "away_name": "Herons",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 62,
+                "away": 65
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "label": "Week 3",
+      "date": "2025-10-30",
+      "date_short": "Thu Oct 30",
+      "date_long": "Thursday, October 30, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-10-30-1",
+          "url": "/games/2025-10-30-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "rapids",
+          "away": "pines",
+          "home_name": "Rapids",
+          "away_name": "Pines",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 74,
+            "away": 66
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-30-2",
+          "url": "/games/2025-10-30-2/",
+          "time_display": "8:15 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "foxes",
+          "away": "comets",
+          "home_name": "Foxes",
+          "away_name": "Comets",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 58,
+            "away": 61
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "herons"
+      ],
+      "eyebrow": "Week 3",
+      "where": "[Venue] · Week 3",
+      "foot": "All times PM. Herons have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-10-30-1",
+              "url": "/games/2025-10-30-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "rapids",
+              "away": "pines",
+              "home_name": "Rapids",
+              "away_name": "Pines",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 74,
+                "away": 66
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-10-30-2",
+              "url": "/games/2025-10-30-2/",
+              "time_display": "8:15 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "foxes",
+              "away": "comets",
+              "home_name": "Foxes",
+              "away_name": "Comets",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 58,
+                "away": 61
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "label": "Week 4",
+      "date": "2025-11-06",
+      "date_short": "Thu Nov 6",
+      "date_long": "Thursday, November 6, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-11-06-1",
+          "url": "/games/2025-11-06-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "foxes",
+          "away": "rapids",
+          "home_name": "Foxes",
+          "away_name": "Rapids",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 48,
+            "away": 47
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-11-06-2",
+          "url": "/games/2025-11-06-2/",
+          "time_display": "8:15 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "pines",
+          "away": "herons",
+          "home_name": "Pines",
+          "away_name": "Herons",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 82,
+            "away": 59
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "comets"
+      ],
+      "eyebrow": "Week 4",
+      "where": "[Venue] · Week 4",
+      "foot": "All times PM. Comets have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-11-06-1",
+              "url": "/games/2025-11-06-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "foxes",
+              "away": "rapids",
+              "home_name": "Foxes",
+              "away_name": "Rapids",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 48,
+                "away": 47
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-11-06-2",
+              "url": "/games/2025-11-06-2/",
+              "time_display": "8:15 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "pines",
+              "away": "herons",
+              "home_name": "Pines",
+              "away_name": "Herons",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 82,
+                "away": 59
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "label": "Week 5",
+      "date": "2025-11-13",
+      "date_short": "Thu Nov 13",
+      "date_long": "Thursday, November 13, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-11-13-1",
+          "url": "/games/2025-11-13-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "rapids",
+          "away": "herons",
+          "home_name": "Rapids",
+          "away_name": "Herons",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 82,
+            "away": 73
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-11-13-2",
+          "url": "/games/2025-11-13-2/",
+          "time_display": "8:15 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "pines",
+          "away": "comets",
+          "home_name": "Pines",
+          "away_name": "Comets",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 59,
+            "away": 57
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "foxes"
+      ],
+      "eyebrow": "Week 5",
+      "where": "[Venue] · Week 5",
+      "foot": "All times PM. Foxes have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-11-13-1",
+              "url": "/games/2025-11-13-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "rapids",
+              "away": "herons",
+              "home_name": "Rapids",
+              "away_name": "Herons",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 82,
+                "away": 73
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-11-13-2",
+              "url": "/games/2025-11-13-2/",
+              "time_display": "8:15 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "pines",
+              "away": "comets",
+              "home_name": "Pines",
+              "away_name": "Comets",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 59,
+                "away": 57
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "label": "Semifinal",
+      "date": "2025-12-04",
+      "date_short": "Thu Dec 4",
+      "date_long": "Thursday, December 4, 2025",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-12-04-1",
+          "url": "/games/2025-12-04-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "rapids",
+          "away": "herons",
+          "home_name": "Rapids",
+          "away_name": "Herons",
+          "status": "played",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": true,
+          "score": {
+            "home": 59,
+            "away": 67
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-12-04-2",
+          "url": "/games/2025-12-04-2/",
+          "time_display": "8:15 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "pines",
+          "away": "comets",
+          "home_name": "Pines",
+          "away_name": "Comets",
+          "status": "played",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": true,
+          "score": {
+            "home": 61,
+            "away": 56
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Semifinal",
+      "where": "[Venue] · Semifinal",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-12-04-1",
+              "url": "/games/2025-12-04-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "rapids",
+              "away": "herons",
+              "home_name": "Rapids",
+              "away_name": "Herons",
+              "status": "played",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": true,
+              "score": {
+                "home": 59,
+                "away": 67
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-12-04-2",
+              "url": "/games/2025-12-04-2/",
+              "time_display": "8:15 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "pines",
+              "away": "comets",
+              "home_name": "Pines",
+              "away_name": "Comets",
+              "status": "played",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": true,
+              "score": {
+                "home": 61,
+                "away": 56
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Final",
+      "date": "2025-12-11",
+      "date_short": "Thu Dec 11",
+      "date_long": "Thursday, December 11, 2025",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-12-11-1",
+          "url": "/games/2025-12-11-1/",
+          "time_display": "7:00 PM",
+          "surface": null,
+          "surface_label": null,
+          "home": "herons",
+          "away": "pines",
+          "home_name": "Herons",
+          "away_name": "Pines",
+          "status": "played",
+          "moved_from_display": null,
+          "round": "Final",
+          "played": true,
+          "score": {
+            "home": 52,
+            "away": 49
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Final",
+      "where": "[Venue] · Final",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2025-12-11-1",
+              "url": "/games/2025-12-11-1/",
+              "time_display": "7:00 PM",
+              "surface": null,
+              "surface_label": null,
+              "home": "herons",
+              "away": "pines",
+              "home_name": "Herons",
+              "away_name": "Pines",
+              "status": "played",
+              "moved_from_display": null,
+              "round": "Final",
+              "played": true,
+              "score": {
+                "home": 52,
+                "away": 49
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "latest": 7,
+  "next": null,
+  "all_times_pm": true
+}

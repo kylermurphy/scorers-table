@@ -8,6 +8,7 @@ import re
 import shutil
 from pathlib import Path
 
+from tests.stub_root import use_the_stub
 from scripts import build
 from scripts.core.calendars import CalGame, build_calendars, escape, fold, links, utc
 
@@ -184,9 +185,11 @@ def _repo_with_a_real_season(tmp_path: Path) -> Path:
     root.mkdir()
     shutil.copytree(ROOT / "sports", root / "sports")
     shutil.copytree(ROOT / "data", root / "data")
+    shutil.copy(ROOT / "league.yml", root / "league.yml")
+    use_the_stub(root)
     shutil.rmtree(root / "data" / "2026-27")
-    shutil.copytree(ROOT / "data" / "sample-2026-27", root / "data" / "2026-27")
-    text = (ROOT / "league.yml").read_text(encoding="utf-8").replace("timezone: UTC", f"timezone: {TZ}")
+    shutil.copytree(root / "data" / "sample-2026-27", root / "data" / "2026-27")
+    text = (root / "league.yml").read_text(encoding="utf-8").replace("timezone: UTC", f"timezone: {TZ}")
     (root / "league.yml").write_text(text, encoding="utf-8")
     seasons = (root / "data" / "seasons.yml").read_text(encoding="utf-8")
     (root / "data" / "seasons.yml").write_text(seasons.replace('venue: "[Gym name]"\n  venue_address: ""',

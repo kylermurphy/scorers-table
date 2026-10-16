@@ -416,8 +416,8 @@ def test_load_league_reports_broken_yaml_and_a_missing_file(sports_root, repo):
 def test_the_shipped_league_yml_parses_and_uses_only_known_keys():
     raw = yaml.safe_load((ROOT / "league.yml").read_text(encoding="utf-8"))
     assert set(raw) <= set(LEAGUE_KEYS) and set(REQUIRED_KEYS) <= set(raw)
-    assert raw["sport"] == "stub" and raw["sample_data"] is True
-    assert raw["timezone"] == "UTC" and raw["name"] == "Example Valley Stub League"
+    assert raw["sport"] == "basketball" and raw["sample_data"] is True
+    assert raw["timezone"] == "UTC" and raw["name"] == "Riverside Masters Basketball"
 
 
 def test_every_shipped_key_is_described_in_a_comment():
@@ -426,11 +426,11 @@ def test_every_shipped_key_is_described_in_a_comment():
         assert f"{key}:" in text, f"league.yml has no line for {key}"
 
 
-@pytest.mark.skipif(not (ROOT / "sports" / "stub" / "sport.yml").is_file(), reason="sports/stub is another package's")
-def test_the_shipped_league_loads_with_the_real_stub_sport():
+@pytest.mark.skipif(not (ROOT / "sports" / "basketball" / "sport.yml").is_file(), reason="sports/basketball is another package's")
+def test_the_shipped_league_loads_with_the_real_basketball_sport():
     league, problems = load_league()
     assert league is not None and not [p for p in problems if p.level == "error"]
-    assert league.sport == "stub" and league.sample_data is True
+    assert league.sport == "basketball" and league.sample_data is True
 
 
 def test_fallback_standings_cover_every_key():

@@ -31,6 +31,7 @@ from pathlib import Path
 import pytest
 
 from scripts import build
+from tests.stub_root import use_the_stub
 from tests.parity.site import jekyll_command, skip_unless_ci
 
 pytestmark = pytest.mark.jekyll
@@ -88,12 +89,14 @@ def make_site(tmp: Path, jekyll: list[str], *, league: str = "", real: bool = Fa
     for name in SOURCE:
         src = ROOT / name
         shutil.copytree(src, root / name) if src.is_dir() else shutil.copy(src, root / name)
-    text = (ROOT / "league.yml").read_text(encoding="utf-8")
+    shutil.copy(ROOT / "league.yml", root / "league.yml")
+    use_the_stub(root)
+    text = (root / "league.yml").read_text(encoding="utf-8")
     if real or empty:
         text = text.replace("sample_data: true", "sample_data: false")
     if real:
         shutil.rmtree(root / "data" / "2026-27")
-        shutil.copytree(ROOT / "data" / "sample-2026-27", root / "data" / "2026-27")
+        shutil.copytree(root / "data" / "sample-2026-27", root / "data" / "2026-27")
     if logo:
         (root / "assets" / "league").mkdir(exist_ok=True)
         (root / "assets" / "league" / "logo.svg").write_text(

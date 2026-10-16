@@ -1,25 +1,32 @@
 # Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
 game_id: 2025-11-06-1
 status: final
-home: badgers
-away: otters
-checked_by: Pat S.
+home: foxes
+away: rapids
+checked_by: Sam T.
+scorekeeper: Sam T.
 sheet:
-  periods: {home: [7, 9], away: [11, 6]}
-  final: {home: 16, away: 17}
   players:
     home:
-      - {player: kit-b, pts: 1}
-      - {player: alf-h, pts: 3}
-      - {player: quin-p, pts: 3}
-      - {player: amy-s, pts: 6}
-      - {player: ike-h, pts: 2}
-      - {player: gwen-e, pts: 1}
+      - {player: quin-p, num: 54, here: false}
+      - {player: amy-s, num: 20, here: false}
+      - {player: ike-h, num: 83, here: true, fouls: 3}
+      - {player: gwen-e, num: 15, here: false}
+      - {player: sal-f, num: 47, here: true, ft: XX, fouls: 3}
+      - {player: lars-d, num: 46, here: true, ft: MMXM, fouls: 1}
+      - {player: gwen-h, num: 48, here: true, ft: XX, fouls: 2}
+      - {player: tam-c, num: 99, here: true, ft: X, fouls: 4}
     away:
-      - {player: kai-p, pts: 3}
-      - {player: cal-c, pts: 1}
-      - {player: oz-m, pts: 2}
-      - {player: nell-l, pts: 0}
-      - {player: rae-w, pts: 1}
-      - {player: pia-k, pts: 7}
-      - {player: fay-a, pts: 3}
+      - {player: kai-p, num: '00', here: true, ft: MM, fouls: 1}
+      - {player: cal-c, num: 55, here: true, fouls: 2}
+      - {player: oz-m, num: 82, here: true, fouls: 2}
+      - {player: pia-k, num: 52, here: false}
+      - {player: fay-a, num: 45, here: true, fouls: 2, tech: 1}
+      - {player: quin-w, num: 98, here: true, fouls: 1}
+  running:
+    home: {3: 83, 6: 99, 8: 48, 10: 47, 13: 47, 14: 46, 17: 46, 19: 99, 21: 99, 23: 48, 25: 47, 27: 83, 29: 99, 31: 47, 33: 48, 36: 47, 38: 46, 40: 48, 41: 46, 43: 47, 45: 48, 46: 46, 48: 83}
+    away: {3: 55, 5: 55, 7: 55, 9: '00', 10: '00', 12: 82, 14: 45, 16: 98, 18: '00', 21: 82, 24: 45, 26: 82, 28: '00', 30: 98, 33: 98, 35: '00', 38: 82, 39: '00', 41: 82, 43: '00', 45: 82, 47: 82}
+  lines: {home: [14, 25, 36, 48], away: [12, 21, 35, 47]}
+  boxes:
+    home: {q1: 14, q2: 25, q3: 36, q4: 48, ot: null, final: 48}
+    away: {q1: 12, q2: 21, q3: 35, q4: 47, ot: null, final: 47}

@@ -18,6 +18,7 @@ import pytest
 
 from scripts import build
 from scripts.core import writer
+from tests.stub_root import use_the_stub
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -31,12 +32,14 @@ def make_repo(tmp_path: Path, *, sample_data: bool = True, real_season: bool = F
     root.mkdir()
     shutil.copytree(ROOT / "sports", root / "sports")
     shutil.copytree(ROOT / "data", root / "data")
-    text = (ROOT / "league.yml").read_text(encoding="utf-8")
+    shutil.copy(ROOT / "league.yml", root / "league.yml")
+    use_the_stub(root)
+    text = (root / "league.yml").read_text(encoding="utf-8")
     text = text.replace("sample_data: true", f"sample_data: {str(sample_data).lower()}")
     (root / "league.yml").write_text(text, encoding="utf-8")
     if real_season:
         shutil.rmtree(root / "data" / "2026-27")
-        shutil.copytree(ROOT / "data" / "sample-2026-27", root / "data" / "2026-27")
+        shutil.copytree(root / "data" / "sample-2026-27", root / "data" / "2026-27")
     return root
 
 
@@ -65,9 +68,10 @@ def not_github(monkeypatch):
 
 @pytest.fixture(scope="module")
 def sample_out(tmp_path_factory):
-    """One sample build (the committed data, sample mode), shared by the tests that only read it."""
+    """One sample build (the stub's sample, sample mode), shared by the tests that only read it."""
+    base = tmp_path_factory.mktemp("sample_root")
     out = tmp_path_factory.mktemp("sample_out")
-    assert build.main(["--out", str(out), "--today", "2026-11-20"]) == 0
+    assert build.main(["--root", str(make_repo(base)), "--out", str(out), "--today", "2026-11-20"]) == 0
     return out
 
 
