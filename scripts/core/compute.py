@@ -67,18 +67,22 @@ class BuildOutput:
 
 # ------------------------------------------------------------------ the entry point
 
-def compute(league: League, data: LoadedData, *, data_dir: Path, site_url: str = "", preview: bool = False
+def compute(league: League, data: LoadedData, *, data_dir: Path, site_url: str = "", preview: bool = False,
+            sport_preview: str = "", sport_previews: list[dict] | None = None
             ) -> tuple[BuildOutput, list[Problem]]:
-    """Work out every season's standings first (their problems stop the build), then every file."""
+    """Work out every season's standings first (their problems stop the build), then every file.
+    `preview`: this is the /preview/ copy of the league's own site. `sport_preview`: this is a sport's demo copy
+    (/<sport>/), and this is the sport's name ("Basketball"): it writes no calendar files. `sport_previews`:
+    [{id, name, url}] for the preview banner's links (on a sport's copy: the other sports')."""
     ctxs = {sid: build_ctx(league, loaded, active=(sid == data.active)) for sid, loaded in data.loaded.items()}
     problems = [p for c in ctxs.values() for p in c.problems]
     out = BuildOutput(active=data.active or "", seasons=list(data.shown))
     if has_errors(problems) or data.active is None:
         return out, problems
     active = ctxs[data.active]
-    calendars = _calendars(league, data, ctxs, site_url)
+    calendars = _no_calendars() if sport_preview else _calendars(league, data, ctxs, site_url)
     out.data["league.json"] = league_json(league, active)
-    out.data["active.json"] = _active_json(league, data, active, preview)
+    out.data["active.json"] = _active_json(league, data, active, preview, sport_preview, sport_previews or [])
     out.data["seasons.json"] = [_season_entry(ctxs[sid], sid == data.active) for sid in data.shown]
     out.data["archive.json"] = [_archive_entry(ctxs[sid]) for sid in data.shown if sid != data.active]
     out.data["calendars.json"] = calendars["json"]
@@ -115,10 +119,16 @@ def league_json(league: League, active: SeasonCtx) -> dict:
     }
 
 
-def _active_json(league: League, data: LoadedData, active: SeasonCtx, preview: bool) -> dict:
+def _active_json(league: League, data: LoadedData, active: SeasonCtx, preview: bool, sport_preview: str,
+                 sport_previews: list[dict]) -> dict:
+    """`preview_kind`: "" on the real site, "league" on /preview/, "sport" on /<sport>/ (then `preview_sport` is
+    the sport's name). `sport_previews` is only filled on a preview copy: its banner links to those demos."""
     return {"season": active.sid, "sample_mode": active.loaded.season.sample,
             "archive": [sid for sid in data.shown if sid != data.active], "today": active.today.isoformat(),
-            "preview": preview}
+            "preview": preview or bool(sport_preview),
+            "preview_kind": "sport" if sport_preview else "league" if preview else "",
+            "preview_sport": sport_preview,
+            "sport_previews": sport_previews if (preview or sport_preview) else []}
 
 
 def _season_entry(ctx: SeasonCtx, is_active: bool) -> dict:
@@ -137,9 +147,15 @@ def _archive_entry(ctx: SeasonCtx) -> dict:
 
 # ------------------------------------------------------------------ calendars (always the current season)
 
+def _no_calendars() -> dict:
+    """A sport preview has no calendar files: nothing to subscribe to in a made-up league, and nothing that
+    could clash with the real site's."""
+    return {"json": {"season": None, "files": []}, "files": {}, "team_files": set()}
+
+
 def _calendars(league: League, data: LoadedData, ctxs: dict[str, SeasonCtx], site_url: str) -> dict:
     """calendar/*.ics and calendars.json, from the `current` season (even when the site shows the sample)."""
-    empty = {"json": {"season": None, "files": []}, "files": {}, "team_files": set()}
+    empty = _no_calendars()
     current = next((c for c in ctxs.values() if c.loaded.season.current), None)
     if current is None or not current.loaded.schedule:
         return empty

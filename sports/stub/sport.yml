@@ -3,6 +3,7 @@
 # Real sports (basketball, curling, hockey, slo-pitch) are folders like this one; see README.md.
 name: Stub
 default_layout: classic
+demo: false                  # a test sport: no sport preview is built for it (league.yml sport_previews)
 games_per_day: 1
 game_minutes: 60
 words:

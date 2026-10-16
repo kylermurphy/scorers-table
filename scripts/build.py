@@ -12,6 +12,8 @@ names the file, `--debug` adds the traceback).
 
 Options:
   --sample           show the sample season whatever league.yml says (the /preview/ copy)
+  --sport-preview ID a sport's demo copy (/<ID>/): --root is the temporary root scripts/preview_root.py wrote; the
+                     banner links to the other previews named by league.yml in --out; no calendar files
   --today DATE       use this date as today (YYYY-MM-DD), for tests and for repeatable builds
   --check            stages 1-4 only: report problems, write nothing
   --json             print problems as JSON lines on stdout (nothing else is printed there)
@@ -42,12 +44,14 @@ from scripts.core.model import League, Problem                                  
 from scripts.core.problems import (                                                  # noqa: E402
     EXIT_INTERNAL, EXIT_OK, InternalError, has_errors, report,
 )
+from scripts.core.sports import SITE_PATHS, preview_entries                          # noqa: E402
 from scripts.core.writer import write_output                                         # noqa: E402
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog="build.py", description="Check the data and build the site's data files.")
     parser.add_argument("--sample", action="store_true", help="show the sample season (the /preview/ copy)")
+    parser.add_argument("--sport-preview", metavar="ID", help="build a sport's demo copy (/<ID>/); see scripts/preview_root.py")
     parser.add_argument("--today", metavar="YYYY-MM-DD", help="use this date as today")
     parser.add_argument("--check", action="store_true", help="check only; write nothing")
     parser.add_argument("--json", action="store_true", help="print problems as JSON lines on stdout")
@@ -74,6 +78,12 @@ def _report(args: argparse.Namespace, problems: list[Problem], league: League | 
     return report(problems, league.placeholders if league else (), json_lines=args.json, annotations=args.annotations)
 
 
+def _live_previews(out_root: Path) -> list[str]:
+    """The sport previews the live site asks for: `sport_previews` in the league.yml next to the pages (--out)."""
+    live, _ = load_league(out_root / "league.yml", sports_root=out_root / "sports", root=out_root)
+    return list(live.sport_previews) if live else []
+
+
 def build(args: argparse.Namespace) -> int:
     root = Path(args.root).resolve()
     data_dir = Path(args.data).resolve() if args.data else root / "data"
@@ -81,15 +91,29 @@ def build(args: argparse.Namespace) -> int:
     league, problems = load_league(root / "league.yml", sports_root=root / "sports", root=root)
     if league is None:
         return _report(args, problems, None)
-    preview = args.sample and not league.sample_data
-    if args.sample:
+    sport_preview = args.sport_preview
+    if sport_preview and (league.sport != sport_preview or sport_preview in SITE_PATHS):
+        print(f"--sport-preview {sport_preview}: league.yml in {root} is for the sport {league.sport!r}"
+              + (f", and /{sport_preview}/ is a path of the site itself." if sport_preview in SITE_PATHS else "."),
+              file=sys.stderr)
+        return EXIT_INTERNAL
+    preview = args.sample and not league.sample_data and not sport_preview
+    if args.sample or sport_preview:
         league = replace(league, sample_data=True)
+    banner_links = []
+    if sport_preview:                                   # the other demos, as the live site (--out) names them
+        live_sports = out_root / "sports" if (out_root / "sports").is_dir() else root / "sports"
+        banner_links = [e for e in preview_entries(_live_previews(out_root), live_sports) if e["id"] != sport_preview]
+    elif preview:
+        banner_links = preview_entries(league.sport_previews, root / "sports")
     today = parse_date(args.today) if args.today else None
     data = load_data(root, league, league.sport_def, today=today, data_dir=data_dir)
     problems = problems + data.problems
     output = BuildOutput()
     if not has_errors(problems):
-        output, found = compute(league, data, data_dir=data_dir, site_url=args.site_url, preview=preview)
+        output, found = compute(league, data, data_dir=data_dir, site_url=args.site_url, preview=preview,
+                                sport_preview=league.sport_def.name if sport_preview else "",
+                                sport_previews=banner_links)
         problems = problems + found
     code = _report(args, problems, league)
     if code != EXIT_OK:

@@ -15,7 +15,7 @@ import string
 import sys
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Callable
+from typing import Any, Callable, Iterable
 
 from scripts.core.model import LAYOUTS, STAT_RESERVED, Problem, SportDef
 from scripts.core.problems import (
@@ -188,8 +188,8 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
     """Check a parsed sport.yml against the fixed schema of spec 3.2. Returns every problem (unknown keys
     included, each with its path), so a stage 5 typo fails the contract test rather than a page."""
     c = Checker(file)
-    top = ("name", "default_layout", "games_per_day", "game_minutes", "words", "line_score", "options", "standings",
-           "stats", "minimums", "leaderboards", "labels", "labels_by_layout", "display", "positions")
+    top = ("name", "default_layout", "demo", "games_per_day", "game_minutes", "words", "line_score", "options",
+           "standings", "stats", "minimums", "leaderboards", "labels", "labels_by_layout", "display", "positions")
     required = ("name", "default_layout", "words", "line_score", "standings", "stats")
     if spec is None or c.mapping(spec, "", allowed=top, required=required) is None:
         if spec is None:
@@ -199,6 +199,8 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
         c.text(spec["name"], "name")
     if "default_layout" in spec:
         c.choice(spec["default_layout"], "default_layout", LAYOUTS)
+    if "demo" in spec:
+        c.boolean(spec["demo"], "demo")
     if "games_per_day" in spec:
         c.integer(spec["games_per_day"], "games_per_day", 1, 9)
     if "game_minutes" in spec:
@@ -500,7 +502,7 @@ def _check_display(c: Checker, display: Any) -> None:
 def normalise_spec(spec: dict) -> dict:
     """A copy of a (valid) sport.yml with the optional top-level keys filled in, so readers can rely on them."""
     out = copy.deepcopy(spec)
-    for key, default in (("games_per_day", 1), ("game_minutes", 60), ("options", {}), ("minimums", {}),
+    for key, default in (("demo", True), ("games_per_day", 1), ("game_minutes", 60), ("options", {}), ("minimums", {}),
                          ("leaderboards", []), ("labels", {}), ("labels_by_layout", {}), ("positions", [])):
         out.setdefault(key, default)
     out["display"] = {"card": "rows", "card_foot": "note", "surface": "label", **(out.get("display") or {})}
@@ -518,6 +520,35 @@ def discover_sports(sports_root: Path = SPORTS_ROOT) -> list[str]:
     if not sports_root.is_dir():
         return []
     return sorted(p.name for p in sports_root.iterdir() if (p / "sport.yml").is_file())
+
+
+# The top-level paths of the site itself. A sport preview is built at /<sport id>/, so no sport id may be one of
+# these (spec 7.2): the preview would overwrite the page or folder of the same name.
+SITE_PATHS = ("archive", "assets", "calendar", "games", "players", "preview", "rules", "schedule", "sheets", "stats",
+              "teams")
+
+
+def demo_sports(sports_root: Path = SPORTS_ROOT) -> dict[str, str]:
+    """{sport id: its name} for the sports a preview can be built for: every sport folder with a `sample.py`,
+    except one whose `sport.yml` says `demo: false` (the stub). Sorted by id. A `sport.yml` that cannot be read
+    is left out here; loading that sport reports it."""
+    found = {}
+    for sport_id in discover_sports(sports_root):
+        if not (sports_root / sport_id / "sample.py").is_file():
+            continue
+        spec, problems = read_yaml(sports_root / sport_id / "sport.yml", f"sports/{sport_id}/sport.yml")
+        if problems or not isinstance(spec, dict) or spec.get("demo", True) is not True:
+            continue
+        name = spec.get("name")
+        found[sport_id] = name if isinstance(name, str) and name else sport_id
+    return found
+
+
+def preview_entries(ids: Iterable[str], sports_root: Path = SPORTS_ROOT) -> list[dict]:
+    """[{id, name, url}] for the preview banner's links: the sport's name and its address on the live site
+    ("/curling/", for `relative_url` on the live root)."""
+    names = demo_sports(sports_root)
+    return [{"id": i, "name": names.get(i, i), "url": f"/{i}/"} for i in ids]
 
 
 def unknown_sport_message(sport_id: object, sports_root: Path = SPORTS_ROOT, root: Path = REPO_ROOT) -> str:

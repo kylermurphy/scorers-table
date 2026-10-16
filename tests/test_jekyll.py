@@ -11,7 +11,7 @@ layouts build); the stylesheets are linked in the documented order (only the lea
 on and off; the league colour attribute and inline style on and off; the theme button is rendered hidden and the
 page has no `aria-pressed`; no request leaves the site (every src and stylesheet is local, the only off-site
 link is the scorers-table credit); no `Liquid error` anywhere; every page has one h1, the skip link first in
-the body, a `<main id="main">` and a `lang`; the preview copy's banner link; every internal path goes through
+the body, a `<main id="main">` and a `lang`; the preview copy's banner link, and the sport previews built by scripts/build_preview.sh; every internal path goes through
 `relative_url` (a build under a base path has none that miss it); an empty current season renders; the calendar
 links exist when the current season has games; and html-proofer finds no broken link, image or script when it
 is installed (the `test` group of the Gemfile).
@@ -79,10 +79,11 @@ class Site:
 
 def make_site(tmp: Path, jekyll: list[str], *, league: str = "", real: bool = False, empty: bool = False,
               sample_flag: bool = False, baseurl: str = "", url: str = "", logo: bool = False,
-              site_url: str = "", edit=None) -> Site:
+              site_url: str = "", live_baseurl: str | None = None, edit=None) -> Site:
     """Copy the source, change league.yml, run build.py and Jekyll.
     league: lines appended to league.yml; real: the sample season stands in as the real one (sample_data false);
     empty: sample_data false with the real season left empty; sample_flag: build.py --sample (the /preview/ copy);
+    live_baseurl: the live site's base path, as the preview copies are built with it (see build_preview.sh);
     edit: a function called with the copied source folder before build.py runs (to change a sport, say)."""
     root = tmp / "src"
     root.mkdir()
@@ -114,8 +115,9 @@ def make_site(tmp: Path, jekyll: list[str], *, league: str = "", real: bool = Fa
     assert build.main(args) == 0
 
     configs = [root / "_config.yml"]
-    if url:
-        (root / "_config.url.yml").write_text(f'url: "{url}"\n')
+    if url or live_baseurl is not None:
+        overlay = f'url: "{url}"\n' + (f'live_baseurl: "{live_baseurl}"\n' if live_baseurl is not None else "")
+        (root / "_config.url.yml").write_text(overlay)
         configs.append(root / "_config.url.yml")
     out = tmp / "site"
     proc = subprocess.run([*jekyll, "build", "--source", str(root), "--destination", str(out), "--config",
@@ -338,17 +340,22 @@ def test_the_icon_is_an_empty_data_url_without_a_logo(site):
 
 def test_the_preview_banner_links_back_to_the_live_site(tmp_path_factory, jekyll):
     built = make_site(tmp_path_factory.mktemp("preview"), jekyll, empty=True, sample_flag=True,
-                      baseurl="/club/preview")
+                      baseurl="/club/preview", live_baseurl="/club")
     page = Page(built.html("/"))
     assert "Preview with sample data." in page.html
     assert 'class="st-banner__link" href="/club/"' in page.html
     assert 'href="/club/preview/schedule/"' in page.html      # its own pages stay inside the preview
     with_origin = make_site(tmp_path_factory.mktemp("preview_origin"), jekyll, empty=True, sample_flag=True,
-                            baseurl="/club/preview", url="https://league.example")
+                            baseurl="/club/preview", url="https://league.example", live_baseurl="/club")
     assert 'href="https://league.example/club/"' in with_origin.html("/")
     at_root = make_site(tmp_path_factory.mktemp("preview_root"), jekyll, empty=True, sample_flag=True,
-                        baseurl="/preview")
-    assert 'class="st-banner__link" href="/"' in at_root.html("/")
+                        baseurl="/preview", live_baseurl="")
+    assert 'class="st-banner__link" href="/"' in at_root.html("/")      # an empty live_baseurl is the root, not the baseurl
+
+
+def test_without_a_live_baseurl_the_banner_links_to_the_sites_own_address(tmp_path_factory, jekyll):
+    built = make_site(tmp_path_factory.mktemp("no_live"), jekyll, empty=True, sample_flag=True, baseurl="/club/preview")
+    assert 'class="st-banner__link" href="/club/preview/"' in built.html("/")
 
 
 def test_the_live_site_has_no_banner_and_the_sample_site_says_so(site, tmp_path_factory, jekyll):
@@ -366,6 +373,228 @@ def test_every_internal_path_goes_through_relative_url(tmp_path_factory, jekyll)
                  if is_local(h) and not h.startswith(("#", "data:"))]
         assert local, name
         assert all(h.startswith("/club/") or h == "/club" for h in local), (name, [h for h in local if not h.startswith("/club/")])
+
+
+# ------------------------------------------------------------------ sport previews (stage 5 spec, section 7)
+
+BASE = "/club"
+
+
+def _copy_the_build_scripts(root: Path) -> None:
+    """What scripts/build_preview.sh needs next to the copied source: itself, its helpers and the Gemfile. Also
+    league.yml: the demo of basketball only (the shipped file says `true`, which today means the same)."""
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    assert "\nsport_previews: true\n" in text
+    (root / "league.yml").write_text(text.replace("\nsport_previews: true\n", "\nsport_previews: [basketball]\n"), encoding="utf-8")
+    shutil.copytree(ROOT / "scripts", root / "scripts", ignore=shutil.ignore_patterns("__pycache__"))
+    for name in ("Gemfile", "Gemfile.lock"):
+        shutil.copy(ROOT / name, root / name)
+
+
+def _files(folder: Path, skip: tuple[str, ...] = ()) -> dict[str, bytes]:
+    return {p.relative_to(folder).as_posix(): p.read_bytes() for p in sorted(folder.rglob("*"))
+            if p.is_file() and p.relative_to(folder).parts[0] not in skip}
+
+
+def _real_build(root: Path) -> None:
+    """The real build, as CI runs it before build_preview.sh (today is the real date, as the script's restore)."""
+    assert build.main(["--root", str(root), "--out", str(root)]) == 0
+
+
+def _state(root: Path) -> dict[str, dict[str, bytes]]:
+    """What the real build leaves in the source folder: computed data, stub pages, calendar files."""
+    return {name: _files(root / name) for name in ("_data/computed", "_games", "_players", "_teams", "_archive", "calendar")}
+
+
+def _run_preview_script(root: Path, tmp: Path, *, fail_on: str = "") -> subprocess.CompletedProcess:
+    """The CI steps for the copy at `root`: the main site into _site/ under BASE, then build_preview.sh. With
+    `fail_on`, a `bundle` that fails when its arguments mention that text stands in front of the real one."""
+    env = {k: v for k, v in os.environ.items() if k != "GITHUB_ACTIONS"}
+    env.update(BASE_PATH=BASE, SITE_ORIGIN="", JEKYLL_ENV="production")
+    if fail_on:
+        (tmp / "bin").mkdir()
+        stub = tmp / "bin" / "bundle"
+        stub.write_text(f'#!/usr/bin/env bash\ncase "$*" in *{fail_on}*) echo "bundle: made to fail" >&2; exit 7;; esac\n'
+                        f'exec {shutil.which("bundle")} "$@"\n', encoding="utf-8")
+        stub.chmod(0o755)
+        env["PATH"] = f"{tmp / 'bin'}{os.pathsep}{env['PATH']}"
+    return subprocess.run(["bash", "scripts/build_preview.sh"], cwd=root, capture_output=True, text=True, env=env)
+
+
+@pytest.fixture(scope="module")
+def previewed(tmp_path_factory, jekyll):
+    """The real site (the stub's sample as the real season, with calendar files) under /club, then
+    build_preview.sh with `sport_previews: [basketball]`: the /preview/ copy and the basketball demo beside it.
+    Returns (source root, the state of the real build before the script, the script's result)."""
+    tmp = tmp_path_factory.mktemp("sport_preview")
+    site = make_site(tmp, jekyll, real=True, baseurl=BASE, site_url="https://x.example/club",
+                     edit=_copy_the_build_scripts)
+    root = site.root
+    (root / "_config.ci.yml").write_text('url: ""\n')
+    _real_build(root)
+    main = subprocess.run([*jekyll, "build", "--source", str(root), "--destination", str(root / "_site"), "--config",
+                           f"{root / '_config.yml'},{root / '_config.ci.yml'}", "--baseurl", BASE, "--quiet"],
+                          cwd=root, capture_output=True, text=True)
+    assert main.returncode == 0, main.stdout + main.stderr
+    before, main_site = _state(root), _files(root / "_site")
+    result = _run_preview_script(root, tmp)
+    return root, before, main_site, result
+
+
+def test_the_script_builds_the_league_preview_and_the_sport_demo(previewed):
+    root, _, _, result = previewed
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert (root / "_site" / "preview" / "index.html").is_file() and (root / "_site" / "basketball" / "index.html").is_file()
+    assert "Sport preview copy: _site/basketball/" in result.stdout
+    assert "Still to decide" not in result.stdout          # a demo's undecided settings are not the league's business
+    league = (root / "_site" / "basketball" / "index.html").read_text(encoding="utf-8")
+    assert "Riverside Masters Basketball" in league and 'data-layout="basketball"' in league
+    assert "Example Valley Stub League" not in league and "Example Valley Stub League" in (root / "_site" / "index.html").read_text(encoding="utf-8")
+
+
+def test_every_internal_link_and_asset_of_a_sport_preview_starts_with_its_base_path(previewed):
+    root, _, _, _ = previewed
+    pages = sorted((root / "_site" / "basketball").rglob("*.html"))
+    assert len(pages) > 40
+    for file in pages:
+        page = Page(file.read_text(encoding="utf-8"))
+        local = [h for h in page.hrefs + page.srcs + [l.get("href", "") for l in page.links]
+                 if is_local(h) and not h.startswith(("#", "data:"))]
+        outside = [h for h in local if not (h.startswith(f"{BASE}/basketball/") or h == f"{BASE}/basketball")]
+        assert outside == [f"{BASE}/"] * len(outside) and len(outside) <= 1, (file.name, outside)    # only "Go to the live site"
+
+
+def test_every_sport_preview_page_is_noindex_and_says_what_it_is_and_links_back(previewed):
+    root, _, _, _ = previewed
+    for file in sorted((root / "_site" / "basketball").rglob("*.html")):
+        html = file.read_text(encoding="utf-8")
+        page = Page(html)
+        assert page.robots() == ["noindex, nofollow"], file
+        assert "<strong>Sport preview:</strong> a made-up basketball league, to show what the template does." in html, file
+        assert f'<a class="st-banner__link" href="{BASE}/">Go to the live site</a>' in html, file
+        assert "Preview with sample data" not in html and "Sample data." not in html, file
+    assert (root / "_site" / "index.html").is_file()                      # the link goes somewhere
+
+
+def test_a_sport_preview_has_no_calendar_files_or_subscribe_links(previewed):
+    root, _, _, _ = previewed
+    assert not list((root / "_site" / "basketball").rglob("*.ics"))
+    assert not (root / "_site" / "basketball" / "calendar").exists()
+    for file in (root / "_site" / "basketball").rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert ".ics" not in html and "webcal:" not in html, file
+
+
+def test_the_real_site_is_unchanged_and_links_nowhere_into_a_sport_preview(previewed):
+    root, _, main_site, _ = previewed
+    assert any(k.startswith("calendar/") and k.endswith(".ics") for k in main_site)           # it has calendar files
+    after = _files(root / "_site", skip=("basketball", "preview"))
+    assert after == main_site                                             # every page and .ics, byte for byte
+    for name, content in after.items():
+        if name.endswith(".html"):
+            assert b"/basketball" not in content, name
+
+
+def test_the_league_preview_banner_lists_the_sport_previews_and_the_live_site(previewed):
+    root, _, _, _ = previewed
+    html = (root / "_site" / "preview" / "index.html").read_text(encoding="utf-8")
+    assert f'Sport previews: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in html
+    assert f'<a class="st-banner__link" href="{BASE}/">Go to the live site</a>' in html
+    assert f'href="{BASE}/preview/schedule/"' in html
+
+
+def test_the_real_build_is_back_after_the_script(previewed):
+    root, before, _, _ = previewed
+    assert _state(root) == before
+    active = json.loads((root / "_data" / "computed" / "active.json").read_text(encoding="utf-8"))
+    assert (active["sample_mode"], active["preview"], active["preview_kind"], active["season"]) == (False, False, "", "2026-27")
+    league = json.loads((root / "_data" / "computed" / "league.json").read_text(encoding="utf-8"))
+    assert league["name"] == "Example Valley Stub League"
+
+
+@pytest.mark.parametrize("failing", ["_site/basketball", "_site/preview"])
+def test_the_real_build_is_back_when_a_step_fails(previewed, tmp_path, failing):
+    root, before, _, _ = previewed
+    result = _run_preview_script(root, tmp_path, fail_on=failing)
+    assert result.returncode == 7, result.stdout + result.stderr
+    assert "made to fail" in result.stderr
+    assert _state(root) == before
+
+
+@pytest.fixture
+def league_yml(previewed):
+    """The source's league.yml, put back after a test changes it."""
+    path = previewed[0] / "league.yml"
+    text = path.read_text(encoding="utf-8")
+    yield path, text
+    path.write_text(text, encoding="utf-8")
+
+
+def test_the_script_does_nothing_when_nothing_is_asked_for(previewed, league_yml, tmp_path):
+    path, text = league_yml
+    path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: false") + "\npreview: false\n",
+                    encoding="utf-8")
+    result = _run_preview_script(previewed[0], tmp_path)
+    assert result.returncode == 0 and "Preview copies: none" in result.stdout
+    assert _state(previewed[0]) == previewed[1]
+
+
+def test_a_sport_id_that_is_a_page_of_the_site_stops_the_script_before_it_builds(previewed, league_yml, tmp_path):
+    root, before, _, _ = previewed
+    shutil.copytree(root / "sports" / "basketball", root / "sports" / "stats", ignore=shutil.ignore_patterns("__pycache__"))
+    try:
+        path, text = league_yml
+        path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: [stats]"), encoding="utf-8")
+        result = _run_preview_script(root, tmp_path)
+    finally:
+        shutil.rmtree(root / "sports" / "stats")
+    assert result.returncode == 1
+    assert "sport_previews.0" in result.stderr and "already a page or folder of the site" in result.stderr
+    assert "Sport preview copy" not in result.stdout and _state(root) == before
+
+
+def test_a_test_sport_or_a_typo_in_sport_previews_stops_the_script_with_the_sports_there_are(previewed, league_yml, tmp_path):
+    path, text = league_yml
+    path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: [stub, basketbal]"), encoding="utf-8")
+    result = _run_preview_script(previewed[0], tmp_path)
+    assert result.returncode == 1
+    assert "sport_previews.0" in result.stderr and "demo: false" in result.stderr
+    assert "sport_previews.1" in result.stderr and "Did you mean 'basketball'?" in result.stderr
+
+
+def test_a_sport_preview_banner_links_to_the_other_sport_previews(tmp_path_factory, jekyll):
+    """Two demo sports (basketball and a copy of it called Hoops): each copy's banner names the other, not itself."""
+    import re as _re
+    from scripts import preview_root
+
+    def add_hoops(root: Path) -> None:
+        shutil.copytree(root / "sports" / "basketball", root / "sports" / "hoops", ignore=shutil.ignore_patterns("__pycache__"))
+        spec = root / "sports" / "hoops" / "sport.yml"
+        spec.write_text(_re.sub(r"(?m)^name: .*$", "name: Hoops", spec.read_text(encoding="utf-8")), encoding="utf-8")
+        text = (root / "league.yml").read_text(encoding="utf-8")
+        (root / "league.yml").write_text(text.replace("\nsport_previews: true\n", "\nsport_previews: [basketball, hoops]\n"),
+                                         encoding="utf-8")
+
+    tmp = tmp_path_factory.mktemp("two_sports")
+    site = make_site(tmp, jekyll, real=True, edit=add_hoops)
+    banners = {}
+    for sport_id in ("basketball", "hoops"):
+        temp_root = preview_root.write_root(sport_id, tmp / f"root-{sport_id}", site.root)
+        assert build.main(["--root", str(temp_root), "--out", str(site.root), "--sport-preview", sport_id]) == 0
+        overlay = tmp / f"{sport_id}.yml"
+        overlay.write_text(f'url: "https://league.example"\nbaseurl: "/club/{sport_id}"\nlive_baseurl: "/club"\n')
+        out = tmp / f"out-{sport_id}"
+        proc = subprocess.run([*jekyll, "build", "--source", str(site.root), "--destination", str(out), "--config",
+                               f"{site.root / '_config.yml'},{overlay}", "--quiet"], cwd=ROOT, capture_output=True, text=True)
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        banners[sport_id] = _re.search(r'<div class="st-banner".*?</div>', (out / "index.html").read_text(encoding="utf-8")).group(0)
+    assert ('Other sports: <a class="st-banner__link" href="https://league.example/club/hoops/">Hoops</a>.' in banners["basketball"]
+            and "/club/basketball/" not in banners["basketball"])
+    assert ('Other sports: <a class="st-banner__link" href="https://league.example/club/basketball/">Basketball</a>.' in banners["hoops"]
+            and "/club/hoops/" not in banners["hoops"])
+    for banner in banners.values():
+        assert '<a class="st-banner__link" href="https://league.example/club/">Go to the live site</a>' in banner
+        assert "a made-up" in banner
 
 
 # ------------------------------------------------------------------ states of the season

@@ -80,7 +80,8 @@ def sample_out(tmp_path_factory):
 def test_sample_data_shows_the_stand_in_season_and_archives_the_other_sample(sample_out):
     active = computed(sample_out, "active.json")
     assert active == {"season": "sample-2026-27", "sample_mode": True, "archive": ["sample-2025-26"],
-                      "today": "2026-11-20", "preview": False}
+                      "today": "2026-11-20", "preview": False, "preview_kind": "", "preview_sport": "",
+                      "sport_previews": []}
     assert [s["id"] for s in computed(sample_out, "seasons.json")] == ["sample-2026-27", "sample-2025-26"]
     assert sorted(p.name for p in (sample_out / "_data" / "computed").iterdir() if p.is_dir()) == [
         "sample-2025-26", "sample-2026-27"]            # the real season is not on the site while the sample is
@@ -91,7 +92,8 @@ def test_real_data_shows_the_current_season_and_no_sample(tmp_path, capsys):
     code, _, _ = run(root, out, capsys=capsys, today="2026-10-01")
     assert code == 0
     assert computed(out, "active.json") == {"season": "2026-27", "sample_mode": False, "archive": [],
-                                            "today": "2026-10-01", "preview": False}
+                                            "today": "2026-10-01", "preview": False, "preview_kind": "",
+                                            "preview_sport": "", "sport_previews": []}
     assert computed(out, "archive.json") == []
     assert list((out / "_archive").iterdir()) == []
     assert computed(out, "2026-27", "teams.json") == {}              # a new league's empty season still builds
@@ -105,6 +107,7 @@ def test_sample_flag_forces_the_sample_and_marks_a_preview(tmp_path, capsys):
     assert code == 0
     active = computed(out, "active.json")
     assert (active["season"], active["sample_mode"], active["preview"]) == ("sample-2026-27", True, True)
+    assert active["preview_kind"] == "league"
 
 
 def test_sample_flag_is_not_a_preview_when_the_site_already_shows_the_sample(tmp_path, capsys):

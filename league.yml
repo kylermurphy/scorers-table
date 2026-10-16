@@ -76,6 +76,13 @@ sample_data: true
 # true: also build a sample copy at /preview/ when the real data is showing. Default: true.
 # preview: true
 
+# Demo copies of the template, one per sport, each with its own made-up league: /basketball/, /curling/, /hockey/
+# and /slopitch/, built on every deploy. true: every sport that has a demo. false: none. Or a list of sport ids,
+# like [basketball, hockey]. Nothing on your site links to them and search engines are told to skip them. This
+# template ships true so its own site shows what each sport looks like; a league that does not want them can set
+# it to false. Default (when the line is left out): false.
+sport_previews: true
+
 # true: search engines may list the site. false: every page asks them not to. Default: false.
 # search_engines: false
 

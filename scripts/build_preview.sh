@@ -1,23 +1,30 @@
 #!/usr/bin/env bash
-# The sample copy of the site at /preview/: the same pages, built from the made-up sample season, into
-# _site/preview/ (published at <site>/preview/, with the sample banner that links back to the live site).
-# Nothing links to it and every page carries the noindex tag (unless league.yml allows search engines).
+# The sample copies of the site, built after the real one into _site/:
 #
-# Run it from the repo root after the main `bundle exec jekyll build`, which would otherwise wipe it:
+#   _site/preview/   the league's own site (name, colours, logo, look) with made-up games, when league.yml says
+#                    `preview: true` and the real data is showing (`sample_data: false`). The banner links back to
+#                    the live site.
+#   _site/<sport>/   one demo copy per sport named by `sport_previews` in league.yml (true, or a list of sport ids;
+#                    false builds none): the template's made-up league for that sport (sports/<sport>/sample.py)
+#                    in the sport's own look. Always built, whatever `preview` and `sample_data` say.
+#
+# Nothing links to them from the league's own pages and every page carries the noindex tag (a sport copy always
+# does; /preview/ unless league.yml allows search engines). See docs/stage-5-basketball-spec.md, section 7.
+#
+# Run it from the repo root after the main `bundle exec jekyll build`, which would otherwise wipe them:
 #   scripts/build_preview.sh
-#
-# It does nothing when league.yml says `preview: false`, or `sample_data: true` (then the main site already
-# shows the sample season).
 #
 # Environment (all optional; the CI workflow sets them from actions/configure-pages):
 #   BASE_PATH    where the site lives on its host: "" or "/repo-name" (no trailing slash). Default: "".
 #   SITE_ORIGIN  the site's origin, like https://owner.github.io. Default: "" (links stay relative).
 #   JEKYLL_ENV   default: production.
 #
-# How it works (spec section 4.3): `build.py --sample` rewrites _data/computed/, the stub pages and calendar/
-# for the sample season; Jekyll then builds into _site/preview/ with baseurl "<BASE_PATH>/preview"; finally
-# `build.py` runs again for the real data, so a local checkout is left as it was (this also happens when
-# Jekyll fails).
+# How it works: for each copy, `build.py` rewrites _data/computed/ and the stub pages (and calendar/) in the Jekyll
+# source folder, then Jekyll builds into _site/<copy>/ with baseurl "<BASE_PATH>/<copy>" and `live_baseurl`
+# "<BASE_PATH>" (where the live site is, for the banner's links). A sport copy reads a temporary root written by
+# scripts/preview_root.py (the sport's sample league and sample seasons, nothing of the real league). The copies share
+# the source folder, so they are built one after another. Finally `build.py` runs again for the real data, so a local
+# checkout is left as it was (this also happens when a step fails, or the script is interrupted).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -29,37 +36,73 @@ if [ -n "$base_path" ] && { [ "${base_path:0:1}" != "/" ] || [ "${base_path: -1}
 fi
 
 read -r preview sample <<<"$(python3 -c 'import yaml; c = yaml.safe_load(open("league.yml")) or {}; print(c.get("preview", True), c.get("sample_data", False))')"
-if [ "$preview" != "True" ] || [ "$sample" = "True" ]; then
-  echo "Preview copy: skipped (preview: $preview, sample_data: $sample in league.yml)"
+league_copy=0
+if [ "$preview" = "True" ] && [ "$sample" != "True" ]; then
+  league_copy=1
+fi
+# The sport ids sport_previews asks for (checked: a problem in league.yml stops here with its message).
+sport_ids=$(python3 scripts/preview_root.py --list)
+if [ "$league_copy" = 0 ] && [ -z "$sport_ids" ]; then
+  echo "Preview copies: none (preview: $preview, sample_data: $sample, no sport_previews in league.yml)"
   exit 0
 fi
 
-# The build.py flags for the real site and for the preview. --site-url is only given when the origin is known.
+# The build.py flags for the real site (the restore at the end) and for each copy. --site-url is only given when the
+# origin is known.
 main_args=()
-preview_args=(--sample)
 if [ -n "$origin" ]; then
   main_args+=(--site-url "$origin$base_path")
-  preview_args+=(--site-url "$origin$base_path/preview")
 fi
 
 tmp=$(mktemp -d)
 restore=0
 cleanup() {
   local status=$?
-  rm -rf "$tmp"
+  trap - EXIT
   if [ "$restore" = 1 ]; then
-    # Back to the real season's data (quietly: the main build already printed its report).
-    python3 scripts/build.py ${main_args[@]+"${main_args[@]}"} >/dev/null || status=$?
+    # Back to the real season's data. Its report was printed by the main build; show it again only if it fails.
+    local restore_status=0
+    python3 scripts/build.py ${main_args[@]+"${main_args[@]}"} >"$tmp/restore-report.txt" 2>&1 || restore_status=$?
+    if [ "$restore_status" != 0 ]; then
+      status=$restore_status
+      cat "$tmp/restore-report.txt" >&2
+    fi
   fi
+  rm -rf "$tmp"
   exit "$status"
 }
 trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
-# Laid over _config.yml: the preview lives under /preview of the site.
-printf 'url: "%s"\nbaseurl: "%s/preview"\n' "$origin" "$base_path" >"$tmp/preview-config.yml"
+# One copy: $1 = its folder under _site/, the rest = the build.py flags. Laid over _config.yml: the copy lives under
+# /<folder> of the site, and the live site (for the banner) is at the site's base path.
+build_copy() {
+  local folder="$1"; shift
+  printf 'url: "%s"\nbaseurl: "%s/%s"\nlive_baseurl: "%s"\n' "$origin" "$base_path" "$folder" "$base_path" \
+    >"$tmp/$folder-config.yml"
+  # The "Still to decide" list is the real league's business, not a copy's: show a copy's report only if it fails.
+  if python3 scripts/build.py "$@" >"$tmp/$folder-report.txt" 2>&1; then
+    tail -n 1 "$tmp/$folder-report.txt"
+  else
+    local status=$?
+    cat "$tmp/$folder-report.txt" >&2
+    return "$status"
+  fi
+  JEKYLL_ENV="${JEKYLL_ENV:-production}" bundle exec jekyll build \
+    --config "_config.yml,$tmp/$folder-config.yml" --destination "_site/$folder"
+}
 
 restore=1
-python3 scripts/build.py "${preview_args[@]}"
-JEKYLL_ENV="${JEKYLL_ENV:-production}" bundle exec jekyll build \
-  --config "_config.yml,$tmp/preview-config.yml" --destination _site/preview
-echo "Preview copy: _site/preview/ (sample season)"
+if [ "$league_copy" = 1 ]; then
+  site_args=()
+  [ -n "$origin" ] && site_args+=(--site-url "$origin$base_path/preview")
+  build_copy preview --sample ${site_args[@]+"${site_args[@]}"}
+  echo "Preview copy: _site/preview/ (sample season)"
+fi
+for id in $sport_ids; do
+  python3 scripts/preview_root.py "$id" "$tmp/root-$id"
+  build_copy "$id" --root "$tmp/root-$id" --out . --sport-preview "$id"
+  rm -rf "$tmp/root-$id"
+  echo "Sport preview copy: _site/$id/ (the $id sample league)"
+done
