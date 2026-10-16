@@ -1,0 +1,61 @@
+# Jekyll settings only. The league's facts (name, sport, colours, ...) live in league.yml and reach the pages
+# through _data/computed/league.json, which `python scripts/build.py` writes (docs/stage-4-spec.md, section 5).
+
+# The address of the site. Leave both empty: the CI workflow supplies `url` through a generated _config.ci.yml
+# and `baseurl` on the command line, so a copy of the template needs no edit here.
+url: ""
+baseurl: ""
+
+permalink: pretty
+
+# The stub pages are named by date (_games/2026-11-05-1.md). Without this, Jekyll skips the ones in the future.
+future: true
+
+# Not part of the site. (Folders that start with "_" or "." are never published.)
+exclude:
+  - league.yml
+  - data/
+  - sports/
+  - scripts/
+  - tests/
+  - docs/
+  - Gemfile
+  - Gemfile.lock
+  - requirements.txt
+  - pytest.ini
+  - README.md
+  - BRIEF.md
+  - PLAN.md
+  - CLAUDE.md
+  - LICENSE
+
+# Written by scripts/build.py: the calendar files, and the score sheet photos when `photos: true`.
+include:
+  - calendar
+  - sheets
+
+# One page per game, player, team and archive season. scripts/build.py writes the stub files that make them.
+collections:
+  games:
+    output: true
+    permalink: /games/:name/
+  players:
+    output: true
+    permalink: /players/:name/
+  teams:
+    output: true
+    permalink: /teams/:name/
+  archive:
+    output: true
+    permalink: /archive/:name/
+
+# Each collection's layout, and the tab of the main navigation it belongs to.
+defaults:
+  - scope: {path: "", type: games}
+    values: {layout: game, nav: schedule}
+  - scope: {path: "", type: players}
+    values: {layout: player, nav: stats}
+  - scope: {path: "", type: teams}
+    values: {layout: team, nav: teams}
+  - scope: {path: "", type: archive}
+    values: {layout: archive-season, nav: archive}

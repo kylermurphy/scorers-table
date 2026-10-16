@@ -1,0 +1,26 @@
+{%- comment -%}
+  core/stat-line.html: one stat group of a player as a small table: a row for the regular season and, when the
+  player has playoff totals in the group, one for the playoffs. Then the ranks ("Points: No. 2").
+  Params: group (the group key, e.g. "player"), data (the player's groups[group]: display, ranks), playoffs
+  (the player's playoffs[group], or nothing). Reads: stats.leaders.columns / boards (labels).
+{%- endcomment -%}
+{%- assign _sl_cols = stats.leaders.columns[include.group] -%}
+<div class="st-table-wrap" role="region" aria-label="Totals, scrolls sideways" tabindex="0">
+<table class="st-table"><caption class="st-visually-hidden">Totals</caption>
+<thead><tr><th scope="col">Totals</th>
+{%- for _sl_c in _sl_cols -%}<th scope="col"{% if _sl_c.key_col %} class="is-key"{% endif %}><abbr title="{{ _sl_c.title | escape }}">{{ _sl_c.label | escape }}</abbr></th>{%- endfor -%}
+</tr></thead>
+<tbody>
+<tr><td class="is-left">Season</td>{%- for _sl_c in _sl_cols -%}<td{% if _sl_c.key_col %} class="is-key"{% endif %}>{{ include.data.display[_sl_c.key] | escape }}</td>{%- endfor -%}</tr>
+{%- if include.playoffs.display.size > 0 -%}
+<tr><td class="is-left">Playoffs</td>{%- for _sl_c in _sl_cols -%}<td{% if _sl_c.key_col %} class="is-key"{% endif %}>{{ include.playoffs.display[_sl_c.key] | escape }}</td>{%- endfor -%}</tr>
+{%- endif -%}
+</tbody></table></div>
+{%- capture _sl_ranks -%}
+  {%- for _sl_r in include.data.ranks -%}
+    {%- assign _sl_b = stats.leaders.boards | where: "stat", _sl_r[0] | first -%}
+    {%- if _sl_b -%}{%- unless forloop.first %} · {% endunless -%}{{ _sl_b.label | escape }}: No. {{ _sl_r[1] }}{%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign _sl_ranks = _sl_ranks | strip -%}
+{%- if _sl_ranks.size > 0 -%}<p class="st-note">Ranks: {{ _sl_ranks }}</p>{%- endif -%}

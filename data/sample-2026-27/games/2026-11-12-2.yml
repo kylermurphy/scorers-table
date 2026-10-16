@@ -1,0 +1,23 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+game_id: 2026-11-12-2
+status: final
+home: moose
+away: lynx
+checked_by: Pat S.
+scorekeeper: Sam T.
+sheet:
+  periods: {home: [5, 18], away: [18, 10]}
+  final: {home: 23, away: 28}
+  players:
+    home:
+      - {player: wes-t, pts: 2}
+      - {player: cleo-a, pts: 5}
+      - {player: finn-f, pts: 5}
+      - {player: mae-f, pts: 3}
+      - {player: gwen-w, pts: 8}
+    away:
+      - {player: tam-k, pts: 6}
+      - {player: joy-n, pts: 1}
+      - {player: dax-d, pts: 5}
+      - {player: ola-t, pts: 10}
+      - {player: amy-p, pts: 6}

@@ -1,0 +1,34 @@
+---
+layout: default
+---
+{%- include core/context.html -%}
+{%- comment -%}
+  A game page: back link, title, the final panel (score, line score), the sport's blocks (box score tables, notes),
+  and the notes written on the score sheet. Reads the game from the stub's `season` and `game_id`.
+{%- endcomment -%}
+{%- assign game = stats.games[page.game_id] -%}
+{%- if season_is_active -%}
+  {%- assign _back = "/schedule/" -%}
+  {%- assign _back_label = "‹ Schedule" -%}
+{%- else -%}
+  {%- capture _back %}/archive/{{ season }}/{% endcapture -%}
+  {%- capture _back_label %}‹ {{ season_label }} season{% endcapture -%}
+{%- endif -%}
+{%- capture _title %}{{ game.home.name }} vs {{ game.away.name }}{% endcapture -%}
+{%- assign _eyebrow = game.round | default: game.day_label -%}
+{%- capture _sub %}{{ game.date_long }} · {{ game.time_display }}{% endcapture -%}
+{%- capture _sub2 %}{{ game.venue }}{% if game.surface_label.size > 0 %} · {{ game.surface_label }}{% endif %}{% endcapture -%}
+{% include shell/page-title.html back=_back back_label=_back_label eyebrow=_eyebrow title=_title sub=_sub sub2=_sub2 %}
+{% include parts/final-panel.html game=game %}
+{% include parts/blocks.html blocks=game.blocks game=game %}
+{%- if game.notes.size > 0 %}
+<section class="st-section">
+{% include shell/section-head.html title="Notes" %}
+  {%- for _note in game.notes %}
+<p class="st-note">{{ _note | escape }}</p>
+  {%- endfor %}
+</section>
+{%- endif %}
+{%- if game.photo_url.size > 0 %}
+<a class="st-button st-button--quiet" href="{{ game.photo_url | relative_url }}">Score sheet photo</a>
+{%- endif %}

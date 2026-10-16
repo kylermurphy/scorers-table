@@ -1,0 +1,38 @@
+{%- include core/context.html -%}
+{%- comment -%}
+  The page shell: <html> with the league's look, skip link, sample banner, header, (Scoreboard) ticker,
+  <main id="main">, footer. The banner's "Go to the live site" link (shown on the /preview/ copy) is the site's
+  address without the trailing /preview of baseurl.
+{%- endcomment -%}
+{%- assign _base = site.baseurl | default: "" -%}
+{%- assign _live_base = _base -%}
+{%- if _base.size >= 8 -%}
+  {%- assign _tail = _base | slice: -8, 8 -%}
+  {%- if _tail == "/preview" -%}
+    {%- assign _keep = _base.size | minus: 8 -%}
+    {%- assign _live_base = _base | slice: 0, _keep -%}
+  {%- endif -%}
+{%- endif -%}
+{%- assign _live_url = site.url | default: "" | append: _live_base | append: "/" -%}
+<!doctype html>
+<html lang="{{ league.lang | default: 'en' | escape }}" data-layout="{{ league.layout | escape }}"{% if league.colour.size > 0 %} data-league-colour style="--st-league-color:{{ league.colour | escape }}{% if league.colour_dark.size > 0 %};--st-league-color-dark:{{ league.colour_dark | escape }}{% endif %}"{% endif %}>
+<head>
+{% include shell/head.html %}
+</head>
+<body class="st-page">
+{% include shell/skip-link.html %}
+{% include shell/sample-banner.html live_url=_live_url %}
+{% include shell/header.html current=page.nav %}
+{%- if league.layout == "scoreboard" and season_is_active -%}
+  {%- assign _tk_n = stats.results | first -%}
+  {%- assign _tk_day = stats.schedule.days | where: "n", _tk_n.day | first -%}
+  {%- if _tk_day %}
+{% include shell/ticker.html day=_tk_day %}
+  {%- endif -%}
+{%- endif %}
+<main class="st-main" id="main">
+{{ content }}
+</main>
+{% include shell/footer.html %}
+</body>
+</html>

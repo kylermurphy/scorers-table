@@ -1,0 +1,51 @@
+---
+layout: page
+nav: schedule
+title: Schedule
+permalink: /schedule/
+description: Every game day of the season, with results and upcoming games.
+---
+{%- comment -%}
+  Schedule: upcoming game days first (soonest first), then the days already played (newest first). A day that is
+  only partly played stays under Upcoming and shows both kinds of game. Then the calendar downloads.
+{%- endcomment -%}
+{% include core/context.html %}
+{%- assign _days = stats.schedule.days -%}
+{%- assign _upcoming = _days | where_exp: "d", "d.state == 'upcoming' or d.state == 'partial'" -%}
+{%- assign _past = _days | where_exp: "d", "d.state == 'played' or d.state == 'cancelled'" | reverse -%}
+{%- capture _sub %}{{ season_label }} season{% endcapture %}
+{%- if stats.schedule.all_times_pm %}{% assign _sub2 = "All times PM." %}{% else %}{% assign _sub2 = "" %}{% endif %}
+{% include shell/page-title.html title="Schedule" sub=_sub sub2=_sub2 %}
+
+{%- if _days.size == 0 %}
+{% include core/empty.html text="No games are scheduled yet. The schedule shows up here once it is in." %}
+{%- else %}
+<p class="st-label">Upcoming</p>
+  {%- if _upcoming.size == 0 %}
+{% include core/empty.html text="No more games are scheduled this season." %}
+  {%- endif %}
+  {%- for _d in _upcoming %}
+    {%- if _d.n == stats.schedule.next %}
+{% include core/schedule-day.html day=_d next=true %}
+    {%- else %}
+{% include core/schedule-day.html day=_d %}
+    {%- endif %}
+  {%- endfor %}
+
+<p class="st-label">Results</p>
+  {%- if _past.size == 0 %}
+{% include core/empty.html text="No games have been played yet." %}
+  {%- endif %}
+  {%- for _d in _past %}
+{% include core/schedule-day.html day=_d %}
+  {%- endfor %}
+{%- endif %}
+
+{%- capture _calendar %}{% include core/calendar-links.html %}{% endcapture %}
+{%- assign _calendar = _calendar | strip %}
+{%- if _calendar.size > 0 %}
+<section class="st-section" id="calendar">
+{% include shell/section-head.html title="Add to your calendar" %}
+{{ _calendar }}
+</section>
+{%- endif %}

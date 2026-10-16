@@ -1,0 +1,26 @@
+{%- comment -%}
+  parts/leader-grid.html: the leader tiles in two-up grids. Tiles with a group_label (e.g. "Goalies") start a new
+  grid under that label. Then one note: the first minimum note (min.note) among the tiles.
+  Params: boards (leaders.json boards; the ones with tile: true are drawn).
+{%- endcomment -%}
+{%- assign _lg_tiles = include.boards | where: "tile", true -%}
+{%- assign _lg_prev = "" -%}
+{%- assign _lg_note = "" -%}
+{%- capture _lg_o -%}
+{%- for _lg_b in _lg_tiles -%}
+  {%- assign _lg_g = _lg_b.group_label | default: "" -%}
+  {%- if forloop.first or _lg_g != _lg_prev -%}
+    {%- unless forloop.first -%}</div>{%- endunless -%}
+    {%- if _lg_g.size > 0 -%}<p class="st-label st-leader-group">{{ _lg_g | escape }}</p>{%- endif -%}
+<div class="st-leader-grid">
+  {%- endif -%}
+  {%- include parts/leader-tile.html board=_lg_b -%}
+  {%- assign _lg_prev = _lg_g -%}
+  {%- if _lg_note.size == 0 and _lg_b.min.note.size > 0 -%}{%- assign _lg_note = _lg_b.min.note -%}{%- endif -%}
+{%- endfor -%}
+{%- if _lg_tiles.size > 0 -%}</div>{%- endif -%}
+{%- if _lg_note.size > 0 -%}<p class="st-note">{{ _lg_note | escape }}</p>{%- endif -%}
+{%- endcapture -%}
+{%- assign _lg_lines = _lg_o | split: "
+" -%}
+{%- for _lg_line in _lg_lines -%}{{ _lg_line | strip }}{%- endfor -%}

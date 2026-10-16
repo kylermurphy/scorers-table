@@ -1,0 +1,4 @@
+{%- comment -%}
+  parts/note.html: a note block (present() block type "note"). Params: block ({type: "note", text}).
+{%- endcomment -%}
+<p class="st-note">{{ include.block.text | escape }}</p>

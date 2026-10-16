@@ -1,0 +1,9 @@
+{% assign _rows = stats.standings.rows %}
+{% assign _first = _rows | first %}
+{% assign _last = _rows | last %}
+{% assign _second = _rows[1] %}
+<div class="ds-pad"><div class="st-list">
+{% assign _t = stats.teams[_first.team] %}{% include parts/team-card.html team=_t %}
+{% assign _t = stats.teams[_second.team] %}{% include parts/team-card.html team=_t %}
+{% assign _t = stats.teams[_last.team] %}{% include parts/team-card.html team=_t %}
+</div></div>

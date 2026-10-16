@@ -1,0 +1,166 @@
+name: Build and deploy
+
+# What this does (docs/stage-4-spec.md, section 6):
+#   * Every pull request and every push to main runs the tests, checks the league data and builds the site.
+#     If a test fails, the data has a problem, or the built site has a broken link or image, the run stops and
+#     nothing is published.
+#   * Only a run on main (a push, the nightly run or "Run workflow") also publishes the site to GitHub Pages.
+#     Pull requests never publish.
+#   * The nightly run rebuilds and republishes main even when nobody pushed, so the pages that depend on the
+#     date ("next game day", the calendar files) stay current. GitHub cron cannot read league.yml, so the
+#     workflow wakes every hour and the `gate` job lets only the hour named by `nightly_hour` in league.yml
+#     (on the league's `timezone` clock, default 3 AM) go on to build. The other 23 wake-ups stop after a few
+#     seconds.
+#
+# One-time setup: GitHub Pages must be switched on for the repository (Settings > Pages > Source:
+# "GitHub Actions") before the first run on main, or the "Set up Pages" step fails.
+#
+# Actions are pinned to the major version tag (v4, v5...), all of which exist. GitHub moves a major tag
+# forward for compatible fixes. Only the actions published by GitHub itself are used, plus ruby/setup-ruby
+# (the Ruby community's standard action); nothing else third-party.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Every hour at :23 (see the `gate` job). GitHub runs scheduled workflows only on the default branch.
+    - cron: "23 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  # The hourly wake-ups have a group of their own, so one that only stops at the gate can never replace a
+  # waiting push build.
+  group: pages-${{ github.ref }}-${{ github.event_name == 'schedule' && 'nightly' || 'build' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # Is this run meant to build? Always yes, except for an hourly wake-up outside the league's nightly hour.
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      - name: Is it the nightly hour?
+        id: gate
+        run: python scripts/nightly_gate.py
+
+  build:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # "Set up Pages" reads the repository's Pages settings, which needs pages: read (contents: read alone gets
+    # "Resource not accessible by integration" on a private repository). Nothing in this job writes.
+    permissions:
+      contents: read
+      pages: read
+    env:
+      JEKYLL_ENV: production
+      # "true" only on main: the run that publishes. Pull requests and other branches never do.
+      ON_MAIN: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+    steps:
+      # 1. Check out, then Ruby before the tests (pytest builds a throwaway Jekyll site) and Python.
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python packages
+        run: pip install -r requirements.txt
+
+      # 2. Every test, the Jekyll smoke test and the design-system parity test included.
+      - name: Run tests
+        run: python -m pytest -q
+
+      # 3. Colour contrast (WCAG AA) in every look and both themes. Fails on any failing pair, and when
+      #    docs/contrast.md or assets/css/fallbacks.css is out of date with the CSS.
+      - name: Check colour contrast
+        run: python scripts/check_contrast.py --check
+
+      - name: Check the CSS fallbacks
+        run: python scripts/build_css_fallbacks.py --check
+
+      # 4. Main only: ask GitHub where the site will live. Gives `origin` (https://owner.github.io) and
+      #    `base_path` ("/repo-name", or "" on a custom domain), so a copy of the template needs no edit.
+      - name: Set up Pages
+        id: pages
+        if: env.ON_MAIN == 'true'
+        uses: actions/configure-pages@v5
+
+      # Hand the address to the later steps. On a pull request there is no Pages step, so both are empty:
+      # links stay relative and the base path is empty.
+      - name: Note the site address
+        env:
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          base_path="${PAGES_BASE_PATH%/}"
+          {
+            echo "SITE_ORIGIN=${PAGES_ORIGIN%/}"
+            echo "BASE_PATH=$base_path"
+          } >> "$GITHUB_ENV"
+          echo "Site address: '${PAGES_ORIGIN%/}' + '$base_path'"
+
+      # 5. Check the data and work out the numbers. A data problem stops the run here and is shown as an
+      #    annotation on the file in the pull request.
+      - name: Build the data
+        run: python scripts/build.py --annotations --site-url "$SITE_ORIGIN$BASE_PATH"
+
+      # 6. Build the site. Jekyll takes `baseurl` on the command line, `url` from a file made here.
+      - name: Build the site
+        run: |
+          printf 'url: "%s"\n' "$SITE_ORIGIN" > _config.ci.yml
+          bundle exec jekyll build --config _config.yml,_config.ci.yml --baseurl "$BASE_PATH"
+
+      # 7. The sample copy at /preview/ (skipped when league.yml says `preview: false`). It must come after
+      #    the main build, which would remove it, and before the link check, so its links are checked too.
+      - name: Build the preview copy
+        run: scripts/build_preview.sh
+
+      # 8. Broken internal links, images, scripts and anchors fail the run. Links to other sites are not checked.
+      - name: Check links and images
+        run: scripts/check_links.sh
+
+      # 9. Main only: hand the built site to the deploy job.
+      - name: Upload the site
+        if: env.ON_MAIN == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

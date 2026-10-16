@@ -1,0 +1,37 @@
+{%- comment -%}
+  core/schedule-day.html: one game day of the schedule: a heading (the day and its date and venue), the games that
+  were played as result cards, the games still to play as game rows (a row of a played game is never shown), and
+  short notes under them: cancelled games, moved games, byes.
+  Params: day (a schedule.json day), next (true: the next game day, marked with a label).
+  Reads: stats.games, stats.teams (bye names), stats.schedule.all_times_pm is said once by the page.
+{%- endcomment -%}
+{%- assign _sdy = include.day -%}
+{%- capture _sdy_aside -%}{{ _sdy.date_short }}{% if _sdy.venues.size > 0 %} · {{ _sdy.venues | join: ", " }}{% endif %}{%- endcapture -%}
+{%- assign _sdy_played = _sdy.games | where: "played", true -%}
+{%- assign _sdy_open = _sdy.games | where_exp: "g", "g.played != true and g.status != 'cancelled'" -%}
+{%- assign _sdy_cancelled = _sdy.games | where: "status", "cancelled" -%}
+<section class="st-section">
+{% include shell/section-head.html title=_sdy.label aside=_sdy_aside %}
+{%- if include.next %}<p class="st-label">{{ league.labels.next | escape }}</p>{% endif %}
+{%- if _sdy_played.size > 0 or _sdy_open.size > 0 %}
+<div class="st-list">
+  {%- for _sdy_g in _sdy_played %}{% assign _sdy_game = stats.games[_sdy_g.id] %}{% include parts/result-card.html game=_sdy_game %}{% endfor %}
+  {%- if _sdy_open.size > 0 %}
+<div class="st-game-rows st-game-rows--list">{% for _sdy_g in _sdy_open %}{% include parts/game-row.html row=_sdy_g %}{% endfor %}</div>
+  {%- endif %}
+</div>
+{%- endif %}
+{%- for _sdy_g in _sdy.games %}{% if _sdy_g.moved_from_display.size > 0 and _sdy_g.status != 'cancelled' %}
+<p class="st-note">{{ _sdy_g.home_name | escape }} vs {{ _sdy_g.away_name | escape }} was moved from {{ _sdy_g.moved_from_display | escape }}.</p>
+{%- endif %}{% endfor %}
+{%- for _sdy_g in _sdy_cancelled %}
+<p class="st-note">Cancelled: {{ _sdy_g.home_name | escape }} vs {{ _sdy_g.away_name | escape }}.</p>
+{%- endfor %}
+{%- if _sdy.byes.size > 0 %}
+<p class="st-note">
+  {%- for _sdy_b in _sdy.byes -%}
+    {%- if forloop.first == false -%}{%- if forloop.last %} and {% else %}, {% endif -%}{%- endif -%}
+    {{- stats.teams[_sdy_b].name | escape -}}
+  {%- endfor %} have the bye.</p>
+{%- endif %}
+</section>

@@ -1,0 +1,8 @@
+- {id: 2026-27, label: "2026–27", current: true, venue: "[Gym name]"}
+- {id: sample-2026-27, label: "2026–27", sample: true, stands_in_for: 2026-27, as_of: 2026-11-20, venue: "[Venue]"}
+- id: sample-2025-26
+  label: "2025–26"
+  sample: true
+  venue: "[Venue]"
+  overrides:
+    standings: {points: {win: 3, tie: 1, loss: 0}}

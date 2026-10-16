@@ -1,0 +1,6 @@
+{%- comment -%}
+  core/empty.html: the one-sentence message that stands in for an empty list ("No games played yet.").
+  Params: title (short heading, optional), text. A plain card with the stage 3 padding tokens; the page keeps its
+  section heading above it, so the page never has a blank section.
+{%- endcomment -%}
+<div class="st-card" style="padding:var(--st-card-pad-y) var(--st-card-pad-x)">{% if include.title.size > 0 %}<p class="st-label">{{ include.title | escape }}</p>{% endif %}<p{% if include.title.size > 0 %} class="st-note"{% endif %}>{{ include.text | escape }}</p></div>

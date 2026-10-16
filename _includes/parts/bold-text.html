@@ -1,0 +1,12 @@
+{%- comment -%}
+  parts/bold-text.html: text with the first occurrence of `strong` in <b> (a card's "Top: #23 Dave M. 24 pts").
+  Params: text, strong (optional). Prints inline, escaped.
+{%- endcomment -%}
+{%- assign _bt_text = include.text | escape -%}
+{%- if include.strong.size > 0 -%}
+  {%- assign _bt_strong = include.strong | escape -%}
+  {%- capture _bt_repl -%}<b>{{ _bt_strong }}</b>{%- endcapture -%}
+  {{- _bt_text | replace_first: _bt_strong, _bt_repl -}}
+{%- else -%}
+  {{- _bt_text -}}
+{%- endif -%}

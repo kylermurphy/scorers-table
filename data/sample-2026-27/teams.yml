@@ -1,0 +1,6 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+- {id: otters, name: Otters, code: OTT}
+- {id: ravens, name: Ravens, code: RAV}
+- {id: badgers, name: Badgers, code: BAD}
+- {id: moose, name: Moose, code: MOO}
+- {id: lynx, name: Lynx, code: LYN}

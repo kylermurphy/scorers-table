@@ -1,0 +1,12 @@
+{% assign _day = stats.schedule.days | where: "n", stats.schedule.next | first %}
+<div class="ds-pad">
+<p class="st-label st-specimen-label">On a panel</p>
+<div class="st-next-game st-next-game--demo"><div class="st-next-game__body">
+{% for _gr in _day.groups %}
+{% if league.layout == "curling" and _gr.time_label.size > 0 %}<p class="st-next-game__group-label">{{ _gr.time_label | escape }}</p>{% endif %}
+<div class="st-next-game__rows">{% for _row in _gr.games %}{% if league.layout == "curling" %}{% include parts/game-row.html row=_row show_time=false %}{% else %}{% include parts/game-row.html row=_row %}{% endif %}{% endfor %}</div>
+{% endfor %}
+</div></div>
+<p class="st-label st-specimen-label">On the page (schedule list)</p>
+<div class="st-game-rows st-game-rows--list">{% for _row in _day.games %}{% include parts/game-row.html row=_row tag="a" %}{% endfor %}</div>
+</div>

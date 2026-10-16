@@ -59,8 +59,22 @@ or `[placeholder]`s.
 The stage 3 decisions are written out in `docs/design.md`, under "Decisions made in stage 3", and were
 **confirmed by the owner on 15 October 2026** (team palettes follow the layout; the team card design; the
 changed mockup colours; the curling header line exception; the structure the mockups did not draw; the
-old-browser floor; fixed scenes; the "Scored with hammer" 3 of 5 correction). Still open, from `BRIEF.md`:
+old-browser floor; fixed scenes; the "Scored with hammer" 3 of 5 correction). The three open items from
+`BRIEF.md` were settled the same day: search engines default **off** (noindex); setup help is a **written
+guide** only; **desktop** layouts wait for stage 9.
 
-1. **Search engines.** Default off (noindex) or on? (`BRIEF.md`, "Not decided yet".)
-2. **Setup help.** A written guide only, or also a `/new-league` Claude Code command? (`BRIEF.md`.)
-3. **Desktop** layouts are stage 9; phone first until then.
+Nothing is waiting for the owner at the end of stage 3.
+
+## 4. Stage 4: placeholders the built site shows
+
+With the shipped `league.yml` (sport `stub`, sample data on), the build prints a "Still to decide" list and the
+site shows these until a league fills them in. None of them is a league fact the template invents.
+
+| Placeholder | Where it shows | Who fills it in |
+|---|---|---|
+| `[Gym name]` | `venue` of the real season in `data/seasons.yml`: footer line, next-game panel, game pages | the league: where it plays |
+| `[Venue]` | the same places in the sample seasons | nobody: sample data |
+| `[League rules]` | the Rules page (`rules/index.md`) | the league: its written rules |
+| `[placeholder]` for Overtime, Forfeit, Tiebreakers, minimum games for the points-per-game leaders | standings note, Rules page, leaderboard notes | the league, in `league.yml` (`rules`, `standings`, `stats.minimums`) |
+
+A real sport (stage 5) brings its own `decide: true` settings; each is listed by the build the same way.

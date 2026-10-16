@@ -1,0 +1,17 @@
+{%- comment -%}
+  shell/badge.html: the league badge, a monogram in a circle, or the league's logo when league.logo is set.
+  Params: small (true in the footer). Reads: league.code, league.name, league.logo (a repo path).
+  Markup mirrors scripts/design_system/specimens_shell.py (_badge); docs/design.md "Stage 4 includes".
+{%- endcomment -%}
+{%- if league.logo.size > 0 -%}
+  {%- assign _bg_src = league.logo | prepend: "/" | replace: "//", "/" | relative_url -%}
+  {%- if include.small -%}
+<span class="st-brand__badge st-brand__badge--sm" aria-hidden="true"><img src="{{ _bg_src }}" alt="" width="36" height="36"></span>
+  {%- else -%}
+<span class="st-brand__badge"><img src="{{ _bg_src }}" alt="{{ league.name | escape }} logo" width="48" height="48"></span>
+  {%- endif -%}
+{%- elsif include.small -%}
+<span class="st-brand__badge st-brand__badge--sm" aria-hidden="true">{{ league.code | escape }}</span>
+{%- else -%}
+<span class="st-brand__badge" role="img" aria-label="{{ league.name | escape }} badge">{{ league.code | escape }}</span>
+{%- endif -%}

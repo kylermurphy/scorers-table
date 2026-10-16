@@ -1,0 +1,23 @@
+---
+layout: page
+nav: archive
+title: Archive
+permalink: /archive/
+description: Standings, results and leaders from past seasons.
+---
+{% include core/context.html %}
+{%- assign _archive = site.data.computed.archive -%}
+{% include shell/page-title.html title="Archive" sub="Past seasons" %}
+
+{%- if _archive.size > 0 %}
+<div class="st-list">
+  {%- for _a in _archive %}
+    {%- capture _name %}{{ _a.label }} season{% endcapture %}
+    {%- capture _facts %}{{ _a.teams }} teams · {{ _a.games }} games{% endcapture %}
+    {%- capture _top %}{% if _a.standings_top.size > 0 %}Top of the table: {{ _a.standings_top | join: ", " }}{% endif %}{% endcapture %}
+<a class="st-team-card" href="{{ _a.url | relative_url }}"><span class="st-team-card__name">{{ _name | escape }}</span><span class="st-team-card__sub">{{ _facts | escape }}</span>{% if _top.size > 0 %}<span class="st-team-card__rank">{{ _top | escape }}</span>{% endif %}</a>
+  {%- endfor %}
+</div>
+{%- else %}
+{% include core/empty.html text="There are no past seasons yet. A season moves here when the next one starts." %}
+{%- endif %}

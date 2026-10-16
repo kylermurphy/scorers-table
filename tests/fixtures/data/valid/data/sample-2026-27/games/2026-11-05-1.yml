@@ -1,0 +1,12 @@
+game_id: 2026-11-05-1
+status: final
+home: otters
+away: ravens
+checked_by: Lee M.
+scorekeeper: Pat S.
+notes:
+  - {text: "Played with running time in the second half."}
+photo: sheets/2026-11-05-1.jpg
+sheet:
+  periods: {home: [12, 9], away: [10, 10]}
+  final: {home: 21, away: 20}

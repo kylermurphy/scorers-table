@@ -1,0 +1,49 @@
+{%- comment -%}
+  parts/game-row.html: one game as a row: surface (sheet, diamond, pad), teams, time. A CSS grid with named
+  areas, so a layout can reorder them. Params: row (a schedule.json game row), tag ("div", or "a" for a row that
+  links to the game; default "div"), show_time (default true; the Curling layout prints the time once per group instead).
+  The surface follows the layout: Scoreboard a tag ("D1"), the Curling layout a letter tile, the Slo-pitch layout an icon + label,
+  otherwise a text label or, when league.display.surface == "sub", a second line under the time.
+  No league.words.surface: no surface. When stats.schedule.all_times_pm the " PM" is dropped from the time.
+{%- endcomment -%}
+{%- assign _gr_row = include.row -%}
+{%- assign _gr_tag = include.tag | default: "div" -%}
+{%- assign _gr_show = include.show_time -%}
+{%- if _gr_show == nil -%}{%- assign _gr_show = true -%}{%- endif -%}
+{%- assign _gr_word = league.words.surface -%}
+{%- assign _gr_word_n = _gr_word.size | default: 0 -%}
+{%- if _gr_word_n == 0 -%}{%- assign _gr_kind = "none" -%}
+{%- elsif league.layout == "scoreboard" -%}{%- assign _gr_kind = "tag" -%}
+{%- elsif league.layout == "curling" -%}{%- assign _gr_kind = "tile" -%}
+{%- elsif league.layout == "slopitch" -%}{%- assign _gr_kind = "icon" -%}
+{%- elsif league.display.surface == "sub" -%}{%- assign _gr_kind = "sub" -%}
+{%- else -%}{%- assign _gr_kind = "label" -%}
+{%- endif -%}
+{%- assign _gr_time = _gr_row.time_display -%}
+{%- if stats.schedule.all_times_pm -%}{%- assign _gr_time = _gr_time | remove: " PM" -%}{%- endif -%}
+{%- assign _gr_has = false -%}
+{%- if _gr_kind != "none" and _gr_row.surface.size > 0 and _gr_kind != "sub" -%}{%- assign _gr_has = true -%}{%- endif -%}
+{%- capture _gr_o -%}
+<{{ _gr_tag }} class="st-game-row{% unless _gr_has %} st-game-row--no-surface{% endunless %}{% unless _gr_show %} st-game-row--no-time{% endunless %}"{% if _gr_tag == "a" %} href="{{ _gr_row.url | relative_url }}"{% endif %}>
+{%- if _gr_has -%}
+  {%- if _gr_kind == "tile" -%}
+<span class="st-game-row__surface st-game-row__surface--tile"><span class="st-visually-hidden">{{ _gr_word | escape }} </span>{{ _gr_row.surface | escape }}</span>
+  {%- elsif _gr_kind == "label" -%}
+<span class="st-game-row__surface st-game-row__surface--label">{{ _gr_row.surface_label | escape }}</span>
+  {%- elsif _gr_kind == "icon" -%}
+<span class="st-game-row__surface st-game-row__surface--icon"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M7 1L13 7L7 13L1 7Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>{{ _gr_row.surface_label | escape }}</span></span>
+  {%- elsif _gr_kind == "tag" -%}
+<span class="st-game-row__surface st-game-row__surface--tag"><span class="st-visually-hidden">{{ _gr_row.surface_label | escape }}</span><span aria-hidden="true">{{ _gr_word | slice: 0 | escape }}{{ _gr_row.surface | escape }}</span></span>
+  {%- endif -%}
+{%- endif -%}
+<span class="st-game-row__teams">{{ _gr_row.home_name | escape }} <span class="st-game-row__vs">vs</span> {{ _gr_row.away_name | escape }}</span>
+{%- if _gr_show -%}
+<span class="st-game-row__time">{{ _gr_time | escape }}
+  {%- if _gr_kind == "sub" and _gr_row.surface.size > 0 -%}<span class="st-game-row__sub">{{ _gr_row.surface_label | escape }}</span>{%- endif -%}
+</span>
+{%- endif -%}
+</{{ _gr_tag }}>
+{%- endcapture -%}
+{%- assign _gr_lines = _gr_o | split: "
+" -%}
+{%- for _gr_line in _gr_lines -%}{{ _gr_line | strip }}{%- endfor -%}

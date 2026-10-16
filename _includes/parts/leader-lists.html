@@ -1,0 +1,11 @@
+{%- comment -%}
+  parts/leader-lists.html: every board with list: true, one after the other, in a .st-leader-lists wrapper; on the
+  Scoreboard layout a quiet "All player stats" button closes it.
+  Params: boards (leaders.json boards), more_url (the button's site path; default /stats/), limit (rows shown in
+  each list; default all).
+{%- endcomment -%}
+{%- assign _lls_boards = include.boards | where: "list", true -%}
+<div class="st-leader-lists">
+{%- for _lls_b in _lls_boards -%}{%- include parts/leader-list.html board=_lls_b limit=include.limit -%}{%- endfor -%}
+{%- if league.layout == "scoreboard" -%}<a class="st-button st-button--quiet st-leader-more" href="{{ include.more_url | default: '/stats/' | relative_url }}">{{ league.labels.all_stats | escape }}</a>{%- endif -%}
+</div>

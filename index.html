@@ -1,0 +1,73 @@
+---
+layout: page
+nav: home
+---
+{%- comment -%}
+  Home: the next game day, the latest results, the standings (every team) and the leaders. Everything comes from
+  _data/computed through the includes; nothing is typed in here. One order for every layout (docs/stage-4-spec.md 5.1).
+  An empty season shows a short message in each section instead of a blank one.
+{%- endcomment -%}
+{% include core/context.html %}
+{%- assign _sch = stats.schedule -%}
+{%- assign _next = _sch.days | where: "n", _sch.next | first -%}
+{%- assign _latest = stats.results | first -%}
+{%- assign _latest_day = _sch.days | where: "n", _latest.day | first -%}
+{%- assign _boards = stats.leaders.boards | where_exp: "b", "b.rows.size > 0" -%}
+
+<h1 class="st-visually-hidden">{{ league.name | escape }}, {{ season_label | escape }} season</h1>
+
+{%- if _next %}
+{% include parts/next-game.html day=_next %}
+{%- else %}
+<section class="st-section">
+{% include shell/section-head.html title=league.labels.next %}
+  {%- if _sch.days.size == 0 %}
+{% include core/empty.html text="No games are scheduled yet. They will show up here once the schedule is in." %}
+  {%- else %}
+{% include core/empty.html text="No more games are scheduled." %}
+  {%- endif %}
+</section>
+{%- endif %}
+
+<section class="st-section">
+  {%- if _latest_day %}
+{% include shell/section-head.html title=league.labels.results aside="All results" aside_url="/schedule/" %}
+<p class="st-label st-leader-group">{{ _latest_day.label | escape }} · {{ _latest_day.date_long | escape }}</p>
+<div class="st-list">
+    {%- for _gid in _latest.games %}
+      {%- assign _game = stats.games[_gid] %}
+{% include parts/result-card.html game=_game %}
+    {%- endfor %}
+</div>
+{%- else %}
+{% include shell/section-head.html title=league.labels.results %}
+{% include core/empty.html text="No games have been played yet. Results show up here after the first game." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+  {%- if stats.standings.through_display.size > 0 %}
+    {%- capture _aside %}Through {{ stats.standings.through_display }}{% endcapture %}
+{% include shell/section-head.html title=league.labels.standings aside=_aside %}
+  {%- else %}
+{% include shell/section-head.html title=league.labels.standings %}
+  {%- endif %}
+  {%- if stats.standings.rows.size > 0 %}
+{% include parts/standings.html standings=stats.standings full_url="/stats/#standings" %}
+    {%- if stats.standings.tiebreak_note.size > 0 %}
+<p class="st-note">{{ stats.standings.tiebreak_note | escape }}</p>
+    {%- endif %}
+  {%- else %}
+{% include core/empty.html text="The standings show up here once the teams are set up." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+{% include shell/section-head.html title=league.labels.leaders aside=league.labels.all_stats aside_url="/stats/" %}
+  {%- if _boards.size > 0 %}
+{% include parts/leader-grid.html boards=_boards %}
+{% include parts/leader-lists.html boards=_boards limit=5 %}
+  {%- else %}
+{% include core/empty.html text="The leaders show up here after the first game." %}
+  {%- endif %}
+</section>

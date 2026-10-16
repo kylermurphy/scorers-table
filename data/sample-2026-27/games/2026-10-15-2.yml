@@ -1,0 +1,26 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+game_id: 2026-10-15-2
+status: final
+home: badgers
+away: moose
+checked_by: Lee M.
+notes:
+  - {text: Started ten minutes late.}
+sheet:
+  periods: {home: [11, 4], away: [15, 8]}
+  final: {home: 15, away: 23}
+  players:
+    home:
+      - {player: noa-f, pts: 6}
+      - {player: ben-e, pts: 2}
+      - {player: quin-m, pts: 3}
+      - {player: pax-w, pts: 1}
+      - {player: val-d, pts: 3}
+    away:
+      - {player: kai-m, pts: 7}
+      - {player: wes-t, pts: 4}
+      - {player: cleo-a, pts: 3}
+      - {player: finn-f, pts: 4}
+      - {player: mae-f, pts: 0}
+      - {player: oz-l, pts: 3}
+      - {player: gwen-w, pts: 2}

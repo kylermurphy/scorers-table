@@ -1,0 +1,29 @@
+{%- comment -%}
+  core/player-table.html: a table of players with their season totals, in a scroll box with the player column
+  fixed. Used for the Stats page (every player), a team page (its roster).
+  Params: ids (array of player ids, in the order to show), group (stat group; default leaders.table.group),
+  caption (hidden table caption and the scroll box's label), team_col (true: a Team column with the chip and code).
+  Reads: stats.players (label, url, team, groups[group].display), stats.teams (code, name), stats.leaders.columns.
+  A player with no page (url null: a past season) is plain text; a spare (no team) shows "Spare".
+{%- endcomment -%}
+{%- assign _pt_group = include.group | default: stats.leaders.table.group -%}
+{%- assign _pt_cols = stats.leaders.columns[_pt_group] -%}
+{%- assign _pt_cap = include.caption | default: "Players" -%}
+<div class="st-table-wrap" role="region" aria-label="{{ _pt_cap | escape }}, scrolls sideways" tabindex="0">
+<table class="st-table"><caption class="st-visually-hidden">{{ _pt_cap | escape }}</caption>
+<thead><tr><th scope="col">Player</th>
+{%- if include.team_col -%}<th scope="col" class="is-left">Team</th>{%- endif -%}
+{%- for _pt_c in _pt_cols -%}<th scope="col"{% if _pt_c.key_col %} class="is-key"{% endif %}><abbr title="{{ _pt_c.title | escape }}">{{ _pt_c.label | escape }}</abbr></th>{%- endfor -%}
+</tr></thead>
+<tbody>
+{%- for _pt_id in include.ids -%}
+  {%- assign _pt_p = stats.players[_pt_id] -%}
+<tr><td>{% if _pt_p.url.size > 0 %}<a class="st-player" href="{{ _pt_p.url | relative_url }}">{{ _pt_p.label | escape }}</a>{% else %}{{ _pt_p.label | escape }}{% endif %}</td>
+  {%- if include.team_col -%}
+    {%- assign _pt_t = stats.teams[_pt_p.team] -%}
+<td class="is-left">{% if _pt_p.team.size > 0 %}{% include parts/chip.html team=_pt_t size="sm" %} <abbr class="st-team-code" title="{{ _pt_t.name | escape }}">{{ _pt_t.code | escape }}</abbr>{% else %}<span class="st-team-code">Spare</span>{% endif %}</td>
+  {%- endif -%}
+  {%- for _pt_c in _pt_cols -%}<td{% if _pt_c.key_col %} class="is-key"{% endif %}>{{ _pt_p.groups[_pt_group].display[_pt_c.key] | escape }}</td>{%- endfor -%}
+</tr>
+{%- endfor -%}
+</tbody></table></div>

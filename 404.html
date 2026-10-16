@@ -1,0 +1,14 @@
+---
+layout: page
+title: Page not found
+permalink: /404.html
+description: The page you were looking for is not here.
+---
+{% include core/context.html %}
+{% include shell/page-title.html title="Page not found" sub="That page does not exist, or it has moved. Try one of these." %}
+
+<div class="st-list">
+  {%- for _item in league.nav %}
+<a class="st-button st-button--quiet" href="{{ _item.url | relative_url }}">{{ _item.label | escape }}</a>
+  {%- endfor %}
+</div>

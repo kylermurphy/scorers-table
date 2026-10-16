@@ -1,0 +1,5 @@
+PyYAML>=6
+pytest>=8
+# Time zone data for zoneinfo (league.yml `timezone`, calendar times). Linux and macOS have it on the system,
+# but Windows and some slim containers do not, and a missing zone would fail the build in a confusing way.
+tzdata

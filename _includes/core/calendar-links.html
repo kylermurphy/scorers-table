@@ -1,0 +1,24 @@
+{%- comment -%}
+  core/calendar-links.html: download (and subscribe) buttons for the calendar files in calendars.json (always the
+  current season, even while the site shows the sample). Prints nothing when there are no files.
+  Params: team (a team id: only that team's file, with its subscribe links; none: every file, with subscribe
+  links for the whole-league file only). Subscribe links (webcal, Google Calendar) exist only when the build knew
+  the site's address (build.py --site-url). The download link is the file on this site.
+{%- endcomment -%}
+{%- assign _cl_files = site.data.computed.calendars.files -%}
+{%- assign _cl_team = include.team | default: "" -%}
+{%- capture _cl_out -%}
+{%- for _cl_f in _cl_files -%}
+  {%- assign _cl_show = false -%}
+  {%- if _cl_team == "" or _cl_f.team == _cl_team -%}{%- assign _cl_show = true -%}{%- endif -%}
+  {%- assign _cl_sub = false -%}
+  {%- if _cl_team != "" or _cl_f.team == nil -%}{%- assign _cl_sub = true -%}{%- endif -%}
+  {%- if _cl_show -%}
+    {%- if _cl_sub and _cl_f.webcal.size > 0 -%}<a class="st-button" href="{{ _cl_f.webcal | escape }}">Subscribe: {{ _cl_f.name | escape }}</a>{%- endif -%}
+    {%- if _cl_sub and _cl_f.google.size > 0 -%}<a class="st-button st-button--quiet" href="{{ _cl_f.google | escape }}">Google Calendar: {{ _cl_f.name | escape }}</a>{%- endif -%}
+<a class="st-button st-button--quiet" href="{{ _cl_f.path | relative_url }}" download>{{ _cl_f.name | escape }} calendar (.ics file)</a>
+  {%- endif -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign _cl_out = _cl_out | strip -%}
+{%- if _cl_out.size > 0 -%}<div class="st-list">{{ _cl_out }}</div>{%- endif -%}

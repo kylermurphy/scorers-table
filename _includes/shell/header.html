@@ -1,0 +1,8 @@
+{%- comment -%}
+  shell/header.html: brand (badge, name, meta line), theme button and nav tabs.
+  Params: current (the nav key of this page). Reads: league (name, short_name, code, logo, tagline, nav).
+  The last word of short_name sits in .st-brand__tint (only Scoreboard colours it). The scene behind the header
+  is drawn by the layout's CSS.
+{%- endcomment -%}
+{%- assign _hd_words = league.short_name | default: league.name | split: " " -%}
+<header class="st-header"><div class="st-header__top"><a class="st-brand" href="{{ '/' | relative_url }}">{% include shell/badge.html %}<span class="st-brand__text"><span class="st-brand__name">{% if _hd_words.size > 1 %}{{ _hd_words | pop | join: " " | escape }} <span class="st-brand__tint">{{ _hd_words | last | escape }}</span>{% else %}{{ league.short_name | default: league.name | escape }}{% endif %}</span><span class="st-brand__meta">{{ league.tagline | escape }}</span></span></a>{% include shell/theme-toggle.html %}</div>{% include shell/nav.html current=include.current %}<div class="st-header__scene" aria-hidden="true"></div></header>

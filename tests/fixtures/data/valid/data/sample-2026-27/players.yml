@@ -1,0 +1,4 @@
+- {id: ann-b, name: Ann B., team: otters, number: 7}
+- {id: joe-k, name: Joe K., team: otters, number: "00"}
+- {id: tom-w, name: Tom W., team: ravens}
+- {id: sam-p, name: Sam P., team: null, sub: true}

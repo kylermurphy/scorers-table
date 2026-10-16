@@ -1,0 +1,1 @@
+{% assign _day = stats.schedule.days | where: "n", stats.schedule.latest | first %}{% include shell/ticker.html day=_day %}

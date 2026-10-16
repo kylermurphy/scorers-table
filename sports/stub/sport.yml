@@ -1,0 +1,53 @@
+# The stub: a made-up sport, small enough to test every path of the core. Two teams, a number of
+# halves, a Final box, optional overtime, and who played with their points.
+# Real sports (basketball, curling, hockey, slo-pitch) are folders like this one; see README.md.
+name: Stub
+default_layout: classic
+games_per_day: 1
+game_minutes: 60
+words:
+  period: {one: Half, many: Halves, short: H}
+  surface: Court
+  day: Week
+  points_for: {label: PF, title: Points for}
+  points_against: {label: PA, title: Points against}
+line_score: {shape: periods, total_label: Final, corner: Team, periods: periods}
+options:
+  periods:
+    type: int
+    default: 2
+    min: 1
+    max: 9
+    label: Number of halves
+  overtime:
+    type: choice
+    values: [none, overtime]
+    default: none
+    decide: true
+    label: Overtime
+standings:
+  points: {win: 2, tie: 1, loss: 0, ot_win: 2, ot_loss: 1}
+  ties: true
+  forfeit: {value: {score: [1, 0]}, decide: true}
+  tiebreakers: {value: [head_to_head, diff, points_for], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa, diff]
+stats:
+  player:
+    - {key: pts, label: PTS, title: Points}
+  derived:
+    - {key: ppg, label: PPG, title: Points per game, places: 1}
+  team: []
+minimums:
+  ppg_min_games:
+    default: 0
+    decide: true
+    label: Minimum games for the points per game leaders
+    note: "Minimum {value} games played."
+leaderboards:
+  - {id: pts, of: player, group: player, stat: pts, label: Points, tile: true, edge: hot, detail: "{gp} GP"}
+  - {id: ppg, of: player, group: player, stat: ppg, label: Points / game, tile: true, edge: accent,
+     min: {stat: gp, setting: ppg_min_games, cap_at_team_games: true}, detail: "{pts} pts in {gp} GP"}
+labels: {results: Latest results, next: Next game day, leaders: Leaders}
+labels_by_layout: {}
+display: {card: rows, card_foot: note, surface: label}
+positions: []

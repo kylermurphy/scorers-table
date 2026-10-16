@@ -1,0 +1,232 @@
+{
+  "columns": [
+    {
+      "key": "gp",
+      "label": "GP",
+      "title": "Games played",
+      "key_col": false
+    },
+    {
+      "key": "w",
+      "label": "W",
+      "title": "Wins",
+      "key_col": false
+    },
+    {
+      "key": "l",
+      "label": "L",
+      "title": "Losses",
+      "key_col": false
+    },
+    {
+      "key": "t",
+      "label": "T",
+      "title": "Ties",
+      "key_col": false
+    },
+    {
+      "key": "pts",
+      "label": "PTS",
+      "title": "Points",
+      "key_col": true
+    },
+    {
+      "key": "pf",
+      "label": "PF",
+      "title": "Points for",
+      "key_col": false
+    },
+    {
+      "key": "pa",
+      "label": "PA",
+      "title": "Points against",
+      "key_col": false
+    },
+    {
+      "key": "diff",
+      "label": "DIFF",
+      "title": "Score difference",
+      "key_col": false
+    }
+  ],
+  "rows": [
+    {
+      "rank": 1,
+      "team": "ravens",
+      "values": {
+        "gp": 4,
+        "w": 3,
+        "l": 1,
+        "t": 0,
+        "pts": 9,
+        "pf": 94,
+        "pa": 87,
+        "diff": 7
+      },
+      "display": {
+        "gp": "4",
+        "w": "3",
+        "l": "1",
+        "t": "0",
+        "pts": "9",
+        "pf": "94",
+        "pa": "87",
+        "diff": "+7"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "3–1",
+      "race": {
+        "pct": "75.0",
+        "value": "9",
+        "unit": " points",
+        "sub": "3–1"
+      }
+    },
+    {
+      "rank": 2,
+      "team": "lynx",
+      "values": {
+        "gp": 4,
+        "w": 2,
+        "l": 0,
+        "t": 2,
+        "pts": 8,
+        "pf": 109,
+        "pa": 78,
+        "diff": 31
+      },
+      "display": {
+        "gp": "4",
+        "w": "2",
+        "l": "0",
+        "t": "2",
+        "pts": "8",
+        "pf": "109",
+        "pa": "78",
+        "diff": "+31"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "2–0–2",
+      "race": {
+        "pct": "66.7",
+        "value": "8",
+        "unit": " points",
+        "sub": "2–0–2"
+      }
+    },
+    {
+      "rank": 3,
+      "team": "otters",
+      "values": {
+        "gp": 4,
+        "w": 2,
+        "l": 1,
+        "t": 1,
+        "pts": 7,
+        "pf": 82,
+        "pa": 75,
+        "diff": 7
+      },
+      "display": {
+        "gp": "4",
+        "w": "2",
+        "l": "1",
+        "t": "1",
+        "pts": "7",
+        "pf": "82",
+        "pa": "75",
+        "diff": "+7"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "2–1–1",
+      "race": {
+        "pct": "58.3",
+        "value": "7",
+        "unit": " points",
+        "sub": "2–1–1"
+      }
+    },
+    {
+      "rank": 4,
+      "team": "moose",
+      "values": {
+        "gp": 4,
+        "w": 1,
+        "l": 3,
+        "t": 0,
+        "pts": 3,
+        "pf": 67,
+        "pa": 102,
+        "diff": -35
+      },
+      "display": {
+        "gp": "4",
+        "w": "1",
+        "l": "3",
+        "t": "0",
+        "pts": "3",
+        "pf": "67",
+        "pa": "102",
+        "diff": "−35"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "1–3",
+      "race": {
+        "pct": "25.0",
+        "value": "3",
+        "unit": " points",
+        "sub": "1–3"
+      }
+    },
+    {
+      "rank": 5,
+      "team": "badgers",
+      "values": {
+        "gp": 4,
+        "w": 0,
+        "l": 3,
+        "t": 1,
+        "pts": 1,
+        "pf": 81,
+        "pa": 91,
+        "diff": -10
+      },
+      "display": {
+        "gp": "4",
+        "w": "0",
+        "l": "3",
+        "t": "1",
+        "pts": "1",
+        "pf": "81",
+        "pa": "91",
+        "diff": "−10"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "0–3–1",
+      "race": {
+        "pct": "8.3",
+        "value": "1",
+        "unit": " points",
+        "sub": "0–3–1"
+      }
+    }
+  ],
+  "note": "3 points a win, 1 a tie and 1 for an overtime loss.",
+  "tiebreak_note": "[placeholder] The league has not decided its tiebreakers yet. Teams level on points are ranked by head-to-head record (when they have all played each other), then score difference, then points for; teams still level share a rank.",
+  "through": "2025-11-13",
+  "through_display": "Thu Nov 13",
+  "race": {
+    "basis": "points",
+    "max": 12
+  }
+}

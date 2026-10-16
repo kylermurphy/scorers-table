@@ -1,0 +1,49 @@
+{%- comment -%}
+  parts/next-game.html: the next-game panel: the day, where, the games as rows, and a foot (a bye note, a link).
+  Params: day (a schedule.json day). Reads: day {eyebrow, date_long, date_short, where, games, groups
+  [{time_label, games}], byes, foot, foot_link {label, url}}, league.labels.next, stats.teams (bye names).
+  Layout branches, as in the specimens:
+    Scoreboard  an outlined box with a black title bar ("Next up", the short date), no link; the foot is the
+                day's foot, or "Bye: <b>Herons</b>" when the foot is empty and a team has the bye
+    Curling layout   the draws are grouped by time with a time label above each group, rows without a time, and
+                the house-rings emblem; every layout makes one .st-next-game__rows block per group
+    Hockey layout    the face-off circle emblem
+  Without groups the games are one block.
+{%- endcomment -%}
+{%- assign _ng_d = include.day -%}
+{%- assign _ng_sb = false -%}{%- if league.layout == "scoreboard" -%}{%- assign _ng_sb = true -%}{%- endif -%}
+{%- assign _ng_grouped = false -%}{%- assign _ng_show = true -%}{%- if league.layout == "curling" -%}{%- assign _ng_grouped = true -%}{%- assign _ng_show = false -%}{%- endif -%}
+{%- capture _ng_o -%}
+<section class="st-next-game{% if league.layout == 'curling' %} st-next-game--house{% elsif league.layout == 'hockey' %} st-next-game--faceoff{% endif %}" aria-labelledby="next-game-label">
+{%- if league.layout == "curling" -%}
+<svg class="st-next-game__emblem st-next-game__emblem--house" width="44" height="44" viewBox="0 0 44 44" aria-hidden="true" focusable="false"><circle class="r1" cx="22" cy="22" r="21"/><circle class="r2" cx="22" cy="22" r="15"/><circle class="r3" cx="22" cy="22" r="9.5"/><circle class="r4" cx="22" cy="22" r="4"/></svg>
+{%- elsif league.layout == "hockey" -%}
+<svg class="st-next-game__emblem st-next-game__emblem--faceoff" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true" focusable="false"><circle class="ring" cx="75" cy="75" r="60"/><circle class="dot" cx="75" cy="75" r="7"/><path class="ticks" d="M40 63h16M40 87h16M94 63h16M94 87h16M60 50v8M60 92v8M90 50v8M90 92v8"/></svg>
+{%- endif -%}
+<div class="st-next-game__head"><h2 class="st-next-game__label" id="next-game-label">{% if _ng_sb %}{{ league.labels.next | escape }}{% else %}{{ _ng_d.eyebrow | escape }}{% endif %}</h2><p class="st-next-game__date">{% if _ng_sb %}{{ _ng_d.date_short | escape }}{% else %}{{ _ng_d.date_long | escape }}{% endif %}</p></div>
+<div class="st-next-game__body"><p class="st-next-game__where">{{ _ng_d.where | escape }}</p>
+{%- if _ng_d.groups.size > 0 -%}
+  {%- for _ng_gr in _ng_d.groups -%}
+    {%- if _ng_grouped and _ng_gr.time_label.size > 0 -%}<p class="st-next-game__group-label">{{ _ng_gr.time_label | escape }}</p>{%- endif -%}
+<div class="st-next-game__rows">
+    {%- for _ng_row in _ng_gr.games -%}{%- include parts/game-row.html row=_ng_row show_time=_ng_show -%}{%- endfor -%}
+</div>
+  {%- endfor -%}
+{%- else -%}
+<div class="st-next-game__rows">
+  {%- for _ng_row in _ng_d.games -%}{%- include parts/game-row.html row=_ng_row show_time=_ng_show -%}{%- endfor -%}
+</div>
+{%- endif -%}
+<div class="st-next-game__foot"><span>
+{%- assign _ng_foot_n = _ng_d.foot.size | default: 0 -%}
+{%- if _ng_sb and _ng_foot_n == 0 and _ng_d.byes.size > 0 -%}
+Bye: {% for _ng_b in _ng_d.byes %}{% unless forloop.first %}, {% endunless %}<b>{{ stats.teams[_ng_b].name | escape }}</b>{% endfor %}
+{%- else -%}
+{{ _ng_d.foot | escape }}
+{%- endif -%}
+</span>{% if _ng_d.foot_link.size > 0 and _ng_sb == false %}<a href="{{ _ng_d.foot_link.url | relative_url }}">{{ _ng_d.foot_link.label | escape }}</a>{% endif %}</div>
+</div></section>
+{%- endcapture -%}
+{%- assign _ng_lines = _ng_o | split: "
+" -%}
+{%- for _ng_line in _ng_lines -%}{{ _ng_line | strip }}{%- endfor -%}

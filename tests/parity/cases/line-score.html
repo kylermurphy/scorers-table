@@ -1,0 +1,18 @@
+<div class="ds-pad">
+{% assign _g = stats.games[fixture.game_id] %}
+{% assign _ends = false %}{% if _g.line_score.shape == "ends" %}{% assign _ends = true %}{% endif %}
+<p class="st-label">Full size (game page)</p>
+<div class="st-card" style="padding:.75rem .5rem .25rem">{% include parts/line-score.html line_score=_g.line_score game=_g size="full" region=true codes=_ends %}</div>
+<p class="st-label" style="margin-top:1.25rem">Card size (inside a result card)</p>
+{% assign _first_id = stats.results[0].games | first %}{% assign _first = stats.games[_first_id] %}
+{% assign _cls = _first.card.line_score | default: _first.line_score %}
+<div class="st-card" style="padding:.75rem .875rem">{% include parts/line-score.html line_score=_cls game=_first size="card" region=true codes=false %}</div>
+{% if league.sport == "curling" %}
+{% assign _last_id = stats.results[0].games | last %}{% assign _last = stats.games[_last_id] %}
+{% assign _cls2 = _last.card.line_score | default: _last.line_score %}
+<div class="st-card" style="padding:.75rem .875rem;margin-top:.625rem">{% include parts/line-score.html line_score=_cls2 game=_last size="card" region=true codes=false %}</div>
+{% endif %}
+{% if _g.line_score.legend.size > 0 %}
+<div style="margin-top:.75rem">{% include parts/legend.html items=_g.line_score.legend stack=_g.line_score.legend_stack full=true %}</div>
+{% endif %}
+</div>

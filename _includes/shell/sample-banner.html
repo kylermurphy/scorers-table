@@ -1,0 +1,17 @@
+{%- comment -%}
+  shell/sample-banner.html: the notice shown while the site shows the sample season, and on the /preview/ copy.
+  Params: preview (true forces the preview wording; default active.preview), live_url (where the preview's
+  "Go to the live site" link points: pass the finished URL; no link without it).
+  Reads: active.sample_mode, active.preview. Prints nothing when the site shows real data.
+  Place it first in <body>, above the header.
+{%- endcomment -%}
+{%- assign _sb_preview = include.preview | default: active.preview -%}
+{%- if active.sample_mode or _sb_preview -%}
+<div class="st-banner" role="note"><p class="st-banner__text">
+{%- if _sb_preview -%}
+<strong>Preview with sample data.</strong> Made-up teams, players and scores, for trying out changes.{% if include.live_url.size > 0 %} <a class="st-banner__link" href="{{ include.live_url | escape }}">Go to the live site</a>{% endif %}
+{%- else -%}
+<strong>Sample data.</strong> The teams, players and scores on this site are made up.
+{%- endif -%}
+</p></div>
+{%- endif -%}

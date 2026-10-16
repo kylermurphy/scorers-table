@@ -1,0 +1,6 @@
+{%- comment -%}
+  shell/footer.html: badge and name, links, the where/when line and the credit.
+  Reads: league (footer_name or name, footer_line, footer_links [{label,url}]). The credit is the only off-site link
+  besides the league's own contact link (a mailto: or https: footer link is printed as written).
+{%- endcomment -%}
+<footer class="st-footer"><div class="st-footer__scene" aria-hidden="true"></div><div class="st-footer__body"><div class="st-footer__brand">{% include shell/badge.html small=true %}<span class="st-footer__name">{{ league.footer_name | default: league.name | escape }}</span></div><nav class="st-footer__nav" aria-label="Footer">{% for _ft_l in league.footer_links %}<a href="{% if _ft_l.url contains ':' %}{{ _ft_l.url | escape }}{% else %}{{ _ft_l.url | relative_url }}{% endif %}">{{ _ft_l.label | escape }}</a>{% endfor %}</nav>{% if league.footer_line.size > 0 %}<p class="st-footer__where">{{ league.footer_line | escape }}</p>{% endif %}<p class="st-footer__credit">Made with <a href="https://github.com/kylermurphy/scorers-table">scorers-table</a></p></div></footer>

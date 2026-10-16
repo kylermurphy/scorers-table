@@ -1,0 +1,44 @@
+---
+layout: page
+nav: stats
+title: Stats
+permalink: /stats/
+description: Leaders and the stats of every player this season.
+---
+{%- comment -%}
+  Stats: every leaderboard (the leader tiles, then the lists) and the table of every player. On the Scoreboard
+  layout Home shows the standings as "the race", so the full table lives here (id "standings").
+{%- endcomment -%}
+{% include core/context.html %}
+{%- assign _boards = stats.leaders.boards | where_exp: "b", "b.rows.size > 0" -%}
+{%- capture _sub %}{{ season_label }} season{% endcapture %}
+{% include shell/page-title.html title="Stats" sub=_sub %}
+
+{%- if league.layout == "scoreboard" and stats.standings.rows.size > 0 %}
+<section class="st-section" id="standings">
+{% include shell/section-head.html title=league.labels.standings %}
+{% include parts/standings.html standings=stats.standings mode="table" %}
+  {%- if stats.standings.tiebreak_note.size > 0 %}
+<p class="st-note">{{ stats.standings.tiebreak_note | escape }}</p>
+  {%- endif %}
+</section>
+{%- endif %}
+
+<section class="st-section">
+{% include shell/section-head.html title=league.labels.leaders %}
+  {%- if _boards.size > 0 %}
+{% include parts/leader-grid.html boards=_boards %}
+{% include parts/leader-lists.html boards=_boards %}
+  {%- else %}
+{% include core/empty.html text="The leaders show up here after the first game." %}
+  {%- endif %}
+</section>
+
+<section class="st-section">
+{% include shell/section-head.html title="All players" %}
+  {%- if stats.leaders.table.rows.size > 0 %}
+{% include core/player-table.html ids=stats.leaders.table.rows caption="All players" team_col=true %}
+  {%- else %}
+{% include core/empty.html text="No players have been added yet. The stats show up here after the first game." %}
+  {%- endif %}
+</section>

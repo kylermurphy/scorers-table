@@ -1,0 +1,52 @@
+{%- comment -%}
+  parts/result-hero.html: Scoreboard Home's "game of the week" board: label and date, both teams with the score as
+  two digit tiles, the periods (tiles for quarters and periods, a compact line score for ends and innings), the
+  top performer's sentence and a button to the game page. Not a link itself.
+  Params: game. Reads: league.labels.featured, game.status, game.date_short, game.card {note_long or note, strong,
+  link_label, line_score}, game.tiles (null: made from the line score), each side's record.
+{%- endcomment -%}
+{%- assign _rh_g = include.game -%}
+{%- assign _rh_ls = _rh_g.card.line_score | default: _rh_g.line_score -%}
+{%- capture _rh_o -%}
+<div class="st-result-card st-result-card--hero">
+<p class="st-result-card__eyebrow"><span>{{ league.labels.featured | default: "Game of the week" | escape }}</span><span>{{ _rh_g.status | escape }} · {{ _rh_g.date_short | escape }}</span></p>
+<div class="st-final__head st-final__head--board">
+{%- assign _sides = "home,away" | split: "," -%}{%- for _rh_side in _sides -%}
+  {%- assign _rh_s = _rh_g[_rh_side] -%}
+<div class="st-final__team{% if _rh_s.result == 'win' or _rh_s.result == 'ot_win' %} is-winner{% endif %}">
+<span class="st-final__name">{% include parts/chip.html team=_rh_s %}<span>{{ _rh_s.name | escape }}</span></span>
+<span class="st-final__record">{{ _rh_s.record | escape }}</span></div>
+  {%- if forloop.first -%}
+<div class="st-final__score"><span class="st-visually-hidden">Final score: </span>
+    {%- assign _sides = "home,away" | split: "," -%}{%- for _rh_n in _sides -%}
+      {%- assign _rh_ns = _rh_g[_rh_n] -%}
+<span class="st-final__num{% if _rh_ns.result == 'loss' or _rh_ns.result == 'ot_loss' %} is-dim{% endif %}">{{ _rh_ns.score }}</span>
+    {%- endfor -%}
+</div>
+  {%- endif -%}
+{%- endfor -%}
+</div>
+{%- if _rh_ls.shape == "quarters" or _rh_ls.shape == "periods" -%}
+<ol class="st-result-card__periods" aria-label="Score by period">
+  {%- for _rh_c in _rh_ls.columns -%}
+    {%- assign _rh_i = forloop.index0 -%}
+<li class="st-period-tile"><span class="st-period-tile__label">{{ _rh_c.label | escape }}</span><span class="st-period-tile__pair">
+    {%- assign _sides = "home,away" | split: "," -%}{%- for _rh_n in _sides -%}
+      {%- assign _rh_ns = _rh_g[_rh_n] -%}
+<span class="{% if _rh_ns.result == 'loss' or _rh_ns.result == 'ot_loss' %}is-dim{% else %}is-lead{% endif %}">{{ _rh_ls.rows[_rh_n].cells[_rh_i].v }}</span>
+    {%- endfor -%}
+</span></li>
+  {%- endfor -%}
+</ol>
+{%- else -%}
+  {%- include parts/line-score.html line_score=_rh_ls game=_rh_g size="card" region=true codes=true -%}
+{%- endif -%}
+{%- assign _rh_note = _rh_g.card.note_long | default: _rh_g.card.note -%}
+{%- if _rh_note.size > 0 -%}
+<p class="st-result-card__top">{% include parts/bold-text.html text=_rh_note strong=_rh_g.card.strong %}</p>
+{%- endif -%}
+<a class="st-button" href="{{ _rh_g.url | relative_url }}">{{ _rh_g.card.link_label | escape }}</a></div>
+{%- endcapture -%}
+{%- assign _rh_lines = _rh_o | split: "
+" -%}
+{%- for _rh_line in _rh_lines -%}{{ _rh_line | strip }}{%- endfor -%}

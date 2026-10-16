@@ -1,0 +1,6 @@
+{%- comment -%}
+  shell/skip-link.html: "Skip to main content", off screen until it has keyboard focus.
+  Params: target (the id of <main>; default "main"). First element inside <body>. The href is an in-page anchor,
+  so it does not go through relative_url.
+{%- endcomment -%}
+<a class="st-skip-link" href="#{{ include.target | default: 'main' }}">Skip to main content</a>

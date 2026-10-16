@@ -1,0 +1,27 @@
+# Made-up sample data, written by scripts/make_sample.py. Do not edit by hand: run the script again.
+game_id: 2026-11-19-2
+status: draft
+home: moose
+away: badgers
+review:
+  - {at: sheet.final.home, note: Check this score against the photo of the sheet.}
+sheet:
+  periods: {home: [12, 16], away: [10, 18]}
+  final: {home: 28, away: 28}
+  players:
+    home:
+      - {player: kai-m, pts: 2}
+      - {player: wes-t, pts: 4}
+      - {player: cleo-a, pts: 0}
+      - {player: finn-f, pts: 5}
+      - {player: mae-f, pts: 5}
+      - {player: oz-l, pts: 3}
+      - {player: gwen-w, pts: 9}
+    away:
+      - {player: noa-f, pts: 6}
+      - {player: ben-e, pts: 1}
+      - {player: quin-m, pts: 10}
+      - {player: pax-w, pts: 1}
+      - {player: val-d, pts: 5}
+      - {player: dee-s, pts: 2}
+      - {player: cal-p, pts: 3}

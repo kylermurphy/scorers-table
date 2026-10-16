@@ -1,0 +1,9 @@
+<div class="st-main" style="padding-bottom:var(--st-space-lg)">
+<section class="st-section">
+{% include shell/section-head.html title=fixture.results_title aside=fixture.results_header_meta %}
+<div class="st-card" style="padding:var(--st-card-pad-y) var(--st-card-pad-x)"><span class="st-label">Section content</span></div></section>
+<section class="st-section">
+{% include shell/section-head.html title=league.labels.standings aside=league.labels.full_table aside_url="/stats/" %}
+<div class="st-card" style="padding:var(--st-card-pad-y) var(--st-card-pad-x)"><span class="st-label">Section content</span></div>
+<p class="st-note">{{ stats.standings.note | escape }}</p></section>
+</div>

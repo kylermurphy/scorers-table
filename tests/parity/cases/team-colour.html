@@ -1,0 +1,4 @@
+<div class="ds-pad"><ul class="ds-chips" role="list">
+{% for _c in fixture.custom_chips %}<li class="ds-chiprow">{% include parts/chip.html team=_c size="lg" %}<span>{{ _c.name | escape }} <span class="st-note">{{ _c.hex | escape }}</span></span></li>{% endfor %}
+</ul>
+<div class="st-list" style="margin-top:var(--st-space-md)">{% include parts/team-card.html team=fixture.custom_card_team rank_text="Team colour #1D3A6E, set by the league" %}</div></div>

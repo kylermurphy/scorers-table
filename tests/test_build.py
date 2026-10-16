@@ -1,0 +1,838 @@
+"""Tests for scripts/build.py and the compute and write stages behind it (docs/stage-4-spec.md section 4).
+
+Every test builds a throwaway repository (a copy of sports/ and data/ and a league.yml) into a throwaway output
+folder and reads what came out, so nothing here touches the real `_data/computed/`. The golden files
+(test_golden.py) pin the exact JSON; these tests pin the rules: the sample switch, today / `as_of` and the next
+and latest day, the archive, unique game ids, which seasons get which stub pages and that old ones are wiped, the
+atomic write, `--check`, `--json`, annotations, exit codes, and that the computed JSON has every key the
+includes read (the shape-conformance test against scripts/design_system/contract.py).
+"""
+import json
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+from scripts import build
+from scripts.core import writer
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+# ------------------------------------------------------------------ a throwaway repository
+
+def make_repo(tmp_path: Path, *, sample_data: bool = True, real_season: bool = False) -> Path:
+    """A copy of sports/, data/ and league.yml. With `real_season` the real season (2026-27) holds a copy of the
+    sample 2026-27 games, so `sample_data: false` shows something."""
+    root = tmp_path / "repo"
+    root.mkdir()
+    shutil.copytree(ROOT / "sports", root / "sports")
+    shutil.copytree(ROOT / "data", root / "data")
+    text = (ROOT / "league.yml").read_text(encoding="utf-8")
+    text = text.replace("sample_data: true", f"sample_data: {str(sample_data).lower()}")
+    (root / "league.yml").write_text(text, encoding="utf-8")
+    if real_season:
+        shutil.rmtree(root / "data" / "2026-27")
+        shutil.copytree(ROOT / "data" / "sample-2026-27", root / "data" / "2026-27")
+    return root
+
+
+def run(root: Path, out: Path, *flags: str, capsys=None, today: str | None = "2026-11-20"):
+    """Run the build in this process. Returns (exit code, stdout, stderr)."""
+    args = ["--root", str(root), "--out", str(out), *flags]
+    if today:
+        args += ["--today", today]
+    code = build.main(args)
+    captured = capsys.readouterr() if capsys else None
+    return (code, captured.out, captured.err) if captured else (code, "", "")
+
+
+def computed(out: Path, *parts: str):
+    return json.loads(Path(out, "_data", "computed", *parts).read_text(encoding="utf-8"))
+
+
+def tree(folder: Path) -> dict[str, bytes]:
+    return {p.relative_to(folder).as_posix(): p.read_bytes() for p in sorted(folder.rglob("*")) if p.is_file()}
+
+
+@pytest.fixture(autouse=True)
+def not_github(monkeypatch):
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+
+
+@pytest.fixture(scope="module")
+def sample_out(tmp_path_factory):
+    """One sample build (the committed data, sample mode), shared by the tests that only read it."""
+    out = tmp_path_factory.mktemp("sample_out")
+    assert build.main(["--out", str(out), "--today", "2026-11-20"]) == 0
+    return out
+
+
+# ------------------------------------------------------------------ the sample switch
+
+def test_sample_data_shows_the_stand_in_season_and_archives_the_other_sample(sample_out):
+    active = computed(sample_out, "active.json")
+    assert active == {"season": "sample-2026-27", "sample_mode": True, "archive": ["sample-2025-26"],
+                      "today": "2026-11-20", "preview": False}
+    assert [s["id"] for s in computed(sample_out, "seasons.json")] == ["sample-2026-27", "sample-2025-26"]
+    assert sorted(p.name for p in (sample_out / "_data" / "computed").iterdir() if p.is_dir()) == [
+        "sample-2025-26", "sample-2026-27"]            # the real season is not on the site while the sample is
+
+
+def test_real_data_shows_the_current_season_and_no_sample(tmp_path, capsys):
+    root, out = make_repo(tmp_path, sample_data=False), tmp_path / "out"
+    code, _, _ = run(root, out, capsys=capsys, today="2026-10-01")
+    assert code == 0
+    assert computed(out, "active.json") == {"season": "2026-27", "sample_mode": False, "archive": [],
+                                            "today": "2026-10-01", "preview": False}
+    assert computed(out, "archive.json") == []
+    assert list((out / "_archive").iterdir()) == []
+    assert computed(out, "2026-27", "teams.json") == {}              # a new league's empty season still builds
+    assert computed(out, "2026-27", "schedule.json")["days"] == []
+    assert computed(out, "league.json")["tagline"] == "Stub · 2026–27"
+
+
+def test_sample_flag_forces_the_sample_and_marks_a_preview(tmp_path, capsys):
+    root, out = make_repo(tmp_path, sample_data=False), tmp_path / "out"
+    code, _, _ = run(root, out, "--sample", capsys=capsys)
+    assert code == 0
+    active = computed(out, "active.json")
+    assert (active["season"], active["sample_mode"], active["preview"]) == ("sample-2026-27", True, True)
+
+
+def test_sample_flag_is_not_a_preview_when_the_site_already_shows_the_sample(tmp_path, capsys):
+    root, out = make_repo(tmp_path, sample_data=True), tmp_path / "out"
+    run(root, out, "--sample", capsys=capsys)
+    assert computed(out, "active.json")["preview"] is False
+
+
+def test_sample_data_without_a_stand_in_season_is_a_problem(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    seasons = (root / "data" / "seasons.yml").read_text(encoding="utf-8").replace("  stands_in_for: 2026-27\n", "")
+    (root / "data" / "seasons.yml").write_text(seasons, encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 1 and "no sample season standing in" in err and not out.exists()
+
+
+# ------------------------------------------------------------------ today, as_of, the next and latest day
+
+def days_by_n(schedule: dict) -> dict:
+    return {d["n"]: d for d in schedule["days"]}
+
+
+def test_a_sample_season_is_always_on_its_as_of_date(sample_out, tmp_path, capsys):
+    schedule = computed(sample_out, "sample-2026-27", "schedule.json")
+    days = days_by_n(schedule)
+    assert days[schedule["latest"]]["date"] == "2026-11-19" and days[schedule["next"]]["date"] == "2026-11-26"
+    out = tmp_path / "other_day"
+    run(make_repo(tmp_path), out, capsys=capsys, today="2030-06-01")           # --today is ignored by a sample
+    again = computed(out, "sample-2026-27", "schedule.json")
+    assert (again["latest"], again["next"]) == (schedule["latest"], schedule["next"])
+    assert computed(out, "active.json")["today"] == "2026-11-20"
+
+
+@pytest.mark.parametrize("today,next_date,latest_date", [
+    ("2026-11-20", "2026-11-26", "2026-11-19"),
+    ("2026-11-26", "2026-11-26", "2026-11-19"),         # game day itself is still the next day until its sheets are in
+    ("2026-12-05", "2026-12-10", "2026-11-19"),
+    ("2027-02-01", None, "2026-11-19"),                 # nothing left to play: no next day
+])
+def test_a_real_season_follows_today(tmp_path, capsys, today, next_date, latest_date):
+    root, out = make_repo(tmp_path, sample_data=False, real_season=True), tmp_path / "out"
+    code, _, _ = run(root, out, capsys=capsys, today=today)
+    assert code == 0
+    schedule = computed(out, "2026-27", "schedule.json")
+    days = days_by_n(schedule)
+    assert (days[schedule["next"]]["date"] if schedule["next"] else None) == next_date
+    assert days[schedule["latest"]]["date"] == latest_date
+    next_day = days.get(schedule["next"])
+    if next_day:
+        assert next_day["eyebrow"] == "Next game day" and next_day["state"] in ("upcoming", "partial")
+
+
+def test_next_day_skips_a_cancelled_day_and_a_day_whose_sheets_are_in(tmp_path, capsys):
+    root, out = make_repo(tmp_path, sample_data=False, real_season=True), tmp_path / "out"
+    path = root / "data" / "2026-27" / "schedule.csv"
+    lines = [line.replace("regular,,,,", "regular,,,cancelled,") if line.startswith("2026-11-26") else line
+             for line in path.read_text(encoding="utf-8").splitlines()]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    run(root, out, capsys=capsys, today="2026-11-20")
+    schedule = computed(out, "2026-27", "schedule.json")
+    days = days_by_n(schedule)
+    assert days[schedule["next"]]["date"] == "2026-12-03"
+    cancelled = next(d for d in schedule["days"] if d["date"] == "2026-11-26")
+    assert cancelled["state"] == "cancelled" and cancelled["byes"] == []
+    # today is the day of the (all played) 2026-11-12 games: the next day is still a later one
+    run(root, out, capsys=capsys, today="2026-11-12")
+    assert days_by_n(computed(out, "2026-27", "schedule.json"))[
+        computed(out, "2026-27", "schedule.json")["next"]]["date"] == "2026-11-19"
+
+
+def test_schedule_days_states_byes_and_playoffs_apart(sample_out):
+    schedule = computed(sample_out, "sample-2026-27", "schedule.json")
+    by_date = {(d["date"], d["type"]): d for d in schedule["days"]}
+    assert by_date[("2026-10-29", "regular")]["state"] == "played"        # one game played, the other cancelled
+    assert by_date[("2026-11-19", "regular")]["state"] == "partial"       # one sheet still to come
+    assert by_date[("2026-11-26", "regular")]["state"] == "upcoming"
+    assert by_date[("2026-11-26", "regular")]["byes"] == ["moose"]
+    cancelled = next(g for g in by_date[("2026-10-29", "regular")]["games"] if g["status"] == "cancelled")
+    assert cancelled["id"] == "2026-10-29-2" and cancelled["played"] is False
+    moved = next(g for d in schedule["days"] for g in d["games"] if g["id"] == "2026-12-17-2")
+    assert moved["moved_from_display"] == "Thu Dec 17"
+    assert [d["date"] for d in schedule["days"] if d["type"] == "playoff"] == ["2027-01-07", "2027-01-14"]
+    playoff = by_date[("2027-01-07", "playoff")]
+    assert playoff["byes"] == [] and playoff["label"] == "Semifinal"
+    assert (playoff["games"][0]["home"], playoff["games"][0]["home_name"]) == ("1st", "1st")
+    assert playoff["games"][0]["teams_known"] is False
+    assert [d["n"] for d in schedule["days"]] == list(range(1, len(schedule["days"]) + 1))
+
+
+def test_results_list_the_played_days_newest_first(sample_out):
+    results = computed(sample_out, "sample-2026-27", "results.json")
+    schedule = computed(sample_out, "sample-2026-27", "schedule.json")
+    assert results[0]["day"] == schedule["latest"] and results[0]["games"] == ["2026-11-19-1"]
+    assert [r["day"] for r in results] == sorted((r["day"] for r in results), reverse=True)
+    assert sum(len(r["games"]) for r in results) == len(computed(sample_out, "sample-2026-27", "games.json"))
+
+
+def test_times_are_pm_only_when_every_game_is(sample_out, tmp_path, capsys):
+    assert computed(sample_out, "sample-2026-27", "schedule.json")["all_times_pm"] is True
+    assert "All times PM." in days_by_n(computed(sample_out, "sample-2026-27", "schedule.json"))[7]["foot"]
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    path = root / "data" / "sample-2026-27" / "schedule.csv"
+    path.write_text(path.read_text(encoding="utf-8").replace("2026-11-26,19:00", "2026-11-26,09:30"), encoding="utf-8")
+    run(root, out, capsys=capsys)
+    schedule = computed(out, "sample-2026-27", "schedule.json")
+    assert schedule["all_times_pm"] is False and "All times PM" not in days_by_n(schedule)[7]["foot"]
+
+
+# ------------------------------------------------------------------ standings, teams, games
+
+def test_standings_columns_note_race_and_through(sample_out):
+    standings = computed(sample_out, "sample-2026-27", "standings.json")
+    assert [c["key"] for c in standings["columns"]] == ["gp", "w", "l", "t", "pts", "pf", "pa", "diff"]
+    assert [c["key"] for c in standings["columns"] if c["key_col"]] == ["pts"]
+    assert standings["note"] == "2 points a win, 1 a tie and 1 for an overtime loss."
+    assert standings["tiebreak_note"].startswith("[placeholder] The league has not decided its tiebreakers")
+    assert standings["through"] == "2026-11-19" and standings["through_display"] == "Thu Nov 19"
+    assert standings["race"] == {"basis": "points", "max": 10}                     # 5 games, 2 points each
+    top = standings["rows"][0]
+    assert top["race"] == {"pct": "80.0", "value": "8", "unit": " points", "sub": "4–1"}
+    assert top["display"]["diff"] == "+11" and standings["rows"][3]["display"]["diff"] == "−5"
+
+
+def test_the_archive_season_uses_its_own_points_rule(sample_out):
+    standings = computed(sample_out, "sample-2025-26", "standings.json")
+    assert standings["note"].startswith("3 points a win")
+    assert [(r["team"], r["values"]["pts"]) for r in standings["rows"]][:2] == [("ravens", 9), ("lynx", 8)]
+
+
+def test_teams_take_rank_record_and_points_from_the_standings(sample_out):
+    teams = computed(sample_out, "sample-2026-27", "teams.json")
+    standings = computed(sample_out, "sample-2026-27", "standings.json")
+    for row in standings["rows"]:
+        team = teams[row["team"]]
+        assert (team["rank"], team["record"], team["points"]) == (row["rank"], row["record"], str(row["values"]["pts"]))
+    assert teams["otters"]["results"] == ["2026-11-12-1", "2026-11-05-1", "2026-10-29-1", "2026-10-22-1"]
+    assert teams["otters"]["upcoming"][0] == "2026-11-26-1" and "2026-11-19-1" not in teams["otters"]["upcoming"]
+    assert teams["otters"]["calendar"] is None                    # sample teams have no calendar
+    assert teams["otters"]["players"][:2] == ["una-w", "max-t"]
+
+
+def test_tied_teams_share_a_rank(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    # A point for a win or a tie and no tiebreakers: Moose and Badgers both end on 1 and share fourth place.
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    text += "\nstandings: {points: {win: 1, tie: 1, loss: 0, ot_win: 1, ot_loss: 0}, tiebreakers: []}\n"
+    (root / "league.yml").write_text(text, encoding="utf-8")
+    code, _, _ = run(root, out, capsys=capsys)
+    assert code == 0
+    rows = computed(out, "sample-2026-27", "standings.json")["rows"]
+    assert [(r["rank"], r["team"], r["tied"]) for r in rows] == [
+        (1, "ravens", False), (2, "lynx", False), (3, "otters", False), (4, "badgers", True), (4, "moose", True)]
+    teams = computed(out, "sample-2026-27", "teams.json")
+    assert (teams["moose"]["rank"], teams["badgers"]["rank"], teams["otters"]["rank"]) == (4, 4, 3)
+    assert "Tiebreakers" not in [p["text"] for p in computed(out, "league.json")["placeholders"]]
+    assert computed(out, "sample-2026-27", "standings.json")["tiebreak_note"] == (
+        "Teams level on points share a rank.")
+
+
+def test_games_have_results_standings_points_and_playoff_games_do_not_count(sample_out):
+    games = computed(sample_out, "sample-2025-26", "games.json")
+    regular = next(g for g in games.values() if g["type"] == "regular" and not g["tie"] and not g["forfeit"])
+    assert regular["standings_points"]["home"] in (3, 0) and regular["standings_points"]["away"] in (3, 0)
+    assert {regular["home"]["result"], regular["away"]["result"]} == {"win", "loss"}
+    playoff = next(g for g in games.values() if g["type"] == "playoff")
+    assert playoff["standings_points"] is None and playoff["round"] and playoff["day_label"] == playoff["round"]
+    assert {playoff["home"]["result"], playoff["away"]["result"]} == {"win", "loss"}
+
+
+def test_game_pages_get_final_panel_card_and_box_score(sample_out):
+    game = computed(sample_out, "sample-2026-27", "games.json")["2026-11-05-1"]
+    assert (game["home"]["name"], game["away"]["name"], game["tie"]) == ("Badgers", "Otters", True)
+    assert game["final"] == {"status": "Final", "sub": "Tied 35–35"} and game["summary"] == "Tied 35–35"
+    assert game["home"]["record_line"] == "Tie · now 0–2–1" and game["away"]["record"] == "1–1–1"
+    assert game["standings_points"] == {"home": 1, "away": 1}
+    assert game["line_score"]["caption"] == "Score by half" and game["card"]["meta"] == ["Court 1", "7:00 PM"]
+    table = game["blocks"][0]
+    assert table["type"] == "stat_table" and table["number_label"] == "#" and table["rows"][0]["num"]
+    assert game["blocks"][-1]["type"] == "note"
+    forfeit = computed(sample_out, "sample-2026-27", "games.json")["2026-10-22-1"]
+    assert forfeit["forfeit"] == "otters" and forfeit["final"] == {"status": "Forfeit", "sub": "Otters forfeited"}
+    assert forfeit["line_score"] is None and forfeit["blocks"] == []
+    assert (forfeit["home"]["score"], forfeit["away"]["score"]) == (1, 0) and forfeit["card"]["note"] == "Otters forfeited"
+
+
+def test_players_and_leaders(sample_out):
+    players = computed(sample_out, "sample-2026-27", "players.json")
+    leaders = computed(sample_out, "sample-2026-27", "leaders.json")
+    top = leaders["boards"][0]
+    assert (top["id"], top["tile"], top["list"], top["first_row_in_tile"]) == ("pts", True, True, True)
+    assert [(r["player"], r["value"], r["rank"]) for r in top["rows"][:3]] == [
+        ("noa-a", 27, 1), ("amy-p", 24, 2), ("eve-l", 21, 3)]
+    assert [r["rank"] for r in top["rows"]][5:7] == [6, 6]                      # a tie shares a rank, the next skips
+    assert top["rows"][0]["detail"] == "5 GP" and top["unit"] == "PTS"
+    ppg = leaders["boards"][1]
+    assert ppg["min"] == {"value": 0, "placeholder": True, "note": "Minimum [placeholder] games played."}
+    assert (ppg["rows"][0]["player"], ppg["rows"][0]["display"], ppg["rows"][0]["detail"]) == (
+        "amy-p", "8.0", "24 pts in 3 GP")
+    noa = players["noa-a"]
+    assert noa["groups"]["player"]["totals"] == {"gp": 5, "pts": 27, "ppg": 5.4}
+    assert noa["groups"]["player"]["ranks"] == {"pts": 1, "ppg": 5}
+    assert noa["url"] == "/players/noa-a/" and [e["game"] for e in noa["log"]] == sorted(e["game"] for e in noa["log"])
+    assert leaders["table"]["group"] == "player" and leaders["table"]["rows"][0] == "noa-a"
+    assert leaders["table"]["columns"][1] == {"key": "pts", "label": "PTS", "title": "Points", "key_col": True}
+
+
+def test_a_minimum_the_league_sets_ranks_only_players_who_reach_it(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    (root / "league.yml").write_text(text + "\nstats: {minimums: {ppg_min_games: 4}}\n", encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    ppg = computed(out, "sample-2026-27", "leaders.json")["boards"][1]
+    assert ppg["min"] == {"value": 4, "placeholder": False, "note": "Minimum 4 games played."}
+    players = computed(out, "sample-2026-27", "players.json")
+    team_games = {r["team"]: r["values"]["gp"] for r in computed(out, "sample-2026-27", "standings.json")["rows"]}
+    assert ppg["rows"]
+    for r in ppg["rows"]:         # at least 4 games, but never more than the player's team has played (Badgers: 3)
+        needed = min(4, team_games[players[r["player"]]["team"]]) if players[r["player"]]["team"] else 4
+        assert players[r["player"]]["groups"]["player"]["totals"]["gp"] >= needed
+    assert "amy-p" in ppg["unranked"]                                      # 3 GP, below the minimum
+
+
+def test_past_seasons_have_no_team_or_player_links(sample_out):
+    old_teams = computed(sample_out, "sample-2025-26", "teams.json")
+    old_players = computed(sample_out, "sample-2025-26", "players.json")
+    assert all(t["url"] is None for t in old_teams.values()) and all(p["url"] is None for p in old_players.values())
+    assert all(g["url"].startswith("/games/") for g in computed(sample_out, "sample-2025-26", "games.json").values())
+
+
+def test_playoff_totals_are_kept_apart(sample_out):
+    players = computed(sample_out, "sample-2025-26", "players.json")
+    with_playoffs = [p for p in players.values() if p["playoffs"]]
+    assert with_playoffs
+    p = with_playoffs[0]
+    regular_gp = p["groups"]["player"]["totals"]["gp"] if p["groups"] else 0
+    playoff_gp = p["playoffs"]["player"]["totals"]["gp"]
+    assert len([e for e in p["log"] if e["type"] == "playoff"]) == playoff_gp
+    assert len([e for e in p["log"] if e["type"] == "regular"]) == regular_gp
+
+
+# ------------------------------------------------------------------ the archive
+
+def test_archive_lists_the_other_shown_seasons(sample_out):
+    archive = computed(sample_out, "archive.json")
+    assert len(archive) == 1
+    entry = archive[0]
+    assert (entry["season"], entry["label"], entry["url"], entry["teams"], entry["games"]) == (
+        "sample-2025-26", "2025–26", "/archive/sample-2025-26/", 5, 13)
+    assert entry["standings_top"] == ["Ravens", "Lynx", "Otters"]
+    assert entry["playoff_games"] == ["2025-12-04-1", "2025-12-04-2", "2025-12-11-1"]
+    assert entry["sample"] is True
+
+
+# ------------------------------------------------------------------ unique game ids
+
+def test_game_ids_must_be_unique_among_the_shown_seasons(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    with (root / "data" / "sample-2025-26" / "schedule.csv").open("a", encoding="utf-8") as f:
+        f.write("2026-10-15-1,2025-12-18,19:00,otters,ravens,,1,regular,,,,\n")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 1 and "2026-10-15-1" in err and "must be unique" in err
+    assert not out.exists()
+
+
+def test_game_ids_in_computed_files_are_unique(sample_out):
+    ids = [gid for sid in ("sample-2026-27", "sample-2025-26")
+           for gid in computed(sample_out, sid, "games.json")]
+    assert len(ids) == len(set(ids)) == 23
+
+
+# ------------------------------------------------------------------ stub pages
+
+def front_matter(path: Path) -> dict:
+    text = path.read_text(encoding="utf-8")
+    assert text.startswith("---\n") and text.endswith("\n---\n") and text.count("---") == 2
+    return {k: json.loads(v) for k, v in (line.split(": ", 1) for line in text.split("\n")[1:-2])}
+
+
+def test_stub_pages_per_collection(sample_out):
+    names = lambda folder: sorted(p.stem for p in (sample_out / folder).glob("*.md"))      # noqa: E731
+    games_2026 = sorted(computed(sample_out, "sample-2026-27", "games.json"))
+    games_2025 = sorted(computed(sample_out, "sample-2025-26", "games.json"))
+    assert names("_games") == sorted(games_2026 + games_2025)
+    assert names("_archive") == ["sample-2025-26"]                       # the archive's seasons only
+    assert names("_teams") == sorted(computed(sample_out, "sample-2026-27", "teams.json"))
+    assert names("_players") == sorted(computed(sample_out, "sample-2026-27", "players.json"))
+    assert front_matter(sample_out / "_games" / "2025-12-11-1.md")["season"] == "sample-2025-26"
+    assert front_matter(sample_out / "_teams" / "otters.md") == {
+        "season": "sample-2026-27", "team_id": "otters", "title": "Otters",
+        "description": "Otters: record 1–2–1, No. 3 in the standings."}
+    assert front_matter(sample_out / "_players" / "tam-k.md")["title"] == "#4 Tam K."
+    assert front_matter(sample_out / "_archive" / "sample-2025-26.md")["title"] == "2025–26 season"
+
+
+def test_stub_pages_are_wiped_and_rewritten_each_run(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    for folder in ("_games", "_players", "_teams", "_archive"):
+        (out / folder).mkdir(parents=True)
+        (out / folder / "stale.md").write_text("---\nold: 1\n---\n", encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    assert not list(out.glob("_*/stale.md"))
+    assert (out / "_games" / "2026-11-19-1.md").exists()
+    # a game that disappears from the data loses its page on the next run
+    (root / "data" / "sample-2026-27" / "games" / "2026-11-19-1.yml").unlink()
+    assert run(root, out, capsys=capsys)[0] == 0
+    assert not (out / "_games" / "2026-11-19-1.md").exists() and (out / "_games" / "2026-11-12-1.md").exists()
+    assert "2026-11-19-1" not in computed(out, "sample-2026-27", "games.json")
+
+
+def test_drafts_are_never_built(sample_out):
+    assert not (sample_out / "_games" / "2026-11-19-2.md").exists()
+    assert "2026-11-19-2" not in computed(sample_out, "sample-2026-27", "games.json")
+
+
+# ------------------------------------------------------------------ the atomic write
+
+def seed_old_output(out: Path) -> dict[str, bytes]:
+    (out / "_data" / "computed").mkdir(parents=True)
+    (out / "_data" / "computed" / "league.json").write_text('{"old": true}\n', encoding="utf-8")
+    (out / "_games").mkdir()
+    (out / "_games" / "old-game.md").write_text("---\nold: 1\n---\n", encoding="utf-8")
+    (out / "calendar").mkdir()
+    (out / "calendar" / "old.ics").write_text("old", encoding="utf-8")
+    return tree(out)
+
+
+def test_nothing_is_written_when_the_data_has_a_problem(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    before = seed_old_output(out)
+    game = root / "data" / "sample-2026-27" / "games" / "2026-11-12-1.yml"
+    game.write_text(game.read_text(encoding="utf-8").replace("final: {home:", "final: {home: 999, x:"), encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 1
+    assert "data/sample-2026-27/games/2026-11-12-1.yml" in err
+    assert tree(out) == before                                   # not one file added, changed or removed
+    assert not (out / ".build-tmp").exists()
+
+
+def test_a_problem_found_while_computing_stops_the_write_too(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    before = seed_old_output(out)
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    (root / "league.yml").write_text(text + "\nstandings: {ties: false}\n", encoding="utf-8")     # the sample has a tie
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 1 and "does not allow tied games" in err
+    assert tree(out) == before
+
+
+def test_a_crash_while_staging_leaves_the_old_files_alone(tmp_path, capsys, monkeypatch):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    before = seed_old_output(out)
+
+    def explode(value):
+        raise OSError("disk full")
+    monkeypatch.setattr(writer, "dump_json", explode)
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 2 and "disk full" in err and "Traceback" not in err
+    assert tree(out) == before
+
+
+def test_a_failed_swap_puts_the_old_folders_back(tmp_path, monkeypatch):
+    out = tmp_path / "out"
+    seed_old_output(out)
+    before = tree(out)
+    real_replace = writer.os.replace
+    calls = []
+
+    def flaky(src, dst):
+        calls.append(dst)
+        if len(calls) == 6:                                      # fail part-way through the moves
+            raise OSError("boom")
+        return real_replace(src, dst)
+    monkeypatch.setattr(writer.os, "replace", flaky)
+    from scripts.core.compute import BuildOutput
+    output = BuildOutput(data={"league.json": {"new": True}}, pages={"_games": {"new.md": {"id": "x"}}})
+    with pytest.raises(OSError):
+        writer.write_output(out, output)
+    assert tree(out) == before and not (out / ".build-tmp").exists()
+
+
+def test_the_second_run_replaces_the_first_whole(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    run(root, out, capsys=capsys)
+    first = tree(out)
+    assert run(root, out, capsys=capsys)[0] == 0
+    assert tree(out) == first                                    # same data, same date: the same bytes
+
+
+def test_json_format_is_stable(sample_out):
+    text = (sample_out / "_data" / "computed" / "active.json").read_text(encoding="utf-8")
+    assert text.endswith("}\n") and not text.endswith("\n\n") and '\n  "season": "sample-2026-27",\n' in text
+    assert "−" in (sample_out / "_data" / "computed" / "sample-2026-27" / "standings.json").read_text(encoding="utf-8")
+
+
+# ------------------------------------------------------------------ --check
+
+def test_check_writes_nothing(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    code, stdout, err = run(root, out, "--check", capsys=capsys)
+    assert code == 0 and "Nothing was written" in stdout
+    assert not out.exists()
+    assert "Still to decide" in err and "Tiebreakers (standings.tiebreakers)" in err
+
+
+def test_check_still_finds_problems(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    (root / "data" / "sample-2026-27" / "teams.yml").write_text("- {id: otters, name: Otters}\n", encoding="utf-8")
+    code, _, err = run(root, out, "--check", capsys=capsys)
+    assert code == 1 and "data/sample-2026-27/teams.yml: 0.code" in err and not out.exists()
+
+
+def test_check_passes_on_the_committed_data():
+    result = subprocess.run([sys.executable, str(ROOT / "scripts" / "build.py"), "--check"], cwd="/",
+                            capture_output=True, text=True, timeout=120)
+    assert result.returncode == 0, result.stderr
+    assert "Nothing was written" in result.stdout
+
+
+# ------------------------------------------------------------------ problems: exit codes, --json, annotations
+
+def break_a_game(root: Path) -> None:
+    """The Final box of one sample game no longer adds up."""
+    path = root / "data" / "sample-2026-27" / "games" / "2026-11-12-2.yml"
+    text = path.read_text(encoding="utf-8")
+    path.write_text(re.sub(r"(final: \{home: )\d+", r"\g<1>999", text, count=1), encoding="utf-8")
+
+
+def test_exit_codes_and_the_report(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    break_a_game(root)
+    code, stdout, err = run(root, out, capsys=capsys)
+    assert code == 1 and stdout == ""
+    assert re.search(r"^data/sample-2026-27/games/2026-11-12-2\.yml: sheet\.final\.home: the Final box says 999, "
+                     r"but the halves", err, re.M)
+    assert "Still to decide" in err
+
+
+def test_a_bad_date_is_a_usage_error(tmp_path, capsys):
+    with pytest.raises(SystemExit) as stop:
+        build.main(["--today", "next tuesday"])
+    assert stop.value.code == 2
+    assert "--today must be a date" in capsys.readouterr().err
+
+
+def test_json_lines(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    break_a_game(root)
+    code, stdout, err = run(root, out, "--json", capsys=capsys)
+    assert code == 1
+    lines = [json.loads(line) for line in stdout.splitlines()]
+    assert lines[0]["level"] == "error" and lines[0]["file"] == "data/sample-2026-27/games/2026-11-12-2.yml"
+    assert lines[0]["at"] == "sheet.final.home" and "999" in lines[0]["message"]
+    assert all(set(line) == {"level", "file", "at", "message"} for line in lines)
+    assert "Still to decide" not in stdout
+
+
+def test_json_keeps_stdout_clean_on_success(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    code, stdout, err = run(root, out, "--json", capsys=capsys)
+    assert code == 0 and stdout == "" and "Built 2 season(s)" in err
+
+
+def test_annotations(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    break_a_game(root)
+    code, stdout, _ = run(root, out, "--annotations", capsys=capsys)
+    assert code == 1
+    assert stdout.splitlines()[0].startswith(
+        "::error file=data/sample-2026-27/games/2026-11-12-2.yml,title=sheet.final.home::the Final box says 999")
+
+
+def test_annotations_are_on_by_default_under_github_actions(tmp_path, capsys, monkeypatch):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    break_a_game(root)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    _, stdout, _ = run(root, out, capsys=capsys)
+    assert "::error file=data/sample-2026-27/games/2026-11-12-2.yml" in stdout
+
+
+def test_league_problems_stop_before_the_data_is_read(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    (root / "league.yml").write_text('name: "X"\nsport: curlng\ntimezone: UTC\n', encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 1 and "league.yml: sport:" in err and not out.exists()
+
+
+def test_a_sport_function_that_raises_is_exit_2_without_a_traceback(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    rules = root / "sports" / "stub" / "rules.py"
+    rules.write_text(rules.read_text(encoding="utf-8").replace(
+        "def present(reading, ctx):\n", "def present(reading, ctx):\n    raise RuntimeError('boom')\n"), encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 2
+    assert "Internal error" in err and "present()" in err and "rules.py" in err and "boom" in err
+    assert "Traceback" not in err and not out.exists()
+    with pytest.raises(Exception, match="present"):               # --debug lets it through
+        run(root, out, "--debug", capsys=capsys)
+
+
+def test_a_sport_function_with_the_wrong_shape_is_exit_2(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    rules = root / "sports" / "stub" / "rules.py"
+    rules.write_text(rules.read_text(encoding="utf-8").replace(
+        "def derive(counts, group):\n", "def derive(counts, group):\n    return {'ppg': 'lots'}\n"), encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 2 and "derive()" in err and "wrong shape" in err
+
+
+def test_a_per_period_forfeit_needs_the_sport_to_say_how_many_periods(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    sport = root / "sports" / "stub" / "sport.yml"
+    sport.write_text(sport.read_text(encoding="utf-8").replace(", periods: periods}", "}"), encoding="utf-8")
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    (root / "league.yml").write_text(text + "\nstandings: {forfeit: {score: per_period}}\n", encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 1
+    assert "sports/stub/sport.yml: line_score.periods: " in err and "does not say how many periods" in err
+
+
+def test_a_per_period_forfeit_scores_every_period(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    (root / "league.yml").write_text(text + "\nstandings: {forfeit: {score: per_period}, period_points: 1}\n",
+                                     encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    game = computed(out, "sample-2026-27", "games.json")["2026-10-22-1"]
+    assert (game["home"]["score"], game["away"]["score"]) == (2, 0)                  # two halves, both to the winner
+    assert game["standings_points"] == {"home": 4, "away": 0}                        # 2 for the win + 1 a half
+
+
+def build_with(tmp_path, capsys, extra: str):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    (root / "league.yml").write_text((root / "league.yml").read_text(encoding="utf-8") + "\n" + extra + "\n",
+                                     encoding="utf-8")
+    code, _, err = run(root, out, capsys=capsys)
+    assert code == 0, err
+    return out
+
+
+def test_a_league_ranked_by_win_percentage(tmp_path, capsys):
+    out = build_with(tmp_path, capsys, "standings: {rank_by: win_pct, columns: [gp, w, l, t, pct, gb, diff]}")
+    standings = computed(out, "sample-2026-27", "standings.json")
+    assert [c["key"] for c in standings["columns"] if c["key_col"]] == ["pct"]
+    assert standings["race"] == {"basis": "win_pct", "max": None}
+    assert standings["note"] == "Teams are ranked by winning percentage (a tie counts as half a win)."
+    top = standings["rows"][0]
+    assert top["team"] == "ravens" and top["display"]["pct"] == ".800" and top["display"]["gb"] == "—"
+    assert top["race"] == {"pct": "80.0", "value": "4–1", "unit": "", "sub": "+11"}
+    assert standings["rows"][1]["race"]["sub"] == "+10 · 0.5 GB"
+    assert computed(out, "sample-2026-27", "teams.json")["ravens"]["points"] is None
+
+
+def test_24_hour_times_and_the_scoreboard_bye(tmp_path, capsys):
+    out = build_with(tmp_path, capsys, "time_format: 24h\nlayout: scoreboard")
+    schedule = computed(out, "sample-2026-27", "schedule.json")
+    day = days_by_n(schedule)[7]
+    assert schedule["all_times_pm"] is False and day["games"][0]["time_display"] == "19:00"
+    assert day["byes"] == ["moose"] and day["foot"] == ""             # the include draws "Bye: <b>Moose</b>" itself
+
+
+def test_the_curling_layout_groups_a_days_games_by_start_time(tmp_path, capsys, sample_out):
+    out = build_with(tmp_path, capsys, "layout: curling")
+    groups = days_by_n(computed(out, "sample-2026-27", "schedule.json"))[7]["groups"]
+    assert [g["time_label"] for g in groups] == ["7:00 PM", "8:15 PM"] and [len(g["games"]) for g in groups] == [1, 1]
+    default = days_by_n(computed(sample_out, "sample-2026-27", "schedule.json"))[7]["groups"]
+    assert len(default) == 1 and default[0]["time_label"] is None and len(default[0]["games"]) == 2
+
+
+# ------------------------------------------------------------------ league.json
+
+def test_league_json(sample_out):
+    league = computed(sample_out, "league.json")
+    assert league["name"] == "Example Valley Stub League" and league["tagline"] == "Stub · 2026–27"
+    assert league["labels"]["results"] == "Latest results" and league["labels"]["featured"] == "Game of the week"
+    assert [n["key"] for n in league["nav"]] == ["home", "schedule", "stats", "teams", "archive"]
+    assert [l["url"] for l in league["footer_links"]] == ["/teams/", "/archive/", "/rules/"]
+    assert league["words"]["period"] == {"one": "Half", "many": "Halves", "short": "H"}
+    assert league["display"] == {"card": "rows", "card_foot": "note", "surface": "label", "card_head": ""}
+    assert [p["setting"] for p in league["placeholders"]] == [
+        "rules.overtime", "standings.forfeit", "standings.tiebreakers", "stats.minimums.ppg_min_games"]
+
+
+def test_league_settings_reach_league_json(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    text += ('\ncontact: league@example.org\nfooter_line: "Thursdays"\nlayout: scoreboard\ntagline: "Thursday night"\n'
+             "rules: {overtime: none}\n")
+    (root / "league.yml").write_text(text, encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    league = computed(out, "league.json")
+    assert (league["footer_line"], league["contact_href"], league["layout"]) == ("Thursdays", "mailto:league@example.org",
+                                                                                 "scoreboard")
+    assert league["footer_links"][-1] == {"label": "Contact", "url": "mailto:league@example.org"}
+    assert league["tagline"] == "Thursday night · 2026–27" and league["labels"]["standings"] == "The race"
+    assert "rules.overtime" not in [p["setting"] for p in league["placeholders"]]
+
+
+# ------------------------------------------------------------------ photos
+
+def test_photos_are_copied_and_linked_only_when_published(tmp_path, capsys):
+    root = make_repo(tmp_path)
+    sheets = root / "data" / "sample-2026-27" / "sheets"
+    sheets.mkdir()
+    (sheets / "2026-11-12-1.jpg").write_bytes(b"jpeg bytes")
+    out = tmp_path / "out"
+    assert run(root, out, capsys=capsys)[0] == 0
+    assert computed(out, "sample-2026-27", "games.json")["2026-11-12-1"]["photo_url"] is None
+    assert not (out / "sheets").exists()
+    text = (root / "league.yml").read_text(encoding="utf-8")
+    (root / "league.yml").write_text(text + "\nphotos: true\n", encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    assert computed(out, "sample-2026-27", "games.json")["2026-11-12-1"]["photo_url"] == "/sheets/2026-11-12-1.jpg"
+    assert (out / "sheets" / "2026-11-12-1.jpg").read_bytes() == b"jpeg bytes"
+    assert computed(out, "sample-2026-27", "games.json")["2026-11-12-2"]["photo_url"] is None
+    (root / "league.yml").write_text(text, encoding="utf-8")                  # photos off again: the copies go
+    assert run(root, out, capsys=capsys)[0] == 0
+    assert not (out / "sheets").exists()
+
+
+# ------------------------------------------------------------------ the shape the includes read
+
+# Key paths the stage 3 sample leagues (via scripts/design_system/contract.py) have and the stub's output lacks,
+# each because only some sports use it. A pattern excuses that path and everything below it.
+SPORT_ONLY = {
+    "games.*.card.line_score": "a sport's own compact line score; the stub's cards fall back to the game's line score",
+    "games.*.line_score.columns[].blank": "curling's blank ends",
+    "games.*.line_score.columns[].open": "slo-pitch's open innings",
+    "games.*.line_score.legend[]": "curling and slo-pitch keys under the line score",
+    "games.*.line_score.rows.home.cells[].hammer": "curling's hammer",
+    "games.*.line_score.rows.away.cells[].hammer": "curling's hammer",
+    "games.*.line_score.rows.home.cells[].mark": "curling's stolen ends, slo-pitch's run limit",
+    "games.*.line_score.rows.away.cells[].mark": "curling's stolen ends, slo-pitch's run limit",
+    "games.*.line_score.rows.home.cells[].void": "slo-pitch and curling cells not played",
+    "games.*.line_score.rows.away.cells[].void": "slo-pitch and curling cells not played",
+    "games.*.line_score.split[]": "hockey's goalie / PIM foot",
+    "leaders.boards[].columns[]": "hockey's leaders table (a board with columns)",
+    "leaders.boards[].rows[].cells.*": "hockey's leaders table",
+    "league.labels.score_sheets": "Masters-only feature (score sheet PDFs)",
+    "schedule.days[].foot_link.label": "a link under the next-game panel (the Masters site's score sheet PDFs)",
+    "schedule.days[].foot_link.url": "a link under the next-game panel (the Masters site's score sheet PDFs)",
+}
+# Same path, different basic type: the raw number sits beside the string the includes print.
+TYPE_ALLOWED = {"leaders.boards[].rows[].value": "the raw value (a number); `display` is the string"}
+DYNAMIC_MAPS = {"display", "values", "cells", "ranks"}
+ID_KEYED_FILES = {"teams", "games", "players"}
+
+
+def basic_type(v) -> str:
+    if v is None:
+        return "null"
+    return ("bool" if isinstance(v, bool) else "num" if isinstance(v, (int, float)) else "str" if isinstance(v, str)
+            else "list" if isinstance(v, list) else "dict")
+
+
+def key_paths(value, prefix: str, out: dict, *, top: bool = False, file: str = "") -> None:
+    """{path: {basic types}}: list items are `[]`, maps keyed by data (ids, columns) are `*`."""
+    out.setdefault(prefix, set()).add(basic_type(value))
+    if isinstance(value, dict):
+        wildcard = (top and file in ID_KEYED_FILES) or (not top and prefix.rsplit(".", 1)[-1] in DYNAMIC_MAPS)
+        for key, item in value.items():
+            key_paths(item, f"{prefix}.*" if wildcard else f"{prefix}.{key}", out, file=file)
+    elif isinstance(value, list):
+        for item in value:
+            key_paths(item, f"{prefix}[]", out, file=file)
+
+
+def collect(files: dict) -> dict[str, set]:
+    out: dict[str, set] = {}
+    for name, value in files.items():
+        if name != "case":                                   # fixture values for the test pages, never read by an include
+            key_paths(value, name, out, top=True, file=name)
+    return out
+
+
+def covers(pattern: str, path: str) -> bool:
+    return path == pattern or path.startswith((pattern + ".", pattern + "["))
+
+
+def excused(path: str) -> bool:
+    return any(covers(p, path) for p in SPORT_ONLY)
+
+
+def test_computed_json_has_every_key_the_includes_read(sample_out):
+    from scripts.design_system import contract
+    wanted: dict[str, set] = {}
+    for layout, sport in contract.cases():
+        for path, kinds in collect(contract.build(sport, layout)).items():
+            wanted.setdefault(path, set()).update(kinds)
+    got: dict[str, set] = {}
+    base = sample_out / "_data" / "computed"
+    for name in ("league", "active"):
+        key_paths(json.loads((base / f"{name}.json").read_text(encoding="utf-8")), name, got, top=True, file=name)
+    for season in ("sample-2026-27", "sample-2025-26"):
+        for name in ("teams", "standings", "schedule", "results", "games", "players", "leaders"):
+            data = json.loads((base / season / f"{name}.json").read_text(encoding="utf-8"))
+            key_paths(data, name, got, top=True, file=name)
+    missing = sorted(p for p in wanted if p not in got and not excused(p))
+    assert not missing, "keys the includes read that the build does not write:\n  " + "\n  ".join(missing)
+    wrong = sorted(f"{p}: contract {sorted(wanted[p])}, build {sorted(got[p])}" for p in wanted if p in got
+                   and p not in TYPE_ALLOWED and (wanted[p] - {"null"}) and (got[p] - {"null"})
+                   and not (wanted[p] & got[p]))
+    assert not wrong, "keys with a different type:\n  " + "\n  ".join(wrong)
+
+
+def test_every_excused_key_is_really_missing(sample_out):
+    """The list of exceptions must not go stale: each entry still names something the stub does not write."""
+    from scripts.design_system import contract
+    wanted: dict[str, set] = {}
+    for layout, sport in contract.cases():
+        wanted.update(collect(contract.build(sport, layout)))
+    for pattern in SPORT_ONLY:
+        assert any(covers(pattern, p) for p in wanted), f"{pattern} is not in the contract"
+        assert pattern not in got_by_stub(sample_out), f"{pattern} is now written by the build: drop it from SPORT_ONLY"
+
+
+def got_by_stub(sample_out: Path) -> set[str]:
+    got: dict[str, set] = {}
+    base = sample_out / "_data" / "computed"
+    for name in ("league", "active"):
+        key_paths(json.loads((base / f"{name}.json").read_text(encoding="utf-8")), name, got, top=True, file=name)
+    for season in ("sample-2026-27", "sample-2025-26"):
+        for name in ("teams", "standings", "schedule", "results", "games", "players", "leaders"):
+            data = json.loads((base / season / f"{name}.json").read_text(encoding="utf-8"))
+            key_paths(data, name, got, top=True, file=name)
+    return set(got)
+
+
+def test_a_spare_with_no_team_has_one_full_stop_in_the_page_description(sample_out):
+    """'Season totals and game log for Pax F.' and not '...Pax F..' (the name already ends in a full stop)."""
+    players = computed(sample_out, "sample-2026-27", "players.json")
+    spares = [p for p in players.values() if p["team"] is None]
+    assert spares, "the sample season should have a spare with no team"
+    for p in spares:
+        text = (sample_out / "_players" / f"{p['id']}.md").read_text(encoding="utf-8")
+        assert f'for {p["name"]}"' in text and '.."' not in text

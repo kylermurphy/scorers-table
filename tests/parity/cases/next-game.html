@@ -1,0 +1,2 @@
+{% assign _day = stats.schedule.days | where: "n", stats.schedule.next | first %}
+<div class="ds-pad">{% include parts/next-game.html day=_day %}</div>

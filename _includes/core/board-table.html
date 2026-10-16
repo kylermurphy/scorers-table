@@ -1,0 +1,15 @@
+{%- comment -%}
+  core/board-table.html: one leaderboard as a plain read-only table (rank, player, team, value). The archive pages
+  use it: a past season has no player or team pages, so nothing here is a link.
+  Params: board (a leaders.json board), limit (rows to show; default all).
+{%- endcomment -%}
+{%- assign _bt_limit = include.limit | default: 1000 -%}
+<div class="st-table-wrap" role="region" aria-label="{{ include.board.title | escape }}, scrolls sideways" tabindex="0">
+<table class="st-table"><caption class="st-visually-hidden">{{ include.board.title | escape }}</caption>
+<thead><tr><th scope="col">Player</th><th scope="col" class="is-left">Team</th><th scope="col" class="is-key"><abbr title="{{ include.board.label | escape }}">{{ include.board.unit | default: include.board.label | escape }}</abbr></th></tr></thead>
+<tbody>
+{%- for _bt_r in include.board.rows limit: _bt_limit -%}
+<tr><td><span class="st-rank">{{ _bt_r.rank }}</span> {{ _bt_r.label | escape }}</td><td class="is-left">{% if _bt_r.team.size > 0 %}{{ stats.teams[_bt_r.team].name | escape }}{% endif %}</td><td class="is-key">{{ _bt_r.display | escape }}</td></tr>
+{%- endfor -%}
+</tbody></table></div>
+{%- if include.board.min.note.size > 0 -%}<p class="st-note">{{ include.board.min.note | escape }}</p>{%- endif -%}

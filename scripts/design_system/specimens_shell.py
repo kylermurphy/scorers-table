@@ -173,6 +173,29 @@ def render_section(ctx: Ctx) -> str:
     )
 
 
+# Stage 4 (docs/stage-4-spec.md 5.6): two small parts the pages need and stage 3 did not draw.
+# Their wording lives here and in _includes/shell/sample-banner.html and skip-link.html; the parity
+# test (tests/test_parity.py) keeps the two in step.
+
+def render_banner(ctx: Ctx) -> str:
+    # The notice on a site that shows the sample season, then the one on the /preview/ copy.
+    return (
+        '<div class="st-banner" role="note"><p class="st-banner__text"><strong>Sample data.</strong> '
+        'The teams, players and scores on this site are made up.</p></div>'
+        '<div class="st-banner" role="note"><p class="st-banner__text"><strong>Preview with sample data.</strong> '
+        'Made-up teams, players and scores, for trying out changes. '
+        '<a class="st-banner__link" href="#">Go to the live site</a></p></div>'
+    )
+
+
+def render_skip_link(ctx: Ctx) -> str:
+    # The link is off screen until it has focus. The wrapper sets --sk-shift to 0 so the specimen shows it.
+    return (
+        '<div style="position:relative;min-height:3.75rem;--sk-shift:0px">'
+        '<a class="st-skip-link" href="#main">Skip to main content</a></div>'
+    )
+
+
 PARTS = [
     Part(
         id="header", title="Header", group="Shell", render=render_header,
@@ -202,5 +225,14 @@ PARTS = [
     Part(
         id="section-heading", title="Section heading", group="Shell", render=render_section,
         note="Title with a date aside, title with a link aside plus a note. Hockey draws three rink lines before the title.",
+    ),
+    Part(
+        id="banner", title="Sample banner", group="Shell", render=render_banner,
+        note="New in stage 4. The notice shown on every page while the site shows the sample season, and "
+             "(second strip) on the /preview/ copy, which links back to the live site.",
+    ),
+    Part(
+        id="skip-link", title="Skip link", group="Shell", render=render_skip_link,
+        note="New in stage 4. Off screen until a keyboard user tabs to it; shown here as it looks with focus.",
     ),
 ]

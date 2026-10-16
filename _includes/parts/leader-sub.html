@@ -1,0 +1,25 @@
+{%- comment -%}
+  parts/leader-sub.html: the small line under a leader's name: the team (for a player), then the detail, then
+  (values=true, a board with columns) the other columns as "11 G, 7 A". Prints inline, escaped.
+  Params: row, board, values.
+{%- endcomment -%}
+{%- assign _lu_out = "" -%}
+{%- if include.row.player.size > 0 -%}{%- assign _lu_out = stats.teams[include.row.team].name -%}{%- endif -%}
+{%- if include.row.detail.size > 0 -%}
+  {%- if _lu_out.size > 0 -%}{%- assign _lu_out = _lu_out | append: " · " -%}{%- endif -%}
+  {%- assign _lu_out = _lu_out | append: include.row.detail -%}
+{%- endif -%}
+{%- if include.values and include.board.columns.size > 0 and include.row.cells.size > 0 -%}
+  {%- assign _lu_extra = "" -%}
+  {%- for _lu_c in include.board.columns -%}
+    {%- unless _lu_c.key_col -%}
+      {%- if _lu_extra.size > 0 -%}{%- assign _lu_extra = _lu_extra | append: ", " -%}{%- endif -%}
+      {%- assign _lu_extra = _lu_extra | append: include.row.cells[_lu_c.key] | append: " " | append: _lu_c.label -%}
+    {%- endunless -%}
+  {%- endfor -%}
+  {%- if _lu_extra.size > 0 -%}
+    {%- if _lu_out.size > 0 -%}{%- assign _lu_out = _lu_out | append: " · " -%}{%- endif -%}
+    {%- assign _lu_out = _lu_out | append: _lu_extra -%}
+  {%- endif -%}
+{%- endif -%}
+{{- _lu_out | escape -}}

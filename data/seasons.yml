@@ -1,0 +1,21 @@
+# The seasons the site knows. Exactly one is `current`; it may be empty.
+# The sample seasons are made-up data written by scripts/make_sample.py: delete them (and their folders)
+# once the real season has games, and set `sample_data: false` in league.yml.
+- id: 2026-27
+  label: "2026–27"
+  current: true
+  venue: "[Gym name]"
+  venue_address: ""
+- id: sample-2026-27
+  label: "2026–27"
+  sample: true
+  stands_in_for: 2026-27
+  as_of: 2026-11-20            # "today" for this sample season, so it always looks mid-season
+  venue: "[Venue]"
+- id: sample-2025-26
+  label: "2025–26"
+  sample: true                 # no stands_in_for: a past season, archived in sample mode only
+  venue: "[Venue]"
+  overrides:                   # this season's own points rule, so the archive shows the older rule
+    standings:
+      points: {win: 3, tie: 1, loss: 0, ot_win: 3, ot_loss: 1}
