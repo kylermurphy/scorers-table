@@ -657,25 +657,44 @@ needs_sport = pytest.mark.skipif(not (BASKETBALL / "rules.py").is_file() or not 
                                  reason="the basketball sport folder is not here yet")
 
 
-@needs_sport
-def test_the_converted_files_pass_the_basketball_check(tmp_path, masters):
-    """The point of the converter: the core and the basketball rules accept what it writes, with the preset in
-    league.yml. Games with problems on purpose (the flagrant file names a team that is not in the game) are
-    removed first, so a clean report means the mapping is right."""
-    (masters / "2026-27" / "games" / "2026-10-24-g1.yml").unlink()
-    (masters / "2026-27" / "drafts" / "2026-11-07-g1.yml").unlink()
-    data = tmp_path / "converted"
-    convert_masters.convert(masters, data)
+def _check_build(tmp_path, data):
+    """build.py --check on a converted data folder with the Masters preset; returns (exit code, problems, output)."""
     root = tmp_path / "site"
-    root.mkdir()
-    (root / "sports").symlink_to(ROOT / "sports")
+    root.mkdir(exist_ok=True)
+    if not (root / "sports").exists():
+        (root / "sports").symlink_to(ROOT / "sports")
     (root / "league.yml").write_text(
         "name: Converter Test League\nsport: basketball\ntimezone: America/Toronto\nsample_data: false\n"
         + convert_masters.MASTERS_PRESET, encoding="utf-8")
-    # the schedule rows without a game file are fine; the games with files must read cleanly
     done = subprocess.run([sys.executable, "-B", str(ROOT / "scripts" / "build.py"), "--root", str(root),
                            "--data", str(data), "--check", "--today", "2026-12-01", "--json"],
                           capture_output=True, text=True, cwd=tmp_path)
     problems = [json.loads(line) for line in done.stdout.splitlines() if line.startswith("{")]
-    errors = [p for p in problems if p.get("level") == "error"]
-    assert done.returncode == 0 and errors == [], (done.stdout, done.stderr)
+    return done.returncode, problems, done.stdout + done.stderr
+
+
+@needs_sport
+def test_the_converted_files_pass_the_basketball_check(tmp_path, masters):
+    """The point of the converter: the core and the basketball rules accept what it writes, with the preset in
+    league.yml. The flagrant file names a team that is not in the game on purpose, and the forfeit draft is not
+    read by the build; the other games must read cleanly."""
+    (masters / "2026-27" / "games" / "2026-10-24-g1.yml").unlink()
+    data = tmp_path / "converted"
+    convert_masters.convert(masters, data)
+    code, problems, output = _check_build(tmp_path, data)
+    assert code == 0 and [p for p in problems if p.get("level") == "error"] == [], output
+
+
+@needs_sport
+def test_the_check_does_read_the_converted_files(tmp_path, masters):
+    """A control for the test above: a wrong Final box in the Masters file is reported, at the mapped box."""
+    (masters / "2026-27" / "games" / "2026-10-24-g1.yml").unlink()
+    wrong = CLEAN.replace("aa: {q1: 5, q2: 12, q3: 17, q4: 22, ot: null, final: 22}",
+                          "aa: {q1: 5, q2: 12, q3: 17, q4: 22, ot: null, final: 23}")
+    (masters / "2026-27" / "games" / "2026-10-17-g1.yml").write_text(wrong, encoding="utf-8")
+    data = tmp_path / "converted"
+    convert_masters.convert(masters, data)
+    code, problems, output = _check_build(tmp_path, data)
+    assert code == 1, output
+    assert any(p.get("level") == "error" and p.get("at") == "sheet.boxes.home.final"
+               and p.get("file", "").endswith("games/2026-10-17-g1.yml") for p in problems), problems
