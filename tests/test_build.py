@@ -826,3 +826,13 @@ def got_by_stub(sample_out: Path) -> set[str]:
             data = json.loads((base / season / f"{name}.json").read_text(encoding="utf-8"))
             key_paths(data, name, got, top=True, file=name)
     return set(got)
+
+
+def test_a_spare_with_no_team_has_one_full_stop_in_the_page_description(sample_out):
+    """'Season totals and game log for Pax F.' and not '...Pax F..' (the name already ends in a full stop)."""
+    players = computed(sample_out, "sample-2026-27", "players.json")
+    spares = [p for p in players.values() if p["team"] is None]
+    assert spares, "the sample season should have a spare with no team"
+    for p in spares:
+        text = (sample_out / "_players" / f"{p['id']}.md").read_text(encoding="utf-8")
+        assert f'for {p["name"]}"' in text and '.."' not in text

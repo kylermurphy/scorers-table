@@ -26,6 +26,17 @@ bundle exec jekyll serve              # http://localhost:4000/
 `league.yml` is the one file a setup person edits. Until a league has its own games, the site shows a
 made-up sample season with a banner (`sample_data: true`).
 
+**Publish it** (the full setup guide comes in stage 8). The site is built and published by the GitHub Actions
+workflow in `.github/workflows/build.yml`; nothing in `_config.yml` needs editing.
+
+1. In the repository's **Settings > Pages**, set **Source** to **GitHub Actions**. Do this before the first push
+   to `main`: until then the workflow's "Set up Pages" step fails.
+2. Push to `main` (or use **Actions > Build and deploy > Run workflow**). The site appears at
+   `https://<owner>.github.io/<repository>/`, or at the custom domain set on the same Settings page.
+3. Every pull request runs the same checks without publishing, and a nightly run keeps "next game day" and the
+   calendar files current. GitHub pauses scheduled runs in a repository with no activity for 60 days; the
+   Actions tab has a button to turn them back on.
+
 **See the design system.** Clone the repository and open `docs/design-system/index.html` in a browser (GitHub
 shows HTML as source, not as a page). For one self-contained file, run
 `python scripts/build_design_system.py --inline --out design-system-inline.html`.

@@ -945,3 +945,41 @@ def test_dotfiles_in_games_are_ignored_without_a_warning(sports_root, tmp_path):
     d.put("s1/games/.DS_Store", "x")
     result = load(d, sports_root)
     assert errs(result) == {} and warns(result) == {}
+
+
+# ------------------------------------------------------------------ cascades (one mistake, one message)
+
+def test_an_unreadable_teams_file_is_reported_alone(sports_root, tmp_path):
+    """A missing comma in teams.yml must not turn into an error on every player, schedule row and game file."""
+    d = Data(tmp_path, teams="- {id: otters name: Otters, code: OTT}\n")
+    d.game("2026-11-05-1")
+    (file, at), msg = only_error(load(d, sports_root))
+    assert (file, at) == (f"{S1}/teams.yml", "") and "not valid YAML" in msg
+
+
+def test_an_unreadable_players_file_or_schedule_header_hides_the_game_file_cascade(sports_root, tmp_path):
+    d = Data(tmp_path, players="- {id: ann-b name: Ann B.}\n")
+    d.game("2026-11-05-1")
+    (file, at), _ = only_error(load(d, sports_root))
+    assert (file, at) == (f"{S1}/players.yml", "")
+    d = Data(tmp_path / "two", schedule="game_id,date,tme,home,away\n2026-11-05-1,2026-11-05,19:00,otters,ravens\n")
+    d.game("2026-11-05-1")
+    assert {(f, at) for f, at in errs(load(d, sports_root))} <= {(f"{S1}/schedule.csv", "header.tme"),
+                                                                  (f"{S1}/schedule.csv", "header.time")}
+
+
+def test_a_game_file_whose_schedule_row_has_a_problem_points_at_the_row(sports_root, tmp_path):
+    d = Data(tmp_path, schedule=HEAD + "2026-11-05-1,2026-11-05,19:00,otter,ravens\n")
+    d.game("2026-11-05-1")
+    found = errs(load(d, sports_root))
+    assert set(found) == {(f"{S1}/schedule.csv", "0.home"), (GF, "game_id")}
+    assert "Did you mean 'otters'" in found[(f"{S1}/schedule.csv", "0.home")]
+    assert "not a game in schedule.csv" not in found[(GF, "game_id")]
+    assert "a row of schedule.csv that has a problem" in found[(GF, "game_id")]
+
+
+def test_league_is_not_a_team_id(sports_root, tmp_path):
+    """calendar/league.ics is the whole league's calendar; a team called 'league' would overwrite it."""
+    d = Data(tmp_path, teams=TEAMS + "- {id: league, name: League Stars, code: LGS}\n", players="", schedule=HEAD)
+    (file, at), msg = only_error(load(d, sports_root))
+    assert (file, at) == (f"{S1}/teams.yml", "3.id") and "league.ics" in msg

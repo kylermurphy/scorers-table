@@ -36,6 +36,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # "Set up Pages" reads the repository's Pages settings, which needs pages: read (contents: read alone gets
+    # "Resource not accessible by integration" on a private repository). Nothing in this job writes.
+    permissions:
+      contents: read
+      pages: read
     env:
       JEKYLL_ENV: production
       # "true" only on main: the run that publishes. Pull requests and other branches never do.

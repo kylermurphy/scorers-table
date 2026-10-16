@@ -43,7 +43,7 @@ line score, standings table, leader row, game row, team card, next game panel).
 A `docs/design.md` and the CSS variables.
 - **Model:** Sonnet, with an Opus look at the result.
 
-**Delivered** (in review as a pull request):
+**Delivered** (merged):
 - `assets/css/`: `fonts.css` (self-hosted fonts in `assets/fonts/`), `tokens.css`, `layouts/<id>.css` for
   the six layouts (every colour role in light and dark, plus a custom-colour mode for a league's own
   colour), `base.css`, `parts-shell.css`, `parts-scores.css`, `parts-data.css`, `fallbacks.css`.

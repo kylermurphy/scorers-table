@@ -5,8 +5,8 @@
   loaded from another site: the fonts are in assets/fonts/ (assets/css/fonts.css).
   The inline script runs before the first paint: it marks the page as "js" and applies a saved theme
   (localStorage key st-theme). Without JavaScript the CSS follows prefers-color-scheme, so nothing is lost.
-  The <style> keeps the theme button hidden until site.js shows it (the button's own rule would otherwise
-  override the hidden attribute).
+  The theme button stays hidden until site.js shows it (a rule in parts-shell.css keeps its `hidden` attribute
+  from being overridden by the button's own display).
 {%- endcomment -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

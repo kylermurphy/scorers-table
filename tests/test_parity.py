@@ -43,8 +43,8 @@ pytestmark = pytest.mark.jekyll
 def rendered(tmp_path_factory):
     command = site.jekyll_command()
     if command is None:
-        pytest.skip("parity needs Ruby, Bundler and the gems: run `bundle install` (the Gemfile is in the repo "
-                    "root); CI always runs this test")
+        site.skip_unless_ci("parity needs Ruby, Bundler and the gems: run `bundle install` (the Gemfile is in the "
+                            "repo root); CI always runs this test")
     return site.build_site(tmp_path_factory.mktemp("parity"), command)
 
 

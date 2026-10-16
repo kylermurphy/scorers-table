@@ -302,7 +302,4 @@ def test_make_sample_writes_the_same_bytes_every_time_and_the_loader_finds_nothi
 def test_the_loader_finds_no_problem_in_the_written_sample_season():
     """The final check of package 2: the real data folder (the empty current season, the sample stand-in and
     the past sample season) loads with ZERO problems, warnings included."""
-    problems = make_sample.run_loader(ROOT)
-    if problems is None:
-        pytest.skip("scripts/core/loader.py does not exist yet")
-    assert problems == []
+    assert make_sample.run_loader(ROOT) == []

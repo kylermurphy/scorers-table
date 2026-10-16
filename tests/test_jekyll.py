@@ -31,7 +31,7 @@ from pathlib import Path
 import pytest
 
 from scripts import build
-from tests.parity.site import jekyll_command
+from tests.parity.site import jekyll_command, skip_unless_ci
 
 pytestmark = pytest.mark.jekyll
 
@@ -52,8 +52,8 @@ def not_github(monkeypatch):
 def jekyll():
     command = jekyll_command()
     if command is None:
-        pytest.skip("this test needs Ruby, Bundler and the gems: run `bundle install` (the Gemfile is in the "
-                    "repository root); CI always runs it")
+        skip_unless_ci("this test needs Ruby, Bundler and the gems: run `bundle install` (the Gemfile is in the "
+                       "repository root); CI always runs it")
     return command
 
 
@@ -433,7 +433,7 @@ def _check_links(folder: Path, *, swap: str = "") -> subprocess.CompletedProcess
 
 def test_no_broken_internal_link_image_or_script(site, tmp_path_factory, jekyll):
     if not _proofer(jekyll):
-        pytest.skip("html-proofer is not installed (bundle install --with test)")
+        skip_unless_ci("html-proofer is not installed (bundle install --with test)")
     result = _check_links(site.out)
     assert result.returncode == 0, result.stdout + result.stderr
     live = make_site(tmp_path_factory.mktemp("proof"), jekyll, real=True, baseurl="/club")

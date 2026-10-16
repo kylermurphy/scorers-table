@@ -44,8 +44,10 @@
   margin-right: var(--st-space-sm);
   vertical-align: 0.05em;
 }
+/* A long team name wraps in its own cell (the rank and chip stay with its first word): the first column stays
+   put while the table scrolls, so a name wider than the screen would otherwise cover every number. */
 .st-table__team {
-  white-space: nowrap;
+  white-space: normal;
 }
 
 /* Scoreboard: the full table is the heavy one; ranks in the display face */

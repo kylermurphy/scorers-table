@@ -56,9 +56,22 @@ def _natural(at: str) -> tuple:
     return tuple((0, int(part), "") if part.isdigit() else (1, 0, part) for part in at.split("."))
 
 
+# Inside one folder, the files a later file depends on come first: a broken teams.yml explains the problems in
+# players.yml and schedule.csv, and those explain the game files (which sit one folder deeper, so after them).
+_FILE_ORDER = {"league.yml": 0, "seasons.yml": 1, "teams.yml": 2, "players.yml": 3, "schedule.csv": 4}
+
+
+def _file_key(file: str) -> tuple:
+    folder, _, name = file.rpartition("/")
+    return (folder, _FILE_ORDER.get(name, len(_FILE_ORDER)), name)
+
+
 def sort_problems(problems: Iterable[Problem]) -> list[Problem]:
-    """Errors first, then warnings; inside each, grouped by file, then by path (numbers in order)."""
-    return sorted(problems, key=lambda p: (p.level != "error", p.file, _natural(p.at), p.message))
+    """Errors first, then warnings; inside each, grouped by file, then by path (numbers in order). Files are in
+    the order a person should fix them: by folder (league.yml, then data/seasons.yml, then each season's
+    teams.yml, players.yml, schedule.csv, then its game files), so the cause of a problem is listed before
+    the problems it causes."""
+    return sorted(problems, key=lambda p: (p.level != "error", _file_key(p.file), _natural(p.at), p.message))
 
 
 # ------------------------------------------------------------------ printing
@@ -373,7 +386,21 @@ def read_yaml(path: Path, file: str) -> tuple[Any, list[Problem]]:
         reason = getattr(exc, "problem", None) or "invalid YAML"
         if isinstance(exc, _DuplicateKey):
             return None, [Problem("error", "", f"Line {mark.line + 1}: {reason}. Keep one of them.", file)]
-        return None, [Problem("error", "", f"This file is not valid YAML{where}: {reason}. Check the indentation and colons.", file)]
+        return None, [Problem("error", "", f"This file is not valid YAML{where}: {reason}. {_yaml_hint(reason)}", file)]
+
+
+# What usually causes PyYAML's messages, in words a volunteer can act on.
+_YAML_HINTS = (
+    ("expected ',' or '}'", "A comma is probably missing between two 'key: value' pairs inside { }, or a value "
+                            "with a comma or colon in it needs quotes."),
+    ("expected ',' or ']'", "A comma is probably missing between two items inside [ ]."),
+    ("mapping values are not allowed", "A line is probably indented too far, or a value with ': ' in it needs quotes."),
+    ("found character '\\t'", "The line starts with a tab: indent with spaces only."),
+)
+
+
+def _yaml_hint(reason: str) -> str:
+    return next((hint for key, hint in _YAML_HINTS if key in reason), "Check the indentation and colons.")
 
 
 # ------------------------------------------------------------------ the shared checking toolkit
@@ -450,8 +477,10 @@ class Checker:
             value = str(value)
         if isinstance(value, str) and ID_RE.fullmatch(value):
             return value
+        fixed = re.sub(r"[\s_]+", "-", value.strip().lower()) if isinstance(value, str) else ""
         self.error(at, f"must be an id: lower-case letters and digits, words joined by single hyphens (like "
-                       f"'otters' or 'ann-b'), not {_describe(value)}.")
+                       f"'otters' or 'ann-b'), not {_describe(value)}."
+                   + (f" Did you mean {fixed!r}?" if ID_RE.fullmatch(fixed) else ""))
         return None
 
     def integer(self, value: Any, at: str, lo: int | None = None, hi: int | None = None) -> int | None:

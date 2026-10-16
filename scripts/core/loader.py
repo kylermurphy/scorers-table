@@ -14,7 +14,10 @@ of the build computes from (docs/stage-4-spec.md, sections 2.2 to 2.4 and 4, sta
 
 A season's teams, players, schedule rows and games are kept in the result even when other things are wrong,
 except that a game file with any error is left out of `LoadedSeason.games` (so whoever computes from `games`
-can trust each one). With errors in `LoadedData.problems`, the build stops before it computes anything.
+can trust each one), and that a file which cannot be read at all (teams.yml or players.yml that is not a YAML
+list, a schedule.csv with a bad header) stops that season's later files from being checked: they would only
+repeat the same mistake on every row. A game file whose schedule row was rejected says so instead of "not in
+schedule.csv". With errors in `LoadedData.problems`, the build stops before it computes anything.
 """
 from __future__ import annotations
 
@@ -49,6 +52,7 @@ HEX_RE = re.compile(r"#[0-9a-fA-F]{6}")
 CODE_RE = re.compile(r"[A-Z0-9]{2,4}")
 NUMBER_RE = re.compile(r"0|00|[1-9][0-9]?")
 SLOTS = 6
+RESERVED_TEAM_IDS = ("league",)          # calendar/league.ics is the whole league's calendar
 
 
 # ------------------------------------------------------------------ what comes back
@@ -298,16 +302,31 @@ def load_season(data_dir: Path, root: Path, season: SeasonDef, league: League, s
     shown = display_path(folder, root)
     settings = season.settings or effective_settings(league)[0]
     teams, problems = load_teams(folder / "teams.yml", f"{shown}/teams.yml")
-    players, found = load_players(folder / "players.yml", f"{shown}/players.yml", teams, sport_def)
-    problems += found
-    rows, found = load_schedule(folder / "schedule.csv", f"{shown}/schedule.csv", teams, sport_def)
-    problems += found
-    ctx = _GameContext(folder, shown, season, settings, sport_def, teams, players, {r.game_id: r for r in rows})
-    games, found = load_games(ctx)
-    problems += found
+    players: dict[str, Player] = {}
+    rows: list[ScheduleRow] = []
+    games: dict[str, LoadedGame] = {}
+    # A file that cannot be read at all (not YAML, not a list, a broken CSV header) is reported alone: the files
+    # that depend on it are checked once it is fixed, instead of each of their rows failing for the same reason.
+    if not _unreadable(problems):
+        players, found = load_players(folder / "players.yml", f"{shown}/players.yml", teams, sport_def)
+        problems += found
+        rejected: set[str] = set()
+        rows, found = load_schedule(folder / "schedule.csv", f"{shown}/schedule.csv", teams, sport_def, rejected)
+        problems += found
+        if not _unreadable(problems):
+            ctx = _GameContext(folder, shown, season, settings, sport_def, teams, players,
+                               {r.game_id: r for r in rows}, frozenset(rejected))
+            games, found = load_games(ctx)
+            problems += found
     content = LoadedSeason(season, settings, season.as_of if season.sample and season.as_of else today, teams, players,
                            rows, games, work_out_byes(rows, teams), shown)
     return content, problems
+
+
+def _unreadable(problems: list[Problem]) -> bool:
+    """True when one of these problems says a whole file could not be read (an error at the file's top, or
+    at schedule.csv's header), so the files that depend on it would only repeat it."""
+    return any(p.level == "error" and (p.at == "" or p.at.startswith("header.")) for p in problems)
 
 
 def _read_list(path: Path, file: str) -> tuple[list, list[Problem]]:
@@ -338,6 +357,10 @@ def load_teams(path: Path, file: str) -> tuple[dict[str, Team], list[Problem]]:
         tid = c.ident(item["id"], join_path(i, "id")) if "id" in item else None
         if tid in teams:
             c.error(join_path(i, "id"), f"{tid!r} is already a team id (row {row_of[tid]}). Ids must be unique.")
+            tid = None
+        elif tid in RESERVED_TEAM_IDS:
+            c.error(join_path(i, "id"), f"{tid!r} cannot be a team id: the whole league's calendar file is "
+                                        f"calendar/{tid}.ics. Pick another id, like '{tid}-team'.")
             tid = None
         name = c.text(item["name"], join_path(i, "name")) if "name" in item else None
         _unique(c, names, (name or "").strip().casefold(), i, "name", name)
@@ -453,8 +476,10 @@ def _player_rules(c: Checker, players: dict[str, Player], row_of: dict[str, int]
 
 # ------------------------------------------------------------------ schedule.csv
 
-def load_schedule(path: Path, file: str, teams: dict[str, Team],
-                  sport_def: SportDef) -> tuple[list[ScheduleRow], list[Problem]]:
+def load_schedule(path: Path, file: str, teams: dict[str, Team], sport_def: SportDef,
+                  rejected: set[str] | None = None) -> tuple[list[ScheduleRow], list[Problem]]:
+    """The rows of schedule.csv. A row with a problem is left out; its game_id (when it has one) is added to
+    `rejected`, so a game file for it can say where the real problem is."""
     c = Checker(file)
     if not path.is_file():
         return [], []
@@ -479,6 +504,8 @@ def load_schedule(path: Path, file: str, teams: dict[str, Team],
             continue                                    # a blank line in the middle of the sheet
         row = _schedule_row(c, i, reader.line_num, columns, cells, teams)
         if row is None:
+            if rejected is not None:
+                rejected.add(cells[columns.index("game_id")].strip() if len(cells) > columns.index("game_id") else "")
             continue
         if row.game_id in first_row:
             c.error(join_path(i, "game_id"), f"{row.game_id!r} is already used on row {first_row[row.game_id]}"
@@ -636,6 +663,7 @@ class _GameContext:
     teams: dict[str, Team]
     players: dict[str, Player]
     rows: dict[str, ScheduleRow]
+    rejected: frozenset[str] = frozenset()   # game ids of schedule rows left out because they have a problem
 
 
 def load_games(ctx: _GameContext) -> tuple[dict[str, LoadedGame], list[Problem]]:
@@ -696,7 +724,10 @@ def _envelope_row(c: Checker, raw: dict, stem: str, ctx: _GameContext) -> Schedu
     if gid is not None and gid != stem:
         c.error("game_id", f"{gid!r} does not match the file name {stem}.yml. Name the file after the game_id.")
     row = ctx.rows.get(stem)             # the file name is the game's identity; game_id must agree with it
-    if row is None and gid is not None:
+    if row is None and stem in ctx.rejected:
+        c.error("game_id", f"{stem!r} is on a row of schedule.csv that has a problem (see schedule.csv). Fix that "
+                           "row; this file is checked again once it is.")
+    elif row is None and gid is not None:
         hint = suggest(stem, ctx.rows)
         c.error("game_id", f"{stem!r} is not a game in schedule.csv." + (f" Did you mean {hint!r}?" if hint else "")
                 + " Add the game to the schedule first.")

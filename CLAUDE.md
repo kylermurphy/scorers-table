@@ -32,7 +32,7 @@ not a dependency.
 - Before calling a page done, screenshot it at 390 px in both themes (desktop
   at 1440 px once stage 9 starts).
 
-## Design system (stage 3, delivered in a pull request awaiting review)
+## Design system (stage 3, merged)
 CSS lives in `assets/css/` (`tokens.css`, `layouts/<id>.css`, `base.css`, `parts-*.css`, `fonts.css`,
 `fallbacks.css`); read `docs/design.md` before touching it. Load order: `fonts, tokens, layouts/<layout>,
 base, parts-shell, parts-scores, parts-data, fallbacks`. A page picks its look with

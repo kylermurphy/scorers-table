@@ -392,4 +392,4 @@ def _active_pages(out: BuildOutput, ctx: SeasonCtx) -> None:
         out.pages.setdefault("_players", {})[f"{pid}.md"] = {
             "season": ctx.sid, "player_id": pid, "title": p["label"],
             "description": f"Season totals and game log for {p['name']}"
-                           + (f" of the {p['team_name']}." if p["team_name"] else ".")}
+                           + (f" of the {p['team_name']}." if p["team_name"] else "" if p["name"].endswith(".") else ".")}

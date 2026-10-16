@@ -56,6 +56,16 @@ def test_errors_come_before_warnings_then_by_file_then_path():
         ("error", "a.yml", "x"), ("error", "a.yml", "y"), ("error", "b.yml", "z"), ("warning", "a.yml", "a")]
 
 
+def test_files_are_listed_in_the_order_to_fix_them():
+    """league.yml, then seasons.yml, then a season's teams, players and schedule, then its game files: the cause
+    of a cascade (a broken teams.yml) comes before what it causes."""
+    files = ["data/s1/games/2026-11-05-1.yml", "data/s1/schedule.csv", "data/s1/players.yml", "data/s1/teams.yml",
+             "data/seasons.yml", "league.yml", "data/s2/teams.yml"]
+    got = [p.file for p in sort_problems([err("x", file=f) for f in files])]
+    assert got == ["league.yml", "data/seasons.yml", "data/s1/teams.yml", "data/s1/players.yml",
+                   "data/s1/schedule.csv", "data/s1/games/2026-11-05-1.yml", "data/s2/teams.yml"]
+
+
 def test_row_numbers_sort_as_numbers():
     ats = ["3.name", "10.name", "2.name", "10.home", "players"]
     got = [p.at for p in sort_problems([err(a, file="f") for a in ats])]
@@ -361,3 +371,26 @@ def test_call_sport_accepts_good_shapes():
 ])
 def test_call_sport_refuses_a_wrong_shape(name, value, words):
     assert words in shape_error(name, value)
+
+
+@pytest.mark.parametrize("text,hint", [
+    ("- {id: otters name: Otters}\n", "A comma is probably missing"),
+    ("- [a b: c\n", "A comma is probably missing between two items"),
+    ("a: b\n  c: d\n", "indented too far"),
+    ("a:\n\t- b\n", "indent with spaces only"),
+    ("a: 'unclosed\n", "Check the indentation"),
+])
+def test_invalid_yaml_says_what_probably_went_wrong(tmp_path, text, hint):
+    path = tmp_path / "teams.yml"
+    path.write_text(text, encoding="utf-8")
+    data, problems = read_yaml(path, "teams.yml")
+    assert data is None and len(problems) == 1 and problems[0].at == ""
+    assert problems[0].message.startswith("This file is not valid YAML (line") and hint in problems[0].message
+
+
+def test_an_id_with_capitals_or_spaces_gets_a_suggestion():
+    c = Checker("teams.yml")
+    assert c.ident("Otters", "0.id") is None and c.ident("Big Bears", "1.id") is None and c.ident("#1", "2.id") is None
+    messages = [p.message for p in c.problems]
+    assert messages[0].endswith("Did you mean 'otters'?") and messages[1].endswith("Did you mean 'big-bears'?")
+    assert "Did you mean" not in messages[2]

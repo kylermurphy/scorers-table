@@ -64,3 +64,17 @@ old-browser floor; fixed scenes; the "Scored with hammer" 3 of 5 correction). Th
 guide** only; **desktop** layouts wait for stage 9.
 
 Nothing is waiting for the owner at the end of stage 3.
+
+## 4. Stage 4: placeholders the built site shows
+
+With the shipped `league.yml` (sport `stub`, sample data on), the build prints a "Still to decide" list and the
+site shows these until a league fills them in. None of them is a league fact the template invents.
+
+| Placeholder | Where it shows | Who fills it in |
+|---|---|---|
+| `[Gym name]` | `venue` of the real season in `data/seasons.yml`: footer line, next-game panel, game pages | the league: where it plays |
+| `[Venue]` | the same places in the sample seasons | nobody: sample data |
+| `[League rules]` | the Rules page (`rules/index.md`) | the league: its written rules |
+| `[placeholder]` for Overtime, Forfeit, Tiebreakers, minimum games for the points-per-game leaders | standings note, Rules page, leaderboard notes | the league, in `league.yml` (`rules`, `standings`, `stats.minimums`) |
+
+A real sport (stage 5) brings its own `decide: true` settings; each is listed by the build the same way.

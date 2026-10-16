@@ -79,6 +79,15 @@ def _extras() -> dict[str, tuple[dict, list[str]]]:
     }
 
 
+def skip_unless_ci(message: str) -> None:
+    """Skip a test that needs Ruby and the gems, except in CI (the `CI` variable GitHub Actions sets): there a
+    missing tool must fail the run, or the Jekyll tests would vanish from it without anyone noticing."""
+    import pytest
+    if os.environ.get("CI"):
+        pytest.fail(f"{message} (CI must run this test)")
+    pytest.skip(message)
+
+
 def jekyll_command() -> list[str] | None:
     """The command that runs Jekyll, or None when Ruby, Bundler or the gems are missing."""
     bundle = shutil.which("bundle")

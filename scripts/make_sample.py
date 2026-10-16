@@ -421,13 +421,10 @@ def differences(root: Path, made: dict[str, dict[str, str]]) -> list[str]:
     return found
 
 
-def run_loader(root: Path) -> list[str] | None:
+def run_loader(root: Path) -> list[str]:
     """Every problem (errors and warnings) the loader finds in the data folder under `root`, printed as
-    "file: at: message", or None when scripts/core/loader.py does not exist."""
-    try:
-        from scripts.core.loader import load_data
-    except ImportError:
-        return None
+    "file: at: message"."""
+    from scripts.core.loader import load_data
     league, problems = load_league(root / "league.yml", sports_root=root / "sports", root=root)
     if league is None:
         return [f"{p.file}: {p.at}: {p.message}" for p in problems]
@@ -459,9 +456,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Wrote {', '.join('data/' + s + '/' for s in made)} ({sum(len(f) for f in made.values())} files).")
         if not args.no_loader:
             problems = run_loader(args.root)
-            if problems is None:
-                print("scripts/core/loader.py does not exist yet: the loader check was skipped.")
-            elif problems:
+            if problems:
                 print("The loader found problems in what was written:", *problems, sep="\n  ")
                 return 1
             else:
