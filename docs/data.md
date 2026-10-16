@@ -14,11 +14,13 @@ fails with a plain message and **nothing is published**. A typo cannot put a wro
 - [How to](#how-to): add a game, cancel or move one, record a forfeit, a bye, a playoff game, a new season
 - [Checking your work](#checking-your-work) and [reading an error message](#reading-an-error-message)
 - [Still to decide](#still-to-decide)
-- [Sample data and the preview copy](#sample-data-and-the-preview-copy)
+- [Sample data and the preview copies](#sample-data-and-the-preview-copies)
 
 Which boxes a score sheet has, and what is checked in them, depends on the sport. The box-by-box guide for
-your sport is `sports/<your sport>/README.md`. The examples on this page come from `stub`, a made-up sport
-with two halves and a Final box.
+your sport is `sports/<your sport>/README.md` (basketball's is `sports/basketball/README.md`). The examples on
+this page are basketball, the sport the template ships with, and the teams are the ones in its sample season.
+The other sports follow in their own pull requests; the stub (`sports/stub/`, two halves and a Final box) stays
+as the core's test sport.
 
 ## What lives where
 
@@ -43,8 +45,8 @@ Everything outside `data/` and `league.yml` is the website itself. You never nee
 A few rules hold for all of them:
 
 * **Ids** (a team, a player, a game, a season) use lower-case letters, digits and single hyphens:
-  `otters`, `ann-b`, `2026-11-05-1`. An id never changes once a game uses it.
-* **Players are always "First L."**, like `Ann B.` Never a full name. No contact details, no photos.
+  `rapids`, `dave-m`, `2026-11-05-1`. An id never changes once a game uses it.
+* **Players are always "First L."**, like `Dave M.` Never a full name. No contact details, no photos.
 * **Dates** are written `2026-11-05`. **Times** are 24 hours, `19:00`.
 * In `.yml` files, a `#` starts a comment. The build ignores the rest of that line.
 * A mistake in a key name (`naem:` for `name:`) is an error, not something silently ignored.
@@ -55,8 +57,8 @@ The league's settings. Every setting is explained in the file itself, in plain w
 `name`, `sport` and `timezone`. Everything else has a default.
 
 ```yaml
-name: "Example Valley Stub League"
-sport: stub
+name: "Riverside Masters Basketball"
+sport: basketball
 timezone: America/Toronto
 sample_data: false
 ```
@@ -73,15 +75,15 @@ The list of seasons. Exactly one is `current`. It may be empty (a new league's f
 ```
 
 `venue` is used for every game whose schedule row has no venue of its own. Each `id` needs a folder of the
-same name in `data/`. The made-up sample seasons are explained [below](#sample-data-and-the-preview-copy).
+same name in `data/`. The made-up sample seasons are explained [below](#sample-data-and-the-preview-copies).
 
 ### `teams.yml`
 
 One line per team.
 
 ```yaml
-- {id: otters, name: Otters, code: OTT}
-- {id: ravens, name: Ravens, code: RAV}
+- {id: rapids, name: Rapids, code: RAP}
+- {id: pines, name: Pines, code: PIN}
 ```
 
 `code` is two to four capital letters or digits. `id`, `name` and `code` must all be different for each
@@ -93,13 +95,13 @@ team. A team may also have `slot: 3` (which of the six team colours it gets, 1 t
 One line per player.
 
 ```yaml
-- {id: ann-b, name: Ann B., team: otters, number: 7}
-- {id: joe-k, name: Joe K., team: otters}
-- {id: sam-p, name: Sam P., team: null, sub: true}
+- {id: dave-m, name: Dave M., team: rapids, number: 23}
+- {id: greg-t, name: Greg T., team: rapids}
+- {id: jim-k, name: Jim K., team: null, sub: true}
 ```
 
 * `number` is a jersey number from 0 to 99. For `00`, put it in quotes: `number: "00"`.
-* Two players on a team may not share a number. If two players on a team are both "Ann B.", both need a number.
+* Two players on a team may not share a number. If two players on a team are both "Dave M.", both need a number.
 * A spare who belongs to no team has `team: null` and `sub: true`.
 * Someone on one team who fills in for another is fine: mark them `sub: true`, or the check warns you.
 
@@ -110,8 +112,8 @@ A spreadsheet of every game, played or not. Open it in Excel, Numbers or Google 
 
 ```
 game_id,date,time,home,away,venue,surface,type,round,week,status,moved_from
-2026-11-05-1,2026-11-05,19:00,otters,ravens,,1,regular,,,,
-2026-11-05-2,2026-11-05,20:15,moose,lynx,,2,regular,,,,
+2026-11-05-1,2026-11-05,19:00,rapids,pines,,,regular,,,,
+2026-11-05-2,2026-11-05,20:15,herons,foxes,,,regular,,,,
 ```
 
 | Column | What goes in it |
@@ -120,7 +122,7 @@ game_id,date,time,home,away,venue,surface,type,round,week,status,moved_from
 | `date`, `time` | `2026-11-05` and `19:00`. |
 | `home`, `away` | Team ids from `teams.yml`. "Home" just means the team listed first. A playoff row may hold other text until the teams are known (see [a playoff game](#a-playoff-game-before-the-teams-are-known)). |
 | `venue` | Leave empty to use the season's venue. |
-| `surface` | The court, sheet, diamond or pad number (`1`, `2`, `A`). Leave empty if the sport has none. |
+| `surface` | The court, sheet, diamond or pad number (`1`, `2`, `A`). Leave empty if the sport has none (basketball has none). |
 | `type` | `regular` (or empty) or `playoff`. |
 | `round` | The playoff round, shown as written: `Semifinal`, `Final`. |
 | `week` | The game night's number. Leave empty and it is counted from the regular-season dates. |
@@ -133,20 +135,33 @@ start, so the site can show what is coming up.
 ### `games/`
 
 One file per finished game, named after the game id: `games/2026-11-05-1.yml`. It is a copy of the paper
-score sheet. The top part is the same for every sport, and the `sheet:` part is the sport's own boxes.
+score sheet. The top part is the same for every sport, and the `sheet:` part is the sport's own boxes. This is
+a basketball game cut down to two players a side to fit here (`sports/basketball/README.md` explains every box):
 
 ```yaml
 game_id: 2026-11-05-1
 status: final
-home: otters
-away: ravens
+home: rapids
+away: pines
+scorekeeper: Pat S.
 checked_by: Lee M.
 sheet:
-  periods: {home: [12, 9], away: [11, 9]}
-  final: {home: 21, away: 20}
-  players:
-    home: [{player: ann-b, pts: 9}, {player: joe-k, pts: 12}]
-    away: [{player: tom-w, pts: 20}]
+  players:                     # the roster rows, top to bottom
+    home:
+      - {player: dave-m, num: 23, here: true, ft: MMXM, fouls: 2}
+      - {player: greg-t, num: 11, here: true, ft: X}
+    away:
+      - {player: mike-r, num: 7, here: true, ft: M, fouls: 3, tech: 1}
+      - {player: jim-f, num: 12, here: true, ft: XM}
+  running:                     # the running score: the team's new total -> the scorer's jersey number
+    home: {2: 23, 4: 11, 5: 23, 7: 23, 10: 11, 12: 23}
+    away: {3: 7, 5: 12, 6: 12, 8: 7, 10: 7}
+  lines:                       # the running total each end-of-quarter line is drawn under
+    home: [5, 7, 10, 12]
+    away: [3, 6, 8, 10]
+  boxes:                       # the score boxes under each roster, as written
+    home: {q1: 5, q2: 7, q3: 10, q4: 12, ot: null, final: 12}
+    away: {q1: 3, q2: 6, q3: 8, q4: 10, ot: null, final: 10}
 ```
 
 | Line | What goes in it |
@@ -170,7 +185,7 @@ for the person who finishes it:
 
 ```yaml
 review:
-  - {at: sheet.final.home, note: Check this score against the photo.}
+  - {at: sheet.boxes.home.final, note: Check this score against the photo.}
 ```
 
 When the draft is done, move the file to `games/`, change `status` to `final` and delete the `review` lines.
@@ -207,7 +222,7 @@ cancelled, and calendar apps show it as cancelled. A cancelled game **cannot hav
 delete the file if one exists.
 
 ```
-2026-10-29-2,2026-10-29,20:15,badgers,lynx,,2,regular,,,cancelled,
+2026-10-29-2,2026-10-29,20:15,herons,foxes,,,regular,,,cancelled,
 ```
 
 ### Move a game
@@ -217,7 +232,7 @@ Change `date` and `time` in the schedule row and write the old date in `moved_fr
 event in place.
 
 ```
-2026-12-17-2,2026-12-22,20:15,lynx,moose,,2,regular,,,,2026-12-17
+2026-12-17-2,2026-12-22,20:15,foxes,pines,,,regular,,,,2026-12-17
 ```
 
 ### Record a forfeit
@@ -227,21 +242,24 @@ The game file has no `sheet`. It names the team that forfeited instead:
 ```yaml
 game_id: 2026-10-22-1
 status: final
-home: lynx
-away: otters
+home: foxes
+away: pines
 checked_by: Lee M.
-forfeit: otters
+forfeit: pines
 ```
 
-How a forfeit counts (the score, and whether it earns period points) is a league decision, set under
-`standings: forfeit:` in `league.yml`. Until you set it, the site shows `[placeholder]` and the build lists
-it under "Still to decide".
+No player gets a game played or any stat. How a forfeit counts (the score, and whether it earns period
+points) is a league decision, set under `standings: forfeit:` in `league.yml`. Until you set it, the site
+shows `[placeholder]` and the build lists it under "Still to decide" (basketball's usual rule is 20 to 0).
 
 ### A tie
 
-If the score is level at the end and the league allows ties (`ties: true`, the usual setting), just write
-the game file as it is. The standings show a tie. A **playoff game can never end tied**, and the check says
-so if one does. If the sport has overtime, the sheet records it.
+Whether a regular-season game may end level is the league's to decide (`standings: ties:` in `league.yml`;
+basketball starts with no ties, shown as `[placeholder]`). Where ties are allowed, write the game file as it
+is and the standings show a tie. Where they are not, the check stops the build at the Final box and says so.
+A **playoff game can never end tied**, whatever the setting. If the sport has overtime, the sheet records it
+first: basketball's README has the details (a game level after Q4 goes to overtime, and only one still level
+after that is a tie).
 
 ### A bye
 
@@ -306,15 +324,16 @@ file: path: message
 Real examples:
 
 ```
-data/sample-2026-27/games/2026-11-12-2.yml: sheet.final.home: the Final box says 24, but the halves add up to 23
-data/sample-2026-27/games/2026-11-05-1.yml: sheet.players.home.0.player: 'noa-q' is not a player id in players.yml.
-data/sample-2026-27/games/2026-11-12-2.yml: home: lynx/lynx doesn't match schedule.csv (moose/lynx). Fix the file, or the schedule row.
+data/sample-2026-27/games/2026-11-05-1.yml: sheet.boxes.away.final: the Final box says 68, but the running score ends at 67
+data/sample-2026-27/games/2026-11-05-1.yml: sheet.players.home.0.player: player 'noa-q' is not in players.yml
+data/sample-2026-27/games/2026-11-12-2.yml: home: comets/comets doesn't match schedule.csv (pines/comets). Fix the file, or the schedule row.
 data/sample-2026-27/players.yml: 1.name: 'Max Turner' should be 'First L.' (a first name and the last initial, never a full name).
-data/sample-2026-27/schedule.csv: 1.home: 'badger' is not a team id in teams.yml. Did you mean 'badgers'? Only a playoff game may name a team that is not known yet, like TBD or 1st. (spreadsheet line 3).
+data/sample-2026-27/schedule.csv: 1.home: 'fox' is not a team id in teams.yml. Did you mean 'foxes'? Only a playoff game may name a team that is not known yet, like TBD or 1st. (spreadsheet line 3).
 ```
 
-The first one: in the file for game 2026-11-12-2, the `sheet`'s `final` box for `home` says 24, but the
-two halves add up to 23. Which is wrong, the halves or the Final box? Check the paper sheet.
+The first one: in the file for game 2026-11-05-1, the `sheet`'s Final box (`boxes`, `final`) for `away` says
+68, but the running score on the sheet ends at 67. Which is wrong, the Final box or the running score? Check
+the paper sheet.
 
 The path `sheet.players.home.0.player` reads: in the `sheet`, the `players`, for `home`, the first row (0), the
 `player` box. For `schedule.csv`, row 0 is the first line under the header. The message also gives the
@@ -346,29 +365,39 @@ shows **`[placeholder]`** on the site wherever that rule is described, and print
 ```
 Still to decide (the site shows [placeholder] until you set these in league.yml):
   - Overtime (rules.overtime)
+  - Most personal fouls one player can have in a game (rules.foul_limit)
+  - Ties (standings.ties)
   - Forfeit (standings.forfeit)
   - Tiebreakers (standings.tiebreakers)
   - Minimum games for the points per game leaders (stats.minimums.ppg_min_games)
+  - Minimum free throw attempts for the free throw % leaders (stats.minimums.ft_min_attempts)
 ```
+
+That is the list for the basketball template as it ships. A sport brings its own list, and a league that has
+answered one no longer sees it.
 
 The words in brackets are where to set it in `league.yml`. Setting it, **even to the usual value**, removes
 the placeholder:
 
 ```yaml
 rules:
-  overtime: none
+  overtime: overtime
+  foul_limit: 5
 standings:
-  forfeit: {score: [1, 0]}
+  ties: false
+  forfeit: {score: [20, 0]}
   tiebreakers: [head_to_head, diff, points_for]
 stats:
-  minimums: {ppg_min_games: 0}
+  minimums: {ppg_min_games: 0, ft_min_attempts: 10}
 ```
 
+(Those are the sport's usual values, shown so you can see the shape. Put your own league's answers there.)
+
 `league.yml` lists everything you can set, and `sports/<your sport>/sport.yml` says what each option may be.
-You do not have to settle these before the first game: the site works while they are open. 
+You do not have to settle these before the first game: the site works while they are open.
 The Rules page has its own `[League rules]` placeholder to fill in.
 
-## Sample data and the preview copy
+## Sample data and the preview copies
 
 The template ships with made-up seasons, `sample-2026-27` and `sample-2025-26`, so the site looks lived-in
 before there is a real season. Every team, player and score in them is invented. Do not edit them by hand;
@@ -385,6 +414,26 @@ write them).
   not linked from anywhere and carries a banner.
 * Do you not want the preview? Set `preview: false`. If you delete the sample seasons from `seasons.yml` (and
   their folders in `data/`), set `preview: false` too: the preview needs a sample season to show.
+* **Sport previews** are a second, separate setting, `sport_previews` (it sits beside `preview` in `league.yml`).
+  `/preview/` is *your* league with made-up games; `/basketball/` is the template's own made-up league
+  ("Riverside Masters Basketball") for that sport, in the sport's own look, with the sport's usual rules and
+  every "league decides" setting showing as `[placeholder]`: what a new league would see. Nothing from your
+  `league.yml` reaches it except `timezone` and `time_format`.
+  * `sport_previews: true` builds one copy for every sport that has a demo (today only basketball, so
+    `/basketball/`; curling, hockey and slo-pitch get theirs when they are added). A list such as
+    `[basketball, hockey]` builds just those, in that order, and a name that is not such a sport is an error.
+    `false`, or leaving the line out, builds none. The template ships with `true`, so its own site shows
+    what each sport looks like.
+  * Like `/preview/`, a sport preview is not linked from any of your own pages, so your visitors do not land on
+    a made-up league. **Every page of it carries the noindex tag, whatever `search_engines` says**, and it has
+    no calendar files. Its banner says it is a sport preview and links to the other sport previews and back to
+    the live site; the `/preview/` banner lists the sport previews too, when there are any.
+  * They are built on every deploy, so each costs a few seconds of build time and a couple of megabytes of
+    site. If you do not want them, set `sport_previews: false`.
+  * A sport id may not be one of the site's own top-level paths (`archive`, `assets`, `calendar`, `games`,
+    `players`, `preview`, `rules`, `schedule`, `sheets`, `stats`, `teams`).
+  * To build them on your own computer, run `bundle exec jekyll build` and then `scripts/build_preview.sh` (it
+    builds `_site/preview/` and `_site/<sport>/`, then puts your own data back).
 
 The made-up data and the real data never mix: the real season's files live in `data/<season>/`, the sample
 in `data/sample-<season>/`.

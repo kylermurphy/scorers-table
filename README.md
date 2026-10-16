@@ -8,23 +8,39 @@ the numbers and most people check them on a phone.
 Sports: basketball, curling, hockey and slo-pitch (more later). Six layouts,
 light and dark. No ads, no trackers, players shown as "First L." only.
 
-**Status: the core works with one made-up test sport (`stub`).** The four real sports come next (stage 5).
+**Status: the core works and basketball is the first real sport** (stage 5, in review as a pull request); curling,
+hockey and slo-pitch come next, one at a time. The template ships set up for basketball with made-up sample
+seasons. A made-up test sport (`stub`) stays for the core's own tests.
 What it is: [`BRIEF.md`](BRIEF.md); how it gets built: [`PLAN.md`](PLAN.md); the designs and design system:
 [`docs/design.md`](docs/design.md); how the core works: [`docs/stage-4-spec.md`](docs/stage-4-spec.md); the data
 files, for the person who keeps the numbers: [`docs/data.md`](docs/data.md); adding a sport:
-[`docs/sports.md`](docs/sports.md).
+[`docs/sports.md`](docs/sports.md); basketball's game file, box by box: [`sports/basketball/README.md`](sports/basketball/README.md);
+what the league still has to decide: [`docs/open-questions.md`](docs/open-questions.md).
 
 **Try it** (Python 3.12+, Ruby 3.3+):
 
 ```
 pip install -r requirements.txt
 bundle install
-python scripts/build.py --sample      # checks the data, works out the numbers, writes _data/computed/ and the stub pages
+python scripts/build.py --sample      # checks the data, works out the numbers, writes _data/computed/ and the page stubs
 bundle exec jekyll serve              # http://localhost:4000/
 ```
 
 `league.yml` is the one file a setup person edits. Until a league has its own games, the site shows a
 made-up sample season with a banner (`sample_data: true`).
+
+**Previews.** Two settings in `league.yml` publish made-up copies of the site beside the real one. Neither is linked
+from the league's own pages, and every page of both says `noindex`.
+
+| Address | What it shows | Setting |
+|---|---|---|
+| `/preview/` | the league's own site (its name, colours, logo, look) filled with made-up games | `preview: true` (the default); built only while the real data is showing (`sample_data: false`) |
+| `/basketball/` (later `/curling/`, `/hockey/`, `/slopitch/`) | the template's own made-up league for that sport, in the sport's look, with the sport's usual rules | `sport_previews: true` (shipped on); `false` turns them all off, or list the ones you want, like `[basketball]` |
+
+The banner at the top of each copy says what it is and links back to the live site (and across to the other
+sport previews). To turn them off, set `preview: false` and `sport_previews: false`. To build them on your own
+computer, run `bundle exec jekyll build` and then `scripts/build_preview.sh`: it writes `_site/preview/` and
+`_site/<sport>/`, then puts your own data back. Details: [`docs/data.md`](docs/data.md#sample-data-and-the-preview-copies).
 
 **Publish it** (the full setup guide comes in stage 8). The site is built and published by the GitHub Actions
 workflow in `.github/workflows/build.yml`; nothing in `_config.yml` needs editing.
@@ -48,6 +64,10 @@ python -m pytest                      # every test (the Jekyll tests need `bundl
 python scripts/check_contrast.py      # WCAG AA for every colour pair; writes docs/contrast.md; must pass
 python scripts/build.py --check       # validate the data only; writes nothing
 ```
+
+A league that used to keep its numbers on the Masters basketball site can convert that data folder with
+`python sports/basketball/convert_masters.py --from <masters>/data --to <new folder>` (it prints the
+`league.yml` lines for the Masters rules; see `sports/basketball/README.md`).
 
 It grows out of the website of a real masters basketball league, which has
 run this way since October 2026.

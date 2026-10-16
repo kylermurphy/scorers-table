@@ -5,9 +5,16 @@ sheet is laid out, how it is checked, which stats it has and how they are shown.
 does the rest: loading the files, the standings, the pages, the calendars. There is no plugin framework. The
 core lists `sports/*/sport.yml` to find sports, and loads `rules.py` and `sample.py` from the league's sport.
 
-Read in this order: `sports/stub/` (a complete, tiny sport: copy it), then this page, then
-`docs/stage-4-spec.md` section 3 for the reasons. The code is the last word. Where it has moved on from the
-spec, [the end of this page](#where-the-code-differs-from-the-spec) says so.
+Read in this order: `sports/stub/` (a complete, tiny sport: copy it), then `sports/basketball/` (the first real
+sport: its `README.md`, `sport.yml`, `rules.py`, `sample.py` and `fixtures/` show every part used for real), then
+this page, then `docs/stage-4-spec.md` section 3 and `docs/stage-5-basketball-spec.md` for the reasons. The code is
+the last word. Where it has moved on from the spec, [the end of this page](#where-the-code-differs-from-the-spec)
+says so.
+
+Two sports are in `sports/` today. **`basketball`** is the sport the template ships with (`sport: basketball` in
+`league.yml`). **`stub`** is the core's test sport (two halves and a Final box): the golden files in
+`tests/golden/stub/` and most core tests use it, and its `sport.yml` says `demo: false`, so no sport preview is
+built for it. Curling, hockey and slo-pitch follow, one pull request each.
 
 - [The folder](#the-folder)
 - [`sport.yml`](#sportyml)
@@ -15,6 +22,7 @@ spec, [the end of this page](#where-the-code-differs-from-the-spec) says so.
 - [What `present` returns](#what-present-returns)
 - [What the core does for you: standings](#what-the-core-does-for-you-standings)
 - [`sample.py`](#samplepy)
+- [Sport previews](#sport-previews)
 - [The contract test](#the-contract-test)
 - [Checklist for a new sport](#checklist-for-a-new-sport)
 - [Where the code differs from the spec](#where-the-code-differs-from-the-spec)
@@ -27,8 +35,9 @@ spec, [the end of this page](#where-the-code-differs-from-the-spec) says so.
 | `rules.py` | yes | Four pure functions: `check`, `read`, `present`, `derive`. |
 | `sample.py` | yes | `LEAGUE_NAME`, `TEAMS`, and one function that writes a believable sheet. |
 | `README.md` | yes | The game file format, box by box, with the problem paths. This is the volunteer's reference (`docs/data.md` points to it). A missing one is a warning when the sport loads and a failure of the contract test. |
-| `fixtures/` | stage 5 | Shared test files: `<name>.yml` plus `<name>.expected.json`, run by the Python and the JavaScript rules. |
-| `rules.js` | stage 7 | The JavaScript port for the entry page. |
+| `fixtures/` | stage 5 | Shared test files: `<name>.yml` plus `<name>.expected.json` (every problem `check` must return, and what `read` returns), one case per check. `tests/test_<id>_fixtures.py` runs them against `rules.py`; the JavaScript port will run the same files. Basketball has them (`sports/basketball/fixtures/README.md`). |
+| `rules.js` | stage 7 | The JavaScript port for the entry page. It moved from stage 5 to stage 7 with the entry page, its only user; each sport's pull request leaves its fixtures ready for it. |
+| `convert_masters.py` | basketball only | A one-off converter: a Masters Basketball League data folder in, a scorers-table `data/` folder out. Not part of the contract; see [the basketball README](../sports/basketball/README.md). |
 | `sheet.py`, a spec | later | The printable sheet. |
 
 Nothing registers a sport. A folder with a `sport.yml` exists; a league uses it by writing `sport: <id>` in
@@ -44,8 +53,9 @@ Top-level keys. Unknown keys are errors, with a "did you mean".
 
 | Key | Required | Meaning |
 |---|---|---|
-| `name` | yes | Shown as the default tagline ("Stub"). |
+| `name` | yes | Shown as the default tagline ("Basketball"). |
 | `default_layout` | yes | One of `basketball curling hockey slopitch classic scoreboard`. |
+| `demo` | no (`true`) | `false` keeps the sport out of `sport_previews` (see [Sport previews](#sport-previews)). Only the stub says `false`. |
 | `games_per_day` | no (1) | Games one team may play on one date. |
 | `game_minutes` | no (60) | Default event length in the calendar files. |
 | `words` | yes | See below. |
@@ -339,7 +349,32 @@ def sheet(rng: random.Random, game: SampleGame, ctx: SportContext) -> dict
   and then runs the loader on the result. Any problem stops it.
 * `make_sample.py` reads the sport from `league.yml`. To write a new sport's sample, set `sport:` there
   first. `python scripts/make_sample.py --check` fails if the files on disk differ from what it would
-  write; a test runs that.
+  write; a test runs that. The committed `data/sample-*` are the sample of the sport `league.yml` names
+  (basketball today).
+* `tests/test_golden.py` writes each sport's sample into a temporary root and compares the build with
+  `tests/golden/<sport>/` (`stub` and `basketball`). `UPDATE_GOLDEN=1 python -m pytest tests/test_golden.py`
+  rewrites them; read the diff, and check a new sport's standings and leaders by hand against its sample files.
+
+## Sport previews
+
+`sport_previews` in `league.yml` (`true`, `false` or a list of sport ids; it is separate from `preview`, which is
+the league's own look with made-up games) makes the deploy also build a demo copy of the site for each sport at
+`/<sport>/` (`/basketball/` today). A sport needs nothing for this beyond a `sample.py`: every folder in `sports/`
+with one is a demo, unless its `sport.yml` says `demo: false`. A copy shows the sport's `sample.py` league, the
+sport's `default_layout`, the sport's own defaults (so its `decide: true` settings show as `[placeholder]`) and
+the two sample seasons; nothing of the league's own `league.yml` but `timezone` and `time_format`.
+
+* `python scripts/preview_root.py --list` prints the ids `league.yml` asks for (and checks them);
+  `python scripts/preview_root.py <sport> <folder>` writes the temporary root a copy is built from.
+  `scripts/build_preview.sh` runs both, then `build.py --root <folder> --out . --sport-preview <sport>` and Jekyll
+  with the base path `<BASE_PATH>/<sport>`, once per sport after the real build, and finally puts the real data
+  back.
+* Every page of a copy is `noindex, nofollow`, whatever `search_engines` says; it has no calendar files; nothing on
+  the league's own pages links to it; its banner (`shell/sample-banner.html`) names it a sport preview and links to
+  the other sport previews and back to the live site. A sport id may not be one of the site's top-level paths
+  (`archive assets calendar games players preview rules schedule sheets stats teams`).
+* A new sport therefore gets its demo for free the day its folder lands. If the sport is not ready to be shown,
+  set `demo: false` until it is.
 
 ## The contract test
 
@@ -383,10 +418,14 @@ rules, and, from stage 5, shared fixtures.
 8. Write the sport's own tests (every row of its checks). From stage 5, add fixtures in
    `sports/<id>/fixtures/`.
 9. Set `sport: <id>` in `league.yml`, run `python scripts/make_sample.py`, then
-   `python scripts/build.py` and look at the pages at 390 px in both themes.
+   `python scripts/build.py` and look at the pages at 390 px in both themes. Add the sport to `SPORTS` in
+   `tests/test_golden.py` and write its golden files (`UPDATE_GOLDEN=1`), checked by hand.
 10. If the sport needs a display the closed block list cannot express, add a core part first (include, CSS,
     specimen, parity case, entry in `BLOCK_TYPES`), then use it.
-11. Update `docs/data.md` examples only if they mention the sport.
+11. Check the sport preview: `scripts/build_preview.sh` (with `bundle exec jekyll build` first) builds
+    `_site/<id>/`. Leave `demo` out so it is shown, or set `demo: false` while it is unfinished.
+12. Update `docs/data.md` examples only if they mention the sport, and list the sport's `decide: true` settings in
+    `docs/open-questions.md`.
 
 ## Where the code differs from the spec
 
@@ -404,4 +443,9 @@ The spec (`docs/stage-4-spec.md`) is the plan. The code, as of this page, differ
 | Ranks (3.5): "teams still level share a rank". | Competition ranking: 1, 2, 2, 4. |
 | Columns (3.5). | `w` includes overtime wins, `gp = w + l + t`; `otw`/`otl` are the "of which" counts. |
 | `sample.py` has `LEAGUE_NAME`, `TEAMS`, `sheet` (3.6). | Also an optional `PLAYERS_PER_TEAM` (default 7). |
-| `build.py` flags (4). | Not covered here; `scripts/build.py` is written separately. |
+| `build.py` flags (4). | Not covered here; `scripts/build.py` is written separately. `--sport-preview <id>` is the flag for a sport's demo copy. |
+| Block types: `stat_table`, `note` (3.3). | Also `top_performer` (stage 5, the game page's top scorer tile). |
+| Leaderboards have `id of group stat label tile edge min detail` (3.2). | Also `zero`, `playoffs`, `home`, `player_rank`. |
+| `stats` has the groups, `derived` and `team` (3.2). | Also `columns` (the order of the columns for the Stats page, a player's totals and a game log), and `derive` may return an unrounded rate (the core rounds it and ranks on the exact value). |
+| `sport.yml` has no switch for demos. | The optional `demo` key (default `true`); the stub says `false`. |
+| `rules.js` ships with each sport (stage 5 plan). | Moves to stage 7 with the entry page. Stage 5 leaves each sport's `fixtures/` for it. |
