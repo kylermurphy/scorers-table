@@ -1,0 +1,39 @@
+# A throwaway sport for tests/test_empty_player_group.py and tests/test_make_sample.py (not a real sport, and not
+# in tests/fixtures/sports/'s own list: it sits one folder down so the tests that list that folder do not see it).
+# Rinks play a few ends, a sheet lists who played, and nobody counts anything: `stats.player` is empty, so a
+# player's only number is games played. The sample sets every optional constant of docs/sports.md.
+name: Rinks
+default_layout: classic
+demo: false
+games_per_day: 2
+game_minutes: 90
+words:
+  period: {one: End, many: Ends, short: E}
+  surface: Sheet
+  day: Draw
+  points_for: {label: PF, title: Points for}
+  points_against: {label: PA, title: Points against}
+line_score: {shape: periods, total_label: Total, corner: Rink, periods: ends}
+options:
+  ends:
+    type: int
+    default: 4
+    min: 1
+    max: 12
+    label: Number of ends
+standings:
+  points: {win: 2, tie: 1, loss: 0}
+  ties: true
+  forfeit: {value: {score: [1, 0]}, decide: true}
+  tiebreakers: {value: [head_to_head, diff, points_for], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa, diff]
+stats:
+  player: []
+  derived: []
+  team: []
+minimums: {}
+leaderboards: []
+labels: {results: Latest results, next: Next draw, leaders: Leaders}
+labels_by_layout: {}
+display: {card: rows, card_foot: note, surface: label}
+positions: [lead, second, skip]

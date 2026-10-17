@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra",
+      "message": "extra ends are filled in, but this league plays an extra end only in the playoffs: a regular-season game that is level after the last end is a tie. Take 'extra' out."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,23 @@
+# Every end is X: nothing was played, so it is a forfeit, not a score.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  hammer: home
+  ends:
+    home: [X, X, X, X, X, X, X, X]
+    away: [X, X, X, X, X, X, X, X]
+  time_called: true
+  final: {home: 0, away: 0}
+  lineups:
+    home:
+    - {player: carol-d, position: lead}
+    - {player: ken-w, position: second}
+    - {player: linda-f, position: vice}
+    - {player: doug-h, position: skip}
+    away:
+    - {player: pat-o, position: lead}
+    - {player: brian-s, position: second}
+    - {player: joanne-t, position: vice}
+    - {player: wayne-b, position: skip}

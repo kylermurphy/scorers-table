@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.away.1.spare_for",
+      "message": "Pat O. is in this lineup too, so nobody was replaced. Take out spare_for, or take Pat O. out of the lineup."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "conceded",
+      "message": "conceded 'Bravo' should be home or away: the rink that shook hands"
+    }
+  ],
+  "reading": null
+}

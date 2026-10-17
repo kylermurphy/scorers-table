@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home.3.position",
+      "message": "skip is on two rows of this rink (rows 3 and 4). Each position is played once."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.away",
+      "message": "is empty. Fill in Bravo's 8 end boxes (0 if nobody scored, X for an end not played)."
+    }
+  ],
+  "reading": null
+}

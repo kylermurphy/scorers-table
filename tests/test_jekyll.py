@@ -29,6 +29,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 import pytest
+import yaml
 
 from scripts import build
 from tests.stub_root import use_the_stub
@@ -236,11 +237,49 @@ def test_a_forfeit_page_has_no_empty_line_score(site):
         assert "st-line-score" not in html and "st-final__body" not in html, gid
 
 
+def test_a_forfeit_scored_by_the_default_carries_the_placeholder_marker(site):
+    """The stub leaves `standings.forfeit` undecided: the game page and the standings note say
+    the forfeit score is a default the league has not confirmed."""
+    active = site.computed("active.json")
+    games = site.computed(active["season"], "games.json")
+    forfeits = [gid for gid, g in games.items() if g["forfeit"]]
+    assert forfeits
+    for gid in forfeits:
+        html = site.html(f"/games/{gid}/")
+        assert ('<p class="st-note">[placeholder] The league has not decided how a forfeit is scored yet. '
+                "The site counts it as 1–0.</p>") in html, gid
+    assert "A forfeit counts as 1–0 [placeholder]." in site.html("/")
+    assert "For now the site uses: 1–0" in site.html("/rules/")
+
+
+def test_a_league_that_sets_the_forfeit_score_has_no_marker_for_it(tmp_path_factory, jekyll):
+    built = make_site(tmp_path_factory.mktemp("forfeit_set"), jekyll, league="standings: {forfeit: {score: [1, 0]}}")
+    gid = next(gid for gid, g in built.computed(built.computed("active.json")["season"], "games.json").items() if g["forfeit"])
+    for path in (f"/games/{gid}/", "/"):
+        html = built.html(path)
+        assert "forfeit is scored" not in html and "A forfeit counts as" not in html, path
+    assert "forfeited" in built.html(f"/games/{gid}/")
+    rules = built.html("/rules/")
+    assert "standings.forfeit" not in rules and "standings.tiebreakers" in rules          # the others are still listed
+
+
 def test_past_season_pages_never_link_to_missing_team_or_player_pages(site):
     for path in ("/archive/sample-2025-26/", "/games/2025-10-16-1/", "/games/2025-12-11-1/"):
         page = Page(site.html(path))
         assert 'href=""' not in page.html, path
         assert not any(re.match(r"^/(players|teams)/[^/]+/", h) for h in page.hrefs), path
+
+
+def _current_tab(html: str) -> list[str]:
+    """The labels of the main-navigation tabs marked as the current page."""
+    return re.findall(r'<a class="st-nav__link" href="[^"]*" aria-current="page">([^<]*)</a>', html)
+
+
+def test_a_game_page_highlights_the_tab_it_is_reached_from(site):
+    """A current-season game belongs to Schedule; a past season's game, reached from the archive, to Archive."""
+    assert _current_tab(site.html("/games/2026-11-19-1/")) == ["Schedule"]
+    assert _current_tab(site.html("/games/2025-10-16-1/")) == ["Archive"]
+    assert _current_tab(site.html("/archive/sample-2025-26/")) == ["Archive"]
 
 
 # ------------------------------------------------------------------ every page
@@ -334,6 +373,9 @@ def test_every_layout_builds_with_its_own_stylesheet(layout, tmp_path_factory, j
         assert page.h1 == 1, path
     # the Scoreboard shows its ticker of the latest scores
     assert ('class="st-ticker"' in built.html("/")) == (layout == "scoreboard")
+    # a forfeit's card says who forfeited, with the marker for the default score, in every look (Classic's quiet
+    # foot included)
+    assert re.search(r"<b>[^<]+</b> forfeited · score \[placeholder\]", built.html("/schedule/")), layout
 
 
 def test_a_league_logo_is_used_in_the_header_and_as_the_icon(tmp_path_factory, jekyll):
@@ -559,6 +601,50 @@ def test_the_script_does_nothing_when_nothing_is_asked_for(previewed, league_yml
     assert _state(previewed[0]) == previewed[1]
 
 
+def _without_sample_seasons(previewed, tmp: Path) -> Path:
+    """A copy of the previewed source (not its _site/) whose data/seasons.yml lists no sample season and whose sample
+    folders are gone: a real league that cleaned them out and left `preview: true` (the default)."""
+    root = tmp / "no-sample"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    seasons = [s for s in yaml.safe_load((root / "data" / "seasons.yml").read_text(encoding="utf-8")) if not s.get("sample")]
+    (root / "data" / "seasons.yml").write_text(yaml.safe_dump(seasons, allow_unicode=True), encoding="utf-8")
+    for folder in root.glob("data/sample-*"):
+        shutil.rmtree(folder)
+    return root
+
+
+def test_without_a_sample_season_the_script_skips_preview_and_still_builds_the_sport_previews(previewed, tmp_path):
+    root = _without_sample_seasons(previewed, tmp_path)
+    _real_build(root)
+    before = _state(root)
+    result = _run_preview_script(root, tmp_path)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "no sample season in data/seasons.yml: skipping /preview/" in result.stdout
+    assert "sample_data is on" not in result.stdout + result.stderr
+    assert not (root / "_site" / "preview").exists()
+    assert (root / "_site" / "basketball" / "index.html").is_file()
+    assert "Sport preview copy: _site/basketball/" in result.stdout
+    assert _state(root) == before                                          # and the real build is back
+
+
+def test_without_a_sample_season_and_without_sport_previews_the_script_has_nothing_to_do(previewed, tmp_path):
+    root = _without_sample_seasons(previewed, tmp_path)
+    path = root / "league.yml"
+    path.write_text(path.read_text(encoding="utf-8").replace("sport_previews: [basketball]", "sport_previews: false"), encoding="utf-8")
+    result = _run_preview_script(root, tmp_path)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "skipping /preview/" in result.stdout and not (root / "_site" / "preview").exists()
+
+
+def test_a_broken_sample_season_still_stops_the_preview(previewed, tmp_path):
+    """Only a missing sample season skips /preview/: one that is listed but not there is a real problem."""
+    root = tmp_path / "broken"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    shutil.rmtree(next(root.glob("data/sample-2026-27")))
+    result = _run_preview_script(root, tmp_path)
+    assert result.returncode != 0 and "skipping /preview/" not in result.stdout
+
+
 def test_a_sport_id_that_is_a_page_of_the_site_stops_the_script_before_it_builds(previewed, league_yml, tmp_path):
     root, before, _, _ = previewed
     shutil.copytree(root / "sports" / "basketball", root / "sports" / "stats", ignore=shutil.ignore_patterns("__pycache__"))
@@ -751,3 +837,225 @@ def test_column_lists_order_the_stats_table_the_totals_and_the_game_log(extended
     assert _header_labels(extended.html("/stats/"))[-1] == ["PPG", "PTS"]
     totals, log = _header_labels(extended.html("/players/noa-a/"))
     assert totals == ["PTS", "GP"] and log == ["PTS"]
+
+
+# ------------------------------------------------------------------ core extensions E5, E6 (curling spec, section 6)
+
+def _add_numbers_and_roster_to_the_stub(root: Path) -> None:
+    """The stub with a `numbers` and a `roster` block on every game: the first player of a side is its key row, the
+    second is a spare for the third."""
+    sport = root / "sports" / "stub"
+    rules = (sport / "rules.py").read_text(encoding="utf-8")
+    note = '    blocks.append({"type": "note", "text": "Points come from the Final box and each player\'s row."})'
+    assert note in rules
+    rules = rules.replace(note, '''    blocks.append({"type": "numbers", "title": "The game in numbers", "corner": "This game", "note": "A made-up note.",
+                   "rows": [{"label": "Points", "cells": {"home": str(score.final["home"]), "away": str(score.final["away"])},
+                             "key": "home" if score.final["home"] > score.final["away"] else "away", "hot": False},
+                            {"label": "Stolen", "cells": {"home": "1", "away": "0"}, "key": "home", "hot": True}]})
+    teams = []
+    for side in SIDE_KEYS:
+        people = [ln.player for ln in reading.lines if ln.side == side]
+        if len(people) >= 3:
+            teams.append({"side": side, "rows": [
+                {"role": "Lead", "player": people[0], "key": True, "spare_for": None},
+                {"role": "Second", "player": people[1], "key": False, "spare_for": people[2]}]})
+    blocks.append({"type": "roster", "title": "Lineups", "teams": teams, "link_label": "Team", "note": "In order."})
+''' + note)
+    (sport / "rules.py").write_text(rules, encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def lineups(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("lineups"), jekyll, edit=_add_numbers_and_roster_to_the_stub)
+
+
+def test_a_roster_head_links_the_team_page_and_is_a_plain_div_in_a_past_season(lineups):
+    page = lineups.html("/games/2026-11-19-1/")
+    assert re.search(r'<a class="st-roster__head" href="/teams/[a-z-]+/">', page)
+    assert "st-roster__link" in page and "for " in page and "st-badge--outline" in page
+    old = lineups.html("/games/2025-10-16-1/")
+    assert "st-roster__head" in old and "st-roster__list" in old
+    assert re.search(r'<div class="st-roster__head">', old) and '<a class="st-roster__head"' not in old
+    assert "st-roster__link" not in old
+    assert not any(re.match(r"^/teams/[^/]+/", h) for h in Page(old).hrefs)
+
+
+def test_the_numbers_block_heads_each_column_with_the_teams_code_and_marks_the_key_cell(lineups):
+    page = lineups.html("/games/2026-11-19-1/")
+    table = re.search(r'<table class="st-table st-table--numbers">.*?</table>', page, re.S).group(0)
+    assert len(re.findall(r'<th scope="col"><span class="st-chip', table)) == 2
+    assert table.count('class="is-key"') >= 1 and table.count('class="is-key is-hot"') == 1
+    assert "A made-up note." in page
+
+
+# ------------------------------------------------------------------ core extension E9: the results legend
+
+LEGEND = [{"kind": "hammer", "text": "Hammer in end 1"}, {"kind": "mark", "text": "Stolen end"},
+          {"kind": "x", "text": "Not played"}]
+
+
+def _add_a_results_legend_to_the_stub(root: Path) -> None:
+    """The stub's sport.yml with `display.results_legend` (as curling's will have)."""
+    path = root / "sports" / "stub" / "sport.yml"
+    spec = yaml.safe_load(path.read_text(encoding="utf-8"))
+    spec["display"]["results_legend"] = LEGEND
+    path.write_text(yaml.safe_dump(spec, sort_keys=False, allow_unicode=True), encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def legend(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("legend"), jekyll, edit=_add_a_results_legend_to_the_stub)
+
+
+def _team_with_results(built: Site) -> str:
+    teams = built.computed(built.computed("active.json")["season"], "teams.json")
+    return next(t["url"] for t in teams.values() if t["results"])
+
+
+def test_a_sport_with_a_results_legend_prints_it_above_the_result_cards(legend):
+    for path in ("/", "/schedule/", _team_with_results(legend)):
+        html = legend.html(path)
+        assert html.count('<div class="st-legend">') == 1, path
+        block = re.search(r'<div class="st-legend">(.*?)</div>', html, re.S).group(1)
+        # the keys are decoration (aria-hidden); the words beside them are plain visible text
+        assert re.findall(r"<span>([^<]+)</span></span>", block) == [i["text"] for i in LEGEND], path
+        assert '<svg class="st-hammer"' in block and 'aria-hidden="true" focusable="false"' in block
+        assert 'st-legend__key--mark" aria-hidden="true"' in block and 'st-legend__key--x" aria-hidden="true">X<' in block
+        after = html[html.index('<div class="st-legend">'):]
+        assert after.index("st-result-card") < after.index("</main>"), path     # result cards follow it
+
+
+def test_without_a_results_legend_no_page_prints_one(site, previewed):
+    """The stub and basketball set no `display.results_legend`: Home, Schedule and team pages have no legend."""
+    assert site.computed("league.json")["results_legend"] == []
+    for path in ("/", "/schedule/", _team_with_results(site)):
+        assert "st-legend" not in site.html(path), path
+    demo = previewed[0] / "_site" / "basketball"
+    pages = [demo / "index.html", demo / "schedule" / "index.html", *sorted((demo / "teams").glob("*/index.html"))]
+    assert len(pages) > 3
+    for file in pages:
+        assert "st-legend" not in file.read_text(encoding="utf-8"), file
+
+
+# ------------------------------------------------------------------ the curling sport preview (stage 5, part 2)
+
+@pytest.fixture(scope="module")
+def curling_demo(previewed, tmp_path_factory):
+    """build_preview.sh with `sport_previews: [basketball, curling]` (and no /preview/), run on a copy of the
+    previewed source: the curling demo beside the basketball one, under BASE. Returns (copy of the source, result)."""
+    tmp = tmp_path_factory.mktemp("curling_demo")
+    root = tmp / "root"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    path = root / "league.yml"
+    text = path.read_text(encoding="utf-8")
+    assert "sport_previews: [basketball]" in text
+    path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: [basketball, curling]") + "\npreview: false\n",
+                    encoding="utf-8")
+    return root, _run_preview_script(root, tmp)
+
+
+def _curling(demo, path: str) -> str:
+    return (demo[0] / "_site" / "curling" / path.strip("/") / "index.html").read_text(encoding="utf-8")
+
+
+def _curling_games(demo) -> dict[str, str]:
+    return {file.parent.name: file.read_text(encoding="utf-8")
+            for file in sorted((demo[0] / "_site" / "curling" / "games").glob("*/index.html"))}
+
+
+def test_the_script_builds_the_curling_demo_beside_the_basketball_one(curling_demo):
+    root, result = curling_demo
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Sport preview copy: _site/curling/" in result.stdout and "Sport preview copy: _site/basketball/" in result.stdout
+    assert "Still to decide" not in result.stdout
+    home = _curling(curling_demo, "/")
+    assert "Pine Lake Curling Club" in home and 'data-layout="curling"' in home
+    assert f'href="{BASE}/curling/assets/css/layouts/curling.css"' in home
+    assert "Riverside Masters Basketball" not in home and "Example Valley Stub League" not in home
+    assert 'data-layout="basketball"' in (root / "_site" / "basketball" / "index.html").read_text(encoding="utf-8")
+    assert not (root / "_site" / "preview").exists()
+
+
+def test_every_curling_preview_page_has_its_base_path_the_noindex_tag_and_the_banner(curling_demo):
+    root = curling_demo[0]
+    pages = sorted((root / "_site" / "curling").rglob("*.html"))
+    assert len(pages) > 60
+    for file in pages:
+        html = file.read_text(encoding="utf-8")
+        page = Page(html)
+        local = [h for h in page.hrefs + page.srcs + [l.get("href", "") for l in page.links]
+                 if is_local(h) and not h.startswith(("#", "data:"))]
+        outside = [h for h in local if not (h.startswith(f"{BASE}/curling/") or h == f"{BASE}/curling")]
+        assert sorted(outside) == [f"{BASE}/", f"{BASE}/basketball/"] or outside == [f"{BASE}/"], (file.name, outside)
+        assert page.robots() == ["noindex, nofollow"], file
+        assert "<strong>Sport preview:</strong> a made-up curling league, to show what the template does." in html, file
+        assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in html, file
+        assert f'<a class="st-banner__link" href="{BASE}/">Go to the live site</a>' in html, file
+
+
+def test_the_curling_preview_has_no_calendar_files_or_subscribe_links(curling_demo):
+    site = curling_demo[0] / "_site" / "curling"
+    assert not list(site.rglob("*.ics")) and not (site / "calendar").exists()
+    for file in site.rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert ".ics" not in html and "webcal:" not in html, file
+
+
+def test_a_curling_game_that_ended_in_a_concession_says_so_on_the_page_and_the_card(curling_demo):
+    conceded = {gid: html for gid, html in _curling_games(curling_demo).items()
+                if re.search(r"Shook hands after \d+ of 8 ends", html)}
+    assert conceded, "the sample has a concession"
+    schedule = _curling(curling_demo, "/schedule/")
+    for gid, html in conceded.items():
+        assert 'class="is-void"' in html and "st-table--numbers" in html and "st-roster" in html, gid
+        assert 'svg class="st-hammer"' in html, gid
+        if f'href="{BASE}/curling/games/{gid}/"' in schedule:        # a game of the current season: its card says it too
+            assert re.search(r"Shook hands after \d+<", schedule) or re.search(r"Shook hands after \d+ ", schedule), gid
+
+
+def test_a_curling_game_with_an_extra_end_has_the_ee_column_and_the_final_ee_status(curling_demo):
+    extra = {gid: html for gid, html in _curling_games(curling_demo).items() if "Final · EE" in html}
+    assert extra, "the past sample season has an extra-end game"
+    for gid, html in extra.items():
+        assert '<th scope="col">EE</th>' in html and "8 ends · extra end" in html, gid
+        assert "st-table--numbers" in html and "st-roster" in html, gid
+        assert 'class="st-roster__head" href' not in html and '<div class="st-roster__head">' in html, gid   # a past season: no link
+    assert not any("Final · OT" in html or ">OT<" in html for html in _curling_games(curling_demo).values())
+
+
+def test_a_curling_game_of_this_season_links_each_rink_and_shows_a_spare(curling_demo):
+    games = {gid: html for gid, html in _curling_games(curling_demo).items() if gid >= "2026" and "st-roster" in html}
+    assert len(games) > 10                                            # (a forfeit has no lineups)
+    assert all(f'<a class="st-roster__head" href="{BASE}/curling/teams/' in html for html in games.values())
+    assert any('st-badge st-badge--outline">Spare</span> <span class="st-roster__for">for ' in html for html in games.values())
+    assert all("Lead</span>" in html or ">Lead<" in html for html in games.values())
+
+
+def test_the_curling_home_schedule_and_team_pages_show_the_legend_the_draws_the_sheets_and_the_skip(curling_demo):
+    for path in ("/", "/schedule/", "/teams/stone-cold/"):
+        html = _curling(curling_demo, path)
+        assert html.count('<div class="st-legend">') == 1, path
+        block = re.search(r'<div class="st-legend">(.*?)</div>', html, re.S).group(1)
+        assert re.findall(r"<span>([^<]+)</span></span>", block) == ["Hammer in end 1", "Stolen end", "Not played"], path
+    home, schedule = _curling(curling_demo, "/"), _curling(curling_demo, "/schedule/")
+    assert "Latest draw" in home and "Next draw" in home and "Rink leaders" in home and ">Rink<" in home
+    assert re.search(r"Draw \d+", schedule) and "Sheet A" in schedule and "Sheet C" in schedule
+    assert re.search(r"Skip [A-Z][a-z]+ [A-Z]\.", _curling(curling_demo, "/teams/stone-cold/"))
+    assert 'data-layout="curling"' in home
+
+
+def test_a_curling_forfeit_card_says_who_forfeited_after_the_sheet_and_time(curling_demo):
+    """Curling's card foot is the meta ("Sheet A · 6:30 PM"); a forfeit has no line score, so without the note
+    the card would read like a 1-0 game."""
+    schedule = _curling(curling_demo, "/schedule/")
+    feet = re.findall(r'<span class="st-result-card__note">(.*?)</span><span class="st-result-card__link">Details', schedule)
+    assert feet, "the sample has a forfeit"
+    for foot in feet:
+        assert re.fullmatch(r"Sheet [A-C] · \d+:\d\d PM · <b>[A-Za-z ]+</b> forfeited · score \[placeholder\]", foot), foot
+
+
+def test_the_basketball_demo_next_to_the_curling_one_has_no_curling_in_it(curling_demo):
+    site = curling_demo[0] / "_site" / "basketball"
+    for file in site.rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert '<div class="st-legend">' not in html and "Pine Lake" not in html and "st-table--numbers" not in html, file

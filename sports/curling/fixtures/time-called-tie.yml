@@ -1,0 +1,23 @@
+# Time called after six ends with the game level 3-3: a tie.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  hammer: home
+  ends:
+    home: [1, 0, 1, 0, 0, 1, X, X]
+    away: [0, 1, 0, 1, 1, 0, X, X]
+  time_called: true
+  final: {home: 3, away: 3}
+  lineups:
+    home:
+    - {player: carol-d, position: lead}
+    - {player: ken-w, position: second}
+    - {player: linda-f, position: vice}
+    - {player: doug-h, position: skip}
+    away:
+    - {player: pat-o, position: lead}
+    - {player: brian-s, position: second}
+    - {player: joanne-t, position: vice}
+    - {player: wayne-b, position: skip}

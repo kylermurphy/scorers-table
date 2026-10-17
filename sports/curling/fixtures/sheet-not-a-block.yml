@@ -1,0 +1,6 @@
+# The sheet is not a block at all.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet: "7-5"

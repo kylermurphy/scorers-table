@@ -1,0 +1,135 @@
+{
+  "name": "Pine Lake Curling Club",
+  "short_name": "Pine Lake Curling Club",
+  "code": "PLCC",
+  "sport": "curling",
+  "sport_name": "Curling",
+  "layout": "curling",
+  "colour": null,
+  "colour_dark": null,
+  "logo": null,
+  "tagline": "Curling · 2026–27",
+  "footer_line": "[Venue]",
+  "footer_name": "Pine Lake Curling Club",
+  "contact_href": null,
+  "search_engines": false,
+  "lang": "en",
+  "nav": [
+    {
+      "label": "Home",
+      "url": "/",
+      "key": "home"
+    },
+    {
+      "label": "Schedule",
+      "url": "/schedule/",
+      "key": "schedule"
+    },
+    {
+      "label": "Stats",
+      "url": "/stats/",
+      "key": "stats"
+    },
+    {
+      "label": "Teams",
+      "url": "/teams/",
+      "key": "teams"
+    },
+    {
+      "label": "Archive",
+      "url": "/archive/",
+      "key": "archive"
+    }
+  ],
+  "footer_links": [
+    {
+      "label": "Teams",
+      "url": "/teams/"
+    },
+    {
+      "label": "Past seasons",
+      "url": "/archive/"
+    },
+    {
+      "label": "League rules",
+      "url": "/rules/"
+    }
+  ],
+  "labels": {
+    "standings": "Standings",
+    "full_table": "Full table",
+    "all_stats": "All stats",
+    "team": "Rink",
+    "final": "Final",
+    "tie": "Tie",
+    "featured": "Game of the week",
+    "results": "Latest draw",
+    "next": "Next draw",
+    "leaders": "Rink leaders"
+  },
+  "words": {
+    "surface": "Sheet",
+    "period": {
+      "one": "End",
+      "many": "Ends",
+      "short": "E"
+    },
+    "day": "Draw",
+    "points_for": {
+      "label": "PF",
+      "title": "Points for"
+    },
+    "points_against": {
+      "label": "PA",
+      "title": "Points against"
+    }
+  },
+  "display": {
+    "card": "lines",
+    "card_foot": "meta",
+    "surface": "label",
+    "team_sub": "skip",
+    "card_head": ""
+  },
+  "results_legend": [
+    {
+      "kind": "hammer",
+      "text": "Hammer in end 1"
+    },
+    {
+      "kind": "mark",
+      "text": "Stolen end"
+    },
+    {
+      "kind": "x",
+      "text": "Not played"
+    }
+  ],
+  "placeholders": [
+    {
+      "setting": "rules.ends",
+      "text": "Ends in a game",
+      "using": "8"
+    },
+    {
+      "setting": "rules.extra_end",
+      "text": "Extra end when a game is level after the last end",
+      "using": "playoffs"
+    },
+    {
+      "setting": "standings.ties",
+      "text": "Ties",
+      "using": "yes"
+    },
+    {
+      "setting": "standings.forfeit",
+      "text": "Forfeit",
+      "using": "1–0"
+    },
+    {
+      "setting": "standings.tiebreakers",
+      "text": "Tiebreakers",
+      "using": "head-to-head record (when they have all played each other), then score difference"
+    }
+  ]
+}

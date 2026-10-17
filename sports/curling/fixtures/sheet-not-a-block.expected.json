@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "",
+      "message": "the sheet should be a block with these lines: hammer, ends, extra, conceded, time_called, final, lineups."
+    }
+  ],
+  "reading": null
+}

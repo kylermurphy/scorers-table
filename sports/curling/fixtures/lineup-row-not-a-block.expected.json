@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home.0",
+      "message": "a row looks like {player: carol-d, position: lead}"
+    }
+  ],
+  "reading": null
+}

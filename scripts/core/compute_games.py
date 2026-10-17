@@ -19,7 +19,15 @@ from scripts.core.problems import call_sport
 from scripts.core.season_ctx import SeasonCtx, game_url, league_labels, record_text, result_word
 
 SIDES = ("home", "away")
-OVERTIME_WORD = {"overtime": "OT", "shootout": "SO"}
+OVERTIME_WORD = {"overtime": "OT", "shootout": "SO"}      # the default; `words.extra.short` replaces the "OT"
+
+
+def decided_word(ctx: SeasonCtx, decided: str) -> str | None:
+    """The short word after "Final ·" for a game decided in extra play ("OT", "EE", "SO"), None for regulation."""
+    if decided == "overtime":
+        extra = ctx.spec["words"].get("extra")
+        return extra["short"] if extra else OVERTIME_WORD[decided]
+    return OVERTIME_WORD.get(decided)
 
 
 def build_games(ctx: SeasonCtx) -> dict[str, dict]:
@@ -77,28 +85,35 @@ def _side(ctx: SeasonCtx, game: LoadedGame, side: str, counted: dict) -> dict:
 
 
 def _final(ctx: SeasonCtx, game: LoadedGame, counted: dict) -> dict:
-    """The final panel's status ("Final", "Final · OT", "Forfeit") and the sub line ("Otters by 3")."""
+    """The final panel's status ("Final", "Final · OT" or the sport's own extra word, "Forfeit") and the sub line ("Otters by 3")."""
     home, away = counted[game.home], counted[game.away]
     label = league_labels(ctx.league)["final"]
     if game.forfeit:
-        return {"status": "Forfeit", "sub": f"{ctx.team_name(game.forfeit)} forfeited"}
+        # `note` is set only while the forfeit score is a default the league has not confirmed ([placeholder]).
+        return {"status": "Forfeit", "sub": f"{ctx.team_name(game.forfeit)} forfeited", "note": ctx.forfeit_default_note()}
     decided = game.reading.score.decided_in if game.reading else "regulation"
-    status = label + (f" · {OVERTIME_WORD[decided]}" if decided in OVERTIME_WORD else "")
+    word = decided_word(ctx, decided)
+    status = label + (f" · {word}" if word else "")
     if home.result == "tie":
-        return {"status": status, "sub": f"Tied {home.pf}–{away.pf}"}
+        return {"status": status, "sub": f"Tied {home.pf}–{away.pf}", "note": None}
     winner, loser = (home, away) if home.pf > away.pf else (away, home)
-    return {"status": status, "sub": f"{ctx.team_name(winner.team)} by {winner.pf - loser.pf}"}
+    return {"status": status, "sub": f"{ctx.team_name(winner.team)} by {winner.pf - loser.pf}", "note": None}
 
 
 def _card(ctx: SeasonCtx, game: LoadedGame, present: dict | None) -> dict:
-    """What a result card prints: the note (its bold part), the link, and the meta parts (surface, time)."""
+    """What a result card prints: the note (its bold part), the link, the meta parts (surface, time, then the sport's
+    `meta_extra`), and the card's own compact line score when the sport gives one (`line_score`, else null: the
+    include then falls back to the game's)."""
     meta = [m for m in (ctx.surface_label(game.row), ctx.time_display(game.row)) if m]
     if present is None:
         who = ctx.team_name(game.forfeit or "")
-        return {"note": f"{who} forfeited", "strong": who, "link_label": "Details", "meta": meta, "note_long": None}
+        unconfirmed = f" · score {fmt.PLACEHOLDER}" if ctx.is_placeholder("standings.forfeit") else ""
+        return {"note": f"{who} forfeited{unconfirmed}", "strong": who, "link_label": "Details", "meta": meta, "note_long": None,
+                "line_score": None}
     card = present.get("card") or {}
     return {"note": card.get("note"), "strong": card.get("strong"), "link_label": card.get("link_label") or "Box score",
-            "meta": meta, "note_long": card.get("note_long")}
+            "meta": [*meta, *card.get("meta_extra", [])], "note_long": card.get("note_long"),
+            "line_score": _line_score(ctx, {"line_score": card.get("line_score")})}
 
 
 # ------------------------------------------------------------------ line score and blocks

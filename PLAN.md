@@ -12,8 +12,8 @@ A stage can run unattended (overnight) once its spec is approved: it ends in a
 pull request, never a merge.
 
 Status: stages 0-4 done (October 2026; stage 4, the core, is merged). Stage 5 is under way: **basketball is done and
-in review as a pull request** (spec: `docs/stage-5-basketball-spec.md`); curling, hockey and slo-pitch come next, one
-pull request each.
+merged** (spec: `docs/stage-5-basketball-spec.md`) and **curling is done and in review as a pull request** (spec:
+`docs/stage-5-curling-spec.md`); hockey and slo-pitch come next, one pull request each.
 
 ## Stage 0: brief and plan (done in the Masters website session)
 - `BRIEF.md` (what it is, the core, the sports and their club rules, layouts,
@@ -95,7 +95,7 @@ JavaScript copy moves to stage 7, see below), stats, the line score and game
 page, a sample season generator, and the sport's default standings rule.
 - **Model:** Sonnet builds; Opus reviews each PR for rule mistakes.
 
-**Basketball: delivered (in review as a pull request).**
+**Basketball: delivered (merged).**
 - `sports/basketball/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`), `sample.py`, the README (the
   game file box by box), and 89 shared fixture cases (`fixtures/`) for the stage 7 JavaScript port. The Masters rule
   (1 point per quarter won, 3 per win) is a documented preset, not an option.
@@ -111,17 +111,42 @@ page, a sample season generator, and the sport's default standings rule.
 - Docs: `docs/sports.md`, `docs/data.md` (examples are basketball), `docs/open-questions.md` section 5 (the new
   placeholders and the questions for the owner: the foul limit, the forfeit score, confirming decisions 3, 4, 6, 8, 9).
 
+**Curling: delivered (in review as a pull request).** All 13 decisions in the spec were confirmed by the owner as
+recommended (October 2026).
+- `sports/curling/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`: the hammer walk, steals, blanks,
+  big ends, extra ends, concessions and time called, lineups with spares), `sample.py` (Pine Lake Curling Club), the
+  README (the score card box by box, the how-tos and the rink-name warning) and 97 shared fixture cases for the
+  stage 7 JavaScript port.
+- Core extensions any sport can use: the `numbers` ("The game in numbers") and `roster` (lineups) blocks, each with
+  its include, parity case and specimen; the card's own `line_score` and `meta_extra`; `words.extra` (the extra-end
+  word: "Final · EE", "an extra-end win"); `display.results_legend`; `display.team_sub` (the skip line on a team
+  card); a player group with no counting stats (`stats.player: []`: games played only); and the sample generator's
+  `TIMES`, `SURFACES`, `NUMBERS`, `POSITIONS` and `NOTES`.
+- Two small core fixes found by the sample: a past season's game page highlights Archive (not Schedule) in the
+  navigation, and a forfeit is not a game in a team board's "in N games".
+- Golden files `tests/golden/curling/`; the `/curling/` sport preview comes by itself (`sport_previews: true`). The
+  shipped `league.yml` and the committed `data/sample-*` stay basketball.
+- Docs: `docs/sports.md` (the new keys and blocks), `docs/data.md` (curling examples, the rink-name rule),
+  `docs/open-questions.md` section 6 (curling's five placeholders and the 13 decisions), `README.md`.
+- Not built, named in the spec: the club-scoreboard line score, team rates ("ends won %"), a printable curling score
+  card and photo-reading prompt (both "Later"), and the JavaScript rules and entry page (stage 7).
+
 **Decided: the JavaScript copy of the rules moves to stage 7**, with the entry page, its only user. Each sport's
 pull request still commits its shared fixtures, so the port can be tested against them.
 
-**Still to come, with the sport that needs it** (deliberately not built for basketball, so no option goes untested):
-- Curling, hockey and slo-pitch folders, each with its sample, golden files and README.
-- The extra display parts of stage 4's list: `numbers` (curling), `facts` (slo-pitch), `events`, a penalties table and
-  `roster`, each a reusable core part with a specimen and a parity case, plus the `line_score` extras a sport needs.
+**Still to come, with the sport that needs it** (deliberately not built yet, so no option goes untested; `order: asc`,
+`format:`, option-chosen period words and option-shown stats are the basketball spec's "Deferred" table):
+- Hockey and slo-pitch folders, each with its sample, golden files, README and fixtures (the same package shape as
+  basketball and curling).
+- The extra display parts still missing from stage 4's list: `facts` (slo-pitch), `events` (hockey's scoring
+  summary) and a penalties table (hockey), each a reusable core part with a specimen and a parity case (the design
+  system page already has the specimens), plus whatever `line_score` extras those sports turn out to need. (`numbers` and `roster` are done: curling.)
 - Leaderboard `order: asc` (lowest is best): hockey's goals-against average, where 0.00 is valid.
 - A `format:` for rates (`.333`, `.912`): slo-pitch's average, hockey's save percentage.
 - Period words chosen by an option: basketball halves (the Masters sheet had halves until October 2026).
-- Stats and boards that show only when an option is on: basketball with free throws not kept.
+- Stats and boards that show only when an option is on: basketball with free throws not kept (and curling with
+  `rules.lineups: none`, whose Stats page shows the empty player table).
+- Team rates (curling's "ends won %", needs `derive` for teams and ranking before rounding on team boards).
 
 ## Stage 6: the six layouts as a setting
 `layout:` in `league.yml` picks one of the six; the league's colours and logo

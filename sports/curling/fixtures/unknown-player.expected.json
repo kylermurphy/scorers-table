@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home.0.player",
+      "message": "player 'nobody-x' is not in players.yml"
+    }
+  ],
+  "reading": null
+}

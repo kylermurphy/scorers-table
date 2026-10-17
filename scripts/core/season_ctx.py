@@ -22,7 +22,7 @@ from scripts.core.loader import LoadedGame, LoadedSeason, ScheduleRow
 from scripts.core.model import League, Placeholder, Player, Problem, Team
 from scripts.core.sports import regulation_periods
 from scripts.core.standings import (
-    Record, StandingsGame, StandingsResult, TeamGame, compute_standings, game_results, record_of,
+    Record, StandingsGame, StandingsResult, TeamGame, compute_standings, forfeit_text, game_results, record_of,
 )
 
 # Site paths (for `relative_url`): leading slash, trailing slash.
@@ -116,6 +116,17 @@ class SeasonCtx:
     def is_placeholder(self, setting: str) -> bool:
         return any(p.setting == setting for p in self.placeholders)
 
+    def forfeit_text(self) -> str:
+        """How this season scores a forfeit, in words ('20–0')."""
+        return forfeit_text(self.settings.standings, self.spec["words"]["period"]["one"].lower())
+
+    def forfeit_default_note(self) -> str | None:
+        """The [placeholder] sentence for a forfeit scored by the default the league has not confirmed
+        (`standings.forfeit` left out of league.yml); None once the league has set it."""
+        if not self.is_placeholder("standings.forfeit"):
+            return None
+        return f"{fmt.PLACEHOLDER} The league has not decided how a forfeit is scored yet. The site counts it as {self.forfeit_text()}."
+
     # -- names and words
     def team_name(self, team: str) -> str:
         """A team's name; on a playoff row whose teams are not known yet, the text as written ('1st')."""
@@ -192,7 +203,8 @@ def build_ctx(league: League, loaded: LoadedSeason, *, active: bool) -> SeasonCt
     reg_for_engine = reg if reg is not None else 1
     unset = any(p.setting == "standings.tiebreakers" for p in loaded.settings.placeholders)
     standing = compute_standings(games, loaded.teams, standings, regulation_periods=reg_for_engine,
-                                 tiebreakers_unset=unset)
+                                 tiebreakers_unset=unset,
+                                 period_many=league.sport_def.spec["words"]["period"]["many"])
     problems.extend(standing.problems)
     results: dict[str, dict[str, TeamGame]] = {}
     for g in games:

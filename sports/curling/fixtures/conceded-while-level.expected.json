@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "conceded",
+      "message": "Bravo shook hands but was not behind (3-3 after 6 ends). The score stands as it is, so the rink that concedes is the one behind: check which rink conceded."
+    }
+  ],
+  "reading": null
+}

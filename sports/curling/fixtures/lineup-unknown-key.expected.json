@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home.0.num",
+      "message": "'num' isn't part of a lineup row. Use one of: player, name, position, spare_for."
+    }
+  ],
+  "reading": null
+}

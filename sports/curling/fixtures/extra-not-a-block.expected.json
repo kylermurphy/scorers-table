@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra",
+      "message": "should list the extra-end boxes for home and away, like 'home: [0, 1]' and 'away: [0, 0]'"
+    }
+  ],
+  "reading": null
+}

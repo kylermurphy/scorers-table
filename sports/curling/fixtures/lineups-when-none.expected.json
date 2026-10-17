@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups",
+      "message": "this league doesn't record lineups (rules.lineups is none): take 'lineups' out, or set rules.lineups to recorded"
+    }
+  ],
+  "reading": null
+}

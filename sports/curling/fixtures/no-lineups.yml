@@ -1,0 +1,11 @@
+# No lineups in a finished file.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  hammer: away
+  ends:
+    home: [0, 0, 1, 1, 0, 3, 0, 2]
+    away: [0, 2, 0, 0, 1, 0, 2, 0]
+  final: {home: 7, away: 5}

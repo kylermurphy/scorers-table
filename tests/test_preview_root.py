@@ -101,9 +101,9 @@ def test_a_sport_without_a_demo_or_a_folder_with_files_in_it_is_refused(tmp_path
 
 def test_list_prints_the_ids_league_yml_asks_for(capsys):
     assert preview_root.main(["--list"]) == 0
-    assert capsys.readouterr().out == "basketball\n"
+    assert capsys.readouterr().out == "basketball\ncurling\n"
     ids, problems = preview_root.preview_ids()
-    assert ids == ["basketball"] and not problems
+    assert ids == ["basketball", "curling"] and not problems
 
 
 def test_list_stops_with_the_problem_when_league_yml_is_wrong(tmp_path):
@@ -176,4 +176,5 @@ def test_the_league_preview_banner_links_to_the_sport_previews(tmp_path, capsys)
     capsys.readouterr()
     active = json.loads((tmp_path / "out" / "_data" / "computed" / "active.json").read_text(encoding="utf-8"))
     assert (active["preview_kind"], active["sport_previews"]) == (
-        "league", [{"id": "basketball", "name": "Basketball", "url": "/basketball/"}])
+        "league", [{"id": "basketball", "name": "Basketball", "url": "/basketball/"},
+                   {"id": "curling", "name": "Curling", "url": "/curling/"}])

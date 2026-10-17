@@ -1474,7 +1474,7 @@
   border: var(--st-border) solid var(--st-line);
   border-radius: var(--st-radius-card);
 }
-.st-page a.st-roster__head {
+.st-roster__head {
   display: flex;
   align-items: center;
   gap: var(--st-space-sm);
@@ -1482,6 +1482,12 @@
   padding: 0 var(--st-card-pad-x);
   background: var(--st-surface-2);
   border-bottom: var(--st-border) solid var(--st-line);
+  color: var(--st-text);
+}
+/* The head is a link, or a plain div in a past season: the same look, and the link rules (no underline, no hover
+   colour) only on the link. */
+.st-page a.st-roster__head,
+.st-page a.st-roster__head:hover {
   color: var(--st-text);
   text-decoration: none;
 }
@@ -1802,7 +1808,7 @@ a.st-top-scorer__name::after {
   color: var(--st-panel-text);
 }
 [data-layout="scoreboard"] .st-page a.st-roster__head,
-[data-layout="scoreboard"] a.st-roster__head {
+[data-layout="scoreboard"] .st-roster__head {
   background: var(--st-panel-bg);
   color: var(--st-panel-text);
   border-bottom: 0;

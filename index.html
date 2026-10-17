@@ -34,6 +34,9 @@ nav: home
   {%- if _latest_day %}
 {% include shell/section-head.html title=league.labels.results aside="All results" aside_url="/schedule/" %}
 <p class="st-label st-leader-group">{{ _latest_day.label | escape }} · {{ _latest_day.date_long | escape }}</p>
+{%- if league.results_legend.size > 0 %}
+{% include parts/legend.html items=league.results_legend %}
+{%- endif %}
 <div class="st-list">
     {%- for _gid in _latest.games %}
       {%- assign _game = stats.games[_gid] %}

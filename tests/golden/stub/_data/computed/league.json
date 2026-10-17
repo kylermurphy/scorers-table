@@ -90,22 +90,27 @@
     "surface": "label",
     "card_head": ""
   },
+  "results_legend": [],
   "placeholders": [
     {
       "setting": "rules.overtime",
-      "text": "Overtime"
+      "text": "Overtime",
+      "using": "none"
     },
     {
       "setting": "standings.forfeit",
-      "text": "Forfeit"
+      "text": "Forfeit",
+      "using": "1–0"
     },
     {
       "setting": "standings.tiebreakers",
-      "text": "Tiebreakers"
+      "text": "Tiebreakers",
+      "using": "head-to-head record (when they have all played each other), then score difference, then points for"
     },
     {
       "setting": "stats.minimums.ppg_min_games",
-      "text": "Minimum games for the points per game leaders"
+      "text": "Minimum games for the points per game leaders",
+      "using": "0"
     }
   ]
 }

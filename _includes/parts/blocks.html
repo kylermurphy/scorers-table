@@ -1,7 +1,7 @@
 {%- comment -%}
   parts/blocks.html: a game page's blocks, below the final panel: each present() block is drawn by the part that
-  owns its type. The core knows stat_table, note and top_performer; a type it does not know is left out
-  (stage 5 adds the sports' own: numbers, facts, events, roster).
+  owns its type. The core knows stat_table, note, top_performer, numbers and roster; a type it does not know is
+  left out (stage 5 adds the sports' own: facts, events).
   Params: blocks (game.blocks), game.
 {%- endcomment -%}
 {%- for _bk in include.blocks -%}
@@ -9,5 +9,7 @@
     {%- when "stat_table" -%}{%- include parts/stat-table.html block=_bk game=include.game -%}
     {%- when "note" -%}{%- include parts/note.html block=_bk -%}
     {%- when "top_performer" -%}{%- include parts/top-performer.html block=_bk -%}
+    {%- when "numbers" -%}{%- include parts/numbers.html block=_bk game=include.game -%}
+    {%- when "roster" -%}{%- include parts/roster.html block=_bk game=include.game -%}
   {%- endcase -%}
 {%- endfor -%}

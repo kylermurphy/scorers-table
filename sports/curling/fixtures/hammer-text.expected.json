@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "hammer",
+      "message": "hammer 'Bravo' should be home or away: the rink that threw the last stone of the first end"
+    }
+  ],
+  "reading": null
+}

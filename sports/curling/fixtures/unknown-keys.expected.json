@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "draw",
+      "message": "'draw' isn't part of a score card. Use one of: hammer, ends, extra, conceded, time_called, final, lineups."
+    },
+    {
+      "level": "error",
+      "at": "notes",
+      "message": "'notes' isn't part of a score card. Use one of: hammer, ends, extra, conceded, time_called, final, lineups."
+    }
+  ],
+  "reading": null
+}

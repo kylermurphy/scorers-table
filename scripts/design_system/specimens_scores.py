@@ -541,7 +541,7 @@ def render_roster(ctx: Ctx) -> str:
             f'<div class="st-roster"><a class="st-roster__head" href="#">{chip(tt, "lg")}'
             f'<span class="st-roster__team">{esc(tt["name"])}</span>'
             f'<span class="st-roster__link">{esc(link.replace(" ›", ""))}{CHEVRON}</span>'
-            '<span class="st-visually-hidden"> rink page</span></a>'
+            '<span class="st-visually-hidden"> page</span></a>'
             f'<ol class="st-roster__list">{"".join(rows)}</ol></div>')
     out.append("</div>")
     out.append(f'<p class="st-note">{esc(sec["note"])}</p>')

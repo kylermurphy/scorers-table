@@ -1,0 +1,180 @@
+{
+  "problems": [],
+  "reading": {
+    "score": {
+      "final": {
+        "home": 5,
+        "away": 4
+      },
+      "periods": {
+        "home": [
+          1,
+          0,
+          2,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "away": [
+          0,
+          1,
+          0,
+          1,
+          2,
+          0,
+          0,
+          0
+        ]
+      },
+      "extra": {
+        "home": [
+          0,
+          1
+        ],
+        "away": [
+          0,
+          0
+        ]
+      },
+      "decided_in": "overtime",
+      "final_at": {
+        "home": "sheet.final.home",
+        "away": "sheet.final.away"
+      }
+    },
+    "lines": [
+      {
+        "side": "home",
+        "player": "carol-d",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "ken-w",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "linda-f",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "doug-h",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "pat-o",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "brian-s",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "joanne-t",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "wayne-b",
+        "group": "player",
+        "counts": {}
+      }
+    ],
+    "team_lines": {
+      "home": {
+        "ends_won": 4,
+        "stolen": 1,
+        "blanks": 0,
+        "big_ends": 0,
+        "hammer_ends": 4,
+        "hammer_scored": 3,
+        "ends": 10
+      },
+      "away": {
+        "ends_won": 3,
+        "stolen": 1,
+        "blanks": 3,
+        "big_ends": 0,
+        "hammer_ends": 6,
+        "hammer_scored": 2,
+        "ends": 10
+      }
+    },
+    "facts": {
+      "hammer_by_end": [
+        "home",
+        "away",
+        "home",
+        "away",
+        "home",
+        "home",
+        "away",
+        "away",
+        "away",
+        "away"
+      ],
+      "stopped": null,
+      "ends": 8,
+      "lineups": {
+        "home": [
+          {
+            "player": "carol-d",
+            "position": "lead",
+            "spare_for": null
+          },
+          {
+            "player": "ken-w",
+            "position": "second",
+            "spare_for": null
+          },
+          {
+            "player": "linda-f",
+            "position": "vice",
+            "spare_for": null
+          },
+          {
+            "player": "doug-h",
+            "position": "skip",
+            "spare_for": null
+          }
+        ],
+        "away": [
+          {
+            "player": "pat-o",
+            "position": "lead",
+            "spare_for": null
+          },
+          {
+            "player": "brian-s",
+            "position": "second",
+            "spare_for": null
+          },
+          {
+            "player": "joanne-t",
+            "position": "vice",
+            "spare_for": null
+          },
+          {
+            "player": "wayne-b",
+            "position": "skip",
+            "spare_for": null
+          }
+        ]
+      }
+    }
+  }
+}

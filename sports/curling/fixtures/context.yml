@@ -1,0 +1,24 @@
+# The two rinks, the players and the league settings every curling fixture is checked with. All made up: Alpha
+# (`aa`) is the first-listed rink ("home"), Bravo (`bb`) the second ("away"). Charlie (`cc`) is a third rink whose
+# players are never in these games unless a case says so. A case's own `fixture:` block sets folder, game_type and
+# any `options` that differ from these.
+sides: {home: aa, away: bb}
+teams:
+  - {id: aa, name: Alpha, code: AL}
+  - {id: bb, name: Bravo, code: BR}
+  - {id: cc, name: Charlie, code: CH}
+players:
+  - {id: carol-d, name: Carol D., team: aa, position: lead}
+  - {id: ken-w, name: Ken W., team: aa, position: second}
+  - {id: linda-f, name: Linda F., team: aa, position: vice}
+  - {id: doug-h, name: Doug H., team: aa, position: skip}
+  - {id: abby-t, name: Abby T., team: aa, position: second}
+  - {id: pat-o, name: Pat O., team: bb, position: lead}
+  - {id: brian-s, name: Brian S., team: bb, position: second}
+  - {id: joanne-t, name: Joanne T., team: bb, position: vice}
+  - {id: wayne-b, name: Wayne B., team: bb, position: skip}
+  - {id: bill-r, name: Bill R., team: bb, position: lead}
+  - {id: ron-m, name: Ron M., team: null, sub: true}
+  - {id: mia-c, name: Mia C., team: cc, position: lead}
+  - {id: zed-c, name: Zed C., team: cc, position: skip}
+options: {ends: 8, extra_end: playoffs, lineups: recorded}

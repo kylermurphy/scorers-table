@@ -3,7 +3,8 @@
 #
 #   _site/preview/   the league's own site (name, colours, logo, look) with made-up games, when league.yml says
 #                    `preview: true` and the real data is showing (`sample_data: false`). The banner links back to
-#                    the live site.
+#                    the live site. A league whose data/seasons.yml lists no sample season gets no /preview/: the
+#                    script says so in one line and carries on (the sport previews below are not affected).
 #   _site/<sport>/   one demo copy per sport named by `sport_previews` in league.yml (true, or a list of sport ids;
 #                    false builds none): the template's made-up league for that sport (sports/<sport>/sample.py)
 #                    in the sport's own look. Always built, whatever `preview` and `sample_data` say.
@@ -39,6 +40,20 @@ read -r preview sample <<<"$(python3 -c 'import yaml; c = yaml.safe_load(open("l
 league_copy=0
 if [ "$preview" = "True" ] && [ "$sample" != "True" ]; then
   league_copy=1
+  # A league that took its sample seasons out of data/seasons.yml has nothing to build /preview/ from: skip it (the
+  # sport previews do not need them). Only "no season there is marked `sample: true`" skips; a file that cannot be read
+  # or a sample season that is broken is left for build.py to report, as before.
+  has_sample=$(python3 -c '
+import yaml
+try:
+    seasons = yaml.safe_load(open("data/seasons.yml"))
+except Exception:
+    seasons = None
+print("yes" if not isinstance(seasons, list) or any(isinstance(s, dict) and s.get("sample") for s in seasons) else "no")')
+  if [ "$has_sample" = "no" ]; then
+    echo "no sample season in data/seasons.yml: skipping /preview/"
+    league_copy=0
+  fi
 fi
 # The sport ids sport_previews asks for (checked: a problem in league.yml stops here with its message).
 sport_ids=$(python3 scripts/preview_root.py --list)

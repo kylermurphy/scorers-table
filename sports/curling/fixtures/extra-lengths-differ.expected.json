@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.away",
+      "message": "Alpha has 2 extra-end boxes but Bravo has 1. Both rinks have a box in every extra end."
+    }
+  ],
+  "reading": null
+}

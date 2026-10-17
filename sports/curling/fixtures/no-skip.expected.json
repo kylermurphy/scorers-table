@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home",
+      "message": "Alpha has no skip. Every rink has one: write 'position: skip' on the skip's row."
+    }
+  ],
+  "reading": null
+}

@@ -38,7 +38,7 @@ description: The league's rules and how its standings are worked out.
 These settings have no answer yet. The site shows `[placeholder]` wherever they come up. They are set in `league.yml`.
 
 {% for item in league.placeholders -%}
-- {{ item.text }} (`{{ item.setting }}`)
+- [placeholder] {{ item.text }} (`{{ item.setting }}`). For now the site uses: {{ item.using }}
 {% endfor %}
 {: .st-note}
 {% endif %}

@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home.7",
+      "message": "end 8 has a number after an X. X marks only the ends left when a game stopped early."
+    },
+    {
+      "level": "error",
+      "at": "ends.away.7",
+      "message": "end 8 has a number after an X. X marks only the ends left when a game stopped early."
+    }
+  ],
+  "reading": null
+}

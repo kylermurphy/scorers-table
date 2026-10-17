@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home.1",
+      "message": "9 isn't a score for end 2: write a whole number from 0 to 8, or X for an end not played"
+    }
+  ],
+  "reading": null
+}

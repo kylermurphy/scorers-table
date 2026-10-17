@@ -383,21 +383,43 @@ def validate_tiebreakers(spec: Any, at: str = "standings.tiebreakers") -> list[P
     return problems
 
 
-def tiebreak_note(standings: Mapping[str, Any], unset: bool = False) -> str:
-    """One sentence under the table: 'Teams level on points are ranked by head-to-head record (when they have
-    all played each other), then wins; teams still level share a rank.' (It says "level on points", not
-    "ties", so it is not read as tied games.) With `unset` (the league has not decided its tiebreakers) it
-    starts with the [placeholder] wording and then says what the build is using instead."""
+def forfeit_text(standings: Mapping[str, Any], period_one: str = "period") -> str:
+    """How a forfeit is scored, in words: '20–0', or '1–0 in every quarter' (`period_one` is the sport's word)."""
+    score = standings["forfeit"]["score"]
+    return f"1–0 in every {period_one}" if score == "per_period" else f"{score[0]}–{score[1]}"
+
+
+def _phrase(name: str, index: int, period_many: str | None) -> str:
+    """One tiebreaker's words: `index` 0 is the sentence phrase, 1 the short row label. `periods_won` says the
+    sport's own word when `period_many` is given ('ends won'); without it, 'periods won'."""
+    if name == "periods_won" and period_many:
+        return f"{period_many.lower()} won"
+    return _PHRASES[name][index]
+
+
+def tiebreak_phrases(standings: Mapping[str, Any], period_many: str | None = None) -> list[str]:
+    """The tiebreakers in order, as phrases ('head-to-head record (when they have all played each other)').
+    `period_many` is the sport's plural period word ('Ends'), used by `periods_won`."""
     phrases = []
     met_said = False
     for name, options in normalise_tiebreakers(standings["tiebreakers"]):
-        text = _PHRASES[name][0]
+        text = _phrase(name, 0, period_many)
         if name == "diff" and "cap" in options:
             text += f" (each game counted up to {options['cap']})"
         if name in ("head_to_head", "head_to_head_points") and not met_said:
             text += " (when they have all played each other)"          # the skip rule, said once
             met_said = True
         phrases.append(text)
+    return phrases
+
+
+def tiebreak_note(standings: Mapping[str, Any], unset: bool = False, period_many: str | None = None) -> str:
+    """One sentence under the table: 'Teams level on points are ranked by head-to-head record (when they have
+    all played each other), then wins; teams still level share a rank.' (It says "level on points", not
+    "ties", so it is not read as tied games.) With `unset` (the league has not decided its tiebreakers) it
+    starts with the [placeholder] wording and then says what the build is using instead. `period_many` is the
+    sport's plural period word, which `periods_won` uses ("ends won")."""
+    phrases = tiebreak_phrases(standings, period_many)
     basis = "win percentage" if standings["rank_by"] == "win_pct" else "points"
     if phrases:
         note = f"Teams level on {basis} are ranked by {', then '.join(phrases)}; teams still level share a rank."
@@ -473,7 +495,8 @@ def _row_values(table: Table, leader: str, team: str, columns: Iterable[str]) ->
 
 
 def compute_standings(games: Iterable[StandingsGame], teams: Mapping[str, Team], standings: Mapping[str, Any],
-                      *, regulation_periods: int, tiebreakers_unset: bool = False) -> StandingsResult:
+                      *, regulation_periods: int, tiebreakers_unset: bool = False,
+                      period_many: str | None = None) -> StandingsResult:
     """The standings table of one season (spec 3.5 and 4.1).
 
     games: every game of the season, playoff games included (they are only checked for ties).
@@ -483,6 +506,8 @@ def compute_standings(games: Iterable[StandingsGame], teams: Mapping[str, Team],
         a `per_period` forfeit is that many periods to none. sport.yml has no field for it, so the caller reads
         it from its rules (the stub's `periods`).
     tiebreakers_unset: the league left `standings.tiebreakers` undecided (a placeholder), so the note says so.
+    period_many: the sport's plural period word ("Ends"); the `periods_won` tiebreaker is worded with it ("ends
+        won") in the note and on a row. None: "periods won".
 
     Rows are plain dicts: {rank, team, values, display, record, tied, broke_by, tiebreak} with values/display
     holding the requested `columns`. `tied` is true when another team shares the rank; `broke_by` is the key
@@ -502,5 +527,5 @@ def compute_standings(games: Iterable[StandingsGame], teams: Mapping[str, Team],
             values, display = _row_values(table, leader, team, columns)
             rows.append({"rank": rank, "team": team, "values": values, "display": display,
                          "record": table.records[team].text, "tied": len(cell) > 1, "broke_by": broke_by,
-                         "tiebreak": _PHRASES[broke_by][1] if broke_by else None})
-    return StandingsResult(rows, tiebreak_note(standings, tiebreakers_unset), by_team, problems)
+                         "tiebreak": _phrase(broke_by, 1, period_many) if broke_by else None})
+    return StandingsResult(rows, tiebreak_note(standings, tiebreakers_unset, period_many), by_team, problems)

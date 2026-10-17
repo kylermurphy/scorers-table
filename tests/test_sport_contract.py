@@ -119,12 +119,42 @@ def test_the_past_season_is_finished(sport):
 
 
 def test_the_sample_players_are_made_up_first_names_with_an_initial(sport):
+    """PLAYERS_PER_TEAM players a team (7 when the sport does not say), a jersey `00` only when NUMBERS is on
+    (it exercises the strict loader), no number at all when it is off."""
     from scripts.core.fmt import is_first_last
+    sample = sport.sample
+    per_team = getattr(sample, "PLAYERS_PER_TEAM", 7)
     players = parse_yaml(generate(sport, SEASONS[0])["players.yml"])
-    assert len(players) >= 5 * len(sport.sample.TEAMS) and all(is_first_last(p["name"]) for p in players)
+    regulars = [p for p in players if p.get("team")]
+    assert len(regulars) == per_team * len(sample.TEAMS) and all(is_first_last(p["name"]) for p in players)
     assert len({p["id"] for p in players}) == len(players)
-    assert any(p.get("number") == "00" for p in players), "a jersey 00 exercises the strict loader"
+    if getattr(sample, "NUMBERS", True):
+        assert any(p.get("number") == "00" for p in players), "a jersey 00 exercises the strict loader"
+    else:
+        assert not any("number" in p for p in players)
+    positions = getattr(sample, "POSITIONS", None)
+    for team in sample.TEAMS:
+        mine = [p.get("position") for p in regulars if p["team"] == team[0]]
+        assert mine == ([*positions, *[None] * per_team][:per_team] if positions else [None] * per_team), team[0]
     assert any(p.get("team") is None and p.get("sub") is True for p in players)
+
+
+def test_the_schedule_uses_the_samples_draw_times_and_surfaces(sport):
+    sample, files = sport.sample, generate(sport, SEASONS[0])
+    rows = list(csv.DictReader(io.StringIO(files["schedule.csv"])))
+    assert {r["time"] for r in rows} <= set(getattr(sample, "TIMES", make_sample.TIMES))
+    surfaces = {r["surface"] for r in rows}
+    if not sport.spec["words"]["surface"]:
+        assert surfaces == {""}
+    elif hasattr(sample, "SURFACES"):
+        assert surfaces <= set(sample.SURFACES) and "" not in surfaces
+    else:
+        assert surfaces <= {str(n) for n in range(1, len(sample.TEAMS))} and "" not in surfaces
+    day = {}
+    for r in rows:        # two games never share a surface at the same time
+        key = (r["date"], r["time"], r["surface"])
+        assert key not in day, key
+        day[key] = r["game_id"]
 
 
 # ------------------------------------------------------------------ paths that point somewhere

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.away.1.spare_for",
+      "message": "Ken W. is not a regular player of Bravo. spare_for names the player of this rink the spare replaced."
+    }
+  ],
+  "reading": null
+}
