@@ -42,6 +42,8 @@ SHAPES = ("quarters", "ends", "periods", "innings")
 CARD = ("rows", "lines")
 CARD_FOOT = ("note", "meta", "status_note")
 SURFACE = ("label", "sub")
+# The kinds of key parts/legend.html draws (display.results_legend items).
+LEGEND_KINDS = ("hammer", "won", "mark", "blank", "limit", "x")
 
 # Standings (shared by sport.yml and league.yml).
 RANK_BY = ("points", "win_pct")
@@ -221,7 +223,7 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
         _check_leaderboards(c, spec["leaderboards"], stat_keys, spec.get("minimums"))
     _check_labels(c, spec)
     if "display" in spec:
-        _check_display(c, spec["display"])
+        _check_display(c, spec["display"], spec.get("positions"))
     if "positions" in spec:
         for i, p in enumerate(c.sequence(spec["positions"], "positions") or []):
             c.pattern(p, join_path("positions", i), KEY_RE, "a lower-case word")
@@ -229,13 +231,17 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
 
 
 def _check_words(c: Checker, words: Any) -> None:
-    if c.mapping(words, "words", allowed=("surface",),
+    if c.mapping(words, "words", allowed=("surface", "extra"),
                  required=("period", "day", "points_for", "points_against")) is None:
         return
     if "period" in words and c.mapping(words["period"], "words.period", required=("one", "many", "short")) is not None:
         for k in ("one", "many", "short"):
             if k in words["period"]:
                 c.text(words["period"][k], f"words.period.{k}")
+    if "extra" in words and c.mapping(words["extra"], "words.extra", required=("one", "short")) is not None:
+        for k in ("one", "short"):
+            if k in words["extra"]:
+                c.text(words["extra"][k], f"words.extra.{k}")
     if "day" in words:
         c.text(words["day"], "words.day")
     if "surface" in words:
@@ -491,12 +497,33 @@ def _check_labels(c: Checker, spec: dict) -> None:
                     c.text(v, join_path("labels_by_layout", layout, k))
 
 
-def _check_display(c: Checker, display: Any) -> None:
-    if c.mapping(display, "display", allowed=("card", "card_foot", "surface")) is None:
+def _check_display(c: Checker, display: Any, positions: Any = None) -> None:
+    if c.mapping(display, "display", allowed=("card", "card_foot", "surface", "results_legend", "team_sub")) is None:
         return
     for key, options in (("card", CARD), ("card_foot", CARD_FOOT), ("surface", SURFACE)):
         if key in display:
             c.choice(display[key], join_path("display", key), options)
+    if "results_legend" in display:
+        _check_results_legend(c, display["results_legend"])
+    if "team_sub" in display:
+        # The position whose regular a team card names ("Skip Gail R."): one of the sport's `positions`.
+        names = [p for p in positions if isinstance(p, str)] if isinstance(positions, list) else []
+        if not names:
+            c.error("display.team_sub", "needs `positions:` in this sport.yml: it names one of them (like 'skip').")
+        else:
+            c.choice(display["team_sub"], "display.team_sub", names)
+
+
+def _check_results_legend(c: Checker, legend: Any) -> None:
+    """display.results_legend: [{kind, text}], the key printed above a list of result cards."""
+    for i, item in enumerate(c.sequence(legend, "display.results_legend") or []):
+        at = join_path("display", "results_legend", i)
+        if c.mapping(item, at, allowed=(), required=("kind", "text")) is None:
+            continue
+        if "kind" in item:
+            c.choice(item["kind"], join_path(at, "kind"), LEGEND_KINDS)
+        if "text" in item:
+            c.text(item["text"], join_path(at, "text"))
 
 
 def normalise_spec(spec: dict) -> dict:
