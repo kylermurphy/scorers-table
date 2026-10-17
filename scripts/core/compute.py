@@ -104,7 +104,8 @@ def default_in_use(league: League, setting: str) -> str:
     if setting == "standings.forfeit":
         return forfeit_text(league.standings, league.sport_def.spec["words"]["period"]["one"].lower())
     if setting == "standings.tiebreakers":
-        return ", then ".join(tiebreak_phrases(league.standings)) or "none"
+        spec = league.sport_def.spec
+        return ", then ".join(tiebreak_phrases(league.standings, spec["words"]["period"]["many"])) or "none"
     parts = setting.split(".")
     value = {"rules": league.rules, "standings": league.standings, "stats": league.minimums}[parts[0]][parts[-1]]
     return ("yes" if value else "no") if isinstance(value, bool) else str(value)
@@ -126,7 +127,8 @@ def league_json(league: League, active: SeasonCtx) -> dict:
         "search_engines": league.search_engines, "lang": league.lang,
         "nav": [{"label": label, "url": url, "key": key} for label, key, url in NAV],
         "footer_links": footer_links, "labels": league_labels(league), "words": words,
-        "display": {**spec["display"], "card_head": ""},
+        "display": {**{k: v for k, v in spec["display"].items() if k != "results_legend"}, "card_head": ""},
+        "results_legend": spec["display"].get("results_legend", []),
         "placeholders": [{"setting": p.setting, "text": p.text, "using": default_in_use(league, p.setting)}
                          for p in league.placeholders],
     }
@@ -215,8 +217,18 @@ def _season_files(out: BuildOutput, ctx: SeasonCtx, calendar_teams: set[str]) ->
 
 # ------------------------------------------------------------------ standings
 
-def points_sentence(standings: dict, ties: bool, period_one: str) -> str:
-    """'2 points a win, 1 a tie and 1 for an overtime loss.' (or the win-percentage rule)."""
+def extra_win_word(extra: dict | None) -> str:
+    """'overtime' for a sport with no `words.extra`; else its `one` as an adjective: 'Extra end' -> 'extra-end'."""
+    return extra["one"].lower().replace(" ", "-") if extra else "overtime"
+
+
+def _a_or_an(word: str) -> str:
+    return ("an " if word[:1] in "aeiou" else "a ") + word
+
+
+def points_sentence(standings: dict, ties: bool, period_one: str, extra: dict | None = None) -> str:
+    """'2 points a win, 1 a tie and 1 for an overtime loss.' (or the win-percentage rule). `extra` is the sport's
+    `words.extra` ({one, short}): with it the sentence says 'an extra-end win' instead of 'an overtime win'."""
     if standings["rank_by"] == "win_pct":
         return "Teams are ranked by winning percentage" + (" (a tie counts as half a win)." if ties else ".")
     p = standings["points"]
@@ -225,10 +237,11 @@ def points_sentence(standings: dict, ties: bool, period_one: str) -> str:
         parts.append(f"{p['tie']} a tie")
     if p["loss"]:
         parts.append(f"{p['loss']} a loss")
+    kind = extra_win_word(extra)
     if p["ot_win"] != p["win"]:
-        parts.append(f"{p['ot_win']} for an overtime win")
+        parts.append(f"{p['ot_win']} for {_a_or_an(kind)} win")
     if p["ot_loss"] != p["loss"]:
-        parts.append(f"{p['ot_loss']} for an overtime loss")
+        parts.append(f"{p['ot_loss']} for {_a_or_an(kind)} loss")
     if standings["period_points"]:
         parts.append(f"{standings['period_points']} for each {period_one} won")
     return (", ".join(parts[:-1]) + " and " + parts[-1] if len(parts) > 1 else parts[0]) + "."
@@ -281,7 +294,8 @@ def _standings(ctx: SeasonCtx) -> dict:
     st = ctx.settings.standings
     basis = "win_pct" if st["rank_by"] == "win_pct" else "points"
     maximum = _race_max(ctx)
-    note = " ".join(x for x in (points_sentence(st, st["ties"], ctx.spec["words"]["period"]["one"].lower()),
+    note = " ".join(x for x in (points_sentence(st, st["ties"], ctx.spec["words"]["period"]["one"].lower(),
+                                ctx.spec["words"].get("extra")),
                                 *_default_sentences(ctx),
                                 f"Playoffs: {st['playoffs']}" if st.get("playoffs") else "") if x)
     counted = [ctx.loaded.games[tg.game_id].row.date for games in ctx.standing.results.values() for tg in games]
@@ -296,6 +310,19 @@ def _standings(ctx: SeasonCtx) -> dict:
 
 # ------------------------------------------------------------------ teams
 
+def _team_sub(ctx: SeasonCtx, team_id: str) -> str | None:
+    """The line under a team's name on its card: with `display.team_sub: skip`, "Skip Gail R." from the regular
+    (not a spare) of that position in players.yml, the first listed when two share it; None when there is none
+    or the sport sets no `team_sub`."""
+    position = ctx.spec["display"].get("team_sub")
+    if not position:
+        return None
+    for player in ctx.players.values():
+        if player.team == team_id and not player.sub and player.position == position:
+            return f"{position.capitalize()} {player.name}"
+    return None
+
+
 def _teams(ctx: SeasonCtx, calendar_teams: set[str]) -> dict:
     by_team = {r["team"]: r for r in ctx.standing.rows}
     points_shown = ctx.settings.standings["rank_by"] == "points"
@@ -309,7 +336,7 @@ def _teams(ctx: SeasonCtx, calendar_teams: set[str]) -> dict:
         out[team.id] = {
             "id": team.id, "name": team.name, "code": team.code, "slot": team.slot, "colour": team.colour,
             "url": team_url(team.id) if ctx.active else None, "rank": row["rank"] if row else None,
-            "record": dash(rec.text), "points": str(rec.pts) if points_shown else None, "sub": None,
+            "record": dash(rec.text), "points": str(rec.pts) if points_shown else None, "sub": _team_sub(ctx, team.id),
             "players": [p.id for p in ctx.players.values() if p.team == team.id],
             "results": [g.id for g in reversed(finished) if team.id in (g.home, g.away)],
             "upcoming": [r.game_id for r in pending if team.id in (r.home, r.away)],

@@ -90,6 +90,7 @@
     "surface": "label",
     "card_head": ""
   },
+  "results_legend": [],
   "placeholders": [
     {
       "setting": "rules.overtime",

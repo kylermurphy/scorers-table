@@ -142,7 +142,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -518,7 +519,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #77 Tam K. 18 pts, 3-3 FT"
+      "note_long": "Top scorer: #77 Tam K. 18 pts, 3-3 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -817,7 +819,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": null,
     "blocks": []
@@ -963,7 +966,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #8 Dee S. 16 pts"
+      "note_long": "Top scorer: #8 Dee S. 16 pts",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -1321,7 +1325,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #49 Tam C. 17 pts, 5-8 FT"
+      "note_long": "Top scorer: #49 Tam C. 17 pts, 5-8 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -1686,7 +1691,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #80 Val J. 22 pts, 4-5 FT"
+      "note_long": "Top scorer: #80 Val J. 22 pts, 4-5 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -2044,7 +2050,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #29 Gwen W. 19 pts, 1-2 FT"
+      "note_long": "Top scorer: #29 Gwen W. 19 pts, 1-2 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -2386,7 +2393,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #25 Max T. 13 pts, 2-2 FT"
+      "note_long": "Top scorer: #25 Max T. 13 pts, 2-2 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -2751,7 +2759,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #1 Amy P. 18 pts, 2-8 FT"
+      "note_long": "Top scorer: #1 Amy P. 18 pts, 2-8 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -3109,7 +3118,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #61 Ada M. 13 pts, 1-1 FT"
+      "note_long": "Top scorer: #61 Ada M. 13 pts, 1-1 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [

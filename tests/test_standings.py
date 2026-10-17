@@ -380,6 +380,27 @@ def test_forfeit_text_and_tiebreak_phrases():
     assert tiebreak_phrases(S()) == []
 
 
+def test_periods_won_uses_the_sports_period_word():
+    """E8: 'periods won' without a word, 'ends won' (note, phrases and the row's label) with the sport's."""
+    st = S(tiebreakers=["head_to_head", "periods_won"])
+    assert tiebreak_phrases(st) == ["head-to-head record (when they have all played each other)", "periods won"]
+    assert tiebreak_phrases(st, "Ends")[1] == "ends won"
+    assert tiebreak_note(st).endswith("then periods won; teams still level share a rank.")
+    assert tiebreak_note(st, period_many="Ends").endswith("then ends won; teams still level share a rank.")
+    assert tiebreak_note(st, unset=True, period_many="Ends").startswith("[placeholder] ")
+    assert "ends won" in tiebreak_note(st, unset=True, period_many="Ends")
+    # a tiebreaker that is not about periods is worded as before
+    assert tiebreak_phrases(S(tiebreakers=["wins", "diff"]), "Ends") == tiebreak_phrases(S(tiebreakers=["wins", "diff"]))
+    res = table(two_team_edge(), S(tiebreakers=["periods_won"]), periods=2, period_many="Ends")
+    assert {r["team"]: r["tiebreak"] for r in res.rows}["a"] == "ends won"
+    assert res.tiebreak_note == "Teams level on points are ranked by ends won; teams still level share a rank."
+    plain = table(two_team_edge(), S(tiebreakers=["periods_won"]), periods=2)
+    assert {r["team"]: r["tiebreak"] for r in plain.rows}["a"] == "periods won"
+    # the other breakers keep their row labels
+    other = table(two_team_edge(), S(tiebreakers=["diff"]), periods=2, period_many="Ends")
+    assert {r["team"]: r["tiebreak"] for r in other.rows}["a"] == "score difference"
+
+
 def test_tiebreak_note_placeholder():
     note = tiebreak_note(S(tiebreakers=["head_to_head", "diff"]), unset=True)
     assert note.startswith("[placeholder] ") and note.endswith("Teams level on points are ranked by head-to-head record (when they have all played each "

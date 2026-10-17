@@ -117,7 +117,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -395,7 +396,8 @@
         "Court 2",
         "8:15 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -680,7 +682,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -951,7 +954,8 @@
         "Court 2",
         "8:15 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -1224,7 +1228,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -1488,7 +1493,8 @@
         "Court 2",
         "8:15 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -1759,7 +1765,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -2030,7 +2037,8 @@
         "Court 2",
         "8:15 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -2287,7 +2295,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -2551,7 +2560,8 @@
         "Court 2",
         "8:15 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -2811,7 +2821,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -3067,7 +3078,8 @@
         "Court 2",
         "8:15 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [
@@ -3320,7 +3332,8 @@
         "Court 1",
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": [],
     "blocks": [

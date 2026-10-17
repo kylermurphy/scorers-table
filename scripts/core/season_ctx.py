@@ -203,7 +203,8 @@ def build_ctx(league: League, loaded: LoadedSeason, *, active: bool) -> SeasonCt
     reg_for_engine = reg if reg is not None else 1
     unset = any(p.setting == "standings.tiebreakers" for p in loaded.settings.placeholders)
     standing = compute_standings(games, loaded.teams, standings, regulation_periods=reg_for_engine,
-                                 tiebreakers_unset=unset)
+                                 tiebreakers_unset=unset,
+                                 period_many=league.sport_def.spec["words"]["period"]["many"])
     problems.extend(standing.problems)
     results: dict[str, dict[str, TeamGame]] = {}
     for g in games:
