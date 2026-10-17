@@ -373,6 +373,9 @@ def test_every_layout_builds_with_its_own_stylesheet(layout, tmp_path_factory, j
         assert page.h1 == 1, path
     # the Scoreboard shows its ticker of the latest scores
     assert ('class="st-ticker"' in built.html("/")) == (layout == "scoreboard")
+    # a forfeit's card says who forfeited, with the marker for the default score, in every look (Classic's quiet
+    # foot included)
+    assert re.search(r"<b>[^<]+</b> forfeited · score \[placeholder\]", built.html("/schedule/")), layout
 
 
 def test_a_league_logo_is_used_in_the_header_and_as_the_icon(tmp_path_factory, jekyll):
@@ -1039,6 +1042,16 @@ def test_the_curling_home_schedule_and_team_pages_show_the_legend_the_draws_the_
     assert re.search(r"Draw \d+", schedule) and "Sheet A" in schedule and "Sheet C" in schedule
     assert re.search(r"Skip [A-Z][a-z]+ [A-Z]\.", _curling(curling_demo, "/teams/stone-cold/"))
     assert 'data-layout="curling"' in home
+
+
+def test_a_curling_forfeit_card_says_who_forfeited_after_the_sheet_and_time(curling_demo):
+    """Curling's card foot is the meta ("Sheet A · 6:30 PM"); a forfeit has no line score, so without the note
+    the card would read like a 1-0 game."""
+    schedule = _curling(curling_demo, "/schedule/")
+    feet = re.findall(r'<span class="st-result-card__note">(.*?)</span><span class="st-result-card__link">Details', schedule)
+    assert feet, "the sample has a forfeit"
+    for foot in feet:
+        assert re.fullmatch(r"Sheet [A-C] · \d+:\d\d PM · <b>[A-Za-z ]+</b> forfeited · score \[placeholder\]", foot), foot
 
 
 def test_the_basketball_demo_next_to_the_curling_one_has_no_curling_in_it(curling_demo):

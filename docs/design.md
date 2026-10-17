@@ -809,7 +809,7 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | `shell/page-title.html` | `back`, `back_label`, `eyebrow`, `title`, `sub`, `sub2` | none |
 | `shell/section-head.html` | `title`, `aside`, `aside_url` | none |
 | `parts/chip.html` | `team` (slot, colour), `size` (`sm`, `lg`) | `team.colour` (`#RRGGBB`) gives `st-team--custom` |
-| `parts/result-card.html` | `game`, `lines` | `league.display` (`card`, `card_foot`, `card_head`), `game.card` {note, strong, link_label, meta [], line_score}, `labels.tie` |
+| `parts/result-card.html` | `game`, `lines` | `league.display` (`card`, `card_foot`, `card_head`), `game.card` {note, strong, link_label, meta [], line_score}, `labels.tie`, `game.forfeit` (a forfeit's note follows a Classic or `meta` foot, which would not print it) |
 | `parts/result-hero.html` | `game` | `labels.featured`, `game.status`, `date_short`, `card.note_long`, `tiles` (null: from the line score), side `record` |
 | `parts/final-panel.html` | `game` | `game.final {status, sub}` (`final.note` is printed under the panel by `_layouts/game.html`, not by the part), side `record_line`/`record`/`badge`, `line_score` title, meta, legend, note, split |
 | `parts/line-score.html` | `line_score`, `game`, `size` (`card`, `full`), `region`, `codes` | see below |
