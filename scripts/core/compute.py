@@ -444,6 +444,8 @@ def _season_pages(out: BuildOutput, ctx: SeasonCtx) -> None:
             "season": ctx.sid, "game_id": gid, "title": f"{g['home']['name']} vs {g['away']['name']}",
             "description": f"{g['final']['status']}: {g['home']['name']} {g['home']['score']}, "
                            f"{g['away']['name']} {g['away']['score']} on {g['date_long']}."}
+        if not ctx.active:                                # reached from the archive: its tab, not Schedule's
+            out.pages["_games"][f"{gid}.md"]["nav"] = "archive"
     if ctx.active:
         _active_pages(out, ctx)
     else:

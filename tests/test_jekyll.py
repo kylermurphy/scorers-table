@@ -270,6 +270,18 @@ def test_past_season_pages_never_link_to_missing_team_or_player_pages(site):
         assert not any(re.match(r"^/(players|teams)/[^/]+/", h) for h in page.hrefs), path
 
 
+def _current_tab(html: str) -> list[str]:
+    """The labels of the main-navigation tabs marked as the current page."""
+    return re.findall(r'<a class="st-nav__link" href="[^"]*" aria-current="page">([^<]*)</a>', html)
+
+
+def test_a_game_page_highlights_the_tab_it_is_reached_from(site):
+    """A current-season game belongs to Schedule; a past season's game, reached from the archive, to Archive."""
+    assert _current_tab(site.html("/games/2026-11-19-1/")) == ["Schedule"]
+    assert _current_tab(site.html("/games/2025-10-16-1/")) == ["Archive"]
+    assert _current_tab(site.html("/archive/sample-2025-26/")) == ["Archive"]
+
+
 # ------------------------------------------------------------------ every page
 
 def test_every_page_has_one_h1_a_skip_link_first_a_main_and_a_lang(site):

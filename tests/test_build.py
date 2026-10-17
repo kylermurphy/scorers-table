@@ -400,6 +400,9 @@ def test_stub_pages_per_collection(sample_out):
     assert names("_teams") == sorted(computed(sample_out, "sample-2026-27", "teams.json"))
     assert names("_players") == sorted(computed(sample_out, "sample-2026-27", "players.json"))
     assert front_matter(sample_out / "_games" / "2025-12-11-1.md")["season"] == "sample-2025-26"
+    # the nav tab: a past season's game is reached from the archive; a current game keeps the collection's Schedule
+    assert front_matter(sample_out / "_games" / "2025-12-11-1.md")["nav"] == "archive"
+    assert "nav" not in front_matter(sample_out / "_games" / "2026-11-19-1.md")
     assert front_matter(sample_out / "_teams" / "otters.md") == {
         "season": "sample-2026-27", "team_id": "otters", "title": "Otters",
         "description": "Otters: record 1–2–1, No. 3 in the standings."}
