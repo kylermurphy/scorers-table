@@ -4,7 +4,8 @@
   Params: block, game (for the sides). Reads: block {title, link_label, teams [{side, rows [{role, player (an id),
   key (true: the name in bold, the skip), spare_for (a player id, or null)}]}], note}, stats.players (label),
   stats.teams (url).
-  The head is a link to the team page, with block.link_label ("Rink") and a chevron, when the team has a page; a team
+  The head is a link to the team page, with block.link_label ("Rink") and a chevron, when the team has a page (a
+  screen reader hears "Button Pushers Rink page": the hidden word is only "page"); a team
   with no page (url null: a past season) gets a <div> head with the chip and the name only, no link.
   A spare gets the outline "Spare" badge and "for <player>".
 {%- endcomment -%}
@@ -17,7 +18,7 @@
   {%- assign _ro_url = stats.teams[_ro_side.team].url -%}
 <div class="st-roster">
   {%- if _ro_url.size > 0 -%}
-<a class="st-roster__head" href="{{ _ro_url | relative_url }}">{% include parts/chip.html team=_ro_side size="lg" %}<span class="st-roster__team">{{ _ro_side.name | escape }}</span><span class="st-roster__link">{{ _ro_b.link_label | escape }}<span class="st-chevron" aria-hidden="true"> ›</span></span><span class="st-visually-hidden"> {{ _ro_b.link_label | downcase | escape }} page</span></a>
+<a class="st-roster__head" href="{{ _ro_url | relative_url }}">{% include parts/chip.html team=_ro_side size="lg" %}<span class="st-roster__team">{{ _ro_side.name | escape }}</span><span class="st-roster__link">{{ _ro_b.link_label | escape }}<span class="st-chevron" aria-hidden="true"> ›</span></span><span class="st-visually-hidden"> page</span></a>
   {%- else -%}
 <div class="st-roster__head">{% include parts/chip.html team=_ro_side size="lg" %}<span class="st-roster__team">{{ _ro_side.name | escape }}</span></div>
   {%- endif -%}

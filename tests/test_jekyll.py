@@ -871,3 +871,52 @@ def test_the_numbers_block_heads_each_column_with_the_teams_code_and_marks_the_k
     assert len(re.findall(r'<th scope="col"><span class="st-chip', table)) == 2
     assert table.count('class="is-key"') >= 1 and table.count('class="is-key is-hot"') == 1
     assert "A made-up note." in page
+
+
+# ------------------------------------------------------------------ core extension E9: the results legend
+
+LEGEND = [{"kind": "hammer", "text": "Hammer in end 1"}, {"kind": "mark", "text": "Stolen end"},
+          {"kind": "x", "text": "Not played"}]
+
+
+def _add_a_results_legend_to_the_stub(root: Path) -> None:
+    """The stub's sport.yml with `display.results_legend` (as curling's will have)."""
+    path = root / "sports" / "stub" / "sport.yml"
+    spec = yaml.safe_load(path.read_text(encoding="utf-8"))
+    spec["display"]["results_legend"] = LEGEND
+    path.write_text(yaml.safe_dump(spec, sort_keys=False, allow_unicode=True), encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def legend(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("legend"), jekyll, edit=_add_a_results_legend_to_the_stub)
+
+
+def _team_with_results(built: Site) -> str:
+    teams = built.computed(built.computed("active.json")["season"], "teams.json")
+    return next(t["url"] for t in teams.values() if t["results"])
+
+
+def test_a_sport_with_a_results_legend_prints_it_above_the_result_cards(legend):
+    for path in ("/", "/schedule/", _team_with_results(legend)):
+        html = legend.html(path)
+        assert html.count('<div class="st-legend">') == 1, path
+        block = re.search(r'<div class="st-legend">(.*?)</div>', html, re.S).group(1)
+        # the keys are decoration (aria-hidden); the words beside them are plain visible text
+        assert re.findall(r"<span>([^<]+)</span></span>", block) == [i["text"] for i in LEGEND], path
+        assert '<svg class="st-hammer"' in block and 'aria-hidden="true" focusable="false"' in block
+        assert 'st-legend__key--mark" aria-hidden="true"' in block and 'st-legend__key--x" aria-hidden="true">X<' in block
+        after = html[html.index('<div class="st-legend">'):]
+        assert after.index("st-result-card") < after.index("</main>"), path     # result cards follow it
+
+
+def test_without_a_results_legend_no_page_prints_one(site, previewed):
+    """The stub and basketball set no `display.results_legend`: Home, Schedule and team pages have no legend."""
+    assert site.computed("league.json")["results_legend"] == []
+    for path in ("/", "/schedule/", _team_with_results(site)):
+        assert "st-legend" not in site.html(path), path
+    demo = previewed[0] / "_site" / "basketball"
+    pages = [demo / "index.html", demo / "schedule" / "index.html", *sorted((demo / "teams").glob("*/index.html"))]
+    assert len(pages) > 3
+    for file in pages:
+        assert "st-legend" not in file.read_text(encoding="utf-8"), file

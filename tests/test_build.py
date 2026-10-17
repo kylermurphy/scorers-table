@@ -1206,3 +1206,32 @@ def test_e10_a_sport_without_team_sub_leaves_the_line_empty(tmp_path, capsys):
         spec["positions"] = ["lead", "skip"]
     out = extension_build(tmp_path, capsys, edit=edit, position_players=True)
     assert all(t["sub"] is None for t in computed(out, "2026-27", "teams.json").values())
+
+
+def test_e8_the_game_log_says_the_extra_word_from_the_computed_json(tmp_path, capsys):
+    """A player's game log reads its result from `result_label`: "Win (OT)" by default, the sport's
+    `words.extra.short` when it has one ("Loss (EE)"), so no include says OT on a curling page."""
+    def log_labels(out):
+        players = computed(out, "2026-27", "players.json")
+        return {pid: {e["game"]: e["result_label"] for e in players[pid]["log"]} for pid in ("ann-r", "cal-b")}
+    (tmp_path / "plain").mkdir()
+    (tmp_path / "extra").mkdir()
+    plain = log_labels(extension_build(tmp_path / "plain", capsys))
+    assert plain["ann-r"]["2026-10-15-1"] == "Win (OT)" and plain["cal-b"]["2026-10-15-1"] == "Loss (OT)"
+    assert set(plain["ann-r"].values()) - {"Win (OT)", "Loss (OT)"} <= {"Win", "Loss", "Tie"}
+
+    def edit(spec):
+        spec["words"]["extra"] = {"one": "Extra end", "short": "EE"}
+    curl = log_labels(extension_build(tmp_path / "extra", capsys, edit=edit))
+    assert curl["ann-r"]["2026-10-15-1"] == "Win (EE)" and curl["cal-b"]["2026-10-15-1"] == "Loss (EE)"
+
+
+def test_e7_a_card_meta_extra_that_is_not_a_list_of_strings_is_a_sport_bug():
+    from scripts.core.problems import InternalError, call_sport
+
+    def present(card):
+        return lambda: {"line_score": None, "card": card, "tiles": [], "blocks": []}
+    assert call_sport("present", present({"meta_extra": ["Shook hands after 6"]}))["card"]["meta_extra"]
+    for bad in ("Shook hands after 6", [6]):
+        with pytest.raises(InternalError, match=r"meta_extra'\] must be a list of strings"):
+            call_sport("present", present({"meta_extra": bad}))

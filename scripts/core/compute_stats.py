@@ -31,7 +31,8 @@ from scripts.core import fmt
 from scripts.core.loader import LoadedGame
 from scripts.core.model import STAT_RESERVED, Line, Player
 from scripts.core.problems import call_sport
-from scripts.core.season_ctx import SeasonCtx, dash, game_url, player_url
+from scripts.core.compute_games import decided_word
+from scripts.core.season_ctx import SeasonCtx, dash, game_url, player_url, result_word
 from scripts.core.standings import record_of
 
 LEADERS_SHOWN = 10
@@ -317,7 +318,10 @@ def _log_entry(ctx: SeasonCtx, group: str, kind: str, p: _Played) -> dict:
     game = p.game
     mine = ctx.results[game.id][getattr(game, p.line.side)]
     other = ctx.results[game.id][mine.opponent]
+    # "Win", or "Win (OT)" / "Loss (EE)" after extra play: the sport's `words.extra.short`, as the final panel says it.
+    extra = decided_word(ctx, game.reading.score.decided_in) if game.reading and mine.result in ("ot_win", "ot_loss") else None
     return {"game": game.id, "url": game_url(game.id), "type": kind, "group": group,
             "date_short": fmt.date_short(game.row.date), "opponent": ctx.team_name(mine.opponent),
-            "result": mine.result, "score": dash(f"{mine.pf}-{other.pf}"),
+            "result": mine.result, "result_label": result_word(mine.result) + (f" ({extra})" if extra else ""),
+            "score": dash(f"{mine.pf}-{other.pf}"),
             "display": _stat_block(ctx, group, [p])["display"]}
