@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home",
+      "message": "this league plays 8 ends: write 8 boxes for Alpha, X for an end not played"
+    },
+    {
+      "level": "error",
+      "at": "ends.away",
+      "message": "this league plays 8 ends: write 8 boxes for Bravo, X for an end not played"
+    }
+  ],
+  "reading": null
+}

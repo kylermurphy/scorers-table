@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.home",
+      "message": "Alpha's extra ends should be a list of boxes, like [0, 1]"
+    }
+  ],
+  "reading": null
+}

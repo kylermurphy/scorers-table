@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "conceded",
+      "message": "'conceded' and 'time_called' are both set. A game stops one way: use only one."
+    }
+  ],
+  "reading": null
+}

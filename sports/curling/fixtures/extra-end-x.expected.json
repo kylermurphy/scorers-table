@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.home.0",
+      "message": "X is only for ends not played, and an extra end is always played: write a whole number from 0 to 8 for extra end 1"
+    }
+  ],
+  "reading": null
+}

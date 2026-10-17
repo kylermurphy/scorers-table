@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra",
+      "message": "extra ends are filled in, but the game stopped early. Extra ends follow only a game that was played to the last end."
+    }
+  ],
+  "reading": null
+}

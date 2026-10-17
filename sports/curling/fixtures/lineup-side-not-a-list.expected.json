@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home",
+      "message": "list Alpha's players, one row each: {player: carol-d, position: lead}"
+    }
+  ],
+  "reading": null
+}

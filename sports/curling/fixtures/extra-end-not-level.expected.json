@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra",
+      "message": "extra ends are filled in, but the game was not level after the last end (7-5). Take 'extra' out."
+    }
+  ],
+  "reading": null
+}

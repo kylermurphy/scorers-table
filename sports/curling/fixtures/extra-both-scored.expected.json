@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.home.0",
+      "message": "both rinks scored in extra end 1. Only one rink scores in an end: check the card."
+    }
+  ],
+  "reading": null
+}

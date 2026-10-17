@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "final.away",
+      "message": "the Total box says 6, but the ends add up to 5"
+    }
+  ],
+  "reading": null
+}

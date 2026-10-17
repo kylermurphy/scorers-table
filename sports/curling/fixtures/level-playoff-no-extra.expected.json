@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra",
+      "message": "the game was level 4-4 after the last end, and a playoff game goes on to an extra end. Fill in 'extra' (one box per rink for each extra end played), or write 'time_called: true' if time ran out."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home.6",
+      "message": "end 7 is X for Alpha but Bravo has a number. An end not played is X for both rinks."
+    }
+  ],
+  "reading": null
+}

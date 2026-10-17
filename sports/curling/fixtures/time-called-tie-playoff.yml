@@ -1,0 +1,23 @@
+# A playoff game level when time was called: no extra end is asked for (the core reports the tied playoff game at the Total boxes).
+fixture:
+  folder: games
+  game_type: playoff
+  options: {}
+sheet:
+  hammer: home
+  ends:
+    home: [1, 0, 1, 0, 0, 1, X, X]
+    away: [0, 1, 0, 1, 1, 0, X, X]
+  time_called: true
+  final: {home: 3, away: 3}
+  lineups:
+    home:
+    - {player: carol-d, position: lead}
+    - {player: ken-w, position: second}
+    - {player: linda-f, position: vice}
+    - {player: doug-h, position: skip}
+    away:
+    - {player: pat-o, position: lead}
+    - {player: brian-s, position: second}
+    - {player: joanne-t, position: vice}
+    - {player: wayne-b, position: skip}

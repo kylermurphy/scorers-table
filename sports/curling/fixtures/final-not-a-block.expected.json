@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "final",
+      "message": "should list the Total boxes for home and away, like {home: 7, away: 5}"
+    }
+  ],
+  "reading": null
+}

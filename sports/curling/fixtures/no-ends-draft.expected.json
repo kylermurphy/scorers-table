@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "ends",
+      "message": "is empty. Fill in the 8 end boxes of each rink, for home and away."
+    }
+  ],
+  "reading": null
+}

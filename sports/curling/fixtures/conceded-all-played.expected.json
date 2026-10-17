@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "conceded",
+      "message": "Bravo is marked as conceding, but every end was played. Take 'conceded' out, or write X for the ends that were not played."
+    }
+  ],
+  "reading": null
+}

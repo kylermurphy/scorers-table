@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.zzz",
+      "message": "'zzz' isn't a side. Use 'home' or 'away'."
+    }
+  ],
+  "reading": null
+}

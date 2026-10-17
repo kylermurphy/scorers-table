@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.home.1",
+      "message": "extra end 1 already broke the tie. Take out extra end 2 and any after it: a game ends on a score."
+    }
+  ],
+  "reading": null
+}

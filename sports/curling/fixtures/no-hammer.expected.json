@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "hammer",
+      "message": "is empty. Which rink had the last stone (the hammer) in the first end? Write home or away (the LSFE box on the card)."
+    }
+  ],
+  "reading": null
+}

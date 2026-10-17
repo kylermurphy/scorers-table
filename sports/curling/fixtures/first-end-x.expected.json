@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home.0",
+      "message": "end 1 is X, so no end was played. A game that was not played is a forfeit (forfeit: <team id>), not a score."
+    }
+  ],
+  "reading": null
+}

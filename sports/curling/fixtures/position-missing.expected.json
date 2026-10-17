@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home.0.position",
+      "message": "is missing. Give the position: lead, second, vice, skip."
+    }
+  ],
+  "reading": null
+}

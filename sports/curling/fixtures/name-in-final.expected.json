@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.away.1.player",
+      "message": "Jo K. isn't matched to a player id yet. Pick one from players.yml, or add them there first (a spare gets sub: true)"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "final",
+      "message": "is empty. Fill in both rinks' Total boxes, like {home: 7, away: 5}."
+    }
+  ],
+  "reading": null
+}
