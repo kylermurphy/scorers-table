@@ -1,0 +1,2332 @@
+{
+  "una-w": {
+    "id": "una-w",
+    "name": "Una W.",
+    "label": "Una W.",
+    "number": null,
+    "team": "button-pushers",
+    "team_name": "Button Pushers",
+    "sub": false,
+    "position": "lead",
+    "url": "/players/una-w/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Stone Cold",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hog Liners",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "2–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "max-t": {
+    "id": "max-t",
+    "name": "Max T.",
+    "label": "Max T.",
+    "number": null,
+    "team": "button-pushers",
+    "team_name": "Button Pushers",
+    "sub": false,
+    "position": "second",
+    "url": "/players/max-t/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Stone Cold",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hog Liners",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "2–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "ada-c": {
+    "id": "ada-c",
+    "name": "Ada C.",
+    "label": "Ada C.",
+    "number": null,
+    "team": "button-pushers",
+    "team_name": "Button Pushers",
+    "sub": false,
+    "position": "vice",
+    "url": "/players/ada-c/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4
+        },
+        "display": {
+          "gp": "4"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hog Liners",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "2–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "mae-t": {
+    "id": "mae-t",
+    "name": "Mae T.",
+    "label": "Mae T.",
+    "number": null,
+    "team": "button-pushers",
+    "team_name": "Button Pushers",
+    "sub": false,
+    "position": "skip",
+    "url": "/players/mae-t/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Stone Cold",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hog Liners",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "2–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "val-j": {
+    "id": "val-j",
+    "name": "Val J.",
+    "label": "Val J.",
+    "number": null,
+    "team": "hurry-hard",
+    "team_name": "Hurry Hard",
+    "sub": false,
+    "position": "lead",
+    "url": "/players/val-j/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4
+        },
+        "display": {
+          "gp": "4"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–2",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "eve-l": {
+    "id": "eve-l",
+    "name": "Eve L.",
+    "label": "Eve L.",
+    "number": null,
+    "team": "hurry-hard",
+    "team_name": "Hurry Hard",
+    "sub": false,
+    "position": "second",
+    "url": "/players/eve-l/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–2",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "tam-c": {
+    "id": "tam-c",
+    "name": "Tam C.",
+    "label": "Tam C.",
+    "number": null,
+    "team": "hurry-hard",
+    "team_name": "Hurry Hard",
+    "sub": false,
+    "position": "vice",
+    "url": "/players/tam-c/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–2",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "eve-b": {
+    "id": "eve-b",
+    "name": "Eve B.",
+    "label": "Eve B.",
+    "number": null,
+    "team": "hurry-hard",
+    "team_name": "Hurry Hard",
+    "sub": false,
+    "position": "skip",
+    "url": "/players/eve-b/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-1",
+        "url": "/games/2026-11-12-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–2",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "jax-f": {
+    "id": "jax-f",
+    "name": "Jax F.",
+    "label": "Jax F.",
+    "number": null,
+    "team": "hog-liners",
+    "team_name": "Hog Liners",
+    "sub": false,
+    "position": "lead",
+    "url": "/players/jax-f/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–8",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "noa-a": {
+    "id": "noa-a",
+    "name": "Noa A.",
+    "label": "Noa A.",
+    "number": null,
+    "team": "hog-liners",
+    "team_name": "Hog Liners",
+    "sub": false,
+    "position": "second",
+    "url": "/players/noa-a/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–8",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "jax-d": {
+    "id": "jax-d",
+    "name": "Jax D.",
+    "label": "Jax D.",
+    "number": null,
+    "team": "hog-liners",
+    "team_name": "Hog Liners",
+    "sub": false,
+    "position": "vice",
+    "url": "/players/jax-d/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4
+        },
+        "display": {
+          "gp": "4"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "kai-g": {
+    "id": "kai-g",
+    "name": "Kai G.",
+    "label": "Kai G.",
+    "number": null,
+    "team": "hog-liners",
+    "team_name": "Hog Liners",
+    "sub": false,
+    "position": "skip",
+    "url": "/players/kai-g/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Free Guards",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-3",
+        "url": "/games/2026-10-22-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Hurry Hard",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "4–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-1",
+        "url": "/games/2026-11-05-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "7–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–8",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "alf-g": {
+    "id": "alf-g",
+    "name": "Alf G.",
+    "label": "Alf G.",
+    "number": null,
+    "team": "free-guards",
+    "team_name": "Free Guards",
+    "sub": false,
+    "position": "lead",
+    "url": "/players/alf-g/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "6–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "noa-h": {
+    "id": "noa-h",
+    "name": "Noa H.",
+    "label": "Noa H.",
+    "number": null,
+    "team": "free-guards",
+    "team_name": "Free Guards",
+    "sub": false,
+    "position": "second",
+    "url": "/players/noa-h/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "6–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "noa-f": {
+    "id": "noa-f",
+    "name": "Noa F.",
+    "label": "Noa F.",
+    "number": null,
+    "team": "free-guards",
+    "team_name": "Free Guards",
+    "sub": false,
+    "position": "vice",
+    "url": "/players/noa-f/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "6–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "ben-e": {
+    "id": "ben-e",
+    "name": "Ben E.",
+    "label": "Ben E.",
+    "number": null,
+    "team": "free-guards",
+    "team_name": "Free Guards",
+    "sub": false,
+    "position": "skip",
+    "url": "/players/ben-e/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-3",
+        "url": "/games/2026-10-15-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–7",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-1",
+        "url": "/games/2026-10-29-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "6–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-2",
+        "url": "/games/2026-11-05-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "6–7",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "quin-n": {
+    "id": "quin-n",
+    "name": "Quin N.",
+    "label": "Quin N.",
+    "number": null,
+    "team": "takeouts",
+    "team_name": "Takeouts",
+    "sub": false,
+    "position": "lead",
+    "url": "/players/quin-n/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Stone Cold",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–3",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "quin-m": {
+    "id": "quin-m",
+    "name": "Quin M.",
+    "label": "Quin M.",
+    "number": null,
+    "team": "takeouts",
+    "team_name": "Takeouts",
+    "sub": false,
+    "position": "second",
+    "url": "/players/quin-m/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 4
+        },
+        "display": {
+          "gp": "4"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–3",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "pax-w": {
+    "id": "pax-w",
+    "name": "Pax W.",
+    "label": "Pax W.",
+    "number": null,
+    "team": "takeouts",
+    "team_name": "Takeouts",
+    "sub": false,
+    "position": "vice",
+    "url": "/players/pax-w/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Stone Cold",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–3",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "val-d": {
+    "id": "val-d",
+    "name": "Val D.",
+    "label": "Val D.",
+    "number": null,
+    "team": "takeouts",
+    "team_name": "Takeouts",
+    "sub": false,
+    "position": "skip",
+    "url": "/players/val-d/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-2",
+        "url": "/games/2026-10-15-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-29-2",
+        "url": "/games/2026-10-29-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 29",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–4",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Stone Cold",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-3",
+        "url": "/games/2026-11-12-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–6",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Hurry Hard",
+        "result": "win",
+        "result_label": "Win",
+        "score": "5–3",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "dee-s": {
+    "id": "dee-s",
+    "name": "Dee S.",
+    "label": "Dee S.",
+    "number": null,
+    "team": "stone-cold",
+    "team_name": "Stone Cold",
+    "sub": false,
+    "position": "lead",
+    "url": "/players/dee-s/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "8–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "kai-m": {
+    "id": "kai-m",
+    "name": "Kai M.",
+    "label": "Kai M.",
+    "number": null,
+    "team": "stone-cold",
+    "team_name": "Stone Cold",
+    "sub": false,
+    "position": "second",
+    "url": "/players/kai-m/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "8–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "wes-t": {
+    "id": "wes-t",
+    "name": "Wes T.",
+    "label": "Wes T.",
+    "number": null,
+    "team": "stone-cold",
+    "team_name": "Stone Cold",
+    "sub": false,
+    "position": "vice",
+    "url": "/players/wes-t/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "8–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "cleo-a": {
+    "id": "cleo-a",
+    "name": "Cleo A.",
+    "label": "Cleo A.",
+    "number": null,
+    "team": "stone-cold",
+    "team_name": "Stone Cold",
+    "sub": false,
+    "position": "skip",
+    "url": "/players/cleo-a/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 5
+        },
+        "display": {
+          "gp": "5"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Button Pushers",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-10-22-2",
+        "url": "/games/2026-10-22-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 22",
+        "opponent": "Free Guards",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "5–9",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Hog Liners",
+        "result": "win",
+        "result_label": "Win",
+        "score": "8–3",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-1",
+        "url": "/games/2026-11-19-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Button Pushers",
+        "result": "win",
+        "result_label": "Win",
+        "score": "7–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "finn-f": {
+    "id": "finn-f",
+    "name": "Finn F.",
+    "label": "Finn F.",
+    "number": null,
+    "team": null,
+    "team_name": null,
+    "sub": true,
+    "position": null,
+    "url": "/players/finn-f/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2
+        },
+        "display": {
+          "gp": "2"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-10-15-1",
+        "url": "/games/2026-10-15-1/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Oct 15",
+        "opponent": "Stone Cold",
+        "result": "tie",
+        "result_label": "Tie",
+        "score": "5–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-19-2",
+        "url": "/games/2026-11-19-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 19",
+        "opponent": "Takeouts",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–5",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  },
+  "mae-f": {
+    "id": "mae-f",
+    "name": "Mae F.",
+    "label": "Mae F.",
+    "number": null,
+    "team": null,
+    "team_name": null,
+    "sub": true,
+    "position": null,
+    "url": "/players/mae-f/",
+    "groups": {
+      "player": {
+        "totals": {
+          "gp": 2
+        },
+        "display": {
+          "gp": "2"
+        },
+        "ranks": {}
+      }
+    },
+    "log": [
+      {
+        "game": "2026-11-05-3",
+        "url": "/games/2026-11-05-3/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 5",
+        "opponent": "Stone Cold",
+        "result": "win",
+        "result_label": "Win",
+        "score": "9–5",
+        "display": {
+          "gp": "1"
+        }
+      },
+      {
+        "game": "2026-11-12-2",
+        "url": "/games/2026-11-12-2/",
+        "type": "regular",
+        "group": "player",
+        "date_short": "Thu Nov 12",
+        "opponent": "Stone Cold",
+        "result": "loss",
+        "result_label": "Loss",
+        "score": "3–8",
+        "display": {
+          "gp": "1"
+        }
+      }
+    ],
+    "playoffs": {}
+  }
+}

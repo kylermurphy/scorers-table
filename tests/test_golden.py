@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parent.parent
 GOLDEN = ROOT / "tests" / "golden"
 TODAY = "2026-11-20"
 PAGE_FOLDERS = ("_games", "_players", "_teams", "_archive")
-SPORTS = ("stub", "basketball")
+SPORTS = ("stub", "basketball", "curling")
 
 
 def sample_root(base: Path, sport_id: str) -> Path:

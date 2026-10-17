@@ -920,3 +920,117 @@ def test_without_a_results_legend_no_page_prints_one(site, previewed):
     assert len(pages) > 3
     for file in pages:
         assert "st-legend" not in file.read_text(encoding="utf-8"), file
+
+
+# ------------------------------------------------------------------ the curling sport preview (stage 5, part 2)
+
+@pytest.fixture(scope="module")
+def curling_demo(previewed, tmp_path_factory):
+    """build_preview.sh with `sport_previews: [basketball, curling]` (and no /preview/), run on a copy of the
+    previewed source: the curling demo beside the basketball one, under BASE. Returns (copy of the source, result)."""
+    tmp = tmp_path_factory.mktemp("curling_demo")
+    root = tmp / "root"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    path = root / "league.yml"
+    text = path.read_text(encoding="utf-8")
+    assert "sport_previews: [basketball]" in text
+    path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: [basketball, curling]") + "\npreview: false\n",
+                    encoding="utf-8")
+    return root, _run_preview_script(root, tmp)
+
+
+def _curling(demo, path: str) -> str:
+    return (demo[0] / "_site" / "curling" / path.strip("/") / "index.html").read_text(encoding="utf-8")
+
+
+def _curling_games(demo) -> dict[str, str]:
+    return {file.parent.name: file.read_text(encoding="utf-8")
+            for file in sorted((demo[0] / "_site" / "curling" / "games").glob("*/index.html"))}
+
+
+def test_the_script_builds_the_curling_demo_beside_the_basketball_one(curling_demo):
+    root, result = curling_demo
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Sport preview copy: _site/curling/" in result.stdout and "Sport preview copy: _site/basketball/" in result.stdout
+    assert "Still to decide" not in result.stdout
+    home = _curling(curling_demo, "/")
+    assert "Pine Lake Curling Club" in home and 'data-layout="curling"' in home
+    assert f'href="{BASE}/curling/assets/css/layouts/curling.css"' in home
+    assert "Riverside Masters Basketball" not in home and "Example Valley Stub League" not in home
+    assert 'data-layout="basketball"' in (root / "_site" / "basketball" / "index.html").read_text(encoding="utf-8")
+    assert not (root / "_site" / "preview").exists()
+
+
+def test_every_curling_preview_page_has_its_base_path_the_noindex_tag_and_the_banner(curling_demo):
+    root = curling_demo[0]
+    pages = sorted((root / "_site" / "curling").rglob("*.html"))
+    assert len(pages) > 60
+    for file in pages:
+        html = file.read_text(encoding="utf-8")
+        page = Page(html)
+        local = [h for h in page.hrefs + page.srcs + [l.get("href", "") for l in page.links]
+                 if is_local(h) and not h.startswith(("#", "data:"))]
+        outside = [h for h in local if not (h.startswith(f"{BASE}/curling/") or h == f"{BASE}/curling")]
+        assert sorted(outside) == [f"{BASE}/", f"{BASE}/basketball/"] or outside == [f"{BASE}/"], (file.name, outside)
+        assert page.robots() == ["noindex, nofollow"], file
+        assert "<strong>Sport preview:</strong> a made-up curling league, to show what the template does." in html, file
+        assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in html, file
+        assert f'<a class="st-banner__link" href="{BASE}/">Go to the live site</a>' in html, file
+
+
+def test_the_curling_preview_has_no_calendar_files_or_subscribe_links(curling_demo):
+    site = curling_demo[0] / "_site" / "curling"
+    assert not list(site.rglob("*.ics")) and not (site / "calendar").exists()
+    for file in site.rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert ".ics" not in html and "webcal:" not in html, file
+
+
+def test_a_curling_game_that_ended_in_a_concession_says_so_on_the_page_and_the_card(curling_demo):
+    conceded = {gid: html for gid, html in _curling_games(curling_demo).items()
+                if re.search(r"Shook hands after \d+ of 8 ends", html)}
+    assert conceded, "the sample has a concession"
+    schedule = _curling(curling_demo, "/schedule/")
+    for gid, html in conceded.items():
+        assert 'class="is-void"' in html and "st-table--numbers" in html and "st-roster" in html, gid
+        assert 'svg class="st-hammer"' in html, gid
+        if f'href="{BASE}/curling/games/{gid}/"' in schedule:        # a game of the current season: its card says it too
+            assert re.search(r"Shook hands after \d+<", schedule) or re.search(r"Shook hands after \d+ ", schedule), gid
+
+
+def test_a_curling_game_with_an_extra_end_has_the_ee_column_and_the_final_ee_status(curling_demo):
+    extra = {gid: html for gid, html in _curling_games(curling_demo).items() if "Final · EE" in html}
+    assert extra, "the past sample season has an extra-end game"
+    for gid, html in extra.items():
+        assert '<th scope="col">EE</th>' in html and "8 ends · extra end" in html, gid
+        assert "st-table--numbers" in html and "st-roster" in html, gid
+        assert 'class="st-roster__head" href' not in html and '<div class="st-roster__head">' in html, gid   # a past season: no link
+    assert not any("Final · OT" in html or ">OT<" in html for html in _curling_games(curling_demo).values())
+
+
+def test_a_curling_game_of_this_season_links_each_rink_and_shows_a_spare(curling_demo):
+    games = {gid: html for gid, html in _curling_games(curling_demo).items() if gid >= "2026" and "st-roster" in html}
+    assert len(games) > 10                                            # (a forfeit has no lineups)
+    assert all(f'<a class="st-roster__head" href="{BASE}/curling/teams/' in html for html in games.values())
+    assert any('st-badge st-badge--outline">Spare</span> <span class="st-roster__for">for ' in html for html in games.values())
+    assert all("Lead</span>" in html or ">Lead<" in html for html in games.values())
+
+
+def test_the_curling_home_schedule_and_team_pages_show_the_legend_the_draws_the_sheets_and_the_skip(curling_demo):
+    for path in ("/", "/schedule/", "/teams/stone-cold/"):
+        html = _curling(curling_demo, path)
+        assert html.count('<div class="st-legend">') == 1, path
+        block = re.search(r'<div class="st-legend">(.*?)</div>', html, re.S).group(1)
+        assert re.findall(r"<span>([^<]+)</span></span>", block) == ["Hammer in end 1", "Stolen end", "Not played"], path
+    home, schedule = _curling(curling_demo, "/"), _curling(curling_demo, "/schedule/")
+    assert "Latest draw" in home and "Next draw" in home and "Rink leaders" in home and ">Rink<" in home
+    assert re.search(r"Draw \d+", schedule) and "Sheet A" in schedule and "Sheet C" in schedule
+    assert re.search(r"Skip [A-Z][a-z]+ [A-Z]\.", _curling(curling_demo, "/teams/stone-cold/"))
+    assert 'data-layout="curling"' in home
+
+
+def test_the_basketball_demo_next_to_the_curling_one_has_no_curling_in_it(curling_demo):
+    site = curling_demo[0] / "_site" / "basketball"
+    for file in site.rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert '<div class="st-legend">' not in html and "Pine Lake" not in html and "st-table--numbers" not in html, file

@@ -537,6 +537,6 @@ def test_sport_previews_a_repeated_id_and_a_wrong_type_are_errors(preview_sports
 def test_the_template_ships_sport_previews_on():
     league, problems = load_league(ROOT / "league.yml")
     assert league is not None, problems
-    assert league.sport_previews == ("basketball",)                         # the stub has demo: false
+    assert league.sport_previews == ("basketball", "curling")               # the stub has demo: false
     text = (ROOT / "league.yml").read_text(encoding="utf-8")
     assert "\nsport_previews: true\n" in text and "# preview: true" in text

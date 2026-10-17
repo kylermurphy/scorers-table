@@ -1,0 +1,170 @@
+{
+  "button-pushers": {
+    "id": "button-pushers",
+    "name": "Button Pushers",
+    "code": "BP",
+    "slot": 1,
+    "colour": null,
+    "url": null,
+    "rank": 5,
+    "record": "1–2–2",
+    "points": "5",
+    "sub": "Skip Nell L.",
+    "players": [
+      "kai-p",
+      "cal-c",
+      "oz-m",
+      "nell-l"
+    ],
+    "results": [
+      "2025-12-04-2",
+      "2025-11-13-1",
+      "2025-11-06-1",
+      "2025-10-30-1",
+      "2025-10-23-1",
+      "2025-10-16-1"
+    ],
+    "upcoming": [],
+    "calendar": null
+  },
+  "hurry-hard": {
+    "id": "hurry-hard",
+    "name": "Hurry Hard",
+    "code": "HH",
+    "slot": 2,
+    "colour": null,
+    "url": null,
+    "rank": 1,
+    "record": "4–0–1",
+    "points": "13",
+    "sub": "Skip Quin W.",
+    "players": [
+      "rae-w",
+      "pia-k",
+      "fay-a",
+      "quin-w"
+    ],
+    "results": [
+      "2025-12-11-1",
+      "2025-12-04-1",
+      "2025-11-13-1",
+      "2025-11-06-2",
+      "2025-10-30-3",
+      "2025-10-23-3",
+      "2025-10-16-2"
+    ],
+    "upcoming": [],
+    "calendar": null
+  },
+  "hog-liners": {
+    "id": "hog-liners",
+    "name": "Hog Liners",
+    "code": "HL",
+    "slot": 3,
+    "colour": null,
+    "url": null,
+    "rank": 3,
+    "record": "2–3",
+    "points": "6",
+    "sub": "Skip Ada E.",
+    "players": [
+      "hal-b",
+      "finn-b",
+      "hal-j",
+      "ada-e"
+    ],
+    "results": [
+      "2025-12-04-1",
+      "2025-11-13-2",
+      "2025-11-06-1",
+      "2025-10-30-2",
+      "2025-10-23-3",
+      "2025-10-16-3"
+    ],
+    "upcoming": [],
+    "calendar": null
+  },
+  "free-guards": {
+    "id": "free-guards",
+    "name": "Free Guards",
+    "code": "FG",
+    "slot": 4,
+    "colour": null,
+    "url": null,
+    "rank": 5,
+    "record": "1–2–2",
+    "points": "5",
+    "sub": "Skip Alf H.",
+    "players": [
+      "jax-p",
+      "dee-f",
+      "kit-b",
+      "alf-h"
+    ],
+    "results": [
+      "2025-11-13-3",
+      "2025-11-06-2",
+      "2025-10-30-1",
+      "2025-10-23-2",
+      "2025-10-16-3"
+    ],
+    "upcoming": [],
+    "calendar": null
+  },
+  "takeouts": {
+    "id": "takeouts",
+    "name": "Takeouts",
+    "code": "TO",
+    "slot": 5,
+    "colour": null,
+    "url": null,
+    "rank": 2,
+    "record": "2–2–1",
+    "points": "7",
+    "sub": "Skip Gwen E.",
+    "players": [
+      "quin-p",
+      "amy-s",
+      "ike-h",
+      "gwen-e"
+    ],
+    "results": [
+      "2025-12-11-1",
+      "2025-12-04-2",
+      "2025-11-13-3",
+      "2025-11-06-3",
+      "2025-10-30-2",
+      "2025-10-23-1",
+      "2025-10-16-2"
+    ],
+    "upcoming": [],
+    "calendar": null
+  },
+  "stone-cold": {
+    "id": "stone-cold",
+    "name": "Stone Cold",
+    "code": "SC",
+    "slot": 6,
+    "colour": null,
+    "url": null,
+    "rank": 4,
+    "record": "2–3",
+    "points": "6",
+    "sub": "Skip Tam C.",
+    "players": [
+      "sal-f",
+      "lars-d",
+      "gwen-h",
+      "tam-c"
+    ],
+    "results": [
+      "2025-11-13-2",
+      "2025-11-06-3",
+      "2025-10-30-3",
+      "2025-10-23-2",
+      "2025-10-16-1"
+    ],
+    "upcoming": [],
+    "calendar": null
+  }
+}

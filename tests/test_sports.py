@@ -293,7 +293,7 @@ def test_the_stub_is_a_test_sport_and_the_real_sports_are_demos():
     assert "demo: false" in (SPORTS_ROOT / "stub" / "sport.yml").read_text(encoding="utf-8")
     basketball, _ = load_sport("basketball", SPORTS_ROOT)
     assert basketball.spec["demo"] is True
-    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball"}
+    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball", "curling": "Curling"}
 
 
 def test_demo_sports_needs_a_sample_and_a_demo_that_is_not_false(sports_root, tmp_path):
