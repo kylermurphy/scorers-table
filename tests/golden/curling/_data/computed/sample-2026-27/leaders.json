@@ -31,7 +31,7 @@
           "label": "Takeouts",
           "value": 6,
           "display": "6",
-          "detail": "in 6 games",
+          "detail": "in 5 games",
           "cells": null
         },
         {
@@ -71,7 +71,7 @@
           "label": "Button Pushers",
           "value": 1,
           "display": "1",
-          "detail": "in 6 games",
+          "detail": "in 5 games",
           "cells": null
         },
         {
@@ -117,7 +117,7 @@
           "label": "Takeouts",
           "value": 20,
           "display": "20",
-          "detail": "of 39 ends, 6 games",
+          "detail": "of 39 ends, 5 games",
           "cells": null
         },
         {
@@ -167,7 +167,7 @@
           "label": "Button Pushers",
           "value": 15,
           "display": "15",
-          "detail": "of 38 ends, 6 games",
+          "detail": "of 38 ends, 5 games",
           "cells": null
         }
       ]
@@ -203,7 +203,7 @@
           "label": "Takeouts",
           "value": 6,
           "display": "6",
-          "detail": "in 6 games",
+          "detail": "in 5 games",
           "cells": null
         },
         {
@@ -233,7 +233,7 @@
           "label": "Button Pushers",
           "value": 2,
           "display": "2",
-          "detail": "in 6 games",
+          "detail": "in 5 games",
           "cells": null
         },
         {

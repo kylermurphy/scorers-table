@@ -225,22 +225,27 @@ def _team_board(ctx: SeasonCtx, spec: dict, edge: str) -> dict:
     keys = ctx.team_stat_keys()
     entries = []
     for team in ctx.teams.values():
-        rec = record_of(ctx.regular_games(team.id), keys)
+        games = ctx.regular_games(team.id)
+        rec = record_of(games, keys)
         value = rec.stats.get(stat, 0)
         if value > 0:
-            entries.append((team, rec, value))
+            entries.append((team, rec, value, sum(not g.forfeit for g in games)))
     entries.sort(key=lambda x: (-x[2], x[0].name.casefold(), x[0].id))
-    for i, (team, rec, value) in enumerate(entries):
+    for i, (team, rec, value, on_sheet) in enumerate(entries):
         rank = board["rows"][-1]["rank"] if i and value == entries[i - 1][2] else i + 1
         if rank > LEADERS_SHOWN:
             break
         board["rows"].append({"rank": rank, "player": None, "team": team.id, "label": team.name, "value": value,
-                              "display": str(value), "detail": _detail(spec, _team_display(rec, stat)), "cells": None})
+                              "display": str(value), "detail": _detail(spec, _team_display(rec, on_sheet)), "cells": None})
     return board
 
 
-def _team_display(rec, stat: str) -> dict[str, str]:
+def _team_display(rec, on_sheet: int) -> dict[str, str]:
+    """The values a team board's `detail` may name. The standings columns are the team's record, but `gp` here is
+    the games with a score sheet: a team stat is counted from sheets, so a forfeit adds nothing to it and must not
+    add a game to "in {gp} games" (the standings' own GP still counts the forfeit)."""
     shown = {c: str(getattr(rec, c)) for c in ("gp", "w", "l", "t", "otw", "otl", "pts", "pf", "pa", "pw")}
+    shown["gp"] = str(on_sheet)
     shown.update({"diff": fmt.signed(rec.diff), "pct": fmt.win_pct(rec.w, rec.l, rec.t), "gb": fmt.DASH})
     shown.update({k: str(v) for k, v in rec.stats.items()})
     return shown

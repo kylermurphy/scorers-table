@@ -113,3 +113,25 @@ def test_the_golden_files_cover_both_sample_seasons(sport_id):
         assert f"_data/computed/{name}.json" in names
     assert "pages.json" in names
 
+
+
+def test_a_team_board_counts_only_games_with_a_score_sheet(built):
+    """`{gp}` in a team board's detail ("in 5 games") is the games the team stat was counted from: a forfeit has no
+    sheet and adds nothing to the value, so it is not a game there (the standings' GP still counts it)."""
+    sport_id, out = built
+    season = json.loads((out / "_data" / "computed" / "active.json").read_text(encoding="utf-8"))["season"]
+    computed = out / "_data" / "computed" / season
+    games = json.loads((computed / "games.json").read_text(encoding="utf-8")).values()
+    rows = [r for b in json.loads((computed / "leaders.json").read_text(encoding="utf-8"))["boards"]
+            if b["of"] == "team" for r in b["rows"]]
+    if not rows:
+        pytest.skip(f"{sport_id} has no team boards")
+    on_sheet = lambda team: sum(g["type"] == "regular" and not g["forfeit"]                  # noqa: E731
+                                and team in (g["home"]["team"], g["away"]["team"]) for g in games)
+    forfeited = {t for g in games if g["forfeit"] and g["type"] == "regular" for t in (g["home"]["team"], g["away"]["team"])}
+    checked = 0
+    for row in rows:
+        counts = [int(n) for n in re.findall(r"(\d+) games?", row["detail"])]
+        assert counts == [on_sheet(row["team"])], (row["team"], row["detail"])
+        checked += row["team"] in forfeited
+    assert checked, "the sample has a forfeit between ranked teams, so this test sees the difference"
