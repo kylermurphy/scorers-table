@@ -91,10 +91,10 @@ preview (`/basketball/`) always shows them, because it uses the sport's own defa
 
 | Setting in `league.yml` | The default the site uses meanwhile | Where `[placeholder]` shows | Who decides |
 |---|---|---|---|
-| `rules.overtime` (Overtime) | `overtime`: a game level after Q4 must have its OT boxes filled in | the Rules page's "Still to decide" list | the league: overtime, or none (a gym with a hard stop) |
-| `rules.foul_limit` (Most personal fouls one player can have in a game) | 5 | the Rules page's list | the league, and **the owner for the default** (see 5.2, question A) |
-| `standings.ties` (Ties) | `false`: a level regular-season game is an error at the Final box | the Rules page's list | the league: may a regular-season game end level? |
-| `standings.forfeit` (Forfeit) | 20-0 | the Rules page's list | the league, and **the owner for the default** (decision 6) |
+| `rules.overtime` (Overtime) | `overtime`: a game level after Q4 must have its OT boxes filled in | the Rules page's "Still to decide" list (no page shows the setting itself) | the league: overtime, or none (a gym with a hard stop) |
+| `rules.foul_limit` (Most personal fouls one player can have in a game) | 5 (FIBA; the owner chose it, see 5.2, question A) | the Rules page's list (no page shows the number itself) | the league |
+| `standings.ties` (Ties) | `false`: a level regular-season game is an error at the Final box | the Rules page's list; "Ties are allowed [placeholder]." in the standings note where the default allows them | the league: may a regular-season game end level? |
+| `standings.forfeit` (Forfeit) | 20-0 | the standings note ("A forfeit counts as 20–0 [placeholder]." while the table holds a forfeit), the forfeit's game page (a note under the score) and result card ("score [placeholder]"), and the Rules page's list | the league, and **the owner for the default** (decision 6) |
 | `standings.tiebreakers` (Tiebreakers) | head-to-head, then point difference, then points for; still level share a rank | the standings note ("[placeholder] The league has not decided its tiebreakers yet..."), on Home, an archive season page and the Rules page | the league |
 | `stats.minimums.ppg_min_games` (Minimum games for the points per game leaders) | 0 | "Minimum [placeholder] games played." under the PPG leaders | the league |
 | `stats.minimums.ft_min_attempts` (Minimum free throw attempts for the free throw % leaders) | 10 | "Minimum [placeholder] free throw attempts." under the FT% leaders | the league |
@@ -124,7 +124,7 @@ whole season; flagrant fouls named on the game page with the quarter, never the 
 
 **A question that came up while building**
 
-A. **The foul limit's default: 5 or 6?** `rules.foul_limit` is the most personal fouls one player can have in a game
-   (a row with more is a check error). The template shows 5, the FIBA number, as `[placeholder]`; the NBA's is 6.
-   This is a league fact, not the template's to invent, so the question for the owner is only which number the
-   placeholder should start from. A league sets its own number, and setting it (even to 5) removes the placeholder.
+A. **The foul limit's default: 5 or 6?** *Answered by the owner (October 2026): 5, the FIBA number* (the NBA's is 6).
+   `rules.foul_limit` is the most personal fouls one player can have in a game (a row with more is a check error).
+   The template starts from 5 and lists it under "Still to decide" until the league sets its own number; setting it
+   (even to 5) removes the placeholder.

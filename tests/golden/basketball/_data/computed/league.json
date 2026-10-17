@@ -93,31 +93,38 @@
   "placeholders": [
     {
       "setting": "rules.overtime",
-      "text": "Overtime"
+      "text": "Overtime",
+      "using": "overtime"
     },
     {
       "setting": "rules.foul_limit",
-      "text": "Most personal fouls one player can have in a game"
+      "text": "Most personal fouls one player can have in a game",
+      "using": "5"
     },
     {
       "setting": "standings.ties",
-      "text": "Ties"
+      "text": "Ties",
+      "using": "no"
     },
     {
       "setting": "standings.forfeit",
-      "text": "Forfeit"
+      "text": "Forfeit",
+      "using": "20–0"
     },
     {
       "setting": "standings.tiebreakers",
-      "text": "Tiebreakers"
+      "text": "Tiebreakers",
+      "using": "head-to-head record (when they have all played each other), then score difference, then points for"
     },
     {
       "setting": "stats.minimums.ppg_min_games",
-      "text": "Minimum games for the points per game leaders"
+      "text": "Minimum games for the points per game leaders",
+      "using": "0"
     },
     {
       "setting": "stats.minimums.ft_min_attempts",
-      "text": "Minimum free throw attempts for the free throw % leaders"
+      "text": "Minimum free throw attempts for the free throw % leaders",
+      "using": "10"
     }
   ]
 }

@@ -222,7 +222,8 @@ def test_standings_columns_note_race_and_through(sample_out):
     standings = computed(sample_out, "sample-2026-27", "standings.json")
     assert [c["key"] for c in standings["columns"]] == ["gp", "w", "l", "t", "pts", "pf", "pa", "diff"]
     assert [c["key"] for c in standings["columns"] if c["key_col"]] == ["pts"]
-    assert standings["note"] == "2 points a win, 1 a tie and 1 for an overtime loss."
+    assert standings["note"] == ("2 points a win, 1 a tie and 1 for an overtime loss. "
+                                 "A forfeit counts as 1–0 [placeholder].")
     assert standings["tiebreak_note"].startswith("[placeholder] The league has not decided its tiebreakers")
     assert standings["through"] == "2026-11-19" and standings["through_display"] == "Thu Nov 19"
     assert standings["race"] == {"basis": "points", "max": 10}                     # 5 games, 2 points each
@@ -280,7 +281,7 @@ def test_games_have_results_standings_points_and_playoff_games_do_not_count(samp
 def test_game_pages_get_final_panel_card_and_box_score(sample_out):
     game = computed(sample_out, "sample-2026-27", "games.json")["2026-11-05-1"]
     assert (game["home"]["name"], game["away"]["name"], game["tie"]) == ("Badgers", "Otters", True)
-    assert game["final"] == {"status": "Final", "sub": "Tied 35–35"} and game["summary"] == "Tied 35–35"
+    assert game["final"] == {"status": "Final", "sub": "Tied 35–35", "note": None} and game["summary"] == "Tied 35–35"
     assert game["home"]["record_line"] == "Tie · now 0–2–1" and game["away"]["record"] == "1–1–1"
     assert game["standings_points"] == {"home": 1, "away": 1}
     assert game["line_score"]["caption"] == "Score by half" and game["card"]["meta"] == ["Court 1", "7:00 PM"]
@@ -288,9 +289,13 @@ def test_game_pages_get_final_panel_card_and_box_score(sample_out):
     assert table["type"] == "stat_table" and table["number_label"] == "#" and table["rows"][0]["num"]
     assert game["blocks"][-1]["type"] == "note"
     forfeit = computed(sample_out, "sample-2026-27", "games.json")["2026-10-22-1"]
-    assert forfeit["forfeit"] == "otters" and forfeit["final"] == {"status": "Forfeit", "sub": "Otters forfeited"}
+    assert forfeit["forfeit"] == "otters" and forfeit["final"] == {
+        "status": "Forfeit", "sub": "Otters forfeited",
+        "note": "[placeholder] The league has not decided how a forfeit is scored yet. The site counts it as 1–0."}
     assert forfeit["line_score"] is None and forfeit["blocks"] == []
-    assert (forfeit["home"]["score"], forfeit["away"]["score"]) == (1, 0) and forfeit["card"]["note"] == "Otters forfeited"
+    assert (forfeit["home"]["score"], forfeit["away"]["score"]) == (1, 0)
+    assert forfeit["card"]["note"] == "Otters forfeited · score [placeholder]"
+    assert computed(sample_out, "sample-2026-27", "games.json")["2026-10-15-1"]["final"]["note"] is None
 
 
 def test_players_and_leaders(sample_out):
@@ -652,7 +657,8 @@ def test_a_league_ranked_by_win_percentage(tmp_path, capsys):
     standings = computed(out, "sample-2026-27", "standings.json")
     assert [c["key"] for c in standings["columns"] if c["key_col"]] == ["pct"]
     assert standings["race"] == {"basis": "win_pct", "max": None}
-    assert standings["note"] == "Teams are ranked by winning percentage (a tie counts as half a win)."
+    assert standings["note"] == ("Teams are ranked by winning percentage (a tie counts as half a win). "
+                                 "A forfeit counts as 1–0 [placeholder].")
     top = standings["rows"][0]
     assert top["team"] == "ravens" and top["display"]["pct"] == ".800" and top["display"]["gb"] == "—"
     assert top["race"] == {"pct": "80.0", "value": "4–1", "unit": "", "sub": "+11"}
@@ -688,6 +694,39 @@ def test_league_json(sample_out):
     assert league["display"] == {"card": "rows", "card_foot": "note", "surface": "label", "card_head": ""}
     assert [p["setting"] for p in league["placeholders"]] == [
         "rules.overtime", "standings.forfeit", "standings.tiebreakers", "stats.minimums.ppg_min_games"]
+
+
+def test_league_json_says_what_the_site_uses_for_each_undecided_setting(sample_out):
+    using = {p["setting"]: p["using"] for p in computed(sample_out, "league.json")["placeholders"]}
+    assert using == {
+        "rules.overtime": "none", "standings.forfeit": "1–0", "stats.minimums.ppg_min_games": "0",
+        "standings.tiebreakers": ("head-to-head record (when they have all played each other), then score difference, "
+                                  "then points for")}
+
+
+# ------------------------------------------------------------------ a default in use shows [placeholder]
+
+def _forfeit_pieces(out: Path) -> tuple[str, dict, str]:
+    """(the standings note, the forfeit game's final panel data, its card note) of the sample season."""
+    forfeit = computed(out, "sample-2026-27", "games.json")["2026-10-22-1"]
+    return computed(out, "sample-2026-27", "standings.json")["note"], forfeit["final"], forfeit["card"]["note"]
+
+
+def test_a_forfeit_scored_by_the_default_is_marked_everywhere_it_shows(sample_out):
+    note, final, card = _forfeit_pieces(sample_out)
+    assert note.endswith("A forfeit counts as 1–0 [placeholder].")
+    assert final["note"].startswith("[placeholder] The league has not decided how a forfeit is scored yet.")
+    assert card == "Otters forfeited · score [placeholder]"
+
+
+def test_setting_the_forfeit_score_removes_the_marker_even_when_it_is_the_default(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    text = (root / "league.yml").read_text(encoding="utf-8") + "\nstandings: {forfeit: {score: [1, 0]}}\n"
+    (root / "league.yml").write_text(text, encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    note, final, card = _forfeit_pieces(out)
+    assert "placeholder" not in note and final["note"] is None and card == "Otters forfeited"
+    assert "standings.forfeit" not in [p["setting"] for p in computed(out, "league.json")["placeholders"]]
 
 
 def test_league_settings_reach_league_json(tmp_path, capsys):

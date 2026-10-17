@@ -12,7 +12,7 @@ from scripts.core.config import normalise_standings
 from scripts.core.model import Problem, Reading, Score, Team
 from scripts.core.standings import (
     TIEBREAKERS, StandingsGame, Table, TeamGame, compute_standings, game_results, normalise_tiebreakers, record_of,
-    results_by_team, tiebreak_note, validate_tiebreakers,
+    forfeit_text, results_by_team, tiebreak_note, tiebreak_phrases, validate_tiebreakers,
 )
 
 NAMES = {"a": "Aces", "b": "Bears", "c": "Cats", "d": "Dogs", "e": "Eels", "f": "Foxes"}
@@ -370,6 +370,14 @@ def test_tiebreak_note_set():
          "other), then points in head-to-head games; teams still level share a rank.")
     assert tiebreak_note(S()) == "Teams level on points share a rank."
     assert tiebreak_note(S(rank_by="win_pct")) == "Teams level on win percentage share a rank."
+
+
+def test_forfeit_text_and_tiebreak_phrases():
+    assert forfeit_text(S(forfeit={"score": [20, 0]})) == "20–0"
+    assert forfeit_text(S(forfeit={"score": "per_period"}), "quarter") == "1–0 in every quarter"
+    assert tiebreak_phrases(S(tiebreakers=["head_to_head", {"diff": {"cap": 7}}])) == [
+        "head-to-head record (when they have all played each other)", "score difference (each game counted up to 7)"]
+    assert tiebreak_phrases(S()) == []
 
 
 def test_tiebreak_note_placeholder():

@@ -40,7 +40,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Lynx by 9"
+      "sub": "Lynx by 9",
+      "note": null
     },
     "summary": "Lynx by 9",
     "notes": [],
@@ -317,7 +318,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Moose by 8"
+      "sub": "Moose by 8",
+      "note": null
     },
     "summary": "Moose by 8",
     "notes": [
@@ -582,7 +584,8 @@
     "status": "Forfeit",
     "final": {
       "status": "Forfeit",
-      "sub": "Otters forfeited"
+      "sub": "Otters forfeited",
+      "note": "[placeholder] The league has not decided how a forfeit is scored yet. The site counts it as 1–0."
     },
     "summary": "Otters forfeited",
     "notes": [],
@@ -595,7 +598,7 @@
     },
     "line_score": null,
     "card": {
-      "note": "Otters forfeited",
+      "note": "Otters forfeited · score [placeholder]",
       "strong": "Otters",
       "link_label": "Details",
       "meta": [
@@ -648,7 +651,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Ravens by 8"
+      "sub": "Ravens by 8",
+      "note": null
     },
     "summary": "Ravens by 8",
     "notes": [],
@@ -911,7 +915,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Otters by 3"
+      "sub": "Otters by 3",
+      "note": null
     },
     "summary": "Otters by 3",
     "notes": [
@@ -1168,7 +1173,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Tied 35–35"
+      "sub": "Tied 35–35",
+      "note": null
     },
     "summary": "Tied 35–35",
     "notes": [],
@@ -1445,7 +1451,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Ravens by 5"
+      "sub": "Ravens by 5",
+      "note": null
     },
     "summary": "Ravens by 5",
     "notes": [
@@ -1717,7 +1724,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Ravens by 2"
+      "sub": "Ravens by 2",
+      "note": null
     },
     "summary": "Ravens by 2",
     "notes": [],
@@ -1980,7 +1988,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Lynx by 5"
+      "sub": "Lynx by 5",
+      "note": null
     },
     "summary": "Lynx by 5",
     "notes": [],
@@ -2229,7 +2238,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Ravens by 5"
+      "sub": "Ravens by 5",
+      "note": null
     },
     "summary": "Ravens by 5",
     "notes": [],

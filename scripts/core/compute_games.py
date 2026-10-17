@@ -81,13 +81,14 @@ def _final(ctx: SeasonCtx, game: LoadedGame, counted: dict) -> dict:
     home, away = counted[game.home], counted[game.away]
     label = league_labels(ctx.league)["final"]
     if game.forfeit:
-        return {"status": "Forfeit", "sub": f"{ctx.team_name(game.forfeit)} forfeited"}
+        # `note` is set only while the forfeit score is a default the league has not confirmed ([placeholder]).
+        return {"status": "Forfeit", "sub": f"{ctx.team_name(game.forfeit)} forfeited", "note": ctx.forfeit_default_note()}
     decided = game.reading.score.decided_in if game.reading else "regulation"
     status = label + (f" · {OVERTIME_WORD[decided]}" if decided in OVERTIME_WORD else "")
     if home.result == "tie":
-        return {"status": status, "sub": f"Tied {home.pf}–{away.pf}"}
+        return {"status": status, "sub": f"Tied {home.pf}–{away.pf}", "note": None}
     winner, loser = (home, away) if home.pf > away.pf else (away, home)
-    return {"status": status, "sub": f"{ctx.team_name(winner.team)} by {winner.pf - loser.pf}"}
+    return {"status": status, "sub": f"{ctx.team_name(winner.team)} by {winner.pf - loser.pf}", "note": None}
 
 
 def _card(ctx: SeasonCtx, game: LoadedGame, present: dict | None) -> dict:
@@ -95,7 +96,8 @@ def _card(ctx: SeasonCtx, game: LoadedGame, present: dict | None) -> dict:
     meta = [m for m in (ctx.surface_label(game.row), ctx.time_display(game.row)) if m]
     if present is None:
         who = ctx.team_name(game.forfeit or "")
-        return {"note": f"{who} forfeited", "strong": who, "link_label": "Details", "meta": meta, "note_long": None}
+        unconfirmed = f" · score {fmt.PLACEHOLDER}" if ctx.is_placeholder("standings.forfeit") else ""
+        return {"note": f"{who} forfeited{unconfirmed}", "strong": who, "link_label": "Details", "meta": meta, "note_long": None}
     card = present.get("card") or {}
     return {"note": card.get("note"), "strong": card.get("strong"), "link_label": card.get("link_label") or "Box score",
             "meta": meta, "note_long": card.get("note_long")}

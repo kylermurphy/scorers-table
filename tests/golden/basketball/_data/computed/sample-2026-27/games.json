@@ -40,7 +40,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Comets by 10"
+      "sub": "Comets by 10",
+      "note": null
     },
     "summary": "Comets by 10",
     "notes": [
@@ -416,7 +417,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 2"
+      "sub": "Pines by 2",
+      "note": null
     },
     "summary": "Pines by 2",
     "notes": [],
@@ -795,7 +797,8 @@
     "status": "Forfeit",
     "final": {
       "status": "Forfeit",
-      "sub": "Rapids forfeited"
+      "sub": "Rapids forfeited",
+      "note": "[placeholder] The league has not decided how a forfeit is scored yet. The site counts it as 20–0."
     },
     "summary": "Rapids forfeited",
     "notes": [],
@@ -808,7 +811,7 @@
     },
     "line_score": null,
     "card": {
-      "note": "Rapids forfeited",
+      "note": "Rapids forfeited · score [placeholder]",
       "strong": "Rapids",
       "link_label": "Details",
       "meta": [
@@ -860,7 +863,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Foxes by 3"
+      "sub": "Foxes by 3",
+      "note": null
     },
     "summary": "Foxes by 3",
     "notes": [],
@@ -1216,7 +1220,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 6"
+      "sub": "Pines by 6",
+      "note": null
     },
     "summary": "Pines by 6",
     "notes": [],
@@ -1573,7 +1578,8 @@
     "status": "Final · OT",
     "final": {
       "status": "Final · OT",
-      "sub": "Rapids by 1"
+      "sub": "Rapids by 1",
+      "note": null
     },
     "summary": "Rapids by 1",
     "notes": [],
@@ -1937,7 +1943,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 7"
+      "sub": "Pines by 7",
+      "note": null
     },
     "summary": "Pines by 7",
     "notes": [],
@@ -2280,7 +2287,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Herons by 4"
+      "sub": "Herons by 4",
+      "note": null
     },
     "summary": "Herons by 4",
     "notes": [],
@@ -2644,7 +2652,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 3"
+      "sub": "Pines by 3",
+      "note": null
     },
     "summary": "Pines by 3",
     "notes": [],
@@ -2999,7 +3008,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Comets by 3"
+      "sub": "Comets by 3",
+      "note": null
     },
     "summary": "Comets by 3",
     "notes": [],

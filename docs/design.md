@@ -810,7 +810,7 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | `parts/chip.html` | `team` (slot, colour), `size` (`sm`, `lg`) | `team.colour` (`#RRGGBB`) gives `st-team--custom` |
 | `parts/result-card.html` | `game`, `lines` | `league.display` (`card`, `card_foot`, `card_head`), `game.card` {note, strong, link_label, meta [], line_score}, `labels.tie` |
 | `parts/result-hero.html` | `game` | `labels.featured`, `game.status`, `date_short`, `card.note_long`, `tiles` (null: from the line score), side `record` |
-| `parts/final-panel.html` | `game` | `game.final {status, sub}`, side `record_line`/`record`/`badge`, `line_score` title, meta, legend, note, split |
+| `parts/final-panel.html` | `game` | `game.final {status, sub}` (`final.note` is printed under the panel by `_layouts/game.html`, not by the part), side `record_line`/`record`/`badge`, `line_score` title, meta, legend, note, split |
 | `parts/line-score.html` | `line_score`, `game`, `size` (`card`, `full`), `region`, `codes` | see below |
 | `parts/legend.html` | `items [{kind,text,mark}]`, `stack`, `full` | none |
 | `parts/standings.html` | `standings`, `mode` (`table`, `race`; default by layout), `full_url` | `labels.standings/team/full_table`, rows `display{}` and `race{pct,value,unit,sub}`, `standings.race{basis,max}`, `note` |

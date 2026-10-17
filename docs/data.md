@@ -374,7 +374,8 @@ Still to decide (the site shows [placeholder] until you set these in league.yml)
 ```
 
 That is the list for the basketball template as it ships. A sport brings its own list, and a league that has
-answered one no longer sees it.
+answered one no longer sees it. The Rules page repeats it, with what the site uses for each one meanwhile, and
+the pages that show such a value (a forfeit's score, the tiebreakers, a minimum) put `[placeholder]` beside it.
 
 The words in brackets are where to set it in `league.yml`. Setting it, **even to the usual value**, removes
 the placeholder:

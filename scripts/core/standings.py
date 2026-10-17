@@ -383,11 +383,14 @@ def validate_tiebreakers(spec: Any, at: str = "standings.tiebreakers") -> list[P
     return problems
 
 
-def tiebreak_note(standings: Mapping[str, Any], unset: bool = False) -> str:
-    """One sentence under the table: 'Teams level on points are ranked by head-to-head record (when they have
-    all played each other), then wins; teams still level share a rank.' (It says "level on points", not
-    "ties", so it is not read as tied games.) With `unset` (the league has not decided its tiebreakers) it
-    starts with the [placeholder] wording and then says what the build is using instead."""
+def forfeit_text(standings: Mapping[str, Any], period_one: str = "period") -> str:
+    """How a forfeit is scored, in words: '20–0', or '1–0 in every quarter' (`period_one` is the sport's word)."""
+    score = standings["forfeit"]["score"]
+    return f"1–0 in every {period_one}" if score == "per_period" else f"{score[0]}–{score[1]}"
+
+
+def tiebreak_phrases(standings: Mapping[str, Any]) -> list[str]:
+    """The tiebreakers in order, as phrases ('head-to-head record (when they have all played each other)')."""
     phrases = []
     met_said = False
     for name, options in normalise_tiebreakers(standings["tiebreakers"]):
@@ -398,6 +401,15 @@ def tiebreak_note(standings: Mapping[str, Any], unset: bool = False) -> str:
             text += " (when they have all played each other)"          # the skip rule, said once
             met_said = True
         phrases.append(text)
+    return phrases
+
+
+def tiebreak_note(standings: Mapping[str, Any], unset: bool = False) -> str:
+    """One sentence under the table: 'Teams level on points are ranked by head-to-head record (when they have
+    all played each other), then wins; teams still level share a rank.' (It says "level on points", not
+    "ties", so it is not read as tied games.) With `unset` (the league has not decided its tiebreakers) it
+    starts with the [placeholder] wording and then says what the build is using instead."""
+    phrases = tiebreak_phrases(standings)
     basis = "win percentage" if standings["rank_by"] == "win_pct" else "points"
     if phrases:
         note = f"Teams level on {basis} are ranked by {', then '.join(phrases)}; teams still level share a rank."

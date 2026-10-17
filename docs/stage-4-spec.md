@@ -93,7 +93,11 @@ standings:
 **Unset means placeholder.** A setting the sport marks `decide: true` (tiebreakers, overtime, run limit,
 minimums...) may be left out. The build then uses the sport's typical-club default, shows `[placeholder]`
 wherever the setting is described on the site ("Tiebreakers: [placeholder]."), lists it in
-`league.json.placeholders`, and prints "Still to decide" after every build. Setting it, even to the same
+`league.json.placeholders` (`{setting, text, using}`: `using` is the default in words, "20–0"), and prints "Still to decide"
+after every build. A default that shows a value says so beside it: a forfeit counted by the default gets
+`[placeholder]` in the standings note ("A forfeit counts as 20–0 [placeholder]."), on the result card ("score
+[placeholder]") and in `final.note` of its game page; ties allowed by the default get "Ties are allowed
+[placeholder]." in the standings note; the Rules page lists each setting with what the site uses for now. Setting it, even to the same
 value as the default, removes the placeholder. This is how the template honours "never invent league
 facts" without refusing to build.
 
@@ -458,7 +462,7 @@ sorted, every URL as a site path for `relative_url`. Raw values sit beside the s
 
 | File | Shape (abridged) |
 |---|---|
-| `league.json` | `{name, short_name, code, sport, sport_name, layout, colour, colour_dark, logo, tagline, footer_line, contact_href, search_engines, lang, nav: [{label, url, key}], labels{}, words{}, display{}, placeholders: [{setting, text}]}` |
+| `league.json` | `{name, short_name, code, sport, sport_name, layout, colour, colour_dark, logo, tagline, footer_line, contact_href, search_engines, lang, nav: [{label, url, key}], labels{}, words{}, display{}, placeholders: [{setting, text, using}]}` |
 | `active.json` | `{season, sample_mode, archive: [ids], today, preview}` |
 | `seasons.json` | `[{id, label, sample, current, venue}]` |
 | `archive.json` | `[{season, label, sample, url, teams, games, standings_top: [team names], playoff_games: [ids]}]` |

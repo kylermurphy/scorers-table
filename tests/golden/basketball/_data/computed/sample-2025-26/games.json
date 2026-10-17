@@ -40,7 +40,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Comets by 2"
+      "sub": "Comets by 2",
+      "note": null
     },
     "summary": "Comets by 2",
     "notes": [],
@@ -399,7 +400,8 @@
     "status": "Final · OT",
     "final": {
       "status": "Final · OT",
-      "sub": "Pines by 4"
+      "sub": "Pines by 4",
+      "note": null
     },
     "summary": "Pines by 4",
     "notes": [],
@@ -790,7 +792,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Rapids by 1"
+      "sub": "Rapids by 1",
+      "note": null
     },
     "summary": "Rapids by 1",
     "notes": [],
@@ -1173,7 +1176,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Herons by 3"
+      "sub": "Herons by 3",
+      "note": null
     },
     "summary": "Herons by 3",
     "notes": [
@@ -1561,7 +1565,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Rapids by 8"
+      "sub": "Rapids by 8",
+      "note": null
     },
     "summary": "Rapids by 8",
     "notes": [],
@@ -1920,7 +1925,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Comets by 3"
+      "sub": "Comets by 3",
+      "note": null
     },
     "summary": "Comets by 3",
     "notes": [],
@@ -2266,7 +2272,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Foxes by 1"
+      "sub": "Foxes by 1",
+      "note": null
     },
     "summary": "Foxes by 1",
     "notes": [],
@@ -2598,7 +2605,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 23"
+      "sub": "Pines by 23",
+      "note": null
     },
     "summary": "Pines by 23",
     "notes": [],
@@ -2980,7 +2988,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Rapids by 9"
+      "sub": "Rapids by 9",
+      "note": null
     },
     "summary": "Rapids by 9",
     "notes": [],
@@ -3308,7 +3317,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 2"
+      "sub": "Pines by 2",
+      "note": null
     },
     "summary": "Pines by 2",
     "notes": [],
@@ -3676,7 +3686,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Herons by 8"
+      "sub": "Herons by 8",
+      "note": null
     },
     "summary": "Herons by 8",
     "notes": [],
@@ -4046,7 +4057,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 5"
+      "sub": "Pines by 5",
+      "note": null
     },
     "summary": "Pines by 5",
     "notes": [],
@@ -4402,7 +4414,8 @@
     "status": "Final · OT",
     "final": {
       "status": "Final · OT",
-      "sub": "Herons by 3"
+      "sub": "Herons by 3",
+      "note": null
     },
     "summary": "Herons by 3",
     "notes": [

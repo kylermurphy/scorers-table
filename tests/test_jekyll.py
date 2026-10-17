@@ -237,6 +237,32 @@ def test_a_forfeit_page_has_no_empty_line_score(site):
         assert "st-line-score" not in html and "st-final__body" not in html, gid
 
 
+def test_a_forfeit_scored_by_the_default_carries_the_placeholder_marker(site):
+    """The stub leaves `standings.forfeit` undecided: the game page and the standings note say
+    the forfeit score is a default the league has not confirmed."""
+    active = site.computed("active.json")
+    games = site.computed(active["season"], "games.json")
+    forfeits = [gid for gid, g in games.items() if g["forfeit"]]
+    assert forfeits
+    for gid in forfeits:
+        html = site.html(f"/games/{gid}/")
+        assert ('<p class="st-note">[placeholder] The league has not decided how a forfeit is scored yet. '
+                "The site counts it as 1–0.</p>") in html, gid
+    assert "A forfeit counts as 1–0 [placeholder]." in site.html("/")
+    assert "For now the site uses: 1–0" in site.html("/rules/")
+
+
+def test_a_league_that_sets_the_forfeit_score_has_no_marker_for_it(tmp_path_factory, jekyll):
+    built = make_site(tmp_path_factory.mktemp("forfeit_set"), jekyll, league="standings: {forfeit: {score: [1, 0]}}")
+    gid = next(gid for gid, g in built.computed(built.computed("active.json")["season"], "games.json").items() if g["forfeit"])
+    for path in (f"/games/{gid}/", "/"):
+        html = built.html(path)
+        assert "forfeit is scored" not in html and "A forfeit counts as" not in html, path
+    assert "forfeited" in built.html(f"/games/{gid}/")
+    rules = built.html("/rules/")
+    assert "standings.forfeit" not in rules and "standings.tiebreakers" in rules          # the others are still listed
+
+
 def test_past_season_pages_never_link_to_missing_team_or_player_pages(site):
     for path in ("/archive/sample-2025-26/", "/games/2025-10-16-1/", "/games/2025-12-11-1/"):
         page = Page(site.html(path))

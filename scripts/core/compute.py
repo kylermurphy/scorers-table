@@ -39,7 +39,7 @@ from scripts.core.problems import has_errors
 from scripts.core.season_ctx import (
     SeasonCtx, archive_url, build_ctx, dash, final_score, game_url, league_labels, record_text, team_url,
 )
-from scripts.core.standings import record_of
+from scripts.core.standings import forfeit_text, record_of, tiebreak_phrases
 
 NAV = [("Home", "home", "/"), ("Schedule", "schedule", "/schedule/"), ("Stats", "stats", "/stats/"),
        ("Teams", "teams", "/teams/"), ("Archive", "archive", "/archive/")]
@@ -98,6 +98,18 @@ def compute(league: League, data: LoadedData, *, data_dir: Path, site_url: str =
 
 # ------------------------------------------------------------------ league, active, seasons, archive
 
+def default_in_use(league: League, setting: str) -> str:
+    """What the site uses for a setting the league has not decided, in words ('20–0', 'no', 'overtime'). The
+    League holds the sport's default for every setting league.yml leaves out."""
+    if setting == "standings.forfeit":
+        return forfeit_text(league.standings, league.sport_def.spec["words"]["period"]["one"].lower())
+    if setting == "standings.tiebreakers":
+        return ", then ".join(tiebreak_phrases(league.standings)) or "none"
+    parts = setting.split(".")
+    value = {"rules": league.rules, "standings": league.standings, "stats": league.minimums}[parts[0]][parts[-1]]
+    return ("yes" if value else "no") if isinstance(value, bool) else str(value)
+
+
 def league_json(league: League, active: SeasonCtx) -> dict:
     spec = league.sport_def.spec
     words = {k: spec["words"][k] for k in ("surface", "period", "day", "points_for", "points_against")}
@@ -115,7 +127,8 @@ def league_json(league: League, active: SeasonCtx) -> dict:
         "nav": [{"label": label, "url": url, "key": key} for label, key, url in NAV],
         "footer_links": footer_links, "labels": league_labels(league), "words": words,
         "display": {**spec["display"], "card_head": ""},
-        "placeholders": [{"setting": p.setting, "text": p.text} for p in league.placeholders],
+        "placeholders": [{"setting": p.setting, "text": p.text, "using": default_in_use(league, p.setting)}
+                         for p in league.placeholders],
     }
 
 
@@ -251,11 +264,25 @@ def _race_row(ctx: SeasonCtx, row: dict, basis: str, maximum: int) -> dict:
     return {"pct": f"{pct:.1f}", "value": str(rec.pts), "unit": " points", "sub": record_text(rec)}
 
 
+def _default_sentences(ctx: SeasonCtx) -> list[str]:
+    """What the standings note says about a rule that is still the default (the tiebreakers have their own line):
+    a forfeit already counted in the table, and ties when they are allowed. Each ends in [placeholder]; the
+    sentence goes once the league sets the rule in league.yml."""
+    out = []
+    if ctx.is_placeholder("standings.forfeit") and any(
+            g.forfeit and g.row.type == "regular" for g in ctx.loaded.games.values()):
+        out.append(f"A forfeit counts as {ctx.forfeit_text()} {fmt.PLACEHOLDER}.")
+    if ctx.is_placeholder("standings.ties") and ctx.settings.standings["ties"]:
+        out.append(f"Ties are allowed {fmt.PLACEHOLDER}.")
+    return out
+
+
 def _standings(ctx: SeasonCtx) -> dict:
     st = ctx.settings.standings
     basis = "win_pct" if st["rank_by"] == "win_pct" else "points"
     maximum = _race_max(ctx)
     note = " ".join(x for x in (points_sentence(st, st["ties"], ctx.spec["words"]["period"]["one"].lower()),
+                                *_default_sentences(ctx),
                                 f"Playoffs: {st['playoffs']}" if st.get("playoffs") else "") if x)
     counted = [ctx.loaded.games[tg.game_id].row.date for games in ctx.standing.results.values() for tg in games]
     through = max(counted) if counted else None
