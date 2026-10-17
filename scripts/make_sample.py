@@ -17,6 +17,13 @@ draft: it is never built, it is where a volunteer fixes things, so a sport's sam
 sub written in by name, say). An error in a draft still stops the script.
 
 Players are made-up "First L." names. Nothing here looks like a real league.
+
+A sport's `sample.py` may set these optional constants (all of them default to what basketball needs):
+`PLAYERS_PER_TEAM` (7), `TIMES` (the draw times, `["19:00", "20:15"]`: game number g of a day starts at
+`TIMES[g % len(TIMES)]`), `SURFACES` (the court / sheet / rink names for a sport whose `words` has a `surface`:
+game number g of a day plays on `SURFACES[g]`, default "1", "2"...), `NUMBERS` (True; False gives players no
+jersey number), `POSITIONS` (none; a list of the sport's positions, written to players.yml in roster order: the
+first player of a team gets the first, and so on) and `NOTES` (the free-text game notes some sheets carry).
 """
 from __future__ import annotations
 
@@ -136,18 +143,24 @@ def season_start(season_id: str) -> dt.date:
     return day + dt.timedelta(days=(THURSDAY - day.weekday()) % 7)
 
 
-def make_players(rng: random.Random, teams: list[Team], per_team: int) -> tuple[list[Player], dict[str, list[str]], list[str]]:
+def make_players(rng: random.Random, teams: list[Team], per_team: int, *, numbers: bool = True,
+                 positions: list[str] | None = None) -> tuple[list[Player], dict[str, list[str]], list[str]]:
+    """The made-up players: `per_team` regulars a team (the last one without a jersey number, the very first with
+    "00", when `numbers` is on; no number at all when it is off), each with the position of the same place in
+    `positions` when given, and SPARES players with no team."""
     pool = [(first, initial) for first in FIRST_NAMES for initial in INITIALS]
     picked = rng.sample(pool, per_team * len(teams) + SPARES)
     players: list[Player] = []
     roster: dict[str, list[str]] = {}
     for t, team in enumerate(teams):
-        numbers = rng.sample(range(1, 100), per_team)
+        drawn = rng.sample(range(1, 100), per_team) if numbers else []
         roster[team.id] = []
         for k in range(per_team):
             first, initial = picked[t * per_team + k]
-            number = None if k == per_team - 1 else ("00" if (t, k) == (0, 0) else str(numbers[k]))
-            players.append(Player(f"{first.lower()}-{initial.lower()}", f"{first} {initial}.", team.id, number))
+            number = (None if k == per_team - 1 else ("00" if (t, k) == (0, 0) else str(drawn[k]))) if numbers else None
+            position = positions[k] if positions and k < len(positions) else None
+            players.append(Player(f"{first.lower()}-{initial.lower()}", f"{first} {initial}.", team.id, number,
+                                  position=position))
             roster[team.id].append(players[-1].id)
     spares = []
     for first, initial in picked[per_team * len(teams):]:
@@ -162,6 +175,8 @@ def player_rows(players: list[Player]) -> list:
         row = {"id": p.id, "name": p.name, "team": p.team}
         if p.number is not None:
             row["number"] = int(p.number) if p.number != "00" else "00"
+        if p.position is not None:
+            row["position"] = p.position
         if p.sub:
             row["sub"] = True
         rows.append(Flow(row))
@@ -191,31 +206,41 @@ class Row:
                 self.round, "", self.status, self.moved_from]
 
 
-def regular_rows(sport: SportDef, ids: list[str], start: dt.date, double: bool) -> tuple[list[Row], list[list[Row]]]:
+def regular_rows(sport: SportDef, ids: list[str], start: dt.date, double: bool, *, times: list[str] = TIMES,
+                 surfaces: list[str] | None = None) -> tuple[list[Row], list[list[Row]]]:
+    """The round robin as schedule rows. Game g of a day starts at `times[g % len(times)]` and, for a sport with
+    a surface word, plays on `surfaces[g]` (default "1", "2"...); two games of a day never share a surface."""
     rounds = round_robin(ids)
     if double:
         rounds = rounds + [[(b, a) for a, b in r] for r in rounds]
     surface_word = sport.spec["words"]["surface"]
+    if surface_word and surfaces and max(len(r) for r in rounds) > len(surfaces):
+        raise SampleError(f"SURFACES in sports/{sport.id}/sample.py names {len(surfaces)} {surface_word.lower()}s "
+                          f"but {max(len(r) for r in rounds)} games are played on a day")
     by_round, rows = [], []
     for day, pairs in zip(game_days(start, len(rounds)), rounds):
         this = []
         for g, (home, away) in enumerate(pairs):
-            this.append(Row(f"{day.isoformat()}-{g + 1}", day, TIMES[g % len(TIMES)], home, away,
-                            surface=str(g + 1) if surface_word else ""))
+            surface = (surfaces[g] if surfaces else str(g + 1)) if surface_word else ""
+            this.append(Row(f"{day.isoformat()}-{g + 1}", day, times[g % len(times)], home, away, surface=surface))
         by_round.append(this)
         rows.extend(this)
     return rows, by_round
 
 
-def playoff_rows(sport: SportDef, last_day: dt.date, n_teams: int) -> list[Row]:
-    surface = "1" if sport.spec["words"]["surface"] else ""
-    surface2 = "2" if sport.spec["words"]["surface"] else ""
+def playoff_rows(sport: SportDef, last_day: dt.date, n_teams: int, *, times: list[str] = TIMES,
+                 surfaces: list[str] | None = None) -> list[Row]:
+    """The semifinals (the final only, with fewer than four teams) on the first two draw times and surfaces."""
+    named = surfaces or ["1", "2"]
+    surface = named[0] if sport.spec["words"]["surface"] else ""
+    surface2 = named[1 % len(named)] if sport.spec["words"]["surface"] else ""
+    time, time2 = times[0], times[1 % len(times)]
     semis, final = last_day + dt.timedelta(days=21), last_day + dt.timedelta(days=28)
     if n_teams >= 4:
-        return [Row(f"{semis}-1", semis, TIMES[0], "1st", "4th", surface, "playoff", "Semifinal", slot="sf1"),
-                Row(f"{semis}-2", semis, TIMES[1], "2nd", "3rd", surface2, "playoff", "Semifinal", slot="sf2"),
-                Row(f"{final}-1", final, TIMES[0], "Winner SF1", "Winner SF2", surface, "playoff", "Final", slot="final")]
-    return [Row(f"{final}-1", final, TIMES[0], "1st", "2nd", surface, "playoff", "Final", slot="final")]
+        return [Row(f"{semis}-1", semis, time, "1st", "4th", surface, "playoff", "Semifinal", slot="sf1"),
+                Row(f"{semis}-2", semis, time2, "2nd", "3rd", surface2, "playoff", "Semifinal", slot="sf2"),
+                Row(f"{final}-1", final, time, "Winner SF1", "Winner SF2", surface, "playoff", "Final", slot="final")]
+    return [Row(f"{final}-1", final, time, "1st", "2nd", surface, "playoff", "Final", slot="final")]
 
 
 def pick_outcome(rng: random.Random, game_type: str, rules: dict, standings: dict, forced: str | None) -> str:
@@ -250,6 +275,36 @@ def pick_players(rng: random.Random, roster: dict[str, list[str]], spares: list[
 
 # ------------------------------------------------------------------ one season
 
+def sample_constants(sport: SportDef) -> dict:
+    """The optional constants of sports/<id>/sample.py, checked, with their defaults."""
+    sample, where = sport.sample, f"sports/{sport.id}/sample.py"
+
+    def texts(name: str, default):
+        value = getattr(sample, name, default)
+        if value is default:
+            return value
+        if not (isinstance(value, (list, tuple)) and value and all(isinstance(v, str) and v for v in value)):
+            raise SampleError(f"{name} in {where} must be a list of texts, like {default!r}")
+        return list(value)
+
+    times = texts("TIMES", TIMES)
+    if not all(re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", t) for t in times):
+        raise SampleError(f'TIMES in {where} must be times like "19:00"')
+    positions = getattr(sample, "POSITIONS", None)
+    if positions is not None:
+        positions = texts("POSITIONS", None)
+        allowed = sport.spec.get("positions") or []
+        if not allowed:
+            raise SampleError(f"POSITIONS in {where}, but sport.yml lists no positions")
+        if any(p not in allowed for p in positions):
+            raise SampleError(f"POSITIONS in {where} has a position that sport.yml does not list ({', '.join(allowed)})")
+    numbers = getattr(sample, "NUMBERS", True)
+    if not isinstance(numbers, bool):
+        raise SampleError(f"NUMBERS in {where} must be True or False")
+    return {"per_team": getattr(sample, "PLAYERS_PER_TEAM", 7), "times": times, "numbers": numbers,
+            "surfaces": texts("SURFACES", None), "positions": positions, "notes": texts("NOTES", NOTES)}
+
+
 def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: dict, seed: str = SEED,
                     collect: list | None = None) -> dict[str, str]:
     """The files of one sample season as {path inside the season folder: text}. Raises SampleError when a sheet
@@ -262,11 +317,14 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
     as_of = parse_date(str(season["as_of"])) if season.get("as_of") else None
     teams = [Team(i, n, c, slot=k % 6 + 1) for k, (i, n, c) in enumerate(sample.TEAMS)]
     ids = [t.id for t in teams]
-    players, roster, spares = make_players(rng, teams, getattr(sample, "PLAYERS_PER_TEAM", 7))
+    const = sample_constants(sport)
+    players, roster, spares = make_players(rng, teams, const["per_team"], numbers=const["numbers"],
+                                           positions=const["positions"])
     team_map = {t.id: t for t in teams}
     player_map = {p.id: p for p in players}
 
-    rows, by_round = regular_rows(sport, ids, season_start(season["id"]), double=as_of is not None)
+    rows, by_round = regular_rows(sport, ids, season_start(season["id"]), double=as_of is not None,
+                                  times=const["times"], surfaces=const["surfaces"])
     last_day = max(r.date for r in rows)
     if as_of is not None and len(by_round) >= 4:       # the season shows one of everything
         by_round[1][0].forfeit_by = by_round[1][0].away
@@ -278,7 +336,7 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
     ordinary = [r for r in played_rows if r.forfeit_by is None]
     if as_of is not None and ordinary:
         max(ordinary, key=lambda r: (r.date, r.time, r.game_id)).draft = True     # the sheet not typed in yet
-    rows.extend(playoff_rows(sport, last_day, len(ids)))
+    rows.extend(playoff_rows(sport, last_day, len(ids), times=const["times"], surfaces=const["surfaces"]))
 
     files: dict[str, str] = {}
     wins = {i: 0.0 for i in ids}
@@ -334,7 +392,7 @@ def generate_season(sport: SportDef, season: dict, *, rules: dict, standings: di
         elif rng.random() < 0.5:
             envelope["scorekeeper"] = rng.choice(CHECKERS)
         if not row.draft and rng.random() < 0.12:
-            envelope["notes"] = [Flow({"text": rng.choice(NOTES)})]
+            envelope["notes"] = [Flow({"text": rng.choice(const["notes"])})]
         envelope["sheet"] = flowify(sheet)
         files[f"{folder}/{name}"] = dump_yaml(envelope)
 
