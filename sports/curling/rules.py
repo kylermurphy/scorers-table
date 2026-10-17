@@ -418,7 +418,7 @@ def _check_lineups(out, sheet):
             _check_lineup_player(out, row, at, side, seen)
             _check_spare_for(out, row, at, side, in_lineup)
         if not bad_position and "skip" not in used and "skip" in _positions(ctx):
-            out.error(base, f"{team} has no skip. Every rink has a skip (the last to throw).")
+            out.error(base, f"{team} has no skip. Every rink has one: write 'position: skip' on the skip's row.")
 
 
 def _check_position(out, row, at, i, used):

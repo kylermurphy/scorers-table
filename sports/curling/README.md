@@ -21,7 +21,7 @@ JavaScript copy of the rules (for the entry page, stage 7) is tested against the
 
 Words: an **end** is one round of 16 stones; only one rink scores in an end, or nobody does (a **blank end**).
 The **hammer** is the last stone of an end. A rink that scores without it has **stolen** the end. A **rink** is a
-team of four: lead, second, vice and skip (the skip leads it and throws last). Rinks **shake hands** to concede.
+team of four: lead, second, vice and skip (the skip leads it and usually throws the last stones). Rinks **shake hands** to concede.
 A **draw** is one game time and a **sheet** is one lane of ice (A, B, C...); both live in `schedule.csv`
 (`date`, `time`, `surface`), not in the game file.
 
@@ -267,7 +267,7 @@ it is an error, because the game would have nobody to count for.
 ### A three-player rink
 
 A rink may play three. Write three rows in throwing order; every rink needs a skip, and each position is used once
-(so leave out the position nobody played, usually the second):
+(so the position nobody played is left out; here the second):
 
 ```yaml
     home:
