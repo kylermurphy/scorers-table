@@ -6,15 +6,17 @@ does the rest: loading the files, the standings, the pages, the calendars. There
 core lists `sports/*/sport.yml` to find sports, and loads `rules.py` and `sample.py` from the league's sport.
 
 Read in this order: `sports/stub/` (a complete, tiny sport: copy it), then `sports/basketball/` (the first real
-sport: its `README.md`, `sport.yml`, `rules.py`, `sample.py` and `fixtures/` show every part used for real), then
-this page, then `docs/stage-4-spec.md` section 3 and `docs/stage-5-basketball-spec.md` for the reasons. The code is
-the last word. Where it has moved on from the spec, [the end of this page](#where-the-code-differs-from-the-spec)
+sport: its `README.md`, `sport.yml`, `rules.py`, `sample.py` and `fixtures/` show every part used for real) and
+`sports/curling/` (the second: ends and a hammer, positions, no player stats, and its own two display blocks), then
+this page, then `docs/stage-4-spec.md` section 3, `docs/stage-5-basketball-spec.md` and
+`docs/stage-5-curling-spec.md` for the reasons. The code is the last word. Where it has moved on from the spec, [the end of this page](#where-the-code-differs-from-the-spec)
 says so.
 
-Two sports are in `sports/` today. **`basketball`** is the sport the template ships with (`sport: basketball` in
-`league.yml`). **`stub`** is the core's test sport (two halves and a Final box): the golden files in
-`tests/golden/stub/` and most core tests use it, and its `sport.yml` says `demo: false`, so no sport preview is
-built for it. Curling, hockey and slo-pitch follow, one pull request each.
+Three folders are in `sports/` today. **`basketball`** is the sport the template ships with (`sport: basketball`
+in `league.yml`). **`curling`** is the second real sport; a league uses it by writing `sport: curling` in
+`league.yml` (see [the curling README](../sports/curling/README.md)). **`stub`** is the core's test sport (two halves
+and a Final box): the golden files in `tests/golden/stub/` and most core tests use it, and its `sport.yml` says
+`demo: false`, so no sport preview is built for it. Hockey and slo-pitch follow, one pull request each.
 
 - [The folder](#the-folder)
 - [`sport.yml`](#sportyml)
@@ -35,7 +37,7 @@ built for it. Curling, hockey and slo-pitch follow, one pull request each.
 | `rules.py` | yes | Four pure functions: `check`, `read`, `present`, `derive`. |
 | `sample.py` | yes | `LEAGUE_NAME`, `TEAMS`, and one function that writes a believable sheet. |
 | `README.md` | yes | The game file format, box by box, with the problem paths. This is the volunteer's reference (`docs/data.md` points to it). A missing one is a warning when the sport loads and a failure of the contract test. |
-| `fixtures/` | stage 5 | Shared test files: `<name>.yml` plus `<name>.expected.json` (every problem `check` must return, and what `read` returns), one case per check. `tests/test_<id>_fixtures.py` runs them against `rules.py`; the JavaScript port will run the same files. Basketball has them (`sports/basketball/fixtures/README.md`). |
+| `fixtures/` | stage 5 | Shared test files: `<name>.yml` plus `<name>.expected.json` (every problem `check` must return, and what `read` returns), one case per check. `tests/test_<id>_fixtures.py` runs them against `rules.py`; the JavaScript port will run the same files. Basketball and curling have them (`sports/basketball/fixtures/README.md`; curling's `README.md` is in `sports/curling/fixtures/`). To change a rule, change `rules.py` and rewrite the files: `UPDATE_FIXTURES=1 python -m pytest tests/test_<id>_fixtures.py`, then read the diff. |
 | `rules.js` | stage 7 | The JavaScript port for the entry page. It moved from stage 5 to stage 7 with the entry page, its only user; each sport's pull request leaves its fixtures ready for it. |
 | `convert_masters.py` | basketball only | A one-off converter: a Masters Basketball League data folder in, a scorers-table `data/` folder out. Not part of the contract; see [the basketball README](../sports/basketball/README.md). |
 | `sheet.py`, a spec | later | The printable sheet. |
@@ -76,6 +78,7 @@ Top-level keys. Unknown keys are errors, with a "did you mean".
 | `period` | `{one: Half, many: Halves, short: H}`. The column labels are `H1`, `H2`. Required. |
 | `day` | "Week" in "Week 3", or "Draw". Required. |
 | `surface` | "Court", "Sheet", "Diamond", "Pad". Leave it out (or `""`) when the sport has none. |
+| `extra` | **Optional.** What play after regulation is called: `{one: Extra end, short: EE}`. Without it the core says "OT". With it: the final status reads "Final · EE", a game log row "Win (EE)", the points sentence "1 for an extra-end loss" (`one`, lower-cased and hyphenated), and the `periods_won` tiebreaker says "ends won" (the period's `many`) instead of "periods won". A shootout is still "SO". |
 | `points_for`, `points_against` | `{label: PF, title: Points for}`. Required. |
 
 ### `line_score`
@@ -130,7 +133,10 @@ stats:
 ```
 
 * Any group name other than `derived`, `team` and `columns` is a group of player counting stats. Most sports
-  have one, `player`; hockey has `skater` and `goalie`.
+  have one, `player`; hockey has `skater` and `goalie`. A group may have **no counting stats**: curling writes
+  `player: []` (`derived: []`) and `columns: {player: {table: [gp], totals: [gp]}}`. The core still counts `gp` from
+  the lineups, so the Stats page lists every player with GP, a player page shows GP, the game log has no stat
+  columns, and there are no player leaderboards. Its `read` still returns a `Line` with `counts={}` for each player in a lineup, which is how GP is counted.
 * Keys are lower-case words. `gp` (games played) is reserved: the core counts it, so a sport never lists it.
 * `places` (0 to 4) is the number of decimals of a derived stat. `derive` may return the rate unrounded: the
   core rounds it half up to `places` for `totals` and the pages, and ranks the leaderboards on the exact value,
@@ -175,6 +181,12 @@ leaderboards:
 a counting or derived stat of that group (or a team stat when `of: team`). `tile: true` also makes a leader
 tile on the home page. `min` points `setting` at a key of `minimums`.
 
+A **team board** (`of: team`) ranks the teams on one of the sport's `stats.team`, summed over the regular season.
+Its `detail` may name the standings columns (`{w}`, `{pf}`, `{diff}`...), the team's stats
+(`{ends}`) and `gp`. Here `gp` is the games the team **has a score sheet for**: team stats are counted from sheets,
+so a forfeit adds nothing to them and is not a game in "in {gp} games". The standings' own GP column still counts
+the forfeit. (Curling: `detail: "in {gp} games"`.)
+
 Four optional switches (all true/false, all off or on as listed) change who is ranked and where a board shows:
 
 | Key | Default | Effect |
@@ -199,6 +211,8 @@ fails the contract test and not a page. This is the only templating a sport writ
   | `card` | `rows` (default) or `lines` (the result card holds a line score) |
   | `card_foot` | `note` (default), `meta` ("Sheet A · 6:30 PM") or `status_note` |
   | `surface` | `label` (default) or `sub` (under the time) |
+  | `results_legend` | **Optional.** `[{kind, text}, ...]`: a key printed above a list of result cards on Home, Schedule and a team page, for the marks the card's line score uses. `kind` is one of `hammer won mark blank limit x`; `text` is the words ("Hammer in end 1", "Stolen end", "Not played"). It reaches the pages as `league.json` `results_legend` (empty when the sport sets none). |
+  | `team_sub` | **Optional.** A key of `positions` (curling: `skip`). Each team card gets a line under its name, "Skip Gail R.": the regular (not a spare) in `players.yml` with that position, the first listed when two share it; no line when nobody has it. It is `teams.json` `sub`. Needs `positions:` in the same file. |
 
 ## `rules.py`: the four functions
 
@@ -248,7 +262,7 @@ the function and its file. It checks:
 |---|---|
 | `check` | returns a list, and every item is a `Problem` |
 | `read` | returns a `Reading`; `score` is a `Score` with `final`, `periods` and `final_at` for both sides, whole numbers, equal period counts, a valid `decided_in`; every `Line` has a side, a player id, integer counts, a `group` and count keys that `sport.yml` lists; `team_lines` keys likewise; `facts` is a dict |
-| `present` | returns a dict with only the keys `line_score card tiles blocks`; every block has a known `type` |
+| `present` | returns a dict with only the keys `line_score card tiles blocks`; every block has a known `type`; `card.meta_extra`, when given, is a list of strings |
 | `derive` | returns a dict of stat key to number or `None` |
 
 The contract test checks more (cell flags, column keys, that `derive` returns only declared stats).
@@ -263,7 +277,8 @@ The contract test checks more (cell flags, column keys, that `derive` returns on
                                    "extra": None, "hammer_first": False},
                           "away": {...}},
                  "mark_word": None, "won_word": "won the half", "legend": [], "note": None},
-  "card":   {"note": "Top: #7 Ann B. 9 pts", "strong": "#7 Ann B.", "link_label": "Box score"},
+  "card":   {"note": "Top: #7 Ann B. 9 pts", "strong": "#7 Ann B.", "link_label": "Box score",
+             "line_score": None, "meta_extra": []},
   "tiles":  [],
   "blocks": [{"type": "stat_table", ...}, {"type": "note", "text": "..."}],
 }
@@ -273,7 +288,13 @@ The contract test checks more (cell flags, column keys, that `derive` returns on
 * A cell or column holds `v` (the value) and any of the **flags** `won mark blank void open hammer`, set to
   `True` only when they apply. They map one-to-one onto the design system's classes (`is-won`, `is-mark`,
   `is-blank`, `is-void`, `is-open`, `svg.st-hammer`). Every row has one cell per column.
-* **Block types:** `stat_table`, `note` and `top_performer`.
+* `card` (all optional except what the card prints): `note` and `strong` (the note, and the part of it in bold),
+  `link_label` ("Box score"; default "Box score"), `note_long`, and two for a sport whose cards show more:
+  `line_score` is the card's **own compact line score**, the same shape as the game's but usually without the
+  per-cell hammers or blank shading (curling's `card: lines` cards; when it is `None` the include falls back to the
+  game's line score), and `meta_extra` is a list of strings added to the foot after the surface and time
+  ("Sheet A · 6:30 PM · Shook hands after 6"). `meta_extra` must be a list of strings; `call_sport` checks.
+* **Block types:** `stat_table`, `note`, `top_performer`, `numbers` and `roster`.
   * `stat_table`: `title`, `side`, `caption`, `number_col`, `columns` (`key`, `label`, `title`, `key_col`),
     `rows` (`player` id and `cells` of already-formatted text), `totals` (`label` and `cells`), `note`.
   * `note`: `text`.
@@ -282,9 +303,21 @@ The contract test checks more (cell flags, column keys, that `derive` returns on
     ("Rapids · 6-7 free throws"). The player is a link when the player has a page and plain text in a past
     season. Two players tied are two blocks, so two tiles; a sport that wants no tile for three or more
     leaves the block out.
-* A new kind of display (stage 5: `numbers`, `facts`, `events`, a penalties table, `roster`)
-  becomes a **reusable core part** with CSS, a specimen on the design-system page and a parity case. It then
-  joins the list `BLOCK_TYPES` in `scripts/core/model.py`. A sport never ships its own Liquid.
+  * `numbers` ("The game in numbers", curling): `title`, `corner` (the first column's head), `rows` and `note`.
+    Each row is `{label, cells: {home, away}, key, hot}`: `cells` are already-formatted text, `key` is `home`,
+    `away` or `null` (the side whose cell is bold, normally the bigger value) and `hot: true` also gives that cell
+    the hot accent (curling's stolen ends). The columns are the game's two sides, each headed by its chip and team
+    code.
+  * `roster` (the lineups, curling): `title`, `link_label` ("Rink"), `teams` and `note`. Each team is
+    `{side, rows: [{role, player, key, spare_for}]}`: `role` is the position's word, `player` a players.yml id,
+    `key` bolds the name (the skip) and `spare_for` (a player id, or null) adds the outline "Spare" badge and
+    "for Brian S.". The team's head links to the team page; in a past season, which has no team pages, it is plain
+    text.
+* A new kind of display (still to come: `facts`, `events`, a penalties table) becomes a **reusable core part** with
+  CSS, a specimen on the design-system page and a parity case. It then joins the list `BLOCK_TYPES` in
+  `scripts/core/model.py` and the contract list in `scripts/design_system/contract.py`. `numbers` and `roster` were
+  added this way for curling (`_includes/parts/numbers.html`, `roster.html`, dispatched by `parts/blocks.html`).
+  A sport never ships its own Liquid.
 
 ## What the core does for you: standings
 
@@ -305,6 +338,10 @@ Both are reported at `Score.final_at`. Playoff games never count in the standing
 **Columns** the engine knows: `gp w l t otw otl pts pct pf pa diff gb pw`, plus any key of `stats.team`.
 `w` counts every win, overtime wins too, and `gp` is `w + l + t`. `pct` counts a tie as half a win. `pw` is
 periods won.
+
+**Game logs.** A player's game log has one row per game: the opponent, the result, the score and the group's `log`
+columns. Each row carries its own `result_label`: "Win", "Loss" or "Tie", with the sport's extra word after an
+extra-play game ("Win (OT)", "Loss (EE)"). The page prints `result_label`; a sport does nothing for this.
 
 **Ranking.** Teams are grouped by `rank_by` (`points`, or `win_pct` when teams play unequal schedules). Inside
 a group the tiebreakers run in the listed order, **without restarting**: each splits the group by its key,
@@ -332,6 +369,7 @@ not a sport change.
 LEAGUE_NAME = "Example Valley Stub League"
 TEAMS = [("otters", "Otters", "OTT"), ("ravens", "Ravens", "RAV"), ...]    # made-up names only
 PLAYERS_PER_TEAM = 7                                                       # optional; 7 if left out
+# More optional constants, read by make_sample.py (below): TIMES, SURFACES, NUMBERS, POSITIONS, NOTES
 
 def sheet(rng: random.Random, game: SampleGame, ctx: SportContext) -> dict
 ```
@@ -343,23 +381,35 @@ def sheet(rng: random.Random, game: SampleGame, ctx: SportContext) -> dict
   overtime: `ot` becomes a tie; a playoff game never ties). Use only `rng`, never the clock or global
   random, and do not change `game` or `ctx`.
 * `scripts/make_sample.py` does the rest from the league's sport with a fixed seed: teams, made-up
-  "First L." players (one with jersey `00`, a couple of spares), a round robin, one cancelled game, one moved
+  "First L." players (one with jersey `00` when `NUMBERS` is on, a couple of spares), a round robin, one cancelled game, one moved
   game, one forfeit, a tie where the rules allow one, upcoming game days, playoff rows with placeholder
   teams and one draft. It writes `data/sample-*/`, runs your `check`, `read` and `present` on every sheet,
   and then runs the loader on the result. Any problem stops it.
+* **Optional constants** in `sample.py` (a sport sets only what differs from basketball's defaults; a wrong value
+  stops the script with a message naming the constant):
+
+  | Constant | Default | Meaning |
+  |---|---|---|
+  | `PLAYERS_PER_TEAM` | `7` | Regulars on a team (curling: `4`, a rink). The contract test asks for this many, not five. |
+  | `TIMES` | `["19:00", "20:15"]` | The start times of a night: game number `g` of a day starts at `TIMES[g % len(TIMES)]`. Curling: `["18:30", "18:30", "20:45"]`, so two sheets share the early draw and one plays late. Each must look like `"19:00"`. |
+  | `SURFACES` | `"1"`, `"2"`... | The court, sheet or pad names for a sport whose `words` has a `surface`: game `g` of a day plays on `SURFACES[g]`. Curling: `["A", "B", "C"]`. A list shorter than the games a night has is an error. |
+  | `NUMBERS` | `True` | `False` gives players no jersey number. With `True` one player gets `00`, which exercises the strict loader (the contract test asks for a `00` only when `NUMBERS` is on). Curling: `False`. |
+  | `POSITIONS` | none | A list of the sport's `positions`, written to `players.yml` in roster order: the first player of a team gets the first, and so on. Each must be in `sport.yml` `positions`. Curling: `["lead", "second", "vice", "skip"]`. |
+  | `NOTES` | two sentences | The free-text game notes some sheets carry. Curling writes its own. |
+
 * `make_sample.py` reads the sport from `league.yml`. To write a new sport's sample, set `sport:` there
   first. `python scripts/make_sample.py --check` fails if the files on disk differ from what it would
   write; a test runs that. The committed `data/sample-*` are the sample of the sport `league.yml` names
   (basketball today).
 * `tests/test_golden.py` writes each sport's sample into a temporary root and compares the build with
-  `tests/golden/<sport>/` (`stub` and `basketball`). `UPDATE_GOLDEN=1 python -m pytest tests/test_golden.py`
+  `tests/golden/<sport>/` (`stub`, `basketball` and `curling`). `UPDATE_GOLDEN=1 python -m pytest tests/test_golden.py`
   rewrites them; read the diff, and check a new sport's standings and leaders by hand against its sample files.
 
 ## Sport previews
 
 `sport_previews` in `league.yml` (`true`, `false` or a list of sport ids; it is separate from `preview`, which is
 the league's own look with made-up games) makes the deploy also build a demo copy of the site for each sport at
-`/<sport>/` (`/basketball/` today). A sport needs nothing for this beyond a `sample.py`: every folder in `sports/`
+`/<sport>/` (`/basketball/` and `/curling/` today). A sport needs nothing for this beyond a `sample.py`: every folder in `sports/`
 with one is a demo, unless its `sport.yml` says `demo: false`. A copy shows the sport's `sample.py` league, the
 sport's `default_layout`, the sport's own defaults (so its `decide: true` settings show as `[placeholder]`) and
 the two sample seasons; nothing of the league's own `league.yml` but `timezone` and `time_format`.
@@ -390,7 +440,8 @@ checks:
 * The sample season passes every check, for the defaults and for every value of every `choice` option, and is
   identical on two runs.
 * The sample has a cancelled game, a moved game, a forfeit, a draft, playoff rows with placeholder teams, and
-  made-up "First L." names with a `00` and a spare.
+  made-up "First L." names with a spare (and a `00` when `NUMBERS` is on, or no numbers when it is off), with
+  `PLAYERS_PER_TEAM` players a team and, when `POSITIONS` is set, the positions in roster order.
 * **Every problem `check` reports has a path that leads into the sheet** (or to a missing key whose parent
   exists), for many broken variants of real sheets, in `games` and in `drafts`. `check` is never
   stricter for a draft, and never changes its input.
@@ -399,8 +450,9 @@ checks:
 * The committed `data/sample-*` is what `make_sample.py` writes, and the loader finds no problem in it.
 
 Related: `tests/test_sports.py` (the `sport.yml` schema, with the folders in `tests/fixtures/sports/`) and
-`tests/test_stub_sport.py` (the stub's own rows). A new sport adds a `tests/test_<id>_sport.py` for its own
-rules, and, from stage 5, shared fixtures.
+`tests/test_stub_sport.py` (the stub's own rows) and `tests/test_empty_player_group.py` (a sport whose
+player group counts nothing, built end to end). A new sport adds a `tests/test_<id>_sport.py` for its own rules,
+and, from stage 5, shared fixtures (`tests/test_<id>_fixtures.py`).
 
 ## Checklist for a new sport
 
@@ -412,14 +464,17 @@ rules, and, from stage 5, shared fixtures.
 4. `rules.py`: `check` (every problem, paths relative to `sheet`, never raises, drafts may leave boxes
    empty), `read`, `present` (known blocks and flags only), `derive`. Keep it pure and standard-library
    only, so the JavaScript port can match it.
-5. `sample.py`: made-up teams and a `sheet()` that honours the outcome.
+5. `sample.py`: made-up teams and a `sheet()` that honours the outcome. Add `PLAYERS_PER_TEAM`, `TIMES`, `SURFACES`,
+   `NUMBERS` and `POSITIONS` where the sport's nights and rosters differ from basketball's.
 6. `README.md`: the format box by box, with the problem paths and levels, as `sports/stub/README.md` does.
 7. Run `python -m pytest tests/test_sport_contract.py`. Fix what it names.
 8. Write the sport's own tests (every row of its checks). From stage 5, add fixtures in
    `sports/<id>/fixtures/`.
 9. Set `sport: <id>` in `league.yml`, run `python scripts/make_sample.py`, then
    `python scripts/build.py` and look at the pages at 390 px in both themes. Add the sport to `SPORTS` in
-   `tests/test_golden.py` and write its golden files (`UPDATE_GOLDEN=1`), checked by hand.
+   `tests/test_golden.py` and write its golden files (`UPDATE_GOLDEN=1`), checked by hand. (The golden test writes
+   the sample into a temporary folder, so you need not leave `league.yml` on the new sport: the committed
+   `data/sample-*` stay the shipped sport's, and `make_sample.py --check` must still pass on them.)
 10. If the sport needs a display the closed block list cannot express, add a core part first (include, CSS,
     specimen, parity case, entry in `BLOCK_TYPES`), then use it.
 11. Check the sport preview: `scripts/build_preview.sh` (with `bundle exec jekyll build` first) builds
@@ -449,3 +504,9 @@ The spec (`docs/stage-4-spec.md`) is the plan. The code, as of this page, differ
 | `stats` has the groups, `derived` and `team` (3.2). | Also `columns` (the order of the columns for the Stats page, a player's totals and a game log), and `derive` may return an unrounded rate (the core rounds it and ranks on the exact value). |
 | `sport.yml` has no switch for demos. | The optional `demo` key (default `true`); the stub says `false`. |
 | `rules.js` ships with each sport (stage 5 plan). | Moves to stage 7 with the entry page. Stage 5 leaves each sport's `fixtures/` for it. |
+| Block types: `stat_table`, `note` (3.3). | `top_performer` (basketball), `numbers` and `roster` (curling). Still to come: `facts`, `events`, a penalties table. |
+| `words` has `period`, `day`, `surface`, `points_for`, `points_against` (3.2). | Also an optional `extra` (`{one, short}`): "Final · EE", "an extra-end win", "ends won". |
+| `display` has `card`, `card_foot`, `surface` (3.2). | Also `results_legend` (a key above the result cards) and `team_sub` (the skip line on a team card). |
+| `present()['card']` has `note`, `strong`, `link_label` (3.4). | Also `line_score` (the card's own compact line score), `meta_extra` (more parts for the card foot) and `note_long`. |
+| `sample.py` has `LEAGUE_NAME`, `TEAMS`, `sheet`, optional `PLAYERS_PER_TEAM`. | Also optional `TIMES`, `SURFACES`, `NUMBERS`, `POSITIONS` and `NOTES`. |
+| A team board's `{gp}` is the standings' GP. | The games with a score sheet: a forfeit is not a game there. |
