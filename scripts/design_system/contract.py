@@ -355,6 +355,14 @@ def players_json(L: dict) -> dict:
         for box in L["game"]["box_scores"]:
             for row in box["rows"]:
                 add(row["player"], box["team"])
+    if L["sport"] == "curling":
+        for sec in L["game"]["sections"]:
+            if sec["kind"] == "lineups":
+                for t in sec["teams"]:
+                    for row in t["rows"]:
+                        add(row["player"], t["team"])
+                        if row["spare_for"]:
+                            add(row["spare_for"], t["team"])
     ld = L["leaders"]
     for t in ld["tiles"]:
         if t["person"] is not None:
@@ -392,6 +400,32 @@ def _basketball_blocks(L: dict) -> list[dict]:
     return blocks
 
 
+def _curling_blocks(L: dict) -> list[dict]:
+    """The game in numbers (the `numbers` block) and the lineups (the `roster` block), from the sample's sections."""
+    g = L["game"]
+    side_of = {t["team"]: side for side, t in zip(("home", "away"), g["final"]["teams"])}
+    blocks = []
+    for sec in g["sections"]:
+        if sec["kind"] == "numbers":
+            rows = []
+            for r in sec["rows"]:
+                key = side_of.get(r["emphasis"])
+                rows.append({"label": r["label"], "cells": {side: r["values"][t] for t, side in side_of.items()},
+                             "key": key, "hot": bool(key and r["style"] == "stolen")})
+            blocks.append({"type": "numbers", "title": sec["title"], "corner": sec["corner_label"], "rows": rows,
+                           "note": sec["note"]})
+        elif sec["kind"] == "lineups":
+            teams = [{"side": side_of[t["team"]],
+                      "rows": [{"role": r["position"], "player": _player_id(r["player"]["name"]),
+                                "key": r["emphasis"],
+                                "spare_for": _player_id(r["spare_for"]["name"]) if r["spare_for"] else None}
+                               for r in t["rows"]]} for t in sec["teams"]]
+            link = plain_link(sec["teams"][0]["link_label"]).replace(team_of(L, sec["teams"][0]["team"])["name"] + " ", "")
+            blocks.append({"type": "roster", "title": sec["title"], "teams": teams, "link_label": link,
+                           "note": sec["note"]})
+    return blocks
+
+
 def games_json(L: dict, layout: str) -> dict:
     sport = L["sport"]
     gm = L["game"]
@@ -418,6 +452,8 @@ def games_json(L: dict, layout: str) -> dict:
         full = game_line_score(L, gm) if is_game else None
         if sport == "basketball" and is_game:
             blocks = _basketball_blocks(L)
+        elif sport == "curling" and is_game:
+            blocks = _curling_blocks(L)
         else:
             blocks = []
         hero_date = (feat["date"].split(" · ", 1)[1] if feat and feat["result"] == r["id"] else r["date"])

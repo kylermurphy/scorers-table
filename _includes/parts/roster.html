@@ -1,0 +1,37 @@
+{%- comment -%}
+  parts/roster.html: the lineups of a game (present() block type "roster"): a section heading, one card for each team
+  (a head with the chip and the team name, then the players one to a row, each with its role), and a note.
+  Params: block, game (for the sides). Reads: block {title, link_label, teams [{side, rows [{role, player (an id),
+  key (true: the name in bold, the skip), spare_for (a player id, or null)}]}], note}, stats.players (label),
+  stats.teams (url).
+  The head is a link to the team page, with block.link_label ("Rink") and a chevron, when the team has a page; a team
+  with no page (url null: a past season) gets a <div> head with the chip and the name only, no link.
+  A spare gets the outline "Spare" badge and "for <player>".
+{%- endcomment -%}
+{%- assign _ro_b = include.block -%}
+{%- capture _ro_o -%}
+<div class="st-section__head"><h2 class="st-section__title">{{ _ro_b.title | escape }}</h2></div>
+<div class="st-list">
+{%- for _ro_t in _ro_b.teams -%}
+  {%- assign _ro_side = include.game[_ro_t.side] -%}
+  {%- assign _ro_url = stats.teams[_ro_side.team].url -%}
+<div class="st-roster">
+  {%- if _ro_url.size > 0 -%}
+<a class="st-roster__head" href="{{ _ro_url | relative_url }}">{% include parts/chip.html team=_ro_side size="lg" %}<span class="st-roster__team">{{ _ro_side.name | escape }}</span><span class="st-roster__link">{{ _ro_b.link_label | escape }}<span class="st-chevron" aria-hidden="true"> ›</span></span><span class="st-visually-hidden"> {{ _ro_b.link_label | downcase | escape }} page</span></a>
+  {%- else -%}
+<div class="st-roster__head">{% include parts/chip.html team=_ro_side size="lg" %}<span class="st-roster__team">{{ _ro_side.name | escape }}</span></div>
+  {%- endif -%}
+<ol class="st-roster__list">
+  {%- for _ro_r in _ro_t.rows -%}
+<li class="st-roster__row"><span class="st-roster__role">{{ _ro_r.role | escape }}</span><span class="st-roster__name{% if _ro_r.key %} is-key{% endif %}">{{ stats.players[_ro_r.player].label | default: _ro_r.player | escape }}
+    {%- if _ro_r.spare_for.size > 0 %} <span class="st-badge st-badge--outline">Spare</span> <span class="st-roster__for">for {{ stats.players[_ro_r.spare_for].label | default: _ro_r.spare_for | escape }}</span>{% endif -%}
+</span></li>
+  {%- endfor -%}
+</ol></div>
+{%- endfor -%}
+</div>
+{%- if _ro_b.note.size > 0 -%}<p class="st-note">{{ _ro_b.note | escape }}</p>{%- endif -%}
+{%- endcapture -%}
+{%- assign _ro_lines = _ro_o | split: "
+" -%}
+{%- for _ro_line in _ro_lines -%}{{ _ro_line | strip }}{%- endfor -%}

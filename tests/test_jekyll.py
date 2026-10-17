@@ -822,3 +822,52 @@ def test_column_lists_order_the_stats_table_the_totals_and_the_game_log(extended
     assert _header_labels(extended.html("/stats/"))[-1] == ["PPG", "PTS"]
     totals, log = _header_labels(extended.html("/players/noa-a/"))
     assert totals == ["PTS", "GP"] and log == ["PTS"]
+
+
+# ------------------------------------------------------------------ core extensions E5, E6 (curling spec, section 6)
+
+def _add_numbers_and_roster_to_the_stub(root: Path) -> None:
+    """The stub with a `numbers` and a `roster` block on every game: the first player of a side is its key row, the
+    second is a spare for the third."""
+    sport = root / "sports" / "stub"
+    rules = (sport / "rules.py").read_text(encoding="utf-8")
+    note = '    blocks.append({"type": "note", "text": "Points come from the Final box and each player\'s row."})'
+    assert note in rules
+    rules = rules.replace(note, '''    blocks.append({"type": "numbers", "title": "The game in numbers", "corner": "This game", "note": "A made-up note.",
+                   "rows": [{"label": "Points", "cells": {"home": str(score.final["home"]), "away": str(score.final["away"])},
+                             "key": "home" if score.final["home"] > score.final["away"] else "away", "hot": False},
+                            {"label": "Stolen", "cells": {"home": "1", "away": "0"}, "key": "home", "hot": True}]})
+    teams = []
+    for side in SIDE_KEYS:
+        people = [ln.player for ln in reading.lines if ln.side == side]
+        if len(people) >= 3:
+            teams.append({"side": side, "rows": [
+                {"role": "Lead", "player": people[0], "key": True, "spare_for": None},
+                {"role": "Second", "player": people[1], "key": False, "spare_for": people[2]}]})
+    blocks.append({"type": "roster", "title": "Lineups", "teams": teams, "link_label": "Team", "note": "In order."})
+''' + note)
+    (sport / "rules.py").write_text(rules, encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def lineups(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("lineups"), jekyll, edit=_add_numbers_and_roster_to_the_stub)
+
+
+def test_a_roster_head_links_the_team_page_and_is_a_plain_div_in_a_past_season(lineups):
+    page = lineups.html("/games/2026-11-19-1/")
+    assert re.search(r'<a class="st-roster__head" href="/teams/[a-z-]+/">', page)
+    assert "st-roster__link" in page and "for " in page and "st-badge--outline" in page
+    old = lineups.html("/games/2025-10-16-1/")
+    assert "st-roster__head" in old and "st-roster__list" in old
+    assert re.search(r'<div class="st-roster__head">', old) and '<a class="st-roster__head"' not in old
+    assert "st-roster__link" not in old
+    assert not any(re.match(r"^/teams/[^/]+/", h) for h in Page(old).hrefs)
+
+
+def test_the_numbers_block_heads_each_column_with_the_teams_code_and_marks_the_key_cell(lineups):
+    page = lineups.html("/games/2026-11-19-1/")
+    table = re.search(r'<table class="st-table st-table--numbers">.*?</table>', page, re.S).group(0)
+    assert len(re.findall(r'<th scope="col"><span class="st-chip', table)) == 2
+    assert table.count('class="is-key"') >= 1 and table.count('class="is-key is-hot"') == 1
+    assert "A made-up note." in page
