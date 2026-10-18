@@ -289,6 +289,10 @@ def _check_result_present(value: Any, args: tuple) -> str | None:
     for i, block in enumerate(blocks):
         if not isinstance(block, dict) or block.get("type") not in BLOCK_TYPES:
             return f"present()['blocks'][{i}] must be a dict whose 'type' is one of {', '.join(BLOCK_TYPES)}"
+    card = value.get("card")
+    extra = card.get("meta_extra", []) if isinstance(card, dict) else []
+    if not isinstance(extra, list) or not all(isinstance(x, str) for x in extra):
+        return "present()['card']['meta_extra'] must be a list of strings (each one a part of the card's foot)"
     return None
 
 

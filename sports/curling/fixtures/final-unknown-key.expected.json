@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "final.third",
+      "message": "'third' isn't a side. Use 'home' or 'away'."
+    }
+  ],
+  "reading": null
+}

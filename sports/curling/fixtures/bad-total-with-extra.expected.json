@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "final.home",
+      "message": "the Total box says 4, but the ends add up to 5"
+    }
+  ],
+  "reading": null
+}

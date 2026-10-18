@@ -1,0 +1,73 @@
+# Curling: ends, a hammer (the last stone), and a club score card with one box per end for each rink. The sport's own
+# knowledge only: nothing here is one league's rule. The defaults are BRIEF.md's typical club rules, and every rule a
+# league decides is marked `decide: true` (it shows as [placeholder] until the league sets it).
+name: Curling
+default_layout: curling
+games_per_day: 1
+game_minutes: 120
+words:
+  period: {one: End, many: Ends, short: E}
+  extra: {one: Extra end, short: EE}
+  day: Draw
+  surface: Sheet
+  points_for: {label: PF, title: Points for}
+  points_against: {label: PA, title: Points against}
+line_score: {shape: ends, total_label: Tot, corner: End, periods: ends}
+options:
+  ends:
+    type: int
+    default: 8
+    min: 4
+    max: 10
+    decide: true
+    label: Ends in a game
+  extra_end:
+    type: choice
+    values: [playoffs, always]
+    default: playoffs
+    decide: true
+    label: Extra end when a game is level after the last end
+  lineups:
+    type: choice
+    values: [recorded, none]
+    default: recorded
+    label: Players listed on each game file
+standings:
+  rank_by: points
+  points: {win: 2, tie: 1, loss: 0}
+  period_points: 0
+  ties: {value: true, decide: true}
+  forfeit: {value: {score: [1, 0]}, decide: true}
+  tiebreakers: {value: [head_to_head, diff], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa]
+stats:
+  player: []
+  derived: []
+  team:
+    - {key: ends_won, label: EW, title: Ends won}
+    - {key: stolen, label: SE, title: Stolen ends}
+    - {key: blanks, label: BE, title: Blank ends}
+    - {key: big_ends, label: "3+", title: Big ends (3 or more)}
+    - {key: hammer_ends, label: HE, title: Ends with hammer}
+    - {key: hammer_scored, label: HS, title: Scored with hammer}
+    - {key: ends, label: E, title: Ends played}
+  columns:
+    player: {table: [gp], totals: [gp]}
+leaderboards:
+  - {id: stolen, of: team, stat: stolen, label: Stolen ends, tile: true, edge: hot, detail: "in {gp} games"}
+  - {id: ends_won, of: team, stat: ends_won, label: Ends won, tile: true, edge: accent, detail: "of {ends} ends, {gp} games"}
+  - {id: big_ends, of: team, stat: big_ends, label: Big ends (3 or more), detail: "in {gp} games"}
+labels: {results: Latest draw, next: Next draw, leaders: Rink leaders, team: Rink}
+labels_by_layout:
+  classic: {team: Team, leaders: Stolen ends}
+  scoreboard: {team: Team}
+display:
+  card: lines
+  card_foot: meta
+  surface: label
+  team_sub: skip
+  results_legend:
+    - {kind: hammer, text: Hammer in end 1}
+    - {kind: mark, text: Stolen end}
+    - {kind: x, text: Not played}
+positions: [lead, second, vice, skip]

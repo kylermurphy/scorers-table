@@ -293,7 +293,7 @@ def test_the_stub_is_a_test_sport_and_the_real_sports_are_demos():
     assert "demo: false" in (SPORTS_ROOT / "stub" / "sport.yml").read_text(encoding="utf-8")
     basketball, _ = load_sport("basketball", SPORTS_ROOT)
     assert basketball.spec["demo"] is True
-    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball"}
+    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball", "curling": "Curling"}
 
 
 def test_demo_sports_needs_a_sample_and_a_demo_that_is_not_false(sports_root, tmp_path):
@@ -317,3 +317,50 @@ def test_the_site_paths_are_the_ones_the_site_builds():
     assert SITE_PATHS == ("archive", "assets", "calendar", "games", "players", "preview", "rules", "schedule", "sheets",
                           "stats", "teams")
     assert not set(SITE_PATHS) & set(discover_sports(SPORTS_ROOT))
+
+
+# ------------------------------------------------------------------ core extensions E8, E9 and E10 (curling spec, section 6)
+
+def _problems_at(spec):
+    return {p.at: p.message for p in check_sport_spec(spec, "sport.yml") if p.level == "error"}
+
+
+def test_words_extra_is_optional_and_needs_one_and_short(sports_root):
+    base = spec_of(sports_root)
+    assert _problems_at({**base, "words": {**base["words"], "extra": {"one": "Extra end", "short": "EE"}}}) == {}
+    assert "extra" not in base["words"] and _problems_at(base) == {}
+    words = lambda extra: _problems_at({**base, "words": {**base["words"], "extra": extra}})   # noqa: E731
+    assert set(words({"one": "Extra end"})) == {"words.extra.short"}
+    assert set(words({"one": "Extra end", "short": ""})) == {"words.extra.short"}
+    assert set(words({"one": "x", "short": "X", "many": "xs"})) == {"words.extra.many"}
+    assert set(words("EE")) == {"words.extra"}
+
+
+def test_display_results_legend_is_a_list_of_kind_and_text(sports_root):
+    base = spec_of(sports_root)
+    display = lambda legend: _problems_at({**base, "display": {**base["display"], "results_legend": legend}})   # noqa: E731
+    assert display([{"kind": "hammer", "text": "Hammer in end 1"}, {"kind": "x", "text": "Not played"}]) == {}
+    assert display([]) == {}
+    assert set(display([{"kind": "star", "text": "x"}])) == {"display.results_legend.0.kind"}
+    assert set(display([{"kind": "mark"}])) == {"display.results_legend.0.text"}
+    assert set(display([{"kind": "mark", "text": "Stolen end", "mark": "S"}])) == {"display.results_legend.0.mark"}
+    assert set(display("Hammer")) == {"display.results_legend"}
+
+
+def test_display_team_sub_must_be_one_of_the_positions(sports_root):
+    base = spec_of(sports_root)
+
+    def sub(value, positions):
+        return _problems_at({**base, "positions": positions, "display": {**base["display"], "team_sub": value}})
+
+    assert sub("skip", ["lead", "skip"]) == {}
+    assert set(sub("coach", ["lead", "skip"])) == {"display.team_sub"}
+    assert set(sub("skip", [])) == {"display.team_sub"}           # the sport lists no positions
+    assert "display.team_sub" in _problems_at({**base, "display": {**base["display"], "team_sub": "skip"}})
+    assert "positions" not in _problems_at({**base, "positions": ["skip"], "display": {"team_sub": "skip"}})
+
+
+def test_the_shipped_keys_do_not_change_what_a_sport_without_them_gets(sports_root):
+    sport, _ = load_sport("other", sports_root)
+    assert "results_legend" not in sport.spec["display"] and "team_sub" not in sport.spec["display"]
+    assert "extra" not in sport.spec["words"]

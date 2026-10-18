@@ -8,13 +8,14 @@ the numbers and most people check them on a phone.
 Sports: basketball, curling, hockey and slo-pitch (more later). Six layouts,
 light and dark. No ads, no trackers, players shown as "First L." only.
 
-**Status: the core works and basketball is the first real sport** (stage 5, in review as a pull request); curling,
-hockey and slo-pitch come next, one at a time. The template ships set up for basketball with made-up sample
-seasons. A made-up test sport (`stub`) stays for the core's own tests.
+**Status: the core works, and basketball and curling are real sports** (stage 5: basketball is merged, curling is in
+review as a pull request); hockey and slo-pitch come next, one at a time. The template ships set up for basketball with made-up
+sample seasons. A made-up test sport (`stub`) stays for the core's own tests.
 What it is: [`BRIEF.md`](BRIEF.md); how it gets built: [`PLAN.md`](PLAN.md); the designs and design system:
 [`docs/design.md`](docs/design.md); how the core works: [`docs/stage-4-spec.md`](docs/stage-4-spec.md); the data
 files, for the person who keeps the numbers: [`docs/data.md`](docs/data.md); adding a sport:
-[`docs/sports.md`](docs/sports.md); basketball's game file, box by box: [`sports/basketball/README.md`](sports/basketball/README.md);
+[`docs/sports.md`](docs/sports.md); each sport's game file, box by box: [`sports/basketball/README.md`](sports/basketball/README.md),
+[`sports/curling/README.md`](sports/curling/README.md);
 what the league still has to decide: [`docs/open-questions.md`](docs/open-questions.md).
 
 **Try it** (Python 3.12+, Ruby 3.3+):
@@ -29,13 +30,22 @@ bundle exec jekyll serve              # http://localhost:4000/
 `league.yml` is the one file a setup person edits. Until a league has its own games, the site shows a
 made-up sample season with a banner (`sample_data: true`).
 
+**Choosing a sport.** `sport:` in `league.yml` names a folder in `sports/`. It ships as `basketball`. A curling club
+writes `sport: curling` (and its own `name`, `timezone` and `rules:`); the site then uses the Curling look, rinks,
+ends and the hammer, and the data files are the curling ones (`sports/curling/README.md` has the score card box by
+box, `docs/data.md` the files around it). To see it before switching, run `python scripts/make_sample.py` with
+`sport: curling` in `league.yml` (it rewrites the made-up `data/sample-*` for that sport; the template's own
+copies are basketball's), then `python scripts/build.py --sample`, or just open the `/curling/` preview below. The
+settings a curling league decides (ends, extra end, ties, forfeit, tiebreakers) show as `[placeholder]` until it
+sets them; the build lists them (`docs/open-questions.md`, section 6).
+
 **Previews.** Two settings in `league.yml` publish made-up copies of the site beside the real one. Neither is linked
 from the league's own pages, and every page of both says `noindex`.
 
 | Address | What it shows | Setting |
 |---|---|---|
 | `/preview/` | the league's own site (its name, colours, logo, look) filled with made-up games | `preview: true` (the default); built only while the real data is showing (`sample_data: false`) |
-| `/basketball/` (later `/curling/`, `/hockey/`, `/slopitch/`) | the template's own made-up league for that sport, in the sport's look, with the sport's usual rules | `sport_previews: true` (shipped on); `false` turns them all off, or list the ones you want, like `[basketball]` |
+| `/basketball/`, `/curling/` (later `/hockey/`, `/slopitch/`) | the template's own made-up league for that sport (Riverside Masters Basketball, Pine Lake Curling Club), in the sport's look, with the sport's usual rules | `sport_previews: true` (shipped on); `false` turns them all off, or list the ones you want, like `[curling]` |
 
 The banner at the top of each copy says what it is and links back to the live site (and across to the other
 sport previews). To turn them off, set `preview: false` and `sport_previews: false`. To build them on your own

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home.6",
+      "message": "end 7 is X, but nobody conceded and time wasn't called. Add 'conceded: home' or 'conceded: away' (the rink that shook hands), or 'time_called: true'."
+    }
+  ],
+  "reading": null
+}

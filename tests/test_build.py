@@ -222,7 +222,8 @@ def test_standings_columns_note_race_and_through(sample_out):
     standings = computed(sample_out, "sample-2026-27", "standings.json")
     assert [c["key"] for c in standings["columns"]] == ["gp", "w", "l", "t", "pts", "pf", "pa", "diff"]
     assert [c["key"] for c in standings["columns"] if c["key_col"]] == ["pts"]
-    assert standings["note"] == "2 points a win, 1 a tie and 1 for an overtime loss."
+    assert standings["note"] == ("2 points a win, 1 a tie and 1 for an overtime loss. "
+                                 "A forfeit counts as 1–0 [placeholder].")
     assert standings["tiebreak_note"].startswith("[placeholder] The league has not decided its tiebreakers")
     assert standings["through"] == "2026-11-19" and standings["through_display"] == "Thu Nov 19"
     assert standings["race"] == {"basis": "points", "max": 10}                     # 5 games, 2 points each
@@ -280,7 +281,7 @@ def test_games_have_results_standings_points_and_playoff_games_do_not_count(samp
 def test_game_pages_get_final_panel_card_and_box_score(sample_out):
     game = computed(sample_out, "sample-2026-27", "games.json")["2026-11-05-1"]
     assert (game["home"]["name"], game["away"]["name"], game["tie"]) == ("Badgers", "Otters", True)
-    assert game["final"] == {"status": "Final", "sub": "Tied 35–35"} and game["summary"] == "Tied 35–35"
+    assert game["final"] == {"status": "Final", "sub": "Tied 35–35", "note": None} and game["summary"] == "Tied 35–35"
     assert game["home"]["record_line"] == "Tie · now 0–2–1" and game["away"]["record"] == "1–1–1"
     assert game["standings_points"] == {"home": 1, "away": 1}
     assert game["line_score"]["caption"] == "Score by half" and game["card"]["meta"] == ["Court 1", "7:00 PM"]
@@ -288,9 +289,13 @@ def test_game_pages_get_final_panel_card_and_box_score(sample_out):
     assert table["type"] == "stat_table" and table["number_label"] == "#" and table["rows"][0]["num"]
     assert game["blocks"][-1]["type"] == "note"
     forfeit = computed(sample_out, "sample-2026-27", "games.json")["2026-10-22-1"]
-    assert forfeit["forfeit"] == "otters" and forfeit["final"] == {"status": "Forfeit", "sub": "Otters forfeited"}
+    assert forfeit["forfeit"] == "otters" and forfeit["final"] == {
+        "status": "Forfeit", "sub": "Otters forfeited",
+        "note": "[placeholder] The league has not decided how a forfeit is scored yet. The site counts it as 1–0."}
     assert forfeit["line_score"] is None and forfeit["blocks"] == []
-    assert (forfeit["home"]["score"], forfeit["away"]["score"]) == (1, 0) and forfeit["card"]["note"] == "Otters forfeited"
+    assert (forfeit["home"]["score"], forfeit["away"]["score"]) == (1, 0)
+    assert forfeit["card"]["note"] == "Otters forfeited · score [placeholder]"
+    assert computed(sample_out, "sample-2026-27", "games.json")["2026-10-15-1"]["final"]["note"] is None
 
 
 def test_players_and_leaders(sample_out):
@@ -395,6 +400,9 @@ def test_stub_pages_per_collection(sample_out):
     assert names("_teams") == sorted(computed(sample_out, "sample-2026-27", "teams.json"))
     assert names("_players") == sorted(computed(sample_out, "sample-2026-27", "players.json"))
     assert front_matter(sample_out / "_games" / "2025-12-11-1.md")["season"] == "sample-2025-26"
+    # the nav tab: a past season's game is reached from the archive; a current game keeps the collection's Schedule
+    assert front_matter(sample_out / "_games" / "2025-12-11-1.md")["nav"] == "archive"
+    assert "nav" not in front_matter(sample_out / "_games" / "2026-11-19-1.md")
     assert front_matter(sample_out / "_teams" / "otters.md") == {
         "season": "sample-2026-27", "team_id": "otters", "title": "Otters",
         "description": "Otters: record 1–2–1, No. 3 in the standings."}
@@ -652,7 +660,8 @@ def test_a_league_ranked_by_win_percentage(tmp_path, capsys):
     standings = computed(out, "sample-2026-27", "standings.json")
     assert [c["key"] for c in standings["columns"] if c["key_col"]] == ["pct"]
     assert standings["race"] == {"basis": "win_pct", "max": None}
-    assert standings["note"] == "Teams are ranked by winning percentage (a tie counts as half a win)."
+    assert standings["note"] == ("Teams are ranked by winning percentage (a tie counts as half a win). "
+                                 "A forfeit counts as 1–0 [placeholder].")
     top = standings["rows"][0]
     assert top["team"] == "ravens" and top["display"]["pct"] == ".800" and top["display"]["gb"] == "—"
     assert top["race"] == {"pct": "80.0", "value": "4–1", "unit": "", "sub": "+11"}
@@ -688,6 +697,39 @@ def test_league_json(sample_out):
     assert league["display"] == {"card": "rows", "card_foot": "note", "surface": "label", "card_head": ""}
     assert [p["setting"] for p in league["placeholders"]] == [
         "rules.overtime", "standings.forfeit", "standings.tiebreakers", "stats.minimums.ppg_min_games"]
+
+
+def test_league_json_says_what_the_site_uses_for_each_undecided_setting(sample_out):
+    using = {p["setting"]: p["using"] for p in computed(sample_out, "league.json")["placeholders"]}
+    assert using == {
+        "rules.overtime": "none", "standings.forfeit": "1–0", "stats.minimums.ppg_min_games": "0",
+        "standings.tiebreakers": ("head-to-head record (when they have all played each other), then score difference, "
+                                  "then points for")}
+
+
+# ------------------------------------------------------------------ a default in use shows [placeholder]
+
+def _forfeit_pieces(out: Path) -> tuple[str, dict, str]:
+    """(the standings note, the forfeit game's final panel data, its card note) of the sample season."""
+    forfeit = computed(out, "sample-2026-27", "games.json")["2026-10-22-1"]
+    return computed(out, "sample-2026-27", "standings.json")["note"], forfeit["final"], forfeit["card"]["note"]
+
+
+def test_a_forfeit_scored_by_the_default_is_marked_everywhere_it_shows(sample_out):
+    note, final, card = _forfeit_pieces(sample_out)
+    assert note.endswith("A forfeit counts as 1–0 [placeholder].")
+    assert final["note"].startswith("[placeholder] The league has not decided how a forfeit is scored yet.")
+    assert card == "Otters forfeited · score [placeholder]"
+
+
+def test_setting_the_forfeit_score_removes_the_marker_even_when_it_is_the_default(tmp_path, capsys):
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    text = (root / "league.yml").read_text(encoding="utf-8") + "\nstandings: {forfeit: {score: [1, 0]}}\n"
+    (root / "league.yml").write_text(text, encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    note, final, card = _forfeit_pieces(out)
+    assert "placeholder" not in note and final["note"] is None and card == "Otters forfeited"
+    assert "standings.forfeit" not in [p["setting"] for p in computed(out, "league.json")["placeholders"]]
 
 
 def test_league_settings_reach_league_json(tmp_path, capsys):
@@ -732,7 +774,7 @@ def test_photos_are_copied_and_linked_only_when_published(tmp_path, capsys):
 # Key paths the stage 3 sample leagues (via scripts/design_system/contract.py) have and the stub's output lacks,
 # each because only some sports use it. A pattern excuses that path and everything below it.
 SPORT_ONLY = {
-    "games.*.card.line_score": "a sport's own compact line score; the stub's cards fall back to the game's line score",
+    "games.*.card.line_score": "a sport's own compact line score; the stub's cards write null and fall back to the game's",
     "games.*.line_score.columns[].blank": "curling's blank ends",
     "games.*.line_score.columns[].open": "slo-pitch's open innings",
     "games.*.line_score.legend[]": "curling and slo-pitch keys under the line score",
@@ -750,6 +792,12 @@ SPORT_ONLY = {
     "games.*.blocks[].value": "basketball's top_performer block",
     "games.*.blocks[].unit": "basketball's top_performer block",
     "games.*.blocks[].detail": "basketball's top_performer block",
+    "games.*.blocks[].corner": "curling's numbers block (the game in numbers)",
+    "games.*.blocks[].rows[].label": "curling's numbers block",
+    "games.*.blocks[].rows[].key": "curling's numbers block (the bigger value)",
+    "games.*.blocks[].rows[].hot": "curling's numbers block (the stealing rink)",
+    "games.*.blocks[].teams": "curling's roster block (the lineups)",
+    "games.*.blocks[].link_label": "curling's roster block (the head's link)",
     "league.labels.score_sheets": "Masters-only feature (score sheet PDFs)",
     "schedule.days[].foot_link.label": "a link under the next-game panel (the Masters site's score sheet PDFs)",
     "schedule.days[].foot_link.url": "a link under the next-game panel (the Masters site's score sheet PDFs)",
@@ -829,6 +877,7 @@ def test_every_excused_key_is_really_missing(sample_out):
 
 
 def got_by_stub(sample_out: Path) -> set[str]:
+    """The key paths the stub's build writes with a value (a path that is only ever null counts as not written)."""
     got: dict[str, set] = {}
     base = sample_out / "_data" / "computed"
     for name in ("league", "active"):
@@ -837,7 +886,7 @@ def got_by_stub(sample_out: Path) -> set[str]:
         for name in ("teams", "standings", "schedule", "results", "games", "players", "leaders"):
             data = json.loads((base / season / f"{name}.json").read_text(encoding="utf-8"))
             key_paths(data, name, got, top=True, file=name)
-    return set(got)
+    return {path for path, kinds in got.items() if kinds != {"null"}}
 
 
 def test_a_spare_with_no_team_has_one_full_stop_in_the_page_description(sample_out):
@@ -1046,3 +1095,146 @@ def test_column_lists_left_out_keep_the_default_order(tmp_path, capsys):
     cols = leaders["columns"]["player"]
     assert [c["key"] for c in cols["table"]] == ["pts", "gp"]
     assert [c["key"] for c in cols["totals"]] == [c["key"] for c in cols["log"]] == ["gp", "pts", "ppg"]
+
+
+# ------------------------------------------------------------------ core extensions E7-E10 (curling spec, section 6)
+
+COMPACT_CARD = [(
+    '    return {"line_score": line_score, "card": card, "tiles": [], "blocks": blocks}',
+    '    card = {**card, "line_score": {**line_score, "title": "Compact", "legend": []}, "meta_extra": ["Shook hands after 6"]}\n'
+    '    return {"line_score": line_score, "card": card, "tiles": [], "blocks": blocks}')]
+
+OVERTIME_GAME = ("game_id: 2026-10-15-1\nstatus: final\nhome: reds\naway: blues\nchecked_by: Pat S.\nscorekeeper: Sam T.\n"
+                 "sheet:\n  periods: {home: [10, 10], away: [10, 10]}\n  overtime: {home: 3, away: 1}\n"
+                 "  final: {home: 23, away: 21}\n  players:\n    home:\n      - {player: ann-r, pts: 20}\n      - {player: bob-r, pts: 3}\n"
+                 "    away:\n      - {player: cal-b, pts: 15}\n      - {player: dee-b, pts: 6}\n")
+
+
+def extension_build(tmp_path, capsys, *, edit=None, rules_edit=(), league_yml="", position_players=False):
+    """The mini season (stub sport) with the first game decided in overtime, `edit(spec)` applied to sport.yml and
+    `league_yml` appended to league.yml. Returns the output folder."""
+    root = mini_season(tmp_path, sport_edit=edit, rules_edit=rules_edit)
+    season = root / "data" / "2026-27"
+    (season / "games" / "2026-10-15-1.yml").write_text(OVERTIME_GAME, encoding="utf-8")
+    league = root / "league.yml"
+    league.write_text(league.read_text(encoding="utf-8") + "\nrules: {overtime: overtime}\n" + league_yml, encoding="utf-8")
+    if position_players:
+        (season / "players.yml").write_text(
+            "- {id: ann-r, name: Ann R., team: reds, position: skip}\n- {id: bob-r, name: Bob R., team: reds, position: skip}\n"
+            "- {id: cal-b, name: Cal B., team: blues, position: lead}\n"
+            "- {id: dee-b, name: Dee B., team: blues, position: skip, sub: true}\n", encoding="utf-8")
+    out = tmp_path / "out"
+    code, _, err = run(root, out, capsys=capsys, today="2027-03-01")
+    assert code == 0, err
+    return out
+
+
+def test_e7_a_card_may_carry_its_own_line_score_and_extra_meta(tmp_path, capsys):
+    out = extension_build(tmp_path, capsys, rules_edit=COMPACT_CARD)
+    game = computed(out, "2026-27", "games.json")["2026-10-22-1"]
+    card = game["card"]
+    assert card["meta"] == ["Court 1", "7:00 PM", "Shook hands after 6"]          # the sheet and time, then meta_extra
+    compact = card["line_score"]
+    assert compact["title"] == "Compact" and compact["rows"] == game["line_score"]["rows"]
+    # the line score's defaults are filled in as for the game's own
+    assert compact["caption"] == "Score by half" and compact["void_word"] == "not played" and compact["note"] is None
+    assert compact["rows"]["home"]["extra"] is None and compact["rows"]["home"]["hammer_first"] is False
+    assert game["line_score"]["title"] is None                                  # the page's line score is its own copy
+
+
+def test_e7_without_them_a_card_has_a_null_line_score_and_only_the_sheet_and_time(sample_out):
+    games = computed(sample_out, "sample-2026-27", "games.json")
+    assert all(g["card"]["line_score"] is None for g in games.values())        # also the forfeit's card
+    assert games["2026-11-05-1"]["card"]["meta"] == ["Court 1", "7:00 PM"]
+    assert games["2026-10-22-1"]["forfeit"] and games["2026-10-22-1"]["card"]["line_score"] is None
+
+
+def test_e8_the_extra_word_names_the_final_status_the_points_and_the_tiebreak(tmp_path, capsys):
+    def edit(spec):
+        spec["words"]["period"] = {"one": "End", "many": "Ends", "short": "E"}
+        spec["words"]["extra"] = {"one": "Extra end", "short": "EE"}
+    out = extension_build(tmp_path, capsys, edit=edit, league_yml=(
+        "standings: {points: {win: 2, tie: 1, loss: 0, ot_win: 3, ot_loss: 1}, tiebreakers: [head_to_head, periods_won]}\n"))
+    games = computed(out, "2026-27", "games.json")
+    assert games["2026-10-15-1"]["final"]["status"] == "Final · EE" and games["2026-10-15-1"]["status"] == "Final · EE"
+    assert games["2026-10-22-1"]["final"]["status"] == "Final"
+    standings = computed(out, "2026-27", "standings.json")
+    assert "3 for an extra-end win and 1 for an extra-end loss" in standings["note"]
+    assert "overtime" not in standings["note"]
+    assert "ranked by head-to-head record (when they have all played each other), then ends won;" in standings["tiebreak_note"]
+
+
+def test_e8_without_an_extra_word_the_core_still_says_overtime(tmp_path, capsys):
+    out = extension_build(tmp_path, capsys, league_yml=(
+        "standings: {points: {win: 2, tie: 1, loss: 0, ot_win: 3, ot_loss: 1}, tiebreakers: [periods_won]}\n"))
+    games = computed(out, "2026-27", "games.json")
+    assert games["2026-10-15-1"]["final"]["status"] == "Final · OT"
+    standings = computed(out, "2026-27", "standings.json")
+    assert "3 for an overtime win and 1 for an overtime loss" in standings["note"]
+    assert "then" not in standings["tiebreak_note"] and "halves won" in standings["tiebreak_note"]
+
+
+def test_e8_the_extra_word_is_also_the_default_in_use_for_the_tiebreakers(tmp_path, capsys):
+    """The [placeholder] list says what the site uses for tiebreakers the league has not decided."""
+    def edit(spec):
+        spec["words"]["period"] = {"one": "End", "many": "Ends", "short": "E"}
+        spec["standings"]["tiebreakers"] = {"value": ["periods_won"], "decide": True}
+    out = extension_build(tmp_path, capsys, edit=edit)
+    using = {p["setting"]: p["using"] for p in computed(out, "league.json")["placeholders"]}
+    assert using["standings.tiebreakers"] == "ends won"
+
+
+def test_e9_the_results_legend_reaches_league_json(tmp_path, capsys, sample_out):
+    legend = [{"kind": "hammer", "text": "Hammer in end 1"}, {"kind": "mark", "text": "Stolen end"}]
+    out = extension_build(tmp_path, capsys, edit=lambda spec: spec["display"].update(results_legend=legend))
+    league = computed(out, "league.json")
+    assert league["results_legend"] == legend and "results_legend" not in league["display"]
+    assert league["display"]["card"] == "rows"                                  # the rest of display is as it was
+    assert computed(sample_out, "league.json")["results_legend"] == []          # a sport without one: an empty list
+
+
+def test_e10_the_team_card_names_the_regular_in_the_team_sub_position(tmp_path, capsys, sample_out):
+    def edit(spec):
+        spec["positions"] = ["lead", "skip"]
+        spec["display"]["team_sub"] = "skip"
+    out = extension_build(tmp_path, capsys, edit=edit, position_players=True)
+    teams = computed(out, "2026-27", "teams.json")
+    assert teams["reds"]["sub"] == "Skip Ann R."                                # two skips: the first in players.yml
+    assert teams["blues"]["sub"] is None                                        # its only skip is a spare
+    assert all(t["sub"] is None for t in computed(sample_out, "sample-2026-27", "teams.json").values())
+
+
+def test_e10_a_sport_without_team_sub_leaves_the_line_empty(tmp_path, capsys):
+    def edit(spec):
+        spec["positions"] = ["lead", "skip"]
+    out = extension_build(tmp_path, capsys, edit=edit, position_players=True)
+    assert all(t["sub"] is None for t in computed(out, "2026-27", "teams.json").values())
+
+
+def test_e8_the_game_log_says_the_extra_word_from_the_computed_json(tmp_path, capsys):
+    """A player's game log reads its result from `result_label`: "Win (OT)" by default, the sport's
+    `words.extra.short` when it has one ("Loss (EE)"), so no include says OT on a curling page."""
+    def log_labels(out):
+        players = computed(out, "2026-27", "players.json")
+        return {pid: {e["game"]: e["result_label"] for e in players[pid]["log"]} for pid in ("ann-r", "cal-b")}
+    (tmp_path / "plain").mkdir()
+    (tmp_path / "extra").mkdir()
+    plain = log_labels(extension_build(tmp_path / "plain", capsys))
+    assert plain["ann-r"]["2026-10-15-1"] == "Win (OT)" and plain["cal-b"]["2026-10-15-1"] == "Loss (OT)"
+    assert set(plain["ann-r"].values()) - {"Win (OT)", "Loss (OT)"} <= {"Win", "Loss", "Tie"}
+
+    def edit(spec):
+        spec["words"]["extra"] = {"one": "Extra end", "short": "EE"}
+    curl = log_labels(extension_build(tmp_path / "extra", capsys, edit=edit))
+    assert curl["ann-r"]["2026-10-15-1"] == "Win (EE)" and curl["cal-b"]["2026-10-15-1"] == "Loss (EE)"
+
+
+def test_e7_a_card_meta_extra_that_is_not_a_list_of_strings_is_a_sport_bug():
+    from scripts.core.problems import InternalError, call_sport
+
+    def present(card):
+        return lambda: {"line_score": None, "card": card, "tiles": [], "blocks": []}
+    assert call_sport("present", present({"meta_extra": ["Shook hands after 6"]}))["card"]["meta_extra"]
+    for bad in ("Shook hands after 6", [6]):
+        with pytest.raises(InternalError, match=r"meta_extra'\] must be a list of strings"):
+            call_sport("present", present({"meta_extra": bad}))

@@ -20,6 +20,9 @@ layout: default
 {%- capture _sub2 %}{{ game.venue }}{% if game.surface_label.size > 0 %} · {{ game.surface_label }}{% endif %}{% endcapture -%}
 {% include shell/page-title.html back=_back back_label=_back_label eyebrow=_eyebrow title=_title sub=_sub sub2=_sub2 %}
 {% include parts/final-panel.html game=game %}
+{%- if game.final.note.size > 0 %}
+<p class="st-note">{{ game.final.note | escape }}</p>
+{%- endif %}
 {% include parts/blocks.html blocks=game.blocks game=game %}
 {%- if game.notes.size > 0 %}
 <section class="st-section">

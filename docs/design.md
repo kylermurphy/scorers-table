@@ -329,7 +329,8 @@ Small pieces in `base.css`: `.st-chip` (`--sm`, `--lg`), `.st-badge` (`--win`, `
   `__name` and `__sub` for assists, `__score`); GWG is a `.st-badge`. The penalties table is
   `.st-table.st-table--events` with `.st-table__strong`; the player cell holds the chip and the team
   code, and a `.st-legend` of chips follows.
-* **Roster** (curling lineups): `.st-roster` > `a.__head` (chip, `__team`, `__link`) + `ol.__list` >
+* **Roster** (curling lineups): `.st-roster` > `a.__head` (chip, `__team`, `__link`; a plain `div.__head` with the
+  chip and the name only in a past season, which has no team page) + `ol.__list` >
   `li.__row` (`__role`, `__name` [`is-key` = skip, bold]; a spare is `.st-badge.st-badge--outline` +
   `__for`).
 * **Game-page tables**: `.st-table--box` (number column and player column both sticky: box score and
@@ -505,7 +506,7 @@ The four shapes are structure and cell rules in `parts-scores.css`; the layout s
 * **Scoreboard**: 2 px ink outline, black group bands in `panel-bg` / `panel-text`; chips are kept (with the team code) because they are the only team cue in a log.
 
 #### Roster
-A card with a `surface-2` head (chip, team name in the display face, "Rink ›" in the link colour; the whole head is the link, 48 px), then rows: uppercase role label, name, skip bold, Spare outline badge and
+A card with a `surface-2` head (chip, team name in the display face, "Rink ›" in the link colour; the whole head is the link, 48 px; in a past season the head is a plain `div` with the chip and the name, same look, no link text), then rows: uppercase role label, name, skip bold, Spare outline badge and
 "for Brian S.". Curling: serif team name. Basketball and Classic: uppercase condensed team name. Hockey: a rounder card. Slo-pitch: slab name. Scoreboard: 2 px outline, black head, amber link, no chips.
 
 #### Game-page tables
@@ -808,9 +809,9 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | `shell/page-title.html` | `back`, `back_label`, `eyebrow`, `title`, `sub`, `sub2` | none |
 | `shell/section-head.html` | `title`, `aside`, `aside_url` | none |
 | `parts/chip.html` | `team` (slot, colour), `size` (`sm`, `lg`) | `team.colour` (`#RRGGBB`) gives `st-team--custom` |
-| `parts/result-card.html` | `game`, `lines` | `league.display` (`card`, `card_foot`, `card_head`), `game.card` {note, strong, link_label, meta [], line_score}, `labels.tie` |
+| `parts/result-card.html` | `game`, `lines` | `league.display` (`card`, `card_foot`, `card_head`), `game.card` {note, strong, link_label, meta [], line_score}, `labels.tie`, `game.forfeit` (a forfeit's note follows a Classic or `meta` foot, which would not print it) |
 | `parts/result-hero.html` | `game` | `labels.featured`, `game.status`, `date_short`, `card.note_long`, `tiles` (null: from the line score), side `record` |
-| `parts/final-panel.html` | `game` | `game.final {status, sub}`, side `record_line`/`record`/`badge`, `line_score` title, meta, legend, note, split |
+| `parts/final-panel.html` | `game` | `game.final {status, sub}` (`final.note` is printed under the panel by `_layouts/game.html`, not by the part), side `record_line`/`record`/`badge`, `line_score` title, meta, legend, note, split |
 | `parts/line-score.html` | `line_score`, `game`, `size` (`card`, `full`), `region`, `codes` | see below |
 | `parts/legend.html` | `items [{kind,text,mark}]`, `stack`, `full` | none |
 | `parts/standings.html` | `standings`, `mode` (`table`, `race`; default by layout), `full_url` | `labels.standings/team/full_table`, rows `display{}` and `race{pct,value,unit,sub}`, `standings.race{basis,max}`, `note` |
@@ -821,7 +822,9 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | `parts/team-card.html` | `team`, `rank_text` | `team` name, url, slot, colour, record, points, sub, rank |
 | `parts/stat-table.html` | `block`, `game` | a `stat_table` block; `stats.players` |
 | `parts/top-performer.html` | `block` | a `top_performer` block {label, player, side, value, unit, detail}; `stats.players` (label, url: a link, or a `span` when null) |
-| `parts/note.html`, `parts/blocks.html` | `block`; `blocks`, `game` | `blocks.html` draws `stat_table`, `note` and `top_performer`, leaves other types out |
+| `parts/numbers.html` | `block`, `game` | a `numbers` block {title, corner, rows [{label, cells {home, away}, key ("home"/"away"/null: that cell `is-key`), hot (the key cell also `is-hot`: a stolen end)}], note}; the columns are `game.home` and `game.away`, headed by chip and team code (`abbr` = name) |
+| `parts/roster.html` | `block`, `game` | a `roster` block {title, link_label, teams [{side, rows [{role, player, key, spare_for}]}], note}; `stats.players` (label), `stats.teams` (url): the head is a link ("Rink ›") when the team has a page, a `div` with no link when `url` is null (a past season) |
+| `parts/note.html`, `parts/blocks.html` | `block`; `blocks`, `game` | `blocks.html` draws `stat_table`, `note`, `top_performer`, `numbers` and `roster`, leaves other types out |
 | helpers | `parts/bold-text.html` (`text`, `strong`), `parts/runs.html` (`runs [{t,b}]`), `parts/hammer.html` (`px`, `label`), `parts/leader-sub.html` | |
 
 **Line score data** (present()'s `line_score`, spec 3.4, plus the fields the includes need): `shape`, `corner`,
@@ -839,7 +842,8 @@ hammer?}], total, extra, hammer_first}`, `caption` (the table caption and scroll
 `edge`, `group_label`, `title`, `title_board`, `unit`, `first_row_in_tile`, `columns`, `home`, `player_rank`, rows
 `cells`; `leaders.columns[group]` = `{table, totals, log}` (lists of `{key, label, title, key_col}`); blocks
 `number_col`, `number_label`, `player_label`, `rows[].num`, `totals`; a `top_performer` block `label`, `player`, `side`,
-`value`, `unit`, `detail`.
+`value`, `unit`, `detail`; a `numbers` block `corner`, `rows[].cells`, `rows[].key`, `rows[].hot`; a `roster` block
+`teams[].side`, `teams[].rows[]` `role`, `player`, `key`, `spare_for`, `link_label`.
 
 **Layout branches** (as the specimens): the race on Scoreboard Home, Classic's one-line card foot and hidden list
 title, the Hockey layout's leaders table, the Scoreboard boards and "All player stats" button, grouped draws and

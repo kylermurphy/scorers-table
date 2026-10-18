@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "extra.home.0",
+      "message": "is empty. Write Alpha's score in extra end 1 (0 if nobody scored)."
+    }
+  ],
+  "reading": null
+}

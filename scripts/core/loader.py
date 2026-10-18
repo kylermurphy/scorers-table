@@ -290,8 +290,9 @@ def _season_rules(c: Checker, seasons: list[SeasonDef], all_ids: set[str], leagu
         else:
             stand_ins[target] = s.id
     if league.sample_data and len(current) == 1 and current[0].id not in stand_ins:
-        c.error("", f"has no sample season standing in for {current[0].id!r}, but sample_data is on in league.yml. "
-                    f"Add a sample season with 'stands_in_for: {current[0].id}', or set sample_data: false.")
+        c.error("", f"has no sample season standing in for {current[0].id!r}, but a sample season is being shown "
+                    f"(sample_data is on in league.yml, or the /preview/ copy is being built). "
+                    f"Add a sample season with 'stands_in_for: {current[0].id}', or set sample_data: false and preview: false.")
 
 
 # ------------------------------------------------------------------ one season

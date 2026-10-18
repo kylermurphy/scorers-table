@@ -1,0 +1,248 @@
+{
+  "columns": [
+    {
+      "key": "gp",
+      "label": "GP",
+      "title": "Games played",
+      "key_col": false
+    },
+    {
+      "key": "w",
+      "label": "W",
+      "title": "Wins",
+      "key_col": false
+    },
+    {
+      "key": "l",
+      "label": "L",
+      "title": "Losses",
+      "key_col": false
+    },
+    {
+      "key": "t",
+      "label": "T",
+      "title": "Ties",
+      "key_col": false
+    },
+    {
+      "key": "pts",
+      "label": "PTS",
+      "title": "Points",
+      "key_col": true
+    },
+    {
+      "key": "pf",
+      "label": "PF",
+      "title": "Points for",
+      "key_col": false
+    },
+    {
+      "key": "pa",
+      "label": "PA",
+      "title": "Points against",
+      "key_col": false
+    }
+  ],
+  "rows": [
+    {
+      "rank": 1,
+      "team": "takeouts",
+      "values": {
+        "gp": 6,
+        "w": 6,
+        "l": 0,
+        "t": 0,
+        "pts": 12,
+        "pf": 36,
+        "pa": 24
+      },
+      "display": {
+        "gp": "6",
+        "w": "6",
+        "l": "0",
+        "t": "0",
+        "pts": "12",
+        "pf": "36",
+        "pa": "24"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "6–0",
+      "race": {
+        "pct": "100.0",
+        "value": "12",
+        "unit": " points",
+        "sub": "6–0"
+      }
+    },
+    {
+      "rank": 2,
+      "team": "stone-cold",
+      "values": {
+        "gp": 5,
+        "w": 3,
+        "l": 1,
+        "t": 1,
+        "pts": 7,
+        "pf": 32,
+        "pa": 25
+      },
+      "display": {
+        "gp": "5",
+        "w": "3",
+        "l": "1",
+        "t": "1",
+        "pts": "7",
+        "pf": "32",
+        "pa": "25"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "3–1–1",
+      "race": {
+        "pct": "58.3",
+        "value": "7",
+        "unit": " points",
+        "sub": "3–1–1"
+      }
+    },
+    {
+      "rank": 3,
+      "team": "free-guards",
+      "values": {
+        "gp": 5,
+        "w": 3,
+        "l": 2,
+        "t": 0,
+        "pts": 6,
+        "pf": 27,
+        "pa": 28
+      },
+      "display": {
+        "gp": "5",
+        "w": "3",
+        "l": "2",
+        "t": "0",
+        "pts": "6",
+        "pf": "27",
+        "pa": "28"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "3–2",
+      "race": {
+        "pct": "50.0",
+        "value": "6",
+        "unit": " points",
+        "sub": "3–2"
+      }
+    },
+    {
+      "rank": 4,
+      "team": "hurry-hard",
+      "values": {
+        "gp": 5,
+        "w": 2,
+        "l": 3,
+        "t": 0,
+        "pts": 4,
+        "pf": 31,
+        "pa": 28
+      },
+      "display": {
+        "gp": "5",
+        "w": "2",
+        "l": "3",
+        "t": "0",
+        "pts": "4",
+        "pf": "31",
+        "pa": "28"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "2–3",
+      "race": {
+        "pct": "33.3",
+        "value": "4",
+        "unit": " points",
+        "sub": "2–3"
+      }
+    },
+    {
+      "rank": 5,
+      "team": "button-pushers",
+      "values": {
+        "gp": 6,
+        "w": 0,
+        "l": 4,
+        "t": 2,
+        "pts": 2,
+        "pf": 23,
+        "pa": 33
+      },
+      "display": {
+        "gp": "6",
+        "w": "0",
+        "l": "4",
+        "t": "2",
+        "pts": "2",
+        "pf": "23",
+        "pa": "33"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "0–4–2",
+      "race": {
+        "pct": "16.7",
+        "value": "2",
+        "unit": " points",
+        "sub": "0–4–2"
+      }
+    },
+    {
+      "rank": 6,
+      "team": "hog-liners",
+      "values": {
+        "gp": 5,
+        "w": 0,
+        "l": 4,
+        "t": 1,
+        "pts": 1,
+        "pf": 23,
+        "pa": 34
+      },
+      "display": {
+        "gp": "5",
+        "w": "0",
+        "l": "4",
+        "t": "1",
+        "pts": "1",
+        "pf": "23",
+        "pa": "34"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "0–4–1",
+      "race": {
+        "pct": "8.3",
+        "value": "1",
+        "unit": " points",
+        "sub": "0–4–1"
+      }
+    }
+  ],
+  "note": "2 points a win and 1 a tie. A forfeit counts as 1–0 [placeholder]. Ties are allowed [placeholder].",
+  "tiebreak_note": "[placeholder] The league has not decided its tiebreakers yet. Teams level on points are ranked by head-to-head record (when they have all played each other), then score difference; teams still level share a rank.",
+  "through": "2026-11-19",
+  "through_display": "Thu Nov 19",
+  "race": {
+    "basis": "points",
+    "max": 12
+  }
+}

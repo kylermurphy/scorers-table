@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups",
+      "message": "is empty. List each rink's players in throwing order, with their positions."
+    }
+  ],
+  "reading": null
+}

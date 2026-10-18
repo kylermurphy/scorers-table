@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups",
+      "message": "should list each rink's players for home and away, like 'home: [...]' and 'away: [...]'"
+    }
+  ],
+  "reading": null
+}

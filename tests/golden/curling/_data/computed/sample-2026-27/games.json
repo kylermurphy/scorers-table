@@ -1,0 +1,6873 @@
+{
+  "2026-10-15-1": {
+    "id": "2026-10-15-1",
+    "url": "/games/2026-10-15-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 1",
+    "date_short": "Thu Oct 15",
+    "date_long": "Thursday, October 15, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet A",
+    "home": {
+      "team": "button-pushers",
+      "name": "Button Pushers",
+      "code": "BP",
+      "slot": 1,
+      "colour": null,
+      "score": 5,
+      "result": "tie",
+      "record": "0–0–1",
+      "record_line": "Tie · now 0–0–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "stone-cold",
+      "name": "Stone Cold",
+      "code": "SC",
+      "slot": 6,
+      "colour": null,
+      "score": 5,
+      "result": "tie",
+      "record": "0–0–1",
+      "record_line": "Tie · now 0–0–1",
+      "badge": ""
+    },
+    "tie": true,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Tied 5–5",
+      "note": null
+    },
+    "summary": "Tied 5–5",
+    "notes": [
+      "Started ten minutes late: the ice was being scraped."
+    ],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Pat S.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 1,
+      "away": 1
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8",
+          "blank": true
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Button Pushers had hammer in the first end.",
+      "note_strong": "Button Pushers",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet A",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "4",
+              "away": "3"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "1",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "4",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 4",
+              "away": "2 of 4"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "una-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "max-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "finn-f",
+                "key": false,
+                "spare_for": "ada-c"
+              },
+              {
+                "role": "Skip",
+                "player": "mae-t",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "dee-s",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "kai-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "wes-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "cleo-a",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-10-15-2": {
+    "id": "2026-10-15-2",
+    "url": "/games/2026-10-15-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 1",
+    "date_short": "Thu Oct 15",
+    "date_long": "Thursday, October 15, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet B",
+    "home": {
+      "team": "takeouts",
+      "name": "Takeouts",
+      "code": "TO",
+      "slot": 5,
+      "colour": null,
+      "score": 9,
+      "result": "win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "away": {
+      "team": "hurry-hard",
+      "name": "Hurry Hard",
+      "code": "HH",
+      "slot": 2,
+      "colour": null,
+      "score": 6,
+      "result": "loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Takeouts by 3",
+      "note": null
+    },
+    "summary": "Takeouts by 3",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 4,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 9,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 6,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Hurry Hard had hammer in the first end.",
+      "note_strong": "Hurry Hard",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet B",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 4,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 9,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              }
+            ],
+            "total": 6,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "3",
+              "away": "5"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "4",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 4",
+              "away": "4 of 4"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "2",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "quin-n",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "quin-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "pax-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "val-d",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "val-j",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "eve-l",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "tam-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "eve-b",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-10-15-3": {
+    "id": "2026-10-15-3",
+    "url": "/games/2026-10-15-3/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 1",
+    "date_short": "Thu Oct 15",
+    "date_long": "Thursday, October 15, 2026",
+    "time_display": "8:45 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet C",
+    "home": {
+      "team": "hog-liners",
+      "name": "Hog Liners",
+      "code": "HL",
+      "slot": 3,
+      "colour": null,
+      "score": 4,
+      "result": "loss",
+      "record": "0–1",
+      "record_line": "Loss · now 0–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "free-guards",
+      "name": "Free Guards",
+      "code": "FG",
+      "slot": 4,
+      "colour": null,
+      "score": 5,
+      "result": "win",
+      "record": "1–0",
+      "record_line": "Win · now 1–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Free Guards by 1",
+      "note": null
+    },
+    "summary": "Free Guards by 1",
+    "notes": [
+      "Started ten minutes late: the ice was being scraped."
+    ],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Lee M.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5",
+          "blank": true
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 4,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Free Guards had hammer in the first end.",
+      "note_strong": "Free Guards",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet C",
+        "8:45 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              }
+            ],
+            "total": 4,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "4",
+              "away": "3"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "3",
+              "away": "5"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 3",
+              "away": "3 of 5"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "jax-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-a",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "jax-d",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "kai-g",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "alf-g",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-h",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "noa-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "ben-e",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-10-22-1": {
+    "id": "2026-10-22-1",
+    "url": "/games/2026-10-22-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 2",
+    "date_short": "Thu Oct 22",
+    "date_long": "Thursday, October 22, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet A",
+    "home": {
+      "team": "takeouts",
+      "name": "Takeouts",
+      "code": "TO",
+      "slot": 5,
+      "colour": null,
+      "score": 1,
+      "result": "win",
+      "record": "2–0",
+      "record_line": "Win · now 2–0",
+      "badge": ""
+    },
+    "away": {
+      "team": "button-pushers",
+      "name": "Button Pushers",
+      "code": "BP",
+      "slot": 1,
+      "colour": null,
+      "score": 0,
+      "result": "loss",
+      "record": "0–1–1",
+      "record_line": "Loss · now 0–1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": "button-pushers",
+    "decided_in": "regulation",
+    "status": "Forfeit",
+    "final": {
+      "status": "Forfeit",
+      "sub": "Button Pushers forfeited",
+      "note": "[placeholder] The league has not decided how a forfeit is scored yet. The site counts it as 1–0."
+    },
+    "summary": "Button Pushers forfeited",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": null,
+    "card": {
+      "note": "Button Pushers forfeited · score [placeholder]",
+      "strong": "Button Pushers",
+      "link_label": "Details",
+      "meta": [
+        "Sheet A",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": null
+    },
+    "tiles": null,
+    "blocks": []
+  },
+  "2026-10-22-2": {
+    "id": "2026-10-22-2",
+    "url": "/games/2026-10-22-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 2",
+    "date_short": "Thu Oct 22",
+    "date_long": "Thursday, October 22, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet B",
+    "home": {
+      "team": "stone-cold",
+      "name": "Stone Cold",
+      "code": "SC",
+      "slot": 6,
+      "colour": null,
+      "score": 7,
+      "result": "win",
+      "record": "1–0–1",
+      "record_line": "Win · now 1–0–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "free-guards",
+      "name": "Free Guards",
+      "code": "FG",
+      "slot": 4,
+      "colour": null,
+      "score": 3,
+      "result": "loss",
+      "record": "1–1",
+      "record_line": "Loss · now 1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Stone Cold by 4",
+      "note": null
+    },
+    "summary": "Stone Cold by 4",
+    "notes": [
+      "Sheet C was running keen after the second end."
+    ],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Pat S.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2",
+          "blank": true
+        },
+        {
+          "label": "3",
+          "blank": true
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 3,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Free Guards had hammer in the first end.",
+      "note_strong": "Free Guards",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet B",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 3,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "4",
+              "away": "2"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "2",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "4",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "2 of 4",
+              "away": "2 of 4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "2",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "dee-s",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "kai-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "wes-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "cleo-a",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "alf-g",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-h",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "noa-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "ben-e",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-10-22-3": {
+    "id": "2026-10-22-3",
+    "url": "/games/2026-10-22-3/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 2",
+    "date_short": "Thu Oct 22",
+    "date_long": "Thursday, October 22, 2026",
+    "time_display": "8:45 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet C",
+    "home": {
+      "team": "hog-liners",
+      "name": "Hog Liners",
+      "code": "HL",
+      "slot": 3,
+      "colour": null,
+      "score": 5,
+      "result": "loss",
+      "record": "0–2",
+      "record_line": "Loss · now 0–2",
+      "badge": ""
+    },
+    "away": {
+      "team": "hurry-hard",
+      "name": "Hurry Hard",
+      "code": "HH",
+      "slot": 2,
+      "colour": null,
+      "score": 9,
+      "result": "win",
+      "record": "1–1",
+      "record_line": "Win · now 1–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Hurry Hard by 4",
+      "note": null
+    },
+    "summary": "Hurry Hard by 4",
+    "notes": [
+      "A broom was replaced in the fifth end."
+    ],
+    "checked_by": "Sam T.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 9,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Hurry Hard had hammer in the first end.",
+      "note_strong": "Hurry Hard",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet C",
+        "8:45 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              }
+            ],
+            "total": 9,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "3",
+              "away": "5"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "4",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 4",
+              "away": "4 of 4"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "jax-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-a",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "jax-d",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "kai-g",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "val-j",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "eve-l",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "tam-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "eve-b",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-10-29-1": {
+    "id": "2026-10-29-1",
+    "url": "/games/2026-10-29-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 3",
+    "date_short": "Thu Oct 29",
+    "date_long": "Thursday, October 29, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet A",
+    "home": {
+      "team": "button-pushers",
+      "name": "Button Pushers",
+      "code": "BP",
+      "slot": 1,
+      "colour": null,
+      "score": 4,
+      "result": "loss",
+      "record": "0–2–1",
+      "record_line": "Loss · now 0–2–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "free-guards",
+      "name": "Free Guards",
+      "code": "FG",
+      "slot": 4,
+      "colour": null,
+      "score": 6,
+      "result": "win",
+      "record": "2–1",
+      "record_line": "Win · now 2–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Free Guards by 2",
+      "note": null
+    },
+    "summary": "Free Guards by 2",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3",
+          "blank": true
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 4,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 6,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Button Pushers had hammer in the first end.",
+      "note_strong": "Button Pushers",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet A",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              }
+            ],
+            "total": 4,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 2,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 6,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "3",
+              "away": "4"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "2"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "5",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 5",
+              "away": "2 of 3"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "una-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "max-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "ada-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "mae-t",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "alf-g",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-h",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "noa-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "ben-e",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-10-29-2": {
+    "id": "2026-10-29-2",
+    "url": "/games/2026-10-29-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 3",
+    "date_short": "Thu Oct 29",
+    "date_long": "Thursday, October 29, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet B",
+    "home": {
+      "team": "hog-liners",
+      "name": "Hog Liners",
+      "code": "HL",
+      "slot": 3,
+      "colour": null,
+      "score": 4,
+      "result": "loss",
+      "record": "0–3",
+      "record_line": "Loss · now 0–3",
+      "badge": ""
+    },
+    "away": {
+      "team": "takeouts",
+      "name": "Takeouts",
+      "code": "TO",
+      "slot": 5,
+      "colour": null,
+      "score": 5,
+      "result": "win",
+      "record": "3–0",
+      "record_line": "Win · now 3–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Takeouts by 1",
+      "note": null
+    },
+    "summary": "Takeouts by 1",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": "Pat S.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": null,
+              "void": true
+            }
+          ],
+          "total": 4,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": null,
+              "void": true
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "Time called after 7 of 8 ends",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        },
+        {
+          "kind": "x",
+          "text": "Not played",
+          "mark": "X"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Hog Liners had hammer in the first end.",
+      "note_strong": "Hog Liners",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet B",
+        "6:30 PM",
+        "Time called after 7"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": null,
+                "void": true
+              }
+            ],
+            "total": 4,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": null,
+                "void": true
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "2",
+              "away": "5"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "3"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "5",
+              "away": "2"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "2 of 5",
+              "away": "2 of 2"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "jax-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-a",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "jax-d",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "kai-g",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "quin-n",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "quin-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "pax-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "val-d",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-05-1": {
+    "id": "2026-11-05-1",
+    "url": "/games/2026-11-05-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 4",
+    "date_short": "Thu Nov 5",
+    "date_long": "Thursday, November 5, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet A",
+    "home": {
+      "team": "hog-liners",
+      "name": "Hog Liners",
+      "code": "HL",
+      "slot": 3,
+      "colour": null,
+      "score": 7,
+      "result": "tie",
+      "record": "0–3–1",
+      "record_line": "Tie · now 0–3–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "button-pushers",
+      "name": "Button Pushers",
+      "code": "BP",
+      "slot": 1,
+      "colour": null,
+      "score": 7,
+      "result": "tie",
+      "record": "0–2–2",
+      "record_line": "Tie · now 0–2–2",
+      "badge": ""
+    },
+    "tie": true,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Tied 7–7",
+      "note": null
+    },
+    "summary": "Tied 7–7",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": "Pat S.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 1,
+      "away": 1
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5",
+          "blank": true
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Hog Liners had hammer in the first end.",
+      "note_strong": "Hog Liners",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet A",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "4",
+              "away": "3"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "5",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "4 of 5",
+              "away": "3 of 3"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "2"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "jax-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-a",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "jax-d",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "kai-g",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "una-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "max-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "ada-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "mae-t",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-05-2": {
+    "id": "2026-11-05-2",
+    "url": "/games/2026-11-05-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 4",
+    "date_short": "Thu Nov 5",
+    "date_long": "Thursday, November 5, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet B",
+    "home": {
+      "team": "free-guards",
+      "name": "Free Guards",
+      "code": "FG",
+      "slot": 4,
+      "colour": null,
+      "score": 7,
+      "result": "win",
+      "record": "3–1",
+      "record_line": "Win · now 3–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "hurry-hard",
+      "name": "Hurry Hard",
+      "code": "HH",
+      "slot": 2,
+      "colour": null,
+      "score": 6,
+      "result": "loss",
+      "record": "1–2",
+      "record_line": "Loss · now 1–2",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Free Guards by 1",
+      "note": null
+    },
+    "summary": "Free Guards by 1",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 6,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Hurry Hard had hammer in the first end.",
+      "note_strong": "Hurry Hard",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet B",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 6,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "5",
+              "away": "3"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "2",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "3",
+              "away": "5"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 3",
+              "away": "3 of 5"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "alf-g",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-h",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "noa-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "ben-e",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "val-j",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "eve-l",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "tam-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "eve-b",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-05-3": {
+    "id": "2026-11-05-3",
+    "url": "/games/2026-11-05-3/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 4",
+    "date_short": "Thu Nov 5",
+    "date_long": "Thursday, November 5, 2026",
+    "time_display": "8:45 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet C",
+    "home": {
+      "team": "stone-cold",
+      "name": "Stone Cold",
+      "code": "SC",
+      "slot": 6,
+      "colour": null,
+      "score": 5,
+      "result": "loss",
+      "record": "1–1–1",
+      "record_line": "Loss · now 1–1–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "takeouts",
+      "name": "Takeouts",
+      "code": "TO",
+      "slot": 5,
+      "colour": null,
+      "score": 9,
+      "result": "win",
+      "record": "4–0",
+      "record_line": "Win · now 4–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Takeouts by 4",
+      "note": null
+    },
+    "summary": "Takeouts by 4",
+    "notes": [],
+    "checked_by": "Sam T.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6",
+          "blank": true
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 9,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Takeouts had hammer in the first end.",
+      "note_strong": "Takeouts",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet C",
+        "8:45 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 9,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "3",
+              "away": "4"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "4",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 4",
+              "away": "3 of 4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "2"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "dee-s",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "kai-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "wes-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "cleo-a",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "quin-n",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "mae-f",
+                "key": false,
+                "spare_for": "quin-m"
+              },
+              {
+                "role": "Vice",
+                "player": "pax-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "val-d",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-12-1": {
+    "id": "2026-11-12-1",
+    "url": "/games/2026-11-12-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 5",
+    "date_short": "Thu Nov 12",
+    "date_long": "Thursday, November 12, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet A",
+    "home": {
+      "team": "button-pushers",
+      "name": "Button Pushers",
+      "code": "BP",
+      "slot": 1,
+      "colour": null,
+      "score": 2,
+      "result": "loss",
+      "record": "0–3–2",
+      "record_line": "Loss · now 0–3–2",
+      "badge": ""
+    },
+    "away": {
+      "team": "hurry-hard",
+      "name": "Hurry Hard",
+      "code": "HH",
+      "slot": 2,
+      "colour": null,
+      "score": 7,
+      "result": "win",
+      "record": "2–2",
+      "record_line": "Win · now 2–2",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Hurry Hard by 5",
+      "note": null
+    },
+    "summary": "Hurry Hard by 5",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3",
+          "blank": true
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": null,
+              "void": true
+            },
+            {
+              "v": null,
+              "void": true
+            }
+          ],
+          "total": 2,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 4,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": null,
+              "void": true
+            },
+            {
+              "v": null,
+              "void": true
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "Shook hands after 6 of 8 ends",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        },
+        {
+          "kind": "x",
+          "text": "Not played",
+          "mark": "X"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Button Pushers had hammer in the first end.",
+      "note_strong": "Button Pushers",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet A",
+        "6:30 PM",
+        "Shook hands after 6"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": null,
+                "void": true
+              },
+              {
+                "v": null,
+                "void": true
+              }
+            ],
+            "total": 2,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 4,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": null,
+                "void": true
+              },
+              {
+                "v": null,
+                "void": true
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "2",
+              "away": "3"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "3",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "2 of 3",
+              "away": "2 of 3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "una-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "max-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "ada-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "mae-t",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "val-j",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "eve-l",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "tam-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "eve-b",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-12-2": {
+    "id": "2026-11-12-2",
+    "url": "/games/2026-11-12-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 5",
+    "date_short": "Thu Nov 12",
+    "date_long": "Thursday, November 12, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet B",
+    "home": {
+      "team": "stone-cold",
+      "name": "Stone Cold",
+      "code": "SC",
+      "slot": 6,
+      "colour": null,
+      "score": 8,
+      "result": "win",
+      "record": "2–1–1",
+      "record_line": "Win · now 2–1–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "hog-liners",
+      "name": "Hog Liners",
+      "code": "HL",
+      "slot": 3,
+      "colour": null,
+      "score": 3,
+      "result": "loss",
+      "record": "0–4–1",
+      "record_line": "Loss · now 0–4–1",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Stone Cold by 5",
+      "note": null
+    },
+    "summary": "Stone Cold by 5",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4",
+          "blank": true
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": null,
+              "void": true
+            }
+          ],
+          "total": 8,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": null,
+              "void": true
+            }
+          ],
+          "total": 3,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "Shook hands after 7 of 8 ends",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        },
+        {
+          "kind": "x",
+          "text": "Not played",
+          "mark": "X"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Stone Cold had hammer in the first end.",
+      "note_strong": "Stone Cold",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet B",
+        "6:30 PM",
+        "Shook hands after 7"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": null,
+                "void": true
+              }
+            ],
+            "total": 8,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": null,
+                "void": true
+              }
+            ],
+            "total": 3,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "3",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "3",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 3",
+              "away": "3 of 4"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "0",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "2",
+              "away": "0"
+            },
+            "key": "home",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "dee-s",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "kai-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "wes-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "cleo-a",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "jax-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-a",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "mae-f",
+                "key": false,
+                "spare_for": "jax-d"
+              },
+              {
+                "role": "Skip",
+                "player": "kai-g",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-12-3": {
+    "id": "2026-11-12-3",
+    "url": "/games/2026-11-12-3/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 5",
+    "date_short": "Thu Nov 12",
+    "date_long": "Thursday, November 12, 2026",
+    "time_display": "8:45 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet C",
+    "home": {
+      "team": "free-guards",
+      "name": "Free Guards",
+      "code": "FG",
+      "slot": 4,
+      "colour": null,
+      "score": 6,
+      "result": "loss",
+      "record": "3–2",
+      "record_line": "Loss · now 3–2",
+      "badge": ""
+    },
+    "away": {
+      "team": "takeouts",
+      "name": "Takeouts",
+      "code": "TO",
+      "slot": 5,
+      "colour": null,
+      "score": 7,
+      "result": "win",
+      "record": "5–0",
+      "record_line": "Win · now 5–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Takeouts by 1",
+      "note": null
+    },
+    "summary": "Takeouts by 1",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6",
+          "blank": true
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8",
+          "blank": true
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 4,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            }
+          ],
+          "total": 6,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 3,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Free Guards had hammer in the first end.",
+      "note_strong": "Free Guards",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet C",
+        "8:45 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 4,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 6,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 3,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "3",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "4",
+              "away": "4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "3 of 4",
+              "away": "3 of 4"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "1",
+              "away": "1"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "1",
+              "away": "2"
+            },
+            "key": "away",
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "alf-g",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "noa-h",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "noa-f",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "ben-e",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "quin-n",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "quin-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "pax-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "val-d",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-19-1": {
+    "id": "2026-11-19-1",
+    "url": "/games/2026-11-19-1/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 6",
+    "date_short": "Thu Nov 19",
+    "date_long": "Thursday, November 19, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet A",
+    "home": {
+      "team": "stone-cold",
+      "name": "Stone Cold",
+      "code": "SC",
+      "slot": 6,
+      "colour": null,
+      "score": 7,
+      "result": "win",
+      "record": "3–1–1",
+      "record_line": "Win · now 3–1–1",
+      "badge": ""
+    },
+    "away": {
+      "team": "button-pushers",
+      "name": "Button Pushers",
+      "code": "BP",
+      "slot": 1,
+      "colour": null,
+      "score": 5,
+      "result": "loss",
+      "record": "0–4–2",
+      "record_line": "Loss · now 0–4–2",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Stone Cold by 2",
+      "note": null
+    },
+    "summary": "Stone Cold by 2",
+    "notes": [],
+    "checked_by": "Pat S.",
+    "scorekeeper": null,
+    "photo_url": null,
+    "standings_points": {
+      "home": 2,
+      "away": 0
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3",
+          "blank": true
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6"
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 7,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Stone Cold had hammer in the first end.",
+      "note_strong": "Stone Cold",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet A",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              }
+            ],
+            "total": 7,
+            "extra": null,
+            "hammer_first": true
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": false
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "4",
+              "away": "3"
+            },
+            "key": "home",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "5",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "4 of 5",
+              "away": "3 of 3"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "dee-s",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "kai-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "wes-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "cleo-a",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "una-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "max-t",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "ada-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "mae-t",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  },
+  "2026-11-19-2": {
+    "id": "2026-11-19-2",
+    "url": "/games/2026-11-19-2/",
+    "type": "regular",
+    "round": null,
+    "day_label": "Draw 6",
+    "date_short": "Thu Nov 19",
+    "date_long": "Thursday, November 19, 2026",
+    "time_display": "6:30 PM",
+    "venue": "[Venue]",
+    "surface_label": "Sheet B",
+    "home": {
+      "team": "hurry-hard",
+      "name": "Hurry Hard",
+      "code": "HH",
+      "slot": 2,
+      "colour": null,
+      "score": 3,
+      "result": "loss",
+      "record": "2–3",
+      "record_line": "Loss · now 2–3",
+      "badge": ""
+    },
+    "away": {
+      "team": "takeouts",
+      "name": "Takeouts",
+      "code": "TO",
+      "slot": 5,
+      "colour": null,
+      "score": 5,
+      "result": "win",
+      "record": "6–0",
+      "record_line": "Win · now 6–0",
+      "badge": ""
+    },
+    "tie": false,
+    "forfeit": null,
+    "decided_in": "regulation",
+    "status": "Final",
+    "final": {
+      "status": "Final",
+      "sub": "Takeouts by 2",
+      "note": null
+    },
+    "summary": "Takeouts by 2",
+    "notes": [],
+    "checked_by": "Lee M.",
+    "scorekeeper": "Sam T.",
+    "photo_url": null,
+    "standings_points": {
+      "home": 0,
+      "away": 2
+    },
+    "line_score": {
+      "shape": "ends",
+      "corner": "End",
+      "total_label": "Tot",
+      "extra_label": null,
+      "columns": [
+        {
+          "label": "1"
+        },
+        {
+          "label": "2"
+        },
+        {
+          "label": "3"
+        },
+        {
+          "label": "4"
+        },
+        {
+          "label": "5"
+        },
+        {
+          "label": "6",
+          "blank": true
+        },
+        {
+          "label": "7"
+        },
+        {
+          "label": "8"
+        }
+      ],
+      "rows": {
+        "home": {
+          "cells": [
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0,
+              "hammer": true
+            },
+            {
+              "v": 2,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            }
+          ],
+          "total": 3,
+          "extra": null,
+          "hammer_first": false
+        },
+        "away": {
+          "cells": [
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 1,
+              "won": true,
+              "mark": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 0
+            },
+            {
+              "v": 1,
+              "won": true,
+              "hammer": true
+            }
+          ],
+          "total": 5,
+          "extra": null,
+          "hammer_first": false
+        }
+      },
+      "caption": "Points by end",
+      "won_word": null,
+      "mark_word": "stolen end",
+      "void_word": "not played",
+      "blank_word": "blank end",
+      "hammer_word": "Hammer",
+      "title": "End by end",
+      "meta": "8 ends · no extra end",
+      "legend": [
+        {
+          "kind": "hammer",
+          "text": "Hammer (last rock)"
+        },
+        {
+          "kind": "mark",
+          "text": "Stolen end"
+        },
+        {
+          "kind": "blank",
+          "text": "Blank end"
+        }
+      ],
+      "legend_stack": false,
+      "note": "Takeouts had hammer in the first end.",
+      "note_strong": "Takeouts",
+      "split": null
+    },
+    "card": {
+      "note": null,
+      "strong": null,
+      "link_label": "Game",
+      "meta": [
+        "Sheet B",
+        "6:30 PM"
+      ],
+      "note_long": null,
+      "line_score": {
+        "shape": "ends",
+        "corner": "End",
+        "total_label": "Tot",
+        "extra_label": null,
+        "columns": [
+          {
+            "label": "1"
+          },
+          {
+            "label": "2"
+          },
+          {
+            "label": "3"
+          },
+          {
+            "label": "4"
+          },
+          {
+            "label": "5"
+          },
+          {
+            "label": "6"
+          },
+          {
+            "label": "7"
+          },
+          {
+            "label": "8"
+          }
+        ],
+        "rows": {
+          "home": {
+            "cells": [
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 2,
+                "won": true
+              },
+              {
+                "v": 0
+              }
+            ],
+            "total": 3,
+            "extra": null,
+            "hammer_first": false
+          },
+          "away": {
+            "cells": [
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 1,
+                "won": true,
+                "mark": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 0
+              },
+              {
+                "v": 1,
+                "won": true
+              }
+            ],
+            "total": 5,
+            "extra": null,
+            "hammer_first": true
+          }
+        },
+        "caption": "Points by end",
+        "won_word": null,
+        "mark_word": "stolen end",
+        "void_word": "not played",
+        "blank_word": "blank end",
+        "hammer_word": "Hammer",
+        "title": null,
+        "meta": null,
+        "legend": [],
+        "legend_stack": false,
+        "note": null,
+        "note_strong": null,
+        "split": null
+      }
+    },
+    "tiles": null,
+    "blocks": [
+      {
+        "type": "numbers",
+        "title": "The game in numbers",
+        "corner": "This game",
+        "rows": [
+          {
+            "label": "Ends won",
+            "cells": {
+              "home": "2",
+              "away": "5"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Stolen ends",
+            "cells": {
+              "home": "0",
+              "away": "2"
+            },
+            "key": "away",
+            "hot": true
+          },
+          {
+            "label": "Ends with hammer",
+            "cells": {
+              "home": "5",
+              "away": "3"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Scored with hammer",
+            "cells": {
+              "home": "2 of 5",
+              "away": "3 of 3"
+            },
+            "key": "away",
+            "hot": false
+          },
+          {
+            "label": "Blank ends",
+            "cells": {
+              "home": "1",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          },
+          {
+            "label": "Big ends (3+)",
+            "cells": {
+              "home": "0",
+              "away": "0"
+            },
+            "key": null,
+            "hot": false
+          }
+        ],
+        "note": "A blank counts to the rink that had hammer and kept it."
+      },
+      {
+        "type": "roster",
+        "title": "Lineups",
+        "teams": [
+          {
+            "side": "home",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "finn-f",
+                "key": false,
+                "spare_for": "val-j"
+              },
+              {
+                "role": "Second",
+                "player": "eve-l",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "tam-c",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "eve-b",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          },
+          {
+            "side": "away",
+            "rows": [
+              {
+                "role": "Lead",
+                "player": "quin-n",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Second",
+                "player": "quin-m",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Vice",
+                "player": "pax-w",
+                "key": false,
+                "spare_for": null
+              },
+              {
+                "role": "Skip",
+                "player": "val-d",
+                "key": true,
+                "spare_for": null
+              }
+            ]
+          }
+        ],
+        "link_label": "Rink",
+        "note": "In throwing order, as on the score card."
+      }
+    ]
+  }
+}

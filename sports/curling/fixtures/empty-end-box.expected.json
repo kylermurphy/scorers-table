@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "ends.home.3",
+      "message": "is empty. Write Alpha's score in end 4 (0 if nobody scored, X if the end wasn't played)."
+    }
+  ],
+  "reading": null
+}

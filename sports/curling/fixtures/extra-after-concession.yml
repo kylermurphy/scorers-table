@@ -1,0 +1,26 @@
+# Extra ends on a game that stopped early.
+fixture:
+  folder: games
+  game_type: playoff
+  options: {}
+sheet:
+  hammer: home
+  ends:
+    home: [0, 2, 2, 0, 3, 1, X, X]
+    away: [1, 0, 0, 2, 0, 0, X, X]
+  conceded: away
+  final: {home: 9, away: 3}
+  lineups:
+    home:
+    - {player: carol-d, position: lead}
+    - {player: ken-w, position: second}
+    - {player: linda-f, position: vice}
+    - {player: doug-h, position: skip}
+    away:
+    - {player: pat-o, position: lead}
+    - {player: brian-s, position: second}
+    - {player: joanne-t, position: vice}
+    - {player: wayne-b, position: skip}
+  extra:
+    home: [1]
+    away: [0]

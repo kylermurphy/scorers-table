@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.away",
+      "message": "is empty. List Bravo's players in throwing order, with their positions."
+    }
+  ],
+  "reading": null
+}

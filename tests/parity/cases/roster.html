@@ -1,0 +1,1 @@
+{% assign _g = stats.games[fixture.game_id] %}{% assign _bk = _g.blocks | where: "type", "roster" %}<div class="ds-pad">{% include parts/blocks.html blocks=_bk game=_g %}</div>

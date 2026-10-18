@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "final.home",
+      "message": "the Total box for Alpha should be a whole number, not 'seven'"
+    }
+  ],
+  "reading": null
+}

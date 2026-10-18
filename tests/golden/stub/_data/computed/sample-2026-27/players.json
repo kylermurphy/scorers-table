@@ -36,6 +36,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "13–10",
         "display": {
           "gp": "1",
@@ -51,6 +52,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -66,6 +68,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -113,6 +116,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -128,6 +132,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -175,6 +180,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -190,6 +196,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -237,6 +244,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "13–10",
         "display": {
           "gp": "1",
@@ -252,6 +260,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -267,6 +276,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -314,6 +324,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "13–10",
         "display": {
           "gp": "1",
@@ -329,6 +340,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -344,6 +356,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -391,6 +404,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "13–10",
         "display": {
           "gp": "1",
@@ -406,6 +420,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -421,6 +436,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -468,6 +484,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "13–10",
         "display": {
           "gp": "1",
@@ -483,6 +500,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -498,6 +516,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–19",
         "display": {
           "gp": "1",
@@ -545,6 +564,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -560,6 +580,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -575,6 +596,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Otters",
         "result": "win",
+        "result_label": "Win",
         "score": "19–17",
         "display": {
           "gp": "1",
@@ -590,6 +612,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -637,6 +660,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -652,6 +676,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "25–17",
         "display": {
           "gp": "1",
@@ -667,6 +692,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -682,6 +708,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -729,6 +756,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -744,6 +772,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "25–17",
         "display": {
           "gp": "1",
@@ -759,6 +788,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -774,6 +804,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Otters",
         "result": "win",
+        "result_label": "Win",
         "score": "19–17",
         "display": {
           "gp": "1",
@@ -789,6 +820,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -836,6 +868,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -851,6 +884,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "25–17",
         "display": {
           "gp": "1",
@@ -866,6 +900,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -881,6 +916,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Otters",
         "result": "win",
+        "result_label": "Win",
         "score": "19–17",
         "display": {
           "gp": "1",
@@ -896,6 +932,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -943,6 +980,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -958,6 +996,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "25–17",
         "display": {
           "gp": "1",
@@ -973,6 +1012,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -988,6 +1028,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -1035,6 +1076,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -1050,6 +1092,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "25–17",
         "display": {
           "gp": "1",
@@ -1065,6 +1108,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -1080,6 +1124,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Otters",
         "result": "win",
+        "result_label": "Win",
         "score": "19–17",
         "display": {
           "gp": "1",
@@ -1095,6 +1140,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -1142,6 +1188,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -1157,6 +1204,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",
@@ -1172,6 +1220,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Otters",
         "result": "win",
+        "result_label": "Win",
         "score": "19–17",
         "display": {
           "gp": "1",
@@ -1187,6 +1236,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -1234,6 +1284,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Moose",
         "result": "loss",
+        "result_label": "Loss",
         "score": "15–23",
         "display": {
           "gp": "1",
@@ -1249,6 +1300,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–25",
         "display": {
           "gp": "1",
@@ -1264,6 +1316,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Otters",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -1311,6 +1364,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Moose",
         "result": "loss",
+        "result_label": "Loss",
         "score": "15–23",
         "display": {
           "gp": "1",
@@ -1326,6 +1380,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–25",
         "display": {
           "gp": "1",
@@ -1341,6 +1396,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Otters",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -1388,6 +1444,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–25",
         "display": {
           "gp": "1",
@@ -1403,6 +1460,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Otters",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -1450,6 +1508,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Moose",
         "result": "loss",
+        "result_label": "Loss",
         "score": "15–23",
         "display": {
           "gp": "1",
@@ -1465,6 +1524,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Otters",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -1512,6 +1572,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Moose",
         "result": "loss",
+        "result_label": "Loss",
         "score": "15–23",
         "display": {
           "gp": "1",
@@ -1527,6 +1588,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–25",
         "display": {
           "gp": "1",
@@ -1574,6 +1636,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Moose",
         "result": "loss",
+        "result_label": "Loss",
         "score": "15–23",
         "display": {
           "gp": "1",
@@ -1589,6 +1652,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–25",
         "display": {
           "gp": "1",
@@ -1604,6 +1668,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Otters",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -1651,6 +1716,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "17–25",
         "display": {
           "gp": "1",
@@ -1666,6 +1732,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Otters",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -1713,6 +1780,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -1728,6 +1796,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Otters",
         "result": "loss",
+        "result_label": "Loss",
         "score": "10–13",
         "display": {
           "gp": "1",
@@ -1743,6 +1812,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "19–24",
         "display": {
           "gp": "1",
@@ -1790,6 +1860,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -1805,6 +1876,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Otters",
         "result": "loss",
+        "result_label": "Loss",
         "score": "10–13",
         "display": {
           "gp": "1",
@@ -1820,6 +1892,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "19–24",
         "display": {
           "gp": "1",
@@ -1835,6 +1908,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "23–28",
         "display": {
           "gp": "1",
@@ -1882,6 +1956,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -1897,6 +1972,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Otters",
         "result": "loss",
+        "result_label": "Loss",
         "score": "10–13",
         "display": {
           "gp": "1",
@@ -1912,6 +1988,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "23–28",
         "display": {
           "gp": "1",
@@ -1959,6 +2036,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -1974,6 +2052,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Otters",
         "result": "loss",
+        "result_label": "Loss",
         "score": "10–13",
         "display": {
           "gp": "1",
@@ -1989,6 +2068,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "19–24",
         "display": {
           "gp": "1",
@@ -2004,6 +2084,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "23–28",
         "display": {
           "gp": "1",
@@ -2051,6 +2132,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -2066,6 +2148,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "19–24",
         "display": {
           "gp": "1",
@@ -2081,6 +2164,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "23–28",
         "display": {
           "gp": "1",
@@ -2128,6 +2212,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -2175,6 +2260,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "23–15",
         "display": {
           "gp": "1",
@@ -2190,6 +2276,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Otters",
         "result": "loss",
+        "result_label": "Loss",
         "score": "10–13",
         "display": {
           "gp": "1",
@@ -2205,6 +2292,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "19–24",
         "display": {
           "gp": "1",
@@ -2220,6 +2308,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "23–28",
         "display": {
           "gp": "1",
@@ -2267,6 +2356,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Ravens",
         "result": "win",
+        "result_label": "Win",
         "score": "30–21",
         "display": {
           "gp": "1",
@@ -2282,6 +2372,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "28–23",
         "display": {
           "gp": "1",
@@ -2297,6 +2388,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–26",
         "display": {
           "gp": "1",
@@ -2344,6 +2436,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "28–23",
         "display": {
           "gp": "1",
@@ -2359,6 +2452,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–26",
         "display": {
           "gp": "1",
@@ -2406,6 +2500,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Ravens",
         "result": "win",
+        "result_label": "Win",
         "score": "30–21",
         "display": {
           "gp": "1",
@@ -2421,6 +2516,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "28–23",
         "display": {
           "gp": "1",
@@ -2468,6 +2564,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Ravens",
         "result": "win",
+        "result_label": "Win",
         "score": "30–21",
         "display": {
           "gp": "1",
@@ -2483,6 +2580,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "28–23",
         "display": {
           "gp": "1",
@@ -2498,6 +2596,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–26",
         "display": {
           "gp": "1",
@@ -2545,6 +2644,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Ravens",
         "result": "win",
+        "result_label": "Win",
         "score": "30–21",
         "display": {
           "gp": "1",
@@ -2560,6 +2660,7 @@
         "date_short": "Thu Nov 12",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "28–23",
         "display": {
           "gp": "1",
@@ -2575,6 +2676,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–26",
         "display": {
           "gp": "1",
@@ -2622,6 +2724,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Ravens",
         "result": "win",
+        "result_label": "Win",
         "score": "30–21",
         "display": {
           "gp": "1",
@@ -2637,6 +2740,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–26",
         "display": {
           "gp": "1",
@@ -2684,6 +2788,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Ravens",
         "result": "win",
+        "result_label": "Win",
         "score": "30–21",
         "display": {
           "gp": "1",
@@ -2699,6 +2804,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Ravens",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–26",
         "display": {
           "gp": "1",
@@ -2746,6 +2852,7 @@
         "date_short": "Thu Oct 15",
         "opponent": "Lynx",
         "result": "loss",
+        "result_label": "Loss",
         "score": "21–30",
         "display": {
           "gp": "1",
@@ -2761,6 +2868,7 @@
         "date_short": "Thu Oct 22",
         "opponent": "Badgers",
         "result": "win",
+        "result_label": "Win",
         "score": "25–17",
         "display": {
           "gp": "1",
@@ -2776,6 +2884,7 @@
         "date_short": "Thu Oct 29",
         "opponent": "Otters",
         "result": "loss",
+        "result_label": "Loss",
         "score": "10–13",
         "display": {
           "gp": "1",
@@ -2791,6 +2900,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Badgers",
         "result": "tie",
+        "result_label": "Tie",
         "score": "35–35",
         "display": {
           "gp": "1",
@@ -2806,6 +2916,7 @@
         "date_short": "Thu Nov 19",
         "opponent": "Lynx",
         "result": "win",
+        "result_label": "Win",
         "score": "26–21",
         "display": {
           "gp": "1",
@@ -2853,6 +2964,7 @@
         "date_short": "Thu Nov 5",
         "opponent": "Moose",
         "result": "win",
+        "result_label": "Win",
         "score": "24–19",
         "display": {
           "gp": "1",

@@ -1,0 +1,22 @@
+# The first two ends are blank, so Alpha keeps the hammer through both.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  hammer: home
+  ends:
+    home: [0, 0, 2, 0, 1, 0, 0, 1]
+    away: [0, 0, 0, 1, 0, 2, 0, 0]
+  final: {home: 4, away: 3}
+  lineups:
+    home:
+    - {player: carol-d, position: lead}
+    - {player: ken-w, position: second}
+    - {player: linda-f, position: vice}
+    - {player: doug-h, position: skip}
+    away:
+    - {player: pat-o, position: lead}
+    - {player: brian-s, position: second}
+    - {player: joanne-t, position: vice}
+    - {player: wayne-b, position: skip}

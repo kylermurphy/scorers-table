@@ -1,0 +1,318 @@
+{
+  "boards": [
+    {
+      "id": "stolen",
+      "label": "Stolen ends",
+      "of": "team",
+      "group": "player",
+      "group_label": null,
+      "stat": "stolen",
+      "tile": true,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Stolen ends",
+      "title_board": null,
+      "unit": "SE",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": null,
+          "team": "free-guards",
+          "label": "Free Guards",
+          "value": 5,
+          "display": "5",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": null,
+          "team": "stone-cold",
+          "label": "Stone Cold",
+          "value": 4,
+          "display": "4",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": null,
+          "team": "hog-liners",
+          "label": "Hog Liners",
+          "value": 3,
+          "display": "3",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": null,
+          "team": "takeouts",
+          "label": "Takeouts",
+          "value": 3,
+          "display": "3",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": null,
+          "team": "hurry-hard",
+          "label": "Hurry Hard",
+          "value": 2,
+          "display": "2",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": null,
+          "team": "button-pushers",
+          "label": "Button Pushers",
+          "value": 1,
+          "display": "1",
+          "detail": "in 5 games",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "ends_won",
+      "label": "Ends won",
+      "of": "team",
+      "group": "player",
+      "group_label": null,
+      "stat": "ends_won",
+      "tile": true,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Ends won",
+      "title_board": null,
+      "unit": "EW",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": null,
+          "team": "hurry-hard",
+          "label": "Hurry Hard",
+          "value": 19,
+          "display": "19",
+          "detail": "of 40 ends, 5 games",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": null,
+          "team": "stone-cold",
+          "label": "Stone Cold",
+          "value": 19,
+          "display": "19",
+          "detail": "of 39 ends, 5 games",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": null,
+          "team": "free-guards",
+          "label": "Free Guards",
+          "value": 16,
+          "display": "16",
+          "detail": "of 38 ends, 5 games",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": null,
+          "team": "takeouts",
+          "label": "Takeouts",
+          "value": 16,
+          "display": "16",
+          "detail": "of 39 ends, 5 games",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": null,
+          "team": "button-pushers",
+          "label": "Button Pushers",
+          "value": 15,
+          "display": "15",
+          "detail": "of 38 ends, 5 games",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": null,
+          "team": "hog-liners",
+          "label": "Hog Liners",
+          "value": 15,
+          "display": "15",
+          "detail": "of 38 ends, 5 games",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "big_ends",
+      "label": "Big ends (3 or more)",
+      "of": "team",
+      "group": "player",
+      "group_label": null,
+      "stat": "big_ends",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Big ends (3 or more)",
+      "title_board": null,
+      "unit": "3+",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": null,
+          "team": "hurry-hard",
+          "label": "Hurry Hard",
+          "value": 3,
+          "display": "3",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": null,
+          "team": "stone-cold",
+          "label": "Stone Cold",
+          "value": 3,
+          "display": "3",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": null,
+          "team": "takeouts",
+          "label": "Takeouts",
+          "value": 3,
+          "display": "3",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": null,
+          "team": "button-pushers",
+          "label": "Button Pushers",
+          "value": 2,
+          "display": "2",
+          "detail": "in 5 games",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": null,
+          "team": "hog-liners",
+          "label": "Hog Liners",
+          "value": 1,
+          "display": "1",
+          "detail": "in 5 games",
+          "cells": null
+        }
+      ]
+    }
+  ],
+  "table": {
+    "group": "player",
+    "columns": [
+      {
+        "key": "gp",
+        "label": "GP",
+        "title": "Games played",
+        "key_col": false
+      }
+    ],
+    "rows": [
+      "abe-b",
+      "ada-e",
+      "alf-h",
+      "amy-s",
+      "cal-c",
+      "dee-f",
+      "fay-a",
+      "finn-b",
+      "gwen-e",
+      "gwen-h",
+      "hal-b",
+      "hal-j",
+      "ike-h",
+      "jax-p",
+      "kai-p",
+      "kit-b",
+      "lars-d",
+      "nell-l",
+      "oz-m",
+      "pia-k",
+      "quin-p",
+      "quin-w",
+      "rae-w",
+      "sal-f",
+      "tam-c"
+    ]
+  },
+  "columns": {
+    "player": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        }
+      ]
+    }
+  }
+}

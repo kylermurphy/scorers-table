@@ -1,0 +1,196 @@
+{
+  "button-pushers": {
+    "id": "button-pushers",
+    "name": "Button Pushers",
+    "code": "BP",
+    "slot": 1,
+    "colour": null,
+    "url": "/teams/button-pushers/",
+    "rank": 5,
+    "record": "0–4–2",
+    "points": "2",
+    "sub": "Skip Mae T.",
+    "players": [
+      "una-w",
+      "max-t",
+      "ada-c",
+      "mae-t"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-1",
+      "2026-11-05-1",
+      "2026-10-29-1",
+      "2026-10-22-1",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-1",
+      "2026-12-10-1",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "hurry-hard": {
+    "id": "hurry-hard",
+    "name": "Hurry Hard",
+    "code": "HH",
+    "slot": 2,
+    "colour": null,
+    "url": "/teams/hurry-hard/",
+    "rank": 4,
+    "record": "2–3",
+    "points": "4",
+    "sub": "Skip Eve B.",
+    "players": [
+      "val-j",
+      "eve-l",
+      "tam-c",
+      "eve-b"
+    ],
+    "results": [
+      "2026-11-19-2",
+      "2026-11-12-1",
+      "2026-11-05-2",
+      "2026-10-22-3",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-11-26-3",
+      "2026-12-03-3",
+      "2026-12-10-2",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "hog-liners": {
+    "id": "hog-liners",
+    "name": "Hog Liners",
+    "code": "HL",
+    "slot": 3,
+    "colour": null,
+    "url": "/teams/hog-liners/",
+    "rank": 6,
+    "record": "0–4–1",
+    "points": "1",
+    "sub": "Skip Kai G.",
+    "players": [
+      "jax-f",
+      "noa-a",
+      "jax-d",
+      "kai-g"
+    ],
+    "results": [
+      "2026-11-12-2",
+      "2026-11-05-1",
+      "2026-10-29-2",
+      "2026-10-22-3",
+      "2026-10-15-3"
+    ],
+    "upcoming": [
+      "2026-11-26-3",
+      "2026-12-03-2",
+      "2026-12-10-1",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  },
+  "free-guards": {
+    "id": "free-guards",
+    "name": "Free Guards",
+    "code": "FG",
+    "slot": 4,
+    "colour": null,
+    "url": "/teams/free-guards/",
+    "rank": 3,
+    "record": "3–2",
+    "points": "6",
+    "sub": "Skip Ben E.",
+    "players": [
+      "alf-g",
+      "noa-h",
+      "noa-f",
+      "ben-e"
+    ],
+    "results": [
+      "2026-11-12-3",
+      "2026-11-05-2",
+      "2026-10-29-1",
+      "2026-10-22-2",
+      "2026-10-15-3"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-03-1",
+      "2026-12-10-2",
+      "2026-12-17-3"
+    ],
+    "calendar": null
+  },
+  "takeouts": {
+    "id": "takeouts",
+    "name": "Takeouts",
+    "code": "TO",
+    "slot": 5,
+    "colour": null,
+    "url": "/teams/takeouts/",
+    "rank": 1,
+    "record": "6–0",
+    "points": "12",
+    "sub": "Skip Val D.",
+    "players": [
+      "quin-n",
+      "quin-m",
+      "pax-w",
+      "val-d"
+    ],
+    "results": [
+      "2026-11-19-2",
+      "2026-11-12-3",
+      "2026-11-05-3",
+      "2026-10-29-2",
+      "2026-10-22-1",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-2",
+      "2026-12-10-3",
+      "2026-12-17-3"
+    ],
+    "calendar": null
+  },
+  "stone-cold": {
+    "id": "stone-cold",
+    "name": "Stone Cold",
+    "code": "SC",
+    "slot": 6,
+    "colour": null,
+    "url": "/teams/stone-cold/",
+    "rank": 2,
+    "record": "3–1–1",
+    "points": "7",
+    "sub": "Skip Cleo A.",
+    "players": [
+      "dee-s",
+      "kai-m",
+      "wes-t",
+      "cleo-a"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-2",
+      "2026-11-05-3",
+      "2026-10-22-2",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-03-3",
+      "2026-12-10-3",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  }
+}

@@ -23,6 +23,9 @@ layout: default
 <section class="st-section">
 {% include shell/section-head.html title="Results" %}
   {%- if team.results.size > 0 %}
+{%- if league.results_legend.size > 0 %}
+{% include parts/legend.html items=league.results_legend %}
+{%- endif %}
 <div class="st-list">
     {%- for _gid in team.results %}
       {%- assign _game = stats.games[_gid] %}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home",
+      "message": "Alpha has 2 rows. A rink plays three or four players (a spare is a row, not an extra player)."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,35 @@
+{%- comment -%}
+  parts/numbers.html: "the game in numbers" (present() block type "numbers"): a section heading, then a table with one
+  row per figure and one column per team, in its scroll box, and a note. The columns are the game's home and away
+  side, in that order, each headed by its chip and team code (the code is an <abbr> for the full name).
+  Params: block, game (for the two sides). Reads: block {title, corner, rows [{label, cells {home, away},
+  key ("home" | "away" | null: the bigger value, bold), hot (true: the key cell also takes the hot accent, a
+  stolen end)}], note}.
+{%- endcomment -%}
+{%- assign _nm_b = include.block -%}
+{%- assign _nm_sides = "home,away" | split: "," -%}
+{%- capture _nm_o -%}
+<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">{{ _nm_b.title | escape }}</h2></div>
+<div class="st-table-wrap" role="region" aria-label="{{ _nm_b.title | escape }}, scrolls sideways" tabindex="0">
+<table class="st-table st-table--numbers"><caption class="st-visually-hidden">{{ _nm_b.title | escape }}</caption>
+<thead><tr><th scope="col">{{ _nm_b.corner | escape }}</th>
+{%- for _nm_s in _nm_sides -%}
+  {%- assign _nm_t = include.game[_nm_s] -%}
+<th scope="col">{% include parts/chip.html team=_nm_t size="sm" %}<abbr title="{{ _nm_t.name | escape }}">{{ _nm_t.code | escape }}</abbr></th>
+{%- endfor -%}
+</tr></thead>
+<tbody>
+{%- for _nm_r in _nm_b.rows -%}
+<tr><td>{{ _nm_r.label | escape }}</td>
+  {%- for _nm_s in _nm_sides -%}
+<td{% if _nm_r.key == _nm_s %} class="is-key{% if _nm_r.hot %} is-hot{% endif %}"{% endif %}>{{ _nm_r.cells[_nm_s] | escape }}</td>
+  {%- endfor -%}
+</tr>
+{%- endfor -%}
+</tbody></table></div>
+{%- if _nm_b.note.size > 0 -%}<p class="st-note">{{ _nm_b.note | escape }}</p>{%- endif -%}
+</section>
+{%- endcapture -%}
+{%- assign _nm_lines = _nm_o | split: "
+" -%}
+{%- for _nm_line in _nm_lines -%}{{ _nm_line | strip }}{%- endfor -%}

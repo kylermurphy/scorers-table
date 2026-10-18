@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "extra.home.0",
+      "message": "the last extra end is blank, but a game ends on a score. Add the next extra end, or write 'time_called: true' if time ran out."
+    }
+  ],
+  "reading": null
+}

@@ -36,6 +36,9 @@ description: Every game day of the season, with results and upcoming games.
   {%- if _past.size == 0 %}
 {% include core/empty.html text="No games have been played yet." %}
   {%- endif %}
+  {%- if _past.size > 0 and league.results_legend.size > 0 %}
+{% include parts/legend.html items=league.results_legend %}
+  {%- endif %}
   {%- for _d in _past %}
 {% include core/schedule-day.html day=_d %}
   {%- endfor %}

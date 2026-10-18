@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.home.1.player",
+      "message": "carol-d is listed twice in this game (also at sheet.lineups.home.0.player)"
+    }
+  ],
+  "reading": null
+}

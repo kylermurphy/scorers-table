@@ -1,0 +1,21 @@
+# Alpha played three (lead, vice, skip): allowed.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  hammer: away
+  ends:
+    home: [0, 0, 1, 1, 0, 3, 0, 2]
+    away: [0, 2, 0, 0, 1, 0, 2, 0]
+  final: {home: 7, away: 5}
+  lineups:
+    home:
+    - {player: carol-d, position: lead}
+    - {player: linda-f, position: vice}
+    - {player: doug-h, position: skip}
+    away:
+    - {player: pat-o, position: lead}
+    - {player: ron-m, position: second, spare_for: brian-s}
+    - {player: joanne-t, position: vice}
+    - {player: wayne-b, position: skip}

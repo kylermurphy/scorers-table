@@ -19,10 +19,11 @@ THE COMPARISON RULES (tests/parity/htmlcompare.py has the code; nothing else is 
 
 WHAT IS COVERED: every generic part in every layout and sport it is shown for (header, nav, theme button,
 ticker, footer, page title, section heading, banner, skip link, result card, hero, final panel, line score,
-standings and the race, leader tiles and lists, game row, next-game panel, team card, team colours) and, as a
-fragment, the generic stat table and note blocks (basketball's box scores).
-WHAT IS SKIPPED, and why: tests/parity/cases.py SKIPPED (event log, roster and the sport game tables are stage 5
-parts, built with their sports).
+standings and the race, leader tiles and lists, game row, next-game panel, team card, team colours, the roster) and,
+as fragments, the generic stat table and note blocks (basketball's box scores) and the numbers block (curling's
+game in numbers).
+WHAT IS SKIPPED, and why: tests/parity/cases.py SKIPPED (event log, and hockey's and slo-pitch's game tables, are
+stage 5 parts, built with their sports).
 
 The test needs Ruby, Bundler and the gems (`bundle install`); without them it is skipped with a message. Mark:
 `jekyll` (pytest.ini registers it).

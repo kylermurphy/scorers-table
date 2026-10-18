@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "lineups.away.1.spare_for",
+      "message": "spare_for 'nobody-x' is not in players.yml. Name the regular player the spare replaced."
+    }
+  ],
+  "reading": null
+}

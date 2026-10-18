@@ -17,10 +17,11 @@ fails with a plain message and **nothing is published**. A typo cannot put a wro
 - [Sample data and the preview copies](#sample-data-and-the-preview-copies)
 
 Which boxes a score sheet has, and what is checked in them, depends on the sport. The box-by-box guide for
-your sport is `sports/<your sport>/README.md` (basketball's is `sports/basketball/README.md`). The examples on
-this page are basketball, the sport the template ships with, and the teams are the ones in its sample season.
-The other sports follow in their own pull requests; the stub (`sports/stub/`, two halves and a Final box) stays
-as the core's test sport.
+your sport is `sports/<your sport>/README.md` (basketball's is `sports/basketball/README.md`, curling's is
+`sports/curling/README.md`). The examples on this page are basketball, the sport the template ships with, and the
+teams are the ones in its sample season; where curling differs, a curling example follows. Hockey and slo-pitch
+follow in their own pull requests; the stub (`sports/stub/`, two halves and a Final box) stays as the core's test
+sport.
 
 ## What lives where
 
@@ -63,6 +64,21 @@ timezone: America/Toronto
 sample_data: false
 ```
 
+To use another sport, change `sport:` to its folder name in `sports/`. A curling club:
+
+```yaml
+name: "Pine Lake Curling Club"
+sport: curling
+timezone: America/Winnipeg
+sample_data: false
+rules: {ends: 8}               # the sport's own settings; see "Still to decide" below
+```
+
+The look follows the sport (`curling` gets the Curling layout) unless you set `layout:`. Everything on this page
+works the same; only the boxes on the score sheet and the settings under `rules:` change. Changing sport in a
+league that already has games means rewriting its game files, so choose once. To see what a sport looks like first,
+open its preview copy (`/curling/`, see [below](#sample-data-and-the-preview-copies)).
+
 ### `data/seasons.yml`
 
 The list of seasons. Exactly one is `current`. It may be empty (a new league's first season starts empty).
@@ -90,6 +106,12 @@ One line per team.
 team. A team may also have `slot: 3` (which of the six team colours it gets, 1 to 6) or `colour: "#7A4A1E"`
 (its own colour).
 
+**Don't name a team after a person's surname.** Curling clubs often call a rink after its skip ("Team Smith").
+The site shows players as "First L." only, so a rink named after the skip's surname would put that surname on
+every page. Use a made-up name ("Button Pushers") or the skip's first name and initial ("Gail R.'s rink"). The
+build does not try to detect surnames: this is on whoever writes `teams.yml`. (The skip is named on the rink's card
+anyway, from `players.yml`.)
+
 ### `players.yml`
 
 One line per player.
@@ -104,6 +126,10 @@ One line per player.
 * Two players on a team may not share a number. If two players on a team are both "Dave M.", both need a number.
 * A spare who belongs to no team has `team: null` and `sub: true`.
 * Someone on one team who fills in for another is fine: mark them `sub: true`, or the check warns you.
+* A sport with positions (curling: `lead`, `second`, `vice`, `skip`) takes `position:` on each regular
+  player: `- {id: gail-r, name: Gail R., team: button-pushers, position: skip}`. A sport without positions
+  (basketball) treats a `position` line as an error. Curlers wear no numbers, so a curling `players.yml` leaves
+  `number` out.
 
 ### `schedule.csv`
 
@@ -122,7 +148,7 @@ game_id,date,time,home,away,venue,surface,type,round,week,status,moved_from
 | `date`, `time` | `2026-11-05` and `19:00`. |
 | `home`, `away` | Team ids from `teams.yml`. "Home" just means the team listed first. A playoff row may hold other text until the teams are known (see [a playoff game](#a-playoff-game-before-the-teams-are-known)). |
 | `venue` | Leave empty to use the season's venue. |
-| `surface` | The court, sheet, diamond or pad number (`1`, `2`, `A`). Leave empty if the sport has none (basketball has none). |
+| `surface` | The court, sheet, diamond or pad (`1`, `2`, `A`). Leave empty if the sport has none (basketball has none). Curling uses the sheet letter (`A`), shown as "Sheet A". |
 | `type` | `regular` (or empty) or `playoff`. |
 | `round` | The playoff round, shown as written: `Semifinal`, `Final`. |
 | `week` | The game night's number. Leave empty and it is counted from the regular-season dates. |
@@ -176,6 +202,38 @@ sheet:
 
 Only files in `games/` count. If a file in `games/` has an error, the whole build stops, so a half-finished
 file does not belong there.
+
+The same top part is used by every sport; only `sheet:` changes. A curling game (`sports/curling/README.md` explains
+every box) has one box per end for each rink, who had the last stone in the first end, the totals and the
+lineups:
+
+```yaml
+game_id: 2026-12-01-1
+status: final
+home: button-pushers
+away: hurry-hard
+checked_by: Lee M.
+sheet:
+  hammer: away                 # who threw the last stone of end 1 (LSFE on the card)
+  ends:                        # points per end, end 1 first; 0 for the rink that did not score; X = not played
+    home: [0, 0, 1, 1, 0, 3, 0, 2]
+    away: [0, 2, 0, 0, 1, 0, 2, 0]
+  final: {home: 7, away: 5}    # the Total boxes, as written
+  lineups:                     # in throwing order, lead first
+    home:
+      - {player: carol-d, position: lead}
+      - {player: ken-w, position: second}
+      - {player: linda-f, position: vice}
+      - {player: doug-h, position: skip}
+    away:
+      - {player: pat-o, position: lead}
+      - {player: ron-m, position: second, spare_for: brian-s}
+      - {player: joanne-t, position: vice}
+      - {player: wayne-b, position: skip}
+```
+
+The number of end boxes must be exactly the league's `rules.ends` (8 unless you set it). An extra end, a
+concession ("shook hands after 6") and time called each have their own box; the curling README shows how.
 
 ### `drafts/`
 
@@ -248,18 +306,21 @@ checked_by: Lee M.
 forfeit: pines
 ```
 
-No player gets a game played or any stat. How a forfeit counts (the score, and whether it earns period
-points) is a league decision, set under `standings: forfeit:` in `league.yml`. Until you set it, the site
-shows `[placeholder]` and the build lists it under "Still to decide" (basketball's usual rule is 20 to 0).
+No player gets a game played or any stat, and no team stat (stolen ends, for example) moves. How a forfeit counts
+(the score, and whether it earns period points) is a league decision, set under `standings: forfeit:` in
+`league.yml`. Until you set it, the site shows `[placeholder]` and the build lists it under "Still to decide"
+(basketball's usual rule is 20 to 0, curling's 1 to 0).
 
 ### A tie
 
 Whether a regular-season game may end level is the league's to decide (`standings: ties:` in `league.yml`;
-basketball starts with no ties, shown as `[placeholder]`). Where ties are allowed, write the game file as it
+basketball starts with no ties and curling with ties allowed, both shown as `[placeholder]`). Where ties are allowed, write the game file as it
 is and the standings show a tie. Where they are not, the check stops the build at the Final box and says so.
 A **playoff game can never end tied**, whatever the setting. If the sport has overtime, the sheet records it
 first: basketball's README has the details (a game level after Q4 goes to overtime, and only one still level
-after that is a tie).
+after that is a tie). In curling the extra end is a setting, `rules.extra_end`: `playoffs` (the default: a level
+regular-season game is a tie, a level playoff game goes on to an extra end) or `always`. A league that never wants
+ties sets `rules: {extra_end: always}` **and** `standings: {ties: false}`.
 
 ### A bye
 
@@ -335,6 +396,16 @@ The first one: in the file for game 2026-11-05-1, the `sheet`'s Final box (`boxe
 68, but the running score on the sheet ends at 67. Which is wrong, the Final box or the running score? Check
 the paper sheet.
 
+The same kind of message from a curling game file:
+
+```
+data/sample-2026-27/games/2026-10-15-1.yml: sheet.final.home: the Total box says 6, but the ends add up to 5
+data/sample-2026-27/games/2026-10-15-1.yml: sheet.lineups.home.3.position: vice is on two rows of this rink (rows 3 and 4). Each position is played once.
+```
+
+(The Total box for the first rink does not match its end boxes; and the fourth lineup row, `3`, has a position the
+rink already used. Paths count from 0, the messages' "rows 3 and 4" from 1.)
+
 The path `sheet.players.home.0.player` reads: in the `sheet`, the `players`, for `home`, the first row (0), the
 `player` box. For `schedule.csv`, row 0 is the first line under the header. The message also gives the
 spreadsheet line (`spreadsheet line 3`), the number you see in Excel or Google Sheets.
@@ -374,7 +445,23 @@ Still to decide (the site shows [placeholder] until you set these in league.yml)
 ```
 
 That is the list for the basketball template as it ships. A sport brings its own list, and a league that has
-answered one no longer sees it.
+answered one no longer sees it. Curling's is shorter, because it has no leaderboard minimums:
+
+```
+Still to decide (the site shows [placeholder] until you set these in league.yml):
+  - Ends in a game (rules.ends)
+  - Extra end when a game is level after the last end (rules.extra_end)
+  - Ties (standings.ties)
+  - Forfeit (standings.forfeit)
+  - Tiebreakers (standings.tiebreakers)
+```
+
+For curling, `rules.ends` is how many ends a game has, 4 to 10 (8 until the league sets it; six-end leagues are
+common). A game file must have exactly that many boxes for each rink. A league that plays a different number in
+some season sets it for that season only, under that season's `overrides:` in `data/seasons.yml`
+(`overrides: {rules: {ends: 6}}`). Where the number shows: only the Rules page's list says `[placeholder]` for the
+ends and the extra end (no page prints them as a rule), while the game page's line score simply has the boxes. The Rules page repeats it, with what the site uses for each one meanwhile, and
+the pages that show such a value (a forfeit's score, the tiebreakers, a minimum) put `[placeholder]` beside it.
 
 The words in brackets are where to set it in `league.yml`. Setting it, **even to the usual value**, removes
 the placeholder:
@@ -413,15 +500,17 @@ write them).
   from the sample season at `/preview/`**, so you can see how a page looks with games and stats in it. It is
   not linked from anywhere and carries a banner.
 * Do you not want the preview? Set `preview: false`. If you delete the sample seasons from `seasons.yml` (and
-  their folders in `data/`), set `preview: false` too: the preview needs a sample season to show.
+  their folders in `data/`), the preview is skipped by itself: `scripts/build_preview.sh` prints
+  `no sample season in data/seasons.yml: skipping /preview/` and carries on, and the sport previews below still
+  build. (A sample season that is listed but broken is still an error.)
 * **Sport previews** are a second, separate setting, `sport_previews` (it sits beside `preview` in `league.yml`).
   `/preview/` is *your* league with made-up games; `/basketball/` is the template's own made-up league
-  ("Riverside Masters Basketball") for that sport, in the sport's own look, with the sport's usual rules and
-  every "league decides" setting showing as `[placeholder]`: what a new league would see. Nothing from your
-  `league.yml` reaches it except `timezone` and `time_format`.
-  * `sport_previews: true` builds one copy for every sport that has a demo (today only basketball, so
-    `/basketball/`; curling, hockey and slo-pitch get theirs when they are added). A list such as
-    `[basketball, hockey]` builds just those, in that order, and a name that is not such a sport is an error.
+  ("Riverside Masters Basketball") for that sport, and `/curling/` is "Pine Lake Curling Club", each in the
+  sport's own look, with the sport's usual rules and every "league decides" setting showing as `[placeholder]`:
+  what a new league would see. Nothing from your `league.yml` reaches it except `timezone` and `time_format`.
+  * `sport_previews: true` builds one copy for every sport that has a demo (today basketball and curling, so
+    `/basketball/` and `/curling/`; hockey and slo-pitch get theirs when they are added). A list such as
+    `[basketball, curling]` builds just those, in that order, and a name that is not such a sport is an error.
     `false`, or leaving the line out, builds none. The template ships with `true`, so its own site shows
     what each sport looks like.
   * Like `/preview/`, a sport preview is not linked from any of your own pages, so your visitors do not land on

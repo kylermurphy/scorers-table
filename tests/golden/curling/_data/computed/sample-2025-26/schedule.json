@@ -1,0 +1,1006 @@
+{
+  "days": [
+    {
+      "n": 1,
+      "label": "Draw 1",
+      "date": "2025-10-16",
+      "date_short": "Thu Oct 16",
+      "date_long": "Thursday, October 16, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-10-16-1",
+          "url": "/games/2025-10-16-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "button-pushers",
+          "away": "stone-cold",
+          "home_name": "Button Pushers",
+          "away_name": "Stone Cold",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 4,
+            "away": 10
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-16-2",
+          "url": "/games/2025-10-16-2/",
+          "time_display": "6:30 PM",
+          "surface": "B",
+          "surface_label": "Sheet B",
+          "home": "takeouts",
+          "away": "hurry-hard",
+          "home_name": "Takeouts",
+          "away_name": "Hurry Hard",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 5,
+            "away": 6
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-16-3",
+          "url": "/games/2025-10-16-3/",
+          "time_display": "8:45 PM",
+          "surface": "C",
+          "surface_label": "Sheet C",
+          "home": "hog-liners",
+          "away": "free-guards",
+          "home_name": "Hog Liners",
+          "away_name": "Free Guards",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 1,
+            "away": 4
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Draw 1",
+      "where": "[Venue] · Draw 1",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-10-16-1",
+              "url": "/games/2025-10-16-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "button-pushers",
+              "away": "stone-cold",
+              "home_name": "Button Pushers",
+              "away_name": "Stone Cold",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 4,
+                "away": 10
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-10-16-2",
+              "url": "/games/2025-10-16-2/",
+              "time_display": "6:30 PM",
+              "surface": "B",
+              "surface_label": "Sheet B",
+              "home": "takeouts",
+              "away": "hurry-hard",
+              "home_name": "Takeouts",
+              "away_name": "Hurry Hard",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 5,
+                "away": 6
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        },
+        {
+          "time_label": "8:45 PM",
+          "games": [
+            {
+              "id": "2025-10-16-3",
+              "url": "/games/2025-10-16-3/",
+              "time_display": "8:45 PM",
+              "surface": "C",
+              "surface_label": "Sheet C",
+              "home": "hog-liners",
+              "away": "free-guards",
+              "home_name": "Hog Liners",
+              "away_name": "Free Guards",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 1,
+                "away": 4
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "label": "Draw 2",
+      "date": "2025-10-23",
+      "date_short": "Thu Oct 23",
+      "date_long": "Thursday, October 23, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-10-23-1",
+          "url": "/games/2025-10-23-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "takeouts",
+          "away": "button-pushers",
+          "home_name": "Takeouts",
+          "away_name": "Button Pushers",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 3,
+            "away": 7
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-23-2",
+          "url": "/games/2025-10-23-2/",
+          "time_display": "6:30 PM",
+          "surface": "B",
+          "surface_label": "Sheet B",
+          "home": "stone-cold",
+          "away": "free-guards",
+          "home_name": "Stone Cold",
+          "away_name": "Free Guards",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 6,
+            "away": 2
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-23-3",
+          "url": "/games/2025-10-23-3/",
+          "time_display": "8:45 PM",
+          "surface": "C",
+          "surface_label": "Sheet C",
+          "home": "hog-liners",
+          "away": "hurry-hard",
+          "home_name": "Hog Liners",
+          "away_name": "Hurry Hard",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 3,
+            "away": 5
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Draw 2",
+      "where": "[Venue] · Draw 2",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-10-23-1",
+              "url": "/games/2025-10-23-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "takeouts",
+              "away": "button-pushers",
+              "home_name": "Takeouts",
+              "away_name": "Button Pushers",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 3,
+                "away": 7
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-10-23-2",
+              "url": "/games/2025-10-23-2/",
+              "time_display": "6:30 PM",
+              "surface": "B",
+              "surface_label": "Sheet B",
+              "home": "stone-cold",
+              "away": "free-guards",
+              "home_name": "Stone Cold",
+              "away_name": "Free Guards",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 6,
+                "away": 2
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        },
+        {
+          "time_label": "8:45 PM",
+          "games": [
+            {
+              "id": "2025-10-23-3",
+              "url": "/games/2025-10-23-3/",
+              "time_display": "8:45 PM",
+              "surface": "C",
+              "surface_label": "Sheet C",
+              "home": "hog-liners",
+              "away": "hurry-hard",
+              "home_name": "Hog Liners",
+              "away_name": "Hurry Hard",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 3,
+                "away": 5
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "label": "Draw 3",
+      "date": "2025-10-30",
+      "date_short": "Thu Oct 30",
+      "date_long": "Thursday, October 30, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-10-30-1",
+          "url": "/games/2025-10-30-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "button-pushers",
+          "away": "free-guards",
+          "home_name": "Button Pushers",
+          "away_name": "Free Guards",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 6,
+            "away": 6
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": true
+        },
+        {
+          "id": "2025-10-30-2",
+          "url": "/games/2025-10-30-2/",
+          "time_display": "6:30 PM",
+          "surface": "B",
+          "surface_label": "Sheet B",
+          "home": "hog-liners",
+          "away": "takeouts",
+          "home_name": "Hog Liners",
+          "away_name": "Takeouts",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 4,
+            "away": 5
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-10-30-3",
+          "url": "/games/2025-10-30-3/",
+          "time_display": "8:45 PM",
+          "surface": "C",
+          "surface_label": "Sheet C",
+          "home": "stone-cold",
+          "away": "hurry-hard",
+          "home_name": "Stone Cold",
+          "away_name": "Hurry Hard",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 5,
+            "away": 6
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Draw 3",
+      "where": "[Venue] · Draw 3",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-10-30-1",
+              "url": "/games/2025-10-30-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "button-pushers",
+              "away": "free-guards",
+              "home_name": "Button Pushers",
+              "away_name": "Free Guards",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 6,
+                "away": 6
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": true
+            },
+            {
+              "id": "2025-10-30-2",
+              "url": "/games/2025-10-30-2/",
+              "time_display": "6:30 PM",
+              "surface": "B",
+              "surface_label": "Sheet B",
+              "home": "hog-liners",
+              "away": "takeouts",
+              "home_name": "Hog Liners",
+              "away_name": "Takeouts",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 4,
+                "away": 5
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        },
+        {
+          "time_label": "8:45 PM",
+          "games": [
+            {
+              "id": "2025-10-30-3",
+              "url": "/games/2025-10-30-3/",
+              "time_display": "8:45 PM",
+              "surface": "C",
+              "surface_label": "Sheet C",
+              "home": "stone-cold",
+              "away": "hurry-hard",
+              "home_name": "Stone Cold",
+              "away_name": "Hurry Hard",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 5,
+                "away": 6
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "label": "Draw 4",
+      "date": "2025-11-06",
+      "date_short": "Thu Nov 6",
+      "date_long": "Thursday, November 6, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-11-06-1",
+          "url": "/games/2025-11-06-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "hog-liners",
+          "away": "button-pushers",
+          "home_name": "Hog Liners",
+          "away_name": "Button Pushers",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 7,
+            "away": 3
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-11-06-2",
+          "url": "/games/2025-11-06-2/",
+          "time_display": "6:30 PM",
+          "surface": "B",
+          "surface_label": "Sheet B",
+          "home": "free-guards",
+          "away": "hurry-hard",
+          "home_name": "Free Guards",
+          "away_name": "Hurry Hard",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 4,
+            "away": 9
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-11-06-3",
+          "url": "/games/2025-11-06-3/",
+          "time_display": "8:45 PM",
+          "surface": "C",
+          "surface_label": "Sheet C",
+          "home": "stone-cold",
+          "away": "takeouts",
+          "home_name": "Stone Cold",
+          "away_name": "Takeouts",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 8,
+            "away": 9
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Draw 4",
+      "where": "[Venue] · Draw 4",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-11-06-1",
+              "url": "/games/2025-11-06-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "hog-liners",
+              "away": "button-pushers",
+              "home_name": "Hog Liners",
+              "away_name": "Button Pushers",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 7,
+                "away": 3
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-11-06-2",
+              "url": "/games/2025-11-06-2/",
+              "time_display": "6:30 PM",
+              "surface": "B",
+              "surface_label": "Sheet B",
+              "home": "free-guards",
+              "away": "hurry-hard",
+              "home_name": "Free Guards",
+              "away_name": "Hurry Hard",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 4,
+                "away": 9
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        },
+        {
+          "time_label": "8:45 PM",
+          "games": [
+            {
+              "id": "2025-11-06-3",
+              "url": "/games/2025-11-06-3/",
+              "time_display": "8:45 PM",
+              "surface": "C",
+              "surface_label": "Sheet C",
+              "home": "stone-cold",
+              "away": "takeouts",
+              "home_name": "Stone Cold",
+              "away_name": "Takeouts",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 8,
+                "away": 9
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "label": "Draw 5",
+      "date": "2025-11-13",
+      "date_short": "Thu Nov 13",
+      "date_long": "Thursday, November 13, 2025",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-11-13-1",
+          "url": "/games/2025-11-13-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "button-pushers",
+          "away": "hurry-hard",
+          "home_name": "Button Pushers",
+          "away_name": "Hurry Hard",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 6,
+            "away": 6
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": true
+        },
+        {
+          "id": "2025-11-13-2",
+          "url": "/games/2025-11-13-2/",
+          "time_display": "6:30 PM",
+          "surface": "B",
+          "surface_label": "Sheet B",
+          "home": "stone-cold",
+          "away": "hog-liners",
+          "home_name": "Stone Cold",
+          "away_name": "Hog Liners",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 4,
+            "away": 7
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-11-13-3",
+          "url": "/games/2025-11-13-3/",
+          "time_display": "8:45 PM",
+          "surface": "C",
+          "surface_label": "Sheet C",
+          "home": "free-guards",
+          "away": "takeouts",
+          "home_name": "Free Guards",
+          "away_name": "Takeouts",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 5,
+            "away": 5
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": true
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Draw 5",
+      "where": "[Venue] · Draw 5",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-11-13-1",
+              "url": "/games/2025-11-13-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "button-pushers",
+              "away": "hurry-hard",
+              "home_name": "Button Pushers",
+              "away_name": "Hurry Hard",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 6,
+                "away": 6
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": true
+            },
+            {
+              "id": "2025-11-13-2",
+              "url": "/games/2025-11-13-2/",
+              "time_display": "6:30 PM",
+              "surface": "B",
+              "surface_label": "Sheet B",
+              "home": "stone-cold",
+              "away": "hog-liners",
+              "home_name": "Stone Cold",
+              "away_name": "Hog Liners",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 4,
+                "away": 7
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        },
+        {
+          "time_label": "8:45 PM",
+          "games": [
+            {
+              "id": "2025-11-13-3",
+              "url": "/games/2025-11-13-3/",
+              "time_display": "8:45 PM",
+              "surface": "C",
+              "surface_label": "Sheet C",
+              "home": "free-guards",
+              "away": "takeouts",
+              "home_name": "Free Guards",
+              "away_name": "Takeouts",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 5,
+                "away": 5
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "label": "Semifinal",
+      "date": "2025-12-04",
+      "date_short": "Thu Dec 4",
+      "date_long": "Thursday, December 4, 2025",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-12-04-1",
+          "url": "/games/2025-12-04-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "hurry-hard",
+          "away": "hog-liners",
+          "home_name": "Hurry Hard",
+          "away_name": "Hog Liners",
+          "status": "played",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": true,
+          "score": {
+            "home": 7,
+            "away": 6
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2025-12-04-2",
+          "url": "/games/2025-12-04-2/",
+          "time_display": "6:30 PM",
+          "surface": "B",
+          "surface_label": "Sheet B",
+          "home": "takeouts",
+          "away": "button-pushers",
+          "home_name": "Takeouts",
+          "away_name": "Button Pushers",
+          "status": "played",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": true,
+          "score": {
+            "home": 8,
+            "away": 4
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Semifinal",
+      "where": "[Venue] · Semifinal",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-12-04-1",
+              "url": "/games/2025-12-04-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "hurry-hard",
+              "away": "hog-liners",
+              "home_name": "Hurry Hard",
+              "away_name": "Hog Liners",
+              "status": "played",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": true,
+              "score": {
+                "home": 7,
+                "away": 6
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2025-12-04-2",
+              "url": "/games/2025-12-04-2/",
+              "time_display": "6:30 PM",
+              "surface": "B",
+              "surface_label": "Sheet B",
+              "home": "takeouts",
+              "away": "button-pushers",
+              "home_name": "Takeouts",
+              "away_name": "Button Pushers",
+              "status": "played",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": true,
+              "score": {
+                "home": 8,
+                "away": 4
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Final",
+      "date": "2025-12-11",
+      "date_short": "Thu Dec 11",
+      "date_long": "Thursday, December 11, 2025",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2025-12-11-1",
+          "url": "/games/2025-12-11-1/",
+          "time_display": "6:30 PM",
+          "surface": "A",
+          "surface_label": "Sheet A",
+          "home": "hurry-hard",
+          "away": "takeouts",
+          "home_name": "Hurry Hard",
+          "away_name": "Takeouts",
+          "status": "played",
+          "moved_from_display": null,
+          "round": "Final",
+          "played": true,
+          "score": {
+            "home": 8,
+            "away": 6
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Final",
+      "where": "[Venue] · Final",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": "6:30 PM",
+          "games": [
+            {
+              "id": "2025-12-11-1",
+              "url": "/games/2025-12-11-1/",
+              "time_display": "6:30 PM",
+              "surface": "A",
+              "surface_label": "Sheet A",
+              "home": "hurry-hard",
+              "away": "takeouts",
+              "home_name": "Hurry Hard",
+              "away_name": "Takeouts",
+              "status": "played",
+              "moved_from_display": null,
+              "round": "Final",
+              "played": true,
+              "score": {
+                "home": 8,
+                "away": 6
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "latest": 7,
+  "next": null,
+  "all_times_pm": true
+}

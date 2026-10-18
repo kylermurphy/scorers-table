@@ -40,7 +40,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Comets by 10"
+      "sub": "Comets by 10",
+      "note": null
     },
     "summary": "Comets by 10",
     "notes": [
@@ -141,7 +142,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -416,7 +418,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 2"
+      "sub": "Pines by 2",
+      "note": null
     },
     "summary": "Pines by 2",
     "notes": [],
@@ -516,7 +519,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #77 Tam K. 18 pts, 3-3 FT"
+      "note_long": "Top scorer: #77 Tam K. 18 pts, 3-3 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -795,7 +799,8 @@
     "status": "Forfeit",
     "final": {
       "status": "Forfeit",
-      "sub": "Rapids forfeited"
+      "sub": "Rapids forfeited",
+      "note": "[placeholder] The league has not decided how a forfeit is scored yet. The site counts it as 20–0."
     },
     "summary": "Rapids forfeited",
     "notes": [],
@@ -808,13 +813,14 @@
     },
     "line_score": null,
     "card": {
-      "note": "Rapids forfeited",
+      "note": "Rapids forfeited · score [placeholder]",
       "strong": "Rapids",
       "link_label": "Details",
       "meta": [
         "7:00 PM"
       ],
-      "note_long": null
+      "note_long": null,
+      "line_score": null
     },
     "tiles": null,
     "blocks": []
@@ -860,7 +866,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Foxes by 3"
+      "sub": "Foxes by 3",
+      "note": null
     },
     "summary": "Foxes by 3",
     "notes": [],
@@ -959,7 +966,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #8 Dee S. 16 pts"
+      "note_long": "Top scorer: #8 Dee S. 16 pts",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -1216,7 +1224,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 6"
+      "sub": "Pines by 6",
+      "note": null
     },
     "summary": "Pines by 6",
     "notes": [],
@@ -1316,7 +1325,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #49 Tam C. 17 pts, 5-8 FT"
+      "note_long": "Top scorer: #49 Tam C. 17 pts, 5-8 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -1573,7 +1583,8 @@
     "status": "Final · OT",
     "final": {
       "status": "Final · OT",
-      "sub": "Rapids by 1"
+      "sub": "Rapids by 1",
+      "note": null
     },
     "summary": "Rapids by 1",
     "notes": [],
@@ -1680,7 +1691,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #80 Val J. 22 pts, 4-5 FT"
+      "note_long": "Top scorer: #80 Val J. 22 pts, 4-5 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -1937,7 +1949,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 7"
+      "sub": "Pines by 7",
+      "note": null
     },
     "summary": "Pines by 7",
     "notes": [],
@@ -2037,7 +2050,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #29 Gwen W. 19 pts, 1-2 FT"
+      "note_long": "Top scorer: #29 Gwen W. 19 pts, 1-2 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -2280,7 +2294,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Herons by 4"
+      "sub": "Herons by 4",
+      "note": null
     },
     "summary": "Herons by 4",
     "notes": [],
@@ -2378,7 +2393,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #25 Max T. 13 pts, 2-2 FT"
+      "note_long": "Top scorer: #25 Max T. 13 pts, 2-2 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -2644,7 +2660,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Pines by 3"
+      "sub": "Pines by 3",
+      "note": null
     },
     "summary": "Pines by 3",
     "notes": [],
@@ -2742,7 +2759,8 @@
       "meta": [
         "8:15 PM"
       ],
-      "note_long": "Top scorer: #1 Amy P. 18 pts, 2-8 FT"
+      "note_long": "Top scorer: #1 Amy P. 18 pts, 2-8 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [
@@ -2999,7 +3017,8 @@
     "status": "Final",
     "final": {
       "status": "Final",
-      "sub": "Comets by 3"
+      "sub": "Comets by 3",
+      "note": null
     },
     "summary": "Comets by 3",
     "notes": [],
@@ -3099,7 +3118,8 @@
       "meta": [
         "7:00 PM"
       ],
-      "note_long": "Top scorer: #61 Ada M. 13 pts, 1-1 FT"
+      "note_long": "Top scorer: #61 Ada M. 13 pts, 1-1 FT",
+      "line_score": null
     },
     "tiles": null,
     "blocks": [

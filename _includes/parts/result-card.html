@@ -8,6 +8,8 @@
     meta         the meta parts joined with " · "                         (e.g. "Sheet A · 6:30 PM")
     status_note  "Final · " and the note                                  (e.g. "Final · GWG #12 Gord P.")
   Classic's foot is one quiet line: the status, "Tie", and the meta parts except the time.
+  A forfeit always says so: where the foot would not print the note (Classic, `meta`), it follows after " · "
+  ("Sheet A · 6:30 PM · Hurry Hard forfeited · score [placeholder]").
 {%- endcomment -%}
 {%- assign _rc_g = include.game -%}
 {%- assign _rc_ls = _rc_g.card.line_score | default: _rc_g.line_score -%}
@@ -34,8 +36,10 @@
 {%- if league.layout == "classic" -%}
 {{ _rc_g.status | escape }}{% if _rc_g.tie %} · {{ _rc_tie | escape }}{% endif %}
   {%- if league.display.card_foot == "meta" -%}{%- for _rc_m in _rc_g.card.meta -%}{%- if _rc_m != _rc_g.time_display %} · {{ _rc_m | escape }}{% endif -%}{%- endfor -%}{%- endif -%}
+  {%- if _rc_g.forfeit %} · {% include parts/bold-text.html text=_rc_g.card.note strong=_rc_g.card.strong %}{% endif -%}
 {%- elsif league.display.card_foot == "meta" -%}
 {{ _rc_g.card.meta | join: " · " | escape }}
+  {%- if _rc_g.forfeit %} · {% include parts/bold-text.html text=_rc_g.card.note strong=_rc_g.card.strong %}{% endif -%}
 {%- elsif league.display.card_foot == "status_note" -%}
 {{ _rc_g.status | escape }} · {% include parts/bold-text.html text=_rc_g.card.note strong=_rc_g.card.strong %}
 {%- else -%}

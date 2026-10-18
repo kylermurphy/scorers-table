@@ -2,7 +2,8 @@
 
 A public template for a small recreational league's website (standings,
 schedule, results, player stats, past seasons), built from the league's paper
-score sheets. Several sports: basketball (built, stage 5 part 1), then curling, hockey, slo-pitch. Read
+score sheets. Several sports: basketball (built, stage 5 part 1, merged) and curling (built, stage 5 part 2, in
+review as a pull request), then hockey, slo-pitch. Read
 `BRIEF.md` (what it is and why), `PLAN.md` (the stages) and `docs/design.md` (the designs) before starting
 work. Grew out of `tb-masters-basketball/website`; that repo is a reference,
 not a dependency.
@@ -47,22 +48,23 @@ Checks to run after any CSS change: `python scripts/check_contrast.py` (WCAG AA 
 themes and every example league colour; rewrites `docs/contrast.md`; must pass) and `python -m pytest`
 (`pip install pytest`). `python scripts/build_css_fallbacks.py` regenerates `fallbacks.css`.
 
-## The core (stage 4, merged) and basketball (stage 5, in review as a pull request)
+## The core (stage 4, merged), basketball (stage 5 part 1, merged) and curling (part 2, in review as a pull request)
 Read `docs/stage-4-spec.md` (the design, with the decisions the owner approved), `docs/data.md` (the data files)
 and `docs/sports.md` (the sport folder) before touching it; for basketball also `docs/stage-5-basketball-spec.md`,
-`sports/basketball/README.md` and `docs/open-questions.md` (the settings a league still has to decide).
+`sports/basketball/README.md`, for curling `docs/stage-5-curling-spec.md` and `sports/curling/README.md`, and
+`docs/open-questions.md` (the settings a league still has to decide).
 ```
 league.yml                  the league's settings (the one file a setup person edits)
 data/                       seasons.yml and one folder per season: teams.yml, players.yml, schedule.csv,
                             games/ (finished sheets), drafts/ (never built), sheets/ (photos)
 sports/<id>/                a sport: sport.yml, rules.py (check, read, present, derive), sample.py, README.md, fixtures/
                             (shared test cases for the later JS port). `basketball` ships (`league.yml` says `sport: basketball`;
-                            `convert_masters.py` there turns a Masters data folder into this layout); `stub` is the core's
-                            test sport (`demo: false`)
+                            `convert_masters.py` there turns a Masters data folder into this layout); `curling` is built too
+                            (a league switches with `sport: curling`); `stub` is the core's test sport (`demo: false`)
 scripts/core/               the Python package: model (types), problems, config, sports, loader, standings,
                             compute*, calendars, writer
 scripts/build.py            load -> check -> compute -> write _data/computed/, stub pages, calendars
-scripts/preview_root.py     the temporary root a sport preview is built from; scripts/build_preview.sh builds /preview/ and /<sport>/
+scripts/preview_root.py     the temporary root a sport preview is built from; scripts/build_preview.sh builds /preview/, /basketball/ and /curling/
 _layouts/ _includes/        Jekyll: one include per design-system part (_includes/parts, _includes/shell)
 index.html schedule/ ...    the pages; assets/css (stage 3), assets/js/site.js (theme toggle only)
 tests/                      pytest: unit, golden (tests/golden), Jekyll smoke, parity with the design-system page
@@ -89,8 +91,20 @@ Rules that came with the core:
   and have no calendar files. A new sport appears there by itself. Golden files are per sport
   (`tests/golden/<sport>/`, `test_golden.py`).
 - **Core parts stay sport-neutral**: `top_performer`, `stats.columns`, the leaderboard keys `zero`, `playoffs`,
-  `home`, `player_rank` and rate ranking before rounding are core features that basketball needed; nothing tests
-  a sport id.
+  `home`, `player_rank` and rate ranking before rounding are core features that basketball needed; curling added
+  the `numbers` and `roster` blocks, `words.extra` ("EE" for "OT"), `display.results_legend`, `display.team_sub`
+  (the skip line on a team card), the card's own `line_score` and `meta_extra`, an empty player group
+  (`stats.player: []`: games played only), the sample generator's `TIMES`, `SURFACES`, `NUMBERS`, `POSITIONS`
+  and `NOTES`, and team boards that count only games with a score sheet (a forfeit is not a game there). Nothing
+  tests a sport id. `docs/sports.md` lists every key.
+- **Curling** (`sports/curling/`): the game file is a box-for-box copy of the score card (an end box per rink, the
+  first-end hammer, optional extra ends, a concession or `time_called`, lineups with a spare's `spare_for`); the
+  hammer of every later end, steals, blanks and big ends are worked out by `read`. `rules.ends` (4 to 10, default 8),
+  `rules.extra_end` and the standings ties, forfeit and tiebreakers are `[placeholder]` until a league sets them.
+  Never name a rink after the skip's surname. The shipped `league.yml` and the committed `data/sample-*` stay
+  basketball (the curling sample is written by `make_sample.py` for the golden files and
+  `/curling/`). Rewrite its fixtures after a rule change with
+  `UPDATE_FIXTURES=1 python -m pytest tests/test_curling_fixtures.py`.
 - **Converted Masters data is never committed** (it names real players). Tests convert into a temporary folder;
   `tests/test_masters_parity.py` runs only with `MASTERS_SITE` set to a Masters checkout.
 - Unset "league decides" settings build with the sport's typical default, show a visible `[placeholder]` and
