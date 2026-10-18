@@ -3,7 +3,9 @@
   The page shell: <html> with the league's look, skip link, sample banner, header, (Scoreboard) ticker,
   <main id="main">, footer. The banner's links to the live site and to the sport previews start from the live
   site's address: `site.live_baseurl` when the build sets it (the /preview/ and /<sport>/ copies do, with the
-  live site's base path; it may be empty), else this site's own baseurl.
+  live site's base path; it may be empty), else this site's own baseurl. While the landing page is on, build_preview.sh
+  also sets `site.live_landing` on the /<sport>/ copies: the live site is then the landing page, so the banner's link
+  says "All sports" (same address) instead of "Go to the live site".
 {%- endcomment -%}
 {%- if site.live_baseurl == nil -%}
   {%- assign _live_base = site.baseurl | default: "" -%}
@@ -12,6 +14,8 @@
 {%- endif -%}
 {%- assign _live_root = site.url | default: "" | append: _live_base -%}
 {%- assign _live_url = _live_root | append: "/" -%}
+{%- assign _live_label = "Go to the live site" -%}
+{%- if site.live_landing -%}{%- assign _live_label = "All sports" -%}{%- endif -%}
 <!doctype html>
 <html lang="{{ league.lang | default: 'en' | escape }}" data-layout="{{ league.layout | escape }}"{% if league.colour.size > 0 %} data-league-colour style="--st-league-color:{{ league.colour | escape }}{% if league.colour_dark.size > 0 %};--st-league-color-dark:{{ league.colour_dark | escape }}{% endif %}"{% endif %}>
 <head>
@@ -19,7 +23,7 @@
 </head>
 <body class="st-page">
 {% include shell/skip-link.html %}
-{% include shell/sample-banner.html live_url=_live_url live_root=_live_root %}
+{% include shell/sample-banner.html live_url=_live_url live_label=_live_label live_root=_live_root %}
 {% include shell/header.html current=page.nav %}
 {%- if league.layout == "scoreboard" and season_is_active -%}
   {%- assign _tk_n = stats.results | first -%}

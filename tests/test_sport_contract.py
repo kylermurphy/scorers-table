@@ -57,6 +57,16 @@ def test_there_is_at_least_one_sport():
     assert "stub" in SPORT_IDS
 
 
+def test_a_sport_with_a_demo_has_a_one_line_blurb_for_the_landing_page(sport):
+    """The landing page shows every demo sport as a card (scripts/landing.py), so a new sport cannot reach it without
+    a one-line description (at most 100 characters) in its sport.yml."""
+    if not sport.spec["demo"]:
+        return
+    blurb = sport.spec.get("blurb")
+    assert isinstance(blurb, str) and blurb.strip(), f"sports/{sport.id}/sport.yml needs a `blurb:` (one line, at most 100 characters)"
+    assert len(blurb) <= 100 and "\n" not in blurb.strip(), f"sports/{sport.id}/sport.yml: blurb is too long or not one line"
+
+
 def test_a_sport_folder_is_complete(sport):
     for name in ("sport.yml", "rules.py", "sample.py", "README.md"):
         assert (sport.folder / name).is_file(), f"{sport.folder.name}/{name} is missing"

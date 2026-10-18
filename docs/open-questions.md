@@ -190,3 +190,29 @@ recommended (October 2026).** What was built:
 Left for later (named in the spec, not built): the club-scoreboard line score, team rates ("ends won %"), a
 different number of ends for playoffs, a printable curling score card and the photo-reading prompt, and the entry
 page and JavaScript copy of the rules (stage 7).
+
+## 7. The landing page: the owner's answers
+
+The plan is `docs/landing-page-plan.md` (part A has the five questions). Decided by the owner and built as follows
+(October 2026). There are no `[placeholder]`s on the landing page: its words are the template's own, in `landing.yml`
+and each sport's `blurb:`.
+
+| # | Question | Answer, and how it is built |
+|---|---|---|
+| (decided first) | What `/` is | A landing page that shows the sports and links to them, in the Basketball look. Basketball stays at `/basketball/` (and nowhere else) and curling at `/curling/`. Each card has the sport's name, one line, a link to its demo and a live mini-preview built from that sport's sample season (the top 3 of its standings and its latest result, worked out by the same build as the demo). Hockey and slo-pitch are "Coming soon" cards with no link. The page links to the setup guide and the GitHub repository. |
+| 1 | The sport's own look inside each card's preview box | **Yes.** Curling shows in the Curling colours and fonts inside a Basketball page (a nested layout; the page loads the extra layout stylesheet and fonts, and `site.js` copies the theme onto the boxes). The cost is measured in `tests/test_nested_layout.py`. |
+| 2 | What a league that copies the template sees on its first deploy | **Make it loud.** `landing_page` ships `true`, written at the top of `league.yml` beside `name`, `sport` and `timezone`, with a comment; every plain build prints "The front page is the scorers-table landing page. For your league's own site, set landing_page: false in league.yml."; the landing page's "Get started" section says it; the README's "Publish it" makes `landing_page: false` step 1 (and stage 8's guide will). A real league sets `landing_page: false` to have its own site at the root. (A GitHub repository variable only the showcase has was not chosen: the setting stays in `league.yml`.) |
+| 3 | The words | Built with the recommended drafts: the header **scorers-table** with badge **ST** and tagline "League websites from paper score sheets"; the title "A website for your league, from its score sheets"; the four one-line sport descriptions; a "What every league gets" list; the menu **Sports** and **Get started**. All are editable in `landing.yml` and `sports/<id>/sport.yml`. |
+| 4 | The setup guide link | The README's **Publish it** section on GitHub (`#publish-it`), labelled "Setup guide (short version)". When stage 8's written guide exists, swap the one line in `landing.yml`. |
+| 5 | Link the design-system page | **Not linked.** It is not published (`docs/` stays off the site); publishing it at `/design-system/` is a separate decision for later. |
+
+What the owner can still change later without touching code: the words (`landing.yml`, `blurb:`), the coming-soon
+list, and which demos get a card and in what order (`sport_previews: [curling, basketball]`).
+
+Trade-offs to know: with `landing_page: true` the old root addresses of the sample league (`/schedule/`, `/stats/`...)
+no longer exist (nothing but the demos' banners linked there), and `/preview/` is not built. A page added to the
+site root in a later stage (the entry page, say) must be added to `LEAGUE_PAGES` in `scripts/landing.py`, or it will
+show at the root of the showcase.
+
+Hockey and slo-pitch: when those sports land, take them off `coming_soon` in `landing.yml`; their cards then appear
+by themselves (the build warns until the list is updated).

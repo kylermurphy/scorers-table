@@ -11,6 +11,10 @@ name: Build and deploy
 #     workflow wakes every hour and the `gate` job lets only the hour named by `nightly_hour` in league.yml
 #     (on the league's `timezone` clock, default 3 AM) go on to build. The other 23 wake-ups stop after a few
 #     seconds.
+#   * The tests include the browser tests (Playwright with Chromium: the landing page's nested looks and the
+#     old-browser simulation). Locally they are skipped without Playwright; here they must run, so the build job
+#     installs requirements-ci.txt and Chromium first, and a missing Playwright or browser fails the run (the
+#     tests fail when the `CI` variable is set, as they do for a missing Ruby).
 #
 # One-time setup: GitHub Pages must be switched on for the repository (Settings > Pages > Source:
 # "GitHub Actions") before the first run on main, or the "Set up Pages" step fails.
@@ -86,11 +90,28 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-ci.txt
 
+      # requirements-ci.txt = requirements.txt + Playwright (pinned). The gate job above needs only requirements.txt.
       - name: Install Python packages
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-ci.txt
 
-      # 2. Every test, the Jekyll smoke test and the design-system parity test included.
+      # Chromium for the browser tests. The download is cached by the Playwright version in requirements-ci.txt;
+      # `playwright install` runs every time (it skips the download when the cache is there) because --with-deps
+      # also installs the system libraries Chromium needs, which no cache keeps.
+      - name: Cache the Playwright browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements-ci.txt') }}
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      # 2. Every test, the Jekyll smoke test, the design-system parity test and the Chromium tests included. With
+      #    CI set (GitHub sets it), a missing Ruby, Playwright or browser fails the run instead of skipping tests.
       - name: Run tests
         run: python -m pytest -q
 
@@ -124,25 +145,32 @@ jobs:
           echo "Site address: '${PAGES_ORIGIN%/}' + '$base_path'"
 
       # 5. Check the data and work out the numbers. A data problem stops the run here and is shown as an
-      #    annotation on the file in the pull request.
+      #    annotation on the file in the pull request. Also writes _config.landing.yml (the Jekyll overlay for
+      #    the `landing_page` switch in league.yml: one line when it is off) and, when it is on, landing.json
+      #    (the sport cards of the landing page, from each sport's demo league).
       - name: Build the data
         run: python scripts/build.py --annotations --site-url "$SITE_ORIGIN$BASE_PATH"
 
       # 6. Build the site. Jekyll takes `baseurl` on the command line, `url` from a file made here.
+      #    _config.landing.yml (step 5) comes before it: with `landing_page: true` it makes the root the landing
+      #    page and 404.html and leaves the league's own pages out; with the switch off it changes nothing.
       - name: Build the site
         run: |
           printf 'url: "%s"\n' "$SITE_ORIGIN" > _config.ci.yml
-          bundle exec jekyll build --config _config.yml,_config.ci.yml --baseurl "$BASE_PATH"
+          bundle exec jekyll build --config _config.yml,_config.landing.yml,_config.ci.yml --baseurl "$BASE_PATH"
 
       # 7. The sample copies: /preview/ (the league's own look with made-up games; only while the real data is
       #    showing, and skipped when league.yml says `preview: false` or data/seasons.yml lists no sample season) and one demo league per sport at
       #    /<sport>/, e.g. /basketball/ (`sport_previews` in league.yml: true, false or a list). They must come
       #    after the main build, which would remove them, and before the link check, so their links are checked
-      #    too. Nothing on the real site links to them, and every page of them is noindex.
+      #    too. Nothing on the real site links to them, and every page of them is noindex. With
+      #    `landing_page: true` there is no /preview/ (the root is the landing page, which links to the demos) and
+      #    each demo's banner says "All sports" instead of "Go to the live site".
       - name: Build the preview copy
         run: scripts/build_preview.sh
 
       # 8. Broken internal links, images, scripts and anchors fail the run. Links to other sites are not checked.
+      #    With the landing page on, its links into /basketball/ and /curling/ are checked here, after step 7.
       - name: Check links and images
         run: scripts/check_links.sh
 

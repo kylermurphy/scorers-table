@@ -2,8 +2,9 @@
 
 A public template for a small recreational league's website (standings,
 schedule, results, player stats, past seasons), built from the league's paper
-score sheets. Several sports: basketball (built, stage 5 part 1, merged) and curling (built, stage 5 part 2, in
-review as a pull request), then hockey, slo-pitch. Read
+score sheets. Several sports: basketball (built, stage 5 part 1, merged) and curling (built, stage 5 part 2, merged), then
+hockey, slo-pitch. The repository's own site is a **showcase** (a landing page at `/` with a card and live
+mini-preview per sport; built, in review as a pull request). Read
 `BRIEF.md` (what it is and why), `PLAN.md` (the stages) and `docs/design.md` (the designs) before starting
 work. Grew out of `tb-masters-basketball/website`; that repo is a reference,
 not a dependency.
@@ -47,35 +48,47 @@ hand-edit; `--inline --out <file>` writes a single self-contained copy). `fallba
 Checks to run after any CSS change: `python scripts/check_contrast.py` (WCAG AA for every pair in both
 themes and every example league colour; rewrites `docs/contrast.md`; must pass) and `python -m pytest`
 (`pip install pytest`). `python scripts/build_css_fallbacks.py` regenerates `fallbacks.css`.
+The Chromium tests (`tests/test_nested_layout.py`, the old-browser test in `tests/test_css_fallbacks.py`) skip without
+Playwright on a computer but FAIL when `CI` is set (`skip_unless_ci`, as for Ruby): CI installs `requirements-ci.txt`
+(`requirements.txt` + pinned Playwright) and `playwright install --with-deps chromium`; keep `requirements.txt` light.
 
-## The core (stage 4, merged), basketball (stage 5 part 1, merged) and curling (part 2, in review as a pull request)
+## The core (stage 4, merged), basketball (stage 5 part 1, merged), curling (part 2, merged) and the landing page
 Read `docs/stage-4-spec.md` (the design, with the decisions the owner approved), `docs/data.md` (the data files)
 and `docs/sports.md` (the sport folder) before touching it; for basketball also `docs/stage-5-basketball-spec.md`,
 `sports/basketball/README.md`, for curling `docs/stage-5-curling-spec.md` and `sports/curling/README.md`, and
-`docs/open-questions.md` (the settings a league still has to decide).
+`docs/open-questions.md` (the settings a league still has to decide); for the landing page
+`docs/landing-page-plan.md` (the approved plan) and `docs/data.md`, "The front page".
 ```
-league.yml                  the league's settings (the one file a setup person edits)
+league.yml                  the league's settings (the one file a setup person edits); `landing_page` sits beside
+                            name, sport and timezone at the top
+landing.yml                 the words of the landing page (title, intro, links, `coming_soon`); read only while
+                            `landing_page: true`, excluded from the site
+landing/index.html          the landing page's source (permalink `/`; excluded from every other build)
 data/                       seasons.yml and one folder per season: teams.yml, players.yml, schedule.csv,
                             games/ (finished sheets), drafts/ (never built), sheets/ (photos)
 sports/<id>/                a sport: sport.yml, rules.py (check, read, present, derive), sample.py, README.md, fixtures/
                             (shared test cases for the later JS port). `basketball` ships (`league.yml` says `sport: basketball`;
                             `convert_masters.py` there turns a Masters data folder into this layout); `curling` is built too
                             (a league switches with `sport: curling`); `stub` is the core's test sport (`demo: false`)
+scripts/landing.py          the landing page's data (landing.json: each demo sport's top-3 standings and latest result, built
+                            like `/<sport>/`), the `landing.yml`/`blurb` checks and the Jekyll overlay `_config.landing.yml`
 scripts/core/               the Python package: model (types), problems, config, sports, loader, standings,
                             compute*, calendars, writer
 scripts/build.py            load -> check -> compute -> write _data/computed/, stub pages, calendars
-scripts/preview_root.py     the temporary root a sport preview is built from; scripts/build_preview.sh builds /preview/, /basketball/ and /curling/
-_layouts/ _includes/        Jekyll: one include per design-system part (_includes/parts, _includes/shell)
-index.html schedule/ ...    the pages; assets/css (stage 3), assets/js/site.js (theme toggle only)
-tests/                      pytest: unit, golden (tests/golden), Jekyll smoke, parity with the design-system page
+scripts/preview_root.py     the temporary root a sport preview is built from; scripts/build_preview.sh builds /preview/ (not while the landing page is on), /basketball/ and /curling/
+_layouts/ _includes/        Jekyll: one include per design-system part (_includes/parts, _includes/shell; parts/sport-card.html
+                            is the landing page's card, a window in the sport's own look)
+index.html schedule/ ...    the pages; assets/css (stage 3), assets/js/site.js (the theme toggle, and its copy onto the landing page's windows)
+tests/                      pytest: unit, golden (tests/golden), Jekyll smoke, parity with the design-system page, Chromium (CI only fails without it)
 .github/workflows/build.yml tests -> contrast -> build -> Jekyll -> preview -> link check -> deploy
 ```
 Commands: `python scripts/build.py [--sample] [--check]` (always run it before previewing data changes: it also
 writes the stub pages and the active season), `bundle exec jekyll serve`, `python -m pytest`,
 `python scripts/make_sample.py` (rewrites `data/sample-*/` for the sport in `league.yml`: made-up, deterministic,
-committed), `bundle exec jekyll build && scripts/build_preview.sh` (the preview copies into `_site/`).
+committed), `bundle exec jekyll build && scripts/build_preview.sh` (the preview copies into `_site/`); with `landing_page: true`
+the first build is `bundle exec jekyll build --config _config.yml,_config.landing.yml`.
 Rules that came with the core:
-- **`_data/computed/`, `_games/`, `_players/`, `_teams/`, `_archive/`, `calendar/` are generated** (git-ignored):
+- **`_data/computed/`, `_games/`, `_players/`, `_teams/`, `_archive/`, `calendar/` and `_config.landing.yml` are generated** (git-ignored):
   never edit them. The golden files in `tests/golden/` are regenerated with `UPDATE_GOLDEN=1 pytest tests/test_golden.py`
   and reviewed by eye.
 - **Every problem names its box** (`file: path: message`); the build stops with all of them and writes nothing.
@@ -90,6 +103,21 @@ Rules that came with the core:
   look with made-up games). Neither is linked from the league's own pages; sport previews are always `noindex`
   and have no calendar files. A new sport appears there by itself. Golden files are per sport
   (`tests/golden/<sport>/`, `test_golden.py`).
+- **The landing page** (`landing_page` in `league.yml`; absent means `false`, the repository ships `true`). `true`: the root `/`
+  is the scorers-table landing page (Basketball look) with one card per sport in `sport_previews` and a "Coming soon"
+  card per `landing.yml` `coming_soon` entry; the league's own pages are left out of the root build by the overlay
+  `_config.landing.yml` (written by every plain `build.py`; `landing_page: false` alone while off), so `/schedule/`
+  and the other old root addresses do not exist, the sample league is at `/basketball/` only, `/preview/` is not
+  built, and a demo's banner says "All sports". `true` with `sport_previews` off is an error. A real league sets
+  `false`. Every plain build prints a note while it is on. The card numbers come from the same computation as each
+  demo (`scripts/landing.py`); nothing is typed in. A sport gets a card by itself once it has a `sample.py` and a
+  `blurb:` in `sport.yml` (one line, at most 100 characters; the contract test requires it); take it off
+  `landing.yml` `coming_soon` then (the build warns). The window in a card is a nested layout: never write a
+  `[data-layout=x] .st-y` rule for a class a window uses (`tests/test_nested_layout.py`). A page added to the root
+  later must be added to `LEAGUE_PAGES` in `scripts/landing.py`. Don't link the design-system page from it.
+  "Off means unchanged" is held by `tests/golden/landing/off-site.sha256` (the hash of every page built with the
+  line left out, checked against the pre-landing commit a9c507f): a page change made on purpose rewrites it with
+  `UPDATE_GOLDEN=1 python -m pytest tests/test_jekyll.py -k left_out_every_page` (read which pages its diff names).
 - **Core parts stay sport-neutral**: `top_performer`, `stats.columns`, the leaderboard keys `zero`, `playoffs`,
   `home`, `player_rank` and rate ranking before rounding are core features that basketball needed; curling added
   the `numbers` and `roster` blocks, `words.extra` ("EE" for "OT"), `display.results_legend`, `display.team_sub`
@@ -113,4 +141,4 @@ Rules that came with the core:
 ## Stack
 Jekyll 4.4 on GitHub Pages, deployed by GitHub Actions after a Python step (PyYAML + standard library) that
 checks the data and works out the numbers. No Ruby plugins beyond Pages-safe ones. No JavaScript framework:
-`assets/js/site.js` is the theme toggle; the pages work with JavaScript off.
+`assets/js/site.js` is the theme toggle (and copies the theme onto the landing page's windows); the pages work with JavaScript off.

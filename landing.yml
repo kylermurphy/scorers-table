@@ -1,0 +1,53 @@
+# landing.yml: the words of the scorers-table front page (the landing page).
+# Used only while league.yml says `landing_page: true`. A league that sets `landing_page: false` can delete this file.
+# Each sport's one-line description is the `blurb:` in its own sports/<id>/sport.yml, not here.
+# The build (python scripts/build.py) checks this file and says which line to fix.
+
+# The name in the page header, the round badge (1 to 4 letters) and the line under the name.
+name: scorers-table
+code: ST
+tagline: League websites from paper score sheets
+
+# The top of the page: the small line above the title, the title, and the intro.
+eyebrow: Free website template
+title: A website for your league, from its score sheets
+intro: >-
+  A free template for a small recreational league: standings, schedule, results, player stats and past seasons,
+  kept by one volunteer from the paper score sheets. Each sport below is a working demo with a made-up league.
+
+# The two menu items. Both jump down the page (the key is the page's own name for the tab).
+nav:
+  - {label: Sports, url: "/#sports", key: sports}
+  - {label: Get started, url: "/#get-started", key: get-started}
+
+# The button on each sport's card; {name} is the sport's name.
+demo_label: "Open the {name} demo"
+
+# The links under "Get started" (the footer repeats them). A url is https://... or a path of this site, like /basketball/.
+# The setup guide is the README's "Publish it" section until the written guide (stage 8) exists; swap this one line then.
+links:
+  - label: Setup guide (short version)
+    url: https://github.com/kylermurphy/scorers-table#publish-it
+    note: How to publish your league's site with GitHub Pages.
+  - label: The code on GitHub
+    url: https://github.com/kylermurphy/scorers-table
+    note: kylermurphy/scorers-table
+
+# The list under "Get started".
+features_title: What every league gets
+features:
+  - Standings, schedule, results and player stats, worked out from your score sheets.
+  - Past seasons kept for good.
+  - Made for phones first, in light and dark.
+  - 'Players shown as "First L." only, never full names, contact details or photos.'
+  - No ads, trackers or cookie banners.
+  - Hidden from search engines unless your league says otherwise.
+
+# Said on the page under "Get started" (every build also prints a note of its own while the landing page is on).
+copy_note: "Copying this template? Set landing_page: false in league.yml to put your league's own site at the front page."
+
+# Sports planned but not built yet: a card with no link and no preview. Take a sport off this list when it is built
+# (its card then appears by itself; the build reminds you). Each blurb is at most 100 characters.
+coming_soon:
+  - {id: hockey, name: Hockey, blurb: "Periods, goals and assists, penalties and goalies."}
+  - {id: slopitch, name: Slo-pitch, blurb: "Innings, run limits and an optional batting line."}

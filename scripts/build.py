@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from scripts import landing                                                          # noqa: E402
 from scripts.core.compute import BuildOutput, compute                                # noqa: E402
 from scripts.core.config import load_league                                          # noqa: E402
 from scripts.core.fmt import parse_date                                              # noqa: E402
@@ -84,6 +85,12 @@ def _live_previews(out_root: Path) -> list[str]:
     return list(live.sport_previews) if live else []
 
 
+def _config_yml(out_root: Path, root: Path) -> Path:
+    """The _config.yml whose `exclude` list the landing overlay repeats: the one next to the pages, else the root's."""
+    return next((p for p in (out_root / "_config.yml", root / "_config.yml", ROOT / "_config.yml") if p.is_file()),
+                ROOT / "_config.yml")
+
+
 def build(args: argparse.Namespace) -> int:
     root = Path(args.root).resolve()
     data_dir = Path(args.data).resolve() if args.data else root / "data"
@@ -107,6 +114,11 @@ def build(args: argparse.Namespace) -> int:
     elif preview:
         banner_links = preview_entries(league.sport_previews, root / "sports")
     today = parse_date(args.today) if args.today else None
+    plain = not args.sample and not sport_preview       # the real site: not the /preview/ or a /<sport>/ copy
+    words = None
+    if league.landing_page and plain:                    # landing.yml and the sports' blurbs (cheap; --check too)
+        words, found = landing.read_words(league, root)
+        problems = problems + found
     data = load_data(root, league, league.sport_def, today=today, data_dir=data_dir)
     problems = problems + data.problems
     output = BuildOutput()
@@ -115,6 +127,11 @@ def build(args: argparse.Namespace) -> int:
                                 sport_preview=league.sport_def.name if sport_preview else "",
                                 sport_previews=banner_links)
         problems = problems + found
+    if words is not None and not has_errors(problems) and not args.check:      # each demo league, about 2 s each
+        page, found = landing.build_page(league, words, root, today=today)
+        problems = problems + found
+        if page is not None:
+            output.data["landing.json"] = page
     code = _report(args, problems, league)
     if code != EXIT_OK:
         return code
@@ -122,9 +139,14 @@ def build(args: argparse.Namespace) -> int:
         _say(args, "The data is valid. Nothing was written (--check).")
         return EXIT_OK
     write_output(out_root, output, photos=league.photos)
+    if plain:                                            # the Jekyll overlay for the root (landing_page: false: one line)
+        landing.write_overlay(out_root, league.landing_page, _config_yml(out_root, root))
     _say(args, f"Built {len(output.seasons)} season(s); the site shows {output.active}. "
                f"Wrote {len(output.data)} data files, {sum(len(p) for p in output.pages.values())} pages and "
                f"{len(output.calendars)} calendar files to {out_root}.")
+    if plain and league.landing_page:
+        _say(args, landing.NOTE)
+        _say(args, landing.SERVE_HINT)
     return EXIT_OK
 
 

@@ -25,7 +25,7 @@ from scripts.core.model import LAYOUTS, League, Placeholder, Problem, SportDef
 LEAGUE_FILE = "league.yml"
 LEAGUE_KEYS = ("name", "short_name", "code", "sport", "layout", "colour", "colour_dark", "logo", "tagline",
                "footer_line", "contact", "timezone", "time_format", "lang", "search_engines", "sample_data",
-               "preview", "sport_previews", "photos", "nightly_hour", "rules", "standings", "stats", "labels", "calendar",
+               "preview", "sport_previews", "landing_page", "photos", "nightly_hour", "rules", "standings", "stats", "labels", "calendar",
                "github")
 REQUIRED_KEYS = ("name", "sport", "timezone")
 TIME_FORMATS = ("12h", "24h")
@@ -245,7 +245,10 @@ def build_league(raw: Any, *, file: str = LEAGUE_FILE, sports_root: Path = SPORT
     lang = c.pattern(raw["lang"], "lang", LANG_RE, "a language code like 'en' or 'fr-CA'") if "lang" in raw else "en"
     flags = {k: (c.boolean(raw[k], k) if k in raw else default)
              for k, default in (("search_engines", False), ("sample_data", False), ("preview", True), ("photos", False))}
+    errors_before = sum(p.level == "error" for p in c.problems)
     previews = _check_sport_previews(c, raw["sport_previews"], sports_root) if "sport_previews" in raw else ()
+    previews_ok = sum(p.level == "error" for p in c.problems) == errors_before
+    landing_page = _check_landing_page(c, raw["landing_page"], previews, previews_ok) if "landing_page" in raw else False
     github = _check_github(c, raw["github"]) if "github" in raw else None
     game_minutes = _check_calendar(c, raw, spec)
     nightly_hour = c.integer(raw["nightly_hour"], "nightly_hour", 0, 23) if "nightly_hour" in raw else 3
@@ -263,7 +266,7 @@ def build_league(raw: Any, *, file: str = LEAGUE_FILE, sports_root: Path = SPORT
         preview=flags["preview"], photos=flags["photos"], rules=rules, standings=normalise_standings(standings_merged),
         standings_merged=standings_merged, minimums=minimums, labels=labels, game_minutes=game_minutes, github=github,
         placeholders=find_placeholders(spec, raw), sport_def=sport, nightly_hour=nightly_hour if nightly_hour is not None else 3,
-        sport_previews=previews)
+        sport_previews=previews, landing_page=landing_page)
     return league, c.problems
 
 
@@ -309,6 +312,19 @@ def _check_sport_previews(c: Checker, value: Any, sports_root: Path) -> tuple[st
         elif _check_preview_path(c, sport_id, at):
             ids.append(sport_id)
     return tuple(ids)
+
+
+def _check_landing_page(c: Checker, value: Any, previews: tuple[str, ...], previews_ok: bool) -> bool:
+    """`landing_page`: true puts the scorers-table landing page (the sport demos and links to them) at the front
+    page; false, or leaving the line out, gives the league's own site there. It needs the demos to show, so
+    `sport_previews` must name at least one (a problem in `sport_previews` itself is reported there instead)."""
+    if c.boolean(value, "landing_page") is None:
+        return False
+    if value and previews_ok and not previews:
+        c.error("landing_page", "the landing page shows the sport demos and links to them, but sport_previews is "
+                                "false (or left out), so there are none. Set sport_previews: true, or set "
+                                "landing_page: false to put your league's own site at the front page.")
+    return value
 
 
 def _check_preview_path(c: Checker, sport_id: str, at: str) -> bool:

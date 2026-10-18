@@ -9,7 +9,7 @@
 `build.py --root <folder> --out . --sport-preview <id>` and Jekyll with base path `<BASE_PATH>/<id>`.
 
 The root holds a `league.yml` (the sport's made-up league from `sports/<id>/sample.py`, the sport's own default
-look, `sample_data: true`, `preview: false`, `sport_previews: false`, `search_engines: false`; the real league's
+look, `sample_data: true`, `preview: false`, `sport_previews: false`, `landing_page: false`, `search_engines: false`; the real league's
 `timezone` and `time_format` are the only things taken from the real `league.yml`), a `data/seasons.yml` with an
 empty current season and the two sample seasons, the sample data from `scripts/make_sample.py` (the same fixed
 seed as the golden test, so two runs write the same files), and `sports/`, a link to this repository's. Nothing
@@ -90,6 +90,7 @@ def league_text(sport_id: str, root: Path = ROOT) -> str:
         "sample_data: true",
         "preview: false",
         "sport_previews: false",
+        "landing_page: false",
         "search_engines: false",
         "",
     ]

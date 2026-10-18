@@ -18,6 +18,7 @@ import pytest
 
 from scripts import build
 from scripts.core import writer
+from tests.conftest import set_landing_page
 from tests.stub_root import use_the_stub
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -34,7 +35,7 @@ def make_repo(tmp_path: Path, *, sample_data: bool = True, real_season: bool = F
     shutil.copytree(ROOT / "data", root / "data")
     shutil.copy(ROOT / "league.yml", root / "league.yml")
     use_the_stub(root)
-    text = (root / "league.yml").read_text(encoding="utf-8")
+    text = set_landing_page((root / "league.yml").read_text(encoding="utf-8"))
     text = text.replace("sample_data: true", f"sample_data: {str(sample_data).lower()}")
     (root / "league.yml").write_text(text, encoding="utf-8")
     if real_season:
@@ -862,6 +863,25 @@ def test_computed_json_has_every_key_the_includes_read(sample_out):
     wrong = sorted(f"{p}: contract {sorted(wanted[p])}, build {sorted(got[p])}" for p in wanted if p in got
                    and p not in TYPE_ALLOWED and (wanted[p] - {"null"}) and (got[p] - {"null"})
                    and not (wanted[p] & got[p]))
+    assert not wrong, "keys with a different type:\n  " + "\n  ".join(wrong)
+
+
+def test_landing_json_has_every_key_the_sport_card_reads():
+    """The landing page's own file (landing.json, written by scripts/landing.py; the golden file stands for it)
+    against what the contract hands the sport card (contract.landing_json()). The window's teams are keyed by id."""
+    from scripts.design_system import contract
+    golden = json.loads((ROOT / "tests" / "golden" / "landing" / "landing.json").read_text(encoding="utf-8"))
+
+    def paths(value) -> dict[str, set]:
+        out: dict[str, set] = {}
+        key_paths(value, "landing", out)
+        return {re.sub(r"(window\.teams)\.[^.\[]+", r"\1.*", p): kinds for p, kinds in out.items()}
+    wanted, got = paths(contract.landing_json()), paths(golden)
+    # what a sport shows only when it has it: its marks (the hammer, a stolen end) and Masters' score sheet label
+    sport_only = [p for p in wanted if p not in got and (p.endswith(".mark") or p.endswith("labels.score_sheets"))]
+    missing = sorted(p for p in wanted if p not in got and p not in sport_only)
+    assert not missing, "keys the sport card reads that landing.json does not have:\n  " + "\n  ".join(missing)
+    wrong = sorted(p for p in wanted if p in got and (wanted[p] - {"null"}) and (got[p] - {"null"}) and not wanted[p] & got[p])
     assert not wrong, "keys with a different type:\n  " + "\n  ".join(wrong)
 
 

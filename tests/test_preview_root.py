@@ -48,6 +48,7 @@ def test_its_league_yml_loads_with_no_problem(root):
     assert league.name == sport.sample.LEAGUE_NAME
     assert (league.sport, league.layout) == ("basketball", sport.spec["default_layout"])
     assert (league.sample_data, league.preview, league.sport_previews, league.search_engines) == (True, False, (), False)
+    assert league.landing_page is False                      # a demo copy never builds the landing page itself
     assert (league.colour, league.logo, league.contact, league.github, league.footer_line) == (None,) * 5
     assert league.rules == {k: o["default"] for k, o in sport.spec["options"].items()}      # the sport's own defaults
     assert [p.setting for p in league.placeholders] == [p.setting for p in load_league(ROOT / "league.yml")[0].placeholders]
@@ -64,7 +65,7 @@ def test_only_the_time_zone_and_time_format_come_from_the_real_league(tmp_path):
     made = yaml.safe_load(preview_root.league_text("basketball", repo))
     assert made == {"name": "Riverside Masters Basketball", "sport": "basketball", "layout": "basketball",
                     "timezone": "America/Toronto", "time_format": "24h", "sample_data": True, "preview": False,
-                    "sport_previews": False, "search_engines": False}
+                    "sport_previews": False, "landing_page": False, "search_engines": False}
 
 
 def test_its_seasons_are_the_templates_and_its_sample_data_is_what_the_golden_test_builds_from(root, tmp_path):

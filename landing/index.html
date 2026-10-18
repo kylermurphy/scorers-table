@@ -1,0 +1,50 @@
+---
+layout: page
+permalink: /
+---
+{%- comment -%}
+  The landing page: the front page of the template's own site (docs/landing-page-plan.md). It is built only while
+  league.yml says `landing_page: true`: scripts/build.py then writes _config.landing.yml, the overlay that makes
+  this the root of the site beside 404.html and leaves the league's own pages out; _config.yml excludes this folder
+  from every other build. Everything comes from landing.json (_data/computed/landing.json, written by
+  scripts/landing.py from landing.yml, the sports' blurbs and each sport's demo league): nothing is typed in here,
+  and no include here asks which sport it is. Header, menu, footer and the 404 page print landing.shell (the
+  context include assigns it to `league`).
+{%- endcomment -%}
+{% include core/context.html %}
+{%- assign _lp = site.data.computed.landing -%}
+
+{% include shell/page-title.html eyebrow=_lp.intro.eyebrow title=_lp.intro.title sub=_lp.intro.text %}
+
+<section class="st-section" id="sports">
+{% include shell/section-head.html title="Sports" %}
+<div class="st-list">
+  {%- for _sport in _lp.sports %}
+{% include parts/sport-card.html sport=_sport %}
+  {%- endfor %}
+  {%- for _soon in _lp.coming_soon %}
+{% include parts/sport-card.html soon=_soon %}
+  {%- endfor %}
+</div>
+<script>try{var t=document.documentElement.getAttribute("data-theme");if(t)document.querySelectorAll(".st-sport-card__window").forEach(function(w){w.setAttribute("data-theme",t)})}catch(e){}</script>
+</section>
+
+<section class="st-section" id="get-started">
+{% include shell/section-head.html title="Get started" %}
+<div class="st-list">
+  {%- for _link in _lp.links %}
+<div><a class="st-button st-button--quiet" href="{% if _link.url contains ':' %}{{ _link.url | escape }}{% else %}{{ _link.url | relative_url }}{% endif %}">{{ _link.label | escape }}</a>{% if _link.note.size > 0 %}<p class="st-note">{{ _link.note | escape }}</p>{% endif %}</div>
+  {%- endfor %}
+  {%- if _lp.features.size > 0 %}
+<h3 class="st-label">{{ _lp.features_title | escape }}</h3>
+<ul class="st-list">
+    {%- for _feature in _lp.features %}
+<li>{{ _feature | escape }}</li>
+    {%- endfor %}
+</ul>
+  {%- endif %}
+  {%- if _lp.copy_note.size > 0 %}
+<p class="st-note">{{ _lp.copy_note | escape }}</p>
+  {%- endif %}
+</div>
+</section>

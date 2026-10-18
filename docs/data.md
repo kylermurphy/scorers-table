@@ -15,6 +15,7 @@ fails with a plain message and **nothing is published**. A typo cannot put a wro
 - [Checking your work](#checking-your-work) and [reading an error message](#reading-an-error-message)
 - [Still to decide](#still-to-decide)
 - [Sample data and the preview copies](#sample-data-and-the-preview-copies)
+- [The front page: `landing_page` and the two preview settings](#the-front-page-landing_page-and-the-two-preview-settings)
 
 Which boxes a score sheet has, and what is checked in them, depends on the sport. The box-by-box guide for
 your sport is `sports/<your sport>/README.md` (basketball's is `sports/basketball/README.md`, curling's is
@@ -55,12 +56,16 @@ A few rules hold for all of them:
 ### `league.yml`
 
 The league's settings. Every setting is explained in the file itself, in plain words. You must set three:
-`name`, `sport` and `timezone`. Everything else has a default.
+`name`, `sport` and `timezone`. Everything else has a default. One more line sits beside them at the top because
+a league that copies the template has to decide it: **`landing_page`**. The template ships `landing_page: true`
+(its own site is a showcase of the sports); a league sets `landing_page: false` so its own site is the front page.
+See [The front page](#the-front-page-landing_page-and-the-two-preview-settings).
 
 ```yaml
 name: "Riverside Masters Basketball"
 sport: basketball
 timezone: America/Toronto
+landing_page: false            # your league's own site at the front page (the template ships true)
 sample_data: false
 ```
 
@@ -70,6 +75,7 @@ To use another sport, change `sport:` to its folder name in `sports/`. A curling
 name: "Pine Lake Curling Club"
 sport: curling
 timezone: America/Winnipeg
+landing_page: false
 sample_data: false
 rules: {ends: 8}               # the sport's own settings; see "Still to decide" below
 ```
@@ -514,15 +520,96 @@ write them).
     `false`, or leaving the line out, builds none. The template ships with `true`, so its own site shows
     what each sport looks like.
   * Like `/preview/`, a sport preview is not linked from any of your own pages, so your visitors do not land on
-    a made-up league. **Every page of it carries the noindex tag, whatever `search_engines` says**, and it has
+    a made-up league. (The one exception is the showcase landing page, which exists to link them:
+    [below](#the-front-page-landing_page-and-the-two-preview-settings).) **Every page of it carries the noindex tag, whatever `search_engines` says**, and it has
     no calendar files. Its banner says it is a sport preview and links to the other sport previews and back to
     the live site; the `/preview/` banner lists the sport previews too, when there are any.
   * They are built on every deploy, so each costs a few seconds of build time and a couple of megabytes of
     site. If you do not want them, set `sport_previews: false`.
   * A sport id may not be one of the site's own top-level paths (`archive`, `assets`, `calendar`, `games`,
-    `players`, `preview`, `rules`, `schedule`, `sheets`, `stats`, `teams`).
+    `landing`, `players`, `preview`, `rules`, `schedule`, `sheets`, `stats`, `teams`).
   * To build them on your own computer, run `bundle exec jekyll build` and then `scripts/build_preview.sh` (it
     builds `_site/preview/` and `_site/<sport>/`, then puts your own data back).
 
 The made-up data and the real data never mix: the real season's files live in `data/<season>/`, the sample
 in `data/sample-<season>/`.
+
+## The front page: `landing_page` and the two preview settings
+
+Three settings in `league.yml` decide what a deploy publishes besides the league's own pages:
+
+| Setting | Builds | Default when the line is left out | Shipped |
+|---|---|---|---|
+| `preview` | `/preview/`: **your** league's site with made-up games (only while the real data is showing, `sample_data: false`) | `true` | (not written; the default) |
+| `sport_previews` | `/<sport>/`: the template's own made-up league for each sport, in the sport's look (`/basketball/`, `/curling/`) | `false` | `true` |
+| `landing_page` | what is at `/`: the scorers-table **landing page** (a showcase of the sports that links the `/<sport>/` demos) instead of your league's own site | `false` | `true` |
+
+**How they combine.**
+
+| `landing_page` | `sport_previews` | `preview` | Result |
+|---|---|---|---|
+| `false`, or left out | `true`, a list or `false` | `true` or `false` | your league's own site at `/`, plus whichever copies the other two settings ask for. Nothing about the build changes. |
+| `true` | `true` or a list | anything | the landing page at `/`, one card per sport in `sport_previews` (`true` = every sport that has a demo, in alphabetical order: today basketball, then curling; a list = those, in that order), then a "Coming soon" card for each sport in `landing.yml`'s `coming_soon`. The demos at `/<sport>/`. No `/preview/`. |
+| `true` | `false`, or left out | anything | **an error**, because there would be no demos to show: `league.yml: landing_page: the landing page shows the sport demos and links to them, but sport_previews is false (or left out), so there are none. Set sport_previews: true, or set landing_page: false to put your league's own site at the front page.` |
+
+A value other than `true` or `false` is an error too (`league.yml: landing_page: must be true or false, not ...`).
+
+**What "the root has only the landing page" means.** With `landing_page: true` the build writes a small file,
+`_config.landing.yml` (git-ignored; never edit it), that tells Jekyll to **leave out** your league's own pages when it
+builds the root: the home page, `schedule/`, `stats/`, `teams/`, `archive/`, `rules/`, `calendar/`, `sheets/` (the score sheet
+photos, even with `photos: true`) and the game, player, team and archive pages made from your data. The landing page (`landing/index.html`, shown at `/`) and the
+"page not found" page are all that is left there. Your data is still loaded and checked on every build, so a
+mistake in it still stops the deploy, but its pages are not published at the root. With `landing_page: false` the
+same file holds one line, `landing_page: false`, and changes nothing.
+
+* **The old root addresses stop existing on a showcase site.** `/schedule/`, `/stats/`, `/teams/...`,
+  `/games/...` and so on, at the root, give "page not found" (a page with the landing page's menu). The sample league is
+  at `/basketball/` only; it is not also at the root. A league that sets `landing_page: false` gets all its
+  addresses back, as before.
+* `preview` and `sample_data` keep their meaning but do nothing at the root while the landing page is on: there is
+  no league site there to preview. `scripts/build_preview.sh` skips `/preview/` and says so in one line.
+* The demos' banner says **"All sports"** (not "Go to the live site") and links back to the landing page. A demo is
+  built exactly as before otherwise.
+* The landing page follows `search_engines` like every other page (default: hidden from search engines); the demos
+  always say `noindex`.
+* **The numbers on the cards** are not typed in. Each build works out every demo league the way the demo itself is
+  built and keeps the top 3 rows of its standings and its latest result (`_data/computed/landing.json`, never
+  edited by hand). The sample seasons are frozen at their own "today", so the cards change only when a sample does.
+* **The loud part.** While `landing_page` is true, every plain `python scripts/build.py` prints "The front page is
+  the scorers-table landing page. For your league's own site, set landing_page: false in league.yml." and a line
+  showing the command to look at it; the landing page's "Get started" section says it too.
+
+### `landing.yml`: the words of the landing page
+
+Read only while `landing_page` is true; a league that sets it to `false` can delete the file. Each sport's one-line
+description is not here: it is `blurb:` in `sports/<id>/sport.yml` ([`docs/sports.md`](sports.md)).
+
+| Key | Required | What it is |
+|---|---|---|
+| `name`, `code`, `tagline` | yes | The header: the name, the round badge (1 to 4 letters) and the line under the name. |
+| `eyebrow`, `title`, `intro` | yes | The top of the page: the small line above the title, the title (the page's one `h1`) and the intro. |
+| `nav` | yes | The menu: `{label, url, key}` each. The shipped two (Sports, Get started) jump down the page. |
+| `demo_label` | no | The text of each card's button; `{name}` becomes the sport's name. Default: `Open the {name} demo`. |
+| `links` | yes | Under "Get started" (the footer repeats them): `{label, url, note}`. A `url` starts with `https://` or is a path of this site, like `/basketball/`. The setup guide is the README's [Publish it](../README.md#publish-it) section until the written guide (stage 8) exists; swapping it is one line here. |
+| `features_title`, `features` | `features` yes | The "What every league gets" list. |
+| `copy_note` | no | The sentence about `landing_page: false` under "Get started". |
+| `coming_soon` | yes (may be `[]`) | Sports planned but not built: `{id, name, blurb}` each, shown as a card with a "Coming soon" tag and no link. A `blurb` is at most 100 characters. When a listed sport gets a demo, its real card appears by itself and the build warns `landing.yml: coming_soon.0: 'hockey' has a demo now, so it gets a real card. Take it off coming_soon.` |
+
+Problems name the line, like every other file: `landing.yml: links.1.url: 'githb.com/x' must start with
+https:// or be a path of this site, like /basketball/.` A missing file with `landing_page: true` is
+`landing.yml: landing_page: true in league.yml needs this file (the words of the front page). Put it back from the
+template, or set landing_page: false.`
+
+### Looking at it on your computer
+
+```
+python scripts/build.py                                              # also writes _data/computed/landing.json and _config.landing.yml
+bundle exec jekyll build --config _config.yml,_config.landing.yml     # the landing page, into _site/
+scripts/build_preview.sh                                              # the demos it links to: _site/basketball/ and _site/curling/
+python -m http.server 4000 --directory _site                          # http://localhost:4000/
+```
+
+Each Jekyll build empties `_site/`, so `build_preview.sh` comes after the last one, and the result is viewed with a
+plain file server rather than `jekyll serve` (which rebuilds and removes the demos; for the landing page alone,
+`bundle exec jekyll serve --config _config.yml,_config.landing.yml` is fine). `python scripts/build.py --sample` and
+a plain `bundle exec jekyll serve` still show the league's own site, as before.

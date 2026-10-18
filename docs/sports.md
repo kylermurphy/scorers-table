@@ -24,7 +24,7 @@ and a Final box): the golden files in `tests/golden/stub/` and most core tests u
 - [What `present` returns](#what-present-returns)
 - [What the core does for you: standings](#what-the-core-does-for-you-standings)
 - [`sample.py`](#samplepy)
-- [Sport previews](#sport-previews)
+- [Sport previews and the landing page](#sport-previews-and-the-landing-page)
 - [The contract test](#the-contract-test)
 - [Checklist for a new sport](#checklist-for-a-new-sport)
 - [Where the code differs from the spec](#where-the-code-differs-from-the-spec)
@@ -55,9 +55,10 @@ Top-level keys. Unknown keys are errors, with a "did you mean".
 
 | Key | Required | Meaning |
 |---|---|---|
-| `name` | yes | Shown as the default tagline ("Basketball"). |
+| `name` | yes | Shown as the default tagline ("Basketball"), and as the sport's name on its landing page card. |
+| `blurb` | for a sport with a demo | One line (at most 100 characters) that says what is special about the sport, shown on its card on the landing page: "Quarters, a running score, free throws and fouls." The schema accepts it on any sport; `tests/test_sport_contract.py` requires it on every sport that has a demo, and a build with `landing_page: true` stops with `sports/<id>/sport.yml: blurb: a sport on the landing page needs a one-line blurb (at most 100 characters).` without it. |
 | `default_layout` | yes | One of `basketball curling hockey slopitch classic scoreboard`. |
-| `demo` | no (`true`) | `false` keeps the sport out of `sport_previews` (see [Sport previews](#sport-previews)). Only the stub says `false`. |
+| `demo` | no (`true`) | `false` keeps the sport out of `sport_previews` (see [Sport previews](#sport-previews-and-the-landing-page)). Only the stub says `false`. |
 | `games_per_day` | no (1) | Games one team may play on one date. |
 | `game_minutes` | no (60) | Default event length in the calendar files. |
 | `words` | yes | See below. |
@@ -405,7 +406,7 @@ def sheet(rng: random.Random, game: SampleGame, ctx: SportContext) -> dict
   `tests/golden/<sport>/` (`stub`, `basketball` and `curling`). `UPDATE_GOLDEN=1 python -m pytest tests/test_golden.py`
   rewrites them; read the diff, and check a new sport's standings and leaders by hand against its sample files.
 
-## Sport previews
+## Sport previews and the landing page
 
 `sport_previews` in `league.yml` (`true`, `false` or a list of sport ids; it is separate from `preview`, which is
 the league's own look with made-up games) makes the deploy also build a demo copy of the site for each sport at
@@ -420,11 +421,39 @@ the two sample seasons; nothing of the league's own `league.yml` but `timezone` 
   with the base path `<BASE_PATH>/<sport>`, once per sport after the real build, and finally puts the real data
   back.
 * Every page of a copy is `noindex, nofollow`, whatever `search_engines` says; it has no calendar files; nothing on
-  the league's own pages links to it; its banner (`shell/sample-banner.html`) names it a sport preview and links to
-  the other sport previews and back to the live site. A sport id may not be one of the site's top-level paths
-  (`archive assets calendar games players preview rules schedule sheets stats teams`).
+  the league's own pages links to it (the showcase landing page, below, is the one page that does); its banner
+  (`shell/sample-banner.html`) names it a sport preview and links to the other sport previews and back to the live
+  site (the landing page, when it is on: the link reads "All sports"). A sport id may not be one of the site's
+  top-level paths (`archive assets calendar games landing players preview rules schedule sheets stats teams`).
 * A new sport therefore gets its demo for free the day its folder lands. If the sport is not ready to be shown,
   set `demo: false` until it is.
+
+### The landing page card
+
+With `landing_page: true` in `league.yml` the front page is the scorers-table showcase (`docs/data.md`, "The front
+page"), and **each sport that has a demo gets a card on it by itself**, with no change to any page or template. What
+the card shows, and where each part comes from:
+
+| On the card | From |
+|---|---|
+| the sport's name | `name:` in `sport.yml` |
+| the one line under it | `blurb:` in `sport.yml` (at most 100 characters; required of every sport with a demo) |
+| the league's name, "made-up league" | `LEAGUE_NAME` in `sample.py` |
+| the top 3 rows of the standings (the columns up to and including the key one: basketball GP W L PTS, curling GP W L T PTS) | the demo league's own standings, worked out the way `/<sport>/` is |
+| the latest result (a result card that links to the game page in the demo) | the demo league's latest game day |
+| the look of that window | the sport's `default_layout` (curling's window is in the Curling colours and fonts, inside a page that is otherwise the Basketball look) |
+| the button "Open the Basketball demo" | the `demo_label` pattern in `landing.yml`, and `/<id>/` |
+
+So a card is only as good as the sport's sample: it needs a standings table with rows and at least one played game
+(`sample.py` already gives both). `scripts/landing.py` builds every demo the same way `build_preview.sh` does (a
+temporary root from `preview_root.py`) and keeps the extract in `_data/computed/landing.json`; the include that draws
+a card (`_includes/parts/sport-card.html`) reads only that file and never asks which sport it is.
+
+**Words that are not the sport's** live in `landing.yml` at the repository root: the page's title and intro, the
+links, and `coming_soon`, the sports that are planned but not built (`{id, name, blurb}`: a card with a "Coming soon"
+tag, no window and no link). Hockey and slo-pitch are there today. When one of them gets its folder, `blurb` and
+`sample.py`, its real card appears in the next build; the build also warns `landing.yml: coming_soon.N: 'hockey' has
+a demo now, so it gets a real card. Take it off coming_soon.` and leaves the coming-soon card out until you do.
 
 ## The contract test
 
@@ -436,7 +465,7 @@ It runs on every folder in `sports/`, so a new sport joins it with no change to 
 checks:
 
 * `sport.yml` is valid, the four files are there, the four functions exist and take the right arguments, and
-  the README is not empty.
+  the README is not empty. A sport with a demo has a one-line `blurb` of at most 100 characters.
 * The sample season passes every check, for the defaults and for every value of every `choice` option, and is
   identical on two runs.
 * The sample has a cancelled game, a moved game, a forfeit, a draft, playoff rows with placeholder teams, and
@@ -479,7 +508,15 @@ and, from stage 5, shared fixtures (`tests/test_<id>_fixtures.py`).
     specimen, parity case, entry in `BLOCK_TYPES`), then use it.
 11. Check the sport preview: `scripts/build_preview.sh` (with `bundle exec jekyll build` first) builds
     `_site/<id>/`. Leave `demo` out so it is shown, or set `demo: false` while it is unfinished.
-12. Update `docs/data.md` examples only if they mention the sport, and list the sport's `decide: true` settings in
+12. The landing page card: add `blurb:` to `sport.yml` (one line, at most 100 characters; the contract test requires
+    it of every sport with a demo), and take the sport off `coming_soon` in `landing.yml` if it was listed (a sport
+    not yet planned there needs nothing). Run `python scripts/build.py` with `landing_page: true` and read the
+    card at 390 px in both themes (`UPDATE_GOLDEN=1 python -m pytest tests/test_landing.py` rewrites
+    `tests/golden/landing/landing.json`; read the diff). The new demo's pages also change the page hashes of
+    `tests/golden/landing/off-site.sha256`: rewrite them with
+    `UPDATE_GOLDEN=1 python -m pytest tests/test_jekyll.py -k left_out_every_page` and check that only the new
+    `/<id>/` pages (and the other demos' banners, which link to it) are named.
+13. Update `docs/data.md` examples only if they mention the sport, and list the sport's `decide: true` settings in
     `docs/open-questions.md`.
 
 ## Where the code differs from the spec
@@ -503,6 +540,7 @@ The spec (`docs/stage-4-spec.md`) is the plan. The code, as of this page, differ
 | Leaderboards have `id of group stat label tile edge min detail` (3.2). | Also `zero`, `playoffs`, `home`, `player_rank`. |
 | `stats` has the groups, `derived` and `team` (3.2). | Also `columns` (the order of the columns for the Stats page, a player's totals and a game log), and `derive` may return an unrounded rate (the core rounds it and ranks on the exact value). |
 | `sport.yml` has no switch for demos. | The optional `demo` key (default `true`); the stub says `false`. |
+| `sport.yml` has no description for a landing page. | The optional `blurb` (one line, at most 100 characters; required of a sport with a demo by the contract test and by a `landing_page: true` build). |
 | `rules.js` ships with each sport (stage 5 plan). | Moves to stage 7 with the entry page. Stage 5 leaves each sport's `fixtures/` for it. |
 | Block types: `stat_table`, `note` (3.3). | `top_performer` (basketball), `numbers` and `roster` (curling). Still to come: `facts`, `events`, a penalties table. |
 | `words` has `period`, `day`, `surface`, `points_for`, `points_against` (3.2). | Also an optional `extra` (`{one, short}`): "Final · EE", "an extra-end win", "ends won". |

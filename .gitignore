@@ -9,6 +9,8 @@
 /sheets/
 # Written by the CI workflow and scripts/build_preview.sh (the address of the site)
 /_config.ci.yml
+# Written by scripts/build.py on every run (the Jekyll overlay for the landing page switch; never edit by hand)
+/_config.landing.yml
 
 # Jekyll and Bundler
 /_site/

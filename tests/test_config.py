@@ -540,3 +540,51 @@ def test_the_template_ships_sport_previews_on():
     assert league.sport_previews == ("basketball", "curling")               # the stub has demo: false
     text = (ROOT / "league.yml").read_text(encoding="utf-8")
     assert "\nsport_previews: true\n" in text and "# preview: true" in text
+
+
+# ------------------------------------------------------------------ landing_page (landing page plan, section 1)
+
+def test_landing_page_is_off_when_the_line_is_left_out(preview_sports):
+    assert ok(preview_sports).landing_page is False
+    assert ok(preview_sports, sport_previews=["tiny", "other"]).landing_page is False
+
+
+def test_landing_page_takes_true_or_false(preview_sports):
+    assert ok(preview_sports, landing_page=False).landing_page is False
+    assert ok(preview_sports, landing_page=False, sport_previews=False).landing_page is False
+    assert ok(preview_sports, landing_page=True, sport_previews=["tiny", "other"]).landing_page is True
+    assert ok(preview_sports, landing_page=True, sport_previews=["tiny"]).landing_page is True
+
+
+@pytest.mark.parametrize("bad", ["yes", 1, None, ["tiny"]])
+def test_landing_page_must_be_true_or_false(preview_sports, bad):
+    league, problems = make(preview_sports, landing_page=bad, sport_previews=["tiny", "other"])
+    assert league is None and set(errors(problems)) == {"landing_page"}
+    assert "must be true or false" in errors(problems)["landing_page"]
+
+
+@pytest.mark.parametrize("extra", [{}, {"sport_previews": False}, {"sport_previews": []}])
+def test_landing_page_needs_sport_demos_to_show(preview_sports, extra):
+    league, problems = make(preview_sports, landing_page=True, **extra)
+    assert league is None
+    message = errors(problems)["landing_page"]
+    assert "sport_previews is false (or left out), so there are none" in message
+    assert "Set sport_previews: true, or set landing_page: false" in message
+    assert set(errors(problems)) == {"landing_page"}
+
+
+def test_landing_page_with_a_broken_sport_previews_blames_only_sport_previews(preview_sports):
+    _, problems = make(preview_sports, landing_page=True, sport_previews=["tinny"])
+    assert set(errors(problems)) == {"sport_previews.0"}
+
+
+def test_landing_page_is_a_known_key_and_the_sport_previews_it_shows_keep_their_order(preview_sports):
+    assert "landing_page" in LEAGUE_KEYS
+    assert ok(preview_sports, landing_page=True, sport_previews=["tiny", "other"]).sport_previews == ("tiny", "other")
+
+
+def test_the_shipped_league_does_not_need_the_switch_to_load():
+    raw = yaml.safe_load((ROOT / "league.yml").read_text(encoding="utf-8"))
+    league, problems = load_league()
+    assert league is not None and not [p for p in problems if p.level == "error"]
+    assert league.landing_page is bool(raw.get("landing_page", False))

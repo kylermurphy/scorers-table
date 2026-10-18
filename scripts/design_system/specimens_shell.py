@@ -4,7 +4,10 @@ the contract with stage 4's Jekyll includes.  Everything shown comes from sample
 """
 from __future__ import annotations
 
+from . import contract, sample
 from .model import MOON_SVG, SUN_SVG, Ctx, Part, esc, team_by_id
+from .specimens_data import standings_table_markup
+from .specimens_scores import CHEVRON, legend, legend_item, legend_kind, result_card
 
 
 # ----------------------------------------------------------------- shared bits
@@ -196,6 +199,54 @@ def render_skip_link(ctx: Ctx) -> str:
     )
 
 
+# The sport card of the landing page (docs/landing-page-plan.md section 4). Its wording and numbers are the
+# fixture contract.landing_json() holds; the window is drawn with the standings table and result card specimens.
+
+def _card_window(ctx: Ctx, sport: str, name: str) -> str:
+    """A card's window: the sport's demo league in the sport's own look. `data-theme` is what site.js copies from
+    the page when the sun/moon button is pressed; the include prints none (JavaScript off: the phone decides), so
+    the parity test leaves this one attribute out."""
+    L = contract.landing_league(sport)
+    win = contract.landing_window(sport)
+    wctx = Ctx(layout=sport, theme=ctx.theme, sport=sport, league=L, layout_meta=sample.LAYOUT_BY_ID[sport])
+    labels = win["league"]["labels"]
+    lines = contract.DISPLAY[sport]["card"] == "lines"
+    key = ""
+    if win["league"]["results_legend"]:
+        key = legend([legend_item(i["kind"], i["text"], i.get("mark", "")) for i in win["league"]["results_legend"]])
+    latest = win["latest"]
+    return (
+        f'<div class="st-page st-sport-card__window" data-layout="{sport}" data-theme="{ctx.theme}" role="group" '
+        f'aria-label="{esc(name)} demo preview">'
+        f'<p class="st-label st-sport-card__league">{esc(L["name"])} · made-up league</p>'
+        f'<div class="st-sport-card__block"><h4 class="st-label st-sport-card__label">{esc(labels["standings"])}</h4>'
+        f'{standings_table_markup(wctx)}<p class="st-note">{esc(win["standings"]["note"])}</p></div>'
+        f'<div class="st-sport-card__block"><h4 class="st-label st-sport-card__label">{esc(labels["results"])}</h4>'
+        f'<p class="st-label st-sport-card__when">{esc(latest["label"])} · {esc(latest["date_long"])}</p>'
+        f'{key}<div class="st-list">{result_card(wctx, L["results"][0], lines)}</div></div>'
+        '</div>'
+    )
+
+
+def render_sport_card(ctx: Ctx) -> str:
+    cards = []
+    for item in contract.landing_json()["sports"]:
+        cards.append(
+            '<article class="st-card st-sport-card">'
+            f'<div class="st-sport-card__head"><h3 class="st-sport-card__name">{esc(item["name"])}</h3></div>'
+            f'<p class="st-sport-card__blurb">{esc(item["blurb"])}</p>'
+            f'{_card_window(ctx, item["id"], item["name"])}'
+            f'<a class="st-button st-sport-card__go" href="#">{esc(item["demo_label"])}{CHEVRON}</a>'
+            '</article>')
+    for item in contract.landing_json()["coming_soon"]:
+        cards.append(
+            '<article class="st-card st-sport-card st-sport-card--soon">'
+            f'<div class="st-sport-card__head"><h3 class="st-sport-card__name">{esc(item["name"])}</h3>'
+            '<span class="st-badge">Coming soon</span></div>'
+            f'<p class="st-sport-card__blurb">{esc(item["blurb"])}</p></article>')
+    return f'<div class="ds-pad"><div class="st-list">{"".join(cards)}</div></div>'
+
+
 PARTS = [
     Part(
         id="header", title="Header", group="Shell", render=render_header,
@@ -234,5 +285,14 @@ PARTS = [
     Part(
         id="skip-link", title="Skip link", group="Shell", render=render_skip_link,
         note="New in stage 4. Off screen until a keyboard user tabs to it; shown here as it looks with focus.",
+    ),
+    Part(
+        id="sport-card", title="Sport card", group="Shell", render=render_sport_card, sports=("basketball",),
+        layouts=("basketball",),
+        note="New on the landing page. A card per sport: name, one line, a window with the sport's demo league in "
+             "the sport's OWN look (top three standings rows and the latest result, drawn with the standings table "
+             "and result card) and the link to the demo. The window is a nested layout: Basketball here, Curling "
+             "beside it, inside this Basketball page. A sport that is not built yet is a card with a Coming soon "
+             "tag, no window and no link. site.js copies the page's theme onto the windows.",
     ),
 ]

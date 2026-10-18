@@ -1,0 +1,853 @@
+{
+  "shell": {
+    "name": "scorers-table",
+    "short_name": "scorers-table",
+    "code": "ST",
+    "layout": "basketball",
+    "tagline": "League websites from paper score sheets",
+    "lang": "en",
+    "search_engines": false,
+    "footer_name": "scorers-table",
+    "footer_line": "",
+    "nav": [
+      {
+        "label": "Sports",
+        "url": "/#sports",
+        "key": "sports"
+      },
+      {
+        "label": "Get started",
+        "url": "/#get-started",
+        "key": "get-started"
+      }
+    ],
+    "footer_links": [
+      {
+        "label": "Basketball demo",
+        "url": "/basketball/"
+      },
+      {
+        "label": "Curling demo",
+        "url": "/curling/"
+      },
+      {
+        "label": "Setup guide (short version)",
+        "url": "https://github.com/kylermurphy/scorers-table#publish-it"
+      },
+      {
+        "label": "The code on GitHub",
+        "url": "https://github.com/kylermurphy/scorers-table"
+      }
+    ],
+    "labels": {
+      "standings": "Standings",
+      "leaders": "Leaders",
+      "final": "Final"
+    },
+    "extra_layouts": [
+      "curling"
+    ]
+  },
+  "active": {
+    "sample_mode": false,
+    "preview": false
+  },
+  "intro": {
+    "eyebrow": "Free website template",
+    "title": "A website for your league, from its score sheets",
+    "text": "A free template for a small recreational league: standings, schedule, results, player stats and past seasons, kept by one volunteer from the paper score sheets. Each sport below is a working demo with a made-up league."
+  },
+  "links": [
+    {
+      "label": "Setup guide (short version)",
+      "url": "https://github.com/kylermurphy/scorers-table#publish-it",
+      "note": "How to publish your league's site with GitHub Pages."
+    },
+    {
+      "label": "The code on GitHub",
+      "url": "https://github.com/kylermurphy/scorers-table",
+      "note": "kylermurphy/scorers-table"
+    }
+  ],
+  "features_title": "What every league gets",
+  "features": [
+    "Standings, schedule, results and player stats, worked out from your score sheets.",
+    "Past seasons kept for good.",
+    "Made for phones first, in light and dark.",
+    "Players shown as \"First L.\" only, never full names, contact details or photos.",
+    "No ads, trackers or cookie banners.",
+    "Hidden from search engines unless your league says otherwise."
+  ],
+  "copy_note": "Copying this template? Set landing_page: false in league.yml to put your league's own site at the front page.",
+  "sports": [
+    {
+      "id": "basketball",
+      "name": "Basketball",
+      "blurb": "Quarters, a running score, free throws and fouls.",
+      "url": "/basketball/",
+      "demo_label": "Open the Basketball demo",
+      "league_name": "Riverside Masters Basketball",
+      "layout": "basketball",
+      "window": {
+        "league": {
+          "name": "Riverside Masters Basketball",
+          "layout": "basketball",
+          "labels": {
+            "standings": "Standings",
+            "full_table": "Full table",
+            "all_stats": "All stats",
+            "team": "Team",
+            "final": "Final",
+            "tie": "Tie",
+            "featured": "Game of the week",
+            "results": "Latest results",
+            "next": "Next game night",
+            "leaders": "Leaders"
+          },
+          "words": {
+            "surface": "",
+            "period": {
+              "one": "Quarter",
+              "many": "Quarters",
+              "short": "Q"
+            },
+            "day": "Week",
+            "points_for": {
+              "label": "PF",
+              "title": "Points for"
+            },
+            "points_against": {
+              "label": "PA",
+              "title": "Points against"
+            }
+          },
+          "display": {
+            "card": "rows",
+            "card_foot": "note",
+            "surface": "label",
+            "card_head": ""
+          },
+          "results_legend": []
+        },
+        "standings": {
+          "columns": [
+            {
+              "key": "gp",
+              "label": "GP",
+              "title": "Games played",
+              "key_col": false
+            },
+            {
+              "key": "w",
+              "label": "W",
+              "title": "Wins",
+              "key_col": false
+            },
+            {
+              "key": "l",
+              "label": "L",
+              "title": "Losses",
+              "key_col": false
+            },
+            {
+              "key": "pts",
+              "label": "PTS",
+              "title": "Points",
+              "key_col": true
+            }
+          ],
+          "rows": [
+            {
+              "rank": 1,
+              "team": "pines",
+              "display": {
+                "gp": "4",
+                "w": "4",
+                "l": "0",
+                "pts": "8"
+              }
+            },
+            {
+              "rank": 2,
+              "team": "comets",
+              "display": {
+                "gp": "4",
+                "w": "3",
+                "l": "1",
+                "pts": "6"
+              }
+            },
+            {
+              "rank": 3,
+              "team": "foxes",
+              "display": {
+                "gp": "3",
+                "w": "1",
+                "l": "2",
+                "pts": "2"
+              }
+            }
+          ],
+          "note": "Top 3 of 5 · through Thu Nov 19"
+        },
+        "teams": {
+          "pines": {
+            "name": "Pines",
+            "code": "PIN",
+            "slot": 4,
+            "colour": null,
+            "url": "/basketball/teams/pines/"
+          },
+          "comets": {
+            "name": "Comets",
+            "code": "COM",
+            "slot": 5,
+            "colour": null,
+            "url": "/basketball/teams/comets/"
+          },
+          "foxes": {
+            "name": "Foxes",
+            "code": "FOX",
+            "slot": 3,
+            "colour": null,
+            "url": "/basketball/teams/foxes/"
+          }
+        },
+        "latest": {
+          "label": "Week 6",
+          "date_long": "Thursday, November 19, 2026",
+          "game": {
+            "id": "2026-11-19-1",
+            "url": "/basketball/games/2026-11-19-1/",
+            "type": "regular",
+            "round": null,
+            "day_label": "Week 6",
+            "date_short": "Thu Nov 19",
+            "date_long": "Thursday, November 19, 2026",
+            "time_display": "7:00 PM",
+            "venue": "[Venue]",
+            "surface_label": null,
+            "home": {
+              "team": "herons",
+              "name": "Herons",
+              "code": "HER",
+              "slot": 2,
+              "colour": null,
+              "score": 51,
+              "result": "loss",
+              "record": "1–4",
+              "record_line": "Loss · now 1–4",
+              "badge": ""
+            },
+            "away": {
+              "team": "comets",
+              "name": "Comets",
+              "code": "COM",
+              "slot": 5,
+              "colour": null,
+              "score": 54,
+              "result": "win",
+              "record": "3–1",
+              "record_line": "Win · now 3–1",
+              "badge": ""
+            },
+            "tie": false,
+            "forfeit": null,
+            "decided_in": "regulation",
+            "status": "Final",
+            "final": {
+              "status": "Final",
+              "sub": "Comets by 3",
+              "note": null
+            },
+            "summary": "Comets by 3",
+            "standings_points": {
+              "home": 0,
+              "away": 2
+            },
+            "line_score": {
+              "shape": "quarters",
+              "corner": "Team",
+              "total_label": "Final",
+              "extra_label": null,
+              "columns": [
+                {
+                  "label": "Q1"
+                },
+                {
+                  "label": "Q2"
+                },
+                {
+                  "label": "Q3"
+                },
+                {
+                  "label": "Q4"
+                }
+              ],
+              "rows": {
+                "home": {
+                  "cells": [
+                    {
+                      "v": 12
+                    },
+                    {
+                      "v": 13
+                    },
+                    {
+                      "v": 16,
+                      "won": true
+                    },
+                    {
+                      "v": 10
+                    }
+                  ],
+                  "total": 51,
+                  "extra": null,
+                  "hammer_first": false
+                },
+                "away": {
+                  "cells": [
+                    {
+                      "v": 14,
+                      "won": true
+                    },
+                    {
+                      "v": 14,
+                      "won": true
+                    },
+                    {
+                      "v": 12
+                    },
+                    {
+                      "v": 14,
+                      "won": true
+                    }
+                  ],
+                  "total": 54,
+                  "extra": null,
+                  "hammer_first": false
+                }
+              },
+              "caption": "Points by quarter",
+              "won_word": "biggest quarter",
+              "mark_word": null,
+              "legend": [
+                {
+                  "kind": "won",
+                  "text": "Biggest quarter for each team"
+                }
+              ],
+              "note": null,
+              "title": null,
+              "meta": null,
+              "note_strong": null,
+              "split": null,
+              "legend_stack": false,
+              "void_word": "not played",
+              "blank_word": "blank",
+              "hammer_word": "Hammer"
+            },
+            "card": {
+              "note": "Top: #61 Ada M. 13 pts",
+              "strong": "#61 Ada M.",
+              "link_label": "Box score",
+              "meta": [
+                "7:00 PM"
+              ],
+              "note_long": "Top scorer: #61 Ada M. 13 pts, 1-1 FT",
+              "line_score": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "curling",
+      "name": "Curling",
+      "blurb": "Ends and the hammer, steals and blanks, rinks of four with spares.",
+      "url": "/curling/",
+      "demo_label": "Open the Curling demo",
+      "league_name": "Pine Lake Curling Club",
+      "layout": "curling",
+      "window": {
+        "league": {
+          "name": "Pine Lake Curling Club",
+          "layout": "curling",
+          "labels": {
+            "standings": "Standings",
+            "full_table": "Full table",
+            "all_stats": "All stats",
+            "team": "Rink",
+            "final": "Final",
+            "tie": "Tie",
+            "featured": "Game of the week",
+            "results": "Latest draw",
+            "next": "Next draw",
+            "leaders": "Rink leaders"
+          },
+          "words": {
+            "surface": "Sheet",
+            "period": {
+              "one": "End",
+              "many": "Ends",
+              "short": "E"
+            },
+            "day": "Draw",
+            "points_for": {
+              "label": "PF",
+              "title": "Points for"
+            },
+            "points_against": {
+              "label": "PA",
+              "title": "Points against"
+            }
+          },
+          "display": {
+            "card": "lines",
+            "card_foot": "meta",
+            "surface": "label",
+            "team_sub": "skip",
+            "card_head": ""
+          },
+          "results_legend": [
+            {
+              "kind": "hammer",
+              "text": "Hammer in end 1"
+            },
+            {
+              "kind": "mark",
+              "text": "Stolen end"
+            },
+            {
+              "kind": "x",
+              "text": "Not played"
+            }
+          ]
+        },
+        "standings": {
+          "columns": [
+            {
+              "key": "gp",
+              "label": "GP",
+              "title": "Games played",
+              "key_col": false
+            },
+            {
+              "key": "w",
+              "label": "W",
+              "title": "Wins",
+              "key_col": false
+            },
+            {
+              "key": "l",
+              "label": "L",
+              "title": "Losses",
+              "key_col": false
+            },
+            {
+              "key": "t",
+              "label": "T",
+              "title": "Ties",
+              "key_col": false
+            },
+            {
+              "key": "pts",
+              "label": "PTS",
+              "title": "Points",
+              "key_col": true
+            }
+          ],
+          "rows": [
+            {
+              "rank": 1,
+              "team": "takeouts",
+              "display": {
+                "gp": "6",
+                "w": "6",
+                "l": "0",
+                "t": "0",
+                "pts": "12"
+              }
+            },
+            {
+              "rank": 2,
+              "team": "stone-cold",
+              "display": {
+                "gp": "5",
+                "w": "3",
+                "l": "1",
+                "t": "1",
+                "pts": "7"
+              }
+            },
+            {
+              "rank": 3,
+              "team": "free-guards",
+              "display": {
+                "gp": "5",
+                "w": "3",
+                "l": "2",
+                "t": "0",
+                "pts": "6"
+              }
+            }
+          ],
+          "note": "Top 3 of 6 · through Thu Nov 19"
+        },
+        "teams": {
+          "takeouts": {
+            "name": "Takeouts",
+            "code": "TO",
+            "slot": 5,
+            "colour": null,
+            "url": "/curling/teams/takeouts/"
+          },
+          "stone-cold": {
+            "name": "Stone Cold",
+            "code": "SC",
+            "slot": 6,
+            "colour": null,
+            "url": "/curling/teams/stone-cold/"
+          },
+          "free-guards": {
+            "name": "Free Guards",
+            "code": "FG",
+            "slot": 4,
+            "colour": null,
+            "url": "/curling/teams/free-guards/"
+          }
+        },
+        "latest": {
+          "label": "Draw 6",
+          "date_long": "Thursday, November 19, 2026",
+          "game": {
+            "id": "2026-11-19-1",
+            "url": "/curling/games/2026-11-19-1/",
+            "type": "regular",
+            "round": null,
+            "day_label": "Draw 6",
+            "date_short": "Thu Nov 19",
+            "date_long": "Thursday, November 19, 2026",
+            "time_display": "6:30 PM",
+            "venue": "[Venue]",
+            "surface_label": "Sheet A",
+            "home": {
+              "team": "stone-cold",
+              "name": "Stone Cold",
+              "code": "SC",
+              "slot": 6,
+              "colour": null,
+              "score": 7,
+              "result": "win",
+              "record": "3–1–1",
+              "record_line": "Win · now 3–1–1",
+              "badge": ""
+            },
+            "away": {
+              "team": "button-pushers",
+              "name": "Button Pushers",
+              "code": "BP",
+              "slot": 1,
+              "colour": null,
+              "score": 5,
+              "result": "loss",
+              "record": "0–4–2",
+              "record_line": "Loss · now 0–4–2",
+              "badge": ""
+            },
+            "tie": false,
+            "forfeit": null,
+            "decided_in": "regulation",
+            "status": "Final",
+            "final": {
+              "status": "Final",
+              "sub": "Stone Cold by 2",
+              "note": null
+            },
+            "summary": "Stone Cold by 2",
+            "standings_points": {
+              "home": 2,
+              "away": 0
+            },
+            "line_score": {
+              "shape": "ends",
+              "corner": "End",
+              "total_label": "Tot",
+              "extra_label": null,
+              "columns": [
+                {
+                  "label": "1"
+                },
+                {
+                  "label": "2"
+                },
+                {
+                  "label": "3",
+                  "blank": true
+                },
+                {
+                  "label": "4"
+                },
+                {
+                  "label": "5"
+                },
+                {
+                  "label": "6"
+                },
+                {
+                  "label": "7"
+                },
+                {
+                  "label": "8"
+                }
+              ],
+              "rows": {
+                "home": {
+                  "cells": [
+                    {
+                      "v": 1,
+                      "won": true,
+                      "hammer": true
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 0,
+                      "hammer": true
+                    },
+                    {
+                      "v": 2,
+                      "won": true,
+                      "hammer": true
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 2,
+                      "won": true,
+                      "hammer": true
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 2,
+                      "won": true,
+                      "hammer": true
+                    }
+                  ],
+                  "total": 7,
+                  "extra": null,
+                  "hammer_first": false
+                },
+                "away": {
+                  "cells": [
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 2,
+                      "won": true,
+                      "hammer": true
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 1,
+                      "won": true,
+                      "hammer": true
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 2,
+                      "won": true,
+                      "hammer": true
+                    },
+                    {
+                      "v": 0
+                    }
+                  ],
+                  "total": 5,
+                  "extra": null,
+                  "hammer_first": false
+                }
+              },
+              "caption": "Points by end",
+              "won_word": null,
+              "mark_word": "stolen end",
+              "void_word": "not played",
+              "blank_word": "blank end",
+              "hammer_word": "Hammer",
+              "title": "End by end",
+              "meta": "8 ends · no extra end",
+              "legend": [
+                {
+                  "kind": "hammer",
+                  "text": "Hammer (last rock)"
+                },
+                {
+                  "kind": "mark",
+                  "text": "Stolen end"
+                },
+                {
+                  "kind": "blank",
+                  "text": "Blank end"
+                }
+              ],
+              "legend_stack": false,
+              "note": "Stone Cold had hammer in the first end.",
+              "note_strong": "Stone Cold",
+              "split": null
+            },
+            "card": {
+              "note": null,
+              "strong": null,
+              "link_label": "Game",
+              "meta": [
+                "Sheet A",
+                "6:30 PM"
+              ],
+              "note_long": null,
+              "line_score": {
+                "shape": "ends",
+                "corner": "End",
+                "total_label": "Tot",
+                "extra_label": null,
+                "columns": [
+                  {
+                    "label": "1"
+                  },
+                  {
+                    "label": "2"
+                  },
+                  {
+                    "label": "3"
+                  },
+                  {
+                    "label": "4"
+                  },
+                  {
+                    "label": "5"
+                  },
+                  {
+                    "label": "6"
+                  },
+                  {
+                    "label": "7"
+                  },
+                  {
+                    "label": "8"
+                  }
+                ],
+                "rows": {
+                  "home": {
+                    "cells": [
+                      {
+                        "v": 1,
+                        "won": true
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 2,
+                        "won": true
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 2,
+                        "won": true
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 2,
+                        "won": true
+                      }
+                    ],
+                    "total": 7,
+                    "extra": null,
+                    "hammer_first": true
+                  },
+                  "away": {
+                    "cells": [
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 2,
+                        "won": true
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 1,
+                        "won": true
+                      },
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 2,
+                        "won": true
+                      },
+                      {
+                        "v": 0
+                      }
+                    ],
+                    "total": 5,
+                    "extra": null,
+                    "hammer_first": false
+                  }
+                },
+                "caption": "Points by end",
+                "won_word": null,
+                "mark_word": "stolen end",
+                "void_word": "not played",
+                "blank_word": "blank end",
+                "hammer_word": "Hammer",
+                "title": null,
+                "meta": null,
+                "legend": [],
+                "legend_stack": false,
+                "note": null,
+                "note_strong": null,
+                "split": null
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "coming_soon": [
+    {
+      "id": "hockey",
+      "name": "Hockey",
+      "blurb": "Periods, goals and assists, penalties and goalies."
+    },
+    {
+      "id": "slopitch",
+      "name": "Slo-pitch",
+      "blurb": "Innings, run limits and an optional batting line."
+    }
+  ]
+}

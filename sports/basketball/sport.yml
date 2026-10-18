@@ -3,6 +3,7 @@
 # club rules, and every rule a league decides is marked `decide: true` (it shows as [placeholder] until the league
 # sets it). The Masters Basketball League's rule is a preset in README.md, not an option of the sport.
 name: Basketball
+blurb: Quarters, a running score, free throws and fouls.
 default_layout: basketball
 games_per_day: 1
 words:

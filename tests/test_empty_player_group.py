@@ -12,6 +12,7 @@ from pathlib import Path
 import pytest
 
 from scripts import build, make_sample
+from tests.conftest import set_landing_page
 from tests.parity.site import jekyll_command, skip_unless_ci
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -34,7 +35,7 @@ def rinks_root(tmp: Path, *, source: bool = False) -> Path:
     (root / "data").mkdir()
     shutil.copy(ROOT / "data" / "seasons.yml", root / "data" / "seasons.yml")
     shutil.copytree(ROOT / "data" / "2026-27", root / "data" / "2026-27")
-    text = (ROOT / "league.yml").read_text(encoding="utf-8")
+    text = set_landing_page((ROOT / "league.yml").read_text(encoding="utf-8"))
     text = re.sub(r"(?m)^sport: .*$", "sport: rinks", text)
     text = re.sub(r"(?m)^name: .*$", 'name: "Example Rinks League"', text)
     (root / "league.yml").write_text(text, encoding="utf-8")

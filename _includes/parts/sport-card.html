@@ -1,0 +1,57 @@
+{%- comment -%}
+  parts/sport-card.html: one sport on the landing page: a card with the sport's name, its one-line description, a
+  window with a preview of its demo league in the sport's own look (the top of the standings and the latest
+  result), and the link to the demo; or, for a sport that is not built yet, a card with a "Coming soon" tag
+  and no window and no link.
+  Params: sport (an entry of landing.json "sports": {name, blurb, url, demo_label, layout, window {league,
+  standings, teams, latest}}) or soon (an entry of "coming_soon": {name, blurb}). Reads nothing else, and never
+  asks which sport it is: the words (the section names, the legend, the result card's foot) arrive as data.
+  The window is the existing standings table and result card, run on the demo's own league: this include saves
+  `league` and `stats`, sets them to the window's league and to the window itself (which holds the `teams` and
+  `standings` the table reads), and puts both back. Every url in the window already points into the demo.
+  The window carries data-layout (the sport's look; its tokens live on that element), class st-page and no
+  data-theme: without JavaScript it follows the phone's colour scheme, as the page does. assets/js/site.js copies
+  the page's data-theme onto every .st-sport-card__window when the sun/moon button is pressed. To apply a SAVED
+  choice before the first paint, put this after the last card:
+  <script>try{var t=document.documentElement.getAttribute("data-theme");if(t)document.querySelectorAll(".st-sport-card__window").forEach(function(w){w.setAttribute("data-theme",t)})}catch(e){}</script>
+{%- endcomment -%}
+{%- capture _sc_o -%}
+{%- if include.sport -%}
+  {%- assign _sc_s = include.sport -%}
+  {%- assign _sc_w = _sc_s.window -%}
+  {%- assign _sc_league = league -%}
+  {%- assign _sc_stats = stats -%}
+  {%- assign league = _sc_w.league -%}
+  {%- assign stats = _sc_w -%}
+<article class="st-card st-sport-card">
+<div class="st-sport-card__head"><h3 class="st-sport-card__name">{{ _sc_s.name | escape }}</h3></div>
+<p class="st-sport-card__blurb">{{ _sc_s.blurb | escape }}</p>
+<div class="st-page st-sport-card__window" data-layout="{{ _sc_s.layout | escape }}" role="group" aria-label="{{ _sc_s.name | escape }} demo preview">
+<p class="st-label st-sport-card__league">{{ league.name | escape }} · made-up league</p>
+<div class="st-sport-card__block"><h4 class="st-label st-sport-card__label">{{ league.labels.standings | escape }}</h4>
+{%- include parts/standings.html standings=_sc_w.standings mode="table" -%}
+</div>
+<div class="st-sport-card__block"><h4 class="st-label st-sport-card__label">{{ league.labels.results | escape }}</h4>
+<p class="st-label st-sport-card__when">{{ _sc_w.latest.label | escape }} · {{ _sc_w.latest.date_long | escape }}</p>
+  {%- if league.results_legend.size > 0 -%}
+{%- include parts/legend.html items=league.results_legend -%}
+  {%- endif -%}
+<div class="st-list">
+{%- include parts/result-card.html game=_sc_w.latest.game -%}
+</div></div>
+</div>
+<a class="st-button st-sport-card__go" href="{{ _sc_s.url | relative_url }}">{{ _sc_s.demo_label | escape }}<span class="st-chevron" aria-hidden="true"> ›</span></a>
+</article>
+  {%- assign league = _sc_league -%}
+  {%- assign stats = _sc_stats -%}
+{%- else -%}
+  {%- assign _sc_c = include.soon -%}
+<article class="st-card st-sport-card st-sport-card--soon">
+<div class="st-sport-card__head"><h3 class="st-sport-card__name">{{ _sc_c.name | escape }}</h3><span class="st-badge">Coming soon</span></div>
+<p class="st-sport-card__blurb">{{ _sc_c.blurb | escape }}</p>
+</article>
+{%- endif -%}
+{%- endcapture -%}
+{%- assign _sc_lines = _sc_o | split: "
+" -%}
+{%- for _sc_line in _sc_lines -%}{{ _sc_line | strip }}{%- endfor -%}

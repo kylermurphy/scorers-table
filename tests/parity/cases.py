@@ -26,12 +26,22 @@ SKIPPED = {
 }
 
 
+# Attributes the specimen draws that the include leaves to JavaScript, per part. The sport card's windows carry the
+# page's theme as data-theme in the specimen (the design-system page forces a theme on each frame); the include
+# prints none, so a page without JavaScript follows the phone, and assets/js/site.js copies the page's choice
+# onto them. The parity test removes the attribute from the specimen before comparing.
+STRIP_ATTRS = {
+    "sport-card": ("data-theme",),
+}
+
+
 @dataclass
 class Case:
     id: str                      # unique id; also the name of the template in cases/
     part: str                    # the specimen Part id
     sports: tuple | None = None  # restrict the sports (None: as the part says)
     drop: tuple = ()             # ((tag, class), ...) children of the specimen's wrapper to leave out
+    strip: tuple = ()            # attributes to remove from the specimen before comparing (STRIP_ATTRS)
     note: str = ""
 
 
@@ -79,7 +89,7 @@ def all_cases() -> list[tuple[Case, Part]]:
     for pid, part in parts.items():
         if pid in SKIPPED:
             continue
-        out.append((Case(pid, pid), part))
+        out.append((Case(pid, pid, strip=STRIP_ATTRS.get(pid, ())), part))
     for frag in FRAGMENTS:
         out.append((frag, parts[frag.part]))
     return out

@@ -19,7 +19,8 @@ THE COMPARISON RULES (tests/parity/htmlcompare.py has the code; nothing else is 
 
 WHAT IS COVERED: every generic part in every layout and sport it is shown for (header, nav, theme button,
 ticker, footer, page title, section heading, banner, skip link, result card, hero, final panel, line score,
-standings and the race, leader tiles and lists, game row, next-game panel, team card, team colours, the roster) and,
+standings and the race, leader tiles and lists, game row, next-game panel, team card, team colours, the roster, the
+sport card with its two windows and the coming-soon card; the windows' data-theme is left out, see cases.STRIP_ATTRS) and,
 as fragments, the generic stat table and note blocks (basketball's box scores) and the numbers block (curling's
 game in numbers).
 WHAT IS SKIPPED, and why: tests/parity/cases.py SKIPPED (event log, and hockey's and slo-pitch's game tables, are
@@ -29,6 +30,8 @@ The test needs Ruby, Bundler and the gems (`bundle install`); without them it is
 `jekyll` (pytest.ini registers it).
 """
 from __future__ import annotations
+
+import re
 
 import pytest
 
@@ -49,10 +52,13 @@ def rendered(tmp_path_factory):
     return site.build_site(tmp_path_factory.mktemp("parity"), command)
 
 
-def _expected(part, layout: str, sport: str, theme: str) -> str:
+def _expected(part, layout: str, sport: str, theme: str, strip: tuple = ()) -> str:
     lay = sample.LAYOUT_BY_ID[layout]
     ctx = Ctx(layout=layout, theme=theme, sport=sport, league=sample.LEAGUES[sport], layout_meta=lay)
-    return part.render(ctx)
+    html = part.render(ctx)
+    for attr in strip:                                   # cases.STRIP_ATTRS: what JavaScript adds to the include's markup
+        html = re.sub(rf' {re.escape(attr)}="[^"]*"', "", html)
+    return html
 
 
 CASES = cases_mod.all_cases()
@@ -65,7 +71,7 @@ def test_includes_match_specimen(rendered, case, part):
     for layout, sport in cases_mod.combos(part, case.sports):
         actual = rendered[(layout, sport)][case.id]
         for theme in ("light", "dark"):
-            expected = _expected(part, layout, sport, theme)
+            expected = _expected(part, layout, sport, theme, case.strip)
             diff = htmlcompare.compare_fragments(
                 expected, actual, mask_toggle=(part.id == "header" and theme == "dark"), drop_expected=case.drop)
             checked += 1
