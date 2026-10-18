@@ -912,7 +912,8 @@ fonts inside a Basketball page. The pieces:
   line score, legend, label and note). `tests/test_nested_layout.py` fails if one does, if a window's layout leaves
   unset a custom property the page's layout sets, or if a layout file has a rule outside its own `[data-layout]`;
   with Playwright it also checks that a window computes the same inside each of the six page looks, in light and
-  dark, as alone, and that the real theme button switches it. A new part used in a window is added to the design
+  dark, as alone, and that the real theme button switches it (skipped without Playwright on a computer, a failure in
+  CI, which installs it from `requirements-ci.txt`). A new part used in a window is added to the design
   system first, as for any part.
 * **A layout used as a window** needs nothing more than its layout file and its place in `extra_layouts`; the landing
   build adds it by itself when a sport with that `default_layout` gets a card.

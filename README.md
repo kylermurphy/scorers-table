@@ -160,6 +160,11 @@ python scripts/check_contrast.py      # WCAG AA for every colour pair; writes do
 python scripts/build.py --check       # validate the data only; writes nothing
 ```
 
+The few browser tests (the landing page's nested looks, the old-browser simulation) need Playwright and Chromium, which
+this template does not ask you to install: without them they are skipped. CI installs them (`requirements-ci.txt`, then
+`python -m playwright install --with-deps chromium`) and fails the run if they are missing. To run them yourself, do
+the same.
+
 A league that used to keep its numbers on the Masters basketball site can convert that data folder with
 `python sports/basketball/convert_masters.py --from <masters>/data --to <new folder>` (it prints the
 `league.yml` lines for the Masters rules; see `sports/basketball/README.md`).

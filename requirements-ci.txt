@@ -1,0 +1,7 @@
+# What the CI workflow (.github/workflows/build.yml) installs: the template's own packages plus Playwright, which the
+# browser tests need (tests/test_nested_layout.py, the old-browser test in tests/test_css_fallbacks.py). Anyone who just
+# uses the template needs requirements.txt only; those tests are skipped on a computer without Playwright but FAIL in
+# CI. The browser itself comes from `playwright install --with-deps chromium` (the workflow runs it).
+# Pinned to a release more than two weeks old (1.63.0 came out on 2026-09-15); raise it on purpose, not by accident.
+-r requirements.txt
+playwright==1.63.0

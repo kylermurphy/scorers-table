@@ -48,6 +48,9 @@ hand-edit; `--inline --out <file>` writes a single self-contained copy). `fallba
 Checks to run after any CSS change: `python scripts/check_contrast.py` (WCAG AA for every pair in both
 themes and every example league colour; rewrites `docs/contrast.md`; must pass) and `python -m pytest`
 (`pip install pytest`). `python scripts/build_css_fallbacks.py` regenerates `fallbacks.css`.
+The Chromium tests (`tests/test_nested_layout.py`, the old-browser test in `tests/test_css_fallbacks.py`) skip without
+Playwright on a computer but FAIL when `CI` is set (`skip_unless_ci`, as for Ruby): CI installs `requirements-ci.txt`
+(`requirements.txt` + pinned Playwright) and `playwright install --with-deps chromium`; keep `requirements.txt` light.
 
 ## The core (stage 4, merged), basketball (stage 5 part 1, merged), curling (part 2, merged) and the landing page
 Read `docs/stage-4-spec.md` (the design, with the decisions the owner approved), `docs/data.md` (the data files)
@@ -76,7 +79,7 @@ scripts/preview_root.py     the temporary root a sport preview is built from; sc
 _layouts/ _includes/        Jekyll: one include per design-system part (_includes/parts, _includes/shell; parts/sport-card.html
                             is the landing page's card, a window in the sport's own look)
 index.html schedule/ ...    the pages; assets/css (stage 3), assets/js/site.js (the theme toggle, and its copy onto the landing page's windows)
-tests/                      pytest: unit, golden (tests/golden), Jekyll smoke, parity with the design-system page
+tests/                      pytest: unit, golden (tests/golden), Jekyll smoke, parity with the design-system page, Chromium (CI only fails without it)
 .github/workflows/build.yml tests -> contrast -> build -> Jekyll -> preview -> link check -> deploy
 ```
 Commands: `python scripts/build.py [--sample] [--check]` (always run it before previewing data changes: it also

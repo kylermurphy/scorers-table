@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 
 from scripts import build_css_fallbacks as gen  # noqa: E402
 from scripts import check_contrast as cc  # noqa: E402
+from tests.parity.site import skip_unless_ci  # noqa: E402
 
 FALLBACKS = ROOT / "assets" / "css" / "fallbacks.css"
 
@@ -288,14 +289,20 @@ def _playwright_python():
     return alt if alt and os.access(alt, os.X_OK) else None
 
 
-@pytest.mark.skipif(_playwright_python() is None, reason="Playwright is not installed (set ST_PLAYWRIGHT_PYTHON)")
 def test_simulated_old_browser_looks_like_the_modern_one():
     """color-mix( is renamed to an unknown function outside fallbacks.css and the @supports block is
     forced on: in the design-system page the computed colours of every element must match the real
     render (league-colour frames and a custom team colour's dark lift excepted), and the OS-dark path
-    must give the same roles. tests/old_browser_sim.py prints the details."""
-    proc = subprocess.run([_playwright_python(), str(ROOT / "tests" / "old_browser_sim.py")],
+    must give the same roles. tests/old_browser_sim.py prints the details.
+
+    Needs Playwright and Chromium (requirements-ci.txt, playwright install chromium): skipped without them on a
+    computer, a failure in CI (the `CI` variable)."""
+    python = _playwright_python()
+    if python is None:
+        skip_unless_ci("Playwright is not installed (pip install -r requirements-ci.txt, then playwright install "
+                       "chromium; or set ST_PLAYWRIGHT_PYTHON); CI always runs it")
+    proc = subprocess.run([python, str(ROOT / "tests" / "old_browser_sim.py")],
                           capture_output=True, text=True, timeout=600)
     if "Executable doesn't exist" in proc.stderr or "BrowserType.launch" in proc.stderr:
-        pytest.skip("Chromium is not available")
+        skip_unless_ci("Chromium is not available (playwright install chromium); CI always runs it")
     assert proc.returncode == 0, proc.stdout[-3000:] + proc.stderr[-2000:]

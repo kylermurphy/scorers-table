@@ -11,6 +11,10 @@ name: Build and deploy
 #     workflow wakes every hour and the `gate` job lets only the hour named by `nightly_hour` in league.yml
 #     (on the league's `timezone` clock, default 3 AM) go on to build. The other 23 wake-ups stop after a few
 #     seconds.
+#   * The tests include the browser tests (Playwright with Chromium: the landing page's nested looks and the
+#     old-browser simulation). Locally they are skipped without Playwright; here they must run, so the build job
+#     installs requirements-ci.txt and Chromium first, and a missing Playwright or browser fails the run (the
+#     tests fail when the `CI` variable is set, as they do for a missing Ruby).
 #
 # One-time setup: GitHub Pages must be switched on for the repository (Settings > Pages > Source:
 # "GitHub Actions") before the first run on main, or the "Set up Pages" step fails.
@@ -86,11 +90,28 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-ci.txt
 
+      # requirements-ci.txt = requirements.txt + Playwright (pinned). The gate job above needs only requirements.txt.
       - name: Install Python packages
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-ci.txt
 
-      # 2. Every test, the Jekyll smoke test and the design-system parity test included.
+      # Chromium for the browser tests. The download is cached by the Playwright version in requirements-ci.txt;
+      # `playwright install` runs every time (it skips the download when the cache is there) because --with-deps
+      # also installs the system libraries Chromium needs, which no cache keeps.
+      - name: Cache the Playwright browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements-ci.txt') }}
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      # 2. Every test, the Jekyll smoke test, the design-system parity test and the Chromium tests included. With
+      #    CI set (GitHub sets it), a missing Ruby, Playwright or browser fails the run instead of skipping tests.
       - name: Run tests
         run: python -m pytest -q
 

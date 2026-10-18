@@ -10,8 +10,8 @@ and this file is where they are enforced:
 
 Two kinds of test:
   * static ones read assets/css/ and the sport card specimen (always run, no browser);
-  * browser ones (Playwright + Chromium; skipped without them, like the old-browser test in
-    test_css_fallbacks.py) lay out the real CSS and compare every computed style of a window inside each of the
+  * browser ones (Playwright + Chromium; skipped without them on a computer, like the old-browser test in
+    test_css_fallbacks.py, but a failure in CI, where `CI` is set: requirements-ci.txt) lay out the real CSS and compare every computed style of a window inside each of the
     six page looks, light and dark, with the same window on a plain page; check that without JavaScript a window
     follows the phone's colour scheme; and press the real theme button of assets/js/site.js.
 
@@ -34,6 +34,7 @@ if str(ROOT) not in sys.path:
 from scripts import check_contrast as cc  # noqa: E402
 from scripts.design_system import sample, specimens_shell  # noqa: E402
 from scripts.design_system.model import Ctx  # noqa: E402
+from tests.parity.site import skip_unless_ci  # noqa: E402
 
 CSS = ROOT / "assets" / "css"
 LAYOUTS = cc.layout_ids()                         # basketball classic curling hockey scoreboard slopitch
@@ -236,7 +237,11 @@ def _chromium() -> str | None:
 
 @pytest.fixture(scope="module")
 def browser():
-    pw_mod = pytest.importorskip("playwright.sync_api", reason="Playwright is not installed")
+    try:
+        from playwright import sync_api as pw_mod
+    except ImportError:
+        skip_unless_ci("Playwright is not installed: pip install -r requirements-ci.txt, then playwright install "
+                       "chromium; CI always runs it")
     with pw_mod.sync_playwright() as pw:
         kw = {"args": ["--no-sandbox"]}
         exe = _chromium()
@@ -245,7 +250,7 @@ def browser():
         try:
             b = pw.chromium.launch(**kw)
         except Exception as err:                                  # pragma: no cover - environment
-            pytest.skip(f"Chromium is not available: {err}")
+            skip_unless_ci(f"Chromium is not available (playwright install chromium): {err}")
         yield b
         b.close()
 
