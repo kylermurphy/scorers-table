@@ -47,6 +47,13 @@ def make_root(base: Path, name: str = "site", *, landing_page: bool | None = Non
     return root
 
 
+@pytest.fixture(autouse=True)
+def not_github(monkeypatch):
+    """Under GitHub Actions build.py sends its notes to stderr (stdout carries the annotations); these tests read
+    stdout, as a person running the build sees it."""
+    monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
+
+
 def run_build(root: Path, *flags: str) -> int:
     return build.main(["--root", str(root), "--out", str(root), "--today", TODAY, *flags])
 
