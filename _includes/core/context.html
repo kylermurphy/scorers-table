@@ -5,7 +5,20 @@
   own `season` from its stub file, else the active one), stats (that season's computed files: teams, standings,
   schedule, results, games, players, leaders), season_label ("2026–27"), season_is_active (true/false).
   Includes read these, never site.data.
+  While the landing page is on (the build with _config.landing.yml, `site.landing_page`), the only pages built at
+  the root are the landing page and 404.html, and `league` and `active` are the landing page's own shell and
+  active files (landing.json): the header, menu and footer print the landing page's words, and there is no sample
+  banner. There is no season there: `season` is empty and `stats` is nothing. The landing page reads the rest of
+  landing.json itself (docs/landing-page-plan.md, section 3).
 {%- endcomment -%}
+{%- if site.landing_page -%}
+  {%- assign league = site.data.computed.landing.shell -%}
+  {%- assign active = site.data.computed.landing.active -%}
+  {%- assign season = "" -%}
+  {%- assign stats = nil -%}
+  {%- assign season_label = "" -%}
+  {%- assign season_is_active = false -%}
+{%- else -%}
 {%- assign league = site.data.computed.league -%}
 {%- assign active = site.data.computed.active -%}
 {%- assign season = page.season | default: active.season -%}
@@ -14,3 +27,4 @@
 {%- for _cx_s in site.data.computed.seasons -%}{%- if _cx_s.id == season -%}{%- assign season_label = _cx_s.label -%}{%- endif -%}{%- endfor -%}
 {%- assign season_is_active = false -%}
 {%- if season == active.season -%}{%- assign season_is_active = true -%}{%- endif -%}
+{%- endif -%}

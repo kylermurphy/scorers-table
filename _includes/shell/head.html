@@ -1,7 +1,9 @@
 {%- comment -%}
   shell/head.html: the contents of <head>. Reads: league (name, tagline, layout, logo, search_engines), page
   (title, description). Order of the stylesheets (docs/design.md): fonts, tokens, the league's layout,
-  base, parts-shell, parts-scores, parts-data, fallbacks. Every path goes through relative_url and nothing is
+  base, parts-shell, parts-scores, parts-data, fallbacks. The landing page's `league.extra_layouts` (the other
+  sports' looks, which its preview windows are drawn in) follow the page's own layout file; each is scoped to the
+  element that carries its data-layout, so their order does not matter. Every path goes through relative_url and nothing is
   loaded from another site: the fonts are in assets/fonts/ (assets/css/fonts.css).
   The inline script runs before the first paint: it marks the page as "js" and applies a saved theme
   (localStorage key st-theme). Without JavaScript the CSS follows prefers-color-scheme, so nothing is lost.
@@ -22,6 +24,9 @@
 <link rel="stylesheet" href="{{ '/assets/css/tokens.css' | relative_url }}">
 {%- assign _hd_layout_css = league.layout | prepend: "/assets/css/layouts/" | append: ".css" %}
 <link rel="stylesheet" href="{{ _hd_layout_css | relative_url }}">
+{%- for _hd_extra in league.extra_layouts %}
+<link rel="stylesheet" href="{{ _hd_extra | prepend: "/assets/css/layouts/" | append: ".css" | relative_url }}">
+{%- endfor %}
 <link rel="stylesheet" href="{{ '/assets/css/base.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/css/parts-shell.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/css/parts-scores.css' | relative_url }}">

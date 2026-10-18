@@ -4,10 +4,15 @@
 #   _site/preview/   the league's own site (name, colours, logo, look) with made-up games, when league.yml says
 #                    `preview: true` and the real data is showing (`sample_data: false`). The banner links back to
 #                    the live site. A league whose data/seasons.yml lists no sample season gets no /preview/: the
-#                    script says so in one line and carries on (the sport previews below are not affected).
+#                    script says so in one line and carries on (the sport previews below are not affected). Also no
+#                    /preview/ while `landing_page: true`: the root is then the landing page, there is no league
+#                    site to preview, and the script says so in one line.
 #   _site/<sport>/   one demo copy per sport named by `sport_previews` in league.yml (true, or a list of sport ids;
 #                    false builds none): the template's made-up league for that sport (sports/<sport>/sample.py)
-#                    in the sport's own look. Always built, whatever `preview` and `sample_data` say.
+#                    in the sport's own look. Always built, whatever `preview` and `sample_data` say. While
+#                    `landing_page: true` the landing page (the root of _site/, built by the main Jekyll build with
+#                    _config.landing.yml) links to them, and each demo's banner says "All sports" (a link to the
+#                    landing page) instead of "Go to the live site" (`live_landing: true` in the copy's overlay).
 #
 # Nothing links to them from the league's own pages and every page carries the noindex tag (a sport copy always
 # does; /preview/ unless league.yml allows search engines). See docs/stage-5-basketball-spec.md, section 7.
@@ -25,7 +30,9 @@
 # "<BASE_PATH>" (where the live site is, for the banner's links). A sport copy reads a temporary root written by
 # scripts/preview_root.py (the sport's sample league and sample seasons, nothing of the real league). The copies share
 # the source folder, so they are built one after another. Finally `build.py` runs again for the real data, so a local
-# checkout is left as it was (this also happens when a step fails, or the script is interrupted).
+# checkout is left as it was (this also happens when a step fails, or the script is interrupted): the restore is the
+# plain `build.py` again, which also puts back landing.json and _config.landing.yml (the copies' builds swap
+# _data/computed/ whole, but they never use the landing overlay: _config.yml leaves landing/ out of every copy).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -36,9 +43,11 @@ if [ -n "$base_path" ] && { [ "${base_path:0:1}" != "/" ] || [ "${base_path: -1}
   exit 2
 fi
 
-read -r preview sample <<<"$(python3 -c 'import yaml; c = yaml.safe_load(open("league.yml")) or {}; print(c.get("preview", True), c.get("sample_data", False))')"
+read -r preview sample landing <<<"$(python3 -c 'import yaml; c = yaml.safe_load(open("league.yml")) or {}; print(c.get("preview", True), c.get("sample_data", False), c.get("landing_page", False) is True)')"
 league_copy=0
-if [ "$preview" = "True" ] && [ "$sample" != "True" ]; then
+if [ "$landing" = "True" ]; then
+  echo "landing_page: true: skipping /preview/ (the root is the landing page, there is no league site to preview)"
+elif [ "$preview" = "True" ] && [ "$sample" != "True" ]; then
   league_copy=1
   # A league that took its sample seasons out of data/seasons.yml has nothing to build /preview/ from: skip it (the
   # sport previews do not need them). Only "no season there is marked `sample: true`" skips; a file that cannot be read
@@ -96,6 +105,9 @@ build_copy() {
   local folder="$1"; shift
   printf 'url: "%s"\nbaseurl: "%s/%s"\nlive_baseurl: "%s"\n' "$origin" "$base_path" "$folder" "$base_path" \
     >"$tmp/$folder-config.yml"
+  if [ "$landing" = "True" ]; then
+    printf 'live_landing: true\n' >>"$tmp/$folder-config.yml"          # the banner's link says "All sports"
+  fi
   # The "Still to decide" list is the real league's business, not a copy's: show a copy's report only if it fails.
   if python3 scripts/build.py "$@" >"$tmp/$folder-report.txt" 2>&1; then
     tail -n 1 "$tmp/$folder-report.txt"

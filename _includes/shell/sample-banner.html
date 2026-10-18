@@ -2,7 +2,8 @@
   shell/sample-banner.html: the notice shown while the site shows the sample season, on the /preview/ copy of the
   league's own site, and on a sport's demo copy (/basketball/ ...).
   Params: preview (true forces the league-preview wording; default active.preview), live_url (where the preview's
-  "Go to the live site" link points: pass the finished URL; no link without it), live_root (the live site's address
+  "Go to the live site" link points: pass the finished URL; no link without it), live_label (the link's words;
+  default "Go to the live site"; the demos say "All sports" while the landing page is on), live_root (the live site's address
   without a trailing slash, which may be empty: the links to the sport previews start from it; none without it).
   Reads: active.sample_mode, active.preview, active.preview_kind ("sport" on a sport's demo copy),
   active.preview_sport (that sport's name), active.sport_previews ([{id, name, url}]: the demos to link to; on a
@@ -11,6 +12,7 @@
   Place it first in <body>, above the header.
 {%- endcomment -%}
 {%- assign _sb_preview = include.preview | default: active.preview -%}
+{%- assign _sb_live_label = include.live_label | default: "Go to the live site" -%}
 {%- assign _sb_sport = false -%}
 {%- if active.preview_kind == "sport" -%}{%- assign _sb_sport = true -%}{%- endif -%}
 {%- assign _sb_demos_seen = false -%}
@@ -24,9 +26,9 @@
 {%- if active.sample_mode or _sb_preview -%}
 <div class="st-banner" role="note"><p class="st-banner__text">
 {%- if _sb_sport -%}
-<strong>Sport preview:</strong> a made-up {{ active.preview_sport | downcase | escape }} league, to show what the template does.{% if _sb_demos.size > 0 %} Other sports: {{ _sb_demos }}.{% endif %}{% if include.live_url.size > 0 %} <a class="st-banner__link" href="{{ include.live_url | escape }}">Go to the live site</a>{% endif %}
+<strong>Sport preview:</strong> a made-up {{ active.preview_sport | downcase | escape }} league, to show what the template does.{% if _sb_demos.size > 0 %} Other sports: {{ _sb_demos }}.{% endif %}{% if include.live_url.size > 0 %} <a class="st-banner__link" href="{{ include.live_url | escape }}">{{ _sb_live_label | escape }}</a>{% endif %}
 {%- elsif _sb_preview -%}
-<strong>Preview with sample data.</strong> Made-up teams, players and scores, for trying out changes.{% if _sb_demos.size > 0 %} Sport previews: {{ _sb_demos }}.{% endif %}{% if include.live_url.size > 0 %} <a class="st-banner__link" href="{{ include.live_url | escape }}">Go to the live site</a>{% endif %}
+<strong>Preview with sample data.</strong> Made-up teams, players and scores, for trying out changes.{% if _sb_demos.size > 0 %} Sport previews: {{ _sb_demos }}.{% endif %}{% if include.live_url.size > 0 %} <a class="st-banner__link" href="{{ include.live_url | escape }}">{{ _sb_live_label | escape }}</a>{% endif %}
 {%- else -%}
 <strong>Sample data.</strong> The teams, players and scores on this site are made up.
 {%- endif -%}

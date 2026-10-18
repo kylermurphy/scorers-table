@@ -21,6 +21,7 @@ import yaml
 from scripts import build, landing, preview_root
 from scripts.core.config import load_league
 from scripts.core.problems import format_human
+from tests.conftest import set_landing_page
 
 ROOT = Path(__file__).resolve().parent.parent
 GOLDEN = ROOT / "tests" / "golden" / "landing" / "landing.json"
@@ -36,9 +37,7 @@ def make_root(base: Path, name: str = "site", *, landing_page: bool | None = Non
     and _config.yml: what `build.py --root` needs to build the front page."""
     root = base / name
     root.mkdir()
-    text = (ROOT / "league.yml").read_text(encoding="utf-8")
-    if landing_page is not None:
-        text += f"\nlanding_page: {'true' if landing_page else 'false'}\n"
+    text = set_landing_page((ROOT / "league.yml").read_text(encoding="utf-8"), landing_page)
     (root / "league.yml").write_text(text, encoding="utf-8")
     shutil.copytree(ROOT / "data", root / "data")
     os.symlink((ROOT / "sports").resolve(), root / "sports", target_is_directory=True)
@@ -225,7 +224,8 @@ def test_the_overlay_leaves_the_leagues_pages_out_of_the_root(on):
     overlay = yaml.safe_load((on / "_config.landing.yml").read_text(encoding="utf-8"))
     base = yaml.safe_load((on / "_config.yml").read_text(encoding="utf-8"))["exclude"]
     assert overlay["landing_page"] is True and overlay["include"] == []
-    assert overlay["exclude"] == [*base, *landing.LEAGUE_PAGES]
+    assert "landing/" in base and "landing.yml" in base                  # _config.yml leaves the page out of every other build
+    assert overlay["exclude"] == [*(e for e in base if e != "landing/"), *landing.LEAGUE_PAGES]   # the overlay puts it in
     assert {name: overlay["collections"][name]["output"] for name in ("games", "players", "teams", "archive")} == \
         {"games": False, "players": False, "teams": False, "archive": False}
     assert set(overlay) == {"landing_page", "exclude", "include", "collections"}

@@ -28,6 +28,10 @@ exclude:
   - PLAN.md
   - CLAUDE.md
   - LICENSE
+  # The landing page (the template's own front page) is built only by the overlay scripts/build.py writes as
+  # _config.landing.yml while league.yml says `landing_page: true`; every other build leaves it out.
+  - landing/
+  - landing.yml
 
 # Written by scripts/build.py: the calendar files, and the score sheet photos when `photos: true`.
 include:

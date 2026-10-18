@@ -423,8 +423,6 @@ def test_the_shipped_league_yml_parses_and_uses_only_known_keys():
 def test_every_shipped_key_is_described_in_a_comment():
     text = (ROOT / "league.yml").read_text(encoding="utf-8")
     for key in LEAGUE_KEYS:
-        if key == "landing_page":          # the landing page's package adds the shipped line (league.yml is not this one's)
-            continue
         assert f"{key}:" in text, f"league.yml has no line for {key}"
 
 

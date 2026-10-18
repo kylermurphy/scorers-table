@@ -2,7 +2,7 @@
 # Every key is described below. A key with a "#" in front is off; remove the "#" to use it.
 # The build (python scripts/build.py) checks this file and says which line to fix.
 
-# --- The three you must set -------------------------------------------------------------
+# --- The three you must set, and the switch to check -----------------------------------
 
 # The league's name, as shown in the header, the page titles and the calendar files.
 name: "Riverside Masters Basketball"
@@ -13,6 +13,14 @@ sport: basketball
 # Where the league plays, as an IANA time zone name ("America/Toronto", "Europe/London").
 # It decides what "today" is and the times in the calendar files. UTC is a stand-in: change it.
 timezone: UTC
+
+# COPYING THIS TEMPLATE FOR A REAL LEAGUE? SET THIS TO false.
+# The template's own site is a showcase: with true, the front page of the site is the scorers-table landing page,
+# a card and a live preview for every sport demo (/basketball/, /curling/, ...), and your league's own pages
+# (standings, schedule, stats) are not built at the front page. Every build prints a note while it is on. With
+# false, your league's own site is the front page and the made-up /preview/ copy is built again. Leaving the
+# line out means false.
+landing_page: true
 
 # --- Names and look ---------------------------------------------------------------------
 

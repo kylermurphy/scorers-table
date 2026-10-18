@@ -25,6 +25,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -32,6 +33,7 @@ import pytest
 import yaml
 
 from scripts import build
+from tests.conftest import set_landing_page
 from tests.stub_root import use_the_stub
 from tests.parity.site import jekyll_command, skip_unless_ci
 
@@ -1059,3 +1061,232 @@ def test_the_basketball_demo_next_to_the_curling_one_has_no_curling_in_it(curlin
     for file in site.rglob("*.html"):
         html = file.read_text(encoding="utf-8")
         assert '<div class="st-legend">' not in html and "Pine Lake" not in html and "st-table--numbers" not in html, file
+
+
+# ------------------------------------------------------------------ the landing page (docs/landing-page-plan.md)
+# The CI chain with `landing_page: true` as the template ships it, in a temporary copy under a base path: build.py,
+# the main Jekyll build with the overlay build.py wrote, scripts/build_preview.sh. The league is the shipped one
+# (basketball), so what the landing page links to is what the demos are.
+
+SOURCE_LANDING = SOURCE + ["landing", "landing.yml", "scripts", "Gemfile", "Gemfile.lock"]
+LANDING_OLD_COMMIT = "a9c507f"              # the commit before any landing page work (origin/main when it was planned)
+
+
+def _landing_chain(tmp: Path, jekyll: list[str], *, league_text=None, source: Path = ROOT, overlay: bool = True
+                   ) -> tuple[Path, subprocess.CompletedProcess, str]:
+    """Copy the source, write league.yml (`league_text(the source's text)`), run build.py, the main Jekyll build
+    (with _config.landing.yml when `overlay`) and build_preview.sh, all under BASE. Returns (the copy, the script's
+    result, the main Jekyll build's output)."""
+    root = tmp / "src"
+    root.mkdir()
+    for name in SOURCE_LANDING:
+        src = source / name
+        if not src.exists():
+            continue
+        if src.is_dir():
+            shutil.copytree(src, root / name, ignore=shutil.ignore_patterns("__pycache__"))
+        else:
+            shutil.copy(src, root / name)
+    text = (source / "league.yml").read_text(encoding="utf-8")
+    (root / "league.yml").write_text(league_text(text) if league_text else text, encoding="utf-8")
+    (root / "_config.ci.yml").write_text('url: ""\n')
+    env = _bundler_env({k: v for k, v in os.environ.items() if k != "GITHUB_ACTIONS"})
+    env.update(BASE_PATH=BASE, SITE_ORIGIN="", JEKYLL_ENV="production")
+    built = subprocess.run([sys.executable, str(root / "scripts" / "build.py"), "--root", str(root), "--out", str(root),
+                            "--today", "2026-11-20", "--site-url", BASE],
+                           cwd=root, capture_output=True, text=True, env=env)
+    assert built.returncode == 0, built.stdout + built.stderr
+    configs = ["_config.yml"] + (["_config.landing.yml"] if overlay else []) + ["_config.ci.yml"]
+    main = subprocess.run([*jekyll, "build", "--config", ",".join(configs), "--baseurl", BASE],
+                          cwd=root, capture_output=True, text=True, env=env)
+    assert main.returncode == 0, main.stdout + main.stderr
+    result = subprocess.run(["bash", "scripts/build_preview.sh"], cwd=root, capture_output=True, text=True, env=env)
+    return root, result, main.stdout + main.stderr
+
+
+@pytest.fixture(scope="module")
+def landed(tmp_path_factory, jekyll):
+    """The template as shipped (landing_page: true): (source copy, build_preview.sh's result, the main build's output)."""
+    assert "\nlanding_page: true\n" in (ROOT / "league.yml").read_text(encoding="utf-8")
+    return _landing_chain(tmp_path_factory.mktemp("landing_on"), jekyll)
+
+
+def _landing_page(landed) -> tuple[str, Page]:
+    html = (landed[0] / "_site" / "index.html").read_text(encoding="utf-8")
+    return html, Page(html)
+
+
+def _file_of(site: Path, href: str) -> Path:
+    """The built file a link on the site (under BASE) reaches."""
+    path = href.split("#")[0].split("?")[0]
+    assert path == BASE or path.startswith(BASE + "/"), href
+    rel = path[len(BASE):].lstrip("/")
+    return site / rel / "index.html" if (not rel or path.endswith("/")) else site / rel
+
+
+def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demos(landed):
+    root, result, main_output = landed
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "index.html"]
+    assert "skipping /preview/" in result.stdout and "Sport preview copy: _site/curling/" in result.stdout
+    assert "Conflict" not in main_output + result.stdout + result.stderr
+    html, page = _landing_page(landed)
+    assert "<title>scorers-table</title>" in html and page.h1 == 1
+    assert "A website for your league, from its score sheets" in html
+    assert 'id="sports"' in html and 'id="get-started"' in html
+    assert page.html_attrs["data-layout"] == "basketball"                     # the landing page is the Basketball look
+    assert "Copying this template? Set landing_page: false in league.yml" in html
+    assert page.robots() == ["noindex, nofollow"]
+    assert (root / "_config.landing.yml").read_text(encoding="utf-8").startswith("# Written by scripts/build.py")
+
+
+def test_the_landing_page_loads_each_sports_look_after_its_own_and_draws_every_window_in_it(landed):
+    _, page = _landing_page(landed)
+    css = page.stylesheets()
+    own, extra, base = (css.index(f"{BASE}/assets/css/{n}.css") for n in ("layouts/basketball", "layouts/curling", "base"))
+    assert own < extra < base
+    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling"]
+    assert page.html.index('aria-label="Basketball demo preview"') < page.html.index('aria-label="Curling demo preview"')
+
+
+def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_the_base_path(landed):
+    root, _, _ = landed
+    site = root / "_site"
+    for name in ("index.html", "404.html"):
+        page = Page((site / name).read_text(encoding="utf-8"))
+        local = [h for h in page.hrefs + page.srcs + [l.get("href", "") for l in page.links]
+                 if is_local(h) and not h.startswith(("#", "data:"))]
+        assert local, name
+        for href in local:
+            assert _file_of(site, href).is_file(), (name, href)
+    html, page = _landing_page(landed)
+    hrefs = set(page.hrefs)
+    assert {f"{BASE}/basketball/", f"{BASE}/curling/", f"{BASE}/#sports", f"{BASE}/#get-started"} <= hrefs
+    assert any(h.startswith(f"{BASE}/basketball/games/") for h in hrefs)
+    assert any(h.startswith(f"{BASE}/curling/games/") for h in hrefs)
+    assert "https://github.com/kylermurphy/scorers-table#publish-it" in hrefs                      # the setup guide
+    assert "design-system" not in html
+    notfound = (site / "404.html").read_text(encoding="utf-8")
+    assert f'href="{BASE}/#sports"' in notfound and f'href="{BASE}/#get-started"' in notfound
+
+
+def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
+    root, _, _ = landed
+    page = json.loads((root / "_data" / "computed" / "landing.json").read_text(encoding="utf-8"))
+    assert [s["id"] for s in page["sports"]] == ["basketball", "curling"]
+    for sport in page["sports"]:
+        for team in sport["window"]["teams"].values():
+            assert team["url"].startswith(f"/{sport['id']}/teams/"), team
+            assert (root / "_site" / team["url"].strip("/") / "index.html").is_file(), team["url"]
+        game_url = sport["window"]["latest"]["game"]["url"]
+        assert game_url.startswith(f"/{sport['id']}/games/")
+        assert (root / "_site" / game_url.strip("/") / "index.html").is_file()
+
+
+def test_the_coming_soon_cards_have_no_link_and_no_window(landed):
+    html, _ = _landing_page(landed)
+    soon = re.findall(r'<article class="st-card st-sport-card st-sport-card--soon">.*?</article>', html, re.S)
+    assert len(soon) == 2 and "Hockey" in soon[0] and "Slo-pitch" in soon[1]
+    for card in soon:
+        assert "<a " not in card and "href" not in card and "st-sport-card__window" not in card
+        assert "Coming soon" in card
+
+
+def test_the_landing_page_requests_nothing_from_another_site(landed):
+    html, page = _landing_page(landed)
+    assert all(is_local(s) for s in page.srcs) and all(is_local(l.get("href", "")) for l in page.links)
+    assert "@import" not in html and "http://" not in html
+    setup, code = "https://github.com/kylermurphy/scorers-table#publish-it", "https://github.com/kylermurphy/scorers-table"
+    assert sorted(h for h in page.hrefs if not is_local(h)) == sorted([setup, code, setup, code, code])   # page, footer, credit
+    assert page.srcs == [f"{BASE}/assets/js/site.js"]
+
+
+def test_without_javascript_the_landing_page_and_its_windows_follow_the_phone(landed):
+    html, page = _landing_page(landed)
+    assert "data-theme" not in page.html_attrs                                  # the head script sets it only from a saved choice
+    assert not re.search(r'<div class="st-page st-sport-card__window"[^>]*data-theme', html)
+    assert page.buttons and all("hidden" in b for b in page.buttons)             # the theme button stays hidden without JS
+    assert html.count('querySelectorAll(".st-sport-card__window")') == 1       # the saved choice, copied before the first paint
+
+
+def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
+    root, _, _ = landed
+    for sport in ("basketball", "curling"):
+        pages = sorted((root / "_site" / sport).rglob("*.html"))
+        assert len(pages) > 40
+        for file in pages:
+            html = file.read_text(encoding="utf-8")
+            assert f'<a class="st-banner__link" href="{BASE}/">All sports</a>' in html, file
+            assert "Go to the live site" not in html, file
+            assert Page(html).robots() == ["noindex, nofollow"], file
+    other = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
+    assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in other
+    assert "st-banner" not in (root / "_site" / "index.html").read_text(encoding="utf-8")      # no sample banner on the landing page
+
+
+def test_the_source_is_left_as_the_real_build_writes_it(landed):
+    root, _, _ = landed
+    assert (root / "_data" / "computed" / "landing.json").is_file()            # the restore at the end of build_preview.sh
+    assert "\nlanding_page: true\n" in (root / "_config.landing.yml").read_text(encoding="utf-8")
+    active = json.loads((root / "_data" / "computed" / "active.json").read_text(encoding="utf-8"))
+    assert active["preview_kind"] == "" and active["sample_mode"] is True
+
+
+# ------------------------------------------------------------------ the switch off: today's site, byte for byte
+
+def _html_tree(site: Path) -> dict[str, bytes]:
+    return {p.relative_to(site).as_posix(): p.read_bytes() for p in sorted(site.rglob("*.html"))}
+
+
+@pytest.fixture(scope="module")
+def landing_off(tmp_path_factory, jekyll):
+    """The same chain with the `landing_page` line left out (every existing copy of the template), the overlay on."""
+    return _landing_chain(tmp_path_factory.mktemp("landing_off"), jekyll, league_text=lambda t: set_landing_page(t, None))
+
+
+def test_with_the_line_left_out_the_overlay_is_one_line_and_the_site_is_the_leagues_own(landing_off):
+    root, result, _ = landing_off
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert (root / "_config.landing.yml").read_text(encoding="utf-8") == "landing_page: false\n"
+    assert not (root / "_data" / "computed" / "landing.json").exists()
+    names = {p.name for p in (root / "_site").iterdir()}
+    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling"} <= names
+    assert not ({"landing", "landing.yml"} & names)
+    assert "A website for your league" not in (root / "_site" / "index.html").read_text(encoding="utf-8")
+    demo = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
+    assert f'href="{BASE}/">Go to the live site</a>' in demo and "All sports" not in demo
+
+
+def test_the_overlay_that_says_off_changes_no_byte_of_the_root(landing_off, tmp_path, jekyll):
+    root, _, _ = landing_off
+    env = _bundler_env({k: v for k, v in os.environ.items() if k != "GITHUB_ACTIONS"})
+    env.update(JEKYLL_ENV="production")
+    without = tmp_path / "without"
+    proc = subprocess.run([*jekyll, "build", "--config", "_config.yml,_config.ci.yml", "--baseurl", BASE,
+                           "--destination", str(without), "--quiet"], cwd=root, capture_output=True, text=True, env=env)
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert _files(root / "_site", skip=("basketball", "curling")) == _files(without)
+
+
+def _have_the_old_commit() -> bool:
+    return subprocess.run(["git", "cat-file", "-e", f"{LANDING_OLD_COMMIT}^{{commit}}"], cwd=ROOT,
+                          capture_output=True).returncode == 0
+
+
+@pytest.mark.skipif(not _have_the_old_commit(), reason=f"commit {LANDING_OLD_COMMIT} (before the landing page work) is not in this clone")
+def test_with_the_line_left_out_every_page_is_what_the_commit_before_the_landing_work_built(landing_off, tmp_path_factory, jekyll):
+    """The riskiest promise of the plan: a league that never heard of `landing_page` gets today's site. Build the
+    commit before the landing work the way CI did then (no overlay) and compare every HTML page of the root and of
+    both demos with the new chain's. (The stylesheets and scripts changed with the sport card part, so only the pages
+    are compared.)"""
+    tmp = tmp_path_factory.mktemp("landing_before")
+    old = tmp / "old"
+    old.mkdir()
+    archive = subprocess.run(["git", "archive", LANDING_OLD_COMMIT], cwd=ROOT, capture_output=True, check=True)
+    subprocess.run(["tar", "-x", "-C", str(old)], input=archive.stdout, check=True)
+    root, result, _ = _landing_chain(tmp, jekyll, source=old, overlay=False)
+    assert result.returncode == 0, result.stdout + result.stderr
+    before, after = _html_tree(root / "_site"), _html_tree(landing_off[0] / "_site")
+    assert sorted(before) == sorted(after) and len(before) > 150
+    different = [name for name in before if before[name] != after[name]]
+    assert different == [], different[:10]

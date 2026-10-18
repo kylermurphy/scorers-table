@@ -26,6 +26,7 @@ import pytest
 
 from scripts import build, make_sample
 from scripts.core.sports import load_sport
+from tests.conftest import set_landing_page
 
 ROOT = Path(__file__).resolve().parent.parent
 GOLDEN = ROOT / "tests" / "golden"
@@ -43,7 +44,7 @@ def sample_root(base: Path, sport_id: str) -> Path:
     (root / "data").mkdir()
     shutil.copy(ROOT / "data" / "seasons.yml", root / "data" / "seasons.yml")
     shutil.copytree(ROOT / "data" / "2026-27", root / "data" / "2026-27")        # the (empty) current season
-    text = (ROOT / "league.yml").read_text(encoding="utf-8")
+    text = set_landing_page((ROOT / "league.yml").read_text(encoding="utf-8"))
     text = re.sub(r"(?m)^sport: .*$", f"sport: {sport_id}", text)
     text = re.sub(r"(?m)^name: .*$", f"name: {json.dumps(sport.sample.LEAGUE_NAME)}", text)
     (root / "league.yml").write_text(text, encoding="utf-8")
