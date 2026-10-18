@@ -12,8 +12,10 @@ A stage can run unattended (overnight) once its spec is approved: it ends in a
 pull request, never a merge.
 
 Status: stages 0-4 done (October 2026; stage 4, the core, is merged). Stage 5 is under way: **basketball is done and
-merged** (spec: `docs/stage-5-basketball-spec.md`) and **curling is done and in review as a pull request** (spec:
-`docs/stage-5-curling-spec.md`); hockey and slo-pitch come next, one pull request each.
+merged** (spec: `docs/stage-5-basketball-spec.md`) and **curling is done and merged** (spec:
+`docs/stage-5-curling-spec.md`); hockey and slo-pitch come next, one pull request each. Beside the stages, the
+**landing page is done and in review as a pull request** (plan: `docs/landing-page-plan.md`; see "Landing page"
+below).
 
 ## Stage 0: brief and plan (done in the Masters website session)
 - `BRIEF.md` (what it is, the core, the sports and their club rules, layouts,
@@ -111,7 +113,7 @@ page, a sample season generator, and the sport's default standings rule.
 - Docs: `docs/sports.md`, `docs/data.md` (examples are basketball), `docs/open-questions.md` section 5 (the new
   placeholders and the questions for the owner: the foul limit, the forfeit score, confirming decisions 3, 4, 6, 8, 9).
 
-**Curling: delivered (in review as a pull request).** All 13 decisions in the spec were confirmed by the owner as
+**Curling: delivered (merged).** All 13 decisions in the spec were confirmed by the owner as
 recommended (October 2026).
 - `sports/curling/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`: the hammer walk, steals, blanks,
   big ends, extra ends, concessions and time called, lineups with spares), `sample.py` (Pine Lake Curling Club), the
@@ -130,6 +132,26 @@ recommended (October 2026).
   `docs/open-questions.md` section 6 (curling's five placeholders and the 13 decisions), `README.md`.
 - Not built, named in the spec: the club-scoreboard line score, team rates ("ends won %"), a printable curling score
   card and photo-reading prompt (both "Later"), and the JavaScript rules and entry page (stage 7).
+
+**Landing page: delivered (in review as a pull request; plan: `docs/landing-page-plan.md`).** The template's own
+site (`kylermurphy.github.io/scorers-table/`) is a showcase, owner-approved: the front page `/` is a landing page in
+the Basketball look with a card per sport (name, one line, a live mini-preview in the sport's own look from its
+sample season, a link to the demo); hockey and slo-pitch are "Coming soon" cards with no link. The demos stay at
+`/basketball/` and `/curling/`. The setup link goes to the README's "Publish it" section until stage 8's guide exists.
+The design-system page is not linked.
+- The switch is `landing_page` in `league.yml`: shipped `true`, loud (listed beside `name`, `sport` and `timezone`,
+  printed by every build, said on the page), default `false` when the line is left out; a real league sets `false`
+  to have its own site at the root. With it on, `sport_previews` must be on too (an error otherwise), the league's
+  own pages are left out of the root build by a generated overlay (`_config.landing.yml`), and `/preview/` is not
+  built.
+- Built: `landing.yml` (the page's words and the coming-soon list), `blurb:` in `sport.yml`, `scripts/landing.py`
+  (checks, `_data/computed/landing.json`, the overlay), the sport card part (`_includes/parts/sport-card.html`,
+  specimen, parity case, contrast pairs; a window in the sport's own look, `assets/js/site.js` copies the theme onto
+  it, `tests/test_nested_layout.py` guards the nesting), the page `landing/index.html`, the "All sports" banner, and
+  `build_preview.sh` and the workflow changes. Docs: `README.md`, `docs/data.md`, `docs/sports.md`,
+  `docs/design.md`, `docs/open-questions.md` section 7.
+- **When a sport lands, its card goes live by itself** (once it has a `sample.py` and a `blurb`): when the hockey
+  and slo-pitch stages merge, remove the sport from `coming_soon` in `landing.yml` (the build warns until then).
 
 **Decided: the JavaScript copy of the rules moves to stage 7**, with the entry page, its only user. Each sport's
 pull request still commits its shared fixtures, so the port can be tested against them.
@@ -167,7 +189,10 @@ drafts with flags. Built per sport from the sport folder's spec.
   Code command for now).
 - A live demo for each sport (the sample leagues on GitHub Pages). **Exists since stage 5:** the sport previews at
   `/<sport>/` (`sport_previews` in `league.yml`); stage 8 lists the setting in the setup guide beside `preview`, as
-  something a league may turn off.
+  something a league may turn off. **The template's own showcase site now exists** (the landing page, above): it
+  links every sport's demo, and hockey and slo-pitch go from "Coming soon" to live there when those stages land.
+  Stage 8's guide must make `landing_page: false` its first step and replace the landing page's "Setup guide (short
+  version)" link (the README's "Publish it", one line in `landing.yml`) with the written guide.
 - **Model:** Sonnet, Opus for the guide's review.
 
 ## Stage 9: desktop layouts
