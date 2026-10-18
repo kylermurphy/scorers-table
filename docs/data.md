@@ -556,8 +556,8 @@ A value other than `true` or `false` is an error too (`league.yml: landing_page:
 
 **What "the root has only the landing page" means.** With `landing_page: true` the build writes a small file,
 `_config.landing.yml` (git-ignored; never edit it), that tells Jekyll to **leave out** your league's own pages when it
-builds the root: the home page, `schedule/`, `stats/`, `teams/`, `archive/`, `rules/`, `calendar/` and the game,
-player, team and archive pages made from your data. The landing page (`landing/index.html`, shown at `/`) and the
+builds the root: the home page, `schedule/`, `stats/`, `teams/`, `archive/`, `rules/`, `calendar/`, `sheets/` (the score sheet
+photos, even with `photos: true`) and the game, player, team and archive pages made from your data. The landing page (`landing/index.html`, shown at `/`) and the
 "page not found" page are all that is left there. Your data is still loaded and checked on every build, so a
 mistake in it still stops the deploy, but its pages are not published at the root. With `landing_page: false` the
 same file holds one line, `landing_page: false`, and changes nothing.

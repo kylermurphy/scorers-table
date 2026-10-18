@@ -117,7 +117,7 @@ today: `build_preview.sh` writes a small overlay per copy (`$tmp/<folder>-config
 - **`build.py`** (a plain run, not `--sport-preview`, not `--check`) always writes `_config.landing.yml`
   (git-ignored). Switch off: one line, `landing_page: false`. Switch on: `landing_page: true`; `exclude:` = the
   `exclude` list read from `_config.yml` plus `index.html`, `schedule/`, `stats/`, `teams/`, `archive/`,
-  `rules/`, `calendar/` (and minus `landing/`); `include: []`; and `output: false` for the four collections.
+  `rules/`, `calendar/`, `sheets/` (the score sheet photos `photos: true` writes; and minus `landing/`); `include: []`; and `output: false` for the four collections.
   Jekyll replaces lists when it merges configs, which is why the list is copied from `_config.yml` at every
   build rather than written by hand (no drift).
 - **The page source** is `landing/index.html` with `permalink: /`. `_config.yml` adds `landing/` and

@@ -1072,11 +1072,12 @@ def test_the_basketball_demo_next_to_the_curling_one_has_no_curling_in_it(curlin
 SOURCE_LANDING = SOURCE + ["landing", "landing.yml", "scripts", "Gemfile", "Gemfile.lock"]
 
 
-def _landing_chain(tmp: Path, jekyll: list[str], *, league_text=None, source: Path = ROOT, overlay: bool = True
-                   ) -> tuple[Path, subprocess.CompletedProcess, str]:
+def _landing_chain(tmp: Path, jekyll: list[str], *, league_text=None, source: Path = ROOT, overlay: bool = True,
+                   after_data=None) -> tuple[Path, subprocess.CompletedProcess, str]:
     """Copy the source, write league.yml (`league_text(the source's text)`), run build.py, the main Jekyll build
-    (with _config.landing.yml when `overlay`) and build_preview.sh, all under BASE. Returns (the copy, the script's
-    result, the main Jekyll build's output)."""
+    (with _config.landing.yml when `overlay`) and build_preview.sh, all under BASE. `after_data(the copy)` runs between
+    build.py and Jekyll (a test that adds files to the source). Returns (the copy, the script's result, the main
+    Jekyll build's output)."""
     root = tmp / "src"
     root.mkdir()
     for name in SOURCE_LANDING:
@@ -1096,6 +1097,8 @@ def _landing_chain(tmp: Path, jekyll: list[str], *, league_text=None, source: Pa
                             "--today", "2026-11-20", "--site-url", BASE],
                            cwd=root, capture_output=True, text=True, env=env)
     assert built.returncode == 0, built.stdout + built.stderr
+    if after_data:
+        after_data(root)
     configs = ["_config.yml"] + (["_config.landing.yml"] if overlay else []) + ["_config.ci.yml"]
     main = subprocess.run([*jekyll, "build", "--config", ",".join(configs), "--baseurl", BASE],
                           cwd=root, capture_output=True, text=True, env=env)
@@ -1222,6 +1225,29 @@ def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
     other = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
     assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in other
     assert "st-banner" not in (root / "_site" / "index.html").read_text(encoding="utf-8")      # no sample banner on the landing page
+
+
+def test_the_landing_page_never_publishes_the_score_sheet_photos(tmp_path, jekyll):
+    """`photos: true` writes sheets/ (build.py) and Jekyll would publish it at the root: the overlay leaves it out, with
+    a sheets/ folder and a file in it in the source."""
+    def photos_on(text: str) -> str:
+        assert "# photos: false\n" in text
+        return set_landing_page(text, True).replace("# photos: false\n", "photos: true\n")
+
+    in_the_source = []
+
+    def add_a_photo(root: Path) -> None:
+        (root / "sheets").mkdir(exist_ok=True)
+        (root / "sheets" / "2026-11-14-g1.jpg").write_bytes(b"\xff\xd8\xff\xd9")
+        in_the_source.append(root / "sheets" / "2026-11-14-g1.jpg")
+
+    root, result, _ = _landing_chain(tmp_path, jekyll, league_text=photos_on, after_data=add_a_photo)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert in_the_source                                                                   # it was in the source...
+    assert "photos: true" in (root / "league.yml").read_text(encoding="utf-8")
+    assert '"sheets/"' in (root / "_config.landing.yml").read_text(encoding="utf-8")
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "index.html"]
+    assert not list((root / "_site").rglob("2026-11-14-g1.jpg"))                           # ...and nowhere in the site
 
 
 def test_the_source_is_left_as_the_real_build_writes_it(landed):

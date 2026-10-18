@@ -60,10 +60,11 @@ LANDING_KEYS = ("name", "code", "tagline", "eyebrow", "title", "intro", "nav", "
 LANDING_REQUIRED = ("name", "code", "tagline", "eyebrow", "title", "intro", "nav", "links", "features", "coming_soon")
 SHELL_LABELS = {"standings": "Standings", "leaders": "Leaders", "final": "Final"}
 DEFAULT_DEMO_LABEL = "Open the {name} demo"
-# The league's own pages at the site root: left out of the root build while the landing page is on. A page added
-# to the root later (the entry page, say) must be added here (tests/test_landing.py lists the root and fails on any
-# page it does not know).
-LEAGUE_PAGES = ("index.html", "schedule/", "stats/", "teams/", "archive/", "rules/", "calendar/")
+# The league's own pages and files at the site root: left out of the root build while the landing page is on. A page
+# added to the root later (the entry page, say) must be added here (tests/test_landing.py lists the root and fails on
+# any page it does not know). `calendar/` and `sheets/` are the folders build.py writes (the score sheet photos only
+# with `photos: true`): the landing page publishes neither, whatever the league's settings say.
+LEAGUE_PAGES = ("index.html", "schedule/", "stats/", "teams/", "archive/", "rules/", "calendar/", "sheets/")
 COLLECTIONS = ("games", "players", "teams", "archive")
 # Keys of a game the result card never reads (the box score and the notes): left out of the extract.
 GAME_LEFT_OUT = ("blocks", "tiles", "notes", "checked_by", "scorekeeper", "photo_url")

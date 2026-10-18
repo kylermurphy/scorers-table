@@ -229,6 +229,7 @@ def test_the_overlay_leaves_the_leagues_pages_out_of_the_root(on):
     assert {name: overlay["collections"][name]["output"] for name in ("games", "players", "teams", "archive")} == \
         {"games": False, "players": False, "teams": False, "archive": False}
     assert set(overlay) == {"landing_page", "exclude", "include", "collections"}
+    assert {"calendar/", "sheets/"} <= set(overlay["exclude"])              # the two folders build.py writes (photos only with `photos: true`)
 
 
 def test_the_overlay_repeats_the_exclude_list_it_is_given_without_landing(tmp_path):
