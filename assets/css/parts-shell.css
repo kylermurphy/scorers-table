@@ -766,3 +766,81 @@ img.st-brand__badge,
 .st-page a.st-skip-link:focus {
   --sk-shift: 0px;
 }
+
+/* ============================================================ sport card (landing page)
+   One sport on the landing page: name, one line, a WINDOW with a preview of the sport's demo league, and the
+   link to the demo. The card itself is the page's own look (existing roles only: text and muted on surface, the
+   Coming soon tag is the badge, the link is the button). The window is a NESTED LAYOUT: it carries its own
+   data-layout, so the sport's tokens apply on that element and everything inside it (the standings table, the
+   result card, the legend) is drawn in the sport's colours and fonts, whatever look the page has. site.js copies
+   the page's data-theme onto the window; with JavaScript off neither has one and both follow the phone.
+   Rules for this section and for everything the window shows (tests/test_nested_layout.py enforces them):
+   no `[data-layout="x"] .y` rule may reach a class used in a window, and nothing here names a layout. */
+.st-sport-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-md);
+  padding: var(--st-card-pad-y) var(--st-card-pad-x) var(--st-card-pad-x);
+}
+.st-sport-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--st-space-xs) var(--st-space-md);
+}
+.st-sport-card__name {
+  font-family: var(--st-font-display);
+  font-size: var(--st-fs-h3);
+  font-weight: var(--st-w-display);
+  letter-spacing: var(--st-display-tracking);
+  line-height: var(--st-lh-tight);
+  text-transform: var(--st-display-transform);
+}
+.st-sport-card__blurb {
+  margin-top: calc(var(--st-space-xs) * -1);
+  color: var(--st-muted);
+  font-size: var(--st-fs-body);
+}
+/* A sport that is not built yet: the same card with a dashed edge, no window and no link. The dashed edge
+   (line-strong on surface) is decoration; the words "Coming soon" carry the meaning. */
+.st-sport-card--soon {
+  border-style: dashed;
+  border-color: var(--st-line-strong);
+}
+
+/* The window. It is the sport's own page in miniature: .st-page gives it that sport's ground, text and font;
+   the edge and the corner are the sport's roles too (they resolve on this element). The doubled card class
+   keeps the design-system page's `.ds-frame .st-page` padding from winning. */
+.st-card.st-sport-card > .st-sport-card__window {
+  display: flex;
+  flex-direction: column;
+  gap: var(--st-space-lg);
+  min-width: 0;
+  padding: var(--st-space-md);
+  border: var(--st-border) solid var(--st-line-strong);
+  border-radius: var(--st-radius-panel);
+}
+.st-sport-card__league {
+  line-height: var(--st-lh-body);
+}
+.st-sport-card__block {
+  min-width: 0;
+}
+.st-sport-card__label {
+  margin-bottom: var(--st-space-sm);
+  color: var(--st-text);
+  font-size: var(--st-fs-meta);
+}
+.st-sport-card__when {
+  margin: calc(var(--st-space-xs) * -1) 0 var(--st-space-sm);
+}
+.st-sport-card__block > .st-legend {
+  margin-bottom: var(--st-space-sm);
+}
+.st-sport-card__go {
+  align-self: stretch;
+}
+/* The button is a flex box, which drops the space before the chevron: give it a margin instead. */
+.st-sport-card__go .st-chevron {
+  margin-inline-start: var(--st-space-2xs);
+}

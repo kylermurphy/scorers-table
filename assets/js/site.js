@@ -1,9 +1,24 @@
 /* scorers-table: the theme button, and nothing else. Every page works without this file.
    The head has already applied a saved choice (localStorage "st-theme") before the first paint.
    The button is in the page with the `hidden` attribute; this shows it, keeps its icon and label for the page's
-   current theme, and on a press sets data-theme on <html> and saves the choice. */
+   current theme, and on a press sets data-theme on <html> and saves the choice.
+   The landing page's sport cards each hold a window in the sport's own look (class st-sport-card__window,
+   its own data-layout). A layout's dark rules match data-theme on the element that carries data-layout, so the
+   page's choice is copied onto every window (and removed again when the page has none: the window then follows
+   the phone, like the page). */
 (function () {
   var root = document.documentElement;
+  var windows = document.querySelectorAll(".st-sport-card__window");
+
+  function copyTheme() {
+    var chosen = root.getAttribute("data-theme");
+    for (var i = 0; i < windows.length; i++) {
+      if (chosen === "light" || chosen === "dark") windows[i].setAttribute("data-theme", chosen);
+      else windows[i].removeAttribute("data-theme");
+    }
+  }
+  copyTheme();
+
   var button = document.querySelector(".st-theme-toggle");
   if (!button) return;
   var media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
@@ -30,6 +45,7 @@
     var next = current() === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("st-theme", next); } catch (e) {}
+    copyTheme();
     show();
   });
   if (media && media.addEventListener) media.addEventListener("change", show);

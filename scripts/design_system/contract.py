@@ -19,6 +19,8 @@ read; docs/design.md ("Stage 4 includes") lists every such field. Rules for this
 """
 from __future__ import annotations
 
+import copy
+import functools
 import json
 import re
 import sys
@@ -588,6 +590,94 @@ def leaders_json(L: dict, layout: str) -> dict:
     return {"boards": boards, "table": None}
 
 
+# ----------------------------------------------------------------------------- landing (the sport card)
+
+# The words the landing page's cards hold (the real ones are a sport's `blurb` in sport.yml, landing.yml's
+# coming_soon list and the sport's name; docs/landing-page-plan.md section 3 fixes the shape).
+LANDING_DEMOS = (
+    ("basketball", "Basketball", "Quarters, a running score, free throws and fouls."),
+    ("curling", "Curling", "Ends and the hammer, steals and blanks, rinks of four with spares."),
+)
+LANDING_SOON = (
+    ("hockey", "Hockey", "Periods, goals and assists, penalties and goalies."),
+    ("slopitch", "Slo-pitch", "Innings, run limits and an optional batting line."),
+)
+WINDOW_ROWS = 3
+
+
+def landing_columns(columns: list) -> int:
+    """How many standings columns the window keeps: up to and including the key column (the sport's points
+    column), or three when no column is the key. The sport-neutral way to fit 360 px."""
+    for i, c in enumerate(columns):
+        if c["key_col"]:
+            return i + 1
+    return 3
+
+
+def landing_league(sport: str) -> dict:
+    """The sample league as one card's window shows it: the top three standings rows and the columns that fit.
+    The specimen draws the window from this copy, the Jekyll include from `landing_json`'s copy of it."""
+    L = copy.deepcopy(sample.LEAGUES[sport])
+    st = L["standings"]
+    keep = landing_columns(st["columns"])
+    full = len(st["rows"])
+    st["columns"] = st["columns"][:keep]
+    st["rows"] = st["rows"][:WINDOW_ROWS]
+    when = L["results_header"]["meta"].split(" · ")[1]
+    st["window_note"] = f"Top {len(st['rows'])} of {full} · through {when}"
+    return L
+
+
+def _under(prefix: str, url: str) -> str:
+    """A site path of the league's pages becomes the same page inside the demo: /games/x/ -> /basketball/games/x/."""
+    return f"/{prefix}{url}"
+
+
+def landing_window(sport: str) -> dict:
+    """The `window` of one `landing.json` sport (plan section 3): the demo's league fields the parts read, the
+    top standings rows, the teams they print and the first game of the latest day."""
+    L = sample.LEAGUES[sport]
+    layout = sport                                             # the demo's own look: the sport's default layout
+    league = league_json(L, layout)
+    cut = landing_league(sport)
+    st = standings_json(cut)
+    teams_all = teams_json(L)
+    standings = {
+        "columns": st["columns"],
+        "rows": [{"rank": r["rank"], "team": r["team"], "display": r["display"]} for r in st["rows"]],
+        "note": cut["standings"]["window_note"],
+    }
+    full = next(iter(games_json(L, layout).values()))
+    keep = ("id", "url", "tie", "forfeit", "status", "time_display", "home", "away", "card")    # what a result card reads
+    game = copy.deepcopy({k: full[k] for k in keep})
+    game["url"] = _under(sport, game["url"])
+    day = schedule_json(L, layout)["days"][0]
+    wanted = {r["team"] for r in standings["rows"]} | {game["home"]["team"], game["away"]["team"]}
+    teams = {k: {"name": v["name"], "code": v["code"], "slot": v["slot"], "colour": v["colour"],
+                 "url": _under(sport, v["url"])} for k, v in teams_all.items() if k in wanted}
+    legend = [_legend_item(_legend_kind(t), t) for t in L.get("results_legend") or []] if sport == "curling" else []
+    return {
+        "league": {"name": league["name"], "layout": layout, "labels": league["labels"], "words": league["words"],
+                   "display": league["display"], "results_legend": legend},
+        "standings": standings,
+        "teams": teams,
+        "latest": {"label": day["label"], "date_long": day["date_long"], "game": game},
+    }
+
+
+@functools.lru_cache(maxsize=1)
+def landing_json() -> dict:
+    """The part of `_data/computed/landing.json` the sport card reads: `sports` (a card with a window each) and
+    `coming_soon` (a card with no window and no link)."""
+    sports = []
+    for sport, name, blurb in LANDING_DEMOS:
+        sports.append({
+            "id": sport, "name": name, "blurb": blurb, "url": f"/{sport}/", "demo_label": f"Open the {name} demo",
+            "league_name": sample.LEAGUES[sport]["name"], "layout": sport, "window": landing_window(sport),
+        })
+    return {"sports": sports, "coming_soon": [{"id": i, "name": n, "blurb": b} for i, n, b in LANDING_SOON]}
+
+
 # ----------------------------------------------------------------------------- case (test fixtures)
 
 def case_json(L: dict, layout: str) -> dict:
@@ -647,7 +737,9 @@ def write(out_dir: Path) -> list[Path]:
     for layout, sport in cases():
         folder = Path(out_dir) / f"{layout}--{sport}"
         folder.mkdir(parents=True, exist_ok=True)
-        for name, data in build(sport, layout).items():
+        # `landing` (the sport card's fixture) is not a file a sport's build writes for a league, so build() leaves
+        # it out: tests/test_build.py compares build()'s keys with what the real build writes
+        for name, data in {**build(sport, layout), "landing": landing_json()}.items():
             (folder / f"{name}.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
         folders.append(folder)
     return folders

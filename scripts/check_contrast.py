@@ -952,6 +952,15 @@ def build_pairs() -> list:
         _pair("focus", "surface", "ui", "focus/skip-link-border", plain="the skip link's border",
               why="parts-shell.css .st-skip-link border (focus against the surface chip it frames)"),
     ]
+    # sport card (parts-shell.css, landing page). The card is the page's own look on a surface card; the window
+    # inside it is the sport's own layout, so every pair inside it (standings table, result card, labels) is
+    # that layout's own and is measured above. Listed here: the card's name and one-liner.
+    P += [
+        _pair("text", "surface", "text", "text/sport-card", plain="a sport card's name",
+              why="parts-shell.css .st-sport-card__name (text on the card's surface)"),
+        _pair("muted", "surface", "text", "muted/sport-card", plain="a sport card's one-line description",
+              why="parts-shell.css .st-sport-card__blurb (muted on the card's surface)"),
+    ]
     # marks, badges, ranks (parts-scores.css .is-mark, .st-legend__key--mark/--limit; base.css .st-badge)
     P += [
         _pair("mark-text", ("surface", "mark-bg"), "text", "mark-text/mark-bg", not_in=("scoreboard",)),
