@@ -2,6 +2,7 @@
 # knowledge only: nothing here is one league's rule. The defaults are BRIEF.md's typical club rules, and every rule a
 # league decides is marked `decide: true` (it shows as [placeholder] until the league sets it).
 name: Curling
+blurb: Ends and the hammer, steals and blanks, rinks of four with spares.
 default_layout: curling
 games_per_day: 1
 game_minutes: 120

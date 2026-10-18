@@ -314,9 +314,31 @@ def test_preview_entries_give_the_name_and_the_address_on_the_live_site():
 
 
 def test_the_site_paths_are_the_ones_the_site_builds():
-    assert SITE_PATHS == ("archive", "assets", "calendar", "games", "players", "preview", "rules", "schedule", "sheets",
-                          "stats", "teams")
+    assert SITE_PATHS == ("archive", "assets", "calendar", "games", "landing", "players", "preview", "rules", "schedule",
+                          "sheets", "stats", "teams")
     assert not set(SITE_PATHS) & set(discover_sports(SPORTS_ROOT))
+
+
+# ------------------------------------------------------------------ `blurb` (landing page plan, section 5)
+
+def test_blurb_is_an_optional_one_line_text_of_at_most_100_characters(sports_root):
+    spec = spec_of(sports_root)
+    assert "blurb" not in spec and check_sport_spec(spec, "sport.yml") == []          # optional in the schema
+    assert normalise_spec(spec).get("blurb") is None
+    assert check_sport_spec({**spec, "blurb": "Two halves, a clock and a horn."}, "sport.yml") == []
+    assert check_sport_spec({**spec, "blurb": "x" * 100}, "sport.yml") == []
+    found = _problems_at({**spec, "blurb": "x" * 101})
+    assert set(found) == {"blurb"} and "101 characters" in found["blurb"] and "at most 100" in found["blurb"]
+    assert "one line" in _problems_at({**spec, "blurb": "Two halves.\nA clock."})["blurb"]
+    for bad in ("", "  ", 5, ["a"], None):
+        assert set(_problems_at({**spec, "blurb": bad})) == {"blurb"}, bad
+
+
+def test_the_real_sports_have_a_blurb_the_landing_page_can_show():
+    for sport_id in demo_sports(SPORTS_ROOT):
+        sport, problems = load_sport(sport_id, SPORTS_ROOT)
+        assert sport is not None and problems == [], problems
+        assert 0 < len(sport.spec["blurb"]) <= 100 and "\n" not in sport.spec["blurb"].strip(), sport_id
 
 
 # ------------------------------------------------------------------ core extensions E8, E9 and E10 (curling spec, section 6)

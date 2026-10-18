@@ -190,7 +190,7 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
     """Check a parsed sport.yml against the fixed schema of spec 3.2. Returns every problem (unknown keys
     included, each with its path), so a stage 5 typo fails the contract test rather than a page."""
     c = Checker(file)
-    top = ("name", "default_layout", "demo", "games_per_day", "game_minutes", "words", "line_score", "options",
+    top = ("name", "blurb", "default_layout", "demo", "games_per_day", "game_minutes", "words", "line_score", "options",
            "standings", "stats", "minimums", "leaderboards", "labels", "labels_by_layout", "display", "positions")
     required = ("name", "default_layout", "words", "line_score", "standings", "stats")
     if spec is None or c.mapping(spec, "", allowed=top, required=required) is None:
@@ -199,6 +199,8 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
         return c.problems
     if "name" in spec:
         c.text(spec["name"], "name")
+    if "blurb" in spec:
+        _check_blurb(c, spec["blurb"])
     if "default_layout" in spec:
         c.choice(spec["default_layout"], "default_layout", LAYOUTS)
     if "demo" in spec:
@@ -228,6 +230,18 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
         for i, p in enumerate(c.sequence(spec["positions"], "positions") or []):
             c.pattern(p, join_path("positions", i), KEY_RE, "a lower-case word")
     return c.problems
+
+
+BLURB_MAX = 100       # the landing page's one-line description of a sport
+
+
+def _check_blurb(c: Checker, blurb: Any) -> None:
+    """`blurb:` is one line of at most 100 characters (the sport's card on the landing page)."""
+    text = c.text(blurb, "blurb")
+    if text is not None and "\n" in text.strip():
+        c.error("blurb", "must be one line.")
+    elif text is not None and len(text.strip()) > BLURB_MAX:
+        c.error("blurb", f"is {len(text.strip())} characters; keep it to at most {BLURB_MAX}.")
 
 
 def _check_words(c: Checker, words: Any) -> None:
@@ -551,8 +565,8 @@ def discover_sports(sports_root: Path = SPORTS_ROOT) -> list[str]:
 
 # The top-level paths of the site itself. A sport preview is built at /<sport id>/, so no sport id may be one of
 # these (spec 7.2): the preview would overwrite the page or folder of the same name.
-SITE_PATHS = ("archive", "assets", "calendar", "games", "players", "preview", "rules", "schedule", "sheets", "stats",
-              "teams")
+SITE_PATHS = ("archive", "assets", "calendar", "games", "landing", "players", "preview", "rules", "schedule", "sheets",
+              "stats", "teams")
 
 
 def demo_sports(sports_root: Path = SPORTS_ROOT) -> dict[str, str]:

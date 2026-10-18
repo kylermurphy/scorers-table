@@ -167,3 +167,4 @@ class League:
     sport_def: SportDef
     nightly_hour: int = 3          # local hour (0-23) of the nightly rebuild; read by scripts/nightly_gate.py
     sport_previews: tuple[str, ...] = ()   # sport ids to build a demo copy for at /<id>/ (scripts/build_preview.sh)
+    landing_page: bool = False     # the front page is the scorers-table landing page (scripts/landing.py); absent = off
