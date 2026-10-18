@@ -112,6 +112,9 @@ Rules that came with the core:
   `landing.yml` `coming_soon` then (the build warns). The window in a card is a nested layout: never write a
   `[data-layout=x] .st-y` rule for a class a window uses (`tests/test_nested_layout.py`). A page added to the root
   later must be added to `LEAGUE_PAGES` in `scripts/landing.py`. Don't link the design-system page from it.
+  "Off means unchanged" is held by `tests/golden/landing/off-site.sha256` (the hash of every page built with the
+  line left out, checked against the pre-landing commit a9c507f): a page change made on purpose rewrites it with
+  `UPDATE_GOLDEN=1 python -m pytest tests/test_jekyll.py -k left_out_every_page` (read which pages its diff names).
 - **Core parts stay sport-neutral**: `top_performer`, `stats.columns`, the leaderboard keys `zero`, `playoffs`,
   `home`, `player_rank` and rate ranking before rounding are core features that basketball needed; curling added
   the `numbers` and `roster` blocks, `words.extra` ("EE" for "OT"), `display.results_legend`, `display.team_sub`

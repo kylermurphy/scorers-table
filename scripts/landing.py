@@ -69,8 +69,10 @@ COLLECTIONS = ("games", "players", "teams", "archive")
 GAME_LEFT_OUT = ("blocks", "tiles", "notes", "checked_by", "scorekeeper", "photo_url")
 NOTE = ("The front page is the scorers-table landing page. For your league's own site, set landing_page: false "
         "in league.yml.")
-SERVE_HINT = ("To see it: bundle exec jekyll serve --config _config.yml,_config.landing.yml  (run "
-              "scripts/build_preview.sh after a build to have the demos it links to).")
+# Not `jekyll serve` with the demos: serve rebuilds _site/ whenever build_preview.sh swaps the data, which deletes them.
+SERVE_HINT = ("To see it with the demos it links to: bundle exec jekyll build --config _config.yml,_config.landing.yml, "
+              "then scripts/build_preview.sh, then python -m http.server 4000 --directory _site (not jekyll serve: it "
+              "rebuilds _site/ and deletes the demos).")
 URL_WORDS = "must start with https:// or be a path of this site, like /basketball/."
 
 

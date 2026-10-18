@@ -241,18 +241,24 @@ def test_the_overlay_repeats_the_exclude_list_it_is_given_without_landing(tmp_pa
 
 def test_the_overlay_names_every_page_the_site_has_at_its_root():
     """A page added to the root later (the entry page, say) must be added to LEAGUE_PAGES, or it would show at the root
-    under the landing page. Pages: a file with front matter, or a folder with an index page."""
-    excluded = set(landing.exclude_list(ROOT / "_config.yml"))
+    under the landing page. A page is any file Jekyll would render: one that starts with front matter, whatever its
+    name or extension and however deep in its folder (enter/sheet.html, help/faq/index.md, feed.xml...)."""
+    excluded = {e.rstrip("/") for e in landing.exclude_list(ROOT / "_config.yml")}
     known = {p.rstrip("/") for p in landing.LEAGUE_PAGES} | {"404.html", "landing", "assets"}
+    skipped = {"vendor", "node_modules", "_site"}               # Jekyll's own defaults (the gems of a local bundle)
+
+    def rendered(path: Path) -> bool:
+        with path.open("rb") as f:
+            return f.read(5).startswith((b"---\n", b"---\r\n"))
+
     found = set()
-    for path in ROOT.iterdir():
-        name = path.name
-        if name.startswith((".", "_")) or name in excluded or f"{name}/" in excluded:
+    for top in ROOT.iterdir():
+        name = top.name
+        if name.startswith((".", "_")) or name in excluded or name in skipped:
             continue
-        if path.is_file() and path.suffix in (".html", ".md", ".markdown"):
-            if path.read_text(encoding="utf-8").startswith("---"):
-                found.add(name)
-        elif path.is_dir() and any((path / index).is_file() for index in ("index.html", "index.md")):
+        files = [top] if top.is_file() else [p for p in top.rglob("*") if p.is_file()
+                                              and not any(part.startswith((".", "_")) for part in p.relative_to(top).parts)]
+        if any(rendered(p) for p in files):
             found.add(name)
     assert found <= known, f"root pages the landing overlay does not know about: {sorted(found - known)}"
 
@@ -261,7 +267,11 @@ def test_a_plain_build_prints_the_note_and_the_command_to_see_the_page(tmp_path,
     root = make_root(tmp_path, landing_page=True)
     assert run_build(root) == 0
     out = capsys.readouterr().out
-    assert NOTE in out and "bundle exec jekyll serve --config _config.yml,_config.landing.yml" in out
+    assert NOTE in out and "bundle exec jekyll build --config _config.yml,_config.landing.yml" in out
+    # the order that keeps the demos: Jekyll first, then build_preview.sh, then a plain file server (not jekyll serve,
+    # which rebuilds _site/ when build_preview.sh swaps the data, and so deletes the demos)
+    hint = out[out.index("To see it"):]
+    assert hint.index("jekyll build") < hint.index("scripts/build_preview.sh") < hint.index("http.server")
 
 
 def test_a_demo_or_preview_copy_writes_neither_landing_json_nor_the_overlay(tmp_path):

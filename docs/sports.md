@@ -512,7 +512,10 @@ and, from stage 5, shared fixtures (`tests/test_<id>_fixtures.py`).
     it of every sport with a demo), and take the sport off `coming_soon` in `landing.yml` if it was listed (a sport
     not yet planned there needs nothing). Run `python scripts/build.py` with `landing_page: true` and read the
     card at 390 px in both themes (`UPDATE_GOLDEN=1 python -m pytest tests/test_landing.py` rewrites
-    `tests/golden/landing/landing.json`; read the diff).
+    `tests/golden/landing/landing.json`; read the diff). The new demo's pages also change the page hashes of
+    `tests/golden/landing/off-site.sha256`: rewrite them with
+    `UPDATE_GOLDEN=1 python -m pytest tests/test_jekyll.py -k left_out_every_page` and check that only the new
+    `/<id>/` pages (and the other demos' banners, which link to it) are named.
 13. Update `docs/data.md` examples only if they mention the sport, and list the sport's `decide: true` settings in
     `docs/open-questions.md`.
 

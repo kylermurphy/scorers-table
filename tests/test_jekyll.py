@@ -20,6 +20,7 @@ Marked `jekyll`: skipped without Ruby, Bundler and the gems; CI always runs it.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -1069,7 +1070,6 @@ def test_the_basketball_demo_next_to_the_curling_one_has_no_curling_in_it(curlin
 # (basketball), so what the landing page links to is what the demos are.
 
 SOURCE_LANDING = SOURCE + ["landing", "landing.yml", "scripts", "Gemfile", "Gemfile.lock"]
-LANDING_OLD_COMMIT = "a9c507f"              # the commit before any landing page work (origin/main when it was planned)
 
 
 def _landing_chain(tmp: Path, jekyll: list[str], *, league_text=None, source: Path = ROOT, overlay: bool = True
@@ -1268,25 +1268,35 @@ def test_the_overlay_that_says_off_changes_no_byte_of_the_root(landing_off, tmp_
     assert _files(root / "_site", skip=("basketball", "curling")) == _files(without)
 
 
-def _have_the_old_commit() -> bool:
-    return subprocess.run(["git", "cat-file", "-e", f"{LANDING_OLD_COMMIT}^{{commit}}"], cwd=ROOT,
-                          capture_output=True).returncode == 0
+OFF_GOLDEN = ROOT / "tests" / "golden" / "landing" / "off-site.sha256"
 
 
-@pytest.mark.skipif(not _have_the_old_commit(), reason=f"commit {LANDING_OLD_COMMIT} (before the landing page work) is not in this clone")
-def test_with_the_line_left_out_every_page_is_what_the_commit_before_the_landing_work_built(landing_off, tmp_path_factory, jekyll):
-    """The riskiest promise of the plan: a league that never heard of `landing_page` gets today's site. Build the
-    commit before the landing work the way CI did then (no overlay) and compare every HTML page of the root and of
-    both demos with the new chain's. (The stylesheets and scripts changed with the sport card part, so only the pages
-    are compared.)"""
-    tmp = tmp_path_factory.mktemp("landing_before")
-    old = tmp / "old"
-    old.mkdir()
-    archive = subprocess.run(["git", "archive", LANDING_OLD_COMMIT], cwd=ROOT, capture_output=True, check=True)
-    subprocess.run(["tar", "-x", "-C", str(old)], input=archive.stdout, check=True)
-    root, result, _ = _landing_chain(tmp, jekyll, source=old, overlay=False)
-    assert result.returncode == 0, result.stdout + result.stderr
-    before, after = _html_tree(root / "_site"), _html_tree(landing_off[0] / "_site")
-    assert sorted(before) == sorted(after) and len(before) > 150
-    different = [name for name in before if before[name] != after[name]]
-    assert different == [], different[:10]
+def _manifest(site: Path) -> str:
+    """`sha256sum` lines for every HTML page of a built site (root and demos), sorted by path."""
+    return "".join(f"{hashlib.sha256(data).hexdigest()}  {name}\n" for name, data in _html_tree(site).items())
+
+
+def test_with_the_line_left_out_every_page_is_what_the_commit_before_the_landing_work_built(landing_off):
+    """The riskiest promise of the plan: a league that never heard of `landing_page` gets today's site. The hash of
+    every HTML page of the root and of both demos is committed in tests/golden/landing/off-site.sha256. It was
+    written when this build was checked byte for byte against commit a9c507f (the commit before any landing work)
+    built the way CI built it then (no overlay), so the check needs no git history and runs in CI's shallow clone.
+    (The stylesheets and scripts changed with the sport card part, so only the pages are compared.)
+    A later change to a league page or a demo, made on purpose, changes some hashes: rewrite the file with
+        UPDATE_GOLDEN=1 python -m pytest tests/test_jekyll.py -k left_out_every_page
+    and check that the pages its diff names are the ones the change meant to touch."""
+    text = _manifest(landing_off[0] / "_site")
+    if os.environ.get("UPDATE_GOLDEN"):
+        OFF_GOLDEN.parent.mkdir(parents=True, exist_ok=True)
+        OFF_GOLDEN.write_text(text, encoding="utf-8", newline="")
+        pytest.skip(f"golden file rewritten ({OFF_GOLDEN.relative_to(ROOT)})")
+    def pages(manifest: str) -> dict[str, str]:
+        return {line[66:]: line[:64] for line in manifest.splitlines() if line}
+    expected, got = pages(OFF_GOLDEN.read_text(encoding="utf-8")), pages(text)
+    assert len(expected) > 150
+    changed = sorted(n for n in expected.keys() & got.keys() if expected[n] != got[n])
+    missing, extra = sorted(expected.keys() - got.keys()), sorted(got.keys() - expected.keys())
+    assert not (changed or missing or extra), (
+        f"with landing_page left out the site is not what it was (UPDATE_GOLDEN=1 rewrites "
+        f"tests/golden/landing/off-site.sha256 if the change is meant): changed {changed[:10]}, "
+        f"gone {missing[:10]}, new {extra[:10]}")
