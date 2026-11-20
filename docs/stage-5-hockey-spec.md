@@ -473,7 +473,7 @@ for believability (rec scores, few PP goals, minor penalties, a spare goalie). T
 
 ## 10. Decisions for the owner
 
-Each is **recommended, awaiting owner confirmation**. Until answered, the build follows the recommendation; every
+**All decided by the owner as recommended (November 2026).** Every
 rule a league decides also shows as `[placeholder]` until the league sets it.
 
 1. **Periods and their length.** Recommended: 3 periods (`periods`, 2 to 4) of 15 minutes (`period_minutes`), both
