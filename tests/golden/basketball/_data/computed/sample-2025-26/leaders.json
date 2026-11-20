@@ -12,6 +12,7 @@
       "edge": "hot",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": 0,
         "placeholder": true,
@@ -138,6 +139,7 @@
       "edge": "accent",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": 10,
         "placeholder": true,
@@ -291,6 +293,7 @@
       "edge": "accent",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -417,6 +420,7 @@
       "edge": "accent",
       "home": false,
       "player_rank": false,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -494,6 +498,7 @@
   ],
   "table": {
     "group": "player",
+    "label": "Player",
     "columns": [
       {
         "key": "gp",
@@ -577,6 +582,94 @@
       "jax-f"
     ]
   },
+  "tables": [
+    {
+      "group": "player",
+      "label": "Player",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": false
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": true
+        },
+        {
+          "key": "ftm",
+          "label": "FTM",
+          "title": "Free throws made",
+          "key_col": false
+        },
+        {
+          "key": "fta",
+          "label": "FTA",
+          "title": "Free throws attempted",
+          "key_col": false
+        },
+        {
+          "key": "ft_pct",
+          "label": "FT%",
+          "title": "Free throw percentage",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "ada-e",
+        "una-e",
+        "oz-m",
+        "sal-f",
+        "pia-k",
+        "rae-w",
+        "quin-w",
+        "kai-p",
+        "una-a",
+        "hal-j",
+        "ola-p",
+        "una-r",
+        "finn-b",
+        "kit-r",
+        "tam-c",
+        "abe-b",
+        "sky-f",
+        "dee-f",
+        "yara-w",
+        "pax-c",
+        "quin-p",
+        "kit-b",
+        "fay-a",
+        "fay-c",
+        "hal-b",
+        "ida-g",
+        "noa-h",
+        "cal-c",
+        "kit-w",
+        "gwen-h",
+        "lars-d",
+        "mae-d",
+        "amy-s",
+        "cleo-s",
+        "gwen-e",
+        "kai-h",
+        "val-r",
+        "ike-h",
+        "jax-p",
+        "nell-l",
+        "alf-h",
+        "jax-f"
+      ]
+    }
+  ],
   "columns": {
     "player": {
       "table": [

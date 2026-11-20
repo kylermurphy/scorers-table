@@ -12,6 +12,7 @@
       "edge": "hot",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -138,6 +139,7 @@
       "edge": "accent",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": 0,
         "placeholder": true,
@@ -255,6 +257,7 @@
   ],
   "table": {
     "group": "player",
+    "label": "Player",
     "columns": [
       {
         "key": "gp",
@@ -314,6 +317,70 @@
       "lars-d"
     ]
   },
+  "tables": [
+    {
+      "group": "player",
+      "label": "Player",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "ola-p",
+        "abe-b",
+        "fay-c",
+        "gwen-e",
+        "dee-f",
+        "oz-m",
+        "kai-p",
+        "pax-c",
+        "ada-e",
+        "hal-b",
+        "pia-k",
+        "una-a",
+        "yara-w",
+        "amy-s",
+        "noa-h",
+        "fay-a",
+        "finn-b",
+        "jax-p",
+        "kit-b",
+        "sky-f",
+        "hal-j",
+        "kai-h",
+        "quin-w",
+        "tam-c",
+        "alf-h",
+        "ike-h",
+        "mae-d",
+        "rae-w",
+        "cal-c",
+        "gwen-h",
+        "kit-r",
+        "quin-p",
+        "cleo-s",
+        "nell-l",
+        "sal-f",
+        "lars-d"
+      ]
+    }
+  ],
   "columns": {
     "player": {
       "table": [

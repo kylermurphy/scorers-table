@@ -1,11 +1,13 @@
 {%- comment -%}
   core/game-log.html: a player's games, one row each (date, opponent, result, score, and the player's numbers in
   that game). The date links to the game page; the result is the row's result_label ("Win", "Loss (OT)", "Win (EE)").
-  Params: log (player.log). Reads: stats.leaders.columns[group].log (the columns of the log's stat group; the
+  Params: log (player.log, or the entries of one group), group (the stat group whose columns to use; default the
+  first row's). Reads: stats.leaders.columns[group].log (the columns of the log's stat group; the
   games-played column is left out: it is 1 in every row).
 {%- endcomment -%}
 {%- assign _gl_first = include.log | first -%}
-{%- assign _gl_cols = stats.leaders.columns[_gl_first.group].log -%}
+{%- assign _gl_group = include.group | default: _gl_first.group -%}
+{%- assign _gl_cols = stats.leaders.columns[_gl_group].log -%}
 <div class="st-table-wrap" role="region" aria-label="Game log, scrolls sideways" tabindex="0">
 <table class="st-table"><caption class="st-visually-hidden">Game log</caption>
 <thead><tr><th scope="col">Date</th><th scope="col" class="is-left">Opponent</th><th scope="col" class="is-left">Result</th><th scope="col">Score</th>

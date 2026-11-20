@@ -82,6 +82,13 @@ def decimal(value: int | float | Fraction | Decimal | None, places: int = 1) -> 
     return DASH if value is None else f"{round_half_up(value, places):.{places}f}"
 
 
+def dot(value: int | float | Fraction | Decimal | None, places: int = 3) -> str:
+    """A rate without its leading zero, half up: 0.912 -> '.912', 1 -> '1.000', 0 -> '.000'; None -> '—'.
+    A value of 1 or more keeps its whole part ('1.000'), as `win_pct` does."""
+    text = decimal(value, places)
+    return text[1:] if text.startswith("0.") else text
+
+
 def signed(n: int) -> str:
     """+3, −3, 0 (a real minus sign)."""
     return f"+{n}" if n > 0 else f"{MINUS}{-n}" if n < 0 else "0"

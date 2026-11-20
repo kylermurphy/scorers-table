@@ -37,7 +37,18 @@ description: Leaders and the stats of every player this season.
 <section class="st-section">
 {% include shell/section-head.html title="All players" %}
   {%- if stats.leaders.table.rows.size > 0 %}
-{% include core/player-table.html ids=stats.leaders.table.rows caption="All players" team_col=true %}
+    {%- comment %}One table per stat group; the group's name above it only when there are two or more.{% endcomment %}
+    {%- for _t in stats.leaders.tables %}
+      {%- if _t.rows.size > 0 %}
+        {%- if stats.leaders.tables.size > 1 %}
+<p class="st-label st-leader-group">{{ _t.label | escape }}</p>
+          {%- capture _cap %}All players, {{ _t.label | downcase }}{% endcapture %}
+        {%- else %}
+          {%- assign _cap = "All players" %}
+        {%- endif %}
+{% include core/player-table.html ids=_t.rows group=_t.group caption=_cap team_col=true %}
+      {%- endif %}
+    {%- endfor %}
   {%- else %}
 {% include core/empty.html text="No players have been added yet. The stats show up here after the first game." %}
   {%- endif %}

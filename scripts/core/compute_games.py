@@ -97,6 +97,8 @@ def _final(ctx: SeasonCtx, game: LoadedGame, counted: dict) -> dict:
     if home.result == "tie":
         return {"status": status, "sub": f"Tied {home.pf}–{away.pf}", "note": None}
     winner, loser = (home, away) if home.pf > away.pf else (away, home)
+    if decided == "shootout":                  # "by 1" would be wrong: the shootout decided it, not the margin
+        return {"status": status, "sub": f"{ctx.team_name(winner.team)} won the shootout", "note": None}
     return {"status": status, "sub": f"{ctx.team_name(winner.team)} by {winner.pf - loser.pf}", "note": None}
 
 

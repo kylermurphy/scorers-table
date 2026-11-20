@@ -13,7 +13,22 @@ layout: default
 
 <section class="st-section">
 {% include shell/section-head.html title="Roster" %}
-  {%- if team.players.size > 0 %}
+  {%- if team.players.size > 0 and stats.leaders.tables.size > 1 %}
+    {%- comment %}Two or more stat groups: one roster table per group, a player in each group they have played in
+      (a player with no games yet sits in the first group's table, so the roster is complete).{% endcomment %}
+    {%- for _t in stats.leaders.tables %}
+      {%- assign _ids = "" | split: "," %}
+      {%- for _pid in team.players %}
+        {%- assign _pp = stats.players[_pid] %}
+        {%- if _pp.groups[_t.group] or forloop.parentloop.first and _pp.groups.size == 0 %}{%- assign _ids = _ids | push: _pid %}{%- endif %}
+      {%- endfor %}
+      {%- if _ids.size > 0 %}
+<p class="st-label st-leader-group">{{ _t.label | escape }}</p>
+        {%- capture _cap %}Roster, {{ _t.label | downcase }}{% endcapture %}
+{% include core/player-table.html ids=_ids group=_t.group caption=_cap %}
+      {%- endif %}
+    {%- endfor %}
+  {%- elsif team.players.size > 0 %}
 {% include core/player-table.html ids=team.players caption="Roster" %}
   {%- else %}
 {% include core/empty.html text="No players have been added to this team yet." %}

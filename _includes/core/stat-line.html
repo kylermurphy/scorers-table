@@ -19,7 +19,7 @@
 </tbody></table></div>
 {%- capture _sl_ranks -%}
   {%- for _sl_r in include.data.ranks -%}
-    {%- assign _sl_b = stats.leaders.boards | where: "stat", _sl_r[0] | where_exp: "b", "b.player_rank != false" | first -%}
+    {%- assign _sl_b = stats.leaders.boards | where: "group", include.group | where: "stat", _sl_r[0] | where_exp: "b", "b.player_rank != false" | first -%}
     {%- if _sl_b -%}{%- unless forloop.first %} · {% endunless -%}{{ _sl_b.label | escape }}: No. {{ _sl_r[1] }}{%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
