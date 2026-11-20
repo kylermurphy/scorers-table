@@ -347,7 +347,11 @@ Small pieces in `base.css`: `.st-chip` (`--sm`, `--lg`), `.st-badge` (`--win`, `
   `__tally`) + `ol.__list` > `li.st-event` (`__time`, `__team` = chip + `abbr.st-team-code`, `__who` >
   `__name` and `__sub` for assists, `__score`); GWG is a `.st-badge`. The penalties table is
   `.st-table.st-table--events` with `.st-table__strong`; the player cell holds the chip and the team
-  code, and a `.st-legend` of chips follows.
+  code, and a `.st-legend` of chips follows. A period with no goals shows `p.st-events__empty` ("No scoring",
+  `--st-muted` on `--st-surface`). The Jekyll parts are `parts/events.html` (the `events` block: groups with a
+  tally and events, plain-text names, the GWG badge) and `parts/penalties.html` (the `penalties` block: a row's
+  `player` id is a link when the player has a page, `text` stands in for a bench penalty); both are drawn as a
+  `.st-game-block` section, so the game page spaces them like every other block.
 * **Roster** (curling lineups): `.st-roster` > `a.__head` (chip, `__team`, `__link`; a plain `div.__head` with the
   chip and the name only in a past season, which has no team page) + `ol.__list` >
   `li.__row` (`__role`, `__name` [`is-key` = skip, bold]; a spare is `.st-badge.st-badge--outline` +
@@ -360,6 +364,11 @@ Small pieces in `base.css`: `.st-chip` (`--sm`, `--lg`), `.st-badge` (`--win`, `
   `.st-top-scorer` (`__main`, `__label`, `__name`, `__detail`, `__value`, `__num`, `__unit`; the name
   is a link that stretches over the whole tile, or a plain `span` in a past season; two tiles for a tie are
   spaced by `.st-top-scorer + .st-top-scorer`); `.st-note--intro`.
+  Hockey's goalies and skaters use the `group` block (`parts/game-group.html`: a section head, `.st-note--intro`,
+  the child `stat_table` blocks, a note) and three `stat_table` options: `team_col` (a Team column: chip + team
+  name from each row's `side`), a column `style` of `strong` or `big` (`.st-table__strong`, `.st-table__big`) and
+  `heading: small` (`h3.st-team-heading--sm`, no score). In a group a child with a heading is an inner
+  `.st-game-block` and one without is just its table; a column with no `title` has a plain heading.
 
 ### Data
 
@@ -471,7 +480,7 @@ a gradient on `::before`). Scoreboard's titles are Anton from the layout tokens.
 ### Score parts
 
 Specimen parts in `scripts/design_system/specimens_scores.py`, in order: result-card (all sports), result-card-hero (Scoreboard only, all four sports), final-panel,
-line-score, event-log (hockey, every layout), roster (curling, every layout), game-tables (the layout's own sports).
+line-score, event-log (hockey, every layout; the events and penalties blocks), roster (curling, every layout), game-tables (the layout's own sports).
 
 #### Result card, per layout
 * **Basketball**: white card, 10 px radius, two rows (chip, name, 24 px condensed score; winner bold ink, loser muted), a hairline, then "Top: **#23 Dave M.** 24 pts" left and

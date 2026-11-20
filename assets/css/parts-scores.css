@@ -1411,6 +1411,14 @@
 .st-events__group + .st-events__group {
   border-top: var(--st-border) solid var(--st-line);
 }
+.st-page .st-events__empty,
+.st-events__empty {
+  margin: 0;
+  padding: 0.6875rem var(--st-card-pad-x);
+  font-size: var(--st-fs-meta);
+  color: var(--st-muted);
+  background: var(--st-surface);
+}
 .st-event__time {
   padding-top: 1px;
   font-family: var(--st-font-num);

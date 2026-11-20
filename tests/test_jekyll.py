@@ -1326,3 +1326,74 @@ def test_with_the_line_left_out_every_page_is_what_the_commit_before_the_landing
         f"with landing_page left out the site is not what it was (UPDATE_GOLDEN=1 rewrites "
         f"tests/golden/landing/off-site.sha256 if the change is meant): changed {changed[:10]}, "
         f"gone {missing[:10]}, new {extra[:10]}")
+
+
+# ------------------------------------------------------------------ core extensions E16 to E18 (hockey spec, section 6)
+
+def _add_events_penalties_and_groups_to_the_stub(root: Path) -> None:
+    """The stub with an `events` block (one period with a goal, one empty), a `penalties` block (a player row and a
+    bench row) and a `group` of a team_col table and a small-heading table on every game."""
+    sport = root / "sports" / "stub"
+    rules = (sport / "rules.py").read_text(encoding="utf-8")
+    note = '    blocks.append({"type": "note", "text": "Points come from the Final box and each player\'s row."})'
+    assert note in rules
+    rules = rules.replace(note, '''    who = [ln.player for ln in reading.lines]
+    blocks.append({"type": "events", "title": "Scoring", "note": "Score shown home first.", "groups": [
+        {"label": "1st period", "tally": [{"side": "home", "n": 1}, {"side": "away", "n": 0}], "empty": "No scoring",
+         "events": [{"time": "4:12", "side": "home", "player": who[0], "name": "A made-up scorer", "badge": "GWG",
+                     "sub": "Unassisted", "score": "1\\u20130"}]},
+        {"label": "2nd period", "tally": [{"side": "home", "n": 0}, {"side": "away", "n": 0}], "empty": "No scoring",
+         "events": []}]})
+    blocks.append({"type": "penalties", "title": "Penalties", "legend": ["home", "away"], "rows": [
+        {"period": 1, "time": "2:00", "side": "home", "player": who[0], "text": None, "infraction": "Tripping", "minutes": 2},
+        {"period": 2, "time": "3:00", "side": "away", "player": None, "text": "Bench (served by someone)",
+         "infraction": "Too many men", "minutes": 2}]})
+    one = [{"player": who[0], "side": "home", "cells": {"pts": "1"}}]
+    blocks.append({"type": "group", "title": "Goalies", "intro": None, "note": "A group note.", "blocks": [
+        {"type": "stat_table", "title": None, "side": None, "caption": "Goalies", "team_col": True, "player_label": "Goalie",
+         "columns": [{"key": "pts", "label": "Res", "title": None, "key_col": False, "style": "strong"}], "rows": one,
+         "totals": None, "note": None}]})
+    blocks.append({"type": "group", "title": "Skaters", "intro": "An intro.", "note": None, "blocks": [
+        {"type": "stat_table", "title": None, "side": "home", "heading": "small", "caption": "Home skaters",
+         "columns": [{"key": "pts", "label": "PTS", "title": "Points", "key_col": True, "style": "big"}], "rows": one,
+         "totals": {"label": "Total", "cells": {"pts": "1"}}, "note": None}]})
+''' + note)
+    (sport / "rules.py").write_text(rules, encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def rink(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("rink"), jekyll, edit=_add_events_penalties_and_groups_to_the_stub)
+
+
+def test_the_events_block_groups_goals_by_period_and_says_no_scoring_for_an_empty_one(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    events = re.search(r'<div class="st-events">.*?</div>\s*<p class="st-note">Score shown', page, re.S).group(0)
+    assert events.count('class="st-events__group"') == 2 and events.count("<li class=\"st-event\">") == 1
+    assert '<p class="st-events__empty">No scoring</p>' in events
+    assert '<span class="st-badge">GWG</span>' in events and "Unassisted" in events and "1–0" in events
+    assert re.search(r'st-events__tally">\s*\w+ 1 · \w+ 0<', events)
+
+
+def test_a_penalty_links_a_player_with_a_page_takes_text_for_a_bench_penalty_and_is_plain_in_a_past_season(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    table = re.search(r'<table class="st-table st-table--events">.*?</table>', page, re.S).group(0)
+    assert 'st-table__strong"><a class="st-player" href="/players/' in table
+    assert "Bench (served by someone)" in table and table.count("st-table__team-line") == 2
+    assert page.count('class="st-legend__item"') == 2
+    old = rink.html("/games/2025-10-16-1/")
+    table = re.search(r'<table class="st-table st-table--events">.*?</table>', old, re.S).group(0)
+    assert "/players/" not in table and "Tripping" in table
+
+
+def test_a_group_holds_its_tables_under_one_heading_with_the_team_column_styles_and_small_headings(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    goalies = re.search(r'<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">Goalies.*?</section>', page, re.S).group(0)
+    assert goalies.count("<table") == 1 and "<h2 class=\"st-team-heading" not in goalies
+    assert 'class="is-left">Team</th>' in goalies and 'class="st-table__strong"' in goalies
+    assert re.search(r'<td class="is-left"><span class="st-chip st-chip--sm[^>]*></span>(?:&#32;| )\S', goalies)
+    assert goalies.rstrip().endswith('A group note.</p></section>')
+    skaters = re.search(r'<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">Skaters.*?</section>', page, re.S).group(0)
+    assert 'st-note--intro">An intro.</p>' in skaters
+    assert '<div class="st-game-block"><h3 class="st-team-heading st-team-heading--sm">' in skaters
+    assert "st-team-heading__score" not in skaters and 'class="is-key st-table__big"' in skaters

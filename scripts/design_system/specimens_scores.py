@@ -473,12 +473,16 @@ def render_events(ctx: Ctx) -> str:
     g = L["game"]
     scoring = next(s for s in g["sections"] if s["kind"] == "scoring")
     pen = next(s for s in g["sections"] if s["kind"] == "penalties")
-    out = [f'<div class="st-section__head"><h2 class="st-section__title">{esc(scoring["title"])}</h2></div>',
+    out = [f'<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">{esc(scoring["title"])}</h2></div>',
            '<div class="st-events">']
     for p in scoring["periods"]:
         tally = " · ".join(f'{tm(L, tid)["code"]} {n}' for tid, n in p["tally"].items())
         out.append(f'<section class="st-events__group"><h3 class="st-events__head"><span>{esc(p["label"])}</span>'
-                   f'<span class="st-events__tally">{esc(tally)}</span></h3><ol class="st-events__list">')
+                   f'<span class="st-events__tally">{esc(tally)}</span></h3>')
+        if not p["goals"]:                                  # a period with no goals (no sample period is empty)
+            out.append('<p class="st-events__empty">No scoring</p></section>')
+            continue
+        out.append('<ol class="st-events__list">')
         for e in p["goals"]:
             t = tm(L, e["team"])
             gwg = ' <span class="st-badge">GWG</span>' if e["gwg"] else ""
@@ -495,9 +499,9 @@ def render_events(ctx: Ctx) -> str:
                 f'<span class="st-event__score">{dash(*e["score"])}</span></li>')
         out.append("</ol></section>")
     out.append("</div>")
-    out.append(f'<p class="st-note">{esc(scoring["note"])}</p>')
+    out.append(f'<p class="st-note">{esc(scoring["note"])}</p></section>')
     # penalties
-    out.append(f'<div class="st-section__head" style="margin-top:1.625rem"><h2 class="st-section__title">{esc(pen["title"])}</h2></div>')
+    out.append(f'<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">{esc(pen["title"])}</h2></div>')
     cols = pen["columns"]
     th = "".join(f'<th scope="col"{" class=is-left" if i in (2, 3) else ""}>{esc(c)}</th>' for i, c in enumerate(cols))
     rows = []
@@ -505,7 +509,7 @@ def render_events(ctx: Ctx) -> str:
         t = tm(L, r["team"])
         rows.append(
             f'<tr><td>{r["period"]}</td><td>{esc(r["time"])}</td>'
-            f'<td class="is-left st-table__strong">{esc(r["player"]["label"])}'
+            f'<td class="is-left st-table__strong">{player_link(r["player"])}'
             f'<span class="st-table__team-line">{chip(t, "sm")}'
             f'<abbr class="st-team-code" title="{esc(t["name"])}">{esc(t["code"])}</abbr></span></td><td class="is-left">{esc(r["infraction"])}</td><td>{r["minutes"]}</td></tr>')
     out.append(
@@ -514,7 +518,7 @@ def render_events(ctx: Ctx) -> str:
         f'<thead><tr>{th}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
     leg = [f'<span class="st-legend__item">{chip(tm(L, t), "sm")}<span>{esc(tm(L, t)["name"])}</span></span>'
            for t in pen["legend_teams"]]
-    out.append(f'<div style="margin-top:.5rem">{legend(leg)}</div>')
+    out.append(f'<div style="margin-top:.5rem">{legend(leg)}</div></section>')
     return pad("".join(out))
 
 

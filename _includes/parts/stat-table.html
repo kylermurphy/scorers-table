@@ -2,9 +2,13 @@
   parts/stat-table.html: a game-page stat table (present() block type "stat_table"): a team heading (when the block
   names a side), the table in its scroll box, totals row, and a note. With number_col it is the box score table
   (.st-table--box: the number column and the player column both stay put when the table scrolls).
-  Params: block, game (for the side's name, chip and score). Reads: block {side, title, caption, number_col,
-  number_label, player_label, columns [{key, label, title, key_col}], rows [{player, num, cells{}}],
-  totals {label, cells{}}, note}, stats.players (name, label, url).
+  Params: block, game (for the side's name, chip and score), in_group (set by game-group.html). Reads: block {side,
+  title, caption, heading ("small": an h3 team heading with no score), number_col, number_label, player_label,
+  team_col (true: a Team column, the chip and name of each row's side, after the player), team_label, columns
+  [{key, label, title, key_col, style ("strong" | "big": the cell's weight)}], rows [{player, num, side, cells{}}],
+  totals {label, cells{}}, note}, stats.players (name, label, url). A column with no title is a plain heading
+  (no abbreviation).
+  In a group a block with a heading is an inner .st-game-block (a div) and one without is just its table.
   With number_col the player cell shows the name ("Dave M.") and the row's num the number; without it the
   player cell shows the label ("#12 Gord P."). A player with no page (url null: a past season) is plain text.
 {%- endcomment -%}
@@ -12,8 +16,11 @@
 {%- assign _stb_s = nil -%}
 {%- if _stb_b.side.size > 0 -%}{%- assign _stb_s = include.game[_stb_b.side] -%}{%- endif -%}
 {%- capture _stb_o -%}
-<section class="st-game-block">
-{%- if _stb_s != nil -%}
+{%- if include.in_group and _stb_s == nil -%}
+{%- else -%}<{% if include.in_group %}div{% else %}section{% endif %} class="st-game-block">{%- endif -%}
+{%- if _stb_s != nil and _stb_b.heading == "small" -%}
+<h3 class="st-team-heading st-team-heading--sm">{% include parts/chip.html team=_stb_s size="lg" %}<span class="st-team-heading__name">{{ _stb_b.title | default: _stb_s.name | escape }}</span></h3>
+{%- elsif _stb_s != nil -%}
 <h2 class="st-team-heading">{% include parts/chip.html team=_stb_s size="lg" %}<span class="st-team-heading__name">{{ _stb_b.title | default: _stb_s.name | escape }}</span><span class="st-team-heading__score">{{ _stb_s.score }}</span></h2>
 {%- endif -%}
 <div class="st-table-wrap" role="region" aria-label="{{ _stb_b.caption | escape }}, scrolls sideways" tabindex="0">
@@ -24,8 +31,9 @@
 {%- else -%}
 <th scope="col">{{ _stb_b.player_label | default: "Player" | escape }}</th>
 {%- endif -%}
+{%- if _stb_b.team_col -%}<th scope="col" class="is-left">{{ _stb_b.team_label | default: "Team" | escape }}</th>{%- endif -%}
 {%- for _stb_c in _stb_b.columns -%}
-<th scope="col"{% if _stb_c.key_col %} class="is-key"{% endif %}><abbr title="{{ _stb_c.title | escape }}">{{ _stb_c.label | escape }}</abbr></th>
+<th scope="col"{% if _stb_c.key_col %} class="is-key"{% endif %}>{% if _stb_c.title.size > 0 %}<abbr title="{{ _stb_c.title | escape }}">{{ _stb_c.label | escape }}</abbr>{% else %}{{ _stb_c.label | escape }}{% endif %}</th>
 {%- endfor -%}
 </tr></thead>
 <tbody>
@@ -37,8 +45,11 @@
   {%- else -%}
 <td>{% if _stb_p.url.size > 0 %}<a class="st-player" href="{{ _stb_p.url | relative_url }}">{{ _stb_p.label | escape }}</a>{% else %}{{ _stb_p.label | escape }}{% endif %}</td>
   {%- endif -%}
+  {%- if _stb_b.team_col -%}{%- assign _stb_rs = include.game[_stb_r.side] -%}<td class="is-left">{% include parts/chip.html team=_stb_rs size="sm" %}&#32;{{ _stb_rs.name | escape }}</td>{%- endif -%}
   {%- for _stb_c in _stb_b.columns -%}
-<td{% if _stb_c.key_col %} class="is-key"{% endif %}>{{ _stb_r.cells[_stb_c.key] | escape }}</td>
+    {%- capture _stb_cls -%}{% if _stb_c.key_col %}is-key {% endif %}{% if _stb_c.style == "strong" %}st-table__strong{% elsif _stb_c.style == "big" %}st-table__big{% endif %}{%- endcapture -%}
+    {%- assign _stb_cls = _stb_cls | strip -%}
+<td{% if _stb_cls.size > 0 %} class="{{ _stb_cls }}"{% endif %}>{{ _stb_r.cells[_stb_c.key] | escape }}</td>
   {%- endfor -%}
 </tr>
 {%- endfor -%}
@@ -50,6 +61,7 @@
   {%- else -%}
 <td>{{ _stb_b.totals.label | escape }}</td>
   {%- endif -%}
+  {%- if _stb_b.team_col -%}<td></td>{%- endif -%}
   {%- for _stb_c in _stb_b.columns -%}
 <td{% if _stb_c.key_col %} class="is-key"{% endif %}>{{ _stb_b.totals.cells[_stb_c.key] | escape }}</td>
   {%- endfor -%}
@@ -57,7 +69,8 @@
 {%- endif -%}
 </table></div>
 {%- if _stb_b.note.size > 0 -%}<p class="st-note">{{ _stb_b.note | escape }}</p>{%- endif -%}
-</section>
+{%- if include.in_group and _stb_s == nil -%}
+{%- else -%}</{% if include.in_group %}div{% else %}section{% endif %}>{%- endif -%}
 {%- endcapture -%}
 {%- assign _stb_lines = _stb_o | split: "
 " -%}

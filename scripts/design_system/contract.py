@@ -365,6 +365,18 @@ def players_json(L: dict) -> dict:
                         add(row["player"], t["team"])
                         if row["spare_for"]:
                             add(row["spare_for"], t["team"])
+    if L["sport"] == "hockey":
+        for sec in L["game"]["sections"]:
+            if sec["kind"] == "skaters":
+                for tb in sec["teams"]:
+                    for row in tb["rows"]:
+                        add(row["player"], tb["team"])
+            elif sec["kind"] == "goalies":
+                for row in sec["rows"]:
+                    add(row["player"], row["team"])
+            elif sec["kind"] == "penalties":
+                for row in sec["rows"]:
+                    add(row["player"], row["team"])
     ld = L["leaders"]
     for t in ld["tiles"]:
         if t["person"] is not None:
@@ -428,6 +440,59 @@ def _curling_blocks(L: dict) -> list[dict]:
     return blocks
 
 
+def _hockey_blocks(L: dict) -> list[dict]:
+    """The scoring summary (`events`), the `penalties`, and the Goalies and Skaters `group` blocks."""
+    g = L["game"]
+    side_of = {t["team"]: side for side, t in zip(("home", "away"), g["final"]["teams"])}
+    blocks = []
+    for sec in g["sections"]:
+        if sec["kind"] == "scoring":
+            groups = []
+            for per in sec["periods"]:
+                events = []
+                for e in per["goals"]:
+                    if e["assists"]:
+                        word = "Assist" if len(e["assists"]) == 1 else "Assists"
+                        sub = f"{word}: " + ", ".join(a["label"] for a in e["assists"])
+                    else:
+                        sub = "Unassisted"
+                    events.append({"time": e["time"], "side": side_of[e["team"]], "player": _player_id(e["scorer"]["name"]),
+                                   "name": e["scorer"]["label"], "badge": "GWG" if e["gwg"] else None, "sub": sub,
+                                   "score": f'{e["score"][0]}–{e["score"][1]}'})
+                groups.append({"label": per["label"], "tally": [{"side": side_of[t], "n": n} for t, n in per["tally"].items()],
+                               "empty": "No scoring", "events": events})
+            blocks.append({"type": "events", "title": sec["title"], "groups": groups, "note": sec["note"]})
+        elif sec["kind"] == "penalties":
+            rows = [{"period": r["period"], "time": r["time"], "side": side_of[r["team"]],
+                     "player": _player_id(r["player"]["name"]), "text": None, "infraction": r["infraction"],
+                     "minutes": r["minutes"]} for r in sec["rows"]]
+            blocks.append({"type": "penalties", "title": sec["title"], "rows": rows,
+                           "legend": [side_of[t] for t in sec["legend_teams"]]})
+        elif sec["kind"] == "goalies":
+            cols = [{"key": "result", "label": sec["columns"][2], "title": None, "key_col": False, "style": "strong"},
+                    {"key": "ga", "label": sec["columns"][3], "title": None, "key_col": False, "style": "big"}]
+            rows = [{"player": _player_id(r["player"]["name"]), "num": r["player"]["number"], "side": side_of[r["team"]],
+                     "cells": {"result": r["result"], "ga": str(r["ga"])}} for r in sec["rows"]]
+            table = {"type": "stat_table", "title": None, "side": None, "caption": sec["title"], "team_col": True,
+                     "team_label": sec["columns"][1], "player_label": sec["columns"][0], "columns": cols, "rows": rows,
+                     "totals": None, "note": None}
+            blocks.append({"type": "group", "title": sec["title"], "intro": None, "note": sec["note"], "blocks": [table]})
+        elif sec["kind"] == "skaters":
+            cols = [{"key": c["key"].lower(), "label": c["label"], "title": c["title"], "key_col": c["key_col"]}
+                    for c in sec["columns"]]
+            tables = []
+            for tb in sec["teams"]:
+                t = team_of(L, tb["team"])
+                rows = [{"player": _player_id(r["player"]["name"]), "num": r["player"]["number"],
+                         "cells": {c["key"]: str(r[c["key"]]) for c in cols}} for r in tb["rows"]]
+                tables.append({"type": "stat_table", "title": None, "side": side_of[tb["team"]], "heading": "small",
+                               "caption": f'{t["name"]} skaters', "columns": cols, "rows": rows,
+                               "totals": {"label": "Total", "cells": {c["key"]: str(tb["total"][c["key"]]) for c in cols}},
+                               "note": None})
+            blocks.append({"type": "group", "title": sec["title"], "intro": sec["intro"], "note": None, "blocks": tables})
+    return blocks
+
+
 def games_json(L: dict, layout: str) -> dict:
     sport = L["sport"]
     gm = L["game"]
@@ -456,6 +521,8 @@ def games_json(L: dict, layout: str) -> dict:
             blocks = _basketball_blocks(L)
         elif sport == "curling" and is_game:
             blocks = _curling_blocks(L)
+        elif sport == "hockey" and is_game:
+            blocks = _hockey_blocks(L)
         else:
             blocks = []
         hero_date = (feat["date"].split(" · ", 1)[1] if feat and feat["result"] == r["id"] else r["date"])

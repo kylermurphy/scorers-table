@@ -1,0 +1,19 @@
+{%- comment -%}
+  parts/game-group.html: a group of game tables under one section heading (present() block type "group"): the heading,
+  an intro line, the child stat_table blocks, and a note. Params: block, game.
+  Reads: block {title, intro, note, blocks [stat_table blocks]}. A child with a side and a heading draws as an inner
+  .st-game-block (the small team heading and its table); a child without one is just its table.
+{%- endcomment -%}
+{%- assign _gg_b = include.block -%}
+{%- capture _gg_o -%}
+<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">{{ _gg_b.title | escape }}</h2></div>
+{%- if _gg_b.intro.size > 0 -%}<p class="st-note st-note--intro">{{ _gg_b.intro | escape }}</p>{%- endif -%}
+{%- for _gg_c in _gg_b.blocks -%}
+  {%- include parts/stat-table.html block=_gg_c game=include.game in_group=true -%}
+{%- endfor -%}
+{%- if _gg_b.note.size > 0 -%}<p class="st-note">{{ _gg_b.note | escape }}</p>{%- endif -%}
+</section>
+{%- endcapture -%}
+{%- assign _gg_lines = _gg_o | split: "
+" -%}
+{%- for _gg_line in _gg_lines -%}{{ _gg_line | strip }}{%- endfor -%}
