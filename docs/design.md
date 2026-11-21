@@ -309,7 +309,7 @@ Sport card (the landing page; added after stage 4, see [Nested layouts](#nested-
   <a class="st-button st-sport-card__go" href="#">Open the Basketball demo<span class="st-chevron"> ›</span></a>
 </article>
 <article class="st-card st-sport-card st-sport-card--soon">   <!-- a sport not built yet: no window, no link -->
-  <div class="st-sport-card__head"><h3 class="st-sport-card__name">Hockey</h3><span class="st-badge">Coming soon</span></div>
+  <div class="st-sport-card__head"><h3 class="st-sport-card__name">Slo-pitch</h3><span class="st-badge">Coming soon</span></div>
   <p class="st-sport-card__blurb">…</p>
 </article>
 ```
@@ -849,11 +849,14 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | `parts/next-game.html` | `day` | `day` eyebrow, date_long, date_short, where, groups [{time_label, games}], games, byes, foot, foot_link |
 | `parts/team-card.html` | `team`, `rank_text` | `team` name, url, slot, colour, record, points, sub, rank |
 | `parts/sport-card.html` | `sport` (an entry of `landing.json` `sports`), or `soon` (an entry of `coming_soon`) | `sport` {name, blurb, url, demo_label, layout, window {league, standings, teams, latest}}; reads nothing else and never asks which sport it is (see below) |
-| `parts/stat-table.html` | `block`, `game` | a `stat_table` block; `stats.players` |
+| `parts/stat-table.html` | `block`, `game`, `in_group` | a `stat_table` block {title, side, caption, heading ("small"), number_col, number_label, player_label, team_col, team_label, columns [{key, label, title, key_col, style}], rows [{player, num, side, cells}], totals, note}; `stats.players` |
+| `parts/events.html` | `block`, `game` | an `events` block {title, groups [{label, tally [{side, n}], empty, events [{time, side, name, badge, sub, score}]}], note}; names are plain text |
+| `parts/penalties.html` | `block`, `game` | a `penalties` block {title, rows [{period, time, side, player, text, infraction, minutes}], legend [sides]}; `stats.players` (label, url) |
+| `parts/game-group.html` | `block`, `game` | a `group` block {title, intro, note, blocks [`stat_table` blocks]}: one section head over its tables (it includes `stat-table.html` with `in_group`) |
 | `parts/top-performer.html` | `block` | a `top_performer` block {label, player, side, value, unit, detail}; `stats.players` (label, url: a link, or a `span` when null) |
 | `parts/numbers.html` | `block`, `game` | a `numbers` block {title, corner, rows [{label, cells {home, away}, key ("home"/"away"/null: that cell `is-key`), hot (the key cell also `is-hot`: a stolen end)}], note}; the columns are `game.home` and `game.away`, headed by chip and team code (`abbr` = name) |
 | `parts/roster.html` | `block`, `game` | a `roster` block {title, link_label, teams [{side, rows [{role, player, key, spare_for}]}], note}; `stats.players` (label), `stats.teams` (url): the head is a link ("Rink ›") when the team has a page, a `div` with no link when `url` is null (a past season) |
-| `parts/note.html`, `parts/blocks.html` | `block`; `blocks`, `game` | `blocks.html` draws `stat_table`, `note`, `top_performer`, `numbers` and `roster`, leaves other types out |
+| `parts/note.html`, `parts/blocks.html` | `block`; `blocks`, `game` | `blocks.html` draws `stat_table`, `note`, `top_performer`, `numbers`, `roster`, `events`, `penalties` and `group`, leaves other types out |
 | helpers | `parts/bold-text.html` (`text`, `strong`), `parts/runs.html` (`runs [{t,b}]`), `parts/hammer.html` (`px`, `label`), `parts/leader-sub.html` | |
 
 **Line score data** (present()'s `line_score`, spec 3.4, plus the fields the includes need): `shape`, `corner`,
