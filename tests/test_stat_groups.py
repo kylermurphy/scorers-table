@@ -37,7 +37,8 @@ PLAYERS = [
 SCHEDULE = ("game_id,date,time,home,away,venue,type,round,week,status,moved_from\n"
             "2026-11-05-1,2026-11-05,19:00,alpha,bravo,,regular,,,,\n"
             "2026-11-12-1,2026-11-12,19:00,alpha,bravo,,regular,,,,\n"
-            "2026-11-19-1,2026-11-19,19:00,bravo,alpha,,regular,,,,\n")
+            "2026-11-19-1,2026-11-19,19:00,bravo,alpha,,regular,,,,\n"
+            "2026-11-20-1,2026-11-20,19:00,bravo,alpha,,playoff,Final,,,\n")
 GAMES = {
     "2026-11-05-1": {"final": {"home": 4, "away": 3}, "decided": "shootout",
                      "skaters": {"home": [{"player": "ann-b", "g": 2, "a": 1}], "away": [{"player": "cy-d", "g": 1}, {"player": "flex", "g": 1, "a": 1}]},
@@ -48,6 +49,10 @@ GAMES = {
     "2026-11-19-1": {"final": {"home": 1, "away": 1},
                      "skaters": {"home": [{"player": "cy-d", "g": 1}], "away": [{"player": "ann-b", "a": 1, "g": 1}]},
                      "goalies": {"home": [{"player": "ben-r", "ga": 1, "sa": 14}], "away": [{"player": "gus-t", "ga": 1, "sa": 20}]}},
+    # A playoff game: cy-d, a skater all season, plays in goal (a goalie line in the playoffs only).
+    "2026-11-20-1": {"final": {"home": 0, "away": 1},
+                     "skaters": {"away": [{"player": "ann-b", "g": 1}]},
+                     "goalies": {"home": [{"player": "cy-d", "ga": 1, "sa": 9}], "away": [{"player": "gus-t", "ga": 0, "sa": 5}]}},
 }
 
 
@@ -63,8 +68,8 @@ def make_root(tmp: Path) -> Path:
     (data / "players.yml").write_text(yaml.safe_dump(PLAYERS), encoding="utf-8")
     (data / "schedule.csv").write_text(SCHEDULE, encoding="utf-8")
     for gid, sheet in GAMES.items():
-        game = {"game_id": gid, "status": "final", "checked_by": "Lee M.", "home": "alpha" if gid != "2026-11-19-1" else "bravo",
-                "away": "bravo" if gid != "2026-11-19-1" else "alpha", "sheet": sheet}
+        game = {"game_id": gid, "status": "final", "checked_by": "Lee M.", "home": "bravo" if gid in ("2026-11-19-1", "2026-11-20-1") else "alpha",
+                "away": "alpha" if gid in ("2026-11-19-1", "2026-11-20-1") else "bravo", "sheet": sheet}
         (data / "games" / f"{gid}.yml").write_text(yaml.safe_dump(game, sort_keys=False), encoding="utf-8")
     return root
 
@@ -146,6 +151,12 @@ def test_a_player_in_both_groups_has_both_totals_and_two_logs(built):
     assert flex["log"][1]["display"]["sv"] == ".833"
 
 
+def test_a_group_played_only_in_the_playoffs_is_in_the_log_but_not_the_totals(built):
+    cy = built.players["cy-d"]
+    assert set(cy["groups"]) == {"skater"} and set(cy["playoffs"]) == {"goalie"}
+    assert [e["group"] for e in cy["log"]] == ["skater", "skater", "goalie"]
+
+
 # ------------------------------------------------------------------ E15: board columns
 
 def test_board_columns_fill_the_cells_and_mark_the_key_column(built):
@@ -197,3 +208,5 @@ def test_the_pages_print_one_table_and_one_log_per_group(built, tmp_path):
     flex = page("players/flex")
     assert flex.count("Game log</caption>") == 2 and flex.count(">SV%</abbr>") >= 2
     assert page("players/ann-b").count("Game log</caption>") == 1 and "Skaters</p>" not in page("players/ann-b")
+    cy = page("players/cy-d")                     # one regular-season group, but a goalie game in the playoffs
+    assert cy.count("Game log</caption>") == 2 and cy.count(">SV%</abbr>") >= 1

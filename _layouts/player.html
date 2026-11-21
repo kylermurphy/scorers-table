@@ -33,15 +33,15 @@ layout: default
 <section class="st-section">
 {% include shell/section-head.html title="Game log" %}
   {%- if player.log.size > 0 %}
-    {%- if player.groups.size > 1 %}
-      {%- comment %}Played in more than one stat group: one log per group, each with its own columns.{% endcomment %}
-      {%- for _g in player.groups %}
-        {%- assign _gname = _g[0] %}
-        {%- assign _glog = player.log | where: "group", _gname %}
+    {%- assign _lgroups = player.log | map: "group" | uniq %}
+    {%- if _lgroups.size > 1 %}
+      {%- comment %}Games in more than one stat group (the playoffs count too: a skater who was in goal for one
+        playoff game): one log per group, in the groups' order, each with its own columns.{% endcomment %}
+      {%- for _t in stats.leaders.tables %}
+        {%- assign _glog = player.log | where: "group", _t.group %}
         {%- if _glog.size > 0 %}
-          {%- assign _glabel = stats.leaders.tables | where: "group", _gname | first %}
-<p class="st-label st-leader-group">{{ _glabel.label | escape }}</p>
-{% include core/game-log.html log=_glog group=_gname %}
+<p class="st-label st-leader-group">{{ _t.label | escape }}</p>
+{% include core/game-log.html log=_glog group=_t.group %}
         {%- endif %}
       {%- endfor %}
     {%- else %}
