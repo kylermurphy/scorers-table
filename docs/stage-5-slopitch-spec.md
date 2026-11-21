@@ -463,7 +463,7 @@ few walks, a believable walk-off). Then the whole pull request.
 
 ## 10. Open decisions for the owner
 
-Each is **recommended, awaiting owner confirmation**. Every rule a league decides also shows as `[placeholder]`
+**All decided by the owner as recommended (November 2026).** Every rule a league decides also shows as `[placeholder]`
 until the league sets it.
 
 1. **Visitors first.** Recommended: list the visitors first everywhere for slo-pitch ("Mudcats at Sluggers", the
