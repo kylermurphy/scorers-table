@@ -895,6 +895,8 @@ def test_landing_json_has_every_key_the_sport_card_reads():
     wanted, got = paths(contract.landing_json()), paths(golden)
     # what a sport shows only when it has it: its marks (the hammer, a stolen end) and Masters' score sheet label
     sport_only = [p for p in wanted if p not in got and (p.endswith(".mark") or p.endswith("labels.score_sheets"))]
+    # the coming-soon specimen: the include can draw such a card, but the real landing.json may have none left
+    sport_only += [p for p in wanted if p not in got and p.startswith("landing.coming_soon")]
     missing = sorted(p for p in wanted if p not in got and p not in sport_only)
     assert not missing, "keys the sport card reads that landing.json does not have:\n  " + "\n  ".join(missing)
     wrong = sorted(p for p in wanted if p in got and (wanted[p] - {"null"}) and (got[p] - {"null"}) and not wanted[p] & got[p])
