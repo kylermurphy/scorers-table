@@ -12,10 +12,12 @@ only with `every_game`. The league is made up here: three teams, so the teams ha
 Alpha has played 3 games, bravo 2, cy 1. With 2 at bats a team game to rank:
     after game 1  a1 has 1 AB, needs 2: unranked;  b1 has 4 AB, needs 2: ranked (.250)
     after game 2  a1 .500 (4 AB, needs 4), b1 .571 (7 AB, needs 4)
-    after game 3  a1 .333 (6 AB, needs 6), c1 1.000 (2 AB, needs 2), b1 .571; s1 (no team) needs the plain 2: unranked
+    after game 3  a1 .333 (6 AB, needs 6), c1 1.000 (2 AB, needs 2), b1 .571; s1 (no team) needs 6, as the team that
+                  has played the most (alpha): unranked
 """
 import json
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -50,7 +52,7 @@ GAMES = {
 
 
 def make_root(tmp: Path, *, games=tuple(GAMES), batting: str | None = None, old_batting: str | None = None,
-              league_extra: str = "") -> Path:
+              league_extra: str = "", extra_rows: tuple[str, ...] = ()) -> Path:
     """The fixture league: season 2026-27 (the games given), and 2025-26 with a copy of game 1 under its own
     `overrides: rules: batting` (when given), so a season override can be seen to change that season only."""
     root = tmp / "src"
@@ -71,7 +73,7 @@ def make_root(tmp: Path, *, games=tuple(GAMES), batting: str | None = None, old_
         (folder / "teams.yml").write_text(yaml.safe_dump(TEAMS), encoding="utf-8")
         (folder / "players.yml").write_text(yaml.safe_dump(PLAYERS), encoding="utf-8")
         rows = SCHEDULE.splitlines()
-        keep = [rows[0]] + [r for r in rows[1:] if r.split(",")[0] in ids]
+        keep = [rows[0]] + [r for r in rows[1:] if r.split(",")[0] in ids] + (list(extra_rows) if season == SEASON else [])
         (folder / "schedule.csv").write_text("\n".join(keep).replace("2026-", f"{season[:4]}-") + "\n", encoding="utf-8")
         for gid in ids:
             home, away, h, a, batters = GAMES[gid]
@@ -191,8 +193,20 @@ def test_late_in_the_season_a_player_on_a_team_with_fewer_games_needs_fewer(tmp_
     rows, unranked = ranked(b)
     # c1: cy has played 1 game, so 2 AB is enough; a1: alpha has played 3, so 6 AB are needed (and has 6)
     assert rows == [("c1", "1.000"), ("b1", ".571"), ("a1", ".333")]
-    assert unranked == ["s1"]                                        # no team: the plain minimum (2), s1 has 1 AB
+    assert unranked == ["s1"]                                        # no team: 2 x alpha's 3 games, s1 has 1 AB
     assert b.board("avg")["min"] == {"value": 2, "placeholder": True, "note": "Minimum [placeholder] at bats per team game to rank."}
+
+
+def test_a_spare_with_no_team_needs_the_minimum_of_the_team_that_has_played_the_most(tmp_path, monkeypatch):
+    """A spare (no team) 2 for 2 would lead with the plain minimum (2 AB); per team game it needs 2 x 3 (alpha's
+    games), as strict as the strictest regular, so a few at bats never top the board."""
+    home, away, h, a, batters = GAMES["2026-11-19-1"]
+    batters = {"home": [batters["home"][0], {"player": "s1", "ab": 2, "h": 2, "bb": 0}], "away": batters["away"]}
+    monkeypatch.setitem(GAMES, "2026-11-19-1", (home, away, h, a, batters))
+    rows, unranked = ranked(build_it(tmp_path))
+    assert "s1" not in [p for p, _ in rows] and unranked == ["s1"]
+    rows, unranked = ranked(build_it(tmp_path / "early", games=("2026-11-19-1",)))     # every team 1 game or none
+    assert ("s1", "1.000") in rows and unranked == []                                  # 2 AB is then enough
 
 
 def test_a_league_can_raise_the_per_game_minimum(tmp_path):
@@ -287,5 +301,26 @@ def test_the_pages_follow_the_option(tmp_path):
 def test_calendar_summaries_follow_the_matchup(tmp_path):
     """E26: with `matchup: at` the calendar names the visitors first ("Bravo at Alpha"), as the pages do."""
     b = build_it(tmp_path)
-    text = (b.root / "calendar" / "league.ics").read_text(encoding="utf-8")
+    text = (b.root / "calendar" / "league.ics").read_text(encoding="utf-8").replace("\n ", "")
     assert "SUMMARY:Bravo at Alpha" in text and " vs " not in text
+    assert "Final: Bravo 2\\, Alpha 3." in text                     # the result in the description, visitors first too
+
+
+def test_a_game_pages_title_and_description_put_the_visitors_first(tmp_path):
+    """E26: the stub's `title` (the browser tab, the share tags) and `description` follow the matchup."""
+    b = build_it(tmp_path)
+    stub = yaml.safe_load((b.root / "_games" / "2026-11-05-1.md").read_text(encoding="utf-8").split("---")[1])
+    assert stub["title"] == "Bravo at Alpha"
+    assert stub["description"].startswith("Final: Bravo 2, Alpha 3 on ")
+
+
+@pytest.mark.jekyll
+def test_cancelled_and_moved_notes_on_the_schedule_put_the_visitors_first(tmp_path):
+    rows = ("2026-11-26-1,2026-11-26,19:00,cy,bravo,,regular,,,cancelled,",
+            "2026-12-03-1,2026-12-03,19:00,bravo,cy,,regular,,,,2026-11-28")
+    root = make_root(tmp_path, extra_rows=rows)
+    assert build.main(["--root", str(root), "--out", str(root), "--today", "2026-11-20"]) == 0
+    schedule = page(render(Built(root), tmp_path / "site"), "schedule")
+    assert "Cancelled: Bravo at Cy.</p>" in schedule
+    assert re.search(r"Cy at Bravo was moved from [^<]+\.</p>", schedule)
+    assert " vs " not in schedule

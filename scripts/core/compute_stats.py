@@ -268,12 +268,14 @@ def name_order(player: Player) -> tuple:
 
 def _needed(ctx: SeasonCtx, rule: dict, minimum: int, player: Player) -> int:
     """The minimum for this player: the league's number, but never more than their team's games so far
-    (`cap_at_team_games`), or the number for each game their team has played so far (`per_team_game`, E24: a player
-    with no team gets the number as it is)."""
+    (`cap_at_team_games`), or the number for each game their team has played so far (`per_team_game`, E24). A player
+    with no team (a spare) gets the strictest figure: the number as it is with the cap, and with `per_team_game` the
+    number for each game of the team that has played the most, so a spare with a few at bats never tops the board."""
     if rule.get("cap_at_team_games") and player.team:
         return min(minimum, len(ctx.regular_games(player.team)))
-    if rule.get("per_team_game") and player.team:
-        return minimum * len(ctx.regular_games(player.team))
+    if rule.get("per_team_game"):
+        teams = [player.team] if player.team else list(ctx.teams)
+        return minimum * max((len(ctx.regular_games(t)) for t in teams), default=0)
     return minimum
 
 

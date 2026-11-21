@@ -201,7 +201,8 @@ def _cal_game(ctx: SeasonCtx, row: ScheduleRow) -> CalGame:
     result = None
     if score is not None:
         game = ctx.loaded.games[row.game_id]
-        text = f"{ctx.team_name(row.home)} {score[0]}, {ctx.team_name(row.away)} {score[1]}"
+        pairs = {"home": f"{ctx.team_name(row.home)} {score[0]}", "away": f"{ctx.team_name(row.away)} {score[1]}"}
+        text = ", ".join(pairs[side] for side in SIDES_ORDER[ctx.spec["display"]["matchup"]])     # E26: as the pages list them
         result = (f"Forfeit: {ctx.team_name(game.forfeit or '')} forfeited. {text}." if game.forfeit
                   else f"Final: {text}.")
     venue = ctx.venue_of(row)
@@ -449,11 +450,13 @@ def _results(schedule: dict) -> list[dict]:
 
 def _season_pages(out: BuildOutput, ctx: SeasonCtx) -> None:
     games = out.data[f"{ctx.sid}/games.json"]
+    matchup = ctx.spec["display"]["matchup"]
+    first, second = SIDES_ORDER[matchup]               # E26: the visitors first with `matchup: at`
     for gid, g in games.items():
         out.pages.setdefault("_games", {})[f"{gid}.md"] = {
-            "season": ctx.sid, "game_id": gid, "title": f"{g['home']['name']} vs {g['away']['name']}",
-            "description": f"{g['final']['status']}: {g['home']['name']} {g['home']['score']}, "
-                           f"{g['away']['name']} {g['away']['score']} on {g['date_long']}."}
+            "season": ctx.sid, "game_id": gid, "title": f"{g[first]['name']} {matchup} {g[second]['name']}",
+            "description": f"{g['final']['status']}: {g[first]['name']} {g[first]['score']}, "
+                           f"{g[second]['name']} {g[second]['score']} on {g['date_long']}."}
         if not ctx.active:                                # reached from the archive: its tab, not Schedule's
             out.pages["_games"][f"{gid}.md"]["nav"] = "archive"
     if ctx.active:

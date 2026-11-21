@@ -1,7 +1,8 @@
 {%- comment -%}
   core/schedule-day.html: one game day of the schedule: a heading (the day and its date and venue), the games that
   were played as result cards, the games still to play as game rows (a row of a played game is never shown), and
-  short notes under them: cancelled games, moved games, byes.
+  short notes under them: cancelled games, moved games, byes. With `display.matchup: at` a note names the visitors
+  first ("Mudcats at Sluggers"), as the game rows do.
   Params: day (a schedule.json day), next (true: the next game day, marked with a label).
   Reads: stats.games, stats.teams (bye names), stats.schedule.all_times_pm is said once by the page.
 {%- endcomment -%}
@@ -22,10 +23,10 @@
 </div>
 {%- endif %}
 {%- for _sdy_g in _sdy.games %}{% if _sdy_g.moved_from_display.size > 0 and _sdy_g.status != 'cancelled' %}
-<p class="st-note">{{ _sdy_g.home_name | escape }} vs {{ _sdy_g.away_name | escape }} was moved from {{ _sdy_g.moved_from_display | escape }}.</p>
+<p class="st-note">{% if league.display.matchup == "at" %}{{ _sdy_g.away_name | escape }} at {{ _sdy_g.home_name | escape }}{% else %}{{ _sdy_g.home_name | escape }} vs {{ _sdy_g.away_name | escape }}{% endif %} was moved from {{ _sdy_g.moved_from_display | escape }}.</p>
 {%- endif %}{% endfor %}
 {%- for _sdy_g in _sdy_cancelled %}
-<p class="st-note">Cancelled: {{ _sdy_g.home_name | escape }} vs {{ _sdy_g.away_name | escape }}.</p>
+<p class="st-note">Cancelled: {% if league.display.matchup == "at" %}{{ _sdy_g.away_name | escape }} at {{ _sdy_g.home_name | escape }}{% else %}{{ _sdy_g.home_name | escape }} vs {{ _sdy_g.away_name | escape }}{% endif %}.</p>
 {%- endfor %}
 {%- if _sdy.byes.size > 0 %}
 <p class="st-note">
