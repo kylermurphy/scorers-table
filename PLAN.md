@@ -11,10 +11,11 @@ stage says which Claude model fits it:
 A stage can run unattended (overnight) once its spec is approved: it ends in a
 pull request, never a merge.
 
-Status: stages 0-4 done (October 2026; stage 4, the core, is merged). Stage 5 is under way: **basketball is done and
-merged** (spec: `docs/stage-5-basketball-spec.md`) and **curling is done and merged** (spec:
+Status: stages 0-5 done (stage 4, the core, is merged). **Stage 5 is done: all four sports are built.** **Basketball is
+done and merged** (spec: `docs/stage-5-basketball-spec.md`), **curling is done and merged** (spec:
 `docs/stage-5-curling-spec.md`); **hockey is done and in review as a pull request** (spec:
-`docs/stage-5-hockey-spec.md`); slo-pitch comes next, in its own pull request. Beside the stages, the
+`docs/stage-5-hockey-spec.md`) and **slo-pitch is done and in review as a pull request** (spec:
+`docs/stage-5-slopitch-spec.md`). **Next: stage 6, the six layouts as a setting.** Beside the stages, the
 **landing page is done and in review as a pull request** (plan: `docs/landing-page-plan.md`; see "Landing page"
 below).
 
@@ -155,11 +156,31 @@ played.
   ejection, team stats and boards (team PIM, power-play goals), a printable game sheet and the photo-reading prompt,
   and the JavaScript rules and entry page (stage 7).
 
+**Slo-pitch: delivered (in review as a pull request).** All 22 decisions in the spec were confirmed by the owner as
+recommended (November 2026).
+- `sports/slopitch/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`: the X, walk-offs, the run limit and
+  limit innings, called games and the mercy rule, extra innings, batting lines with PA, AVG and OBP), `sample.py`
+  (Maple Park Slo-Pitch), the README (the scorebook page box by box, every check with its path, the how-tos) and its
+  shared fixtures for the stage 7 JavaScript port.
+- Core extensions any sport can use (`docs/sports.md` lists every key): `line_score.extras` (R/H/E columns) and
+  `line_score.first`; the `facts` block and `stat_table` `heading: plain`; `when: {<option>: [values]}` on a stat, a
+  derived stat and a leaderboard (shown only while the season's option matches); a board minimum with `per_team_game`;
+  `display.card_head: status_surface`; `display.matchup: at` (visitors first, "at"; `league.json` `sides_order`); and a
+  `results_legend` item's `mark` / `mark_option`.
+- Golden files `tests/golden/slopitch/`; the `/slopitch/` sport preview and the landing card come by themselves, and
+  `landing.yml` is now `coming_soon: []` (four live sports, no coming-soon card). The shipped `league.yml` and the
+  committed `data/sample-*` stay basketball.
+- Docs: `docs/sports.md`, `docs/data.md` (the slo-pitch how-tos), `docs/open-questions.md` section 9 (fourteen
+  placeholders and the decisions), `docs/design.md`, `README.md`.
+- Not built, named in the spec: period words chosen by an option ("Half"), team rates (team AVG, curling's "ends won %"),
+  pitching stats, 2B/3B, co-ed batting-order rules, a printable slo-pitch score sheet and the photo-reading prompt, and
+  the JavaScript rules and entry page (stage 7). This PR screenshots the slo-pitch sample in the Slo-pitch layout only.
+
 **Landing page: delivered (in review as a pull request; plan: `docs/landing-page-plan.md`).** The template's own
 site (`kylermurphy.github.io/scorers-table/`) is a showcase, owner-approved: the front page `/` is a landing page in
 the Basketball look with a card per sport (name, one line, a live mini-preview in the sport's own look from its
-sample season, a link to the demo); a sport not built yet (slo-pitch) is a "Coming soon" card with no link. The demos
-are at `/basketball/`, `/curling/` and `/hockey/`. The setup link goes to the README's "Publish it" section until stage 8's guide exists.
+sample season, a link to the demo); a sport not built yet would be a "Coming soon" card with no link (none today). The demos
+are at `/basketball/`, `/curling/`, `/hockey/` and `/slopitch/`. The setup link goes to the README's "Publish it" section until stage 8's guide exists.
 The design-system page is not linked.
 - The switch is `landing_page` in `league.yml`: shipped `true`, loud (listed beside `name`, `sport` and `timezone`,
   printed by every build, said on the page), default `false` when the line is left out; a real league sets `false`
@@ -172,29 +193,27 @@ The design-system page is not linked.
   it, `tests/test_nested_layout.py` guards the nesting), the page `landing/index.html`, the "All sports" banner, and
   `build_preview.sh` and the workflow changes. Docs: `README.md`, `docs/data.md`, `docs/sports.md`,
   `docs/design.md`, `docs/open-questions.md` section 7.
-- **When a sport lands, its card goes live by itself** (once it has a `sample.py` and a `blurb`): hockey's is live;
-  when the slo-pitch stage merges, remove it from `coming_soon` in `landing.yml` (the build warns until then).
+- **When a sport lands, its card goes live by itself** (once it has a `sample.py` and a `blurb`): all four are live and
+  `coming_soon` in `landing.yml` is empty.
 
 **Decided: the JavaScript copy of the rules moves to stage 7**, with the entry page, its only user. Each sport's
 pull request still commits its shared fixtures, so the port can be tested against them.
 
-**Still to come, with the sport that needs it** (deliberately not built yet, so no option goes untested). Hockey built
-`order: asc`, `format: dot`, the events and penalties parts, more than one stat group and leaderboard `columns`;
-what slo-pitch (the last sport) still needs from the core, from the specs' deferred lists:
-- A slo-pitch folder with its sample, golden files, README and fixtures (the same package shape as the other three).
-- The `facts` block (slo-pitch's game-page facts) as a reusable core part with a specimen and a parity case (the design
-  system page already has the specimen; `game-tables` stays skipped in the parity test until it exists), plus whatever
-  `line_score` extras innings and run limits turn out to need. (`numbers`, `roster`, `events`, `penalties` and `group` are done.)
-- `format: dot` is built (hockey's save percentage); slo-pitch's batting average (`.333`) can use it as it is.
+**Still to come** (deliberately not built yet, so no option goes untested). Stage 5 built, across the four sports:
+`order: asc`, `format: dot`, the events, penalties, facts, numbers and roster parts, more than one stat group,
+leaderboard `columns`, `line_score.extras`, `when` on stats and boards, `per_team_game` minimums, visitors first and
+`mark_option`. What is left from the specs' deferred lists:
 - Period words chosen by an option ("Half" for a two-period league: basketball halves, hockey's `periods: 2`).
-- Stats and boards that show only when an option is on: basketball with free throws not kept, curling with
-  `rules.lineups: none` (whose Stats page shows the empty player table).
-- Team rates (curling's "ends won %", needs `derive` for teams and ranking before rounding on team boards).
+- Team rates (curling's "ends won %", slo-pitch's team AVG; needs `derive` for teams and ranking before rounding on team
+  boards).
 
 ## Stage 6: the six layouts as a setting
 `layout:` in `league.yml` picks one of the six; the league's colours and logo
 go on top. Every layout checked at 360 and 390 px in light and dark, for each
-sport's sample season.
+sport's sample season (four sports by six layouts; slo-pitch's PR screenshots the Slo-pitch layout only).
+- **Includes the Jekyll build-time fix, first.** A deploy runs Jekyll once for the site and once more for each sport
+  preview (`scripts/build_preview.sh`: four now), so it gets slower with every sport and every page; stage 6 shortens that
+  build before it adds more pages per layout.
 - **Model:** Sonnet builds; Haiku runs the screenshot sweeps and lists
   problems.
 

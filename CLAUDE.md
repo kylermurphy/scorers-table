@@ -2,8 +2,8 @@
 
 A public template for a small recreational league's website (standings,
 schedule, results, player stats, past seasons), built from the league's paper
-score sheets. Several sports: basketball (built, stage 5 part 1, merged) and curling (built, stage 5 part 2, merged),
-hockey (built, stage 5 part 3, in review as a pull request), then slo-pitch. The repository's own site is a **showcase** (a landing page at `/` with a card and live
+score sheets. Four sports, all built (stage 5): basketball (part 1, merged), curling (part 2, merged),
+hockey (part 3, in review as a pull request) and slo-pitch (part 4, in review as a pull request). The repository's own site is a **showcase** (a landing page at `/` with a card and live
 mini-preview per sport; built, in review as a pull request). Read
 `BRIEF.md` (what it is and why), `PLAN.md` (the stages) and `docs/design.md` (the designs) before starting
 work. Grew out of `tb-masters-basketball/website`; that repo is a reference,
@@ -52,12 +52,12 @@ The Chromium tests (`tests/test_nested_layout.py`, the old-browser test in `test
 Playwright on a computer but FAIL when `CI` is set (`skip_unless_ci`, as for Ruby): CI installs `requirements-ci.txt`
 (`requirements.txt` + pinned Playwright) and `playwright install --with-deps chromium`; keep `requirements.txt` light.
 
-## The core (stage 4, merged), basketball (stage 5 part 1, merged), curling (part 2, merged), hockey (part 3, in review) and the landing page
+## The core (stage 4, merged), basketball (stage 5 part 1, merged), curling (part 2, merged), hockey (part 3, in review), slo-pitch (part 4, in review) and the landing page
 Read `docs/stage-4-spec.md` (the design, with the decisions the owner approved), `docs/data.md` (the data files)
 and `docs/sports.md` (the sport folder) before touching it; for basketball also `docs/stage-5-basketball-spec.md`,
 `sports/basketball/README.md`, for curling `docs/stage-5-curling-spec.md` and `sports/curling/README.md`, for hockey
-`docs/stage-5-hockey-spec.md` and `sports/hockey/README.md`, and
-`docs/open-questions.md` (the settings a league still has to decide); for the landing page
+`docs/stage-5-hockey-spec.md` and `sports/hockey/README.md`, for slo-pitch `docs/stage-5-slopitch-spec.md` and
+`sports/slopitch/README.md`, and `docs/open-questions.md` (the settings a league still has to decide); for the landing page
 `docs/landing-page-plan.md` (the approved plan) and `docs/data.md`, "The front page".
 ```
 league.yml                  the league's settings (the one file a setup person edits); `landing_page` sits beside
@@ -69,14 +69,14 @@ data/                       seasons.yml and one folder per season: teams.yml, pl
                             games/ (finished sheets), drafts/ (never built), sheets/ (photos)
 sports/<id>/                a sport: sport.yml, rules.py (check, read, present, derive), sample.py, README.md, fixtures/
                             (shared test cases for the later JS port). `basketball` ships (`league.yml` says `sport: basketball`;
-                            `convert_masters.py` there turns a Masters data folder into this layout); `curling` and `hockey` are built too
-                            (a league switches with `sport: curling` or `sport: hockey`); `stub` is the core's test sport (`demo: false`)
+                            `convert_masters.py` there turns a Masters data folder into this layout); `curling`, `hockey` and `slopitch` are built too
+                            (a league switches with `sport: curling`, `sport: hockey` or `sport: slopitch`); `stub` is the core's test sport (`demo: false`)
 scripts/landing.py          the landing page's data (landing.json: each demo sport's top-3 standings and latest result, built
                             like `/<sport>/`), the `landing.yml`/`blurb` checks and the Jekyll overlay `_config.landing.yml`
 scripts/core/               the Python package: model (types), problems, config, sports, loader, standings,
                             compute*, calendars, writer
 scripts/build.py            load -> check -> compute -> write _data/computed/, stub pages, calendars
-scripts/preview_root.py     the temporary root a sport preview is built from; scripts/build_preview.sh builds /preview/ (not while the landing page is on), /basketball/, /curling/ and /hockey/
+scripts/preview_root.py     the temporary root a sport preview is built from; scripts/build_preview.sh builds /preview/ (not while the landing page is on), /basketball/, /curling/, /hockey/ and /slopitch/
 _layouts/ _includes/        Jekyll: one include per design-system part (_includes/parts, _includes/shell; parts/sport-card.html
                             is the landing page's card, a window in the sport's own look)
 index.html schedule/ ...    the pages; assets/css (stage 3), assets/js/site.js (the theme toggle, and its copy onto the landing page's windows)
@@ -105,8 +105,8 @@ Rules that came with the core:
   and have no calendar files. A new sport appears there by itself. Golden files are per sport
   (`tests/golden/<sport>/`, `test_golden.py`).
 - **The landing page** (`landing_page` in `league.yml`; absent means `false`, the repository ships `true`). `true`: the root `/`
-  is the scorers-table landing page (Basketball look) with one card per sport in `sport_previews` and a "Coming soon"
-  card per `landing.yml` `coming_soon` entry; the league's own pages are left out of the root build by the overlay
+  is the scorers-table landing page (Basketball look) with one card per sport in `sport_previews` (four live today) and a "Coming soon"
+  card per `landing.yml` `coming_soon` entry (none today: `coming_soon: []`); the league's own pages are left out of the root build by the overlay
   `_config.landing.yml` (written by every plain `build.py`; `landing_page: false` alone while off), so `/schedule/`
   and the other old root addresses do not exist, the sample league is at `/basketball/` only, `/preview/` is not
   built, and a demo's banner says "All sports". `true` with `sport_previews` off is an error. A real league sets
@@ -128,7 +128,11 @@ Rules that came with the core:
   leaderboard `order: asc` (lowest is best: GAA) and `columns:`, a derived stat's `format: dot` (".912") and `group:`,
   `stats.labels` and more than one stat group on every page (`leaders.tables`), the `events`, `penalties` and `group`
   blocks, `stat_table` `team_col`, `player_label`, column `style` and `heading: small`, and "won the shootout" in the
-  final panel. Nothing tests a sport id. `docs/sports.md` lists every key.
+  final panel; slo-pitch added `line_score.extras` (R/H/E columns) and `line_score.first`, the `facts` block and
+  `stat_table` `heading: plain`, `when: {<option>: [values]}` on stats and boards (shown only while the season's option
+  matches), a board `min` with `per_team_game: true`, `display.card_head: status_surface`, `display.matchup: at` (visitors
+  first, "at"; `league.json` `sides_order`) and a `results_legend` item's `mark` / `mark_option`. Nothing tests a sport
+  id. `docs/sports.md` lists every key.
 - **Curling** (`sports/curling/`): the game file is a box-for-box copy of the score card (an end box per rink, the
   first-end hammer, optional extra ends, a concession or `time_called`, lineups with a spare's `spare_for`); the
   hammer of every later end, steals, blanks and big ends are worked out by `read`. `rules.ends` (4 to 10, default 8),
@@ -145,6 +149,15 @@ Rules that came with the core:
   (periods, overtime, the clock, the goal cap, ties, forfeit, tiebreakers, goalie minimum...; `docs/open-questions.md`
   section 8). Rewrite its fixtures after a rule change with
   `UPDATE_FIXTURES=1 python -m pytest tests/test_hockey_fixtures.py`.
+- **Slo-pitch** (`sports/slopitch/`): the game file copies the scorebook page (runs per inning with `X` for a bottom half not
+  played, the R / H / E boxes, an optional batting line per batter); the home team in the file bats last and the site
+  lists the visitors first ("Mudcats at Sluggers"); `bats_first: home` flips one game's rows after a coin toss. `read` works
+  out limit innings, walk-offs, called games, PA, AVG and OBP. `rules.batting` (`none`, `order`, `optional`,
+  `every_game`) decides which batting stats exist (`when`); `team_hits` and `team_errors` decide the H and E boxes.
+  Fourteen settings are `[placeholder]` until a league sets them (innings, run limit, mercy rule, ties, forfeit,
+  tiebreakers, AVG minimum...; `docs/open-questions.md` section 9). Rewrite its fixtures after a rule change with
+  `UPDATE_FIXTURES=1 python -m pytest tests/test_slopitch_fixtures.py`. The shipped `league.yml` and the committed
+  `data/sample-*` stay basketball (the slo-pitch sample is written by `make_sample.py` for the golden files and `/slopitch/`).
 - **Converted Masters data is never committed** (it names real players). Tests convert into a temporary folder;
   `tests/test_masters_parity.py` runs only with `MASTERS_SITE` set to a Masters checkout.
 - Unset "league decides" settings build with the sport's typical default, show a visible `[placeholder]` and

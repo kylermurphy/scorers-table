@@ -309,7 +309,7 @@ Sport card (the landing page; added after stage 4, see [Nested layouts](#nested-
   <a class="st-button st-sport-card__go" href="#">Open the Basketball demo<span class="st-chevron"> ›</span></a>
 </article>
 <article class="st-card st-sport-card st-sport-card--soon">   <!-- a sport not built yet: no window, no link -->
-  <div class="st-sport-card__head"><h3 class="st-sport-card__name">Slo-pitch</h3><span class="st-badge">Coming soon</span></div>
+  <div class="st-sport-card__head"><h3 class="st-sport-card__name">Slo-pitch</h3><span class="st-badge">Coming soon</span>  <!-- the markup; no sport is "coming soon" today (landing.yml coming_soon: []) --></div>
   <p class="st-sport-card__blurb">…</p>
 </article>
 ```
