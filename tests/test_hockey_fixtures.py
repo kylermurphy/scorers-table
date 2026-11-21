@@ -265,7 +265,7 @@ QUIET = ("clean", "tie", "ot-win", "ot-win-shootout-league", "ot-scoreless-tie",
          "shootout-early-stop", "shootout-sudden-death", "playoff-sudden-death-ot2", "playoff-shootout",
          "playoff-scoreless-ot", "gwg-in-ot", "gwg-out-of-order-lines", "goal-order-between-periods", "clock-remaining",
          "pp-goal", "sh-goal", "en-goal", "ps-goal", "bench-penalty", "bench-penalty-unserved", "major-and-misconduct",
-         "two-goalies-decision", "shots-recorded", "shutout", "shared-shutout", "no-shutout-empty-net", "goalie-assist",
+         "two-goalies-decision", "backup-goalie-dressed", "goalie-skates", "shots-recorded", "shutout", "shared-shutout", "no-shutout-empty-net", "goalie-assist",
          "roster-00", "periods-2", "goals-left-out", "penalties-left-out")
 WARNING_ONLY = ("pp-without-penalty", "sh-without-penalty", "time-out-of-order", "time-out-of-order-remaining",
                 "penalty-time-out-of-order", "odd-minutes", "goal-cap", "decision-one-goalie", "spare-other-team",
@@ -445,6 +445,19 @@ def test_a_spare_written_in_by_name_gets_no_line():
     _, reading = run("draft-with-name")
     assert "terry-w" not in lines_of(reading, "skater")
     assert len([ln for ln in reading["lines"] if ln["group"] == "skater"]) == 9
+
+
+def test_a_backup_goalie_who_dressed_and_did_not_play_gets_no_game_at_all():
+    _, reading = run("backup-goalie-dressed")
+    assert "stu-g" not in lines_of(reading, "skater") and "stu-g" not in lines_of(reading, "goalie")
+    assert len(lines_of(reading, "skater")) == 10 and set(lines_of(reading, "goalie")) == {"len-t", "murray-b"}
+
+
+def test_a_goalie_who_skated_gets_a_skater_line():
+    _, reading = run("goalie-skates")
+    skaters = lines_of(reading, "skater")
+    assert skaters["stu-g"] == {"g": 0, "a": 0, "pts": 0, "pim": 2, "ppg": 0, "shg": 0, "gwg": 0}
+    assert "stu-g" not in lines_of(reading, "goalie") and len(skaters) == 11
 
 
 def test_a_two_period_league_has_two_period_boxes():

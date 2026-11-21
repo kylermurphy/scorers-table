@@ -243,7 +243,7 @@ follow the game, not the order of the lines.
 | `Score.extra` | `[OT goals]` when overtime was played, `[OT goals, SO]` after a shootout (SO 1-0) |
 | `Score.final` | periods + OT + SO (the Final box must agree); a shootout win adds one goal (decision 4) |
 | `decided_in` | `overtime` for an OT goal, `shootout` after a shootout, else `regulation` |
-| skater line (group `skater`) | every roster row with a player id that is not a goalie who played: GP 1, `g`, `a`, `pts` (= g + a), `pim`, `ppg`, `shg`, `gwg` |
+| skater line (group `skater`) | every roster row with a player id that is not a goalie who played, except a backup goalie (`position: goalie`) who dressed and did not play, who gets no game at all (owner decision, November 2026; a goalie who skated, with a goal, assist, penalty or shootout shot, keeps a skater line): GP 1, `g`, `a`, `pts` (= g + a), `pim`, `ppg`, `shg`, `gwg` |
 | goalie line (group `goalie`) | each goalie row: GP 1, `ga`, `sa` (shots, when recorded), `w` `l` `t` `otl` for the goalie of record (the only goalie, or the one with `decision`), `sho` (decision 13), and the goalie's own `a` and `pim` |
 | GWG | the winner's goal number (loser's final + 1), in time order, OT included; none after a tie or a shootout |
 | PIM | the penalty's minutes to the player; a bench penalty counts to nobody (the team total in the foot includes it) |

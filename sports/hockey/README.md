@@ -130,7 +130,7 @@ game and not the order of the lines.
 | Goals, assists, points | Goals and assists from the goal lines; points are goals plus assists. A shootout goal is nobody's goal and nobody's point. |
 | PPG, SHG | The player's goals marked `PP` and `SH`. Shown in a player's season totals, not in the game tables. |
 | PIM | The penalty's minutes, to the player. A bench penalty counts to nobody; the team total in the foot of the game page includes it. |
-| Games played | One for every roster row that has a player id. A goalie who played gets a **goalie** game, everyone else (a goalie who did not play too) a **skater** game. |
+| Games played | One for every roster row that has a player id. A goalie who played in net gets a **goalie** game, everyone else a **skater** game. A player marked `position: goalie` in `players.yml` who is on the roster but did not play (not in `goalies`, and no goal, assist, penalty or shootout shot) gets **no game at all** (owner decision, November 2026); a goalie who skated gets a skater game. |
 | Goalie record | The goalie of record (the only goalie of the team, or the one with `decision: true`) gets the win, the loss or the tie. An overtime or shootout loss is a loss, and also an **OTL** (OTL is "of the losses", as in the standings). |
 | Goals against (GA) | The goalie's `ga` box. A shootout goal is not a goal against. |
 | GAA | Goals against per game played (a game sheet has no minutes in net), so a goalie relieved early still gets a full game. |
@@ -365,8 +365,9 @@ A goalie who is not on the team's roster that night is a spare, as in any sport:
 A regular player of another team who fills in is already in `players.yml`: mark them `sub: true` there, or the check
 warns you (`... is not on <team>`). A warning never stops the build. If you are typing the file before you know who the
 spare is, write the row as it is on paper, `{name: Jo K., num: 30}`, and save it as a **draft**; a finished file cannot
-have such a row. A goalie who dressed but did not play is a roster row and gets a skater game with no stats: leave them
-off the roster if you do not want that.
+have such a row. A backup goalie who dressed but did not play stays on the roster (it is who dressed) and gets no game at all: no
+skater game and no goalie game. A goalie who played out as a skater (a goal, an assist, a penalty or a shootout shot)
+gets a skater game.
 
 ### A game cut short
 

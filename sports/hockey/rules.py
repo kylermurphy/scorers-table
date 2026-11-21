@@ -1024,7 +1024,7 @@ def read(sheet, ctx):
     score = Score(final=final, periods=regulation, extra=extra, decided_in=decided_in,
                   final_at={s: f"sheet.score.{s}.final" for s in SIDES})
     _mark_gwg(goals, so_played)
-    lines = _read_lines(goals, penalties, goalies, rosters, score)
+    lines = _read_lines(goals, penalties, goalies, rosters, score, ctx, shootout)
     pim = {s: sum(p["minutes"] for p in penalties if p["side"] == s) for s in SIDES}
     facts = {
         "periods": count,
@@ -1172,13 +1172,16 @@ def _read_shootout(sheet, rosters):
     return {"first": first, "attempts": attempts, "tally": tally, "winner": winner}
 
 
-def _read_lines(goals, penalties, goalies, rosters, score):
+def _read_lines(goals, penalties, goalies, rosters, score, ctx, shootout):
     lines = []
     played_goalie = {s: {g["key"] for g in goalies[s]} for s in SIDES}
     for side in SIDES:
         for key, row in rosters[side].items():
-            if row["player"] and key not in played_goalie[side]:
-                lines.append(Line(side=side, player=row["player"], group="skater", counts=_skater_counts(side, key, goals, penalties)))
+            if not row["player"] or key in played_goalie[side]:
+                continue
+            if _dressed_backup(row["player"], side, key, goals, penalties, shootout, ctx):
+                continue                                   # owner decision: a backup goalie who did not play gets no game
+            lines.append(Line(side=side, player=row["player"], group="skater", counts=_skater_counts(side, key, goals, penalties)))
     for side in SIDES:
         record = _goalie_of_record(goalies[side])
         against = [g for g in goals if g["side"] == _other(side)]
@@ -1188,6 +1191,21 @@ def _read_lines(goals, penalties, goalies, rosters, score):
             lines.append(Line(side=side, player=g["player"], group="goalie",
                               counts=_goalie_counts(side, g, g is record, goalies[side], against, goals, penalties, score)))
     return lines
+
+
+def _dressed_backup(player, side, key, goals, penalties, shootout, ctx):
+    """A roster row marked as a goalie (position goalie in players.yml) who is not in `goalies`, so did not play in net,
+    and did nothing on the sheet as a skater (no goal, assist, penalty or shootout shot)."""
+    who = ctx.players.get(player) if isinstance(player, str) else None
+    if who is None or who.position != "goalie":
+        return False
+    if any(g["side"] == side and (g["num"] == key or key in g["assists"]) for g in goals):
+        return False
+    if any(p["side"] == side and (p["num"] == key or p.get("served_by") == key) for p in penalties):
+        return False
+    if shootout and any(a["side"] == side and _num_key(a["num"]) == key for a in shootout["attempts"]):
+        return False
+    return True
 
 
 def _skater_counts(side, key, goals, penalties):
