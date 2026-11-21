@@ -1,0 +1,27 @@
+# No goals line at all: a 0-0 game (and the GA boxes say so).
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  roster:
+    home:
+      - {player: len-t, num: 31}
+      - {player: barry-s, num: 4}
+      - {player: terry-w, num: 6}
+      - {player: doug-h, num: 8}
+      - {player: gord-p, num: 12}
+      - {player: ken-l, num: 17}
+    away:
+      - {player: murray-b, num: 1}
+      - {player: phil-a, num: 2}
+      - {player: wayne-k, num: 9}
+      - {player: gary-n, num: 11}
+      - {player: rod-b, num: 14}
+      - {player: bob-c, num: 21}
+  goalies:
+    home: [{num: 31, ga: 0}]
+    away: [{num: 1, ga: 0}]
+  score:
+    home: {periods: [0, 0, 0], ot: ~, so: ~, final: 0}
+    away: {periods: [0, 0, 0], ot: ~, so: ~, final: 0}

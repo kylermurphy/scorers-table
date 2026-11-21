@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.period",
+      "message": "period 4 should be 1 to 3, OT, or OT2, OT3... (playoff sudden death)"
+    }
+  ],
+  "reading": null
+}

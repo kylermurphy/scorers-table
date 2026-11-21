@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.shots",
+      "message": "'shots' isn't a score box. Use one of: periods, ot, so, final."
+    }
+  ],
+  "reading": null
+}

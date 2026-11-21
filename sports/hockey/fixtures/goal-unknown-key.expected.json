@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.ref",
+      "message": "'ref' isn't part of a goal line. Use one of: period, time, side, num, assists, strength, en, ps."
+    }
+  ],
+  "reading": null
+}

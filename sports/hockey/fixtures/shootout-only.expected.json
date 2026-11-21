@@ -1,0 +1,445 @@
+{
+  "problems": [],
+  "reading": {
+    "score": {
+      "final": {
+        "home": 3,
+        "away": 2
+      },
+      "periods": {
+        "home": [
+          1,
+          0,
+          1
+        ],
+        "away": [
+          0,
+          1,
+          1
+        ]
+      },
+      "extra": {
+        "home": [
+          1
+        ],
+        "away": [
+          0
+        ]
+      },
+      "decided_in": "shootout",
+      "final_at": {
+        "home": "sheet.score.home.final",
+        "away": "sheet.score.away.final"
+      }
+    },
+    "lines": [
+      {
+        "side": "home",
+        "player": "barry-s",
+        "group": "skater",
+        "counts": {
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "terry-w",
+        "group": "skater",
+        "counts": {
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "doug-h",
+        "group": "skater",
+        "counts": {
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "gord-p",
+        "group": "skater",
+        "counts": {
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "ken-l",
+        "group": "skater",
+        "counts": {
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 2,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "phil-a",
+        "group": "skater",
+        "counts": {
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "wayne-k",
+        "group": "skater",
+        "counts": {
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "gary-n",
+        "group": "skater",
+        "counts": {
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "rod-b",
+        "group": "skater",
+        "counts": {
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "bob-c",
+        "group": "skater",
+        "counts": {
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2,
+          "ppg": 0,
+          "shg": 0,
+          "gwg": 0
+        }
+      },
+      {
+        "side": "home",
+        "player": "len-t",
+        "group": "goalie",
+        "counts": {
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "otl": 0,
+          "ga": 2,
+          "sa": 0,
+          "sho": 0,
+          "a": 0,
+          "pim": 0
+        }
+      },
+      {
+        "side": "away",
+        "player": "murray-b",
+        "group": "goalie",
+        "counts": {
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "otl": 1,
+          "ga": 2,
+          "sa": 0,
+          "sho": 0,
+          "a": 0,
+          "pim": 0
+        }
+      }
+    ],
+    "team_lines": {},
+    "facts": {
+      "periods": 3,
+      "clock": "elapsed",
+      "ot_played": false,
+      "so_played": true,
+      "goals": [
+        {
+          "period": 1,
+          "time": "4:12",
+          "side": "home",
+          "num": 12,
+          "player": "gord-p",
+          "name": null,
+          "assists": [
+            {
+              "num": 4,
+              "player": "barry-s",
+              "name": null
+            },
+            {
+              "num": 17,
+              "player": "ken-l",
+              "name": null
+            }
+          ],
+          "strength": "EV",
+          "en": false,
+          "ps": false,
+          "gwg": false,
+          "score": [
+            1,
+            0
+          ]
+        },
+        {
+          "period": 2,
+          "time": "2:47",
+          "side": "away",
+          "num": 14,
+          "player": "rod-b",
+          "name": null,
+          "assists": [
+            {
+              "num": 9,
+              "player": "wayne-k",
+              "name": null
+            },
+            {
+              "num": 2,
+              "player": "phil-a",
+              "name": null
+            }
+          ],
+          "strength": "EV",
+          "en": false,
+          "ps": false,
+          "gwg": false,
+          "score": [
+            1,
+            1
+          ]
+        },
+        {
+          "period": 3,
+          "time": "10:00",
+          "side": "home",
+          "num": 17,
+          "player": "ken-l",
+          "name": null,
+          "assists": [
+            {
+              "num": 12,
+              "player": "gord-p",
+              "name": null
+            }
+          ],
+          "strength": "EV",
+          "en": false,
+          "ps": false,
+          "gwg": false,
+          "score": [
+            2,
+            1
+          ]
+        },
+        {
+          "period": 3,
+          "time": "12:09",
+          "side": "away",
+          "num": 9,
+          "player": "wayne-k",
+          "name": null,
+          "assists": [],
+          "strength": "EV",
+          "en": false,
+          "ps": false,
+          "gwg": false,
+          "score": [
+            2,
+            2
+          ]
+        }
+      ],
+      "penalties": [
+        {
+          "period": 1,
+          "time": "12:15",
+          "side": "away",
+          "infraction": "Tripping",
+          "minutes": 2,
+          "bench": false,
+          "num": 21,
+          "player": "bob-c",
+          "name": null,
+          "served_by": null
+        },
+        {
+          "period": 2,
+          "time": "9:02",
+          "side": "home",
+          "infraction": "Hooking",
+          "minutes": 2,
+          "bench": false,
+          "num": 17,
+          "player": "ken-l",
+          "name": null,
+          "served_by": null
+        },
+        {
+          "period": 3,
+          "time": "8:44",
+          "side": "away",
+          "infraction": "Slashing",
+          "minutes": 2,
+          "bench": false,
+          "num": 11,
+          "player": "gary-n",
+          "name": null,
+          "served_by": null
+        },
+        {
+          "period": 3,
+          "time": "14:10",
+          "side": "home",
+          "infraction": "Body contact",
+          "minutes": 2,
+          "bench": false,
+          "num": 8,
+          "player": "doug-h",
+          "name": null,
+          "served_by": null
+        }
+      ],
+      "goalies": {
+        "home": [
+          {
+            "num": 31,
+            "key": "31",
+            "player": "len-t",
+            "name": null,
+            "ga": 2,
+            "shots": null,
+            "decision": false
+          }
+        ],
+        "away": [
+          {
+            "num": 1,
+            "key": "1",
+            "player": "murray-b",
+            "name": null,
+            "ga": 2,
+            "shots": null,
+            "decision": false
+          }
+        ]
+      },
+      "shootout": {
+        "first": "home",
+        "attempts": [
+          {
+            "side": "home",
+            "num": 12,
+            "player": "gord-p",
+            "name": null,
+            "scored": true
+          },
+          {
+            "side": "away",
+            "num": 9,
+            "player": "wayne-k",
+            "name": null,
+            "scored": false
+          },
+          {
+            "side": "home",
+            "num": 8,
+            "player": "doug-h",
+            "name": null,
+            "scored": false
+          },
+          {
+            "side": "away",
+            "num": 14,
+            "player": "rod-b",
+            "name": null,
+            "scored": true
+          },
+          {
+            "side": "home",
+            "num": 4,
+            "player": "barry-s",
+            "name": null,
+            "scored": true
+          },
+          {
+            "side": "away",
+            "num": 2,
+            "player": "phil-a",
+            "name": null,
+            "scored": false
+          }
+        ],
+        "tally": {
+          "home": 2,
+          "away": 1
+        },
+        "winner": "home"
+      },
+      "pim": {
+        "home": 4,
+        "away": 4
+      }
+    }
+  }
+}

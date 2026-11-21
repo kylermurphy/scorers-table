@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.assists.1",
+      "message": "#12 is listed twice on this goal"
+    }
+  ],
+  "reading": null
+}

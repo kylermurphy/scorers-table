@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.period",
+      "message": "is empty. Write the period of the goal: 1 to 3, or OT."
+    }
+  ],
+  "reading": null
+}

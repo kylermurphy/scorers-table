@@ -1,0 +1,20 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "is empty. The game was still level after overtime, so a shootout was played: fill in who shot and who scored."
+    },
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "is empty. The game went to a shootout: write 1 for the winning team and 0 for the other."
+    },
+    {
+      "level": "error",
+      "at": "score.away.so",
+      "message": "is empty. The game went to a shootout: write 1 for the winning team and 0 for the other."
+    }
+  ],
+  "reading": null
+}

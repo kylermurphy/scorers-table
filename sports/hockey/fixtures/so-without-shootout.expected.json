@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "the SO box is filled in, but this game wasn't decided in a shootout (it wasn't level after the periods and overtime, or this league plays no shootout here). Leave it empty."
+    },
+    {
+      "level": "error",
+      "at": "score.away.so",
+      "message": "the SO box is filled in, but this game wasn't decided in a shootout (it wasn't level after the periods and overtime, or this league plays no shootout here). Leave it empty."
+    }
+  ],
+  "reading": null
+}

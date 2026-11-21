@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.home.3.num",
+      "message": "number 8 is on two rows of Alpha. Each jersey number is on one row."
+    }
+  ],
+  "reading": null
+}

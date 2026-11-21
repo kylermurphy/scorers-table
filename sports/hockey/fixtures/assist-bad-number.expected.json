@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.assists.1",
+      "message": "'Terry' isn't a jersey number: write a whole number from 0 to 99, or \"00\" in quotes"
+    }
+  ],
+  "reading": null
+}

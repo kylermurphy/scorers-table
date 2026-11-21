@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.4.served_by",
+      "message": "#88 (who served it) isn't on Alpha's roster. Check the number, or add the player to the roster."
+    }
+  ],
+  "reading": null
+}

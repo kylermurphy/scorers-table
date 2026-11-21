@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.home",
+      "message": "Alpha has two goalies marked with the decision. Only one gets the win or loss."
+    }
+  ],
+  "reading": null
+}

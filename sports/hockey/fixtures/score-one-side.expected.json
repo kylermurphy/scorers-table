@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.away",
+      "message": "is empty. Copy Bravo's score by periods boxes."
+    }
+  ],
+  "reading": null
+}

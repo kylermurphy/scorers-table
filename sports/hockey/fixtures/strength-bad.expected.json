@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.strength",
+      "message": "strength '5on3' should be EV, PP or SH (or left out for even strength)"
+    }
+  ],
+  "reading": null
+}

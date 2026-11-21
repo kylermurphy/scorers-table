@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.away",
+      "message": "is empty. List Bravo's goalies with their goals against."
+    }
+  ],
+  "reading": null
+}

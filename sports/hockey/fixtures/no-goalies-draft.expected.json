@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "goalies",
+      "message": "is empty. List the goalies who played, with their goals against."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.home.0.move",
+      "message": "'move' isn't part of an attempt. Use one of: num, scored."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals",
+      "message": "should be a list of goal lines, one for each goal, like [{period: 1, time: \"4:12\", side: home, num: 12}]"
+    }
+  ],
+  "reading": null
+}

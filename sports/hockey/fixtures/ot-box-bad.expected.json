@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.ot",
+      "message": "'none' should be a whole number, 0 or more, or empty when not played"
+    }
+  ],
+  "reading": null
+}

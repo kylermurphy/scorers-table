@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.home.0",
+      "message": "an attempt looks like {num: 12, scored: true}"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7",
+      "message": "a goal line looks like {period: 1, time: \"4:12\", side: home, num: 12, assists: [4, 17]}"
+    }
+  ],
+  "reading": null
+}

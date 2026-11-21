@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.side",
+      "message": "side 'up' should be home or away"
+    }
+  ],
+  "reading": null
+}

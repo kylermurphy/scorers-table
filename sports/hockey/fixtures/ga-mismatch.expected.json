@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.home",
+      "message": "the GA boxes add up to 4, but Bravo scored 3, none into an empty net: check the GA boxes and the goal lines"
+    }
+  ],
+  "reading": null
+}

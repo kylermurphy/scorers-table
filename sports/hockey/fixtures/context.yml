@@ -1,0 +1,34 @@
+# The two teams, the players and the league settings every hockey fixture is checked with. All made up: Alpha (`aa`)
+# is the first-listed team ("home"), Bravo (`bb`) the second ("away"). Charlie (`cc`) is a third team whose players are
+# never in these games unless a case says so. Stu G. is a spare goalie (`sub: true`, no team). A case's own
+# `fixture:` block sets folder, game_type and any `options` that differ from these (the sport's defaults).
+sides: {home: aa, away: bb}
+teams:
+  - {id: aa, name: Alpha, code: ALP}
+  - {id: bb, name: Bravo, code: BRA}
+  - {id: cc, name: Charlie, code: CHA}
+players:
+  - {id: len-t, name: Len T., team: aa, number: "31", position: goalie}
+  - {id: barry-s, name: Barry S., team: aa, number: "4", position: defence}
+  - {id: terry-w, name: Terry W., team: aa, number: "6", position: defence}
+  - {id: doug-h, name: Doug H., team: aa, number: "8", position: forward}
+  - {id: gord-p, name: Gord P., team: aa, number: "12", position: forward}
+  - {id: ken-l, name: Ken L., team: aa, number: "17", position: forward}
+  - {id: murray-b, name: Murray B., team: bb, number: "1", position: goalie}
+  - {id: phil-a, name: Phil A., team: bb, number: "2", position: defence}
+  - {id: wayne-k, name: Wayne K., team: bb, number: "9", position: forward}
+  - {id: gary-n, name: Gary N., team: bb, number: "11", position: defence}
+  - {id: rod-b, name: Rod B., team: bb, number: "14", position: forward}
+  - {id: bob-c, name: Bob C., team: bb, number: "21", position: forward}
+  - {id: stu-g, name: Stu G., team: null, number: "35", sub: true, position: goalie}
+  - {id: hal-c, name: Hal C., team: cc, number: "7", position: forward}
+options:
+  periods: 3
+  period_minutes: 15
+  overtime: none
+  playoff_overtime: sudden_death
+  overtime_minutes: 5
+  shootout_rounds: 3
+  clock: elapsed
+  goalie_shots: none
+  goal_cap: 0

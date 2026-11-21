@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.home.0.saves",
+      "message": "'saves' isn't part of a goalie row. Use one of: num, ga, shots, decision."
+    }
+  ],
+  "reading": null
+}

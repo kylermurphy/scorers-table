@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.final",
+      "message": "the Final box says 6, but the periods, overtime and shootout add up to 5"
+    }
+  ],
+  "reading": null
+}

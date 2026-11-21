@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "there is a shootout, but this game wasn't level after the periods and overtime, or this league plays no shootout here. Take 'shootout' out."
+    }
+  ],
+  "reading": null
+}

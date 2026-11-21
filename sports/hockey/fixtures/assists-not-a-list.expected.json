@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.assists",
+      "message": "should be a list of jersey numbers, like [4, 17], or left out for an unassisted goal"
+    }
+  ],
+  "reading": null
+}

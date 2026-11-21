@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.time",
+      "message": "the time 729 should be in quotes, like \"4:12\": without quotes the file reads 4:12 as the number 252"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.judge",
+      "message": "'judge' isn't part of a shootout. Use one of: first, home, away."
+    }
+  ],
+  "reading": null
+}

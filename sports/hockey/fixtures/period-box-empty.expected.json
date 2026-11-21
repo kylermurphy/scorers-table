@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.periods.1",
+      "message": "is empty. Write Alpha's goals in period 2 (0 if none)."
+    }
+  ],
+  "reading": null
+}

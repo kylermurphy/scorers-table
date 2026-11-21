@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.periods.1",
+      "message": "'one' isn't a score for period 2: write a whole number, 0 or more"
+    }
+  ],
+  "reading": null
+}

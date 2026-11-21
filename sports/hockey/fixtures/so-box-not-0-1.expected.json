@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "2 should be 1 for the shootout winner and 0 for the other team"
+    }
+  ],
+  "reading": null
+}

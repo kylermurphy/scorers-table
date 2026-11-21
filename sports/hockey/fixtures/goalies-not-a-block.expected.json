@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies",
+      "message": "should list the goalies for home and away, like 'home: [{num: 31, ga: 3}]'"
+    }
+  ],
+  "reading": null
+}

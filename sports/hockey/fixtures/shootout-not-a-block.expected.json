@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "should be like {first: home, home: [{num: 12, scored: true}], away: [...]}"
+    }
+  ],
+  "reading": null
+}

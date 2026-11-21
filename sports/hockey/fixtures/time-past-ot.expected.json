@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.4.time",
+      "message": "6:00 is past the end of overtime, which is 5 minutes long"
+    }
+  ],
+  "reading": null
+}

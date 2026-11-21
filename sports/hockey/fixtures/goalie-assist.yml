@@ -1,0 +1,42 @@
+# Len T. (the goalie) gets an assist and a penalty: he is listed with the skaters on the game page.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  roster:
+    home:
+      - {player: len-t, num: 31}
+      - {player: barry-s, num: 4}
+      - {player: terry-w, num: 6}
+      - {player: doug-h, num: 8}
+      - {player: gord-p, num: 12}
+      - {player: ken-l, num: 17}
+    away:
+      - {player: murray-b, num: 1}
+      - {player: phil-a, num: 2}
+      - {player: wayne-k, num: 9}
+      - {player: gary-n, num: 11}
+      - {player: rod-b, num: 14}
+      - {player: bob-c, num: 21}
+  goals:
+    - {period: 1, time: "4:12", side: home, num: 12, assists: [31, 17]}
+    - {period: 1, time: "9:38", side: away, num: 9, assists: [14]}
+    - {period: 1, time: "13:05", side: home, num: 17, assists: [12]}
+    - {period: 2, time: "2:47", side: away, num: 14, assists: [9, 2]}
+    - {period: 2, time: "7:20", side: home, num: 8, assists: [17]}
+    - {period: 2, time: "11:54", side: away, num: 9}
+    - {period: 3, time: "5:31", side: home, num: 12, assists: [4]}
+    - {period: 3, time: "12:09", side: home, num: 4, assists: [12, 6]}
+  penalties:
+    - {period: 1, time: "12:15", side: away, num: 21, infraction: Tripping, minutes: 2}
+    - {period: 2, time: "9:02", side: home, num: 17, infraction: Hooking, minutes: 2}
+    - {period: 3, time: "8:44", side: away, num: 11, infraction: Slashing, minutes: 2}
+    - {period: 3, time: "14:10", side: home, num: 8, infraction: Body contact, minutes: 2}
+    - {period: 1, time: "6:00", side: home, num: 31, infraction: Delay of game, minutes: 2}
+  goalies:
+    home: [{num: 31, ga: 3}]
+    away: [{num: 1, ga: 5}]
+  score:
+    home: {periods: [2, 1, 2], ot: ~, so: ~, final: 5}
+    away: {periods: [1, 2, 0], ot: ~, so: ~, final: 3}

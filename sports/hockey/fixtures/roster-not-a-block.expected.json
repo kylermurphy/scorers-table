@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster",
+      "message": "should list the players for home and away, like 'home: [...]' and 'away: [...]'"
+    }
+  ],
+  "reading": null
+}
