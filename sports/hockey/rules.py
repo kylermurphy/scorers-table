@@ -850,6 +850,21 @@ def _no_overtime_reason(out, facts, kind):
             f"(rules.{'playoff_overtime' if kind == 'playoff' else 'overtime'}).")
 
 
+def _no_shootout_reason(out, facts):
+    """Why this game has no shootout, for the shootout block and the SO boxes (only called when so_allowed is False)."""
+    reg = facts["reg"]
+    if not facts["level"]:
+        return f"The game wasn't level after the periods ({reg['home']}-{reg['away']}), so there was no shootout."
+    if facts["so_rule"]:
+        return "The game was decided in overtime, so there was no shootout."
+    if out.ctx.game_type == "playoff":
+        return ("A level playoff game in this league plays overtime periods until a goal, with no shootout "
+                "(rules.playoff_overtime).")
+    if facts["ot_rule"]:
+        return "A regular-season game still level after overtime is a tie in this league, with no shootout (rules.overtime)."
+    return "A regular-season game level after the periods is a tie in this league, with no shootout (rules.overtime)."
+
+
 def _check_shootout_block(out, sheet, rosters, facts):
     """The `shootout` block. Returns the winning side when it can be told."""
     value = sheet.get("shootout")
@@ -860,8 +875,7 @@ def _check_shootout_block(out, sheet, rosters, facts):
                                   "and who scored.")
         return None
     if allowed is False:
-        out.error("shootout", "there is a shootout, but this game wasn't level after the periods and overtime, or this league plays "
-                              "no shootout here. Take 'shootout' out.")
+        out.error("shootout", _no_shootout_reason(out, facts) + " Take 'shootout' out.")
         return None
     return _check_shootout(out, value, rosters)
 
@@ -970,8 +984,7 @@ def _check_shootout_boxes(out, boxes, facts, winner):
         value = box["so"]
         if not allowed:
             if value is not None:
-                out.error(at, "the SO box is filled in, but this game wasn't decided in a shootout (it wasn't level after the "
-                              "periods and overtime, or this league plays no shootout here). Leave it empty.")
+                out.error(at, _no_shootout_reason(out, facts) + " Leave the SO box empty.")
         elif value is None:
             out.empty(at, f"is empty. The game went to a shootout: write 1 for the winning team and 0 for the other.")
         elif value not in (0, 1):

@@ -1,0 +1,20 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "A regular-season game still level after overtime is a tie in this league, with no shootout (rules.overtime). Take 'shootout' out."
+    },
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "A regular-season game still level after overtime is a tie in this league, with no shootout (rules.overtime). Leave the SO box empty."
+    },
+    {
+      "level": "error",
+      "at": "score.away.so",
+      "message": "A regular-season game still level after overtime is a tie in this league, with no shootout (rules.overtime). Leave the SO box empty."
+    }
+  ],
+  "reading": null
+}

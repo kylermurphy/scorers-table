@@ -3,17 +3,17 @@
     {
       "level": "error",
       "at": "shootout",
-      "message": "there is a shootout, but this game wasn't level after the periods and overtime, or this league plays no shootout here. Take 'shootout' out."
+      "message": "The game was decided in overtime, so there was no shootout. Take 'shootout' out."
     },
     {
       "level": "error",
       "at": "score.home.so",
-      "message": "the SO box is filled in, but this game wasn't decided in a shootout (it wasn't level after the periods and overtime, or this league plays no shootout here). Leave it empty."
+      "message": "The game was decided in overtime, so there was no shootout. Leave the SO box empty."
     },
     {
       "level": "error",
       "at": "score.away.so",
-      "message": "the SO box is filled in, but this game wasn't decided in a shootout (it wasn't level after the periods and overtime, or this league plays no shootout here). Leave it empty."
+      "message": "The game was decided in overtime, so there was no shootout. Leave the SO box empty."
     }
   ],
   "reading": null

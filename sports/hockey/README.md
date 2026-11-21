@@ -234,7 +234,7 @@ typos. Paths below are relative to `sheet`; `<side>` is `home` or `away`, `<i>` 
 | `score.<side>.ot` | empty although regulation was level and overtime is played here ("write 0 for a scoreless overtime") | gap |
 | `score.<side>.ot` | not the side's goals in overtime | error |
 | `goals.<i>.period` | an overtime goal although there is no overtime in this game; a second overtime goal (overtime is sudden death: the first goal ends it) | error |
-| `shootout` | filled although the game was not level after overtime, or this league plays no shootout here | error |
+| `shootout` | filled although the game was not level after overtime, or this league plays no shootout here (the message says which: won in regulation, decided in overtime, or a tie or sudden death under `rules.overtime` / `rules.playoff_overtime`) | error |
 | `shootout` | missing although it was level after overtime and a shootout is played here | gap |
 | `shootout` | not a block; an unknown key (`.<key>`) | error |
 | `shootout.first` | missing | gap |

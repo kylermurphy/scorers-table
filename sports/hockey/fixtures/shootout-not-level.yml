@@ -1,0 +1,40 @@
+# A shootout league (overtime: shootout), but the game was won in regulation (2-1): there was no shootout.
+fixture:
+  folder: games
+  game_type: regular
+  options: {overtime: shootout}
+sheet:
+  roster:
+    home:
+      - {player: len-t, num: 31}
+      - {player: barry-s, num: 4}
+      - {player: terry-w, num: 6}
+      - {player: doug-h, num: 8}
+      - {player: gord-p, num: 12}
+      - {player: ken-l, num: 17}
+    away:
+      - {player: murray-b, num: 1}
+      - {player: phil-a, num: 2}
+      - {player: wayne-k, num: 9}
+      - {player: gary-n, num: 11}
+      - {player: rod-b, num: 14}
+      - {player: bob-c, num: 21}
+  goals:
+    - {period: 1, time: "4:12", side: home, num: 12, assists: [4, 17]}
+    - {period: 2, time: "2:47", side: away, num: 14, assists: [9, 2]}
+    - {period: 3, time: "10:00", side: home, num: 17, assists: [12]}
+  penalties:
+    - {period: 1, time: "12:15", side: away, num: 21, infraction: Tripping, minutes: 2}
+    - {period: 2, time: "9:02", side: home, num: 17, infraction: Hooking, minutes: 2}
+    - {period: 3, time: "8:44", side: away, num: 11, infraction: Slashing, minutes: 2}
+    - {period: 3, time: "14:10", side: home, num: 8, infraction: Body contact, minutes: 2}
+  goalies:
+    home: [{num: 31, ga: 1}]
+    away: [{num: 1, ga: 2}]
+  shootout:
+    first: home
+    home: [{num: 12, scored: true}, {num: 8, scored: false}, {num: 4, scored: true}]
+    away: [{num: 9, scored: false}, {num: 14, scored: true}, {num: 2, scored: false}]
+  score:
+    home: {periods: [1, 0, 1], ot: ~, so: ~, final: 2}
+    away: {periods: [0, 1, 0], ot: ~, so: ~, final: 1}

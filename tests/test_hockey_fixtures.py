@@ -230,6 +230,8 @@ ROWS = [
     ("so filled although there is no shootout in this game", "so-without-shootout", "error", "score.home.so"),
     ("shootout filled although this league plays none", "so-and-shootout-when-none", "error", "shootout"),
     ("shootout filled although overtime was won", "shootout-not-needed", "error", "shootout"),
+    ("shootout filled although the game was won in regulation", "shootout-not-level", "error", "shootout"),
+    ("shootout and so filled although a level overtime is a tie here", "shootout-after-ot-tie", "error", "score.home.so"),
     ("shootout filled although a playoff league plays sudden death", "playoff-no-shootout-by-default", "error", "shootout"),
     ("shootout missing although level after overtime", "shootout-missing", "error", "shootout"),
     ("so missing although a shootout was played", "so-box-missing", "error", "score.home.so"),
