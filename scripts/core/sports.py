@@ -48,6 +48,9 @@ SHAPES = ("quarters", "ends", "periods", "innings")
 CARD = ("rows", "lines")
 CARD_FOOT = ("note", "meta", "status_note")
 SURFACE = ("label", "sub")
+CARD_HEAD = ("", "status_surface")     # E25: "status_surface" puts "Final · Diamond 1" above a `lines` card
+MATCHUPS = ("vs", "at")                # E26: how a game's two teams are joined, and which side is listed first
+SIDES_ORDER = {"vs": ["home", "away"], "at": ["away", "home"]}     # league.json `sides_order` for each matchup
 # The kinds of key parts/legend.html draws (display.results_legend items).
 LEGEND_KINDS = ("hammer", "won", "mark", "blank", "limit", "x")
 
@@ -224,14 +227,14 @@ def check_sport_spec(spec: Any, file: str) -> list[Problem]:
     team_cols = team_stat_keys(spec)
     if "standings" in spec:
         check_standings(c, spec["standings"], "standings", team_cols, allow_decide=True)
-    stat_keys = _check_stats(c, spec["stats"], "stats") if "stats" in spec else {}
+    stat_keys = _check_stats(c, spec["stats"], "stats", spec.get("options")) if "stats" in spec else {}
     if "minimums" in spec:
         _check_minimums(c, spec["minimums"])
     if "leaderboards" in spec:
-        _check_leaderboards(c, spec["leaderboards"], stat_keys, spec.get("minimums"))
+        _check_leaderboards(c, spec["leaderboards"], stat_keys, spec.get("minimums"), spec.get("options"))
     _check_labels(c, spec)
     if "display" in spec:
-        _check_display(c, spec["display"], spec.get("positions"))
+        _check_display(c, spec["display"], spec.get("positions"), spec.get("options"))
     if "positions" in spec:
         for i, p in enumerate(c.sequence(spec["positions"], "positions") or []):
             c.pattern(p, join_path("positions", i), KEY_RE, "a lower-case word")
@@ -346,16 +349,44 @@ def _check_options(c: Checker, options: Any) -> None:
             check_option_value(c, opt["default"], join_path(at, "default"), opt)
 
 
+def check_when(c: Checker, when: Any, at: str, options: Any) -> None:
+    """`when: {<option>: [values]}` (E23) on a stat or a leaderboard: it is shown only while every named option has
+    one of the listed values. The option must exist in this sport.yml and each value must be one it allows."""
+    if c.mapping(when, at, any_keys=True) is None:
+        return
+    if not when:
+        c.error(at, "must name at least one option, like {batting: [optional, every_game]}.")
+    known = options if isinstance(options, dict) else {}
+    for name, values in when.items():
+        n_at = join_path(at, name)
+        option = known.get(name)
+        if not isinstance(option, dict):
+            c.error(n_at, f"{name!r} is not an option of this sport. Use one of: {one_of(list(known)) if known else '(none listed)'}.")
+            continue
+        items = c.sequence(values, n_at)
+        if items is not None and not items:
+            c.error(n_at, "must list at least one value.")
+        for i, value in enumerate(items or []):
+            check_option_value(c, value, join_path(n_at, i), option)
+
+
+def when_matches(when: Any, rules: dict) -> bool:
+    """True when a stat or board with this `when` (or none) is shown under these effective options (E23)."""
+    return not when or all(rules.get(name) in values for name, values in when.items())
+
+
 def _check_stat_list(c: Checker, items: Any, at: str, *, derived: bool = False, groups: list[str] | None = None,
-                     derived_group: dict[str, str] | None = None) -> list[str]:
+                     derived_group: dict[str, str] | None = None, options: Any = None, allow_when: bool = True) -> list[str]:
     """Check a list of stat definitions; returns the keys that were fine. A derived stat may also give `places`,
     `format` (E13) and `group` (E14: only that group's columns and boards may use it; recorded in `derived_group`)."""
     keys: list[str] = []
     for i, stat in enumerate(c.sequence(items, at) or []):
         s_at = join_path(at, i)
-        if c.mapping(stat, s_at, allowed=("places", "format", "group") if derived else (),
-                     required=("key", "label", "title")) is None:
+        allowed = (("places", "format", "group") if derived else ()) + (("when",) if allow_when else ())
+        if c.mapping(stat, s_at, allowed=allowed, required=("key", "label", "title")) is None:
             continue
+        if "when" in stat:
+            check_when(c, stat["when"], join_path(s_at, "when"), options)
         if "format" in stat:
             c.choice(stat["format"], join_path(s_at, "format"), STAT_FORMATS)
         if "group" in stat and c.choice(stat["group"], join_path(s_at, "group"), groups or []) is not None:
@@ -376,7 +407,7 @@ def _check_stat_list(c: Checker, items: Any, at: str, *, derived: bool = False, 
     return keys
 
 
-def _check_stats(c: Checker, stats: Any, at: str) -> dict[str, list[str]]:
+def _check_stats(c: Checker, stats: Any, at: str, options: Any = None) -> dict[str, list[str]]:
     """Check `stats:`; returns {group name: [stat keys]} with the special groups 'derived' and 'team' included
     (`columns` is checked against the groups and is not one of them)."""
     found: dict[str, list[str]] = {}
@@ -393,7 +424,7 @@ def _check_stats(c: Checker, stats: Any, at: str) -> dict[str, list[str]]:
         if key in groups:
             c.pattern(key, key_at, KEY_RE, "a lower-case group name like 'player'")
         found[key] = _check_stat_list(c, items, key_at, derived=(key == "derived"), groups=groups,
-                                      derived_group=derived_group)
+                                      derived_group=derived_group, options=options, allow_when=(key != "team"))
     found["_derived_group"] = derived_group      # type: ignore[assignment]  (checker-only, see STAT_RESERVED)
     if "labels" in stats and c.mapping(stats["labels"], join_path(at, "labels"), any_keys=True) is not None:
         for group, text in stats["labels"].items():
@@ -459,14 +490,16 @@ def _check_minimums(c: Checker, minimums: Any) -> None:
             check_template(c, m["note"], join_path(at, "note"), ["value"])
 
 
-def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]], minimums: Any) -> None:
+def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]], minimums: Any, options: Any = None) -> None:
     seen: list[str] = []
     known_minimums = list(minimums) if isinstance(minimums, dict) else []
     for i, board in enumerate(c.sequence(boards, "leaderboards") or []):
         at = join_path("leaderboards", i)
-        if c.mapping(board, at, allowed=("group", "tile", "edge", "detail", "min", "order", "columns", *BOARD_FLAGS),
+        if c.mapping(board, at, allowed=("group", "tile", "edge", "detail", "min", "order", "columns", "when", *BOARD_FLAGS),
                      required=("id", "of", "stat", "label")) is None:
             continue
+        if "when" in board:
+            check_when(c, board["when"], join_path(at, "when"), options)
         if "id" in board and c.pattern(board["id"], join_path(at, "id"), KEY_RE, "a lower-case name like 'pts'"):
             if board["id"] in seen:
                 c.error(join_path(at, "id"), f"{board['id']!r} is used twice.")
@@ -528,12 +561,17 @@ def check_template(c: Checker, text: str, at: str, fields: list[str]) -> None:
 
 
 def _check_board_min(c: Checker, m: Any, at: str, known_minimums: list[str], fields: list[str]) -> None:
-    if c.mapping(m, at, allowed=("cap_at_team_games",), required=("stat", "setting")) is None:
+    if c.mapping(m, at, allowed=("cap_at_team_games", "per_team_game"), required=("stat", "setting")) is None:
         return
     if "stat" in m:
         c.choice(m["stat"], join_path(at, "stat"), list(dict.fromkeys(fields)))
     if "cap_at_team_games" in m:
         c.boolean(m["cap_at_team_games"], join_path(at, "cap_at_team_games"))
+    if "per_team_game" in m:
+        c.boolean(m["per_team_game"], join_path(at, "per_team_game"))
+        if m["per_team_game"] is True and m.get("cap_at_team_games") is True:
+            c.error(join_path(at, "per_team_game"), "cannot be combined with cap_at_team_games: the setting is already "
+                                                    "counted per team game. Use one of them.")
     if "setting" in m and m["setting"] not in known_minimums:
         c.error(join_path(at, "setting"), f"{m['setting']!r} is not in 'minimums:'. Use one of: {', '.join(known_minimums) or '(none listed)'}.")
 
@@ -550,14 +588,16 @@ def _check_labels(c: Checker, spec: dict) -> None:
                     c.text(v, join_path("labels_by_layout", layout, k))
 
 
-def _check_display(c: Checker, display: Any, positions: Any = None) -> None:
-    if c.mapping(display, "display", allowed=("card", "card_foot", "surface", "results_legend", "team_sub")) is None:
+def _check_display(c: Checker, display: Any, positions: Any = None, options: Any = None) -> None:
+    if c.mapping(display, "display", allowed=("card", "card_foot", "surface", "results_legend", "team_sub", "card_head",
+                                              "matchup")) is None:
         return
-    for key, options in (("card", CARD), ("card_foot", CARD_FOOT), ("surface", SURFACE)):
+    for key, allowed in (("card", CARD), ("card_foot", CARD_FOOT), ("surface", SURFACE), ("card_head", CARD_HEAD),
+                         ("matchup", MATCHUPS)):
         if key in display:
-            c.choice(display[key], join_path("display", key), options)
+            c.choice(display[key], join_path("display", key), allowed)
     if "results_legend" in display:
-        _check_results_legend(c, display["results_legend"])
+        _check_results_legend(c, display["results_legend"], options)
     if "team_sub" in display:
         # The position whose regular a team card names ("Skip Gail R."): one of the sport's `positions`.
         names = [p for p in positions if isinstance(p, str)] if isinstance(positions, list) else []
@@ -567,14 +607,27 @@ def _check_display(c: Checker, display: Any, positions: Any = None) -> None:
             c.choice(display["team_sub"], "display.team_sub", names)
 
 
-def _check_results_legend(c: Checker, legend: Any) -> None:
-    """display.results_legend: [{kind, text}], the key printed above a list of result cards."""
+def _check_results_legend(c: Checker, legend: Any, options: Any = None) -> None:
+    """display.results_legend: [{kind, text}], the key printed above a list of result cards. A `limit` or `x` item may
+    also carry `mark` (the character in the key, fixed text) or `mark_option` (E27: the name of an int option; the key
+    shows the league's value, like "5")."""
     for i, item in enumerate(c.sequence(legend, "display.results_legend") or []):
         at = join_path("display", "results_legend", i)
-        if c.mapping(item, at, allowed=(), required=("kind", "text")) is None:
+        if c.mapping(item, at, allowed=("mark", "mark_option"), required=("kind", "text")) is None:
             continue
         if "kind" in item:
             c.choice(item["kind"], join_path(at, "kind"), LEGEND_KINDS)
+        if "mark" in item and "mark_option" in item:
+            c.error(join_path(at, "mark_option"), "cannot be used with 'mark': give the character, or the option it comes from.")
+        if "mark" in item:
+            c.text(item["mark"], join_path(at, "mark"))
+        if "mark_option" in item:
+            known = options if isinstance(options, dict) else {}
+            opt = known.get(item["mark_option"]) if isinstance(item["mark_option"], str) else None
+            if not isinstance(opt, dict) or opt.get("type") != "int":
+                ints = [k for k, v in known.items() if isinstance(v, dict) and v.get("type") == "int"]
+                c.error(join_path(at, "mark_option"), f"{item['mark_option']!r} is not an int option in this sport.yml. "
+                                                      f"Use one of: {one_of(ints) if ints else '(no int options)'}.")
         if "text" in item:
             c.text(item["text"], join_path(at, "text"))
 
@@ -585,7 +638,8 @@ def normalise_spec(spec: dict) -> dict:
     for key, default in (("demo", True), ("games_per_day", 1), ("game_minutes", 60), ("options", {}), ("minimums", {}),
                          ("leaderboards", []), ("labels", {}), ("labels_by_layout", {}), ("positions", [])):
         out.setdefault(key, default)
-    out["display"] = {"card": "rows", "card_foot": "note", "surface": "label", **(out.get("display") or {})}
+    out["display"] = {"card": "rows", "card_foot": "note", "surface": "label", "card_head": "", "matchup": "vs",
+                      **(out.get("display") or {})}
     out["words"].setdefault("surface", "")
     out["stats"].setdefault("derived", [])
     out["stats"].setdefault("team", [])
