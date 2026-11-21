@@ -1,0 +1,1318 @@
+{
+  "boards": [
+    {
+      "id": "avg",
+      "label": "Batting avg",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "avg",
+      "tile": true,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": 2,
+        "placeholder": true,
+        "note": "Minimum [placeholder] plate appearances per team game to rank."
+      },
+      "unranked": [
+        "alf-f",
+        "finn-g",
+        "hal-b",
+        "hal-j",
+        "kit-p",
+        "kit-r",
+        "kit-t",
+        "lars-c",
+        "rae-k",
+        "sky-m",
+        "wes-w",
+        "yara-w"
+      ],
+      "columns": null,
+      "title": "Batting avg",
+      "title_board": null,
+      "unit": "AVG",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ida-g",
+          "team": "line-drives",
+          "label": "Ida G.",
+          "value": 0.786,
+          "display": ".786",
+          "detail": "11 for 14",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "alf-l",
+          "team": "bunters",
+          "label": "Alf L.",
+          "value": 0.778,
+          "display": ".778",
+          "detail": "7 for 9",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "fay-a",
+          "team": "sluggers",
+          "label": "Fay A.",
+          "value": 0.769,
+          "display": ".769",
+          "detail": "10 for 13",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "quin-r",
+          "team": "bunters",
+          "label": "Quin R.",
+          "value": 0.769,
+          "display": ".769",
+          "detail": "10 for 13",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "quin-w",
+          "team": "sluggers",
+          "label": "Quin W.",
+          "value": 0.765,
+          "display": ".765",
+          "detail": "13 for 17",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "noa-h",
+          "team": "dugout-dogs",
+          "label": "Noa H.",
+          "value": 0.75,
+          "display": ".750",
+          "detail": "9 for 12",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "dee-f",
+          "team": "mudcats",
+          "label": "Dee F.",
+          "value": 0.714,
+          "display": ".714",
+          "detail": "10 for 14",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "una-a",
+          "team": "dugout-dogs",
+          "label": "Una A.",
+          "value": 0.714,
+          "display": ".714",
+          "detail": "10 for 14",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "una-e",
+          "team": "line-drives",
+          "label": "Una E.",
+          "value": 0.7,
+          "display": ".700",
+          "detail": "7 for 10",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "una-r",
+          "team": "line-drives",
+          "label": "Una R.",
+          "value": 0.692,
+          "display": ".692",
+          "detail": "9 for 13",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "hr",
+      "label": "Home runs",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "hr",
+      "tile": true,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Home runs",
+      "title_board": null,
+      "unit": "HR",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "fay-a",
+          "team": "sluggers",
+          "label": "Fay A.",
+          "value": 2,
+          "display": "2",
+          "detail": "4 games",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "joy-d",
+          "team": "bunters",
+          "label": "Joy D.",
+          "value": 2,
+          "display": "2",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "lou-d",
+          "team": "bunters",
+          "label": "Lou D.",
+          "value": 2,
+          "display": "2",
+          "detail": "4 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "alf-h",
+          "team": "mudcats",
+          "label": "Alf H.",
+          "value": 1,
+          "display": "1",
+          "detail": "4 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "alf-l",
+          "team": "bunters",
+          "label": "Alf L.",
+          "value": 1,
+          "display": "1",
+          "detail": "3 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "cal-c",
+          "team": "sluggers",
+          "label": "Cal C.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "gwen-e",
+          "team": "mudcats",
+          "label": "Gwen E.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "gwen-h",
+          "team": "mudcats",
+          "label": "Gwen H.",
+          "value": 1,
+          "display": "1",
+          "detail": "4 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "ike-n",
+          "team": "long-balls",
+          "label": "Ike N.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "nell-l",
+          "team": "sluggers",
+          "label": "Nell L.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "noa-h",
+          "team": "dugout-dogs",
+          "label": "Noa H.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "oz-g",
+          "team": "bunters",
+          "label": "Oz G.",
+          "value": 1,
+          "display": "1",
+          "detail": "4 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "sal-f",
+          "team": "mudcats",
+          "label": "Sal F.",
+          "value": 1,
+          "display": "1",
+          "detail": "5 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "una-e",
+          "team": "line-drives",
+          "label": "Una E.",
+          "value": 1,
+          "display": "1",
+          "detail": "4 games",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "wren-h",
+          "team": null,
+          "label": "Wren H.",
+          "value": 1,
+          "display": "1",
+          "detail": "3 games",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "rbi",
+      "label": "RBI",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "rbi",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "RBI",
+      "title_board": null,
+      "unit": "RBI",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "joy-d",
+          "team": "bunters",
+          "label": "Joy D.",
+          "value": 17,
+          "display": "17",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "fay-a",
+          "team": "sluggers",
+          "label": "Fay A.",
+          "value": 13,
+          "display": "13",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "gwen-e",
+          "team": "mudcats",
+          "label": "Gwen E.",
+          "value": 13,
+          "display": "13",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "noa-h",
+          "team": "dugout-dogs",
+          "label": "Noa H.",
+          "value": 13,
+          "display": "13",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "una-r",
+          "team": "line-drives",
+          "label": "Una R.",
+          "value": 12,
+          "display": "12",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "lou-d",
+          "team": "bunters",
+          "label": "Lou D.",
+          "value": 11,
+          "display": "11",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "hal-j",
+          "team": "sluggers",
+          "label": "Hal J.",
+          "value": 10,
+          "display": "10",
+          "detail": "2 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "sky-d",
+          "team": "line-drives",
+          "label": "Sky D.",
+          "value": 10,
+          "display": "10",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "nell-l",
+          "team": "sluggers",
+          "label": "Nell L.",
+          "value": 9,
+          "display": "9",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "oz-g",
+          "team": "bunters",
+          "label": "Oz G.",
+          "value": 9,
+          "display": "9",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "sal-f",
+          "team": "mudcats",
+          "label": "Sal F.",
+          "value": 9,
+          "display": "9",
+          "detail": "5 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "hits",
+      "label": "Hits",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "h",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Hits",
+      "title_board": null,
+      "unit": "H",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "nell-l",
+          "team": "sluggers",
+          "label": "Nell L.",
+          "value": 13,
+          "display": "13",
+          "detail": "19 AB",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "quin-w",
+          "team": "sluggers",
+          "label": "Quin W.",
+          "value": 13,
+          "display": "13",
+          "detail": "17 AB",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "finn-b",
+          "team": "sluggers",
+          "label": "Finn B.",
+          "value": 11,
+          "display": "11",
+          "detail": "17 AB",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "gwen-e",
+          "team": "mudcats",
+          "label": "Gwen E.",
+          "value": 11,
+          "display": "11",
+          "detail": "18 AB",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "ida-g",
+          "team": "line-drives",
+          "label": "Ida G.",
+          "value": 11,
+          "display": "11",
+          "detail": "14 AB",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "joy-d",
+          "team": "bunters",
+          "label": "Joy D.",
+          "value": 11,
+          "display": "11",
+          "detail": "17 AB",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "quin-p",
+          "team": "mudcats",
+          "label": "Quin P.",
+          "value": 11,
+          "display": "11",
+          "detail": "17 AB",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "dee-f",
+          "team": "mudcats",
+          "label": "Dee F.",
+          "value": 10,
+          "display": "10",
+          "detail": "14 AB",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "fay-a",
+          "team": "sluggers",
+          "label": "Fay A.",
+          "value": 10,
+          "display": "10",
+          "detail": "13 AB",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "quin-r",
+          "team": "bunters",
+          "label": "Quin R.",
+          "value": 10,
+          "display": "10",
+          "detail": "13 AB",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "sky-d",
+          "team": "line-drives",
+          "label": "Sky D.",
+          "value": 10,
+          "display": "10",
+          "detail": "15 AB",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "una-a",
+          "team": "dugout-dogs",
+          "label": "Una A.",
+          "value": 10,
+          "display": "10",
+          "detail": "14 AB",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "runs",
+      "label": "Runs",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "r",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Runs",
+      "title_board": null,
+      "unit": "R",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ida-g",
+          "team": "line-drives",
+          "label": "Ida G.",
+          "value": 15,
+          "display": "15",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "quin-p",
+          "team": "mudcats",
+          "label": "Quin P.",
+          "value": 13,
+          "display": "13",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "ola-p",
+          "team": "dugout-dogs",
+          "label": "Ola P.",
+          "value": 12,
+          "display": "12",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "quin-r",
+          "team": "bunters",
+          "label": "Quin R.",
+          "value": 12,
+          "display": "12",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "quin-w",
+          "team": "sluggers",
+          "label": "Quin W.",
+          "value": 12,
+          "display": "12",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "gwen-e",
+          "team": "mudcats",
+          "label": "Gwen E.",
+          "value": 11,
+          "display": "11",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "finn-b",
+          "team": "sluggers",
+          "label": "Finn B.",
+          "value": 10,
+          "display": "10",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "nell-l",
+          "team": "sluggers",
+          "label": "Nell L.",
+          "value": 10,
+          "display": "10",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "noa-h",
+          "team": "dugout-dogs",
+          "label": "Noa H.",
+          "value": 9,
+          "display": "9",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "fay-c",
+          "team": "dugout-dogs",
+          "label": "Fay C.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "jax-j",
+          "team": "bunters",
+          "label": "Jax J.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "lou-d",
+          "team": "bunters",
+          "label": "Lou D.",
+          "value": 8,
+          "display": "8",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "rae-w",
+          "team": "sluggers",
+          "label": "Rae W.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "obp",
+      "label": "On-base %",
+      "of": "player",
+      "group": "player",
+      "group_label": null,
+      "stat": "obp",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": 2,
+        "placeholder": true,
+        "note": "Minimum [placeholder] plate appearances per team game to rank."
+      },
+      "unranked": [
+        "alf-f",
+        "finn-g",
+        "hal-b",
+        "hal-j",
+        "kit-p",
+        "kit-r",
+        "kit-t",
+        "lars-c",
+        "rae-k",
+        "sky-m",
+        "wes-w",
+        "yara-w"
+      ],
+      "columns": null,
+      "title": "On-base %",
+      "title_board": null,
+      "unit": "OBP",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "alf-l",
+          "team": "bunters",
+          "label": "Alf L.",
+          "value": 0.8,
+          "display": ".800",
+          "detail": "10 PA",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "ida-g",
+          "team": "line-drives",
+          "label": "Ida G.",
+          "value": 0.8,
+          "display": ".800",
+          "detail": "15 PA",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "fay-a",
+          "team": "sluggers",
+          "label": "Fay A.",
+          "value": 0.786,
+          "display": ".786",
+          "detail": "14 PA",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "quin-r",
+          "team": "bunters",
+          "label": "Quin R.",
+          "value": 0.769,
+          "display": ".769",
+          "detail": "13 PA",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "quin-w",
+          "team": "sluggers",
+          "label": "Quin W.",
+          "value": 0.765,
+          "display": ".765",
+          "detail": "17 PA",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "noa-h",
+          "team": "dugout-dogs",
+          "label": "Noa H.",
+          "value": 0.75,
+          "display": ".750",
+          "detail": "12 PA",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "una-r",
+          "team": "line-drives",
+          "label": "Una R.",
+          "value": 0.733,
+          "display": ".733",
+          "detail": "15 PA",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "una-e",
+          "team": "line-drives",
+          "label": "Una E.",
+          "value": 0.727,
+          "display": ".727",
+          "detail": "11 PA",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "dee-f",
+          "team": "mudcats",
+          "label": "Dee F.",
+          "value": 0.714,
+          "display": ".714",
+          "detail": "14 PA",
+          "cells": null
+        },
+        {
+          "rank": 9,
+          "player": "una-a",
+          "team": "dugout-dogs",
+          "label": "Una A.",
+          "value": 0.714,
+          "display": ".714",
+          "detail": "14 PA",
+          "cells": null
+        }
+      ]
+    }
+  ],
+  "table": {
+    "group": "player",
+    "label": "Batting",
+    "columns": [
+      {
+        "key": "gp",
+        "label": "GP",
+        "title": "Games played",
+        "key_col": false
+      },
+      {
+        "key": "ab",
+        "label": "AB",
+        "title": "At bats",
+        "key_col": false
+      },
+      {
+        "key": "h",
+        "label": "H",
+        "title": "Hits",
+        "key_col": false
+      },
+      {
+        "key": "avg",
+        "label": "AVG",
+        "title": "Batting average",
+        "key_col": true
+      },
+      {
+        "key": "hr",
+        "label": "HR",
+        "title": "Home runs",
+        "key_col": false
+      },
+      {
+        "key": "rbi",
+        "label": "RBI",
+        "title": "Runs batted in",
+        "key_col": false
+      },
+      {
+        "key": "r",
+        "label": "R",
+        "title": "Runs",
+        "key_col": false
+      },
+      {
+        "key": "bb",
+        "label": "BB",
+        "title": "Walks",
+        "key_col": false
+      }
+    ],
+    "rows": [
+      "hal-b",
+      "hal-j",
+      "yara-w",
+      "ida-g",
+      "alf-l",
+      "fay-a",
+      "quin-r",
+      "quin-w",
+      "noa-h",
+      "dee-f",
+      "una-a",
+      "una-e",
+      "una-r",
+      "nell-l",
+      "lars-c",
+      "sky-d",
+      "finn-b",
+      "joy-d",
+      "quin-p",
+      "lou-d",
+      "gwen-e",
+      "ola-p",
+      "pia-k",
+      "fay-c",
+      "kai-h",
+      "wren-h",
+      "ike-h",
+      "oz-g",
+      "jax-h",
+      "jax-j",
+      "sky-f",
+      "jax-p",
+      "quin-g",
+      "tam-c",
+      "gwen-h",
+      "ada-e",
+      "ida-n",
+      "sal-l",
+      "val-m",
+      "cal-e",
+      "sal-f",
+      "rae-w",
+      "alf-h",
+      "cleo-s",
+      "dax-p",
+      "finn-g",
+      "rae-k",
+      "pax-c",
+      "cal-b",
+      "ike-p",
+      "abe-b",
+      "kai-d",
+      "kit-p",
+      "mae-d",
+      "kit-b",
+      "amy-s",
+      "alf-f",
+      "cal-c",
+      "jax-f",
+      "sky-m",
+      "wes-w",
+      "oz-m",
+      "lars-d",
+      "sal-d",
+      "sal-p",
+      "kai-p",
+      "kit-w",
+      "kai-t",
+      "kit-r",
+      "ted-t",
+      "ike-n",
+      "bo-e",
+      "kit-t",
+      "val-r"
+    ]
+  },
+  "tables": [
+    {
+      "group": "player",
+      "label": "Batting",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "ab",
+          "label": "AB",
+          "title": "At bats",
+          "key_col": false
+        },
+        {
+          "key": "h",
+          "label": "H",
+          "title": "Hits",
+          "key_col": false
+        },
+        {
+          "key": "avg",
+          "label": "AVG",
+          "title": "Batting average",
+          "key_col": true
+        },
+        {
+          "key": "hr",
+          "label": "HR",
+          "title": "Home runs",
+          "key_col": false
+        },
+        {
+          "key": "rbi",
+          "label": "RBI",
+          "title": "Runs batted in",
+          "key_col": false
+        },
+        {
+          "key": "r",
+          "label": "R",
+          "title": "Runs",
+          "key_col": false
+        },
+        {
+          "key": "bb",
+          "label": "BB",
+          "title": "Walks",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "hal-b",
+        "hal-j",
+        "yara-w",
+        "ida-g",
+        "alf-l",
+        "fay-a",
+        "quin-r",
+        "quin-w",
+        "noa-h",
+        "dee-f",
+        "una-a",
+        "una-e",
+        "una-r",
+        "nell-l",
+        "lars-c",
+        "sky-d",
+        "finn-b",
+        "joy-d",
+        "quin-p",
+        "lou-d",
+        "gwen-e",
+        "ola-p",
+        "pia-k",
+        "fay-c",
+        "kai-h",
+        "wren-h",
+        "ike-h",
+        "oz-g",
+        "jax-h",
+        "jax-j",
+        "sky-f",
+        "jax-p",
+        "quin-g",
+        "tam-c",
+        "gwen-h",
+        "ada-e",
+        "ida-n",
+        "sal-l",
+        "val-m",
+        "cal-e",
+        "sal-f",
+        "rae-w",
+        "alf-h",
+        "cleo-s",
+        "dax-p",
+        "finn-g",
+        "rae-k",
+        "pax-c",
+        "cal-b",
+        "ike-p",
+        "abe-b",
+        "kai-d",
+        "kit-p",
+        "mae-d",
+        "kit-b",
+        "amy-s",
+        "alf-f",
+        "cal-c",
+        "jax-f",
+        "sky-m",
+        "wes-w",
+        "oz-m",
+        "lars-d",
+        "sal-d",
+        "sal-p",
+        "kai-p",
+        "kit-w",
+        "kai-t",
+        "kit-r",
+        "ted-t",
+        "ike-n",
+        "bo-e",
+        "kit-t",
+        "val-r"
+      ]
+    }
+  ],
+  "columns": {
+    "player": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "ab",
+          "label": "AB",
+          "title": "At bats",
+          "key_col": false
+        },
+        {
+          "key": "h",
+          "label": "H",
+          "title": "Hits",
+          "key_col": false
+        },
+        {
+          "key": "avg",
+          "label": "AVG",
+          "title": "Batting average",
+          "key_col": true
+        },
+        {
+          "key": "hr",
+          "label": "HR",
+          "title": "Home runs",
+          "key_col": false
+        },
+        {
+          "key": "rbi",
+          "label": "RBI",
+          "title": "Runs batted in",
+          "key_col": false
+        },
+        {
+          "key": "r",
+          "label": "R",
+          "title": "Runs",
+          "key_col": false
+        },
+        {
+          "key": "bb",
+          "label": "BB",
+          "title": "Walks",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pa",
+          "label": "PA",
+          "title": "Plate appearances",
+          "key_col": false
+        },
+        {
+          "key": "ab",
+          "label": "AB",
+          "title": "At bats",
+          "key_col": false
+        },
+        {
+          "key": "r",
+          "label": "R",
+          "title": "Runs",
+          "key_col": false
+        },
+        {
+          "key": "h",
+          "label": "H",
+          "title": "Hits",
+          "key_col": false
+        },
+        {
+          "key": "hr",
+          "label": "HR",
+          "title": "Home runs",
+          "key_col": false
+        },
+        {
+          "key": "rbi",
+          "label": "RBI",
+          "title": "Runs batted in",
+          "key_col": false
+        },
+        {
+          "key": "bb",
+          "label": "BB",
+          "title": "Walks",
+          "key_col": false
+        },
+        {
+          "key": "avg",
+          "label": "AVG",
+          "title": "Batting average",
+          "key_col": true
+        },
+        {
+          "key": "obp",
+          "label": "OBP",
+          "title": "On-base percentage",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "ab",
+          "label": "AB",
+          "title": "At bats",
+          "key_col": true
+        },
+        {
+          "key": "r",
+          "label": "R",
+          "title": "Runs",
+          "key_col": false
+        },
+        {
+          "key": "h",
+          "label": "H",
+          "title": "Hits",
+          "key_col": false
+        },
+        {
+          "key": "rbi",
+          "label": "RBI",
+          "title": "Runs batted in",
+          "key_col": false
+        },
+        {
+          "key": "hr",
+          "label": "HR",
+          "title": "Home runs",
+          "key_col": false
+        },
+        {
+          "key": "bb",
+          "label": "BB",
+          "title": "Walks",
+          "key_col": false
+        }
+      ]
+    }
+  }
+}
