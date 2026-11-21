@@ -1600,11 +1600,13 @@ def test_a_slopitch_game_page_lists_the_visitors_first_and_has_the_rhe_line_scor
     for gid, html in games.items():
         title = re.search(r"<title>(.*?)</title>", html, re.S).group(1)
         assert re.match(r"[A-Z][\w ]+ at [A-Z][\w ]+ · Maple Park Slo-Pitch$", title), (gid, title)
+        if "Forfeit: " in html:                                                         # a forfeit has no sheet
+            continue
         assert 'class="st-line-score st-line-score--innings' in html and 'class="st-line-score__total">' in html, gid
         assert '<abbr title="Hits">H</abbr>' in html and "<abbr title=\"Errors\">E</abbr>" not in html, gid   # the default keeps hits, not errors
         if "batting</caption>" in html or "(run limit)" in html:                       # the facts list has something to say
             assert '<dl class="st-facts">' in html, gid
-        assert re.search(r"Final: (\w[\w ]+) \d+, (\w[\w ]+) \d+ on ", html), gid
+        assert re.search(r"Final(?: · Extras)?: (\w[\w ]+) \d+, (\w[\w ]+) \d+ on ", html), gid
 
 
 def test_a_slopitch_game_with_batting_lines_has_two_batting_tables(slopitch_demo):
