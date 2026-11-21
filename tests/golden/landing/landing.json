@@ -130,7 +130,8 @@
             "card": "rows",
             "card_foot": "note",
             "surface": "label",
-            "card_head": ""
+            "card_head": "",
+            "matchup": "vs"
           },
           "results_legend": []
         },
@@ -308,7 +309,8 @@
                   ],
                   "total": 51,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 },
                 "away": {
                   "cells": [
@@ -330,7 +332,8 @@
                   ],
                   "total": 54,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 }
               },
               "caption": "Points by quarter",
@@ -347,6 +350,7 @@
               "meta": null,
               "note_strong": null,
               "split": null,
+              "extras": [],
               "legend_stack": false,
               "void_word": "not played",
               "blank_word": "blank",
@@ -411,8 +415,9 @@
             "card": "lines",
             "card_foot": "meta",
             "surface": "label",
-            "team_sub": "skip",
-            "card_head": ""
+            "card_head": "",
+            "matchup": "vs",
+            "team_sub": "skip"
           },
           "results_legend": [
             {
@@ -645,7 +650,8 @@
                   ],
                   "total": 7,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 },
                 "away": {
                   "cells": [
@@ -682,7 +688,8 @@
                   ],
                   "total": 5,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 }
               },
               "caption": "Points by end",
@@ -710,7 +717,8 @@
               "legend_stack": false,
               "note": "Stone Cold had hammer in the first end.",
               "note_strong": "Stone Cold",
-              "split": null
+              "split": null,
+              "extras": []
             },
             "card": {
               "note": null,
@@ -786,7 +794,8 @@
                     ],
                     "total": 7,
                     "extra": null,
-                    "hammer_first": true
+                    "hammer_first": true,
+                    "extras": []
                   },
                   "away": {
                     "cells": [
@@ -820,7 +829,8 @@
                     ],
                     "total": 5,
                     "extra": null,
-                    "hammer_first": false
+                    "hammer_first": false,
+                    "extras": []
                   }
                 },
                 "caption": "Points by end",
@@ -835,7 +845,8 @@
                 "legend_stack": false,
                 "note": null,
                 "note_strong": null,
-                "split": null
+                "split": null,
+                "extras": []
               }
             }
           }
@@ -887,7 +898,8 @@
             "card": "rows",
             "card_foot": "status_note",
             "surface": "sub",
-            "card_head": ""
+            "card_head": "",
+            "matchup": "vs"
           },
           "results_legend": []
         },
@@ -1067,7 +1079,8 @@
                   ],
                   "total": 5,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 },
                 "away": {
                   "cells": [
@@ -1083,7 +1096,8 @@
                   ],
                   "total": 0,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 }
               },
               "won_word": null,
@@ -1117,6 +1131,7 @@
               "title": null,
               "meta": null,
               "note_strong": null,
+              "extras": [],
               "legend_stack": false,
               "void_word": "not played",
               "blank_word": "blank",

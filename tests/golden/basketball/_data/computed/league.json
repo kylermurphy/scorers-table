@@ -88,8 +88,13 @@
     "card": "rows",
     "card_foot": "note",
     "surface": "label",
-    "card_head": ""
+    "card_head": "",
+    "matchup": "vs"
   },
+  "sides_order": [
+    "home",
+    "away"
+  ],
   "results_legend": [],
   "placeholders": [
     {

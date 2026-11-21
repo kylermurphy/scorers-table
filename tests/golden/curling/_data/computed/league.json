@@ -88,9 +88,14 @@
     "card": "lines",
     "card_foot": "meta",
     "surface": "label",
-    "team_sub": "skip",
-    "card_head": ""
+    "card_head": "",
+    "matchup": "vs",
+    "team_sub": "skip"
   },
+  "sides_order": [
+    "home",
+    "away"
+  ],
   "results_legend": [
     {
       "kind": "hammer",

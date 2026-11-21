@@ -1,0 +1,56 @@
+# A throwaway sport for tests/test_option_stats.py (not a real sport, and not in tests/fixtures/sports/'s own list: it
+# sits one folder down so the tests that list that folder do not see it). A batting line (AB, H, and BB) is kept only
+# while the `batting` option says so; every key of E23 to E27 (`when`, `per_team_game`, `card_head`, `matchup`,
+# `mark_option`) is used once.
+name: Optstats
+default_layout: classic
+demo: false
+games_per_day: 2
+game_minutes: 75
+words:
+  period: {one: Inning, many: Innings, short: Inn}
+  surface: Diamond
+  day: Week
+  points_for: {label: RF, title: Runs for}
+  points_against: {label: RA, title: Runs against}
+line_score: {shape: innings, total_label: R, corner: Inning, periods: 1}
+options:
+  batting:   {type: choice, values: [none, order, optional, every_game], default: optional, label: Batting lines}
+  run_limit: {type: int, default: 5, min: 0, max: 20, label: Run limit}
+standings:
+  points: {win: 2, tie: 1, loss: 0}
+  ties: true
+  forfeit: {value: {score: [1, 0]}, decide: true}
+  tiebreakers: {value: [wins, diff], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa]
+stats:
+  player:
+    - {key: ab, label: AB, title: At bats, when: {batting: [optional, every_game]}}
+    - {key: h, label: H, title: Hits, when: {batting: [optional, every_game]}}
+    - {key: bb, label: BB, title: Walks, when: {batting: [every_game]}}
+  derived:
+    - {key: avg, label: AVG, title: Batting average, places: 3, format: dot, when: {batting: [optional, every_game]}}
+  team: []
+minimums:
+  min_ab:
+    default: 2
+    decide: true
+    label: At bats per team game
+    note: "Minimum {value} at bats per team game to rank."
+leaderboards:
+  - {id: avg, of: player, stat: avg, label: Batting avg, tile: true, zero: true, when: {batting: [optional, every_game]},
+     min: {stat: ab, setting: min_ab, per_team_game: true}, detail: "{h} for {ab}"}
+  - {id: hits, of: player, stat: h, label: Hits, when: {batting: [optional, every_game]}, detail: "{ab} AB, {bb} BB"}
+  - {id: walks, of: player, stat: bb, label: Walks, when: {batting: [every_game]}, detail: "{gp} GP"}
+labels: {results: Latest results, next: Next game day, leaders: Hitting}
+labels_by_layout: {}
+display:
+  card: lines
+  card_foot: note
+  surface: label
+  card_head: status_surface
+  matchup: at
+  results_legend:
+    - {kind: limit, mark_option: run_limit, text: Inning ended at the run limit.}
+    - {kind: x, text: Not needed.}
+positions: []

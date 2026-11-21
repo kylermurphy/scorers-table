@@ -36,6 +36,7 @@ from scripts.core.compute_stats import build_stats
 from scripts.core.loader import LoadedData, ScheduleRow
 from scripts.core.model import League, Problem
 from scripts.core.problems import has_errors
+from scripts.core.sports import SIDES_ORDER
 from scripts.core.season_ctx import (
     SeasonCtx, archive_url, build_ctx, dash, final_score, game_url, league_labels, record_text, team_url,
 )
@@ -127,11 +128,19 @@ def league_json(league: League, active: SeasonCtx) -> dict:
         "search_engines": league.search_engines, "lang": league.lang,
         "nav": [{"label": label, "url": url, "key": key} for label, key, url in NAV],
         "footer_links": footer_links, "labels": league_labels(league), "words": words,
-        "display": {**{k: v for k, v in spec["display"].items() if k != "results_legend"}, "card_head": ""},
-        "results_legend": spec["display"].get("results_legend", []),
+        "display": {k: v for k, v in spec["display"].items() if k != "results_legend"},
+        "sides_order": list(SIDES_ORDER[spec["display"]["matchup"]]),
+        "results_legend": [_legend_item(item, active.settings.rules) for item in spec["display"].get("results_legend", [])],
         "placeholders": [{"setting": p.setting, "text": p.text, "using": default_in_use(league, p.setting)}
                          for p in league.placeholders],
     }
+
+
+def _legend_item(item: dict, rules: dict) -> dict:
+    """A results_legend item as the include reads it: `mark_option` (E27) becomes the season's value as text ("5")."""
+    if "mark_option" not in item:
+        return item
+    return {**{k: v for k, v in item.items() if k != "mark_option"}, "mark": str(rules[item["mark_option"]])}
 
 
 def _active_json(league: League, data: LoadedData, active: SeasonCtx, preview: bool, sport_preview: str,

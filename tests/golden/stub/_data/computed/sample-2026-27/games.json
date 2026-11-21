@@ -79,7 +79,8 @@
           ],
           "total": 30,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -92,7 +93,8 @@
           ],
           "total": 21,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -104,6 +106,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -358,7 +361,8 @@
           ],
           "total": 15,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -373,7 +377,8 @@
           ],
           "total": 23,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -385,6 +390,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -692,7 +698,8 @@
           ],
           "total": 17,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -706,7 +713,8 @@
           ],
           "total": 25,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -718,6 +726,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -959,7 +968,8 @@
           ],
           "total": 13,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -972,7 +982,8 @@
           ],
           "total": 10,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -984,6 +995,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -1216,7 +1228,8 @@
           ],
           "total": 35,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -1230,7 +1243,8 @@
           ],
           "total": 35,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -1242,6 +1256,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -1497,7 +1512,8 @@
           ],
           "total": 19,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -1511,7 +1527,8 @@
           ],
           "total": 24,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -1523,6 +1540,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -1769,7 +1787,8 @@
           ],
           "total": 17,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -1783,7 +1802,8 @@
           ],
           "total": 19,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -1795,6 +1815,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -2034,7 +2055,8 @@
           ],
           "total": 23,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -2048,7 +2070,8 @@
           ],
           "total": 28,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -2060,6 +2083,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -2285,7 +2309,8 @@
           ],
           "total": 26,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -2299,7 +2324,8 @@
           ],
           "total": 21,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "mark_word": null,
@@ -2311,6 +2337,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",

@@ -6,7 +6,8 @@ nav: home
   Home: the next game day, the latest results, the standings (every team) and the leaders (not the boards a sport
   keeps to the Stats page with `home: false`). Everything comes from
   _data/computed through the includes; nothing is typed in here. One order for every layout (docs/stage-4-spec.md 5.1).
-  An empty season shows a short message in each section instead of a blank one.
+  An empty season shows a short message in each section instead of a blank one. A sport with no board at all (its
+  batting lines are switched off by `when` in sport.yml) has no Leaders section.
 {%- endcomment -%}
 {% include core/context.html %}
 {%- assign _sch = stats.schedule -%}
@@ -66,6 +67,7 @@ nav: home
   {%- endif %}
 </section>
 
+{% if stats.leaders.boards.size > 0 -%}
 <section class="st-section">
 {% include shell/section-head.html title=league.labels.leaders aside=league.labels.all_stats aside_url="/stats/" %}
   {%- if _boards.size > 0 %}
@@ -75,3 +77,4 @@ nav: home
 {% include core/empty.html text="The leaders show up here after the first game." %}
   {%- endif %}
 </section>
+{%- endif %}
