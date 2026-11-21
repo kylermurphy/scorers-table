@@ -349,17 +349,17 @@ def _line_totals(rng, o: _Options, runs: dict, side: str, batted: int, ids: list
     bb_total = min(rng.choices(*WALKS)[0], b)
     if not with_lines:
         return {"h": hits, "rows": None}
-    skill = [_weight("sk", p, 0.5, 1.5) for p in ids]
+    skill = [_weight("sk", p, 0.75, 1.25) for p in ids]
     power = [_weight("pw", p, 0.1, 1.0) ** 2 for p in ids]
     ab_total = outs + hits
     base, extra = divmod(ab_total, b)
     ab = [base + (1 if i < extra else 0) for i in range(b)]
     h, hrs, bb, r, rbi = [0] * b, [0] * b, [0] * b, [0] * b, [0] * b
     for _ in range(hits):
-        h[_choose(rng, [skill[i] if h[i] < ab[i] else 0 for i in range(b)])] += 1
+        h[_choose(rng, [skill[i] * (ab[i] - h[i]) for i in range(b)])] += 1
     hits = sum(h)
     for _ in range(hr):
-        hrs[_choose(rng, [power[i] if h[i] > hrs[i] else 0 for i in range(b)])] += 1
+        hrs[_choose(rng, [power[i] * (h[i] - hrs[i]) for i in range(b)])] += 1
     for _ in range(bb_total):
         room = [1 if ab[i] + bb[i] < batted + 2 else 0 for i in range(b)]
         if any(room):
