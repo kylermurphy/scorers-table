@@ -1,0 +1,113 @@
+{
+  "problems": [],
+  "reading": {
+    "score": {
+      "final": {
+        "home": 10,
+        "away": 10
+      },
+      "periods": {
+        "home": [
+          1,
+          3,
+          0,
+          2,
+          4,
+          0,
+          0
+        ],
+        "away": [
+          2,
+          0,
+          3,
+          1,
+          0,
+          3,
+          1
+        ]
+      },
+      "extra": {},
+      "decided_in": "regulation",
+      "final_at": {
+        "home": "sheet.totals.home.r",
+        "away": "sheet.totals.away.r"
+      }
+    },
+    "lines": [],
+    "team_lines": {},
+    "facts": {
+      "innings": 7,
+      "played": 7,
+      "bats_first": "away",
+      "bats_last": "home",
+      "run_limit": 5,
+      "limited": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "runs": {
+        "home": [
+          1,
+          3,
+          0,
+          2,
+          4,
+          0,
+          0
+        ],
+        "away": [
+          2,
+          0,
+          3,
+          1,
+          0,
+          3,
+          1
+        ]
+      },
+      "x_innings": {
+        "home": [],
+        "away": []
+      },
+      "limit_innings": {
+        "home": [],
+        "away": []
+      },
+      "called": null,
+      "walk_off": false,
+      "totals": {
+        "home": {
+          "r": 10,
+          "h": 9,
+          "e": null
+        },
+        "away": {
+          "r": 10,
+          "h": 8,
+          "e": null
+        }
+      },
+      "has_lines": {
+        "home": false,
+        "away": false
+      },
+      "batting": {
+        "home": [],
+        "away": []
+      },
+      "hr_players": {
+        "home": [],
+        "away": []
+      },
+      "h3_players": {
+        "home": [],
+        "away": []
+      }
+    }
+  }
+}

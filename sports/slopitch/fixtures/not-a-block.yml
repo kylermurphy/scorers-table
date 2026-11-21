@@ -1,0 +1,7 @@
+# The sheet is a list, not a block. An error.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  [runs, totals]

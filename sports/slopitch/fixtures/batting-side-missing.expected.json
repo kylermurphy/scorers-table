@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home",
+      "message": "is empty. List Alpha's batters in batting order."
+    }
+  ],
+  "reading": null
+}

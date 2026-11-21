@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting",
+      "message": "this league keeps team results only (rules.batting is none), so there is no batting order. Take it out."
+    }
+  ],
+  "reading": null
+}

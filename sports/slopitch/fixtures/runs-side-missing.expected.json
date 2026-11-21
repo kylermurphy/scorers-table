@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home",
+      "message": "is empty. Write the runs Alpha scored in each inning, one box each."
+    }
+  ],
+  "reading": null
+}

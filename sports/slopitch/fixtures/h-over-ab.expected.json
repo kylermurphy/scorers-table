@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.away.0.h",
+      "message": "Norm W. has 3 hits in 2 at-bats. Hits can't be more than at-bats: check the line."
+    }
+  ],
+  "reading": null
+}

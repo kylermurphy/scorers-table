@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home.4",
+      "message": "has no batting line. This league keeps a line for every batter in every game: write ab, r, h, rbi, hr and bb for Bev S.."
+    }
+  ],
+  "reading": null
+}

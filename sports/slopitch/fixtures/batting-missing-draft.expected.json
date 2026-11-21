@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "batting",
+      "message": "is empty. List each team's batters in batting order (and their lines when the league keeps them)."
+    }
+  ],
+  "reading": null
+}

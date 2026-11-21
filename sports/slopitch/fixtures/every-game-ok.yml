@@ -1,0 +1,35 @@
+# batting: every_game: every batter has a line in the mockup game. No problem.
+fixture:
+  folder: games
+  game_type: regular
+  options: {batting: every_game}
+sheet:
+  runs:
+    away: [2, 0, 5, 1, 0, 3, 0]
+    home: [1, 5, 0, 3, 5, 0, X]
+  totals:
+    away: {r: 11, h: 15}
+    home: {r: 14, h: 18}
+  batting:
+    away:
+      - {player: norm-w, ab: 4, r: 2, h: 3, rbi: 0, hr: 0, bb: 0}
+      - {player: sheila-r, ab: 4, r: 1, h: 2, rbi: 1, hr: 0, bb: 0}
+      - {player: phil-g, ab: 4, r: 2, h: 2, rbi: 3, hr: 1, bb: 0}
+      - {player: doug-e, ab: 4, r: 1, h: 2, rbi: 2, hr: 0, bb: 0}
+      - {player: pat-o, ab: 3, r: 1, h: 1, rbi: 1, hr: 0, bb: 0}
+      - {player: ken-j, ab: 3, r: 1, h: 1, rbi: 1, hr: 0, bb: 0}
+      - {player: marg-l, ab: 3, r: 1, h: 1, rbi: 0, hr: 0, bb: 0}
+      - {player: brian-c, ab: 3, r: 1, h: 1, rbi: 1, hr: 0, bb: 0}
+      - {player: elaine-v, ab: 3, r: 1, h: 1, rbi: 1, hr: 0, bb: 0}
+      - {player: stan-z, ab: 3, r: 0, h: 1, rbi: 0, hr: 0, bb: 0}
+    home:
+      - {player: gary-t, ab: 4, r: 2, h: 3, rbi: 0, hr: 0, bb: 0}
+      - {player: linda-m, ab: 4, r: 2, h: 2, rbi: 1, hr: 0, bb: 0}
+      - {player: ron-b, ab: 4, r: 2, h: 3, rbi: 3, hr: 1, bb: 0}
+      - {player: dave-k, ab: 3, r: 2, h: 2, rbi: 4, hr: 1, bb: 0}
+      - {player: bev-s, ab: 3, r: 1, h: 2, rbi: 2, hr: 0, bb: 0}
+      - {player: wayne-h, ab: 3, r: 1, h: 1, rbi: 1, hr: 0, bb: 0}
+      - {player: carol-d, ab: 3, r: 1, h: 2, rbi: 1, hr: 0, bb: 0}
+      - {player: ted-f, ab: 3, r: 1, h: 1, rbi: 0, hr: 0, bb: 0}
+      - {player: joan-p, ab: 3, r: 1, h: 1, rbi: 1, hr: 0, bb: 0}
+      - {player: murray-l, ab: 3, r: 1, h: 1, rbi: 0, hr: 0, bb: 0}

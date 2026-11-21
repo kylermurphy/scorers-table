@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home.3.player",
+      "message": "gary-t is listed twice in this game (also at sheet.batting.home.0.player)"
+    }
+  ],
+  "reading": null
+}

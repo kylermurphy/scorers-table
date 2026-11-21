@@ -1,0 +1,25 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "runs.away.2",
+      "message": "is empty. Write Bravo's runs in inning 3, or X if they did not bat."
+    },
+    {
+      "level": "warning",
+      "at": "batting.home.4.rbi",
+      "message": "is empty. Write Bev S.'s RBI (0 if none)."
+    },
+    {
+      "level": "warning",
+      "at": "batting.away.0.ab",
+      "message": "is empty. Write Norm W.'s AB (0 if none)."
+    },
+    {
+      "level": "warning",
+      "at": "totals.away.r",
+      "message": "is empty. Write Bravo's R box (the runs they scored)."
+    }
+  ],
+  "reading": null
+}

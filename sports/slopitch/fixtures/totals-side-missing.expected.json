@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away",
+      "message": "is empty. Write Bravo's R box, and H and E when the league keeps them."
+    }
+  ],
+  "reading": null
+}

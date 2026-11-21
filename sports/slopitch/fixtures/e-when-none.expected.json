@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away.e",
+      "message": "this league does not keep errors (rules.team_errors is none). Take the E box out."
+    }
+  ],
+  "reading": null
+}

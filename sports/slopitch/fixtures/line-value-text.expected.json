@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.away.0.h",
+      "message": "'three' isn't a count: write a whole number from 0 to 20."
+    }
+  ],
+  "reading": null
+}

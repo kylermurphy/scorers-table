@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away.hr",
+      "message": "'hr' isn't a box. Use one of: r, h, e."
+    }
+  ],
+  "reading": null
+}

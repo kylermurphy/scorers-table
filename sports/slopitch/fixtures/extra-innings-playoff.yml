@@ -1,0 +1,35 @@
+# A playoff game: 9-9 after seven, a scoreless 8th and a walk-off in the 9th (Alpha needed 3 and scored 3). Playoffs play extra innings until the game is decided.
+fixture:
+  folder: games
+  game_type: playoff
+  options: {}
+sheet:
+  runs:
+    away: [1, 0, 2, 0, 3, 1, 2, 0, 2]
+    home: [0, 3, 1, 2, 0, 2, 1, 0, 3]
+  totals:
+    away: {r: 11, h: 8}
+    home: {r: 12, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}

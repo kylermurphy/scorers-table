@@ -1,0 +1,46 @@
+# The two teams, the players and the league settings every slo-pitch fixture is checked with. All made up: Alpha (`aa`)
+# is "home" (the team that bats last), Bravo (`bb`) "away" (the visitors). Charlie (`cc`) is a third team whose players
+# are never in these games unless a case says so. Jo K. is a spare (`sub: true`, no team). A case's own `fixture:` block
+# sets folder, game_type and any `options` that differ from these (the sport's defaults).
+sides: {home: aa, away: bb}
+teams:
+  - {id: aa, name: Alpha, code: ALP}
+  - {id: bb, name: Bravo, code: BRA}
+  - {id: cc, name: Charlie, code: CHA}
+players:
+  - {id: gary-t, name: Gary T., team: aa}
+  - {id: linda-m, name: Linda M., team: aa}
+  - {id: ron-b, name: Ron B., team: aa}
+  - {id: dave-k, name: Dave K., team: aa}
+  - {id: bev-s, name: Bev S., team: aa}
+  - {id: wayne-h, name: Wayne H., team: aa}
+  - {id: carol-d, name: Carol D., team: aa}
+  - {id: ted-f, name: Ted F., team: aa}
+  - {id: joan-p, name: Joan P., team: aa}
+  - {id: murray-l, name: Murray L., team: aa}
+  - {id: norm-w, name: Norm W., team: bb}
+  - {id: sheila-r, name: Sheila R., team: bb}
+  - {id: phil-g, name: Phil G., team: bb}
+  - {id: doug-e, name: Doug E., team: bb}
+  - {id: pat-o, name: Pat O., team: bb}
+  - {id: ken-j, name: Ken J., team: bb}
+  - {id: marg-l, name: Marg L., team: bb}
+  - {id: brian-c, name: Brian C., team: bb}
+  - {id: elaine-v, name: Elaine V., team: bb}
+  - {id: stan-z, name: Stan Z., team: bb}
+  - {id: jo-k, name: Jo K., team: null, sub: true}
+  - {id: hal-c, name: Hal C., team: cc}
+options:
+  innings: 7
+  run_limit: 5
+  open_innings: last
+  limit_play: stop
+  mercy_runs: 15
+  mercy_after: 5
+  official_innings: 4
+  time_limit: 60
+  extra_innings: 0
+  hr_limit: 0
+  batting: optional
+  team_hits: kept
+  team_errors: none

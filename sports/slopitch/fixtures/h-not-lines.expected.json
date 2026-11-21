@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away.h",
+      "message": "H says 16, the batters' hits add up to 15: check the H box and the H column."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home",
+      "message": "both teams have a box for every inning played: write X for a bottom half that was not needed."
+    }
+  ],
+  "reading": null
+}

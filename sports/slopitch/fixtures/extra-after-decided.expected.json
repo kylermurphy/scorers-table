@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.away.8",
+      "message": "the game was over after inning 8: a team led at the end of a complete extra inning. Take the later innings out."
+    }
+  ],
+  "reading": null
+}

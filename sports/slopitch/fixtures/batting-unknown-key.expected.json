@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home.2.sac",
+      "message": "'sac' isn't part of a batting row. Use one of: player, name, ab, r, h, rbi, hr, bb."
+    }
+  ],
+  "reading": null
+}

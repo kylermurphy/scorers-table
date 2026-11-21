@@ -1,0 +1,13 @@
+# batting is a number. An error.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    away: [2, 0, 5, 1, 0, 3, 0]
+    home: [1, 5, 0, 3, 5, 0, X]
+  totals:
+    away: {r: 11, h: 15}
+    home: {r: 14, h: 18}
+  batting: 3

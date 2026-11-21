@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home.1",
+      "message": "6 runs is more than the limit of 5 a half-inning: check the box."
+    }
+  ],
+  "reading": null
+}

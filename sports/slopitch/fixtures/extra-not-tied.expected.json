@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.away.7",
+      "message": "the score was not level after 7 innings, so there is no inning 8. Take the extra innings out."
+    }
+  ],
+  "reading": null
+}

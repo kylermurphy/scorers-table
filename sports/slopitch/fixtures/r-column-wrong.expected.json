@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.away",
+      "message": "the batters' R add up to 12 but Bravo scored 11: check the R column."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home.0.ab",
+      "message": "this league keeps the batting order only (rules.batting is order), so there are no batting lines. Take it out."
+    }
+  ],
+  "reading": null
+}

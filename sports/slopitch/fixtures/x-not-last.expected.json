@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home.2",
+      "message": "X can only be in the last inning played: Alpha batted in the rest. Write their runs."
+    }
+  ],
+  "reading": null
+}

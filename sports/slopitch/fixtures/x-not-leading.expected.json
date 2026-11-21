@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home.6",
+      "message": "Alpha trailed 8-10 after the top of the 7th, so they batted: write their runs."
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "runs",
+      "message": "is empty. Write the runs each team scored in each inning, visitors and home."
+    }
+  ],
+  "reading": null
+}
