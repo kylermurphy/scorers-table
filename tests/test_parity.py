@@ -21,11 +21,12 @@ WHAT IS COVERED: every generic part in every layout and sport it is shown for (h
 ticker, footer, page title, section heading, banner, skip link, result card, hero, final panel, line score,
 standings and the race, leader tiles and lists, game row, next-game panel, team card, team colours, the roster, the
 sport card with its two windows and the coming-soon card; the windows' data-theme is left out, see cases.STRIP_ATTRS) and,
-the event log (the events and penalties blocks, hockey) and, as fragments, the generic stat table and note blocks
-(basketball's box scores), the numbers block (curling's game in numbers) and the group block with the team
-column and small headings (hockey's goalies and skaters).
-WHAT IS SKIPPED, and why: tests/parity/cases.py SKIPPED (slo-pitch's game tables are a stage 5 part, built with
-its sport).
+the event log (the events and penalties blocks, hockey), slo-pitch's line score with the E column (line-score-rhe: more
+total columns, each an abbr) and, as fragments, the generic stat table and note blocks (basketball's box scores), the
+numbers block (curling's game in numbers), the group block with the team column and small headings (hockey's goalies
+and skaters) and the facts block with the plain-heading batting tables (slo-pitch, game-tables-slopitch). A part whose
+every sport has a fragment case (game-tables) has no whole-part case.
+WHAT IS SKIPPED, and why: tests/parity/cases.py SKIPPED (nothing now).
 
 The test needs Ruby, Bundler and the gems (`bundle install`); without them it is skipped with a message. Mark:
 `jekyll` (pytest.ini registers it).

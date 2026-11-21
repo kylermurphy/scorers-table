@@ -31,6 +31,7 @@ if __package__ in (None, ""):                      # run as a file: put the repo
 
 from scripts.design_system import sample  # noqa: E402
 from scripts.design_system.model import SPORTS  # noqa: E402
+from scripts.design_system.specimens_scores import RHE_ERRORS  # noqa: E402
 
 SHAPE = {"basketball": "quarters", "curling": "ends", "hockey": "periods", "slopitch": "innings"}
 SHAPE_WORD = {"quarters": "Points by quarter", "ends": "Points by end", "periods": "Goals by period",
@@ -202,7 +203,7 @@ def _scored(cells: list) -> set:
 
 
 def _line_score(L: dict, ids: list[str], side_cells: dict, totals: dict, *, labels: list[str], corner: str,
-                total_label: str, extra_label: str | None = None, extras: dict | None = None,
+                total_label: str, extras: list | None = None, extra_values: dict | None = None,
                 won: dict | None = None, marks: dict | None = None, blanks=(), open_idx: int | None = None,
                 hammers: dict | None = None, hammer_first: str | None = None) -> dict:
     """One line_score object (spec 3.4) for the two teams `ids` (first-listed first)."""
@@ -232,10 +233,11 @@ def _line_score(L: dict, ids: list[str], side_cells: dict, totals: dict, *, labe
                 cell["hammer"] = True
             cells.append(cell)
         rows[side] = {"cells": cells, "total": totals[team_id],
-                      "extra": None if extras is None else extras[team_id],
+                      "extra": None, "extras": [] if extra_values is None else list(extra_values[team_id]),
                       "hammer_first": hammer_first == team_id}
     return {
-        "shape": shape, "corner": corner, "total_label": total_label, "extra_label": extra_label,
+        "shape": shape, "corner": corner, "total_label": total_label, "extra_label": None,
+        "extras": list(extras or []),
         "columns": columns, "rows": rows, "caption": SHAPE_WORD[shape],
         "won_word": MARK_WORD[shape] if shape == "quarters" else None,
         "mark_word": MARK_WORD[shape], "void_word": VOID_WORD.get(shape, "not played"),
@@ -245,7 +247,11 @@ def _line_score(L: dict, ids: list[str], side_cells: dict, totals: dict, *, labe
     }
 
 
-def card_line_score(L: dict, r: dict) -> dict | None:
+def _extra_cols(labels: list[str]) -> list[dict]:
+    return [{"label": c, "title": {"H": "Hits", "E": "Errors"}[c]} for c in labels]
+
+
+def card_line_score(L: dict, r: dict, errors: tuple | None = None) -> dict | None:
     """The compact line score of a result (what a result card and the hero hold)."""
     ps = r["period_scores"]
     if ps is None:
@@ -260,11 +266,13 @@ def card_line_score(L: dict, r: dict) -> dict | None:
     return _line_score(
         L, ids, ps, r["scores"], labels=L["period_labels"][:n],
         corner="End" if shape == "ends" else "Team", total_label=L["total_label"],
-        extra_label="H" if has_hits else None, extras=r["hits"] if has_hits else None,
+        extras=_extra_cols((["H"] if has_hits else []) + (["E"] if errors else [])),
+        extra_values={i: ([r["hits"][i]] if has_hits else []) + ([errors[k]] if errors else [])
+                      for k, i in enumerate(ids)},
         won=won, marks=marks, hammer_first=r.get("hammer") if shape == "ends" else None)
 
 
-def game_line_score(L: dict, g: dict) -> dict:
+def game_line_score(L: dict, g: dict, errors: tuple | None = None) -> dict:
     """The game page's line score (full size) with its title, legend and foot."""
     ls = g["line_score"]
     shape = SHAPE[L["sport"]]
@@ -292,8 +300,9 @@ def game_line_score(L: dict, g: dict) -> dict:
     out = _line_score(
         L, ids, {r["team"]: r["cells"] for r in ls["rows"]}, {r["team"]: r["total"] for r in ls["rows"]},
         labels=labels, corner=ls["corner_label"], total_label=cols[n],
-        extra_label=cols[n + 1] if has_extra else None,
-        extras={r["team"]: r.get("hits") for r in ls["rows"]} if has_extra else None,
+        extras=_extra_cols(list(cols[n + 1:]) + (["E"] if errors else [])),
+        extra_values={r["team"]: ([r["hits"]] if has_extra else []) + ([errors[k]] if errors else [])
+                      for k, r in enumerate(ls["rows"])},
         won=won, marks=marks, blanks=blanks, open_idx=open_idx, hammers=hammers)
     out["title"], out["meta"] = ls.get("title"), ls.get("meta")
     sport = L["sport"]
@@ -377,6 +386,11 @@ def players_json(L: dict) -> dict:
             elif sec["kind"] == "penalties":
                 for row in sec["rows"]:
                     add(row["player"], row["team"])
+    if L["sport"] == "slopitch":
+        for sec in L["game"]["sections"]:
+            if sec["kind"] == "batting":
+                for row in sec["rows"]:
+                    add(row["player"], sec["team"])
     ld = L["leaders"]
     for t in ld["tiles"]:
         if t["person"] is not None:
@@ -493,6 +507,40 @@ def _hockey_blocks(L: dict) -> list[dict]:
     return blocks
 
 
+def _slopitch_blocks(L: dict) -> list[dict]:
+    """The facts (the `facts` block), one batting `stat_table` per team (number_col, `heading: plain`) and the notes."""
+    g = L["game"]
+    side_of = {t["team"]: side for side, t in zip(("home", "away"), g["final"]["teams"])}
+    blocks = []
+    for sec in g["sections"]:
+        if sec["kind"] == "facts":
+            rows = []
+            for r in sec["rows"]:
+                if "groups" in r:
+                    items = [{"side": side_of[grp["team"]], "text": None,
+                              "players": [{"player": _player_id(p["name"]), "extra": None} for p in grp["players"]]}
+                             for grp in r["groups"]]
+                else:
+                    items = [{"side": None, "players": [],
+                              "text": f'{team_of(L, x["team"])["name"]} {x["count"]} ({", ".join(x["innings"])})'}
+                             for x in r["limit"]]
+                rows.append({"label": r["label"], "items": items})
+            blocks.append({"type": "facts", "title": sec["title"], "rows": rows})
+        elif sec["kind"] == "batting":
+            keys = ("ab", "r", "h", "rbi", "hr")
+            cols = [{"key": c["key"].lower(), "label": c["label"], "title": c["title"], "key_col": c["key_col"]}
+                    for c in sec["columns"]]
+            rows = [{"player": _player_id(r["player"]["name"]), "num": r["order"],
+                     "cells": {k: str(r[k]) for k in keys}} for r in sec["rows"]]
+            blocks.append({"type": "stat_table", "title": sec["title"], "side": side_of[sec["team"]], "heading": "plain",
+                           "caption": sec["title"], "number_col": True, "number_label": sec["order_label"],
+                           "player_label": sec["player_label"], "columns": cols, "rows": rows,
+                           "totals": {"label": sec["totals"]["label"],
+                                      "cells": {k: str(sec["totals"][k]) for k in keys}}, "note": None})
+    blocks += [{"type": "note", "text": n} for n in g["footnotes"]]
+    return blocks
+
+
 def games_json(L: dict, layout: str) -> dict:
     sport = L["sport"]
     gm = L["game"]
@@ -523,6 +571,8 @@ def games_json(L: dict, layout: str) -> dict:
             blocks = _curling_blocks(L)
         elif sport == "hockey" and is_game:
             blocks = _hockey_blocks(L)
+        elif sport == "slopitch" and is_game:
+            blocks = _slopitch_blocks(L)
         else:
             blocks = []
         hero_date = (feat["date"].split(" · ", 1)[1] if feat and feat["result"] == r["id"] else r["date"])
@@ -768,8 +818,12 @@ def case_json(L: dict, layout: str) -> dict:
     first_card = next(r["id"] for r in L["results"] if r["period_scores"])
     team_card = dict(teams_json(L)[tid(L["teams"][0]["id"])])
     team_card.update({"colour": "#1D3A6E", "sub": None, "points": None})
+    rhe = {}
+    if sport == "slopitch":                      # the second slo-pitch line score: runs, hits and errors (E20)
+        rhe = {"rhe_line_score": game_line_score(L, gm, RHE_ERRORS),
+               "rhe_card_line_score": card_line_score(L, L["results"][0], RHE_ERRORS)}
     return {
-        "variant": variant, "legend": legend_items, "note_parts": note_parts,
+        **rhe, "variant": variant, "legend": legend_items, "note_parts": note_parts,
         "game_id": gm["id"], "hero_id": hero_id, "first_lines_id": first_card,
         "page_title": {"back_label": gm["back_label"], "eyebrow": h["eyebrow"], "title": h["title"],
                       "sub": h["subline"], "sub2": h["venue_line"]},

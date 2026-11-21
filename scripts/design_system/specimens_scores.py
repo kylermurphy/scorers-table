@@ -35,6 +35,10 @@ SHAPE_WORD = {
 }
 MARK_WORD = {"ends": "stolen end", "innings": "run limit", "quarters": "biggest quarter", "periods": "highlight"}
 VOID_WORD = {"ends": "not played", "innings": "not needed"}
+# the extra total columns after R (slo-pitch): label -> the abbr's title; the E values are made up here, as no
+# sample league keeps errors (the second slo-pitch line-score specimen, `line-score-rhe`)
+EXTRA_COLUMNS = {"H": {"label": "H", "title": "Hits"}, "E": {"label": "E", "title": "Errors"}}
+RHE_ERRORS = (2, 1)               # the two rows, top row first
 CHEVRON = '<span class="st-chevron" aria-hidden="true"> ›</span>'
 
 
@@ -96,12 +100,14 @@ def scroll_box(table: str, label: str, region: bool) -> str:
 
 
 def line_score(ctx: Ctx, size: str, *, shape: str, rows: list[dict], labels: list[str], total_label: str,
-               extra_label: str | None = None, corner: str = "Team", won=None, marks=None, blanks=(),
+               extra_label: str | None = None, extras: list[dict] | None = None, corner: str = "Team", won=None, marks=None, blanks=(),
                hammers=None, hammer_first=None, open_idx=None, use_code: bool = False,
                region: bool = True) -> str:
     """One `table.st-line-score` in its scroll box.
 
-    rows:   [{id, cells[int|None], total, extra, winner True|False|None}]
+    rows:   [{id, cells[int|None], total, extra, extras[values], winner True|False|None}]
+    extras: [{label, title}] more total columns after R (slo-pitch H, E), each an abbr; `extra_label` is the
+            single untitled extra column the other sports' data may carry
     won:    {team id: {1-based periods}}   is-won   (scored end; biggest quarter)
     marks:  {team id: {1-based periods}}   is-mark  (stolen end; run-limit inning)
     blanks: {1-based periods}              is-blank on header + cells (full size only)
@@ -134,6 +140,8 @@ def line_score(ctx: Ctx, size: str, *, shape: str, rows: list[dict], labels: lis
     head.append(f'<th scope="col" class="st-line-score__total">{esc(total_label)}</th>')
     if extra_label:
         head.append(f'<th scope="col" class="st-line-score__extra">{esc(extra_label)}</th>')
+    for x in extras or ():
+        head.append(f'<th scope="col" class="st-line-score__extra"><abbr title="{esc(x["title"])}">{esc(x["label"])}</abbr></th>')
     out.append(f'<thead><tr>{"".join(head)}</tr></thead><tbody>')
     for r in rows:
         t = tm(L, r["id"])
@@ -172,6 +180,8 @@ def line_score(ctx: Ctx, size: str, *, shape: str, rows: list[dict], labels: lis
         cells.append(f'<td class="st-line-score__total">{esc(r["total"])}</td>')
         if extra_label:
             cells.append(f'<td class="st-line-score__extra">{esc(r["extra"])}</td>')
+        for v in r.get("extras") or ():
+            cells.append(f'<td class="st-line-score__extra">{esc(v)}</td>')
         out.append(f"<tr{rc}>{''.join(cells)}</tr>")
     out.append("</tbody></table>")
     label = f"{SHAPE_WORD[shape]}, scrolls sideways"
@@ -182,7 +192,8 @@ def _scored(cells_by_team: dict) -> dict:
     return {k: {i for i, v in enumerate(c, start=1) if v} for k, c in cells_by_team.items()}
 
 
-def ls_from_result(ctx: Ctx, r: dict, size: str = "card", *, region: bool = False, use_code: bool = False) -> str:
+def ls_from_result(ctx: Ctx, r: dict, size: str = "card", *, region: bool = False, use_code: bool = False,
+                   errors: tuple | None = None) -> str:
     """Compact line score of a result (sample `results` entry)."""
     L = ctx.league
     shape = SHAPE[ctx.sport]
@@ -192,7 +203,7 @@ def ls_from_result(ctx: Ctx, r: dict, size: str = "card", *, region: bool = Fals
     has_hits = "hits" in r
     rows = [{
         "id": i, "cells": ps[i], "total": r["scores"][i],
-        "extra": r["hits"][i] if has_hits else None,
+        "extras": ([r["hits"][i]] if has_hits else []) + ([errors[ids.index(i)]] if errors else []),
         "winner": None if r["winner"] is None else (r["winner"] == i),
     } for i in ids]
     won = _scored(ps) if shape == "ends" else {}
@@ -200,12 +211,13 @@ def ls_from_result(ctx: Ctx, r: dict, size: str = "card", *, region: bool = Fals
     marks = {k: set(v) for k, v in (marks or {}).items()}
     return line_score(
         ctx, size, shape=shape, rows=rows, labels=L["period_labels"][:n], total_label=L["total_label"],
-        extra_label="H" if has_hits else None, corner="End" if shape == "ends" else "Team",
+        extras=([EXTRA_COLUMNS["H"]] if has_hits else []) + ([EXTRA_COLUMNS["E"]] if errors else []) or None,
+        corner="End" if shape == "ends" else "Team",
         won=won, marks=marks, hammer_first=r.get("hammer") if shape == "ends" else None,
         use_code=use_code, region=region)
 
 
-def ls_from_game(ctx: Ctx, size: str = "full", *, region: bool = True) -> str:
+def ls_from_game(ctx: Ctx, size: str = "full", *, region: bool = True, errors: tuple | None = None) -> str:
     """The game page's line score (sample `game.line_score`)."""
     L = ctx.league
     g = L["game"]
@@ -221,9 +233,9 @@ def ls_from_game(ctx: Ctx, size: str = "full", *, region: bool = True) -> str:
         labels.append(c)
     winners = {t["team"]: t["winner"] for t in g["final"]["teams"]}
     rows = [{
-        "id": r["team"], "cells": r["cells"], "total": r["total"], "extra": r.get("hits"),
+        "id": r["team"], "cells": r["cells"], "total": r["total"], "extras": ([r["hits"]] if r.get("hits") is not None else []) + ([errors[k]] if errors else []),
         "winner": winners.get(r["team"]),
-    } for r in ls["rows"]]
+    } for k, r in enumerate(ls["rows"])]
     won = marks = hammers = None
     blanks = ()
     if shape == "ends":
@@ -237,7 +249,8 @@ def ls_from_game(ctx: Ctx, size: str = "full", *, region: bool = True) -> str:
         won = {k: {v} for k, v in ls["highlight"]["periods"].items()}
     return line_score(
         ctx, size, shape=shape, rows=rows, labels=labels, total_label=cols[n],
-        extra_label=cols[n + 1] if len(cols) > n + 1 else None, corner=ls["corner_label"],
+        extras=([EXTRA_COLUMNS[c] for c in cols[n + 1:]] + ([EXTRA_COLUMNS["E"]] if errors else [])) or None,
+        corner=ls["corner_label"],
         won=won, marks=marks, blanks=blanks, hammers=hammers, open_idx=open_idx,
         use_code=(shape == "ends"), region=region)
 
@@ -464,6 +477,16 @@ def render_line_score(ctx: Ctx) -> str:
     if leg:
         out.append(f'<div style="margin-top:.75rem">{legend(leg, stack=ctx.sport == "slopitch", full=True)}</div>')
     return pad("".join(out))
+
+
+def render_line_score_rhe(ctx: Ctx) -> str:
+    """Slo-pitch with `team_errors: kept`: runs, hits and errors (R, H, E), full size and card size."""
+    r = ctx.league["results"][0]
+    return pad(
+        '<p class="st-label">Full size, runs hits errors (game page)</p>'
+        f'<div class="st-card" style="padding:.75rem .5rem .25rem">{ls_from_game(ctx, "full", region=True, errors=RHE_ERRORS)}</div>'
+        '<p class="st-label" style="margin-top:1.25rem">Card size, runs hits errors</p>'
+        f'<div class="st-card" style="padding:.75rem .875rem">{ls_from_result(ctx, r, "card", region=True, errors=RHE_ERRORS)}</div>')
 
 
 # --------------------------------------------------------------------------- event log
@@ -696,7 +719,7 @@ def slopitch_tables(ctx: Ctx) -> str:
             f'<td>{r["ab"]}</td><td>{r["r"]}</td><td>{r["h"]}</td><td>{r["rbi"]}</td><td>{r["hr"]}</td></tr>'
             for r in b["rows"])
         tt = b["totals"]
-        foot = (f'<tfoot><tr><td colspan="2" class="is-left">{esc(tt["label"])}</td><td>{tt["ab"]}</td><td>{tt["r"]}</td>'
+        foot = (f'<tfoot><tr><td></td><td class="is-left">{esc(tt["label"])}</td><td>{tt["ab"]}</td><td>{tt["r"]}</td>'
                 f'<td>{tt["h"]}</td><td>{tt["rbi"]}</td><td>{tt["hr"]}</td></tr></tfoot>')
         table = (f'<table class="st-table st-table--box"><caption class="st-visually-hidden">{esc(b["title"])}</caption>'
                  f'<thead><tr>{head}</tr></thead><tbody>{body}</tbody>{foot}</table>')
@@ -725,6 +748,10 @@ PARTS = [
     Part(id="line-score", title="Line score", group="Scores", render=render_line_score, sports="all",
          note="Four shapes (quarters, ends, periods, innings) in two sizes (--full, --card), every sport in every "
               "layout. Cell states: is-won, is-mark, is-blank, is-void, is-open; hammer svg; legend."),
+    Part(id="line-score-rhe", title="Line score, runs hits errors", group="Scores", render=render_line_score_rhe,
+         sports=("slopitch",),
+         note="Slo-pitch with the E box kept: more total columns after R, each an abbr (H Hits, E Errors), "
+              "same classes and colours as the H column (--full and --card). Scrolls in its own box on a 360 px phone."),
     Part(id="event-log", title="Event log and penalties", group="Scores", render=render_events, sports=("hockey",),
          note="Hockey's scoring summary (.st-events) and penalty table, shown in every layout."),
     Part(id="roster", title="Roster (lineups)", group="Scores", render=render_roster, sports=("curling",),

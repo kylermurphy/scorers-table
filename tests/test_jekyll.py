@@ -1361,6 +1361,16 @@ def _add_events_penalties_and_groups_to_the_stub(root: Path) -> None:
         {"type": "stat_table", "title": None, "side": "home", "heading": "small", "caption": "Home skaters",
          "columns": [{"key": "pts", "label": "PTS", "title": "Points", "key_col": True, "style": "big"}], "rows": one,
          "totals": {"label": "Total", "cells": {"pts": "1"}}, "note": None}]})
+    blocks.append({"type": "facts", "title": None, "rows": [
+        {"label": "Home runs", "items": [{"side": "home", "text": None, "players": [{"player": who[0], "extra": "2"}]}]},
+        {"label": "Limit innings", "items": [{"side": None, "players": [], "text": "Home 2 (2nd, 5th)"},
+                                              {"side": None, "players": [], "text": "Away 1 (3rd)"}]},
+        {"label": "Nothing", "items": []}]})
+    blocks.append({"type": "stat_table", "title": "Home batting", "side": "home", "heading": "plain",
+                   "caption": "Home batting", "number_col": True, "number_label": "#", "player_label": "Batter",
+                   "columns": [{"key": "pts", "label": "H", "title": "Hits", "key_col": False}],
+                   "rows": [dict(r, num=1) for r in one], "totals": {"label": "Totals", "cells": {"pts": "1"}},
+                   "note": None})
 ''' + note)
     (sport / "rules.py").write_text(rules, encoding="utf-8")
 
@@ -1401,6 +1411,22 @@ def test_a_group_holds_its_tables_under_one_heading_with_the_team_column_styles_
     assert 'st-note--intro">An intro.</p>' in skaters
     assert '<div class="st-game-block"><h3 class="st-team-heading st-team-heading--sm">' in skaters
     assert "st-team-heading__score" not in skaters and 'class="is-key st-table__big"' in skaters
+
+
+def test_a_facts_block_prints_names_counts_and_text_items_and_leaves_out_an_empty_row(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    facts = re.search(r'<dl class="st-facts">.*?</dl>', page, re.S).group(0)
+    assert facts.count('class="st-facts__row"') == 2 and "Nothing" not in facts
+    assert re.search(r'<dt class="st-facts__label">Home runs</dt><dd class="st-facts__value">[^<]+ 2 <span class="st-facts__team">\(\w+[^)]*\)</span></dd>', facts)
+    assert 'Limit innings</dt><dd class="st-facts__value">Home 2 (2nd, 5th); Away 1 (3rd)</dd>' in facts
+    assert "<a " not in facts                                           # plain text names
+
+
+def test_a_plain_heading_is_the_large_team_heading_without_a_score(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    heading = re.search(r'<h2 class="st-team-heading">(?:(?!</h2>).)*Home batting.*?</h2>', page, re.S).group(0)
+    assert "st-team-heading__score" not in heading and "st-chip" in heading
+    assert '<table class="st-table st-table--box">' in page
 
 
 # ------------------------------------------------------------------ the hockey sport preview (stage 5, part 3)

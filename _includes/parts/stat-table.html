@@ -3,7 +3,7 @@
   names a side), the table in its scroll box, totals row, and a note. With number_col it is the box score table
   (.st-table--box: the number column and the player column both stay put when the table scrolls).
   Params: block, game (for the side's name, chip and score), in_group (set by game-group.html). Reads: block {side,
-  title, caption, heading ("small": an h3 team heading with no score), number_col, number_label, player_label,
+  title, caption, heading ("small": an h3 team heading with no score; "plain": the large h2 heading with no score), number_col, number_label, player_label,
   team_col (true: a Team column, the chip and name of each row's side, after the player), team_label, columns
   [{key, label, title, key_col, style ("strong" | "big": the cell's weight)}], rows [{player, num, side, cells{}}],
   totals {label, cells{}}, note}, stats.players (name, label, url). A column with no title is a plain heading
@@ -20,6 +20,8 @@
 {%- else -%}<{% if include.in_group %}div{% else %}section{% endif %} class="st-game-block">{%- endif -%}
 {%- if _stb_s != nil and _stb_b.heading == "small" -%}
 <h3 class="st-team-heading st-team-heading--sm">{% include parts/chip.html team=_stb_s size="lg" %}<span class="st-team-heading__name">{{ _stb_b.title | default: _stb_s.name | escape }}</span></h3>
+{%- elsif _stb_s != nil and _stb_b.heading == "plain" -%}
+<h2 class="st-team-heading">{% include parts/chip.html team=_stb_s size="lg" %}<span class="st-team-heading__name">{{ _stb_b.title | default: _stb_s.name | escape }}</span></h2>
 {%- elsif _stb_s != nil -%}
 <h2 class="st-team-heading">{% include parts/chip.html team=_stb_s size="lg" %}<span class="st-team-heading__name">{{ _stb_b.title | default: _stb_s.name | escape }}</span><span class="st-team-heading__score">{{ _stb_s.score }}</span></h2>
 {%- endif -%}

@@ -7,6 +7,9 @@
     size        "card" (compact, inside a result card or the hero) or "full" (game page); the class only
     region      true: make the scroll box a keyboard-reachable region (not inside a link)
     codes       true: show each team's code, with its name as the abbr title (the hero; end-by-end tables)
+  Extra total columns after R: line_score.extras [{label, title}] (slo-pitch H and E) print as th.st-line-score__extra
+  with the title as an abbr, and each row's extras [values] print under them in the same order. The older single
+  extra_label / extra pair still prints as before (no abbr).
   Cell flags map to the stage 3 classes: won -> is-won, mark -> is-mark, void -> is-void (X),
   hammer -> svg.st-hammer; a column's blank / open flags mark the header and every cell under it.
   Words (caption, mark_word, won_word, void_word, blank_word, hammer_word) come with the line score.
@@ -28,6 +31,7 @@
 {%- endfor -%}
 <th scope="col" class="st-line-score__total">{{ _ls_l.total_label | escape }}</th>
 {%- if _ls_l.extra_label.size > 0 -%}<th scope="col" class="st-line-score__extra">{{ _ls_l.extra_label | escape }}</th>{%- endif -%}
+{%- for _ls_x in _ls_l.extras -%}<th scope="col" class="st-line-score__extra">{% if _ls_x.title.size > 0 %}<abbr title="{{ _ls_x.title | escape }}">{{ _ls_x.label | escape }}</abbr>{% else %}{{ _ls_x.label | escape }}{% endif %}</th>{%- endfor -%}
 </tr></thead>
 <tbody>
 {%- assign _sides = "home,away" | split: "," -%}{%- for _ls_side in _sides -%}
@@ -66,6 +70,7 @@
 {%- endfor -%}
 <td class="st-line-score__total">{{ _ls_row.total }}</td>
 {%- if _ls_l.extra_label.size > 0 -%}<td class="st-line-score__extra">{{ _ls_row.extra }}</td>{%- endif -%}
+{%- for _ls_v in _ls_row.extras -%}<td class="st-line-score__extra">{{ _ls_v }}</td>{%- endfor -%}
 </tr>
 {%- endfor -%}
 </tbody></table></div>
