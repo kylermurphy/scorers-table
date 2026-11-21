@@ -368,14 +368,20 @@ def _check_when(out, row, at, word):
         if pidx is None:
             out.error(_path(at, "period"), f"period {period!r} should be 1 to {count}, OT, or OT2, OT3... "
                                             "(playoff sudden death)")
+        elif pidx > count + 1 and not _sudden_death_playoff(ctx):
+            out.error(_path(at, "period"), f"{period} isn't possible here: only a playoff game played to a first goal "
+                                            "(sudden death) has OT2, OT3...; write OT")
     secs = None
     time = row.get("time")
     tat = _path(at, "time")
     if time is None:
         out.empty(tat, f"is empty. Write the time of the {word}, like \"4:12\" (in quotes).")
+    elif _is_int(time) and time >= 60:
+        clock = f"{time // 60}:{time % 60:02d}"
+        out.error(tat, f"the time {time} looks like {clock} written without quotes (some YAML readers turn an unquoted "
+                       f"{clock} into {time}): write it in quotes, like \"{clock}\"")
     elif not isinstance(time, str):
-        out.error(tat, f"the time {time!r} should be in quotes, like \"4:12\": without quotes the file reads 4:12 as the "
-                       "number 252")
+        out.error(tat, f"the time {time!r} should be text in quotes, like \"4:12\"")
     else:
         secs = _seconds(time)
         if secs is None:
@@ -435,9 +441,6 @@ def _check_goals(out, sheet, rosters):
             if key not in GOAL_KEYS:
                 out.error(_path(at, key), f"'{key}' isn't part of a goal line. Use one of: {', '.join(GOAL_KEYS)}.")
         pidx, secs, side = _check_when(out, row, at, "goal")
-        if pidx is not None and pidx > _periods(ctx) + 1 and not _sudden_death_playoff(ctx):
-            out.error(_path(at, "period"), f"{row['period']} isn't possible here: only a playoff game played to a "
-                                           "first goal (sudden death) has OT2, OT3...; write OT")
         num = _check_scorer(out, row, at, side, rosters)
         _check_assists(out, row, at, side, num, rosters)
         _check_marks(out, row, at)
@@ -631,7 +634,7 @@ def _check_goalies(out, sheet, rosters, goals, goals_ok):
             elif decisions > 1:
                 out.error(base, f"{team} has two goalies marked with the decision. Only one gets the win or loss.")
         elif decisions and isinstance(rows[0], dict):
-            out.warning(_path(base, 0, "decision"), f"decision isn't needed when {team} used one goalie: he gets it. Take it out.")
+            out.warning(_path(base, 0, "decision"), f"decision isn't needed when {team} used one goalie: that goalie gets it. Take it out.")
         _check_ga_total(out, side, base, gas, goals, goals_ok)
 
 

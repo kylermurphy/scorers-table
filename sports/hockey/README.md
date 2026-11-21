@@ -72,7 +72,7 @@ sheet:
     - {period: 2, time: "9:02", side: home, num: 17, infraction: Hooking, minutes: 2}
     - {period: 3, time: "8:44", side: away, num: 11, infraction: Slashing, minutes: 2}
     - {period: 3, time: "14:10", side: home, num: 8, infraction: Body contact, minutes: 2}
-  goalies:                     # each goalie who played, with the goals against him
+  goalies:                     # each goalie who played, with their goals against
     home: [{num: 31, ga: 3}]
     away: [{num: 1, ga: 5}]
   score:                       # the "score by periods" boxes, as written; ot and so stay empty when not played
@@ -83,8 +83,8 @@ sheet:
 Blades 5, Wolves 3 (the approved game page). A forfeit has no `sheet` at all: see [A forfeit](#a-forfeit).
 
 **Always put times in quotes** (`"4:12"`). The site's own reader keeps an unquoted `4:12` as text, but other YAML
-tools read it as the number 252 (and `12:09` as 729); a time that arrives as a number is an error ("put the time in
-quotes"), and the entry page always writes quotes.
+tools read it as the number 252 (and `12:09` as 729); a time that arrives as a number is an error that says which time
+it probably was ("729 looks like 12:09 written without quotes"), and the entry page always writes quotes.
 
 In a **draft** (`drafts/`, never built) any box may be left empty (`~`), and a roster row may be
 `{name: Jo K., num: 30}` for a spare who is not in `players.yml` yet.
@@ -135,7 +135,7 @@ game and not the order of the lines.
 | Goals against (GA) | The goalie's `ga` box. A shootout goal is not a goal against. |
 | GAA | Goals against per game played (a game sheet has no minutes in net), so a goalie relieved early still gets a full game. |
 | SV% | (shots - GA) / shots, only for goalies whose games recorded shots. |
-| Goalie assists and PIM | A goalie's own assists and penalty minutes are his: he is listed with the skaters on the game page when he has any. |
+| Goalie assists and PIM | A goalie's own assists and penalty minutes count to the goalie, who is listed with the skaters on the game page when there are any. |
 
 Goalies and skaters are two **stat groups**: skaters have GP, G, A, PTS, PIM (and PPG, SHG, GWG in the season totals);
 goalies have GP, W, L, T, GA, GAA, SHO and SV% (and OTL, A, PIM in the season totals). A player with games in both has
@@ -148,7 +148,7 @@ team's (loser's goals + 1)th goal, in time order, overtime and empty-net goals i
 a shootout (the shootout goal belongs to nobody). It is worked out, never written, so it cannot disagree with the goal
 lines.
 
-**A shutout (SHO)** goes to a goalie who played the **whole game alone** (his team has one goalie row) and whose team
+**A shutout (SHO)** goes to a goalie who played the **whole game alone** (the team has one goalie row) and whose team
 allowed **no goal at all in the periods or overtime**, empty-net goals included. A shutout shared by two goalies is not
 credited. The shootout is ignored: a goalie who lets in no goal in the periods and overtime and then loses a shootout
 still has the shutout.
@@ -179,14 +179,14 @@ typos. Paths below are relative to `sheet`; `<side>` is `home` or `away`, `<i>` 
 | `goals.<i>.period` | missing | gap |
 | `goals.<i>.period` | not `1` to `rules.periods`, `OT`, or `OT2`...; `OT2` and later outside a playoff game with sudden-death overtime | error |
 | `goals.<i>.time` | missing | gap |
-| `goals.<i>.time` | not text like `"4:12"` (a number: "put the time in quotes"); past the end of the period (`rules.period_minutes`, `rules.overtime_minutes` in overtime) | error |
+| `goals.<i>.time` | not text like `"4:12"` (a number: "write it in quotes"); past the end of the period (`rules.period_minutes`, `rules.overtime_minutes` in overtime) | error |
 | `goals.<i>.time` | out of order with the line before it in the same period (with the league's clock direction) | warning |
 | `goals.<i>.side` | missing | gap |
 | `goals.<i>.side` | not `home` or `away` | error |
 | `goals.<i>.num` | missing | gap |
 | `goals.<i>.num` | not a jersey number; not on that team's roster | error |
 | `goals.<i>.assists` | not a list; more than two | error |
-| `goals.<i>.assists.<j>` | not a jersey number; not on the scorer's roster; the scorer himself; the same player twice | error |
+| `goals.<i>.assists.<j>` | not a jersey number; not on the scorer's roster; the scorer; the same player twice | error |
 | `goals.<i>.strength` | not `EV`, `PP` or `SH` | error |
 | `goals.<i>.en`, `.ps` | not `true` | error |
 | `goals.<i>.assists` | a penalty-shot goal (`ps: true`) with assists | error |
@@ -195,7 +195,7 @@ typos. Paths below are relative to `sheet`; `<side>` is `home` or `away`, `<i>` 
 | `penalties` | not a list (a missing `penalties` is a game with none) | error |
 | `penalties.<i>` | not a row; an unknown key (`.<key>`) | error |
 | `penalties.<i>.period`, `.time`, `.side` | missing | gap |
-| `penalties.<i>.period`, `.time`, `.side` | wrong, as for goals | error |
+| `penalties.<i>.period`, `.time`, `.side` | wrong, as for goals (`OT2` and later only in a playoff game with sudden-death overtime) | error |
 | `penalties.<i>.time` | out of order with the line before it in the same period | warning |
 | `penalties.<i>.num` | missing | gap |
 | `penalties.<i>.num` | not a jersey number on the roster and not `bench` | error |
@@ -317,7 +317,7 @@ shots under "Shootout".
 
 ### Two goalies
 
-When a team used two goalies, list both, each with the goals against **while he was in net**, and mark the one who gets
+When a team used two goalies, list both, each with the goals against **while in net**, and mark the one who gets
 the win or the loss with `decision: true`:
 
 ```yaml
@@ -358,14 +358,14 @@ ones.
 
 A goalie who is not on the team's roster that night is a spare, as in any sport:
 
-1. Add him to `players.yml` first: `{id: stu-g, name: Stu G., team: null, sub: true}` (a spare who belongs to no team).
-2. Put him on the roster with his jersey number, and in `goalies`: `{player: stu-g, num: 35}` in `roster`, `{num: 35, ga: 1}` in
+1. Add the spare to `players.yml` first: `{id: stu-g, name: Stu G., team: null, sub: true}` (a spare who belongs to no team).
+2. Put them on the roster with their jersey number, and in `goalies`: `{player: stu-g, num: 35}` in `roster`, `{num: 35, ga: 1}` in
    `goalies`.
 
-A regular player of another team who fills in is already in `players.yml`: mark him `sub: true` there, or the check
+A regular player of another team who fills in is already in `players.yml`: mark them `sub: true` there, or the check
 warns you (`... is not on <team>`). A warning never stops the build. If you are typing the file before you know who the
 spare is, write the row as it is on paper, `{name: Jo K., num: 30}`, and save it as a **draft**; a finished file cannot
-have such a row. A goalie who dressed but did not play is a roster row and gets a skater game with no stats: leave him
+have such a row. A goalie who dressed but did not play is a roster row and gets a skater game with no stats: leave them
 off the roster if you do not want that.
 
 ### A game cut short

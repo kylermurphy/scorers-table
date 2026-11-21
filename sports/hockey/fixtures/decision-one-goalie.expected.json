@@ -3,7 +3,7 @@
     {
       "level": "warning",
       "at": "goalies.home.0.decision",
-      "message": "decision isn't needed when Alpha used one goalie: he gets it. Take it out."
+      "message": "decision isn't needed when Alpha used one goalie: that goalie gets it. Take it out."
     }
   ],
   "reading": {

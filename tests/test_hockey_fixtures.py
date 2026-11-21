@@ -159,6 +159,7 @@ ROWS = [
     ("penalties.<i> not a row", "penalty-row-not-a-block", "error", "penalties.3"),
     ("penalties.<i> an unknown key", "penalty-unknown-key", "error", "penalties.3.ref"),
     ("penalty period missing", "penalty-period-missing", "error", "penalties.3.period"),
+    ("penalty in OT2 outside a playoff sudden-death game", "penalty-ot2-regular", "error", "penalties.4.period"),
     ("penalty time not text", "penalty-time-unquoted", "error", "penalties.3.time"),
     ("penalty time past the period's length", "penalty-time-past-period", "error", "penalties.3.time"),
     ("penalty side not home or away", "penalty-side-bad", "error", "penalties.3.side"),
