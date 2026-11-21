@@ -74,7 +74,7 @@ def test_wrong_function_shapes_are_reported_with_the_signature_wanted(sports_roo
 
 def test_unknown_sport_folder(sports_root):
     sport, problems = load_sport("nope", sports_root)
-    assert sport is None and "Available: bare, broken, other, tiny, typo." in problems[0].message
+    assert sport is None and "Available: bare, broken, other, tiny, twogroup, typo." in problems[0].message
 
 
 def test_the_schema_reports_every_mistake_with_its_path(sports_root):

@@ -66,3 +66,9 @@ def test_first_last_rejects(name):
 
 def test_humanize():
     assert fmt.humanize("run_limit") == "Run limit"
+
+
+@pytest.mark.parametrize("value, places, text", [(0.912, 3, ".912"), (1, 3, "1.000"), (0, 3, ".000"), (0.9996, 3, "1.000"),
+                                                 (0.8335, 3, ".834"), (0.05, 2, ".05"), (2.5, 2, "2.50"), (None, 3, "—")])
+def test_dot_drops_the_leading_zero_only(value, places, text):
+    assert fmt.dot(value, places) == text

@@ -788,6 +788,16 @@ SPORT_ONLY = {
     "games.*.line_score.split[]": "hockey's goalie / PIM foot",
     "leaders.boards[].columns[]": "hockey's leaders table (a board with columns)",
     "leaders.boards[].rows[].cells.*": "hockey's leaders table",
+    "games.*.blocks[].groups": "hockey's events, penalties and game-group blocks",
+    "games.*.blocks[].legend": "hockey's events, penalties and game-group blocks",
+    "games.*.blocks[].intro": "hockey's events, penalties and game-group blocks",
+    "games.*.blocks[].blocks": "hockey's events, penalties and game-group blocks",
+    "games.*.blocks[].rows[].side": "hockey's penalties block and team-column stat tables",
+    "games.*.blocks[].rows[].period": "hockey's penalties block and team-column stat tables",
+    "games.*.blocks[].rows[].time": "hockey's penalties block and team-column stat tables",
+    "games.*.blocks[].rows[].text": "hockey's penalties block and team-column stat tables",
+    "games.*.blocks[].rows[].infraction": "hockey's penalties block and team-column stat tables",
+    "games.*.blocks[].rows[].minutes": "hockey's penalties block and team-column stat tables",
     "games.*.blocks[].label": "basketball's top_performer block (the stub does not draw one)",
     "games.*.blocks[].player": "basketball's top_performer block",
     "games.*.blocks[].value": "basketball's top_performer block",
@@ -1258,3 +1268,21 @@ def test_e7_a_card_meta_extra_that_is_not_a_list_of_strings_is_a_sport_bug():
     for bad in ("Shook hands after 6", [6]):
         with pytest.raises(InternalError, match=r"meta_extra'\] must be a list of strings"):
             call_sport("present", present({"meta_extra": bad}))
+
+
+def test_an_asc_board_and_the_stats_table_list_the_lowest_first(tmp_path, capsys):
+    """`order: asc` on the stub's points-per-game board (the same board a hockey league uses for GAA): lowest first,
+    and a player's rank follows the board (ties, zero, the minimum and the table order: test_stat_groups.py)."""
+    root, out = make_repo(tmp_path), tmp_path / "out"
+    sport = root / "sports" / "stub" / "sport.yml"
+    sport.write_text(sport.read_text(encoding="utf-8").replace("stat: ppg, label: Points / game,",
+                                                               "stat: ppg, order: asc, label: Points / game,"), encoding="utf-8")
+    assert run(root, out, capsys=capsys)[0] == 0
+    leaders = computed(out, "sample-2026-27", "leaders.json")
+    ppg = leaders["boards"][1]
+    assert ppg["order"] == "asc" and leaders["boards"][0]["order"] == "desc"
+    values = [r["value"] for r in ppg["rows"]]
+    assert values == sorted(values)
+    assert [r["rank"] for r in ppg["rows"]][0] == 1
+    players = computed(out, "sample-2026-27", "players.json")
+    assert players[ppg["rows"][0]["player"]]["groups"]["player"]["ranks"]["ppg"] == 1

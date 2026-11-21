@@ -158,7 +158,7 @@ def test_unknown_sport_lists_the_available_folders(sports_root):
     assert league is None
     msg = errors(problems)["sport"]
     assert "'tinny' is not a sport folder" in msg and "Did you mean 'tiny'?" in msg
-    assert "Available: bare, broken, other, tiny, typo." in msg
+    assert "Available: bare, broken, other, tiny, twogroup, typo." in msg
 
 
 def test_a_sport_with_a_bad_sport_yml_stops_the_league_and_names_that_file(sports_root):
