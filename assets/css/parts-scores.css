@@ -1007,6 +1007,11 @@
 .st-page .st-final__foot--split > * + * {
   margin-top: 0;
 }
+/* The second line is short ("PIM 8–4"): it keeps to one line, and the first (the goalies) wraps instead. */
+.st-final__foot--split > :last-child {
+  flex: none;
+  white-space: nowrap;
+}
 
 /* Basketball and Classic: a coloured panel; the line score sits in a lighter inset box. */
 :is([data-layout="basketball"], [data-layout="classic"]) .st-final {

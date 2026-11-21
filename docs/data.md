@@ -280,10 +280,10 @@ sheet:
     away: {periods: [0, 1, 0], ot: ~, so: ~, final: 1}
 ```
 
-**Put every time in quotes** (`time: "4:12"`). Without quotes, YAML tools read `4:12` as the number 252 (it is a
-base-60 number), and `12:09` as 729, and a time that arrives as a number is an error that names the time it probably
-was ("729 looks like 12:09 written without quotes"). The entry page will always write the quotes; when you type a file
-by hand, you must. (`schedule.csv` times such as `19:00` are a different file and need no quotes.)
+**Put every time in quotes** (`time: "4:12"`). The site's own reader keeps an unquoted `4:12` as text, but many other
+YAML tools read it as the number 252 (a base-60 number), and `12:09` as 729; a time that arrives as a number is an error
+that names the time it probably was ("729 looks like 12:09 written without quotes"). The entry page will always write
+the quotes; when you type a file by hand, write them too. (`schedule.csv` times such as `19:00` are a different file and need no quotes.)
 
 ### `drafts/`
 
