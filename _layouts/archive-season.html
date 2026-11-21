@@ -5,7 +5,7 @@ layout: default
 {%- comment -%}
   A past season, read-only: its standings, its results (newest game day first) and its leaders. A past season
   has no team or player pages (ids repeat from season to season), so names are plain text; the game pages exist.
-  The stub's `season` picks the season.
+  The stub's `season` picks the season. A season whose options switch every board off has no Leaders section.
 {%- endcomment -%}
 {%- assign _info = site.data.computed.archive | where: "season", season | first -%}
 {%- capture _title %}{{ season_label }} season{% endcapture -%}
@@ -43,6 +43,7 @@ layout: default
   {%- endif %}
 </section>
 
+{% if stats.leaders.boards.size > 0 -%}
 <section class="st-section">
 {% include shell/section-head.html title=league.labels.leaders %}
   {%- if _boards.size > 0 %}
@@ -58,3 +59,4 @@ layout: default
 {% include core/empty.html text="No stats were kept for this season." %}
   {%- endif %}
 </section>
+{%- endif %}

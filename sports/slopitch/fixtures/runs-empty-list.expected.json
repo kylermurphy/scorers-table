@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home",
+      "message": "Alpha has 0 boxes. Runs are a list of 1 to 17 boxes, one for each inning played (write X for a bottom half that was not needed)."
+    }
+  ],
+  "reading": null
+}

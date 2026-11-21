@@ -1,0 +1,56 @@
+# Thirty-one batters (the most is 30). An error on the list; the names are drafts of rows.
+fixture:
+  folder: drafts
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    away: [2, 0, 3, 1, 0, 3, 1]
+    home: [1, 3, 0, 2, 4, 0, 0]
+  totals:
+    away: {r: 10, h: 8}
+    home: {r: 10, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {name: Spare 0}
+      - {name: Spare 1}
+      - {name: Spare 2}
+      - {name: Spare 3}
+      - {name: Spare 4}
+      - {name: Spare 5}
+      - {name: Spare 6}
+      - {name: Spare 7}
+      - {name: Spare 8}
+      - {name: Spare 9}
+      - {name: Spare 10}
+      - {name: Spare 11}
+      - {name: Spare 12}
+      - {name: Spare 13}
+      - {name: Spare 14}
+      - {name: Spare 15}
+      - {name: Spare 16}
+      - {name: Spare 17}
+      - {name: Spare 18}
+      - {name: Spare 19}
+      - {name: Spare 20}
+      - {name: Spare 21}
+      - {name: Spare 22}
+      - {name: Spare 23}
+      - {name: Spare 24}
+      - {name: Spare 25}
+      - {name: Spare 26}
+      - {name: Spare 27}
+      - {name: Spare 28}
+      - {name: Spare 29}
+      - {name: Spare 30}

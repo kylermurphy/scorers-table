@@ -25,6 +25,12 @@
   as for `desc`. The Stats table of a group sorts its key column the same way. A board's `columns:` (stat keys of its
   group) fill `board.columns` and each row's `cells`; a derived stat with `format: dot` shows as ".912"; one with
   `group:` belongs to that group only. `leaders.tables` has one table per group (`leaders.table` is the first).
+* `when: {<option>: [values]}` on a counting stat, a rate or a board (E23) keeps it only while the season's effective
+  options have one of those values: otherwise the stat is left out of every list (columns, totals, logs, `detail`
+  fields; a rate still gets every count, so `derive` never misses one) and the board is not built. A stat group
+  whose counting stats are all switched off and in which nobody has a line is not a group at all: no table, no
+  columns, no boards. Each season reads its own options, so an archive season shows its own columns.
+* A board minimum with `per_team_game: true` is the setting times the team's regular-season games so far (E24).
 * Boards show the first `LEADERS_SHOWN` ranks (ties at the last rank included); the Stats table lists everyone.
 """
 from __future__ import annotations
@@ -35,7 +41,7 @@ from scripts.core import fmt
 from scripts.core.loader import LoadedGame
 from scripts.core.model import Line, Player
 from scripts.core.problems import call_sport
-from scripts.core.sports import STAT_RESERVED
+from scripts.core.sports import STAT_RESERVED, when_matches
 from scripts.core.compute_games import decided_word
 from scripts.core.season_ctx import SeasonCtx, dash, game_url, player_url, result_word
 from scripts.core.standings import record_of
@@ -66,9 +72,30 @@ def build_stats(ctx: SeasonCtx) -> tuple[dict, dict]:
 
 # ------------------------------------------------------------------ collecting lines
 
+def _on(ctx: SeasonCtx, item: dict) -> bool:
+    """False when the stat or board has a `when` that this season's options do not match (E23)."""
+    return when_matches(item.get("when"), ctx.settings.rules)
+
+
+def _counting(ctx: SeasonCtx, group: str) -> list[dict]:
+    """The group's counting stats that are switched on for this season."""
+    return [s for s in ctx.spec["stats"][group] if _on(ctx, s)]
+
+
+def _boards_on(ctx: SeasonCtx) -> list[dict]:
+    """The sport's leaderboards that are switched on for this season."""
+    return [b for b in ctx.spec["leaderboards"] if _on(ctx, b)]
+
+
 def _groups(ctx: SeasonCtx) -> list[str]:
-    """The stat groups of the sport ('player', or 'skater' and 'goalie'), in sport.yml order."""
-    return [g for g in ctx.spec["stats"] if g not in STAT_RESERVED]
+    """The stat groups of the sport ('player', or 'skater' and 'goalie'), in sport.yml order. A group whose counting
+    stats are all switched off by `when` is left out when nobody has a line in it (batting lines not kept)."""
+    names = [g for g in ctx.spec["stats"] if g not in STAT_RESERVED]
+    return [g for g in names if _counting(ctx, g) or not ctx.spec["stats"][g] or _has_lines(ctx, g)]
+
+
+def _has_lines(ctx: SeasonCtx, group: str) -> bool:
+    return any(line.group == group for game in ctx.finished() if game.reading for line in game.reading.lines)
 
 
 def _collect(ctx: SeasonCtx) -> dict[tuple[str, str, str], list[_Played]]:
@@ -84,7 +111,7 @@ def _collect(ctx: SeasonCtx) -> dict[tuple[str, str, str], list[_Played]]:
 
 def _derived(ctx: SeasonCtx, group: str) -> list[dict]:
     """The rates a group shows: those with no `group:` and those naming this one."""
-    return [d for d in ctx.spec["stats"]["derived"] if d.get("group", group) == group]
+    return [d for d in ctx.spec["stats"]["derived"] if d.get("group", group) == group and _on(ctx, d)]
 
 
 def _group_label(ctx: SeasonCtx, group: str) -> str:
@@ -95,7 +122,7 @@ def _group_label(ctx: SeasonCtx, group: str) -> str:
 def _defs(ctx: SeasonCtx, group: str) -> list[dict]:
     """Every stat of a group: gp, the counting stats, then the rates."""
     stats = ctx.spec["stats"]
-    return ([{"key": "gp", "label": "GP", "title": "Games played"}] + list(stats[group])
+    return ([{"key": "gp", "label": "GP", "title": "Games played"}] + _counting(ctx, group)
             + [dict(d, derived=True) for d in _derived(ctx, group)])
 
 
@@ -106,7 +133,8 @@ def _stat_block(ctx: SeasonCtx, group: str, rows: list[_Played]) -> dict:
     counts = {s["key"]: sum(r.line.counts.get(s["key"], 0) for r in rows) for s in ctx.spec["stats"][group]}
     counts["gp"] = len(rows)
     rates = call_sport("derive", ctx.league.sport_def.rules.derive, dict(counts), group)
-    totals: dict[str, Any] = {"gp": counts["gp"], **{k: v for k, v in counts.items() if k != "gp"}}
+    shown = {s["key"] for s in _counting(ctx, group)}
+    totals: dict[str, Any] = {"gp": counts["gp"], **{k: v for k, v in counts.items() if k != "gp" and k in shown}}
     display = {key: str(value) for key, value in totals.items()}
     exact: dict[str, Any] = {}
     for d in _derived(ctx, group):
@@ -128,7 +156,7 @@ def _observed(totals: dict, group: str) -> set[str]:
 def _boards(ctx: SeasonCtx, totals: dict, played: dict) -> tuple[list[dict], dict[str, dict[str, int]]]:
     boards, ranks = [], {}
     tiles = 0
-    for spec in ctx.spec["leaderboards"]:
+    for spec in _boards_on(ctx):
         edge = spec.get("edge") or ("hot" if tiles == 0 else "accent")
         tiles += 1 if spec.get("tile") else 0
         if spec["of"] == "team":
@@ -239,14 +267,26 @@ def name_order(player: Player) -> tuple:
 
 
 def _needed(ctx: SeasonCtx, rule: dict, minimum: int, player: Player) -> int:
-    """The minimum for this player: the league's number, but never more than their team's games so far."""
+    """The minimum for this player: the league's number, but never more than their team's games so far
+    (`cap_at_team_games`), or the number for each game their team has played so far (`per_team_game`, E24). A player
+    with no team (a spare) gets the strictest figure: the number as it is with the cap, and with `per_team_game` the
+    number for each game of the team that has played the most, so a spare with a few at bats never tops the board."""
     if rule.get("cap_at_team_games") and player.team:
         return min(minimum, len(ctx.regular_games(player.team)))
+    if rule.get("per_team_game"):
+        teams = [player.team] if player.team else list(ctx.teams)
+        return minimum * max((len(ctx.regular_games(t)) for t in teams), default=0)
     return minimum
 
 
 def _detail(spec: dict, display: dict) -> str | None:
-    return spec["detail"].format(**display) if spec.get("detail") else None
+    """The board's detail text; None when it names a stat that is switched off for the season (E23)."""
+    if not spec.get("detail"):
+        return None
+    try:
+        return spec["detail"].format(**display)
+    except KeyError:
+        return None
 
 
 def _team_board(ctx: SeasonCtx, spec: dict, edge: str) -> dict:
@@ -293,7 +333,7 @@ def _columns(ctx: SeasonCtx, group: str, seen: set[str]) -> dict[str, list[dict]
     first column after GP."""
     defs = {d["key"]: d for d in _defs(ctx, group) if not d.get("derived") or d["key"] in seen or not seen}
     chosen = ctx.spec["stats"].get("columns", {}).get(group, {})
-    first = next((b["stat"] for b in ctx.spec["leaderboards"]
+    first = next((b["stat"] for b in _boards_on(ctx)
                   if b["of"] == "player" and b.get("group", "player") == group), None)
     out = {}
     for name in ("table", "totals", "log"):
@@ -312,7 +352,7 @@ def _table(ctx: SeasonCtx, group: str, totals: dict) -> dict:
     column's board is `order: asc`): ids only, the page reads players.json. `label` is the group's name."""
     columns = _columns(ctx, group, _observed(totals, group))["table"]
     key = next((c["key"] for c in columns if c["key_col"]), None)
-    board = next((b for b in ctx.spec["leaderboards"] if b["of"] == "player" and b.get("group", "player") == group
+    board = next((b for b in _boards_on(ctx) if b["of"] == "player" and b.get("group", "player") == group
                   and b["stat"] == key), {})
     sign = 1 if board.get("order") == "asc" else -1
     ids = [pid for (pid, g, kind) in totals if g == group and kind == "regular"]

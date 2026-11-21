@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs",
+      "message": "should list the runs for home and away, like 'away: [2, 0, 1]' and 'home: [1, 0, X]'"
+    }
+  ],
+  "reading": null
+}

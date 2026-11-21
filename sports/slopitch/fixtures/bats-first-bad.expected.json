@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "bats_first",
+      "message": "'visitors' isn't a side. Write 'home' when the home team batted first after a coin toss, and leave the line out when the visitors batted first."
+    }
+  ],
+  "reading": null
+}

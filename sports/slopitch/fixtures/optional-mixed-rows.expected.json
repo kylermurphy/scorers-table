@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home.4",
+      "message": "Alpha: some batters have a line and some do not. All of a team's batters have a line, or none."
+    }
+  ],
+  "reading": null
+}

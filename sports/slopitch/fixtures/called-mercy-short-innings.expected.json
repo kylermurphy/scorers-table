@@ -1,0 +1,337 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "called",
+      "message": "the mercy rule applies after 5 innings (4½ when the team batting last leads) and 4 were played: check the reason."
+    }
+  ],
+  "reading": {
+    "score": {
+      "final": {
+        "home": 1,
+        "away": 19
+      },
+      "periods": {
+        "home": [
+          0,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null
+        ],
+        "away": [
+          5,
+          5,
+          5,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "extra": {},
+      "decided_in": "regulation",
+      "final_at": {
+        "home": "sheet.totals.home.r",
+        "away": "sheet.totals.away.r"
+      }
+    },
+    "lines": [
+      {
+        "side": "home",
+        "player": "gary-t",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "linda-m",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "ron-b",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "dave-k",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "bev-s",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "wayne-h",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "carol-d",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "ted-f",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "joan-p",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "home",
+        "player": "murray-l",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "norm-w",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "sheila-r",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "phil-g",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "doug-e",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "pat-o",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "ken-j",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "marg-l",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "brian-c",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "elaine-v",
+        "group": "player",
+        "counts": {}
+      },
+      {
+        "side": "away",
+        "player": "stan-z",
+        "group": "player",
+        "counts": {}
+      }
+    ],
+    "team_lines": {},
+    "facts": {
+      "innings": 7,
+      "played": 4,
+      "bats_first": "away",
+      "bats_last": "home",
+      "run_limit": 5,
+      "limited": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "runs": {
+        "home": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "away": [
+          5,
+          5,
+          5,
+          4
+        ]
+      },
+      "x_innings": {
+        "home": [],
+        "away": []
+      },
+      "limit_innings": {
+        "home": [],
+        "away": [
+          1,
+          2,
+          3
+        ]
+      },
+      "called": "mercy",
+      "walk_off": false,
+      "totals": {
+        "home": {
+          "r": 1,
+          "h": 9,
+          "e": null
+        },
+        "away": {
+          "r": 19,
+          "h": 8,
+          "e": null
+        }
+      },
+      "has_lines": {
+        "home": false,
+        "away": false
+      },
+      "batting": {
+        "home": [
+          {
+            "player": "gary-t",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "linda-m",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "ron-b",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "dave-k",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "bev-s",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "wayne-h",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "carol-d",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "ted-f",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "joan-p",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "murray-l",
+            "name": null,
+            "line": null
+          }
+        ],
+        "away": [
+          {
+            "player": "norm-w",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "sheila-r",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "phil-g",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "doug-e",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "pat-o",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "ken-j",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "marg-l",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "brian-c",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "elaine-v",
+            "name": null,
+            "line": null
+          },
+          {
+            "player": "stan-z",
+            "name": null,
+            "line": null
+          }
+        ]
+      },
+      "hr_players": {
+        "home": [],
+        "away": []
+      },
+      "h3_players": {
+        "home": [],
+        "away": []
+      }
+    }
+  }
+}

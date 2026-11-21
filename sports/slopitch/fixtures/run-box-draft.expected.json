@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "runs.home.3",
+      "message": "is empty. Write Alpha's runs in inning 4, or X if they did not bat."
+    }
+  ],
+  "reading": null
+}

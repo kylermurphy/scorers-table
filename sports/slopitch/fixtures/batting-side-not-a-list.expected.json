@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home",
+      "message": "Alpha has no list of rows. A batting order is a list of 1 to 30 batters, one row each: {player: norm-w, ab: 4, r: 1, h: 2, rbi: 0, hr: 0, bb: 0}"
+    }
+  ],
+  "reading": null
+}

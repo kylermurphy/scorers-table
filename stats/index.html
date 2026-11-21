@@ -7,14 +7,18 @@ description: Leaders and the stats of every player this season.
 ---
 {%- comment -%}
   Stats: every leaderboard (the leader tiles, then the lists) and the table of every player. On the Scoreboard
-  layout Home shows the standings as "the race", so the full table lives here (id "standings").
+  layout Home shows the standings as "the race", so the full table lives here (id "standings"); so it does on any
+  layout while the sport keeps no player stats at all (no board and no table: batting lines switched off by `when`).
 {%- endcomment -%}
 {% include core/context.html %}
 {%- assign _boards = stats.leaders.boards | where_exp: "b", "b.rows.size > 0" -%}
 {%- capture _sub %}{{ season_label }} season{% endcapture %}
 {% include shell/page-title.html title="Stats" sub=_sub %}
 
-{%- if league.layout == "scoreboard" and stats.standings.rows.size > 0 %}
+{%- assign _standings_here = false -%}
+{%- if league.layout == "scoreboard" %}{% assign _standings_here = true %}{% endif -%}
+{%- if stats.leaders.boards.size == 0 and stats.leaders.tables.size == 0 %}{% assign _standings_here = true %}{% endif -%}
+{%- if _standings_here and stats.standings.rows.size > 0 %}
 <section class="st-section" id="standings">
 {% include shell/section-head.html title=league.labels.standings %}
 {% include parts/standings.html standings=stats.standings mode="table" %}
@@ -24,6 +28,7 @@ description: Leaders and the stats of every player this season.
 </section>
 {%- endif %}
 
+{% if stats.leaders.boards.size > 0 -%}
 <section class="st-section">
 {% include shell/section-head.html title=league.labels.leaders %}
   {%- if _boards.size > 0 %}
@@ -33,7 +38,9 @@ description: Leaders and the stats of every player this season.
 {% include core/empty.html text="The leaders show up here after the first game." %}
   {%- endif %}
 </section>
+{%- endif %}
 
+{% if stats.leaders.tables.size > 0 -%}
 <section class="st-section">
 {% include shell/section-head.html title="All players" %}
   {%- if stats.leaders.table.rows.size > 0 %}
@@ -53,3 +60,4 @@ description: Leaders and the stats of every player this season.
 {% include core/empty.html text="No players have been added yet. The stats show up here after the first game." %}
   {%- endif %}
 </section>
+{%- endif %}

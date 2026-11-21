@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "called",
+      "message": "'rain' isn't a reason. Use one of: mercy, time, weather, darkness, other."
+    }
+  ],
+  "reading": null
+}

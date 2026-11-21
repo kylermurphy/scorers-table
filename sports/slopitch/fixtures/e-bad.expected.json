@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away.e",
+      "message": "100 isn't a number of errors: write a whole number from 0 to 99."
+    }
+  ],
+  "reading": null
+}

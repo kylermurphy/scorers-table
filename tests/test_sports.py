@@ -47,7 +47,7 @@ def test_the_smallest_valid_sport_gets_its_optional_keys_filled_in(sports_root):
     assert problems == []
     s = sport.spec
     assert (s["games_per_day"], s["game_minutes"], s["options"], s["minimums"], s["leaderboards"]) == (1, 60, {}, {}, [])
-    assert s["display"] == {"card": "rows", "card_foot": "note", "surface": "label"}
+    assert s["display"] == {"card": "rows", "card_foot": "note", "surface": "label", "card_head": "", "matchup": "vs"}
     assert s["words"]["surface"] == "" and s["stats"]["derived"] == [] and s["stats"]["team"] == []
 
 
@@ -293,7 +293,8 @@ def test_the_stub_is_a_test_sport_and_the_real_sports_are_demos():
     assert "demo: false" in (SPORTS_ROOT / "stub" / "sport.yml").read_text(encoding="utf-8")
     basketball, _ = load_sport("basketball", SPORTS_ROOT)
     assert basketball.spec["demo"] is True
-    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball", "curling": "Curling", "hockey": "Hockey"}
+    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball", "curling": "Curling", "hockey": "Hockey",
+                                           "slopitch": "Slo-pitch"}
 
 
 def test_demo_sports_needs_a_sample_and_a_demo_that_is_not_false(sports_root, tmp_path):
@@ -365,7 +366,7 @@ def test_display_results_legend_is_a_list_of_kind_and_text(sports_root):
     assert display([]) == {}
     assert set(display([{"kind": "star", "text": "x"}])) == {"display.results_legend.0.kind"}
     assert set(display([{"kind": "mark"}])) == {"display.results_legend.0.text"}
-    assert set(display([{"kind": "mark", "text": "Stolen end", "mark": "S"}])) == {"display.results_legend.0.mark"}
+    assert display([{"kind": "limit", "text": "At the limit", "mark": "5"}]) == {}
     assert set(display("Hammer")) == {"display.results_legend"}
 
 
@@ -455,3 +456,66 @@ def test_board_columns_are_stats_of_the_boards_group(sports_root):
     spec["leaderboards"][1]["columns"] = []
     got = {p.at for p in check_sport_spec(spec, "sport.yml")}
     assert got == {"leaderboards.0.columns.1", "leaderboards.0.columns.2", "leaderboards.0.columns.3", "leaderboards.1.columns"}
+
+
+# ------------------------------------------------------------------ slo-pitch core extensions (E23-E27)
+
+def _with(sports_root, **changes):
+    """tiny's sport.yml with some top-level keys replaced (a dict value is merged one level deep)."""
+    base = spec_of(sports_root)
+    return {**base, **{k: ({**base.get(k, {}), **v} if isinstance(v, dict) else v) for k, v in changes.items()}}
+
+
+def test_when_names_an_option_and_values_it_allows_on_stats_and_boards(sports_root):
+    base = spec_of(sports_root)
+    stats = lambda when: _problems_at({**base, "stats": {**base["stats"], "player": [   # noqa: E731
+        {"key": "pts", "label": "PTS", "title": "Points", "when": when}]}})
+    assert stats({"overtime": ["overtime"]}) == {} and stats({"mercy": [True], "periods": [2, 3]}) == {}
+    assert set(stats({"nope": ["x"]})) == {"stats.player.0.when.nope"}
+    assert set(stats({"overtime": ["sudden"]})) == {"stats.player.0.when.overtime.0"}
+    assert set(stats({"overtime": "overtime"})) == {"stats.player.0.when.overtime"}
+    assert set(stats({"overtime": []})) == {"stats.player.0.when.overtime"}
+    assert set(stats({})) == {"stats.player.0.when"}
+    assert set(stats(["overtime"])) == {"stats.player.0.when"}
+    derived = {**base["stats"]["derived"][0], "when": {"mercy": [True]}}
+    assert _problems_at({**base, "stats": {**base["stats"], "derived": [derived]}}) == {}
+    board = lambda when: _problems_at({**base, "leaderboards": [{**base["leaderboards"][0], "when": when}]})   # noqa: E731
+    assert board({"mercy": [True]}) == {} and set(board({"mercy": ["yes"]})) == {"leaderboards.0.when.mercy.0"}
+    team = [{"key": "ends", "label": "EW", "title": "Ends won", "when": {"mercy": [True]}}]
+    assert set(_problems_at({**base, "stats": {**base["stats"], "team": team}})) == {"stats.team.0.when"}     # not for team stats
+
+
+def test_when_matches_reads_the_effective_options():
+    from scripts.core.sports import when_matches
+    assert when_matches(None, {}) and when_matches({}, {})
+    assert when_matches({"batting": ["optional", "every_game"]}, {"batting": "optional", "x": 1})
+    assert not when_matches({"batting": ["optional"]}, {"batting": "none"})
+    assert not when_matches({"a": [1], "b": [2]}, {"a": 1, "b": 3})
+
+
+def test_a_board_minimum_may_be_per_team_game_but_not_with_the_cap(sports_root):
+    base = spec_of(sports_root)
+    minimum = lambda m: _problems_at({**base, "leaderboards": [{**base["leaderboards"][1], "min": m}]})   # noqa: E731
+    assert minimum({"stat": "gp", "setting": "ppg_min_games", "per_team_game": True}) == {}
+    assert set(minimum({"stat": "gp", "setting": "ppg_min_games", "per_team_game": "yes"})) == {"leaderboards.0.min.per_team_game"}
+    both = {"stat": "gp", "setting": "ppg_min_games", "per_team_game": True, "cap_at_team_games": True}
+    assert set(minimum(both)) == {"leaderboards.0.min.per_team_game"}
+
+
+def test_display_card_head_and_matchup_are_closed_lists(sports_root):
+    base = spec_of(sports_root)
+    display = lambda **d: _problems_at({**base, "display": {**base["display"], **d}})   # noqa: E731
+    assert display(card_head="status_surface", matchup="at") == {} and display(card_head="", matchup="vs") == {}
+    assert set(display(card_head="eyebrow")) == {"display.card_head"}
+    assert set(display(matchup="versus")) == {"display.matchup"}
+
+
+def test_a_legend_mark_option_names_an_int_option(sports_root):
+    base = spec_of(sports_root)
+    legend = lambda item: _problems_at({**base, "display": {**base["display"], "results_legend": [   # noqa: E731
+        {"kind": "limit", "text": "Limit", **item}]}})
+    assert legend({"mark_option": "periods"}) == {} and legend({"mark": "5"}) == {}
+    assert set(legend({"mark_option": "overtime"})) == {"display.results_legend.0.mark_option"}     # a choice, not an int
+    assert set(legend({"mark_option": "missing"})) == {"display.results_legend.0.mark_option"}
+    assert set(legend({"mark": "5", "mark_option": "periods"})) == {"display.results_legend.0.mark_option"}
+    assert set(legend({"mark": 5})) == {"display.results_legend.0.mark"}

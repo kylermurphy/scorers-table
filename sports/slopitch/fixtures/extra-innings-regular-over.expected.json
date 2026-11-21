@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.away.9",
+      "message": "this league plays at most 2 extra innings in the regular season: a game level after 9 innings is a tie. Take the extra innings out."
+    }
+  ],
+  "reading": null
+}

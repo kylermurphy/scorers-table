@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away.r",
+      "message": "is empty. Write Bravo's R box (the runs they scored)."
+    }
+  ],
+  "reading": null
+}

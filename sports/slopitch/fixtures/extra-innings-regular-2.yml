@@ -1,0 +1,35 @@
+# The same game in a league that allows two extra innings in the regular season. No problem.
+fixture:
+  folder: games
+  game_type: regular
+  options: {extra_innings: 2}
+sheet:
+  runs:
+    away: [1, 0, 2, 0, 3, 1, 2, 0, 2]
+    home: [0, 3, 1, 2, 0, 2, 1, 0, 3]
+  totals:
+    away: {r: 11, h: 8}
+    home: {r: 12, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}

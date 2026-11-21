@@ -1,0 +1,181 @@
+{
+  "name": "Maple Park Slo-Pitch",
+  "short_name": "Maple Park Slo-Pitch",
+  "code": "MPSP",
+  "sport": "slopitch",
+  "sport_name": "Slo-pitch",
+  "layout": "slopitch",
+  "colour": null,
+  "colour_dark": null,
+  "logo": null,
+  "tagline": "Slo-pitch · 2026–27",
+  "footer_line": "[Venue]",
+  "footer_name": "Maple Park Slo-Pitch",
+  "contact_href": null,
+  "search_engines": false,
+  "lang": "en",
+  "nav": [
+    {
+      "label": "Home",
+      "url": "/",
+      "key": "home"
+    },
+    {
+      "label": "Schedule",
+      "url": "/schedule/",
+      "key": "schedule"
+    },
+    {
+      "label": "Stats",
+      "url": "/stats/",
+      "key": "stats"
+    },
+    {
+      "label": "Teams",
+      "url": "/teams/",
+      "key": "teams"
+    },
+    {
+      "label": "Archive",
+      "url": "/archive/",
+      "key": "archive"
+    }
+  ],
+  "footer_links": [
+    {
+      "label": "Teams",
+      "url": "/teams/"
+    },
+    {
+      "label": "Past seasons",
+      "url": "/archive/"
+    },
+    {
+      "label": "League rules",
+      "url": "/rules/"
+    }
+  ],
+  "labels": {
+    "standings": "Standings",
+    "full_table": "Full table",
+    "all_stats": "All stats",
+    "team": "Team",
+    "final": "Final",
+    "tie": "Tie",
+    "featured": "Game of the week",
+    "results": "Latest results",
+    "next": "Next game day",
+    "leaders": "Leaders"
+  },
+  "words": {
+    "surface": "Diamond",
+    "period": {
+      "one": "Inning",
+      "many": "Innings",
+      "short": "Inn"
+    },
+    "day": "Week",
+    "points_for": {
+      "label": "RF",
+      "title": "Runs for"
+    },
+    "points_against": {
+      "label": "RA",
+      "title": "Runs against"
+    }
+  },
+  "display": {
+    "card": "lines",
+    "card_foot": "note",
+    "surface": "label",
+    "card_head": "status_surface",
+    "matchup": "at"
+  },
+  "sides_order": [
+    "away",
+    "home"
+  ],
+  "results_legend": [
+    {
+      "kind": "limit",
+      "text": "Inning ended at the run limit.",
+      "mark": "5"
+    },
+    {
+      "kind": "x",
+      "text": "Not needed."
+    }
+  ],
+  "placeholders": [
+    {
+      "setting": "rules.innings",
+      "text": "Innings in a game",
+      "using": "7"
+    },
+    {
+      "setting": "rules.run_limit",
+      "text": "Most runs a team may score in one half-inning (0 is no limit)",
+      "using": "5"
+    },
+    {
+      "setting": "rules.open_innings",
+      "text": "Innings with no run limit (the last inning and extra innings, or none)",
+      "using": "last"
+    },
+    {
+      "setting": "rules.limit_play",
+      "text": "Runs on the play that reaches the run limit (stop at the limit, or finish the play)",
+      "using": "stop"
+    },
+    {
+      "setting": "rules.mercy_runs",
+      "text": "Lead that ends a game early, the mercy rule (0 is no mercy rule)",
+      "using": "15"
+    },
+    {
+      "setting": "rules.mercy_after",
+      "text": "Innings played before the mercy rule applies",
+      "using": "5"
+    },
+    {
+      "setting": "rules.official_innings",
+      "text": "Innings that make a called game official",
+      "using": "4"
+    },
+    {
+      "setting": "rules.time_limit",
+      "text": "Minutes in a game before no new inning starts (0 is no time limit)",
+      "using": "60"
+    },
+    {
+      "setting": "rules.extra_innings",
+      "text": "Extra innings in a regular-season game level after the last inning (playoffs play until decided)",
+      "using": "0"
+    },
+    {
+      "setting": "rules.hr_limit",
+      "text": "Home runs one team may hit in a game (0 is no limit)",
+      "using": "0"
+    },
+    {
+      "setting": "standings.ties",
+      "text": "Ties",
+      "using": "yes"
+    },
+    {
+      "setting": "standings.forfeit",
+      "text": "Forfeit",
+      "using": "7–0"
+    },
+    {
+      "setting": "standings.tiebreakers",
+      "text": "Tiebreakers",
+      "using": "head-to-head record (when they have all played each other), then score difference (each game counted up to 7)"
+    },
+    {
+      "setting": "stats.minimums.avg_min_pa",
+      "text": "Minimum plate appearances per team game for the batting leaders",
+      "using": "2"
+    }
+  ]
+}

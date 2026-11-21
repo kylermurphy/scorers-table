@@ -1,0 +1,35 @@
+# A regular-season game level after seven innings: it stands as a tie (no problem here; the core allows ties unless standings.ties is false). No batting lines, so the H boxes are written.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    away: [2, 0, 3, 1, 0, 3, 1]
+    home: [1, 3, 0, 2, 4, 0, 0]
+  totals:
+    away: {r: 10, h: 8}
+    home: {r: 10, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}

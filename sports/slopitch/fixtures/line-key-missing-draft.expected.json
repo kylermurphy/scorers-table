@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "batting.away.0.bb",
+      "message": "is empty. Write Norm W.'s BB (0 if none)."
+    }
+  ],
+  "reading": null
+}

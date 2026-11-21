@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.away.h",
+      "message": "is empty. Write Bravo's H box (hits)."
+    }
+  ],
+  "reading": null
+}

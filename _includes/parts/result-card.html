@@ -25,7 +25,7 @@
 {%- if _rc_lines -%}
   {%- include parts/line-score.html line_score=_rc_ls game=_rc_g size="card" region=false codes=false -%}
 {%- else -%}
-  {%- assign _sides = "home,away" | split: "," -%}{%- for _rc_side in _sides -%}
+  {%- assign _sides = league.sides_order -%}{%- unless _sides.size > 0 -%}{%- assign _sides = "home,away" | split: "," -%}{%- endunless -%}{%- for _rc_side in _sides -%}
     {%- assign _rc_s = _rc_g[_rc_side] -%}
 <span class="st-result-card__team{% if _rc_s.result == 'win' or _rc_s.result == 'ot_win' %} is-winner{% endif %}">
 {%- include parts/chip.html team=_rc_s -%}

@@ -1,0 +1,1805 @@
+{
+  "days": [
+    {
+      "n": 1,
+      "label": "Week 1",
+      "date": "2026-10-15",
+      "date_short": "Thu Oct 15",
+      "date_long": "Thursday, October 15, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-10-15-1",
+          "url": "/games/2026-10-15-1/",
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "sluggers",
+          "away": "bunters",
+          "home_name": "Sluggers",
+          "away_name": "Bunters",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 7,
+            "away": 6
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-15-2",
+          "url": "/games/2026-10-15-2/",
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "long-balls",
+          "away": "mudcats",
+          "home_name": "Long Balls",
+          "away_name": "Mudcats",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 16,
+            "away": 1
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-15-3",
+          "url": "/games/2026-10-15-3/",
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "dugout-dogs",
+          "away": "line-drives",
+          "home_name": "Dugout Dogs",
+          "away_name": "Line Drives",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 12,
+            "away": 11
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 1",
+      "where": "[Venue] · Week 1",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-10-15-1",
+              "url": "/games/2026-10-15-1/",
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "sluggers",
+              "away": "bunters",
+              "home_name": "Sluggers",
+              "away_name": "Bunters",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 7,
+                "away": 6
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-15-2",
+              "url": "/games/2026-10-15-2/",
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "long-balls",
+              "away": "mudcats",
+              "home_name": "Long Balls",
+              "away_name": "Mudcats",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 16,
+                "away": 1
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-15-3",
+              "url": "/games/2026-10-15-3/",
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "dugout-dogs",
+              "away": "line-drives",
+              "home_name": "Dugout Dogs",
+              "away_name": "Line Drives",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 12,
+                "away": 11
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "label": "Week 2",
+      "date": "2026-10-22",
+      "date_short": "Thu Oct 22",
+      "date_long": "Thursday, October 22, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-10-22-1",
+          "url": "/games/2026-10-22-1/",
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "long-balls",
+          "away": "sluggers",
+          "home_name": "Long Balls",
+          "away_name": "Sluggers",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 7,
+            "away": 0
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-22-2",
+          "url": "/games/2026-10-22-2/",
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "bunters",
+          "away": "line-drives",
+          "home_name": "Bunters",
+          "away_name": "Line Drives",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 11,
+            "away": 10
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-22-3",
+          "url": "/games/2026-10-22-3/",
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "dugout-dogs",
+          "away": "mudcats",
+          "home_name": "Dugout Dogs",
+          "away_name": "Mudcats",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 9,
+            "away": 22
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 2",
+      "where": "[Venue] · Week 2",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-10-22-1",
+              "url": "/games/2026-10-22-1/",
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "long-balls",
+              "away": "sluggers",
+              "home_name": "Long Balls",
+              "away_name": "Sluggers",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 7,
+                "away": 0
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-22-2",
+              "url": "/games/2026-10-22-2/",
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "bunters",
+              "away": "line-drives",
+              "home_name": "Bunters",
+              "away_name": "Line Drives",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 11,
+                "away": 10
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-22-3",
+              "url": "/games/2026-10-22-3/",
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "dugout-dogs",
+              "away": "mudcats",
+              "home_name": "Dugout Dogs",
+              "away_name": "Mudcats",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 9,
+                "away": 22
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "label": "Week 3",
+      "date": "2026-10-29",
+      "date_short": "Thu Oct 29",
+      "date_long": "Thursday, October 29, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-10-29-1",
+          "url": "/games/2026-10-29-1/",
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "sluggers",
+          "away": "line-drives",
+          "home_name": "Sluggers",
+          "away_name": "Line Drives",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 19,
+            "away": 18
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-29-2",
+          "url": "/games/2026-10-29-2/",
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "dugout-dogs",
+          "away": "long-balls",
+          "home_name": "Dugout Dogs",
+          "away_name": "Long Balls",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 10,
+            "away": 14
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-10-29-3",
+          "url": null,
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "bunters",
+          "away": "mudcats",
+          "home_name": "Bunters",
+          "away_name": "Mudcats",
+          "status": "cancelled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 3",
+      "where": "[Venue] · Week 3",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-10-29-1",
+              "url": "/games/2026-10-29-1/",
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "sluggers",
+              "away": "line-drives",
+              "home_name": "Sluggers",
+              "away_name": "Line Drives",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 19,
+                "away": 18
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-29-2",
+              "url": "/games/2026-10-29-2/",
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "dugout-dogs",
+              "away": "long-balls",
+              "home_name": "Dugout Dogs",
+              "away_name": "Long Balls",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 10,
+                "away": 14
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-10-29-3",
+              "url": null,
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "bunters",
+              "away": "mudcats",
+              "home_name": "Bunters",
+              "away_name": "Mudcats",
+              "status": "cancelled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "label": "Week 4",
+      "date": "2026-11-05",
+      "date_short": "Thu Nov 5",
+      "date_long": "Thursday, November 5, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-11-05-1",
+          "url": "/games/2026-11-05-1/",
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "dugout-dogs",
+          "away": "sluggers",
+          "home_name": "Dugout Dogs",
+          "away_name": "Sluggers",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 11,
+            "away": 11
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": true
+        },
+        {
+          "id": "2026-11-05-2",
+          "url": "/games/2026-11-05-2/",
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "line-drives",
+          "away": "mudcats",
+          "home_name": "Line Drives",
+          "away_name": "Mudcats",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 14,
+            "away": 13
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-05-3",
+          "url": "/games/2026-11-05-3/",
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "bunters",
+          "away": "long-balls",
+          "home_name": "Bunters",
+          "away_name": "Long Balls",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 19,
+            "away": 8
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 4",
+      "where": "[Venue] · Week 4",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-05-1",
+              "url": "/games/2026-11-05-1/",
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "dugout-dogs",
+              "away": "sluggers",
+              "home_name": "Dugout Dogs",
+              "away_name": "Sluggers",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 11,
+                "away": 11
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": true
+            },
+            {
+              "id": "2026-11-05-2",
+              "url": "/games/2026-11-05-2/",
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "line-drives",
+              "away": "mudcats",
+              "home_name": "Line Drives",
+              "away_name": "Mudcats",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 14,
+                "away": 13
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-05-3",
+              "url": "/games/2026-11-05-3/",
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "bunters",
+              "away": "long-balls",
+              "home_name": "Bunters",
+              "away_name": "Long Balls",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 19,
+                "away": 8
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "label": "Week 5",
+      "date": "2026-11-12",
+      "date_short": "Thu Nov 12",
+      "date_long": "Thursday, November 12, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "played",
+      "games": [
+        {
+          "id": "2026-11-12-1",
+          "url": "/games/2026-11-12-1/",
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "sluggers",
+          "away": "mudcats",
+          "home_name": "Sluggers",
+          "away_name": "Mudcats",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 9,
+            "away": 11
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-12-2",
+          "url": "/games/2026-11-12-2/",
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "bunters",
+          "away": "dugout-dogs",
+          "home_name": "Bunters",
+          "away_name": "Dugout Dogs",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 15,
+            "away": 13
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-12-3",
+          "url": "/games/2026-11-12-3/",
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "line-drives",
+          "away": "long-balls",
+          "home_name": "Line Drives",
+          "away_name": "Long Balls",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 13,
+            "away": 22
+          },
+          "winner": "away",
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 5",
+      "where": "[Venue] · Week 5",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-12-1",
+              "url": "/games/2026-11-12-1/",
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "sluggers",
+              "away": "mudcats",
+              "home_name": "Sluggers",
+              "away_name": "Mudcats",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 9,
+                "away": 11
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-12-2",
+              "url": "/games/2026-11-12-2/",
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "bunters",
+              "away": "dugout-dogs",
+              "home_name": "Bunters",
+              "away_name": "Dugout Dogs",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 15,
+                "away": 13
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-12-3",
+              "url": "/games/2026-11-12-3/",
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "line-drives",
+              "away": "long-balls",
+              "home_name": "Line Drives",
+              "away_name": "Long Balls",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 13,
+                "away": 22
+              },
+              "winner": "away",
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "label": "Week 6",
+      "date": "2026-11-19",
+      "date_short": "Thu Nov 19",
+      "date_long": "Thursday, November 19, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "partial",
+      "games": [
+        {
+          "id": "2026-11-19-1",
+          "url": "/games/2026-11-19-1/",
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "bunters",
+          "away": "sluggers",
+          "home_name": "Bunters",
+          "away_name": "Sluggers",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 14,
+            "away": 14
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": true
+        },
+        {
+          "id": "2026-11-19-2",
+          "url": "/games/2026-11-19-2/",
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "mudcats",
+          "away": "long-balls",
+          "home_name": "Mudcats",
+          "away_name": "Long Balls",
+          "status": "played",
+          "moved_from_display": null,
+          "round": null,
+          "played": true,
+          "score": {
+            "home": 7,
+            "away": 6
+          },
+          "winner": "home",
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-19-3",
+          "url": null,
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "line-drives",
+          "away": "dugout-dogs",
+          "home_name": "Line Drives",
+          "away_name": "Dugout Dogs",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 6",
+      "where": "[Venue] · Week 6",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-19-1",
+              "url": "/games/2026-11-19-1/",
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "bunters",
+              "away": "sluggers",
+              "home_name": "Bunters",
+              "away_name": "Sluggers",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 14,
+                "away": 14
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": true
+            },
+            {
+              "id": "2026-11-19-2",
+              "url": "/games/2026-11-19-2/",
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "mudcats",
+              "away": "long-balls",
+              "home_name": "Mudcats",
+              "away_name": "Long Balls",
+              "status": "played",
+              "moved_from_display": null,
+              "round": null,
+              "played": true,
+              "score": {
+                "home": 7,
+                "away": 6
+              },
+              "winner": "home",
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-19-3",
+              "url": null,
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "line-drives",
+              "away": "dugout-dogs",
+              "home_name": "Line Drives",
+              "away_name": "Dugout Dogs",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "label": "Week 7",
+      "date": "2026-11-26",
+      "date_short": "Thu Nov 26",
+      "date_long": "Thursday, November 26, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-11-26-1",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "sluggers",
+          "away": "long-balls",
+          "home_name": "Sluggers",
+          "away_name": "Long Balls",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-26-2",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "line-drives",
+          "away": "bunters",
+          "home_name": "Line Drives",
+          "away_name": "Bunters",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-11-26-3",
+          "url": null,
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "mudcats",
+          "away": "dugout-dogs",
+          "home_name": "Mudcats",
+          "away_name": "Dugout Dogs",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Next game day",
+      "where": "[Venue] · Week 7",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-11-26-1",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "sluggers",
+              "away": "long-balls",
+              "home_name": "Sluggers",
+              "away_name": "Long Balls",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-26-2",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "line-drives",
+              "away": "bunters",
+              "home_name": "Line Drives",
+              "away_name": "Bunters",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-11-26-3",
+              "url": null,
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "mudcats",
+              "away": "dugout-dogs",
+              "home_name": "Mudcats",
+              "away_name": "Dugout Dogs",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "label": "Week 8",
+      "date": "2026-12-03",
+      "date_short": "Thu Dec 3",
+      "date_long": "Thursday, December 3, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-03-1",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "line-drives",
+          "away": "sluggers",
+          "home_name": "Line Drives",
+          "away_name": "Sluggers",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-03-2",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "long-balls",
+          "away": "dugout-dogs",
+          "home_name": "Long Balls",
+          "away_name": "Dugout Dogs",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-03-3",
+          "url": null,
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "mudcats",
+          "away": "bunters",
+          "home_name": "Mudcats",
+          "away_name": "Bunters",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 8",
+      "where": "[Venue] · Week 8",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-03-1",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "line-drives",
+              "away": "sluggers",
+              "home_name": "Line Drives",
+              "away_name": "Sluggers",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-03-2",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "long-balls",
+              "away": "dugout-dogs",
+              "home_name": "Long Balls",
+              "away_name": "Dugout Dogs",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-03-3",
+              "url": null,
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "mudcats",
+              "away": "bunters",
+              "home_name": "Mudcats",
+              "away_name": "Bunters",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "label": "Week 9",
+      "date": "2026-12-10",
+      "date_short": "Thu Dec 10",
+      "date_long": "Thursday, December 10, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-10-1",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "sluggers",
+          "away": "dugout-dogs",
+          "home_name": "Sluggers",
+          "away_name": "Dugout Dogs",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-10-2",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "mudcats",
+          "away": "line-drives",
+          "home_name": "Mudcats",
+          "away_name": "Line Drives",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-10-3",
+          "url": null,
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "long-balls",
+          "away": "bunters",
+          "home_name": "Long Balls",
+          "away_name": "Bunters",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Week 9",
+      "where": "[Venue] · Week 9",
+      "foot": "All times PM. No bye this week.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-10-1",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "sluggers",
+              "away": "dugout-dogs",
+              "home_name": "Sluggers",
+              "away_name": "Dugout Dogs",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-10-2",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "mudcats",
+              "away": "line-drives",
+              "home_name": "Mudcats",
+              "away_name": "Line Drives",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-10-3",
+              "url": null,
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "long-balls",
+              "away": "bunters",
+              "home_name": "Long Balls",
+              "away_name": "Bunters",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "label": "Week 10",
+      "date": "2026-12-17",
+      "date_short": "Thu Dec 17",
+      "date_long": "Thursday, December 17, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-17-1",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "mudcats",
+          "away": "sluggers",
+          "home_name": "Mudcats",
+          "away_name": "Sluggers",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        },
+        {
+          "id": "2026-12-17-2",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "dugout-dogs",
+          "away": "bunters",
+          "home_name": "Dugout Dogs",
+          "away_name": "Bunters",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "line-drives",
+        "long-balls"
+      ],
+      "eyebrow": "Week 10",
+      "where": "[Venue] · Week 10",
+      "foot": "All times PM. Line Drives and Long Balls have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-17-1",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "mudcats",
+              "away": "sluggers",
+              "home_name": "Mudcats",
+              "away_name": "Sluggers",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            },
+            {
+              "id": "2026-12-17-2",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "dugout-dogs",
+              "away": "bunters",
+              "home_name": "Dugout Dogs",
+              "away_name": "Bunters",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "label": "Week 11",
+      "date": "2026-12-22",
+      "date_short": "Tue Dec 22",
+      "date_long": "Tuesday, December 22, 2026",
+      "type": "regular",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2026-12-17-3",
+          "url": null,
+          "time_display": "7:45 PM",
+          "surface": "3",
+          "surface_label": "Diamond 3",
+          "home": "long-balls",
+          "away": "line-drives",
+          "home_name": "Long Balls",
+          "away_name": "Line Drives",
+          "status": "scheduled",
+          "moved_from_display": "Thu Dec 17",
+          "round": null,
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": true,
+          "tie": false
+        }
+      ],
+      "byes": [
+        "sluggers",
+        "mudcats",
+        "dugout-dogs",
+        "bunters"
+      ],
+      "eyebrow": "Week 11",
+      "where": "[Venue] · Week 11",
+      "foot": "All times PM. Sluggers, Mudcats, Dugout Dogs and Bunters have the bye",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2026-12-17-3",
+              "url": null,
+              "time_display": "7:45 PM",
+              "surface": "3",
+              "surface_label": "Diamond 3",
+              "home": "long-balls",
+              "away": "line-drives",
+              "home_name": "Long Balls",
+              "away_name": "Line Drives",
+              "status": "scheduled",
+              "moved_from_display": "Thu Dec 17",
+              "round": null,
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": true,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "label": "Semifinal",
+      "date": "2027-01-07",
+      "date_short": "Thu Jan 7",
+      "date_long": "Thursday, January 7, 2027",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2027-01-07-1",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "1st",
+          "away": "4th",
+          "home_name": "1st",
+          "away_name": "4th",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": false,
+          "tie": false
+        },
+        {
+          "id": "2027-01-07-2",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "2",
+          "surface_label": "Diamond 2",
+          "home": "2nd",
+          "away": "3rd",
+          "home_name": "2nd",
+          "away_name": "3rd",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": "Semifinal",
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": false,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Semifinal",
+      "where": "[Venue] · Semifinal",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2027-01-07-1",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "1st",
+              "away": "4th",
+              "home_name": "1st",
+              "away_name": "4th",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": false,
+              "tie": false
+            },
+            {
+              "id": "2027-01-07-2",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "2",
+              "surface_label": "Diamond 2",
+              "home": "2nd",
+              "away": "3rd",
+              "home_name": "2nd",
+              "away_name": "3rd",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": "Semifinal",
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": false,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "label": "Final",
+      "date": "2027-01-14",
+      "date_short": "Thu Jan 14",
+      "date_long": "Thursday, January 14, 2027",
+      "type": "playoff",
+      "venues": [
+        "[Venue]"
+      ],
+      "state": "upcoming",
+      "games": [
+        {
+          "id": "2027-01-14-1",
+          "url": null,
+          "time_display": "6:30 PM",
+          "surface": "1",
+          "surface_label": "Diamond 1",
+          "home": "Winner SF1",
+          "away": "Winner SF2",
+          "home_name": "Winner SF1",
+          "away_name": "Winner SF2",
+          "status": "scheduled",
+          "moved_from_display": null,
+          "round": "Final",
+          "played": false,
+          "score": {
+            "home": null,
+            "away": null
+          },
+          "winner": null,
+          "teams_known": false,
+          "tie": false
+        }
+      ],
+      "byes": [],
+      "eyebrow": "Final",
+      "where": "[Venue] · Final",
+      "foot": "All times PM.",
+      "foot_link": null,
+      "groups": [
+        {
+          "time_label": null,
+          "games": [
+            {
+              "id": "2027-01-14-1",
+              "url": null,
+              "time_display": "6:30 PM",
+              "surface": "1",
+              "surface_label": "Diamond 1",
+              "home": "Winner SF1",
+              "away": "Winner SF2",
+              "home_name": "Winner SF1",
+              "away_name": "Winner SF2",
+              "status": "scheduled",
+              "moved_from_display": null,
+              "round": "Final",
+              "played": false,
+              "score": {
+                "home": null,
+                "away": null
+              },
+              "winner": null,
+              "teams_known": false,
+              "tie": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "latest": 6,
+  "next": 7,
+  "all_times_pm": true
+}

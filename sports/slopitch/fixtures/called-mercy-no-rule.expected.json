@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "called",
+      "message": "this league has no mercy rule (rules.mercy_runs is 0). Use another reason, or set the rule."
+    }
+  ],
+  "reading": null
+}

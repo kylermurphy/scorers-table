@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "called",
+      "message": "a 5-inning game is shorter than 7: if it was called, add 'called: mercy', 'time', 'weather', 'darkness' or 'other' (a game that is replayed stays out of the games folder)."
+    }
+  ],
+  "reading": null
+}

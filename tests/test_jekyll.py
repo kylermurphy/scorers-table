@@ -1130,7 +1130,7 @@ def _file_of(site: Path, href: str) -> Path:
 def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demos(landed):
     root, result, main_output = landed
     assert result.returncode == 0, result.stdout + result.stderr
-    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html"]
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html", "slopitch"]
     assert "skipping /preview/" in result.stdout and "Sport preview copy: _site/curling/" in result.stdout
     assert "Sport preview copy: _site/hockey/" in result.stdout
     assert "Conflict" not in main_output + result.stdout + result.stderr
@@ -1147,12 +1147,12 @@ def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demo
 def test_the_landing_page_loads_each_sports_look_after_its_own_and_draws_every_window_in_it(landed):
     _, page = _landing_page(landed)
     css = page.stylesheets()
-    own, extra, more, base = (css.index(f"{BASE}/assets/css/{n}.css")
-                              for n in ("layouts/basketball", "layouts/curling", "layouts/hockey", "base"))
-    assert own < extra < more < base
-    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling", "hockey"]
+    own, extra, more, last, base = (css.index(f"{BASE}/assets/css/{n}.css")
+                                    for n in ("layouts/basketball", "layouts/curling", "layouts/hockey", "layouts/slopitch", "base"))
+    assert own < extra < more < last < base
+    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling", "hockey", "slopitch"]
     assert (page.html.index('aria-label="Basketball demo preview"') < page.html.index('aria-label="Curling demo preview"')
-            < page.html.index('aria-label="Hockey demo preview"'))
+            < page.html.index('aria-label="Hockey demo preview"') < page.html.index('aria-label="Slo-pitch demo preview"'))
 
 
 def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_the_base_path(landed):
@@ -1179,7 +1179,7 @@ def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_t
 def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
     root, _, _ = landed
     page = json.loads((root / "_data" / "computed" / "landing.json").read_text(encoding="utf-8"))
-    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey"]
+    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey", "slopitch"]
     for sport in page["sports"]:
         for team in sport["window"]["teams"].values():
             assert team["url"].startswith(f"/{sport['id']}/teams/"), team
@@ -1192,7 +1192,7 @@ def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
 def test_the_coming_soon_cards_have_no_link_and_no_window(landed):
     html, _ = _landing_page(landed)
     soon = re.findall(r'<article class="st-card st-sport-card st-sport-card--soon">.*?</article>', html, re.S)
-    assert len(soon) == 1 and "Slo-pitch" in soon[0] and "Hockey" not in soon[0]
+    assert soon == []                                       # every sport has its demo: landing.yml lists none
     for card in soon:
         assert "<a " not in card and "href" not in card and "st-sport-card__window" not in card
         assert "Coming soon" in card
@@ -1217,7 +1217,7 @@ def test_without_javascript_the_landing_page_and_its_windows_follow_the_phone(la
 
 def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
     root, _, _ = landed
-    for sport in ("basketball", "curling", "hockey"):
+    for sport in ("basketball", "curling", "hockey", "slopitch"):
         pages = sorted((root / "_site" / sport).rglob("*.html"))
         assert len(pages) > 40
         for file in pages:
@@ -1227,7 +1227,8 @@ def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
             assert Page(html).robots() == ["noindex, nofollow"], file
     other = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
     assert (f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>, '
-            f'<a class="st-banner__link" href="{BASE}/hockey/">Hockey</a>.') in other
+            f'<a class="st-banner__link" href="{BASE}/hockey/">Hockey</a>, '
+            f'<a class="st-banner__link" href="{BASE}/slopitch/">Slo-pitch</a>.') in other
     assert "st-banner" not in (root / "_site" / "index.html").read_text(encoding="utf-8")      # no sample banner on the landing page
 
 
@@ -1250,7 +1251,7 @@ def test_the_landing_page_never_publishes_the_score_sheet_photos(tmp_path, jekyl
     assert in_the_source                                                                   # it was in the source...
     assert "photos: true" in (root / "league.yml").read_text(encoding="utf-8")
     assert '"sheets/"' in (root / "_config.landing.yml").read_text(encoding="utf-8")
-    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html"]
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html", "slopitch"]
     assert not list((root / "_site").rglob("2026-11-14-g1.jpg"))                           # ...and nowhere in the site
 
 
@@ -1280,7 +1281,7 @@ def test_with_the_line_left_out_the_overlay_is_one_line_and_the_site_is_the_leag
     assert (root / "_config.landing.yml").read_text(encoding="utf-8") == "landing_page: false\n"
     assert not (root / "_data" / "computed" / "landing.json").exists()
     names = {p.name for p in (root / "_site").iterdir()}
-    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling", "hockey"} <= names
+    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling", "hockey", "slopitch"} <= names
     assert not ({"landing", "landing.yml"} & names)
     assert "A website for your league" not in (root / "_site" / "index.html").read_text(encoding="utf-8")
     demo = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
@@ -1295,7 +1296,7 @@ def test_the_overlay_that_says_off_changes_no_byte_of_the_root(landing_off, tmp_
     proc = subprocess.run([*jekyll, "build", "--config", "_config.yml,_config.ci.yml", "--baseurl", BASE,
                            "--destination", str(without), "--quiet"], cwd=root, capture_output=True, text=True, env=env)
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    assert _files(root / "_site", skip=("basketball", "curling", "hockey")) == _files(without)
+    assert _files(root / "_site", skip=("basketball", "curling", "hockey", "slopitch")) == _files(without)
 
 
 OFF_GOLDEN = ROOT / "tests" / "golden" / "landing" / "off-site.sha256"
@@ -1361,6 +1362,16 @@ def _add_events_penalties_and_groups_to_the_stub(root: Path) -> None:
         {"type": "stat_table", "title": None, "side": "home", "heading": "small", "caption": "Home skaters",
          "columns": [{"key": "pts", "label": "PTS", "title": "Points", "key_col": True, "style": "big"}], "rows": one,
          "totals": {"label": "Total", "cells": {"pts": "1"}}, "note": None}]})
+    blocks.append({"type": "facts", "title": None, "rows": [
+        {"label": "Home runs", "items": [{"side": "home", "text": None, "players": [{"player": who[0], "extra": "2"}]}]},
+        {"label": "Limit innings", "items": [{"side": None, "players": [], "text": "Home 2 (2nd, 5th)"},
+                                              {"side": None, "players": [], "text": "Away 1 (3rd)"}]},
+        {"label": "Nothing", "items": []}]})
+    blocks.append({"type": "stat_table", "title": "Home batting", "side": "home", "heading": "plain",
+                   "caption": "Home batting", "number_col": True, "number_label": "#", "player_label": "Batter",
+                   "columns": [{"key": "pts", "label": "H", "title": "Hits", "key_col": False}],
+                   "rows": [dict(r, num=1) for r in one], "totals": {"label": "Totals", "cells": {"pts": "1"}},
+                   "note": None})
 ''' + note)
     (sport / "rules.py").write_text(rules, encoding="utf-8")
 
@@ -1401,6 +1412,22 @@ def test_a_group_holds_its_tables_under_one_heading_with_the_team_column_styles_
     assert 'st-note--intro">An intro.</p>' in skaters
     assert '<div class="st-game-block"><h3 class="st-team-heading st-team-heading--sm">' in skaters
     assert "st-team-heading__score" not in skaters and 'class="is-key st-table__big"' in skaters
+
+
+def test_a_facts_block_prints_names_counts_and_text_items_and_leaves_out_an_empty_row(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    facts = re.search(r'<dl class="st-facts">.*?</dl>', page, re.S).group(0)
+    assert facts.count('class="st-facts__row"') == 2 and "Nothing" not in facts
+    assert re.search(r'<dt class="st-facts__label">Home runs</dt><dd class="st-facts__value">[^<]+ 2 <span class="st-facts__team">\(\w+[^)]*\)</span></dd>', facts)
+    assert 'Limit innings</dt><dd class="st-facts__value">Home 2 (2nd, 5th); Away 1 (3rd)</dd>' in facts
+    assert "<a " not in facts                                           # plain text names
+
+
+def test_a_plain_heading_is_the_large_team_heading_without_a_score(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    heading = re.search(r'<h2 class="st-team-heading">(?:(?!</h2>).)*Home batting.*?</h2>', page, re.S).group(0)
+    assert "st-team-heading__score" not in heading and "st-chip" in heading
+    assert '<table class="st-table st-table--box">' in page
 
 
 # ------------------------------------------------------------------ the hockey sport preview (stage 5, part 3)
@@ -1506,3 +1533,116 @@ def test_the_hockey_home_page_shows_the_hockey_standings_and_goalie_tiles(hockey
 def test_the_basketball_demo_next_to_the_hockey_one_has_no_hockey_in_it(hockey_demo):
     html = (hockey_demo[0] / "_site" / "basketball" / "index.html").read_text(encoding="utf-8")
     assert "Northside Old-Timers Hockey" not in html and 'data-layout="hockey"' not in html
+
+
+# ------------------------------------------------------------------ the slo-pitch sport preview (stage 5, part 4)
+
+@pytest.fixture(scope="module")
+def slopitch_demo(previewed, tmp_path_factory):
+    """build_preview.sh with `sport_previews: [basketball, slopitch]` (and no /preview/), run on a copy of the previewed
+    source: the slo-pitch demo beside the basketball one, under BASE. Returns (copy of the source, result)."""
+    tmp = tmp_path_factory.mktemp("slopitch_demo")
+    root = tmp / "root"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    path = root / "league.yml"
+    text = path.read_text(encoding="utf-8")
+    assert "sport_previews: [basketball]" in text
+    path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: [basketball, slopitch]") + "\npreview: false\n",
+                    encoding="utf-8")
+    return root, _run_preview_script(root, tmp)
+
+
+def _slopitch(demo, path: str) -> str:
+    return (demo[0] / "_site" / "slopitch" / path.strip("/") / "index.html").read_text(encoding="utf-8")
+
+
+def _slopitch_games(demo) -> dict[str, str]:
+    return {file.parent.name: file.read_text(encoding="utf-8")
+            for file in sorted((demo[0] / "_site" / "slopitch" / "games").glob("*/index.html"))}
+
+
+def test_the_script_builds_the_slopitch_demo_beside_the_basketball_one(slopitch_demo):
+    root, result = slopitch_demo
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Sport preview copy: _site/slopitch/" in result.stdout and "Sport preview copy: _site/basketball/" in result.stdout
+    home = _slopitch(slopitch_demo, "/")
+    assert "Maple Park Slo-Pitch" in home and 'data-layout="slopitch"' in home
+    assert f'href="{BASE}/slopitch/assets/css/layouts/slopitch.css"' in home
+    assert "Riverside Masters Basketball" not in home and "Northside Old-Timers Hockey" not in home
+    assert not (root / "_site" / "preview").exists()
+
+
+def test_every_slopitch_preview_page_has_its_base_path_the_noindex_tag_and_the_banner(slopitch_demo):
+    pages = sorted((slopitch_demo[0] / "_site" / "slopitch").rglob("*.html"))
+    assert len(pages) > 60
+    for file in pages:
+        html = file.read_text(encoding="utf-8")
+        page = Page(html)
+        local = [h for h in page.hrefs + page.srcs + [l.get("href", "") for l in page.links]
+                 if is_local(h) and not h.startswith(("#", "data:"))]
+        outside = [h for h in local if not (h.startswith(f"{BASE}/slopitch/") or h == f"{BASE}/slopitch")]
+        assert sorted(outside) == [f"{BASE}/", f"{BASE}/basketball/"] or outside == [f"{BASE}/"], (file.name, outside)
+        assert page.robots() == ["noindex, nofollow"], file
+        assert "<strong>Sport preview:</strong> a made-up slo-pitch league, to show what the template does." in html, file
+        assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in html, file
+
+
+def test_the_slopitch_preview_has_no_calendar_files_or_subscribe_links(slopitch_demo):
+    site = slopitch_demo[0] / "_site" / "slopitch"
+    assert not list(site.rglob("*.ics")) and not (site / "calendar").exists()
+    for file in site.rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert ".ics" not in html and "webcal:" not in html, file
+
+
+def test_a_slopitch_game_page_lists_the_visitors_first_and_has_the_rhe_line_score_and_the_facts(slopitch_demo):
+    games = _slopitch_games(slopitch_demo)
+    assert len(games) > 20
+    for gid, html in games.items():
+        title = re.search(r"<title>(.*?)</title>", html, re.S).group(1)
+        assert re.match(r"[A-Z][\w ]+ at [A-Z][\w ]+ · Maple Park Slo-Pitch$", title), (gid, title)
+        if "Forfeit: " in html:                                                         # a forfeit has no sheet
+            continue
+        assert 'class="st-line-score st-line-score--innings' in html and 'class="st-line-score__total">' in html, gid
+        assert '<abbr title="Hits">H</abbr>' in html and "<abbr title=\"Errors\">E</abbr>" not in html, gid   # the default keeps hits, not errors
+        if "batting</caption>" in html or "(run limit)" in html:                       # the facts list has something to say
+            assert '<dl class="st-facts">' in html, gid
+        assert re.search(r"Final(?: · Extras)?: (\w[\w ]+) \d+, (\w[\w ]+) \d+ on ", html), gid
+
+
+def test_a_slopitch_game_with_batting_lines_has_two_batting_tables(slopitch_demo):
+    games = [html for html in _slopitch_games(slopitch_demo).values() if "batting</caption>" in html]
+    assert len(games) > 15
+    for html in games:
+        assert len(re.findall(r"<caption[^>]*>[^<]* batting</caption>", html)) == 2
+        assert ">Home runs<" in html or ">3+ hits<" in html or ">Limit innings<" in html
+
+
+def test_the_slopitch_demo_has_a_mercy_game_a_walk_off_and_a_playoff_game_in_extra_innings(slopitch_demo):
+    games = _slopitch_games(slopitch_demo)
+    assert any("mercy rule" in html and "Called after" in html for html in games.values())
+    assert any(re.search(r'<th scope="col">(\d+)</th>', html) and 'is-open">8' in html for html in games.values()), "extra innings"
+    assert any("st-legend__key--x" in html for html in games.values())             # the X that was not needed
+    assert any("st-legend__key--limit" in html for html in games.values())
+
+
+def test_the_slopitch_stats_page_has_a_batting_table_and_the_batting_average_board(slopitch_demo):
+    html = _slopitch(slopitch_demo, "/stats/")
+    table = re.search(r"<table.*?</table>", html, re.S).group(0)
+    for abbr in ("GP", "AB", "H", "AVG", "HR", "RBI", "R", "BB"):
+        assert f">{abbr}</abbr>" in table, abbr
+    assert "Batting avg" in html and "Home runs" in html and re.search(r"\.\d{3}", html)
+    assert "plate appearances per team game to rank" in html
+
+
+def test_the_slopitch_home_page_shows_the_slopitch_standings_and_hitting_tiles(slopitch_demo):
+    home = _slopitch(slopitch_demo, "/")
+    assert ">RF<" in home and ">RA<" in home and ">T<" in home and "Week" in home
+    assert "Batting avg" in home and "st-leader-tile" in home
+    schedule = _slopitch(slopitch_demo, "/schedule/")
+    assert "Diamond 1" in schedule and " at " in schedule
+
+
+def test_the_basketball_demo_next_to_the_slopitch_one_has_no_slopitch_in_it(slopitch_demo):
+    html = (slopitch_demo[0] / "_site" / "basketball" / "index.html").read_text(encoding="utf-8")
+    assert "Maple Park Slo-Pitch" not in html and 'data-layout="slopitch"' not in html

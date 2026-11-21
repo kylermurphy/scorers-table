@@ -1,0 +1,13 @@
+{% assign _g = stats.games[fixture.game_id] %}{% assign _h = stats.games[fixture.hero_id] %}
+{% assign _day = stats.schedule.days | where: "n", stats.schedule.next | first %}
+{% assign _past = stats.schedule.days | where: "n", stats.schedule.latest | first %}
+{% assign _cls = _g.card.line_score | default: _g.line_score %}
+<div data-t="final">{% include parts/final-panel.html game=_g %}</div>
+<div data-t="card">{% include parts/result-card.html game=_g lines=false %}</div>
+<div data-t="cardlines">{% include parts/result-card.html game=_g lines=true %}</div>
+<div data-t="hero">{% include parts/result-hero.html game=_h %}</div>
+<div data-t="row">{% assign _r0 = _day.games | first %}{% include parts/game-row.html row=_r0 %}</div>
+<div data-t="panel">{% include parts/next-game.html day=_day %}</div>
+<div data-t="ticker">{% include shell/ticker.html day=_past %}</div>
+<div data-t="linescore">{% include parts/line-score.html line_score=_g.line_score game=_g size="full" region=false codes=false %}</div>
+<div data-t="cardscore">{% include parts/line-score.html line_score=_cls game=_g size="card" region=false codes=false %}</div>

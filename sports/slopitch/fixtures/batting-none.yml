@@ -1,0 +1,12 @@
+# batting: none (team results only): no batting order. No problem.
+fixture:
+  folder: games
+  game_type: regular
+  options: {batting: none}
+sheet:
+  runs:
+    away: [2, 0, 3, 1, 0, 3, 1]
+    home: [1, 3, 0, 2, 4, 0, 0]
+  totals:
+    away: {r: 10, h: 8}
+    home: {r: 10, h: 9}

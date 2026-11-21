@@ -8,15 +8,16 @@ the numbers and most people check them on a phone.
 Sports: basketball, curling, hockey and slo-pitch (more later). Six layouts,
 light and dark. No ads, no trackers, players shown as "First L." only.
 
-**Status: the core works, and basketball and curling are real sports** (stage 5, both merged); hockey is built too
-(in review as a pull request) and slo-pitch comes next. The template ships set up for basketball with made-up sample seasons. A made-up test sport
+**Status: the core works, and basketball and curling are real sports** (stage 5, both merged); hockey and slo-pitch are
+built too (each in review as a pull request), so all four sports of stage 5 exist. The template ships set up for basketball with made-up sample seasons. A made-up test sport
 (`stub`) stays for the core's own tests. This repository's own website is a **showcase**: a landing page that shows
 each sport's demo league (the pull request for it is in review; see [The showcase front page](#the-showcase-front-page)).
 What it is: [`BRIEF.md`](BRIEF.md); how it gets built: [`PLAN.md`](PLAN.md); the designs and design system:
 [`docs/design.md`](docs/design.md); how the core works: [`docs/stage-4-spec.md`](docs/stage-4-spec.md); the data
 files, for the person who keeps the numbers: [`docs/data.md`](docs/data.md); adding a sport:
 [`docs/sports.md`](docs/sports.md); each sport's game file, box by box: [`sports/basketball/README.md`](sports/basketball/README.md),
-[`sports/curling/README.md`](sports/curling/README.md), [`sports/hockey/README.md`](sports/hockey/README.md);
+[`sports/curling/README.md`](sports/curling/README.md), [`sports/hockey/README.md`](sports/hockey/README.md),
+[`sports/slopitch/README.md`](sports/slopitch/README.md);
 what the league still has to decide: [`docs/open-questions.md`](docs/open-questions.md).
 
 ## Try it
@@ -57,6 +58,19 @@ before switching, run `python scripts/make_sample.py` with `sport: hockey` in `l
 length, overtime and shootout, the clock direction, the goal cap, ties, forfeit, tiebreakers and the goalie minimum) show
 as `[placeholder]` until the league sets them; the build lists them (`docs/open-questions.md`, section 8).
 
+A slo-pitch league writes `sport: slopitch` (and its own `name`, `timezone` and `rules:`): the site then uses the
+Slo-pitch look (scorebook paper, clay and outfield green), a line score of innings with R, H (and optionally E) columns,
+a facts list on each game page (home runs, 3+ hits, innings that hit the run limit) and batting tables. The visitors are
+listed first everywhere ("Mudcats at Sluggers"). The game file copies the scorebook page (`sports/slopitch/README.md`
+has it box by box, `docs/data.md` the files around it): the runs of each inning (`X` for a bottom half not played), the
+R / H / E boxes and, if the league keeps them, each batter's line (`rules: {batting: optional}` is the default; `none`
+or `order` keep no batting stats). A level regular-season game is a tie unless the league sets `rules: {extra_innings: 1}`.
+To see it before switching, run `python scripts/make_sample.py` with `sport: slopitch` in `league.yml`, then
+`python scripts/build.py --sample`, or just open the `/slopitch/` preview below. Fourteen settings (innings, the run
+limit and how it applies, the mercy rule, called games, extra innings, the home-run limit, ties, forfeit, tiebreakers
+and the minimum plate appearances per team game) show as `[placeholder]` until the league sets them; the build lists
+them (`docs/open-questions.md`, section 9).
+
 ## Previews
 
 Two settings in `league.yml` publish made-up copies of the site beside the real one. Neither is linked
@@ -66,7 +80,7 @@ is at the front page: the next section.)
 | Address | What it shows | Setting |
 |---|---|---|
 | `/preview/` | the league's own site (its name, colours, logo, look) filled with made-up games | `preview: true` (the default); built only while the real data is showing (`sample_data: false`) and not while `landing_page: true` |
-| `/basketball/`, `/curling/`, `/hockey/` (later `/slopitch/`) | the template's own made-up league for that sport (Riverside Masters Basketball, Pine Lake Curling Club, Northside Old-Timers Hockey), in the sport's look, with the sport's usual rules | `sport_previews: true` (shipped on); `false` turns them all off, or list the ones you want, like `[curling]` |
+| `/basketball/`, `/curling/`, `/hockey/`, `/slopitch/` | the template's own made-up league for that sport (Riverside Masters Basketball, Pine Lake Curling Club, Northside Old-Timers Hockey, Maple Park Slo-Pitch), in the sport's look, with the sport's usual rules | `sport_previews: true` (shipped on); `false` turns them all off, or list the ones you want, like `[curling]` |
 
 The banner at the top of each copy says what it is and links back to the live site (on the showcase the link
 reads "All sports") and across to the other sport previews. To turn them off, set `preview: false` and `sport_previews: false` (a showcase
@@ -80,10 +94,10 @@ This repository is the template and also the template's own website. With `landi
 (**the shipped value**), the front page `/` is a **landing page**, in the Basketball look, that shows what the
 template does:
 
-* a card for every sport that has a demo (today Basketball, Curling and Hockey): the sport's name, a one-line description,
+* a card for every sport that has a demo (today Basketball, Curling, Hockey and Slo-pitch): the sport's name, a one-line description,
   a small live preview in the sport's own look (the top 3 of its standings and its latest result, from its made-up
-  league) and a button to the demo, `/basketball/`, `/curling/` or `/hockey/`;
-* a "Coming soon" card, with no link, for each sport planned but not built (today Slo-pitch);
+  league) and a button to the demo, `/basketball/`, `/curling/`, `/hockey/` or `/slopitch/`;
+* a "Coming soon" card, with no link, for each sport planned but not built (none today: `coming_soon: []`, all four sports are live);
 * "Get started": a link to the setup guide (for now the [Publish it](#publish-it) steps below, until the written
   guide of stage 8 exists), a link to this repository on GitHub, and what every league gets.
 
@@ -118,7 +132,7 @@ both and names the line to fix.
 `sport.yml`, and the next build adds its card, the preview in its look, and its link. Nothing else changes. Then take
 the sport off `coming_soon` in `landing.yml`; until you do, the build warns that the sport "has a demo now, so it
 gets a real card" and drops the coming-soon card itself. A sport you only plan goes on `coming_soon` (an `id`, a
-`name` and a `blurb`). Hockey went from "Coming soon" to live this way, and slo-pitch will when its stage lands
+`name` and a `blurb`). Hockey and slo-pitch went from "Coming soon" to live this way
 (`docs/sports.md`, "Sport previews and the landing page").
 
 **See it on your computer** (after `pip install` and `bundle install`):
@@ -126,7 +140,7 @@ gets a real card" and drops the coming-soon card itself. A sport you only plan g
 ```
 python scripts/build.py                                              # writes landing.json and _config.landing.yml, then prints the note below
 bundle exec jekyll build --config _config.yml,_config.landing.yml     # the landing page, into _site/
-scripts/build_preview.sh                                              # adds the demos its buttons open: _site/basketball/, _site/curling/ and _site/hockey/
+scripts/build_preview.sh                                              # adds the demos its buttons open: _site/basketball/, _site/curling/, _site/hockey/ and _site/slopitch/
 python -m http.server 4000 --directory _site                          # http://localhost:4000/
 ```
 

@@ -13,14 +13,14 @@
 <div class="st-final__head">
 {%- if _fp_g.final.status.size > 0 -%}<p class="st-final__status">{{ _fp_g.final.status | escape }}</p>{%- endif -%}
 {%- if _fp_g.final.sub.size > 0 -%}<p class="st-final__sub">{{ _fp_g.final.sub | escape }}</p>{%- endif -%}
-{%- assign _sides = "home,away" | split: "," -%}{%- for _fp_side in _sides -%}
+{%- assign _sides = league.sides_order -%}{%- unless _sides.size > 0 -%}{%- assign _sides = "home,away" | split: "," -%}{%- endunless -%}{%- for _fp_side in _sides -%}
   {%- assign _fp_s = _fp_g[_fp_side] -%}
 <div class="st-final__team{% if _fp_s.result == 'win' or _fp_s.result == 'ot_win' %} is-winner{% endif %}">
 <span class="st-final__name">{% include parts/chip.html team=_fp_s size="lg" %}<span>{{ _fp_s.name | escape }}{% if _fp_s.badge.size > 0 %} <span class="st-badge st-badge--win">{{ _fp_s.badge | escape }}</span>{% endif %}</span></span>
 <span class="st-final__record">{{ _fp_s.record_line | default: _fp_s.record | escape }}</span></div>
   {%- if forloop.first -%}
 <div class="st-final__score"><span class="st-visually-hidden">Final score: </span>
-    {%- assign _sides = "home,away" | split: "," -%}{%- for _fp_n in _sides -%}
+    {%- assign _sides = league.sides_order -%}{%- unless _sides.size > 0 -%}{%- assign _sides = "home,away" | split: "," -%}{%- endunless -%}{%- for _fp_n in _sides -%}
       {%- assign _fp_ns = _fp_g[_fp_n] -%}
 <span class="st-final__num {% if forloop.first %}is-first{% else %}is-second{% endif %}{% if _fp_ns.result == 'loss' or _fp_ns.result == 'ot_loss' %} is-dim{% endif %}">{{ _fp_ns.score }}</span>
       {%- if forloop.first -%}<span class="st-final__sep" aria-hidden="true">–</span>{%- endif -%}

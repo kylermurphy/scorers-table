@@ -1,0 +1,161 @@
+# Slo-pitch: seven innings, a run limit, a mercy rule, and an optional batting line per player. The sport's own
+# knowledge only: nothing here is one league's rule. The defaults are BRIEF.md's typical rec / masters rules
+# (docs/stage-5-slopitch-spec.md), and every rule a league decides is marked `decide: true` (it shows as
+# [placeholder] until the league sets it).
+name: Slo-pitch
+blurb: Innings, run limits and an optional batting line.
+default_layout: slopitch
+games_per_day: 2
+game_minutes: 75
+words:
+  period: {one: Inning, many: Innings, short: Inn}
+  day: Week
+  surface: Diamond
+  extra: {one: Extra inning, short: Extras}
+  points_for: {label: RF, title: Runs for}
+  points_against: {label: RA, title: Runs against}
+line_score: {shape: innings, total_label: R, corner: Inning, periods: innings}
+options:
+  innings:
+    type: int
+    default: 7
+    min: 3
+    max: 9
+    decide: true
+    label: Innings in a game
+  run_limit:
+    type: int
+    default: 5
+    min: 0
+    max: 20
+    decide: true
+    label: Most runs a team may score in one half-inning (0 is no limit)
+  open_innings:
+    type: choice
+    values: [last, none]
+    default: last
+    decide: true
+    label: Innings with no run limit (the last inning and extra innings, or none)
+  limit_play:
+    type: choice
+    values: [stop, finish]
+    default: stop
+    decide: true
+    label: Runs on the play that reaches the run limit (stop at the limit, or finish the play)
+  mercy_runs:
+    type: int
+    default: 15
+    min: 0
+    max: 30
+    decide: true
+    label: Lead that ends a game early, the mercy rule (0 is no mercy rule)
+  mercy_after:
+    type: int
+    default: 5
+    min: 1
+    max: 9
+    decide: true
+    label: Innings played before the mercy rule applies
+  official_innings:
+    type: int
+    default: 4
+    min: 1
+    max: 9
+    decide: true
+    label: Innings that make a called game official
+  time_limit:
+    type: int
+    default: 60
+    min: 0
+    max: 180
+    decide: true
+    label: Minutes in a game before no new inning starts (0 is no time limit)
+  extra_innings:
+    type: int
+    default: 0
+    min: 0
+    max: 5
+    decide: true
+    label: Extra innings in a regular-season game level after the last inning (playoffs play until decided)
+  hr_limit:
+    type: int
+    default: 0
+    min: 0
+    max: 10
+    decide: true
+    label: Home runs one team may hit in a game (0 is no limit)
+  batting:
+    type: choice
+    values: [none, order, optional, every_game]
+    default: optional
+    label: What the score sheet keeps for each batter (nothing, the order, a line when written, a line every game)
+  team_hits:
+    type: choice
+    values: [kept, none]
+    default: kept
+    label: Team hits (the H box) on the score sheet
+  team_errors:
+    type: choice
+    values: [none, kept]
+    default: none
+    label: Team errors (the E box) on the score sheet
+standings:
+  rank_by: points
+  points: {win: 2, tie: 1, loss: 0}
+  period_points: 0
+  ties: {value: true, decide: true}
+  forfeit: {value: {score: [7, 0]}, decide: true}
+  tiebreakers: {value: [head_to_head, {diff: {cap: 7}}], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa]
+stats:
+  player:
+    - {key: ab, label: AB, title: At bats, when: {batting: [optional, every_game]}}
+    - {key: r, label: R, title: Runs, when: {batting: [optional, every_game]}}
+    - {key: h, label: H, title: Hits, when: {batting: [optional, every_game]}}
+    - {key: rbi, label: RBI, title: Runs batted in, when: {batting: [optional, every_game]}}
+    - {key: hr, label: HR, title: Home runs, when: {batting: [optional, every_game]}}
+    - {key: bb, label: BB, title: Walks, when: {batting: [optional, every_game]}}
+  derived:
+    - {key: pa, label: PA, title: Plate appearances, places: 0, when: {batting: [optional, every_game]}}
+    - {key: avg, label: AVG, title: Batting average, places: 3, format: dot, when: {batting: [optional, every_game]}}
+    - {key: obp, label: OBP, title: On-base percentage, places: 3, format: dot, when: {batting: [optional, every_game]}}
+  team: []
+  labels: {player: Batting}
+  columns:
+    player:
+      table: [gp, ab, h, avg, hr, rbi, r, bb]
+      totals: [gp, pa, ab, r, h, hr, rbi, bb, avg, obp]
+      log: [ab, r, h, rbi, hr, bb]
+minimums:
+  avg_min_pa:
+    default: 2
+    decide: true
+    label: Minimum plate appearances per team game for the batting leaders
+    note: "Minimum {value} plate appearances per team game to rank."
+leaderboards:
+  - {id: avg, of: player, group: player, stat: avg, label: Batting avg, tile: true, edge: hot, zero: true,
+     min: {stat: pa, setting: avg_min_pa, per_team_game: true}, detail: "{h} for {ab}",
+     when: {batting: [optional, every_game]}}
+  - {id: hr, of: player, group: player, stat: hr, label: Home runs, tile: true, edge: accent, detail: "{gp} games",
+     when: {batting: [optional, every_game]}}
+  - {id: rbi, of: player, group: player, stat: rbi, label: RBI, home: false, detail: "{gp} GP",
+     when: {batting: [optional, every_game]}}
+  - {id: hits, of: player, group: player, stat: h, label: Hits, home: false, detail: "{ab} AB",
+     when: {batting: [optional, every_game]}}
+  - {id: runs, of: player, group: player, stat: r, label: Runs, home: false, detail: "{gp} GP",
+     when: {batting: [optional, every_game]}}
+  - {id: obp, of: player, group: player, stat: obp, label: On-base %, home: false, zero: true,
+     min: {stat: pa, setting: avg_min_pa, per_team_game: true}, detail: "{pa} PA",
+     when: {batting: [optional, every_game]}}
+labels: {results: Latest results, next: Next game day, leaders: Leaders}
+labels_by_layout:
+  scoreboard: {leaders: Hitting, next: Next up}
+display:
+  card: lines
+  card_foot: note
+  surface: label
+  card_head: status_surface
+  matchup: at
+  results_legend:
+    - {kind: limit, mark_option: run_limit, text: Inning ended at the run limit.}
+    - {kind: x, text: Not needed.}

@@ -366,6 +366,27 @@
   min-width: 0;
 }
 
+/* A long game (8+ innings, 10 ends...) keeps a minimum cell width: the table grows wider than its
+   scroll box and scrolls inside it (the team column stays fixed) instead of squeezing the digits.
+   A fixed-layout table ignores a cell's min-width, so the floor is set on the table: the team column
+   plus one --ls-min-col for every other column, counted from the header cells (12 columns and up). */
+.st-line-score--full {
+  --ls-min-col: 1.75rem;
+  --ls-cols: 0;
+}
+.st-line-score--full:has(thead th:nth-child(12)) {
+  min-width: calc(var(--ls-team-w) + var(--ls-cols) * var(--ls-min-col));
+}
+.st-line-score--full:has(thead th:nth-child(12)) { --ls-cols: 11; }
+.st-line-score--full:has(thead th:nth-child(13)) { --ls-cols: 12; }
+.st-line-score--full:has(thead th:nth-child(14)) { --ls-cols: 13; }
+.st-line-score--full:has(thead th:nth-child(15)) { --ls-cols: 14; }
+.st-line-score--full:has(thead th:nth-child(16)) { --ls-cols: 15; }
+.st-line-score--full:has(thead th:nth-child(17)) { --ls-cols: 16; }
+.st-line-score--full:has(thead th:nth-child(18)) { --ls-cols: 17; }
+.st-line-score--full:has(thead th:nth-child(19)) { --ls-cols: 18; }
+.st-line-score--full:has(thead th:nth-child(20)) { --ls-cols: 19; }
+
 /* zero-heavy shape: ends that scored stand out, the rest are quiet */
 .st-line-score--ends tbody td {
   color: var(--ls-muted, var(--st-muted));

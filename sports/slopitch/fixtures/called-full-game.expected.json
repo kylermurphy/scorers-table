@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "called",
+      "message": "the game lasted 7 innings, so it was not called. Take 'called' out."
+    }
+  ],
+  "reading": null
+}

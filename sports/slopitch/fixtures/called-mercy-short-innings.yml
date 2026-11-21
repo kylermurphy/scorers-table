@@ -1,0 +1,36 @@
+# called: mercy after only 4 innings (the rule starts after 5). A warning.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    away: [5, 5, 5, 4]
+    home: [0, 1, 0, 0]
+  totals:
+    away: {r: 19, h: 8}
+    home: {r: 1, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}
+  called: mercy

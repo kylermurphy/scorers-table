@@ -93,7 +93,8 @@
           ],
           "total": 66,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -113,7 +114,8 @@
           ],
           "total": 56,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -130,6 +132,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -469,7 +472,8 @@
           ],
           "total": 55,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -490,7 +494,8 @@
           ],
           "total": 57,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -507,6 +512,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -916,7 +922,8 @@
           ],
           "total": 50,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -937,7 +944,8 @@
           ],
           "total": 47,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -954,6 +962,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -1276,7 +1285,8 @@
           ],
           "total": 51,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -1296,7 +1306,8 @@
           ],
           "total": 57,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -1313,6 +1324,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -1639,7 +1651,8 @@
           ],
           "total": 66,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -1662,7 +1675,8 @@
           ],
           "total": 67,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -1679,6 +1693,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -2001,7 +2016,8 @@
           ],
           "total": 57,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -2021,7 +2037,8 @@
           ],
           "total": 50,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -2038,6 +2055,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -2344,7 +2362,8 @@
           ],
           "total": 45,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -2364,7 +2383,8 @@
           ],
           "total": 49,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -2381,6 +2401,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -2710,7 +2731,8 @@
           ],
           "total": 54,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -2730,7 +2752,8 @@
           ],
           "total": 51,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -2747,6 +2770,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",
@@ -3067,7 +3091,8 @@
           ],
           "total": 51,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         },
         "away": {
           "cells": [
@@ -3089,7 +3114,8 @@
           ],
           "total": 54,
           "extra": null,
-          "hammer_first": false
+          "hammer_first": false,
+          "extras": []
         }
       },
       "caption": "Points by quarter",
@@ -3106,6 +3132,7 @@
       "meta": null,
       "note_strong": null,
       "split": null,
+      "extras": [],
       "legend_stack": false,
       "void_word": "not played",
       "blank_word": "blank",

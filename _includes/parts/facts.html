@@ -1,0 +1,34 @@
+{%- comment -%}
+  parts/facts.html: a game's facts list (present() block type "facts"): a definition list of labelled rows, such as
+  slo-pitch's "Home runs", "3+ hits" and "Limit innings". A row with no items is left out.
+  Params: block, game (for the side's team name). Reads: block {title (a section heading, or null), rows [{label,
+  items [{side, players [{player, extra}], text}]}]}, stats.players (name).
+  An item with players prints their names joined by ", " (a count after a name when `extra` is set: "Ron B. 2")
+  and, when it has a side, the team's name in brackets: "Ron B., Dave K. (Sluggers)". An item with `text` prints the
+  text alone ("Sluggers 2 (2nd, 5th)"); side null prints no team. Items of a row are joined by "; ". Names are plain
+  text: the players of a fact are not links.
+{%- endcomment -%}
+{%- assign _fc_b = include.block -%}
+{%- capture _fc_o -%}
+{%- if _fc_b.title.size > 0 -%}<div class="st-section__head"><h2 class="st-section__title">{{ _fc_b.title | escape }}</h2></div>{%- endif -%}
+<dl class="st-facts">
+{%- for _fc_r in _fc_b.rows -%}
+  {%- if _fc_r.items.size > 0 -%}
+<div class="st-facts__row"><dt class="st-facts__label">{{ _fc_r.label | escape }}</dt><dd class="st-facts__value">
+    {%- for _fc_i in _fc_r.items -%}
+      {%- if _fc_i.players.size > 0 -%}
+        {%- for _fc_p in _fc_i.players -%}{{ stats.players[_fc_p.player].name | default: _fc_p.player | escape }}{% if _fc_p.extra.size > 0 %} {{ _fc_p.extra | escape }}{% endif %}{% unless forloop.last %}, {% endunless %}{%- endfor -%}
+        {%- if _fc_i.side.size > 0 %} <span class="st-facts__team">({{ include.game[_fc_i.side].name | escape }})</span>{% endif -%}
+      {%- else -%}
+        {{- _fc_i.text | escape -}}
+      {%- endif -%}
+      {%- unless forloop.last -%}; {% endunless -%}
+    {%- endfor -%}
+</dd></div>
+  {%- endif -%}
+{%- endfor -%}
+</dl>
+{%- endcapture -%}
+{%- assign _fc_lines = _fc_o | split: "
+" -%}
+{%- for _fc_line in _fc_lines -%}{{ _fc_line | strip }}{%- endfor -%}

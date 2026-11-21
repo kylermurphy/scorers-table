@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.away.6",
+      "message": "100 isn't a number of runs: write a whole number from 0 to 99, or X."
+    }
+  ],
+  "reading": null
+}

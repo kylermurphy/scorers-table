@@ -1,0 +1,35 @@
+# Alpha led 7-4 after the top of the 7th, so the game was over, but they wrote 3 runs in the 7th instead of X. A warning: the runs stay.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    away: [1, 0, 0, 2, 0, 1, 0]
+    home: [2, 1, 0, 3, 0, 1, 3]
+  totals:
+    away: {r: 4, h: 8}
+    home: {r: 10, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}

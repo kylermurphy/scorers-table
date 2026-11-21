@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.home.2",
+      "message": "a row looks like {player: norm-w, ab: 4, r: 1, h: 2, rbi: 0, hr: 0, bb: 0}"
+    }
+  ],
+  "reading": null
+}

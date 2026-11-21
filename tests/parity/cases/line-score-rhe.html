@@ -1,0 +1,8 @@
+<div class="ds-pad">
+{% assign _g = stats.games[fixture.game_id] %}
+<p class="st-label">Full size, runs hits errors (game page)</p>
+<div class="st-card" style="padding:.75rem .5rem .25rem">{% include parts/line-score.html line_score=fixture.rhe_line_score game=_g size="full" region=true codes=false %}</div>
+<p class="st-label" style="margin-top:1.25rem">Card size, runs hits errors</p>
+{% assign _first_id = stats.results[0].games | first %}{% assign _first = stats.games[_first_id] %}
+<div class="st-card" style="padding:.75rem .875rem">{% include parts/line-score.html line_score=fixture.rhe_card_line_score game=_first size="card" region=true codes=false %}</div>
+</div>

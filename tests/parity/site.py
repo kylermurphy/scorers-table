@@ -79,7 +79,20 @@ def _extras() -> dict[str, tuple[dict, list[str]]]:
     plain["games"][gid]["line_score"] = None
     plain["games"][gid]["card"].pop("line_score", None)
     plain["schedule"]["days"][0]["byes"] = ["foxes", "herons"]
+    at = contract.build("slopitch", "slopitch")                # matchup: at, home = Sluggers (E26)
+    toss = copy.deepcopy(at)                                   # a coin toss: this game's line score says `first: home`
+    gid = toss["case"]["game_id"]
+    toss["games"][gid]["line_score"]["first"] = "home"
+    for g in toss["games"].values():
+        if "line_score" in g["card"]:
+            g["card"]["line_score"]["first"] = "home"
+    vs = copy.deepcopy(at)                                     # the same games listed the other way round
+    vs["league"]["display"]["matchup"] = "vs"
+    vs["league"]["sides_order"] = ["home", "away"]
     return {
+        "extras-at": (at, ["x-matchup", "x-title"]),
+        "extras-toss": (toss, ["x-matchup"]),
+        "extras-vs": (vs, ["x-matchup", "x-title"]),
         "extras-logo": (logo, ["x-logo"]),
         "extras-plain": (plain, ["x-blocks", "x-ticker", "x-card"]),
     }
@@ -117,6 +130,11 @@ def build_site(dest: Path, command: list[str]) -> dict[tuple[str, str], dict[str
         shutil.copytree(ROOT / "_includes" / sub, src / "_includes" / sub)
     for f in cases_mod.CASES_DIR.glob("*.html"):
         shutil.copy(f, src / "_includes" / "cases" / f.name)
+    # x-title: the game layout's own title lines (the `if league.display.matchup` block), so the test reads them as written
+    layout_src = (ROOT / "_layouts" / "game.html").read_text(encoding="utf-8")
+    title_block = re.search(r"\{%- if league\.display\.matchup.*?\{%- endif -%\}", layout_src, re.S).group(0)
+    (src / "_includes" / "cases" / "x-title.html").write_text(
+        '{% assign game = stats.games[fixture.game_id] %}' + title_block + '<p data-t="title">{{ _title }}</p>\n')
     contract.write(src / "_data" / "parity")
 
     for key, (data, templates) in _extras().items():

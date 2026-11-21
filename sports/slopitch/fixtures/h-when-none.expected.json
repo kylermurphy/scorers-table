@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.home.h",
+      "message": "this league does not keep team hits (rules.team_hits is none). Take the H box out."
+    },
+    {
+      "level": "error",
+      "at": "totals.away.h",
+      "message": "this league does not keep team hits (rules.team_hits is none). Take the H box out."
+    }
+  ],
+  "reading": null
+}

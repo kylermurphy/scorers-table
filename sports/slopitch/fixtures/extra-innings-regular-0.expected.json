@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.away.7",
+      "message": "this league plays no extra innings in the regular season: a game level after 7 innings is a tie. Take the extra innings out."
+    }
+  ],
+  "reading": null
+}

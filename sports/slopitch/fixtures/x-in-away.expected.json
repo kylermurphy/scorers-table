@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.away.6",
+      "message": "X is for the team batting last. Bravo batted first, so write their runs."
+    }
+  ],
+  "reading": null
+}

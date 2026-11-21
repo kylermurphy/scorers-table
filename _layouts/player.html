@@ -4,7 +4,8 @@ layout: default
 {%- include core/context.html -%}
 {%- comment -%}
   A player page: name and team, the season totals (one table per stat group, with the player's ranks), and the
-  game log. Reads the player from the stub's `player_id`.
+  game log. Reads the player from the stub's `player_id`. Neither while the sport keeps no stat group (batting lines
+  switched off by `when` in sport.yml).
 {%- endcomment -%}
 {%- assign player = stats.players[page.player_id] -%}
 {%- assign _team = stats.teams[player.team] -%}
@@ -12,6 +13,7 @@ layout: default
 {%- capture _sub %}{% if player.position.size > 0 %}{{ player.position | capitalize }} · {% endif %}{{ season_label }} season{% endcapture -%}
 {% include shell/page-title.html back="/stats/" back_label="‹ Stats" eyebrow=_eyebrow title=player.label sub=_sub %}
 
+{% if stats.leaders.tables.size > 0 -%}
 <section class="st-section">
   {%- if _team.url.size > 0 %}
 {% include shell/section-head.html title="Season totals" aside=_team.name aside_url=_team.url %}
@@ -51,3 +53,4 @@ layout: default
 {% include core/empty.html text="No games played yet." %}
   {%- endif %}
 </section>
+{%- endif %}

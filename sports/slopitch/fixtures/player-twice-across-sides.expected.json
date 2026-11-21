@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "batting.home.3.player",
+      "message": "Norm W. is not on Alpha. If a spare filled in, mark them sub: true in players.yml."
+    },
+    {
+      "level": "error",
+      "at": "batting.away.0.player",
+      "message": "norm-w is listed twice in this game (also at sheet.batting.home.3.player)"
+    }
+  ],
+  "reading": null
+}

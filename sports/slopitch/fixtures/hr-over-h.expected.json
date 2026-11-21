@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "batting.away.0.hr",
+      "message": "Norm W. has 4 home runs in 3 hits. Home runs are hits: check the line."
+    }
+  ],
+  "reading": null
+}

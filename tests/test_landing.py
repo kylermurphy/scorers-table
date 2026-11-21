@@ -76,7 +76,7 @@ def demos(tmp_path_factory) -> dict[str, Path]:
     """Each demo built the way scripts/build_preview.sh builds `/<sport>/`: its temporary root, then build.py
     --sport-preview, written to its own output folder. {sport id: the folder under _data/computed/<season>/}."""
     out = {}
-    for sport_id in ("basketball", "curling", "hockey"):
+    for sport_id in ("basketball", "curling", "hockey", "slopitch"):
         base = tmp_path_factory.mktemp(f"demo_{sport_id}")
         demo_root = preview_root.write_root(sport_id, base / "root")
         assert build.main(["--root", str(demo_root), "--out", str(base / "out"), "--sport-preview", sport_id]) == 0
@@ -93,17 +93,18 @@ def load(folder: Path, *parts: str):
 def test_the_page_has_one_card_per_demo_sport_in_the_order_of_sport_previews(page):
     assert list(page) == ["shell", "active", "intro", "links", "features_title", "features", "copy_note", "sports",
                           "coming_soon"]
-    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey"]
-    assert [s["url"] for s in page["sports"]] == ["/basketball/", "/curling/", "/hockey/"]
-    assert [s["demo_label"] for s in page["sports"]] == ["Open the Basketball demo", "Open the Curling demo", "Open the Hockey demo"]
-    assert [c["id"] for c in page["coming_soon"]] == ["slopitch"]
+    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey", "slopitch"]
+    assert [s["url"] for s in page["sports"]] == ["/basketball/", "/curling/", "/hockey/", "/slopitch/"]
+    assert [s["demo_label"] for s in page["sports"]] == ["Open the Basketball demo", "Open the Curling demo", "Open the Hockey demo",
+                                                                      "Open the Slo-pitch demo"]
+    assert page["coming_soon"] == []
 
 
 def test_the_hockey_card_is_live_and_the_shipped_landing_yml_warns_of_nothing(page, tmp_path):
     assert "hockey" in [s["id"] for s in page["sports"]] and "hockey" not in [c["id"] for c in page["coming_soon"]]
-    assert [c["id"] for c in page["coming_soon"]] == ["slopitch"]
+    assert page["coming_soon"] == []
     words, problems = problems_of(tmp_path, (ROOT / "landing.yml").read_text(encoding="utf-8"),
-                                  shown=("basketball", "curling", "hockey"))
+                                  shown=("basketball", "curling", "hockey", "slopitch"))
     assert words is not None and problems == []
 
 
@@ -111,7 +112,7 @@ def test_a_sport_entry_has_the_fixed_shape(page):
     for s in page["sports"]:
         assert list(s) == ["id", "name", "blurb", "url", "demo_label", "league_name", "layout", "window"]
         assert list(s["window"]) == ["league", "standings", "teams", "latest"]
-        assert list(s["window"]["league"]) == ["name", "layout", "labels", "words", "display", "results_legend"]
+        assert list(s["window"]["league"]) == ["name", "layout", "labels", "words", "display", "results_legend", "sides_order"]
         assert list(s["window"]["standings"]) == ["columns", "rows", "note"]
         assert set(s["window"]["latest"]) == {"label", "date_long", "game"}
 
@@ -119,16 +120,16 @@ def test_a_sport_entry_has_the_fixed_shape(page):
 def test_the_shell_is_what_the_header_nav_and_footer_read(page):
     shell = page["shell"]
     assert (shell["name"], shell["short_name"], shell["code"], shell["layout"]) == ("scorers-table",) * 2 + ("ST", "basketball")
-    assert shell["extra_layouts"] == ["curling", "hockey"]          # the page is Basketball; the other windows need their own looks
+    assert shell["extra_layouts"] == ["curling", "hockey", "slopitch"]          # the page is Basketball; the other windows need their own looks
     assert [n["key"] for n in shell["nav"]] == ["sports", "get-started"]
-    assert [f["label"] for f in shell["footer_links"]] == ["Basketball demo", "Curling demo", "Hockey demo", "Setup guide (short version)",
-                                                            "The code on GitHub"]
+    assert [f["label"] for f in shell["footer_links"]] == ["Basketball demo", "Curling demo", "Hockey demo", "Slo-pitch demo",
+                                                            "Setup guide (short version)", "The code on GitHub"]
     assert page["active"] == {"sample_mode": False, "preview": False}
     assert shell["search_engines"] is False and shell["footer_line"] == ""
     assert all(u["url"].startswith(("https://", "/")) for u in [*shell["nav"], *shell["footer_links"], *page["links"]])
 
 
-@pytest.mark.parametrize("sport_id", ["basketball", "curling", "hockey"])
+@pytest.mark.parametrize("sport_id", ["basketball", "curling", "hockey", "slopitch"])
 def test_the_standings_rows_are_the_top_three_of_the_demos_own_standings(page, demos, sport_id):
     entry = next(s for s in page["sports"] if s["id"] == sport_id)
     computed = demos[sport_id]
@@ -151,7 +152,7 @@ def test_the_standings_rows_are_the_top_three_of_the_demos_own_standings(page, d
     assert list(entry["window"]["teams"]) == [r["team"] for r in window["rows"]]
 
 
-@pytest.mark.parametrize("sport_id", ["basketball", "curling", "hockey"])
+@pytest.mark.parametrize("sport_id", ["basketball", "curling", "hockey", "slopitch"])
 def test_the_latest_result_is_the_first_game_of_the_demos_latest_day(page, demos, sport_id):
     entry = next(s for s in page["sports"] if s["id"] == sport_id)
     computed = demos[sport_id]
@@ -170,11 +171,11 @@ def test_the_latest_result_is_the_first_game_of_the_demos_latest_day(page, demos
     assert set(mine) <= set(theirs)
 
 
-@pytest.mark.parametrize("sport_id", ["basketball", "curling", "hockey"])
+@pytest.mark.parametrize("sport_id", ["basketball", "curling", "hockey", "slopitch"])
 def test_the_window_league_is_the_demos_league_json(page, demos, sport_id):
     entry = next(s for s in page["sports"] if s["id"] == sport_id)
     league = load(demos[sport_id], "league.json")
-    assert entry["window"]["league"] == {k: league[k] for k in ("name", "layout", "labels", "words", "display", "results_legend")}
+    assert entry["window"]["league"] == {k: league[k] for k in ("name", "layout", "labels", "words", "display", "results_legend", "sides_order")}
     assert (entry["name"], entry["league_name"], entry["layout"]) == (league["sport_name"], league["name"], league["layout"])
 
 
@@ -202,7 +203,8 @@ def test_the_blurbs_are_the_sports_own(page):
 
 
 def test_the_cards_say_the_demo_is_made_up_by_naming_its_league(page):
-    assert [s["league_name"] for s in page["sports"]] == ["Riverside Masters Basketball", "Pine Lake Curling Club", "Northside Old-Timers Hockey"]
+    assert [s["league_name"] for s in page["sports"]] == ["Riverside Masters Basketball", "Pine Lake Curling Club", "Northside Old-Timers Hockey",
+                                                                       "Maple Park Slo-Pitch"]
 
 
 def test_landing_json_matches_the_golden_file(page, on):
@@ -412,9 +414,9 @@ def test_the_demo_label_needs_the_sports_name(tmp_path):
 
 
 def test_a_coming_soon_sport_that_has_a_demo_is_dropped_with_a_warning(tmp_path):
-    soon = [{"id": "slopitch", "name": "Slo-pitch", "blurb": "Innings."}, {"id": "curling", "name": "Curling", "blurb": "Ends."}]
+    soon = [{"id": "golf", "name": "Golf", "blurb": "Holes."}, {"id": "curling", "name": "Curling", "blurb": "Ends."}]
     words, problems = problems_of(tmp_path, with_changes(coming_soon=soon))
-    assert words is not None and [c["id"] for c in words["coming_soon"]] == ["slopitch"]
+    assert words is not None and [c["id"] for c in words["coming_soon"]] == ["golf"]
     [warning] = problems
     assert (warning.level, warning.at, warning.file) == ("warning", "coming_soon.1", "landing.yml")
     assert warning.message == "'curling' has a demo now, so it gets a real card. Take it off coming_soon."

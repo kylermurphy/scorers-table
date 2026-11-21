@@ -1,0 +1,248 @@
+{
+  "columns": [
+    {
+      "key": "gp",
+      "label": "GP",
+      "title": "Games played",
+      "key_col": false
+    },
+    {
+      "key": "w",
+      "label": "W",
+      "title": "Wins",
+      "key_col": false
+    },
+    {
+      "key": "l",
+      "label": "L",
+      "title": "Losses",
+      "key_col": false
+    },
+    {
+      "key": "t",
+      "label": "T",
+      "title": "Ties",
+      "key_col": false
+    },
+    {
+      "key": "pts",
+      "label": "PTS",
+      "title": "Points",
+      "key_col": true
+    },
+    {
+      "key": "pf",
+      "label": "RF",
+      "title": "Runs for",
+      "key_col": false
+    },
+    {
+      "key": "pa",
+      "label": "RA",
+      "title": "Runs against",
+      "key_col": false
+    }
+  ],
+  "rows": [
+    {
+      "rank": 1,
+      "team": "dugout-dogs",
+      "values": {
+        "gp": 5,
+        "w": 4,
+        "l": 0,
+        "t": 1,
+        "pts": 13,
+        "pf": 71,
+        "pa": 59
+      },
+      "display": {
+        "gp": "5",
+        "w": "4",
+        "l": "0",
+        "t": "1",
+        "pts": "13",
+        "pf": "71",
+        "pa": "59"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "4–0–1",
+      "race": {
+        "pct": "86.7",
+        "value": "13",
+        "unit": " points",
+        "sub": "4–0–1"
+      }
+    },
+    {
+      "rank": 2,
+      "team": "line-drives",
+      "values": {
+        "gp": 5,
+        "w": 3,
+        "l": 2,
+        "t": 0,
+        "pts": 9,
+        "pf": 48,
+        "pa": 60
+      },
+      "display": {
+        "gp": "5",
+        "w": "3",
+        "l": "2",
+        "t": "0",
+        "pts": "9",
+        "pf": "48",
+        "pa": "60"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "3–2",
+      "race": {
+        "pct": "60.0",
+        "value": "9",
+        "unit": " points",
+        "sub": "3–2"
+      }
+    },
+    {
+      "rank": 3,
+      "team": "sluggers",
+      "values": {
+        "gp": 5,
+        "w": 2,
+        "l": 2,
+        "t": 1,
+        "pts": 7,
+        "pf": 74,
+        "pa": 45
+      },
+      "display": {
+        "gp": "5",
+        "w": "2",
+        "l": "2",
+        "t": "1",
+        "pts": "7",
+        "pf": "74",
+        "pa": "45"
+      },
+      "tied": false,
+      "broke_by": "diff",
+      "tiebreak": "score difference",
+      "record": "2–2–1",
+      "race": {
+        "pct": "46.7",
+        "value": "7",
+        "unit": " points",
+        "sub": "2–2–1"
+      }
+    },
+    {
+      "rank": 4,
+      "team": "bunters",
+      "values": {
+        "gp": 5,
+        "w": 2,
+        "l": 2,
+        "t": 1,
+        "pts": 7,
+        "pf": 65,
+        "pa": 63
+      },
+      "display": {
+        "gp": "5",
+        "w": "2",
+        "l": "2",
+        "t": "1",
+        "pts": "7",
+        "pf": "65",
+        "pa": "63"
+      },
+      "tied": false,
+      "broke_by": "diff",
+      "tiebreak": "score difference",
+      "record": "2–2–1",
+      "race": {
+        "pct": "46.7",
+        "value": "7",
+        "unit": " points",
+        "sub": "2–2–1"
+      }
+    },
+    {
+      "rank": 5,
+      "team": "mudcats",
+      "values": {
+        "gp": 5,
+        "w": 2,
+        "l": 3,
+        "t": 0,
+        "pts": 6,
+        "pf": 63,
+        "pa": 58
+      },
+      "display": {
+        "gp": "5",
+        "w": "2",
+        "l": "3",
+        "t": "0",
+        "pts": "6",
+        "pf": "63",
+        "pa": "58"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "2–3",
+      "race": {
+        "pct": "40.0",
+        "value": "6",
+        "unit": " points",
+        "sub": "2–3"
+      }
+    },
+    {
+      "rank": 6,
+      "team": "long-balls",
+      "values": {
+        "gp": 5,
+        "w": 0,
+        "l": 4,
+        "t": 1,
+        "pts": 1,
+        "pf": 40,
+        "pa": 76
+      },
+      "display": {
+        "gp": "5",
+        "w": "0",
+        "l": "4",
+        "t": "1",
+        "pts": "1",
+        "pf": "40",
+        "pa": "76"
+      },
+      "tied": false,
+      "broke_by": null,
+      "tiebreak": null,
+      "record": "0–4–1",
+      "race": {
+        "pct": "6.7",
+        "value": "1",
+        "unit": " points",
+        "sub": "0–4–1"
+      }
+    }
+  ],
+  "note": "3 points a win, 1 a tie and 1 for an extra-inning loss. Ties are allowed [placeholder].",
+  "tiebreak_note": "[placeholder] The league has not decided its tiebreakers yet. Teams level on points are ranked by head-to-head record (when they have all played each other), then score difference (each game counted up to 7); teams still level share a rank.",
+  "through": "2025-11-13",
+  "through_display": "Thu Nov 13",
+  "race": {
+    "basis": "points",
+    "max": 15
+  }
+}

@@ -129,6 +129,7 @@ def _line_score(ctx: SeasonCtx, present: dict | None) -> dict | None:
     ls.setdefault("caption", f"Score by {one}")
     for key in ("extra_label", "title", "meta", "note", "note_strong", "split", "won_word", "mark_word"):
         ls.setdefault(key, None)
+    ls.setdefault("extras", [])           # E20: more total columns after R, [{label, title}]; each row's `extras` hold the values
     ls.setdefault("legend", [])
     ls.setdefault("legend_stack", False)
     ls.setdefault("void_word", "not played")
@@ -136,6 +137,7 @@ def _line_score(ctx: SeasonCtx, present: dict | None) -> dict | None:
     ls.setdefault("hammer_word", "Hammer")
     for side in SIDES:
         ls["rows"][side].setdefault("extra", None)
+        ls["rows"][side].setdefault("extras", [])
         ls["rows"][side].setdefault("hammer_first", False)
     return ls
 

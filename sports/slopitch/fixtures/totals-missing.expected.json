@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals",
+      "message": "is empty. Write each team's R (runs), and H (hits) and E (errors) when the league keeps them."
+    }
+  ],
+  "reading": null
+}

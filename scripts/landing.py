@@ -22,7 +22,7 @@ landing.json (every `url` is a site path, for `relative_url`):
     intro     {eyebrow, title, text}
     links     [{label, url, note}]       features_title, features [text]       copy_note
     sports    [{id, name, blurb, url, demo_label, league_name, layout, window}]  one per demo sport shown
-      window  {league {name, layout, labels, words, display, results_legend},
+      window  {league {name, layout, labels, words, display, results_legend, sides_order},
                standings {columns, rows, note}, teams {id: {name, code, slot, colour, url}},
                latest {label, date_long, game} | null}
     coming_soon  [{id, name, blurb}]
@@ -265,7 +265,7 @@ def _window(sport_id: str, output, blurb: str) -> dict:
         game = data[f"{sid}/games.json"][results[0]["games"][0]]
         latest = {"label": day["label"], "date_long": day["date_long"],
                   "game": _prefix_urls({k: v for k, v in game.items() if k not in GAME_LEFT_OUT}, prefix)}
-    window_league = {k: demo[k] for k in ("name", "layout", "labels", "words", "display", "results_legend")}
+    window_league = {k: demo[k] for k in ("name", "layout", "labels", "words", "display", "results_legend", "sides_order")}
     return {"name": demo["sport_name"], "blurb": blurb, "league_name": demo["name"], "layout": demo["layout"],
             "window": {"league": window_league, "standings": window_standings, "teams": shown, "latest": latest}}
 

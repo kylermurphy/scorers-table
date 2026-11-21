@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals",
+      "message": "should list the R H E boxes for home and away, like 'home: {r: 14, h: 18}'"
+    }
+  ],
+  "reading": null
+}

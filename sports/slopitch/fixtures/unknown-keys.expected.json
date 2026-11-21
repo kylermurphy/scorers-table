@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "umpire",
+      "message": "'umpire' isn't part of a game sheet. Use one of: runs, totals, called, bats_first, batting."
+    }
+  ],
+  "reading": null
+}

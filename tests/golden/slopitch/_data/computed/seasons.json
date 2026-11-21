@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sample-2026-27",
+    "label": "2026–27",
+    "sample": true,
+    "current": false,
+    "active": true,
+    "venue": "[Venue]"
+  },
+  {
+    "id": "sample-2025-26",
+    "label": "2025–26",
+    "sample": true,
+    "current": false,
+    "active": false,
+    "venue": "[Venue]"
+  }
+]

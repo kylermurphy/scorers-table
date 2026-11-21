@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.home.r",
+      "message": "R says 15, the innings add up to 14: check the R box and the innings."
+    }
+  ],
+  "reading": null
+}

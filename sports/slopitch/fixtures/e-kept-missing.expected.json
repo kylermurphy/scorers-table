@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.home.e",
+      "message": "is empty. Write Alpha's E box (errors)."
+    },
+    {
+      "level": "error",
+      "at": "totals.away.e",
+      "message": "is empty. Write Bravo's E box (errors)."
+    }
+  ],
+  "reading": null
+}

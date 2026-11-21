@@ -35,6 +35,10 @@
         "url": "/hockey/"
       },
       {
+        "label": "Slo-pitch demo",
+        "url": "/slopitch/"
+      },
+      {
         "label": "Setup guide (short version)",
         "url": "https://github.com/kylermurphy/scorers-table#publish-it"
       },
@@ -50,7 +54,8 @@
     },
     "extra_layouts": [
       "curling",
-      "hockey"
+      "hockey",
+      "slopitch"
     ]
   },
   "active": {
@@ -130,9 +135,14 @@
             "card": "rows",
             "card_foot": "note",
             "surface": "label",
-            "card_head": ""
+            "card_head": "",
+            "matchup": "vs"
           },
-          "results_legend": []
+          "results_legend": [],
+          "sides_order": [
+            "home",
+            "away"
+          ]
         },
         "standings": {
           "columns": [
@@ -308,7 +318,8 @@
                   ],
                   "total": 51,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 },
                 "away": {
                   "cells": [
@@ -330,7 +341,8 @@
                   ],
                   "total": 54,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 }
               },
               "caption": "Points by quarter",
@@ -347,6 +359,7 @@
               "meta": null,
               "note_strong": null,
               "split": null,
+              "extras": [],
               "legend_stack": false,
               "void_word": "not played",
               "blank_word": "blank",
@@ -411,8 +424,9 @@
             "card": "lines",
             "card_foot": "meta",
             "surface": "label",
-            "team_sub": "skip",
-            "card_head": ""
+            "card_head": "",
+            "matchup": "vs",
+            "team_sub": "skip"
           },
           "results_legend": [
             {
@@ -427,6 +441,10 @@
               "kind": "x",
               "text": "Not played"
             }
+          ],
+          "sides_order": [
+            "home",
+            "away"
           ]
         },
         "standings": {
@@ -645,7 +663,8 @@
                   ],
                   "total": 7,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 },
                 "away": {
                   "cells": [
@@ -682,7 +701,8 @@
                   ],
                   "total": 5,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 }
               },
               "caption": "Points by end",
@@ -710,7 +730,8 @@
               "legend_stack": false,
               "note": "Stone Cold had hammer in the first end.",
               "note_strong": "Stone Cold",
-              "split": null
+              "split": null,
+              "extras": []
             },
             "card": {
               "note": null,
@@ -786,7 +807,8 @@
                     ],
                     "total": 7,
                     "extra": null,
-                    "hammer_first": true
+                    "hammer_first": true,
+                    "extras": []
                   },
                   "away": {
                     "cells": [
@@ -820,7 +842,8 @@
                     ],
                     "total": 5,
                     "extra": null,
-                    "hammer_first": false
+                    "hammer_first": false,
+                    "extras": []
                   }
                 },
                 "caption": "Points by end",
@@ -835,7 +858,8 @@
                 "legend_stack": false,
                 "note": null,
                 "note_strong": null,
-                "split": null
+                "split": null,
+                "extras": []
               }
             }
           }
@@ -887,9 +911,14 @@
             "card": "rows",
             "card_foot": "status_note",
             "surface": "sub",
-            "card_head": ""
+            "card_head": "",
+            "matchup": "vs"
           },
-          "results_legend": []
+          "results_legend": [],
+          "sides_order": [
+            "home",
+            "away"
+          ]
         },
         "standings": {
           "columns": [
@@ -1067,7 +1096,8 @@
                   ],
                   "total": 5,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 },
                 "away": {
                   "cells": [
@@ -1083,7 +1113,8 @@
                   ],
                   "total": 0,
                   "extra": null,
-                  "hammer_first": false
+                  "hammer_first": false,
+                  "extras": []
                 }
               },
               "won_word": null,
@@ -1117,6 +1148,7 @@
               "title": null,
               "meta": null,
               "note_strong": null,
+              "extras": [],
               "legend_stack": false,
               "void_word": "not played",
               "blank_word": "blank",
@@ -1136,13 +1168,463 @@
           }
         }
       }
-    }
-  ],
-  "coming_soon": [
+    },
     {
       "id": "slopitch",
       "name": "Slo-pitch",
-      "blurb": "Innings, run limits and an optional batting line."
+      "blurb": "Innings, run limits and an optional batting line.",
+      "url": "/slopitch/",
+      "demo_label": "Open the Slo-pitch demo",
+      "league_name": "Maple Park Slo-Pitch",
+      "layout": "slopitch",
+      "window": {
+        "league": {
+          "name": "Maple Park Slo-Pitch",
+          "layout": "slopitch",
+          "labels": {
+            "standings": "Standings",
+            "full_table": "Full table",
+            "all_stats": "All stats",
+            "team": "Team",
+            "final": "Final",
+            "tie": "Tie",
+            "featured": "Game of the week",
+            "results": "Latest results",
+            "next": "Next game day",
+            "leaders": "Leaders"
+          },
+          "words": {
+            "surface": "Diamond",
+            "period": {
+              "one": "Inning",
+              "many": "Innings",
+              "short": "Inn"
+            },
+            "day": "Week",
+            "points_for": {
+              "label": "RF",
+              "title": "Runs for"
+            },
+            "points_against": {
+              "label": "RA",
+              "title": "Runs against"
+            }
+          },
+          "display": {
+            "card": "lines",
+            "card_foot": "note",
+            "surface": "label",
+            "card_head": "status_surface",
+            "matchup": "at"
+          },
+          "results_legend": [
+            {
+              "kind": "limit",
+              "text": "Inning ended at the run limit.",
+              "mark": "5"
+            },
+            {
+              "kind": "x",
+              "text": "Not needed."
+            }
+          ],
+          "sides_order": [
+            "away",
+            "home"
+          ]
+        },
+        "standings": {
+          "columns": [
+            {
+              "key": "gp",
+              "label": "GP",
+              "title": "Games played",
+              "key_col": false
+            },
+            {
+              "key": "w",
+              "label": "W",
+              "title": "Wins",
+              "key_col": false
+            },
+            {
+              "key": "l",
+              "label": "L",
+              "title": "Losses",
+              "key_col": false
+            },
+            {
+              "key": "t",
+              "label": "T",
+              "title": "Ties",
+              "key_col": false
+            },
+            {
+              "key": "pts",
+              "label": "PTS",
+              "title": "Points",
+              "key_col": true
+            }
+          ],
+          "rows": [
+            {
+              "rank": 1,
+              "team": "long-balls",
+              "display": {
+                "gp": "6",
+                "w": "4",
+                "l": "2",
+                "t": "0",
+                "pts": "8"
+              }
+            },
+            {
+              "rank": 2,
+              "team": "bunters",
+              "display": {
+                "gp": "5",
+                "w": "3",
+                "l": "1",
+                "t": "1",
+                "pts": "7"
+              }
+            },
+            {
+              "rank": 3,
+              "team": "mudcats",
+              "display": {
+                "gp": "5",
+                "w": "3",
+                "l": "2",
+                "t": "0",
+                "pts": "6"
+              }
+            }
+          ],
+          "note": "Top 3 of 6 · through Thu Nov 19"
+        },
+        "teams": {
+          "long-balls": {
+            "name": "Long Balls",
+            "code": "LGB",
+            "slot": 5,
+            "colour": null,
+            "url": "/slopitch/teams/long-balls/"
+          },
+          "bunters": {
+            "name": "Bunters",
+            "code": "BUN",
+            "slot": 6,
+            "colour": null,
+            "url": "/slopitch/teams/bunters/"
+          },
+          "mudcats": {
+            "name": "Mudcats",
+            "code": "MUD",
+            "slot": 2,
+            "colour": null,
+            "url": "/slopitch/teams/mudcats/"
+          }
+        },
+        "latest": {
+          "label": "Week 6",
+          "date_long": "Thursday, November 19, 2026",
+          "game": {
+            "id": "2026-11-19-1",
+            "url": "/slopitch/games/2026-11-19-1/",
+            "type": "regular",
+            "round": null,
+            "day_label": "Week 6",
+            "date_short": "Thu Nov 19",
+            "date_long": "Thursday, November 19, 2026",
+            "time_display": "6:30 PM",
+            "venue": "[Venue]",
+            "surface_label": "Diamond 1",
+            "home": {
+              "team": "bunters",
+              "name": "Bunters",
+              "code": "BUN",
+              "slot": 6,
+              "colour": null,
+              "score": 14,
+              "result": "tie",
+              "record": "3–1–1",
+              "record_line": "Tie · now 3–1–1",
+              "badge": ""
+            },
+            "away": {
+              "team": "sluggers",
+              "name": "Sluggers",
+              "code": "SLG",
+              "slot": 1,
+              "colour": null,
+              "score": 14,
+              "result": "tie",
+              "record": "2–2–2",
+              "record_line": "Tie · now 2–2–2",
+              "badge": ""
+            },
+            "tie": true,
+            "forfeit": null,
+            "decided_in": "regulation",
+            "status": "Final",
+            "final": {
+              "status": "Final",
+              "sub": "Tied 14–14",
+              "note": null
+            },
+            "summary": "Tied 14–14",
+            "standings_points": {
+              "home": 1,
+              "away": 1
+            },
+            "line_score": {
+              "shape": "innings",
+              "corner": "Inning",
+              "total_label": "R",
+              "extra_label": null,
+              "extras": [
+                {
+                  "label": "H",
+                  "title": "Hits"
+                }
+              ],
+              "columns": [
+                {
+                  "label": "1"
+                },
+                {
+                  "label": "2"
+                },
+                {
+                  "label": "3"
+                },
+                {
+                  "label": "4"
+                },
+                {
+                  "label": "5"
+                },
+                {
+                  "label": "6"
+                },
+                {
+                  "label": "7",
+                  "open": true
+                }
+              ],
+              "rows": {
+                "home": {
+                  "cells": [
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 2
+                    },
+                    {
+                      "v": 2
+                    },
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 2
+                    },
+                    {
+                      "v": 6
+                    }
+                  ],
+                  "total": 14,
+                  "extra": null,
+                  "extras": [
+                    16
+                  ],
+                  "hammer_first": false
+                },
+                "away": {
+                  "cells": [
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 2
+                    },
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 5,
+                      "mark": true
+                    },
+                    {
+                      "v": 3
+                    }
+                  ],
+                  "total": 14,
+                  "extra": null,
+                  "extras": [
+                    20
+                  ],
+                  "hammer_first": false
+                }
+              },
+              "caption": "Runs by inning",
+              "won_word": null,
+              "mark_word": "run limit",
+              "void_word": "not needed",
+              "title": "Line score",
+              "meta": null,
+              "legend": [
+                {
+                  "kind": "limit",
+                  "mark": "5",
+                  "text": "Circled: the inning ended at the 5-run limit. The 7th is open (no limit)."
+                }
+              ],
+              "legend_stack": true,
+              "note": null,
+              "note_strong": null,
+              "split": null,
+              "blank_word": "blank",
+              "hammer_word": "Hammer"
+            },
+            "card": {
+              "note": "Top bat: Ada C. 4 for 4",
+              "strong": "Ada C.",
+              "link_label": "Box score",
+              "meta": [
+                "Diamond 1",
+                "6:30 PM"
+              ],
+              "note_long": null,
+              "line_score": {
+                "shape": "innings",
+                "corner": "Inning",
+                "total_label": "R",
+                "extra_label": null,
+                "extras": [
+                  {
+                    "label": "H",
+                    "title": "Hits"
+                  }
+                ],
+                "columns": [
+                  {
+                    "label": "1"
+                  },
+                  {
+                    "label": "2"
+                  },
+                  {
+                    "label": "3"
+                  },
+                  {
+                    "label": "4"
+                  },
+                  {
+                    "label": "5"
+                  },
+                  {
+                    "label": "6"
+                  },
+                  {
+                    "label": "7"
+                  }
+                ],
+                "rows": {
+                  "home": {
+                    "cells": [
+                      {
+                        "v": 0
+                      },
+                      {
+                        "v": 1
+                      },
+                      {
+                        "v": 2
+                      },
+                      {
+                        "v": 2
+                      },
+                      {
+                        "v": 1
+                      },
+                      {
+                        "v": 2
+                      },
+                      {
+                        "v": 6
+                      }
+                    ],
+                    "total": 14,
+                    "extra": null,
+                    "extras": [
+                      16
+                    ],
+                    "hammer_first": false
+                  },
+                  "away": {
+                    "cells": [
+                      {
+                        "v": 1
+                      },
+                      {
+                        "v": 2
+                      },
+                      {
+                        "v": 1
+                      },
+                      {
+                        "v": 1
+                      },
+                      {
+                        "v": 1
+                      },
+                      {
+                        "v": 5,
+                        "mark": true
+                      },
+                      {
+                        "v": 3
+                      }
+                    ],
+                    "total": 14,
+                    "extra": null,
+                    "extras": [
+                      20
+                    ],
+                    "hammer_first": false
+                  }
+                },
+                "caption": "Runs by inning",
+                "won_word": null,
+                "mark_word": "run limit",
+                "void_word": "not needed",
+                "title": null,
+                "meta": null,
+                "legend": [],
+                "legend_stack": false,
+                "note": null,
+                "note_strong": null,
+                "split": null,
+                "blank_word": "blank",
+                "hammer_word": "Hammer"
+              }
+            }
+          }
+        }
+      }
     }
-  ]
+  ],
+  "coming_soon": []
 }

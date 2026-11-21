@@ -20,8 +20,9 @@ made up. A real league replaces each one in its own files.
 
 Basketball is the shipped sport now (stage 5), so the built basketball site shows its own placeholders:
 see [section 5](#5-stage-5-basketball-placeholders-and-decisions). Curling's are in
-[section 6](#6-stage-5-curling-placeholders-and-decisions) and hockey's in
-[section 8](#8-stage-5-hockey-placeholders-and-decisions).
+[section 6](#6-stage-5-curling-placeholders-and-decisions), hockey's in
+[section 8](#8-stage-5-hockey-placeholders-and-decisions) and slo-pitch's in
+[section 9](#9-stage-5-slo-pitch-placeholders-and-decisions).
 
 ## 2. Rules a league has to decide
 
@@ -299,3 +300,91 @@ The 19 decisions are in `docs/stage-5-hockey-spec.md`, section 10. **All 19 were
 Left for later (named in the spec, not built): period words chosen by an option ("Half"), a hockey tile on the game
 page, team stats and boards (team PIM, power-play goals), a printable hockey game sheet and the photo-reading prompt,
 and the entry page and JavaScript copy of the rules (stage 7).
+
+## 9. Stage 5, slo-pitch: placeholders and decisions
+
+### 9.1 What the build lists
+
+A league that writes `sport: slopitch` in `league.yml` sees this list after every build, and the site shows
+`[placeholder]` for each until the league sets it (even to the usual value). The sport preview (`/slopitch/`) always
+shows them, because it uses the sport's own defaults. (To see the list yourself, in a copy of the repository:
+`sport: slopitch` in `league.yml`, then `python scripts/make_sample.py` and `python scripts/build.py --sample`; or build
+the preview with `python scripts/preview_root.py slopitch <folder>` and
+`python scripts/build.py --root <folder> --sport-preview slopitch`.)
+
+```
+Still to decide (the site shows [placeholder] until you set these in league.yml):
+  - Innings in a game (rules.innings)
+  - Most runs a team may score in one half-inning (0 is no limit) (rules.run_limit)
+  - Innings with no run limit (the last inning and extra innings, or none) (rules.open_innings)
+  - Runs on the play that reaches the run limit (stop at the limit, or finish the play) (rules.limit_play)
+  - Lead that ends a game early, the mercy rule (0 is no mercy rule) (rules.mercy_runs)
+  - Innings played before the mercy rule applies (rules.mercy_after)
+  - Innings that make a called game official (rules.official_innings)
+  - Minutes in a game before no new inning starts (0 is no time limit) (rules.time_limit)
+  - Extra innings in a regular-season game level after the last inning (playoffs play until decided) (rules.extra_innings)
+  - Home runs one team may hit in a game (0 is no limit) (rules.hr_limit)
+  - Ties (standings.ties)
+  - Forfeit (standings.forfeit)
+  - Tiebreakers (standings.tiebreakers)
+  - Minimum plate appearances per team game for the batting leaders (stats.minimums.avg_min_pa)
+```
+
+| Setting in `league.yml` | The default the site uses meanwhile | Where `[placeholder]` shows | Who decides |
+|---|---|---|---|
+| `rules.innings` (Innings in a game) | 7 (3 to 9 are allowed; a game file has this many inning boxes, plus extra innings) | the Rules page's list only | the league: 7, or 5 for a short-game league |
+| `rules.run_limit` (Most runs in one half-inning) | 5 (0 is no limit, up to 20) | the Rules page's list only (the Home page's line-score key shows the number, "5", from the setting) | the league |
+| `rules.open_innings` (Innings with no limit) | `last`: the last inning and every extra inning are open; `none` limits every inning | the Rules page's list only | the league |
+| `rules.limit_play` (The play that reaches the limit) | `stop`: a box is at most the limit; `finish` counts every run on that play (up to the limit plus 3) | the Rules page's list only | the league |
+| `rules.mercy_runs` (Lead that ends a game early) | 15 (0 is no mercy rule; `called: mercy` is then an error) | the Rules page's list only; only a warning when a `called: mercy` game is short of it | the league |
+| `rules.mercy_after` (Innings before the mercy rule applies) | 5 (4½ when the team batting last leads) | the Rules page's list only | the league |
+| `rules.official_innings` (Innings that make a called game official) | 4; a called game shorter than that is a warning | the Rules page's list only | the league |
+| `rules.time_limit` (Minutes before no new inning starts) | 60 (0 is none) | the Rules page's list only; the number is also written in the game page's "Called" fact for a `called: time` game | the league |
+| `rules.extra_innings` (Extra innings in a regular-season game level after the last) | 0: a level regular-season game is a tie. Playoffs play extra innings until decided | the Rules page's list only | the league. A league that plays one extra inning sets 1 |
+| `rules.hr_limit` (Home runs one team may hit in a game) | 0, no limit; a team over a set limit is a warning | the Rules page's list only | the league |
+| `standings.ties` (Ties) | `true`: a level regular-season game is a tie, worth 1 point each | the Rules page's list; "Ties are allowed [placeholder]." in the standings note | the league. With `ties: false` a level regular-season game is an error at the R box, so a league with no ties also sets `rules: {extra_innings: 1}` (or more) and writes the extra innings |
+| `standings.forfeit` (Forfeit) | 7-0 | the standings note ("A forfeit counts as 7–0 [placeholder]." while the table holds a forfeit), the forfeit's game page and result card ("score [placeholder]"), and the Rules page's list | the league |
+| `standings.tiebreakers` (Tiebreakers) | head-to-head, then run difference with each game's margin capped at 7 | the standings note ("[placeholder] The league has not decided its tiebreakers yet..."), on Home, an archive season page and the Rules page's list | the league |
+| `stats.minimums.avg_min_pa` (Minimum plate appearances per team game) | 2, times the games the player's team has played so far | "Minimum [placeholder] plate appearances per team game to rank." under the Batting avg and On-base % boards, and the Rules page's list | the league. The mockup's fixed "15 at-bats" would leave the boards empty for weeks |
+
+Not placeholders: standings points (2 for a win, 1 for a tie, 0 for a loss, ranked by points) and the columns
+(GP W L T PTS RF RA); and three choices with a default, which tell the build what the sheet holds:
+`rules.batting` (`none`, `order`, `optional`, `every_game`: what the sheet keeps for each batter; `optional` is the
+default and `none` or `order` leave out the batting stats and boards), `rules.team_hits` (`kept`, the H box) and
+`rules.team_errors` (`none`, the E box; `kept` adds an E column). Also left for the league, as in every sport: the
+real season's `venue` (`[Gym name]` in the shipped `data/seasons.yml`; a slo-pitch league will want its park's name) and
+`[League rules]` on the Rules page.
+
+### 9.2 Decisions for the owner
+
+The 22 decisions are in `docs/stage-5-slopitch-spec.md`, section 10. **All 22 were decided by the owner as recommended
+(November 2026).** What was built:
+
+| # | Decision | Built as |
+|---|---|---|
+| 1 | Visitors first | the visitors are listed first everywhere, joined with "at" ("Mudcats at Sluggers"): `display.matchup: at`, `league.json` `sides_order`; the game file still says `home` and `away` |
+| 2 | Who bats first | `home` in the file is the team that bats last; a coin-toss game adds `bats_first: home`, which flips that game's line score rows |
+| 3 | Innings | 7 (`innings`, 3 to 9), `[placeholder]` |
+| 4 | Run limit | 5 a half-inning, the last inning and extra innings open, the limit play stops at the limit, all `[placeholder]` (`run_limit`, `open_innings`, `limit_play`). A box at the limit is circled even when the third out came first (the sheet cannot tell). A team-choice open inning is not built |
+| 5 | Mercy rule | 15 runs after 5 innings (4½ when the team batting last leads), `[placeholder]`; looked at only when the sheet says `called: mercy`, and only as a warning |
+| 6 | Time limit and called games | the score stands as written for the completed innings; `called:` gives the reason; under `official_innings` (4) is a warning; `time_limit` 60 minutes, `[placeholder]`. A league whose score "reverts to the last full inning" leaves the unfinished inning out itself |
+| 7 | Ties and extra innings | a regular-season tie stands (`ties: true`, `extra_innings: 0`); playoffs play extra innings, open, until decided |
+| 8 | The extra-innings word | "Final · Extras", "Win (Extras)" (`words.extra`) |
+| 9 | Standings | 2 a win, 1 a tie, ranked by points; columns GP W L T PTS RF RA. A league with many rain-outs can rank by win percentage (`standings: {rank_by: win_pct, columns: [gp, w, l, t, pct, pf, pa]}`) |
+| 10 | Tiebreakers | head-to-head, then run difference capped at 7 a game (`{diff: {cap: 7}}`), `[placeholder]`; head-to-head is skipped unless every tied pair has met (the core's rule) |
+| 11 | Forfeit score | 7-0, `[placeholder]` |
+| 12 | Batting lines | optional by game (`batting: optional`): a game has a line for every batter or for none, and the stats come from the games that have them; `none`, `order` and `every_game` are settings. With `optional` a player's GP counts games without a line, so no per-game figure is shown |
+| 13 | Which batting stats | AB, R, H, RBI, HR, BB on the sheet; PA, AVG and OBP worked out; OBP = (H + BB) / (AB + BB). No 2B/3B, sacrifice flies, strikeouts, pitching or slugging percentage |
+| 14 | AVG minimum | 2 plate appearances per team game (`avg_min_pa` with `per_team_game`), `[placeholder]` |
+| 15 | R/H/E | R always, H kept (`team_hits: kept`; the batting lines' sum when kept), E not kept (`team_errors: none`); `kept` adds the column, but the `/slopitch/` demo does not show it |
+| 16 | Home-run limit | `hr_limit` per team per game, 0 = none, `[placeholder]`; passing it is a warning. A league that counts an extra home run as an out writes it as an out |
+| 17 | Co-ed rules | no gender field, no batting-order alternation check, no "walk" rule in the data; a league's co-ed rules go on its Rules page |
+| 18 | Doubleheaders | allowed (`games_per_day: 2`); the sample keeps one game a night |
+| 19 | Walk-offs and the X | an `X` where the home team trailed is an error; a bottom half that should have been an `X`, and a walk-off with too many runs, are warnings (the runs stay) |
+| 20 | Period words by option and team rates | not built: slo-pitch needs neither; both stay on `PLAN.md`'s "Later" list |
+| 21 | Substitutes and courtesy runners | a substitute is their own row under the player replaced; a run counts for the row the sheet writes it on; no courtesy-runner key |
+| 22 | Officials | umpires' names are not copied or shown |
+
+Left for later (named in the spec, not built): period words chosen by an option ("Half"), team rates (team AVG), a
+printable slo-pitch score sheet and the photo-reading prompt, the entry page and JavaScript copy of the rules
+(stage 7), and the six layouts per sport (stage 6; the sample is screenshotted in the Slo-pitch layout only).

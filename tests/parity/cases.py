@@ -16,14 +16,9 @@ from scripts.design_system.model import SPORTS, Part
 
 CASES_DIR = Path(__file__).parent / "cases"
 
-# Parts that only a real sport needs: they stay Python-only in stage 4 (docs/stage-4-spec.md section 9), each
-# arrives with its sport in stage 5 together with its include and parity case.
-SKIPPED = {
-    "game-tables": "slo-pitch's game tables (facts, batting): a stage 5 part with that sport; basketball's tables, "
-                   "notes and top-performer tile ('game-tables-box'), curling's game in numbers "
-                   "('game-tables-numbers') and hockey's goalies and skaters ('game-tables-hockey') are covered by "
-                   "the fragment cases below",
-}
+# Parts the parity test leaves out, each with its reason (none now: slo-pitch's game tables, the last one, arrived
+# with its sport in stage 5 part 4 as the fragment case 'game-tables-slopitch').
+SKIPPED: dict[str, str] = {}
 
 
 # Attributes the specimen draws that the include leaves to JavaScript, per part. The sport card's windows carry the
@@ -55,6 +50,9 @@ FRAGMENTS = [
     Case("game-tables-hockey", "game-tables", sports=("hockey",),
          note="hockey's game-tables specimen: the Goalies and Skaters sections (two group blocks, a stat_table with "
               "team_col and cell styles, and one per side with the small heading)"),
+    Case("game-tables-slopitch", "game-tables", sports=("slopitch",),
+         note="slo-pitch's game-tables specimen: the facts block, two batting stat_tables (number_col, heading: plain) "
+              "and the footnote (the facts, stat_table and note blocks)"),
 ]
 
 
@@ -91,6 +89,9 @@ def all_cases() -> list[tuple[Case, Part]]:
     out = []
     for pid, part in parts.items():
         if pid in SKIPPED:
+            continue
+        framed = {c for f in FRAGMENTS if f.part == pid for c in combos(part, f.sports)}
+        if framed and set(combos(part)) <= framed:     # every sport the part is shown for has a fragment case
             continue
         out.append((Case(pid, pid, strip=STRIP_ATTRS.get(pid, ())), part))
     for frag in FRAGMENTS:

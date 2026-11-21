@@ -1,0 +1,36 @@
+# A coin toss sent the home team up first (bats_first: home). Bravo bats last: it led 9-7 after the top of the 7th, so Bravo's 7th is the X.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    home: [1, 0, 2, 0, 3, 1, 0]
+    away: [2, 3, 1, 2, 1, 0, X]
+  totals:
+    away: {r: 9, h: 8}
+    home: {r: 7, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}
+  bats_first: home

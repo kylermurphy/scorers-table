@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "totals.home.h",
+      "message": "100 isn't a number of hits: write a whole number from 0 to 99."
+    }
+  ],
+  "reading": null
+}

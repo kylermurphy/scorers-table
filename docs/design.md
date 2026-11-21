@@ -309,7 +309,7 @@ Sport card (the landing page; added after stage 4, see [Nested layouts](#nested-
   <a class="st-button st-sport-card__go" href="#">Open the Basketball demo<span class="st-chevron"> ›</span></a>
 </article>
 <article class="st-card st-sport-card st-sport-card--soon">   <!-- a sport not built yet: no window, no link -->
-  <div class="st-sport-card__head"><h3 class="st-sport-card__name">Slo-pitch</h3><span class="st-badge">Coming soon</span></div>
+  <div class="st-sport-card__head"><h3 class="st-sport-card__name">Slo-pitch</h3><span class="st-badge">Coming soon</span>  <!-- the markup; no sport is "coming soon" today (landing.yml coming_soon: []) --></div>
   <p class="st-sport-card__blurb">…</p>
 </article>
 ```
@@ -334,7 +334,7 @@ Small pieces in `base.css`: `.st-chip` (`--sm`, `--lg`), `.st-badge` (`--win`, `
 * **Line score** `table.st-line-score.st-line-score--<quarters|ends|periods|innings>` with `--card`
   (compact, inside a result card) or `--full`. `.st-line-scroll` is the scroll box
   (`role="region"`, `aria-label`, `tabindex="0"`, except inside a link). Parts: `__team` (sticky first
-  column, chip + name), `__total`, `__extra` (slo-pitch R is `__total`, H is `__extra`), `__open` (the
+  column, chip + name), `__total`, `__extra` (slo-pitch R is `__total`; H and E are each an `__extra` with an `abbr`, "Hits" and "Errors", from `extras`: specimen `line-score-rhe`), `__open` (the
   word "open" under an inning number), `__n` (wraps a marked number so a layout can circle it). Row
   classes `is-winner` / `is-loser`; cell classes `is-won` (won the quarter or end), `is-mark` (stolen
   end, run-limit inning), `is-blank`, `is-void` (X, not played), `is-open` (open inning). Hammer
@@ -367,7 +367,11 @@ Small pieces in `base.css`: `.st-chip` (`--sm`, `--lg`), `.st-badge` (`--win`, `
   Hockey's goalies and skaters use the `group` block (`parts/game-group.html`: a section head, `.st-note--intro`,
   the child `stat_table` blocks, a note) and three `stat_table` options: `team_col` (a Team column: chip + team
   name from each row's `side`), a column `style` of `strong` or `big` (`.st-table__strong`, `.st-table__big`) and
-  `heading: small` (`h3.st-team-heading--sm`, no score). In a group a child with a heading is an inner
+  `heading: small` (`h3.st-team-heading--sm`, no score) or `heading: plain` (the large `h2.st-team-heading`, with the chip and the `title`, no score: slo-pitch's "Mudcats batting"; E22).
+  Slo-pitch's facts are the `facts` block (`parts/facts.html`, E21: `dl.st-facts`, rows `{label, items [{side, players
+  [{player, extra}], text}]}`; an item with players prints plain-text names joined by ", " (a count after a name when
+  `extra` is set) and, with a side, the team in `.st-facts__team` brackets; an item with `text` prints it alone;
+  items are joined by "; " and a row with no items is left out). In a group a child with a heading is an inner
   `.st-game-block` and one without is just its table; a column with no `title` has a plain heading.
 
 ### Data
@@ -860,8 +864,8 @@ sample leagues into the JSON the includes read, so the shapes below are proved a
 | helpers | `parts/bold-text.html` (`text`, `strong`), `parts/runs.html` (`runs [{t,b}]`), `parts/hammer.html` (`px`, `label`), `parts/leader-sub.html` | |
 
 **Line score data** (present()'s `line_score`, spec 3.4, plus the fields the includes need): `shape`, `corner`,
-`total_label`, `extra_label`, `columns [{label, blank?, open?}]`, `rows.home|away {cells [{v, won?, mark?, void?,
-hammer?}], total, extra, hammer_first}`, `caption` (the table caption and scroll label), `won_word`, `mark_word`,
+`total_label`, `extra_label` (one untitled extra column), `extras [{label, title}]` (more total columns after the total, each an `abbr`; the rows' `extras [values]` in the same order; E20), `columns [{label, blank?, open?}]`, `rows.home|away {cells [{v, won?, mark?, void?,
+hammer?}], total, extra, extras, hammer_first}`, `caption` (the table caption and scroll label), `won_word`, `mark_word`,
 `void_word`, `blank_word`, `hammer_word`, `title`, `meta`, `legend`, `legend_stack`, `note` + `note_strong`,
 `split` (two lines of runs, side by side). A column's `blank`/`open` flag marks its header and cells. A game's
 `card.line_score`, when present, is what cards and the hero show (compact: no blank, open or per-cell hammer marks).
