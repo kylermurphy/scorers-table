@@ -22,4 +22,4 @@ new case.
 **For the JavaScript runner.** Empty boxes are `~` (null). `X` is the text `"X"`. A run box that is `true` in YAML
 (`run-box-true`) reads as a boolean and is an error, not a number. A message that prints a Python `repr` of a value
 (`'three'`, `True`) must print the same text. The `facts` of a reading keep each side's runs with `null` for an `X` or
-an inning a called game never reached; `Score.extra` holds `0` for an `X` in an extra inning (it cannot hold `null`).
+an inning a called game never reached. `Score.extra` holds the runs of each extra inning (an `X` cannot be in one: the score was level before it, so `check` rejects it).

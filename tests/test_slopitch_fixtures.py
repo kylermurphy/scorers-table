@@ -308,6 +308,19 @@ def test_the_team_batting_first_after_a_coin_toss_is_the_home_team():
     assert reading["score"]["final"] == {"home": 7, "away": 9}
 
 
+def test_an_extra_inning_error_names_the_top_half_of_the_team_batting_first():
+    problems, _ = run("extra-innings-bats-first-home")
+    assert [(p["level"], p["at"]) for p in problems] == [("error", "runs.home.7")]
+
+
+def test_a_wrong_x_in_a_called_game_says_to_leave_the_unfinished_inning_out():
+    problems, _ = run("called-x-trailing")
+    assert [(p["level"], p["at"]) for p in problems] == [("error", "runs.home.5")]
+    assert "leave that inning out" in problems[0]["message"]
+    full, _ = run("x-not-leading")
+    assert "leave that inning out" not in full[0]["message"]
+
+
 def test_the_open_innings_follow_the_option():
     _, reading = run("open-seventh")
     assert reading["facts"]["limited"] == [True] * 6 + [False]

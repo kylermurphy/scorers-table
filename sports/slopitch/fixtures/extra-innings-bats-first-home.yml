@@ -1,0 +1,36 @@
+# A coin toss sent Alpha (home) up first, and the regular-season game went to extra innings: the error names the first extra box of the team batting first (Alpha's top half).
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    home: [1, 0, 2, 0, 3, 1, 2, 0, 2]
+    away: [0, 3, 1, 2, 0, 2, 1, 0, 3]
+  totals:
+    away: {r: 12, h: 8}
+    home: {r: 11, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}
+  bats_first: home

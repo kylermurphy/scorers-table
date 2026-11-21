@@ -1,0 +1,36 @@
+# Called for time in the bottom of the 6th with Alpha behind: Alpha batted, so the X is wrong. The message says to leave the unfinished inning out (the score of a called game is the completed innings).
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  runs:
+    away: [2, 0, 1, 0, 1, 5]
+    home: [3, 1, 2, 1, 1, X]
+  totals:
+    away: {r: 9, h: 8}
+    home: {r: 8, h: 9}
+  batting:
+    away:
+      - {player: norm-w}
+      - {player: sheila-r}
+      - {player: phil-g}
+      - {player: doug-e}
+      - {player: pat-o}
+      - {player: ken-j}
+      - {player: marg-l}
+      - {player: brian-c}
+      - {player: elaine-v}
+      - {player: stan-z}
+    home:
+      - {player: gary-t}
+      - {player: linda-m}
+      - {player: ron-b}
+      - {player: dave-k}
+      - {player: bev-s}
+      - {player: wayne-h}
+      - {player: carol-d}
+      - {player: ted-f}
+      - {player: joan-p}
+      - {player: murray-l}
+  called: time

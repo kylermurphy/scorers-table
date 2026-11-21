@@ -299,9 +299,11 @@ def _check_innings(out, game, sheet):
     if lists[last][n - 1] == X:
         if behind <= ahead:
             word = "trailed" if behind < ahead else "was level at"
+            stopped = (f" If the game was called before they finished the {_ordinal(n)}, leave that inning out for "
+                       "both teams." if n < innings else "")
             out.error(_path("runs", last, n - 1),
                       f"{last_team} {word} {behind}-{ahead} after the top of the {_ordinal(n)}, so they batted: "
-                      "write their runs.")
+                      f"write their runs.{stopped}")
     elif n >= innings and behind > ahead:
         out.warning(_path("runs", last, n - 1),
                     f"{last_team} led {behind}-{ahead} after the top of the {_ordinal(n)}, so the game was over: "
@@ -321,8 +323,9 @@ def _check_extra_innings(out, game):
     ctx = out.ctx
     innings, n = _innings(ctx), game["n"]
     over = next((k for k in range(innings, n) if not _level_after(game, k)), None)
+    first = game["first"]                         # the top half of the first inning that should not exist
     if over is not None:
-        at = _path("runs", "away", over)
+        at = _path("runs", first, over)
         if over == innings:
             out.error(at, f"the score was not level after {innings} innings, so there is no inning {innings + 1}. "
                           "Take the extra innings out.")
@@ -333,7 +336,7 @@ def _check_extra_innings(out, game):
     allowed = _int_opt(ctx, "extra_innings")
     if ctx.game_type != "playoff" and n - innings > allowed:
         what = "no extra innings" if allowed == 0 else f"at most {_plural(allowed, 'extra inning')}"
-        out.error(_path("runs", "away", innings + allowed),
+        out.error(_path("runs", first, innings + allowed),
                   f"this league plays {what} in the regular season: a game level after "
                   f"{innings + allowed} innings is a tie. Take the extra innings out.")
 

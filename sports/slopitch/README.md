@@ -166,7 +166,7 @@ meaningless (a bad `runs` list), the later checks of that part are skipped.
 | `runs.<side>.<i>` | a number in the final box of the team batting last although it led after the top half, in an inning that ends the game (the last regulation inning or an extra inning): "not needed, write X" | warning |
 | `runs.<side>.<i>` | more runs than `rules.run_limit` in a limited inning; with `limit_play: finish`, more than the limit plus 3 | error |
 | `runs.<side>.<i>` | a walk-off half with more than the runs needed plus 3 | warning |
-| `runs.<side>.<innings>` | more innings than `rules.innings` although the score was not level after regulation | error |
+| `runs.<side>.<innings>` | more innings than `rules.innings` although the score was not level after regulation (these three name the box of the team batting first, the top half of the first inning that should not be there) | error |
 | `runs.<side>.<i>` | in a regular-season game, an inning past `rules.extra_innings` (the first one not allowed: no extra inning, or the ones the league plays) | error |
 | `runs.<side>.<i>` | an extra inning played after a team led at the end of a complete extra inning (the game was over) | error |
 | `called` | missing in a game of fewer than `rules.innings` innings ("a 5-inning game: if it was called, add `called:`...") | error |
@@ -237,7 +237,8 @@ sheet:
 If the team batting last led after the top half and did not bat, end its list with `X` as usual (`home: [..., X]`): the
 game counts that as 4½ innings for the mercy rule. A game under 4 innings (`rules.official_innings`) is a warning:
 "does it count?" If the league's rule is that an unfinished inning does not count ("the score reverts to the last full
-inning"), leave that inning out of both lists yourself. A game that is replayed stays out of `games/` altogether. The
+inning"), leave that inning out of both lists yourself; the same when the game was called while the team batting
+last was batting behind (an `X` there is an error, and its message says so). A game that is replayed stays out of `games/` altogether. The
 time limit (`rules.time_limit`) is only shown on the game page ("After 6 innings: time limit, 60 minutes"); the sheet
 records no clock, so nothing checks it.
 
@@ -245,8 +246,9 @@ records no clock, so nothing checks it.
 
 A regular-season game level after seven innings is a tie (`rules.extra_innings: 0`, the default): leave it at seven.
 A league that plays one extra inning sets `rules.extra_innings: 1`. A **playoff** game plays extra innings until the
-game is decided; write the extra innings as more boxes, both teams the same number, and the last one an `X` if the team
-batting last led after the top half. Extra innings are open (no run limit) with `open_innings: last`:
+game is decided; write the extra innings as more boxes, both teams the same number. An extra inning never ends on an
+`X`: the score was level before it, so the team batting last always bats (and the game ends when it takes the lead).
+Extra innings are open (no run limit) with `open_innings: last`:
 
 ```yaml
 sheet:                        # a playoff game: 9-9 after seven, a scoreless 8th, a walk-off in the 9th

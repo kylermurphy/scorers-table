@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "runs.home.5",
+      "message": "Alpha trailed 8-9 after the top of the 6th, so they batted: write their runs. If the game was called before they finished the 6th, leave that inning out for both teams."
+    }
+  ],
+  "reading": null
+}
