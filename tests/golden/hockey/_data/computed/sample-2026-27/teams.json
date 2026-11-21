@@ -1,0 +1,244 @@
+{
+  "blades": {
+    "id": "blades",
+    "name": "Blades",
+    "code": "BLA",
+    "slot": 1,
+    "colour": null,
+    "url": "/teams/blades/",
+    "rank": 3,
+    "record": "2–2–2",
+    "points": "6",
+    "sub": null,
+    "players": [
+      "una-w",
+      "max-t",
+      "ada-c",
+      "mae-t",
+      "val-j",
+      "eve-l",
+      "tam-c",
+      "eve-b",
+      "jax-f",
+      "noa-a",
+      "jax-d",
+      "kai-g"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-1",
+      "2026-11-05-1",
+      "2026-10-29-1",
+      "2026-10-22-1",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-1",
+      "2026-12-10-1",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "wolves": {
+    "id": "wolves",
+    "name": "Wolves",
+    "code": "WOL",
+    "slot": 2,
+    "colour": null,
+    "url": "/teams/wolves/",
+    "rank": 4,
+    "record": "2–2–1",
+    "points": "5",
+    "sub": null,
+    "players": [
+      "alf-g",
+      "noa-h",
+      "noa-f",
+      "ben-e",
+      "quin-n",
+      "quin-m",
+      "pax-w",
+      "val-d",
+      "dee-s",
+      "kai-m",
+      "wes-t",
+      "cleo-a"
+    ],
+    "results": [
+      "2026-11-19-2",
+      "2026-11-12-1",
+      "2026-11-05-2",
+      "2026-10-22-3",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-11-26-3",
+      "2026-12-03-3",
+      "2026-12-10-2",
+      "2026-12-17-1"
+    ],
+    "calendar": null
+  },
+  "lumberjacks": {
+    "id": "lumberjacks",
+    "name": "Lumberjacks",
+    "code": "LUM",
+    "slot": 3,
+    "colour": null,
+    "url": "/teams/lumberjacks/",
+    "rank": 5,
+    "record": "2–2–1",
+    "points": "5",
+    "sub": null,
+    "players": [
+      "finn-f",
+      "mae-f",
+      "oz-l",
+      "gwen-w",
+      "tam-k",
+      "joy-n",
+      "dax-d",
+      "ola-t",
+      "amy-p",
+      "eli-f",
+      "cal-b",
+      "cal-p"
+    ],
+    "results": [
+      "2026-11-12-2",
+      "2026-11-05-1",
+      "2026-10-29-2",
+      "2026-10-22-3",
+      "2026-10-15-3"
+    ],
+    "upcoming": [
+      "2026-11-26-3",
+      "2026-12-03-2",
+      "2026-12-10-1",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  },
+  "ice-dogs": {
+    "id": "ice-dogs",
+    "name": "Ice Dogs",
+    "code": "ICE",
+    "slot": 4,
+    "colour": null,
+    "url": "/teams/ice-dogs/",
+    "rank": 6,
+    "record": "0–5",
+    "points": "0",
+    "sub": null,
+    "players": [
+      "pax-f",
+      "ada-m",
+      "nell-b",
+      "ted-l",
+      "gus-g",
+      "ada-s",
+      "hal-e",
+      "eli-p",
+      "abe-f",
+      "ike-g",
+      "rae-h",
+      "lou-f"
+    ],
+    "results": [
+      "2026-11-12-3",
+      "2026-11-05-2",
+      "2026-10-29-1",
+      "2026-10-22-2",
+      "2026-10-15-3"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-03-1",
+      "2026-12-10-2",
+      "2026-12-17-3"
+    ],
+    "calendar": null
+  },
+  "grey-owls": {
+    "id": "grey-owls",
+    "name": "Grey Owls",
+    "code": "OWL",
+    "slot": 5,
+    "colour": null,
+    "url": "/teams/grey-owls/",
+    "rank": 2,
+    "record": "4–2",
+    "points": "8",
+    "sub": null,
+    "players": [
+      "joy-p",
+      "bo-s",
+      "ida-g",
+      "ola-m",
+      "hana-s",
+      "ida-p",
+      "ike-l",
+      "finn-k",
+      "ben-f",
+      "val-e",
+      "mae-s",
+      "cleo-p"
+    ],
+    "results": [
+      "2026-11-19-2",
+      "2026-11-12-3",
+      "2026-11-05-3",
+      "2026-10-29-2",
+      "2026-10-22-1",
+      "2026-10-15-2"
+    ],
+    "upcoming": [
+      "2026-11-26-1",
+      "2026-12-03-2",
+      "2026-12-10-3",
+      "2026-12-17-3"
+    ],
+    "calendar": null
+  },
+  "huskies": {
+    "id": "huskies",
+    "name": "Huskies",
+    "code": "HUS",
+    "slot": 6,
+    "colour": null,
+    "url": "/teams/huskies/",
+    "rank": 1,
+    "record": "4–1",
+    "points": "8",
+    "sub": null,
+    "players": [
+      "zed-c",
+      "bo-m",
+      "rae-f",
+      "amy-k",
+      "hana-w",
+      "eli-g",
+      "ada-h",
+      "quin-e",
+      "mae-c",
+      "ada-n",
+      "finn-s",
+      "pia-t"
+    ],
+    "results": [
+      "2026-11-19-1",
+      "2026-11-12-2",
+      "2026-11-05-3",
+      "2026-10-22-2",
+      "2026-10-15-1"
+    ],
+    "upcoming": [
+      "2026-11-26-2",
+      "2026-12-03-3",
+      "2026-12-10-3",
+      "2026-12-17-2"
+    ],
+    "calendar": null
+  }
+}

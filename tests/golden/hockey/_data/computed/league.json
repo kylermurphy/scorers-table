@@ -1,0 +1,156 @@
+{
+  "name": "Northside Old-Timers Hockey",
+  "short_name": "Northside Old-Timers Hockey",
+  "code": "NOTH",
+  "sport": "hockey",
+  "sport_name": "Hockey",
+  "layout": "hockey",
+  "colour": null,
+  "colour_dark": null,
+  "logo": null,
+  "tagline": "Hockey · 2026–27",
+  "footer_line": "[Venue]",
+  "footer_name": "Northside Old-Timers Hockey",
+  "contact_href": null,
+  "search_engines": false,
+  "lang": "en",
+  "nav": [
+    {
+      "label": "Home",
+      "url": "/",
+      "key": "home"
+    },
+    {
+      "label": "Schedule",
+      "url": "/schedule/",
+      "key": "schedule"
+    },
+    {
+      "label": "Stats",
+      "url": "/stats/",
+      "key": "stats"
+    },
+    {
+      "label": "Teams",
+      "url": "/teams/",
+      "key": "teams"
+    },
+    {
+      "label": "Archive",
+      "url": "/archive/",
+      "key": "archive"
+    }
+  ],
+  "footer_links": [
+    {
+      "label": "Teams",
+      "url": "/teams/"
+    },
+    {
+      "label": "Past seasons",
+      "url": "/archive/"
+    },
+    {
+      "label": "League rules",
+      "url": "/rules/"
+    }
+  ],
+  "labels": {
+    "standings": "Standings",
+    "full_table": "Full table",
+    "all_stats": "All stats",
+    "team": "Team",
+    "final": "Final",
+    "tie": "Tie",
+    "featured": "Game of the week",
+    "results": "Latest results",
+    "next": "Next game night",
+    "leaders": "Leaders"
+  },
+  "words": {
+    "surface": "Pad",
+    "period": {
+      "one": "Period",
+      "many": "Periods",
+      "short": "P"
+    },
+    "day": "Week",
+    "points_for": {
+      "label": "GF",
+      "title": "Goals for"
+    },
+    "points_against": {
+      "label": "GA",
+      "title": "Goals against"
+    }
+  },
+  "display": {
+    "card": "rows",
+    "card_foot": "status_note",
+    "surface": "sub",
+    "card_head": ""
+  },
+  "results_legend": [],
+  "placeholders": [
+    {
+      "setting": "rules.periods",
+      "text": "Periods in a game",
+      "using": "3"
+    },
+    {
+      "setting": "rules.period_minutes",
+      "text": "Minutes in a period",
+      "using": "15"
+    },
+    {
+      "setting": "rules.overtime",
+      "text": "Regular-season game level after the last period",
+      "using": "none"
+    },
+    {
+      "setting": "rules.playoff_overtime",
+      "text": "Playoff game level after the last period",
+      "using": "sudden_death"
+    },
+    {
+      "setting": "rules.overtime_minutes",
+      "text": "Minutes in the overtime period",
+      "using": "5"
+    },
+    {
+      "setting": "rules.shootout_rounds",
+      "text": "Shooters each in a shootout",
+      "using": "3"
+    },
+    {
+      "setting": "rules.clock",
+      "text": "Goal and penalty times written as time elapsed or time left in the period",
+      "using": "elapsed"
+    },
+    {
+      "setting": "rules.goal_cap",
+      "text": "Most goals one player may score in a game (0 is no limit)",
+      "using": "0"
+    },
+    {
+      "setting": "standings.ties",
+      "text": "Ties",
+      "using": "yes"
+    },
+    {
+      "setting": "standings.forfeit",
+      "text": "Forfeit",
+      "using": "1–0"
+    },
+    {
+      "setting": "standings.tiebreakers",
+      "text": "Tiebreakers",
+      "using": "wins, then head-to-head record (when they have all played each other), then score difference"
+    },
+    {
+      "setting": "stats.minimums.goalie_min_games",
+      "text": "Minimum games for the goalie leaders",
+      "using": "4"
+    }
+  ]
+}

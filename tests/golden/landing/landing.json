@@ -31,6 +31,10 @@
         "url": "/curling/"
       },
       {
+        "label": "Hockey demo",
+        "url": "/hockey/"
+      },
+      {
         "label": "Setup guide (short version)",
         "url": "https://github.com/kylermurphy/scorers-table#publish-it"
       },
@@ -45,7 +49,8 @@
       "final": "Final"
     },
     "extra_layouts": [
-      "curling"
+      "curling",
+      "hockey"
     ]
   },
   "active": {
@@ -836,14 +841,304 @@
           }
         }
       }
-    }
-  ],
-  "coming_soon": [
+    },
     {
       "id": "hockey",
       "name": "Hockey",
-      "blurb": "Periods, goals and assists, penalties and goalies."
-    },
+      "blurb": "Periods, goals and assists, penalties and goalies.",
+      "url": "/hockey/",
+      "demo_label": "Open the Hockey demo",
+      "league_name": "Northside Old-Timers Hockey",
+      "layout": "hockey",
+      "window": {
+        "league": {
+          "name": "Northside Old-Timers Hockey",
+          "layout": "hockey",
+          "labels": {
+            "standings": "Standings",
+            "full_table": "Full table",
+            "all_stats": "All stats",
+            "team": "Team",
+            "final": "Final",
+            "tie": "Tie",
+            "featured": "Game of the week",
+            "results": "Latest results",
+            "next": "Next game night",
+            "leaders": "Leaders"
+          },
+          "words": {
+            "surface": "Pad",
+            "period": {
+              "one": "Period",
+              "many": "Periods",
+              "short": "P"
+            },
+            "day": "Week",
+            "points_for": {
+              "label": "GF",
+              "title": "Goals for"
+            },
+            "points_against": {
+              "label": "GA",
+              "title": "Goals against"
+            }
+          },
+          "display": {
+            "card": "rows",
+            "card_foot": "status_note",
+            "surface": "sub",
+            "card_head": ""
+          },
+          "results_legend": []
+        },
+        "standings": {
+          "columns": [
+            {
+              "key": "gp",
+              "label": "GP",
+              "title": "Games played",
+              "key_col": false
+            },
+            {
+              "key": "w",
+              "label": "W",
+              "title": "Wins",
+              "key_col": false
+            },
+            {
+              "key": "l",
+              "label": "L",
+              "title": "Losses",
+              "key_col": false
+            },
+            {
+              "key": "t",
+              "label": "T",
+              "title": "Ties",
+              "key_col": false
+            },
+            {
+              "key": "pts",
+              "label": "PTS",
+              "title": "Points",
+              "key_col": true
+            }
+          ],
+          "rows": [
+            {
+              "rank": 1,
+              "team": "huskies",
+              "display": {
+                "gp": "5",
+                "w": "4",
+                "l": "1",
+                "t": "0",
+                "pts": "8"
+              }
+            },
+            {
+              "rank": 2,
+              "team": "grey-owls",
+              "display": {
+                "gp": "6",
+                "w": "4",
+                "l": "2",
+                "t": "0",
+                "pts": "8"
+              }
+            },
+            {
+              "rank": 3,
+              "team": "blades",
+              "display": {
+                "gp": "6",
+                "w": "2",
+                "l": "2",
+                "t": "2",
+                "pts": "6"
+              }
+            }
+          ],
+          "note": "Top 3 of 6 · through Thu Nov 19"
+        },
+        "teams": {
+          "huskies": {
+            "name": "Huskies",
+            "code": "HUS",
+            "slot": 6,
+            "colour": null,
+            "url": "/hockey/teams/huskies/"
+          },
+          "grey-owls": {
+            "name": "Grey Owls",
+            "code": "OWL",
+            "slot": 5,
+            "colour": null,
+            "url": "/hockey/teams/grey-owls/"
+          },
+          "blades": {
+            "name": "Blades",
+            "code": "BLA",
+            "slot": 1,
+            "colour": null,
+            "url": "/hockey/teams/blades/"
+          }
+        },
+        "latest": {
+          "label": "Week 6",
+          "date_long": "Thursday, November 19, 2026",
+          "game": {
+            "id": "2026-11-19-1",
+            "url": "/hockey/games/2026-11-19-1/",
+            "type": "regular",
+            "round": null,
+            "day_label": "Week 6",
+            "date_short": "Thu Nov 19",
+            "date_long": "Thursday, November 19, 2026",
+            "time_display": "8:00 PM",
+            "venue": "[Venue]",
+            "surface_label": "Pad 1",
+            "home": {
+              "team": "huskies",
+              "name": "Huskies",
+              "code": "HUS",
+              "slot": 6,
+              "colour": null,
+              "score": 5,
+              "result": "win",
+              "record": "4–1",
+              "record_line": "Win · now 4–1",
+              "badge": ""
+            },
+            "away": {
+              "team": "blades",
+              "name": "Blades",
+              "code": "BLA",
+              "slot": 1,
+              "colour": null,
+              "score": 0,
+              "result": "loss",
+              "record": "2–2–2",
+              "record_line": "Loss · now 2–2–2",
+              "badge": ""
+            },
+            "tie": false,
+            "forfeit": null,
+            "decided_in": "regulation",
+            "status": "Final",
+            "final": {
+              "status": "Final",
+              "sub": "Huskies by 5",
+              "note": null
+            },
+            "summary": "Huskies by 5",
+            "standings_points": {
+              "home": 2,
+              "away": 0
+            },
+            "line_score": {
+              "shape": "periods",
+              "corner": "Period",
+              "total_label": "T",
+              "extra_label": null,
+              "columns": [
+                {
+                  "label": "1"
+                },
+                {
+                  "label": "2"
+                },
+                {
+                  "label": "3"
+                }
+              ],
+              "rows": {
+                "home": {
+                  "cells": [
+                    {
+                      "v": 1
+                    },
+                    {
+                      "v": 2
+                    },
+                    {
+                      "v": 2
+                    }
+                  ],
+                  "total": 5,
+                  "extra": null,
+                  "hammer_first": false
+                },
+                "away": {
+                  "cells": [
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 0
+                    },
+                    {
+                      "v": 0
+                    }
+                  ],
+                  "total": 0,
+                  "extra": null,
+                  "hammer_first": false
+                }
+              },
+              "won_word": null,
+              "mark_word": null,
+              "legend": [],
+              "note": null,
+              "split": [
+                [
+                  {
+                    "t": "Goalies: "
+                  },
+                  {
+                    "t": "#83 Zed C.",
+                    "b": true
+                  },
+                  {
+                    "t": " · "
+                  },
+                  {
+                    "t": "#00 Una W.",
+                    "b": true
+                  }
+                ],
+                [
+                  {
+                    "t": "PIM 2–14"
+                  }
+                ]
+              ],
+              "caption": "Score by period",
+              "title": null,
+              "meta": null,
+              "note_strong": null,
+              "legend_stack": false,
+              "void_word": "not played",
+              "blank_word": "blank",
+              "hammer_word": "Hammer"
+            },
+            "card": {
+              "note": "GWG #54 Bo M.",
+              "strong": "#54 Bo M.",
+              "link_label": "Game sheet",
+              "meta": [
+                "Pad 1",
+                "8:00 PM"
+              ],
+              "note_long": null,
+              "line_score": null
+            }
+          }
+        }
+      }
+    }
+  ],
+  "coming_soon": [
     {
       "id": "slopitch",
       "name": "Slo-pitch",

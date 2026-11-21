@@ -49,5 +49,4 @@ copy_note: "Copying this template? Set landing_page: false in league.yml to put 
 # Sports planned but not built yet: a card with no link and no preview. Take a sport off this list when it is built
 # (its card then appears by itself; the build reminds you). Each blurb is at most 100 characters.
 coming_soon:
-  - {id: hockey, name: Hockey, blurb: "Periods, goals and assists, penalties and goalies."}
   - {id: slopitch, name: Slo-pitch, blurb: "Innings, run limits and an optional batting line."}

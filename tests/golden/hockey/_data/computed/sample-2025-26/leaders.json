@@ -1,0 +1,1394 @@
+{
+  "boards": [
+    {
+      "id": "points",
+      "label": "Points",
+      "of": "player",
+      "group": "skater",
+      "group_label": "Skaters",
+      "stat": "pts",
+      "tile": false,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": [
+        {
+          "key": "g",
+          "label": "G",
+          "title": "Goals",
+          "key_col": false
+        },
+        {
+          "key": "a",
+          "label": "A",
+          "title": "Assists",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        }
+      ],
+      "title": "Points",
+      "title_board": null,
+      "unit": "PTS",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ike-n",
+          "team": "grey-owls",
+          "label": "#3 Ike N.",
+          "value": 10,
+          "display": "10",
+          "detail": "5 GP",
+          "cells": {
+            "g": "9",
+            "a": "1",
+            "pts": "10"
+          }
+        },
+        {
+          "rank": 1,
+          "player": "sal-p",
+          "team": "huskies",
+          "label": "#48 Sal P.",
+          "value": 10,
+          "display": "10",
+          "detail": "5 GP",
+          "cells": {
+            "g": "5",
+            "a": "5",
+            "pts": "10"
+          }
+        },
+        {
+          "rank": 3,
+          "player": "dee-f",
+          "team": "wolves",
+          "label": "#42 Dee F.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": {
+            "g": "6",
+            "a": "2",
+            "pts": "8"
+          }
+        },
+        {
+          "rank": 3,
+          "player": "kit-w",
+          "team": "ice-dogs",
+          "label": "#92 Kit W.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": {
+            "g": "6",
+            "a": "2",
+            "pts": "8"
+          }
+        },
+        {
+          "rank": 3,
+          "player": "quin-w",
+          "team": "blades",
+          "label": "#67 Quin W.",
+          "value": 8,
+          "display": "8",
+          "detail": "4 GP",
+          "cells": {
+            "g": "3",
+            "a": "5",
+            "pts": "8"
+          }
+        },
+        {
+          "rank": 3,
+          "player": "ted-t",
+          "team": "grey-owls",
+          "label": "#94 Ted T.",
+          "value": 8,
+          "display": "8",
+          "detail": "3 GP",
+          "cells": {
+            "g": "3",
+            "a": "5",
+            "pts": "8"
+          }
+        },
+        {
+          "rank": 3,
+          "player": "val-r",
+          "team": "ice-dogs",
+          "label": "#9 Val R.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": {
+            "g": "4",
+            "a": "4",
+            "pts": "8"
+          }
+        },
+        {
+          "rank": 8,
+          "player": "abe-b",
+          "team": "lumberjacks",
+          "label": "#59 Abe B.",
+          "value": 7,
+          "display": "7",
+          "detail": "4 GP",
+          "cells": {
+            "g": "4",
+            "a": "3",
+            "pts": "7"
+          }
+        },
+        {
+          "rank": 8,
+          "player": "kit-b",
+          "team": "wolves",
+          "label": "#75 Kit B.",
+          "value": 7,
+          "display": "7",
+          "detail": "4 GP",
+          "cells": {
+            "g": "5",
+            "a": "2",
+            "pts": "7"
+          }
+        },
+        {
+          "rank": 10,
+          "player": "cal-c",
+          "team": "blades",
+          "label": "#73 Cal C.",
+          "value": 6,
+          "display": "6",
+          "detail": "3 GP",
+          "cells": {
+            "g": "3",
+            "a": "3",
+            "pts": "6"
+          }
+        },
+        {
+          "rank": 10,
+          "player": "ike-h",
+          "team": "wolves",
+          "label": "#40 Ike H.",
+          "value": 6,
+          "display": "6",
+          "detail": "4 GP",
+          "cells": {
+            "g": "2",
+            "a": "4",
+            "pts": "6"
+          }
+        },
+        {
+          "rank": 10,
+          "player": "sky-d",
+          "team": "ice-dogs",
+          "label": "#58 Sky D.",
+          "value": 6,
+          "display": "6",
+          "detail": "4 GP",
+          "cells": {
+            "g": "1",
+            "a": "5",
+            "pts": "6"
+          }
+        },
+        {
+          "rank": 10,
+          "player": "yara-w",
+          "team": "lumberjacks",
+          "label": "#32 Yara W.",
+          "value": 6,
+          "display": "6",
+          "detail": "3 GP",
+          "cells": {
+            "g": "4",
+            "a": "2",
+            "pts": "6"
+          }
+        }
+      ]
+    },
+    {
+      "id": "goals",
+      "label": "Goals",
+      "of": "player",
+      "group": "skater",
+      "group_label": "Skaters",
+      "stat": "g",
+      "tile": false,
+      "list": true,
+      "edge": "hot",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Goals",
+      "title_board": null,
+      "unit": "G",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "ike-n",
+          "team": "grey-owls",
+          "label": "#3 Ike N.",
+          "value": 9,
+          "display": "9",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "dee-f",
+          "team": "wolves",
+          "label": "#42 Dee F.",
+          "value": 6,
+          "display": "6",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "kit-w",
+          "team": "ice-dogs",
+          "label": "#92 Kit W.",
+          "value": 6,
+          "display": "6",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "kit-b",
+          "team": "wolves",
+          "label": "#75 Kit B.",
+          "value": 5,
+          "display": "5",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "sal-p",
+          "team": "huskies",
+          "label": "#48 Sal P.",
+          "value": 5,
+          "display": "5",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "abe-b",
+          "team": "lumberjacks",
+          "label": "#59 Abe B.",
+          "value": 4,
+          "display": "4",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "jax-j",
+          "team": "huskies",
+          "label": "#6 Jax J.",
+          "value": 4,
+          "display": "4",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "nell-l",
+          "team": "blades",
+          "label": "#93 Nell L.",
+          "value": 4,
+          "display": "4",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "sal-l",
+          "team": "grey-owls",
+          "label": "#1 Sal L.",
+          "value": 4,
+          "display": "4",
+          "detail": "2 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "val-r",
+          "team": "ice-dogs",
+          "label": "#9 Val R.",
+          "value": 4,
+          "display": "4",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "yara-w",
+          "team": "lumberjacks",
+          "label": "#32 Yara W.",
+          "value": 4,
+          "display": "4",
+          "detail": "3 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "assists",
+      "label": "Assists",
+      "of": "player",
+      "group": "skater",
+      "group_label": "Skaters",
+      "stat": "a",
+      "tile": false,
+      "list": true,
+      "edge": "hot",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Assists",
+      "title_board": null,
+      "unit": "A",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "amy-s",
+          "team": "wolves",
+          "label": "#46 Amy S.",
+          "value": 5,
+          "display": "5",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "quin-w",
+          "team": "blades",
+          "label": "#67 Quin W.",
+          "value": 5,
+          "display": "5",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "sal-p",
+          "team": "huskies",
+          "label": "#48 Sal P.",
+          "value": 5,
+          "display": "5",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "sky-d",
+          "team": "ice-dogs",
+          "label": "#58 Sky D.",
+          "value": 5,
+          "display": "5",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "ted-t",
+          "team": "grey-owls",
+          "label": "#94 Ted T.",
+          "value": 5,
+          "display": "5",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "wes-w",
+          "team": "grey-owls",
+          "label": "#69 Wes W.",
+          "value": 5,
+          "display": "5",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "ike-h",
+          "team": "wolves",
+          "label": "#40 Ike H.",
+          "value": 4,
+          "display": "4",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "kit-r",
+          "team": "lumberjacks",
+          "label": "#18 Kit R.",
+          "value": 4,
+          "display": "4",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 7,
+          "player": "val-r",
+          "team": "ice-dogs",
+          "label": "#9 Val R.",
+          "value": 4,
+          "display": "4",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "abe-b",
+          "team": "lumberjacks",
+          "label": "#59 Abe B.",
+          "value": 3,
+          "display": "3",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "alf-l",
+          "team": "huskies",
+          "label": "#18 Alf L.",
+          "value": 3,
+          "display": "3",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "cal-b",
+          "team": "grey-owls",
+          "label": "#85 Cal B.",
+          "value": 3,
+          "display": "3",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "cal-c",
+          "team": "blades",
+          "label": "#73 Cal C.",
+          "value": 3,
+          "display": "3",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "ike-p",
+          "team": "grey-owls",
+          "label": "#76 Ike P.",
+          "value": 3,
+          "display": "3",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "kit-p",
+          "team": "huskies",
+          "label": "#62 Kit P.",
+          "value": 3,
+          "display": "3",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "rae-k",
+          "team": "grey-owls",
+          "label": "#64 Rae K.",
+          "value": 3,
+          "display": "3",
+          "detail": "2 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "rae-w",
+          "team": "blades",
+          "label": "#55 Rae W.",
+          "value": 3,
+          "display": "3",
+          "detail": "2 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "una-r",
+          "team": "ice-dogs",
+          "label": "#72 Una R.",
+          "value": 3,
+          "display": "3",
+          "detail": "3 GP",
+          "cells": null
+        },
+        {
+          "rank": 10,
+          "player": "val-m",
+          "team": "ice-dogs",
+          "label": "#68 Val M.",
+          "value": 3,
+          "display": "3",
+          "detail": "3 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "pim",
+      "label": "Penalty minutes",
+      "of": "player",
+      "group": "skater",
+      "group_label": "Skaters",
+      "stat": "pim",
+      "tile": false,
+      "list": true,
+      "edge": "hot",
+      "home": false,
+      "player_rank": false,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Penalty minutes",
+      "title_board": null,
+      "unit": "PIM",
+      "first_row_in_tile": false,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "amy-s",
+          "team": "wolves",
+          "label": "#46 Amy S.",
+          "value": 11,
+          "display": "11",
+          "detail": "6 GP",
+          "cells": null
+        },
+        {
+          "rank": 1,
+          "player": "ike-n",
+          "team": "grey-owls",
+          "label": "#3 Ike N.",
+          "value": 11,
+          "display": "11",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "kai-d",
+          "team": "ice-dogs",
+          "label": "#65 Kai D.",
+          "value": 10,
+          "display": "10",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "sal-f",
+          "team": "wolves",
+          "label": "#56 Sal F.",
+          "value": 8,
+          "display": "8",
+          "detail": "7 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "sal-p",
+          "team": "huskies",
+          "label": "#48 Sal P.",
+          "value": 8,
+          "display": "8",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "ike-h",
+          "team": "wolves",
+          "label": "#40 Ike H.",
+          "value": 7,
+          "display": "7",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "kit-t",
+          "team": "grey-owls",
+          "label": "Kit T.",
+          "value": 7,
+          "display": "7",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "cal-c",
+          "team": "blades",
+          "label": "#73 Cal C.",
+          "value": 6,
+          "display": "6",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "finn-b",
+          "team": "blades",
+          "label": "#24 Finn B.",
+          "value": 6,
+          "display": "6",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "kai-h",
+          "team": "lumberjacks",
+          "label": "#11 Kai H.",
+          "value": 6,
+          "display": "6",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "pax-c",
+          "team": "lumberjacks",
+          "label": "#50 Pax C.",
+          "value": 6,
+          "display": "6",
+          "detail": "4 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "quin-w",
+          "team": "blades",
+          "label": "#67 Quin W.",
+          "value": 6,
+          "display": "6",
+          "detail": "5 GP",
+          "cells": null
+        },
+        {
+          "rank": 8,
+          "player": "una-a",
+          "team": "lumberjacks",
+          "label": "#73 Una A.",
+          "value": 6,
+          "display": "6",
+          "detail": "4 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "gaa",
+      "label": "Goals-against avg",
+      "of": "player",
+      "group": "goalie",
+      "group_label": "Goalies",
+      "stat": "gaa",
+      "tile": true,
+      "list": true,
+      "edge": "accent",
+      "home": true,
+      "player_rank": true,
+      "order": "asc",
+      "min": {
+        "value": 4,
+        "placeholder": true,
+        "note": "Goalies need [placeholder] games played to rank."
+      },
+      "unranked": [
+        "quin-r",
+        "wren-h"
+      ],
+      "columns": null,
+      "title": "Goals-against avg",
+      "title_board": null,
+      "unit": "GAA",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "dax-p",
+          "team": "huskies",
+          "label": "#77 Dax P.",
+          "value": 2.75,
+          "display": "2.75",
+          "detail": "11 GA in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 2,
+          "player": "cleo-s",
+          "team": "lumberjacks",
+          "label": "#3 Cleo S.",
+          "value": 3.0,
+          "display": "3.00",
+          "detail": "15 GA in 5 GP",
+          "cells": null
+        },
+        {
+          "rank": 3,
+          "player": "una-e",
+          "team": "ice-dogs",
+          "label": "#4 Una E.",
+          "value": 3.25,
+          "display": "3.25",
+          "detail": "13 GA in 4 GP",
+          "cells": null
+        },
+        {
+          "rank": 4,
+          "player": "ida-n",
+          "team": "grey-owls",
+          "label": "#87 Ida N.",
+          "value": 3.4,
+          "display": "3.40",
+          "detail": "17 GA in 5 GP",
+          "cells": null
+        },
+        {
+          "rank": 5,
+          "player": "jax-p",
+          "team": "wolves",
+          "label": "#19 Jax P.",
+          "value": 3.6,
+          "display": "3.60",
+          "detail": "18 GA in 5 GP",
+          "cells": null
+        },
+        {
+          "rank": 6,
+          "player": "kai-p",
+          "team": "blades",
+          "label": "#00 Kai P.",
+          "value": 4.0,
+          "display": "4.00",
+          "detail": "20 GA in 5 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "shutouts",
+      "label": "Shutouts",
+      "of": "player",
+      "group": "goalie",
+      "group_label": "Goalies",
+      "stat": "sho",
+      "tile": true,
+      "list": true,
+      "edge": "hot",
+      "home": true,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": null,
+        "placeholder": false,
+        "note": null
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Shutouts",
+      "title_board": null,
+      "unit": "SHO",
+      "first_row_in_tile": true,
+      "rows": [
+        {
+          "rank": 1,
+          "player": "wren-h",
+          "team": null,
+          "label": "Wren H.",
+          "value": 1,
+          "display": "1",
+          "detail": "1 GP",
+          "cells": null
+        }
+      ]
+    },
+    {
+      "id": "sv_pct",
+      "label": "Save %",
+      "of": "player",
+      "group": "goalie",
+      "group_label": "Goalies",
+      "stat": "sv_pct",
+      "tile": false,
+      "list": true,
+      "edge": "accent",
+      "home": false,
+      "player_rank": true,
+      "order": "desc",
+      "min": {
+        "value": 4,
+        "placeholder": true,
+        "note": "Goalies need [placeholder] games played to rank."
+      },
+      "unranked": [],
+      "columns": null,
+      "title": "Save %",
+      "title_board": null,
+      "unit": "SV%",
+      "first_row_in_tile": false,
+      "rows": []
+    }
+  ],
+  "table": {
+    "group": "skater",
+    "label": "Skaters",
+    "columns": [
+      {
+        "key": "gp",
+        "label": "GP",
+        "title": "Games played",
+        "key_col": false
+      },
+      {
+        "key": "g",
+        "label": "G",
+        "title": "Goals",
+        "key_col": false
+      },
+      {
+        "key": "a",
+        "label": "A",
+        "title": "Assists",
+        "key_col": false
+      },
+      {
+        "key": "pts",
+        "label": "PTS",
+        "title": "Points",
+        "key_col": true
+      },
+      {
+        "key": "pim",
+        "label": "PIM",
+        "title": "Penalty minutes",
+        "key_col": false
+      }
+    ],
+    "rows": [
+      "ike-n",
+      "sal-p",
+      "dee-f",
+      "kit-w",
+      "quin-w",
+      "ted-t",
+      "val-r",
+      "abe-b",
+      "kit-b",
+      "cal-c",
+      "ike-h",
+      "sky-d",
+      "yara-w",
+      "amy-s",
+      "ike-p",
+      "kit-r",
+      "sal-l",
+      "wes-w",
+      "fay-a",
+      "jax-f",
+      "jax-j",
+      "kit-p",
+      "nell-l",
+      "una-r",
+      "ada-e",
+      "alf-l",
+      "bo-e",
+      "cal-b",
+      "finn-b",
+      "hal-b",
+      "hal-j",
+      "joy-d",
+      "rae-k",
+      "rae-w",
+      "sal-d",
+      "sal-f",
+      "sky-f",
+      "val-m",
+      "cal-e",
+      "gwen-e",
+      "kai-d",
+      "lars-c",
+      "lars-d",
+      "noa-h",
+      "pia-k",
+      "quin-p",
+      "tam-c",
+      "una-a",
+      "alf-f",
+      "alf-h",
+      "finn-g",
+      "gwen-h",
+      "ida-g",
+      "kai-h",
+      "kai-t",
+      "kit-t",
+      "lou-d",
+      "mae-d",
+      "oz-m",
+      "pax-c",
+      "sky-m",
+      "fay-c",
+      "jax-h",
+      "ola-p",
+      "oz-g",
+      "quin-g",
+      "quin-r"
+    ]
+  },
+  "tables": [
+    {
+      "group": "skater",
+      "label": "Skaters",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "g",
+          "label": "G",
+          "title": "Goals",
+          "key_col": false
+        },
+        {
+          "key": "a",
+          "label": "A",
+          "title": "Assists",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "pim",
+          "label": "PIM",
+          "title": "Penalty minutes",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "ike-n",
+        "sal-p",
+        "dee-f",
+        "kit-w",
+        "quin-w",
+        "ted-t",
+        "val-r",
+        "abe-b",
+        "kit-b",
+        "cal-c",
+        "ike-h",
+        "sky-d",
+        "yara-w",
+        "amy-s",
+        "ike-p",
+        "kit-r",
+        "sal-l",
+        "wes-w",
+        "fay-a",
+        "jax-f",
+        "jax-j",
+        "kit-p",
+        "nell-l",
+        "una-r",
+        "ada-e",
+        "alf-l",
+        "bo-e",
+        "cal-b",
+        "finn-b",
+        "hal-b",
+        "hal-j",
+        "joy-d",
+        "rae-k",
+        "rae-w",
+        "sal-d",
+        "sal-f",
+        "sky-f",
+        "val-m",
+        "cal-e",
+        "gwen-e",
+        "kai-d",
+        "lars-c",
+        "lars-d",
+        "noa-h",
+        "pia-k",
+        "quin-p",
+        "tam-c",
+        "una-a",
+        "alf-f",
+        "alf-h",
+        "finn-g",
+        "gwen-h",
+        "ida-g",
+        "kai-h",
+        "kai-t",
+        "kit-t",
+        "lou-d",
+        "mae-d",
+        "oz-m",
+        "pax-c",
+        "sky-m",
+        "fay-c",
+        "jax-h",
+        "ola-p",
+        "oz-g",
+        "quin-g",
+        "quin-r"
+      ]
+    },
+    {
+      "group": "goalie",
+      "label": "Goalies",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "w",
+          "label": "W",
+          "title": "Wins",
+          "key_col": false
+        },
+        {
+          "key": "l",
+          "label": "L",
+          "title": "Losses",
+          "key_col": false
+        },
+        {
+          "key": "t",
+          "label": "T",
+          "title": "Ties",
+          "key_col": false
+        },
+        {
+          "key": "ga",
+          "label": "GA",
+          "title": "Goals against",
+          "key_col": false
+        },
+        {
+          "key": "gaa",
+          "label": "GAA",
+          "title": "Goals against average",
+          "key_col": true
+        },
+        {
+          "key": "sho",
+          "label": "SHO",
+          "title": "Shutouts",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "wren-h",
+        "dax-p",
+        "cleo-s",
+        "una-e",
+        "ida-n",
+        "jax-p",
+        "kai-p",
+        "quin-r"
+      ]
+    }
+  ],
+  "columns": {
+    "skater": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "g",
+          "label": "G",
+          "title": "Goals",
+          "key_col": false
+        },
+        {
+          "key": "a",
+          "label": "A",
+          "title": "Assists",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "pim",
+          "label": "PIM",
+          "title": "Penalty minutes",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "g",
+          "label": "G",
+          "title": "Goals",
+          "key_col": false
+        },
+        {
+          "key": "a",
+          "label": "A",
+          "title": "Assists",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "pim",
+          "label": "PIM",
+          "title": "Penalty minutes",
+          "key_col": false
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Power-play goals",
+          "key_col": false
+        },
+        {
+          "key": "shg",
+          "label": "SHG",
+          "title": "Short-handed goals",
+          "key_col": false
+        },
+        {
+          "key": "gwg",
+          "label": "GWG",
+          "title": "Game-winning goals",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "g",
+          "label": "G",
+          "title": "Goals",
+          "key_col": false
+        },
+        {
+          "key": "a",
+          "label": "A",
+          "title": "Assists",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "pim",
+          "label": "PIM",
+          "title": "Penalty minutes",
+          "key_col": false
+        }
+      ]
+    },
+    "goalie": {
+      "table": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "w",
+          "label": "W",
+          "title": "Wins",
+          "key_col": false
+        },
+        {
+          "key": "l",
+          "label": "L",
+          "title": "Losses",
+          "key_col": false
+        },
+        {
+          "key": "t",
+          "label": "T",
+          "title": "Ties",
+          "key_col": false
+        },
+        {
+          "key": "ga",
+          "label": "GA",
+          "title": "Goals against",
+          "key_col": false
+        },
+        {
+          "key": "gaa",
+          "label": "GAA",
+          "title": "Goals against average",
+          "key_col": true
+        },
+        {
+          "key": "sho",
+          "label": "SHO",
+          "title": "Shutouts",
+          "key_col": false
+        }
+      ],
+      "totals": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "w",
+          "label": "W",
+          "title": "Wins",
+          "key_col": false
+        },
+        {
+          "key": "l",
+          "label": "L",
+          "title": "Losses",
+          "key_col": false
+        },
+        {
+          "key": "t",
+          "label": "T",
+          "title": "Ties",
+          "key_col": false
+        },
+        {
+          "key": "otl",
+          "label": "OTL",
+          "title": "Overtime and shootout losses (of the losses)",
+          "key_col": false
+        },
+        {
+          "key": "ga",
+          "label": "GA",
+          "title": "Goals against",
+          "key_col": false
+        },
+        {
+          "key": "gaa",
+          "label": "GAA",
+          "title": "Goals against average",
+          "key_col": true
+        },
+        {
+          "key": "sho",
+          "label": "SHO",
+          "title": "Shutouts",
+          "key_col": false
+        },
+        {
+          "key": "a",
+          "label": "A",
+          "title": "Assists",
+          "key_col": false
+        },
+        {
+          "key": "pim",
+          "label": "PIM",
+          "title": "Penalty minutes",
+          "key_col": false
+        }
+      ],
+      "log": [
+        {
+          "key": "ga",
+          "label": "GA",
+          "title": "Goals against",
+          "key_col": true
+        }
+      ]
+    }
+  }
+}
