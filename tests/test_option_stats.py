@@ -282,3 +282,10 @@ def test_the_pages_follow_the_option(tmp_path):
     assert "All players" not in stats and "Hitting</h2>" not in stats and "Standings</h2>" in stats     # the table moves to Stats
     assert "Roster" not in page(none, "teams/alpha") and "Results</h2>" in page(none, "teams/alpha")
     assert "Season totals</h2>" not in page(none, "players/a1") and "Game log</h2>" not in page(none, "players/a1")
+
+
+def test_calendar_summaries_follow_the_matchup(tmp_path):
+    """E26: with `matchup: at` the calendar names the visitors first ("Bravo at Alpha"), as the pages do."""
+    b = build_it(tmp_path)
+    text = (b.root / "calendar" / "league.ics").read_text(encoding="utf-8")
+    assert "SUMMARY:Bravo at Alpha" in text and " vs " not in text

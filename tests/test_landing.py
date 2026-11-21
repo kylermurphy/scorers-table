@@ -111,7 +111,7 @@ def test_a_sport_entry_has_the_fixed_shape(page):
     for s in page["sports"]:
         assert list(s) == ["id", "name", "blurb", "url", "demo_label", "league_name", "layout", "window"]
         assert list(s["window"]) == ["league", "standings", "teams", "latest"]
-        assert list(s["window"]["league"]) == ["name", "layout", "labels", "words", "display", "results_legend"]
+        assert list(s["window"]["league"]) == ["name", "layout", "labels", "words", "display", "results_legend", "sides_order"]
         assert list(s["window"]["standings"]) == ["columns", "rows", "note"]
         assert set(s["window"]["latest"]) == {"label", "date_long", "game"}
 
@@ -174,7 +174,7 @@ def test_the_latest_result_is_the_first_game_of_the_demos_latest_day(page, demos
 def test_the_window_league_is_the_demos_league_json(page, demos, sport_id):
     entry = next(s for s in page["sports"] if s["id"] == sport_id)
     league = load(demos[sport_id], "league.json")
-    assert entry["window"]["league"] == {k: league[k] for k in ("name", "layout", "labels", "words", "display", "results_legend")}
+    assert entry["window"]["league"] == {k: league[k] for k in ("name", "layout", "labels", "words", "display", "results_legend", "sides_order")}
     assert (entry["name"], entry["league_name"], entry["layout"]) == (league["sport_name"], league["name"], league["layout"])
 
 

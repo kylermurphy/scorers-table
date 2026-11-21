@@ -363,9 +363,10 @@ def game_row(ctx: Ctx, row: dict, tag: str = "div", show_time: bool = True) -> s
         mods += " st-game-row--no-surface"
     if not show_time:
         mods += " st-game-row--no-time"
+    first, second, word = (("away", "home", "at") if ctx.sport == "slopitch" else ("home", "away", "vs"))
     teams = (
-        f'<span class="st-game-row__teams">{esc(tname(ctx, row["home"]))} '
-        f'<span class="st-game-row__vs">vs</span> {esc(tname(ctx, row["away"]))}</span>'
+        f'<span class="st-game-row__teams">{esc(tname(ctx, row[first]))} '
+        f'<span class="st-game-row__vs">{word}</span> {esc(tname(ctx, row[second]))}</span>'
     )
     href = ' href="#"' if tag == "a" else ""
     return f'<{tag} class="st-game-row{mods}"{href}>{surface}{teams}{time_html}</{tag}>'

@@ -188,7 +188,8 @@ def _calendars(league: League, data: LoadedData, ctxs: dict[str, SeasonCtx], sit
     files = build_calendars(
         league_name=league.name, season_label=season.label, timezone=league.timezone, game_minutes=league.game_minutes,
         games=games, teams={t.id: t.name for t in current.teams.values()}, site_url=site_url,
-        address=season.venue_address or "", today=current.today)
+        address=season.venue_address or "", today=current.today,
+        matchup=league.sport_def.spec["display"]["matchup"])
     entries = [links(LEAGUE_FILE, "Whole league", None, site_url)]
     entries += [links(f"{t.id}.ics", t.name, t.id, site_url) for t in current.teams.values()]
     return {"json": {"season": season.id, "files": entries}, "files": files,
