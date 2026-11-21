@@ -91,7 +91,7 @@ def test_periods_the_words_and_the_display_hints():
     assert spec["words"]["day"] == "Week" and spec["words"]["surface"] == "Pad" and "extra" not in spec["words"]
     assert spec["words"]["points_for"]["label"] == "GF" and spec["words"]["points_against"]["label"] == "GA"
     assert spec["game_minutes"] == 75 and spec["positions"] == ["forward", "defence", "goalie"]
-    assert spec["display"] == {"card": "rows", "card_foot": "status_note", "surface": "sub"}
+    assert spec["display"] == {"card": "rows", "card_foot": "status_note", "surface": "sub", "card_head": "", "matchup": "vs"}
     assert spec["labels"]["leaders"] == "Leaders" and spec["labels_by_layout"]["classic"]["leaders"] == "Scoring leaders"
 
 
