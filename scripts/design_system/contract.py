@@ -41,11 +41,13 @@ VOID_WORD = {"ends": "not played", "innings": "not needed"}
 
 # What the sport hands the core as `display` hints (spec 3.2). `card_head` is the one hint added here.
 DISPLAY = {
-    "basketball": {"card": "rows", "card_foot": "note", "surface": "label", "card_head": ""},
-    "curling": {"card": "lines", "card_foot": "meta", "surface": "label", "card_head": ""},
-    "hockey": {"card": "rows", "card_foot": "status_note", "surface": "sub", "card_head": ""},
-    "slopitch": {"card": "lines", "card_foot": "note", "surface": "label", "card_head": "status_surface"},
+    "basketball": {"card": "rows", "card_foot": "note", "surface": "label", "card_head": "", "matchup": "vs"},
+    "curling": {"card": "lines", "card_foot": "meta", "surface": "label", "card_head": "", "matchup": "vs"},
+    "hockey": {"card": "rows", "card_foot": "status_note", "surface": "sub", "card_head": "", "matchup": "vs"},
+    "slopitch": {"card": "lines", "card_foot": "note", "surface": "label", "card_head": "status_surface",
+                 "matchup": "at"},
 }
+SIDES_ORDER = {"vs": ["home", "away"], "at": ["away", "home"]}      # league.json `sides_order` (E26)
 
 NAV_KEYS = {"Home": ("home", "/"), "Schedule": ("schedule", "/schedule/"), "Stats": ("stats", "/stats/"),
             "Teams": ("teams", "/teams/"), "Archive": ("archive", "/archive/")}
@@ -54,6 +56,18 @@ FOOTER_URLS = {"Teams": "/teams/", "Past seasons": "/archive/", "League rules": 
 
 CUSTOM_CHIPS = [("Navy", "#1D3A6E"), ("Black", "#000000"), ("Green", "#2F6B3A"), ("Brown", "#7A4A1E"),
                 ("Purple", "#5B3A8C"), ("Red", "#9E1B32"), ("Gold", "#F2A900"), ("Yellow", "#FFC233")]
+
+
+def sides_of(L: dict) -> tuple[str, str]:
+    """The sides of a sample's two teams, first-listed first. The sample lists the teams in the order a page shows
+    them: for slo-pitch (`matchup: at`) that is the visitors then the home team (home = Sluggers), so the first
+    listed is `away`; the other sports list `home` then `away`."""
+    return ("away", "home") if DISPLAY[L["sport"]]["matchup"] == "at" else ("home", "away")
+
+
+def home_away(L: dict, first: str, second: str) -> tuple[str, str]:
+    """(home, away) of two sample teams given first-listed first."""
+    return (second, first) if sides_of(L)[0] == "away" else (first, second)
 
 
 def cases() -> list[tuple[str, str]]:
@@ -110,6 +124,7 @@ def league_json(L: dict, layout: str) -> dict:
         "words": {"surface": L["surface_word"], "period": {"one": L["period_word"], "many": L["period_word"] + "s",
                                                            "short": L["period_word"][0]}},
         "display": dict(DISPLAY[L["sport"]]),
+        "sides_order": list(SIDES_ORDER[DISPLAY[L["sport"]]["matchup"]]),
         "placeholders": [],
     }
 
@@ -218,7 +233,7 @@ def _line_score(L: dict, ids: list[str], side_cells: dict, totals: dict, *, labe
             col["blank"] = True
         columns.append(col)
     rows = {}
-    for side, team_id in zip(("home", "away"), ids):
+    for side, team_id in zip(sides_of(L), ids):
         cells = []
         for i, v in enumerate(side_cells[team_id], start=1):
             cell: dict = {"v": v}
@@ -431,7 +446,7 @@ def _basketball_blocks(L: dict) -> list[dict]:
 def _curling_blocks(L: dict) -> list[dict]:
     """The game in numbers (the `numbers` block) and the lineups (the `roster` block), from the sample's sections."""
     g = L["game"]
-    side_of = {t["team"]: side for side, t in zip(("home", "away"), g["final"]["teams"])}
+    side_of = {t["team"]: side for side, t in zip(sides_of(L), g["final"]["teams"])}
     blocks = []
     for sec in g["sections"]:
         if sec["kind"] == "numbers":
@@ -457,7 +472,7 @@ def _curling_blocks(L: dict) -> list[dict]:
 def _hockey_blocks(L: dict) -> list[dict]:
     """The scoring summary (`events`), the `penalties`, and the Goalies and Skaters `group` blocks."""
     g = L["game"]
-    side_of = {t["team"]: side for side, t in zip(("home", "away"), g["final"]["teams"])}
+    side_of = {t["team"]: side for side, t in zip(sides_of(L), g["final"]["teams"])}
     blocks = []
     for sec in g["sections"]:
         if sec["kind"] == "scoring":
@@ -510,7 +525,7 @@ def _hockey_blocks(L: dict) -> list[dict]:
 def _slopitch_blocks(L: dict) -> list[dict]:
     """The facts (the `facts` block), one batting `stat_table` per team (number_col, `heading: plain`) and the notes."""
     g = L["game"]
-    side_of = {t["team"]: side for side, t in zip(("home", "away"), g["final"]["teams"])}
+    side_of = {t["team"]: side for side, t in zip(sides_of(L), g["final"]["teams"])}
     blocks = []
     for sec in g["sections"]:
         if sec["kind"] == "facts":
@@ -548,6 +563,7 @@ def games_json(L: dict, layout: str) -> dict:
     out = {}
     for r in L["results"]:
         a, b = r["home"], r["away"]
+        sides = sides_of(L)
         is_game = r["game"] is not None
         final = {"status": None, "sub": None}
         line_a = line_b = None
@@ -581,8 +597,8 @@ def games_json(L: dict, layout: str) -> dict:
             "day_label": L["results_header"]["meta"].split(" · ")[0],
             "date_short": hero_date, "date_long": r["date"], "time_display": r["time"], "venue": L["venue"],
             "surface_label": _surface_label(L, r["surface"]),
-            "home": _side(L, a, r["scores"][a], _result_of(r, a), line_a, badges[a]),
-            "away": _side(L, b, r["scores"][b], _result_of(r, b), line_b, badges[b]),
+            sides[0]: _side(L, a, r["scores"][a], _result_of(r, a), line_a, badges[a]),
+            sides[1]: _side(L, b, r["scores"][b], _result_of(r, b), line_b, badges[b]),
             "tie": r["tie"], "forfeit": None, "decided_in": "regulation", "status": r["status"],
             "summary": final["sub"], "final": final, "notes": [], "photo_url": None, "standings_points": {},
             "line_score": full if full is not None else cls, "card": card, "tiles": None, "blocks": blocks,
@@ -619,10 +635,11 @@ def schedule_json(L: dict, layout: str) -> dict:
     nd = L["next_day"]
     played_rows = []
     for r in L["results"]:
-        win = None if r["winner"] is None else ("home" if r["winner"] == r["home"] else "away")
+        home, away = home_away(L, r["home"], r["away"])
+        win = None if r["winner"] is None else ("home" if r["winner"] == home else "away")
         played_rows.append(_schedule_row(
-            L, r["id"], r["home"], r["away"], r["surface"], r["time"], played=True,
-            score={"home": r["scores"][r["home"]], "away": r["scores"][r["away"]]}, winner=win))
+            L, r["id"], home, away, r["surface"], r["time"], played=True,
+            score={"home": r["scores"][home], "away": r["scores"][away]}, winner=win))
     hdr = L["results_header"]["meta"]
     latest = {
         "n": 1, "label": hdr.split(" · ")[0], "date": "2026-11-12", "date_short": hdr.split(" · ")[1],
@@ -631,7 +648,7 @@ def schedule_json(L: dict, layout: str) -> dict:
     }
     groups, flat = [], []
     for gi, g in enumerate(nd["groups"], start=1):
-        rows = [_schedule_row(L, f"next-{gi}-{ri}", x["home"], x["away"], x["surface"], x["time"])
+        rows = [_schedule_row(L, f"next-{gi}-{ri}", *home_away(L, x["home"], x["away"]), x["surface"], x["time"])
                 for ri, x in enumerate(g["rows"], start=1)]
         flat += rows
         groups.append({"time_label": g["time_label"], "games": rows})
@@ -775,7 +792,8 @@ def landing_window(sport: str) -> dict:
     legend = [_legend_item(_legend_kind(t), t) for t in L.get("results_legend") or []] if sport == "curling" else []
     return {
         "league": {"name": league["name"], "layout": layout, "labels": league["labels"], "words": league["words"],
-                   "display": league["display"], "results_legend": legend},
+                   "display": league["display"], "sides_order": league["sides_order"],
+                   "results_legend": legend},
         "standings": standings,
         "teams": teams,
         "latest": {"label": day["label"], "date_long": day["date_long"], "game": game},

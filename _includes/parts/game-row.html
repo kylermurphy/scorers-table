@@ -36,7 +36,11 @@
 <span class="st-game-row__surface st-game-row__surface--tag"><span class="st-visually-hidden">{{ _gr_row.surface_label | escape }}</span><span aria-hidden="true">{{ _gr_word | slice: 0 | escape }}{{ _gr_row.surface | escape }}</span></span>
   {%- endif -%}
 {%- endif -%}
+{%- if league.display.matchup == "at" -%}
+<span class="st-game-row__teams">{{ _gr_row.away_name | escape }} <span class="st-game-row__vs">at</span> {{ _gr_row.home_name | escape }}</span>
+{%- else -%}
 <span class="st-game-row__teams">{{ _gr_row.home_name | escape }} <span class="st-game-row__vs">vs</span> {{ _gr_row.away_name | escape }}</span>
+{%- endif -%}
 {%- if _gr_show -%}
 <span class="st-game-row__time">{{ _gr_time | escape }}
   {%- if _gr_kind == "sub" and _gr_row.surface.size > 0 -%}<span class="st-game-row__sub">{{ _gr_row.surface_label | escape }}</span>{%- endif -%}

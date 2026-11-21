@@ -14,7 +14,11 @@ layout: default
   {%- capture _back %}/archive/{{ season }}/{% endcapture -%}
   {%- capture _back_label %}‹ {{ season_label }} season{% endcapture -%}
 {%- endif -%}
-{%- capture _title %}{{ game.home.name }} vs {{ game.away.name }}{% endcapture -%}
+{%- if league.display.matchup == "at" -%}
+  {%- capture _title %}{{ game.away.name }} at {{ game.home.name }}{% endcapture -%}
+{%- else -%}
+  {%- capture _title %}{{ game.home.name }} vs {{ game.away.name }}{% endcapture -%}
+{%- endif -%}
 {%- assign _eyebrow = game.round | default: game.day_label -%}
 {%- capture _sub %}{{ game.date_long }} · {{ game.time_display }}{% endcapture -%}
 {%- capture _sub2 %}{{ game.venue }}{% if game.surface_label.size > 0 %} · {{ game.surface_label }}{% endif %}{% endcapture -%}

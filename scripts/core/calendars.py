@@ -82,8 +82,9 @@ def host_of(site_url: str) -> str:
     return site_url.split("://", 1)[-1].split("/", 1)[0] or "localhost"
 
 
-def title(game: CalGame) -> str:
-    text = f"{game.home_name} vs {game.away_name}"
+def title(game: CalGame, matchup: str = "vs") -> str:
+    """"Home vs Away", or with `matchup: at` (E26) "Away at Home": the visitors first, as the pages list them."""
+    text = f"{game.away_name} at {game.home_name}" if matchup == "at" else f"{game.home_name} vs {game.away_name}"
     if game.type == "playoff":
         text = f"Playoffs, {game.round}: {text}" if game.round else f"Playoffs: {text}"
     return f"Cancelled: {text}" if game.cancelled else text
@@ -103,7 +104,7 @@ def description(game: CalGame, league_name: str, season_label: str, site_url: st
 
 
 def event(game: CalGame, *, league_name: str, season_label: str, timezone: str, game_minutes: int, site_url: str,
-          address: str, now: dt.datetime) -> list[str]:
+          address: str, now: dt.datetime, matchup: str = "vs") -> list[str]:
     """The VEVENT lines for one game."""
     start = utc(game.date, game.time, timezone)
     end = start + dt.timedelta(minutes=game_minutes)
@@ -113,7 +114,7 @@ def event(game: CalGame, *, league_name: str, season_label: str, timezone: str, 
         f"DTSTAMP:{stamp(now)}",
         f"DTSTART:{stamp(start)}",
         f"DTEND:{stamp(end)}",
-        f"SUMMARY:{escape(title(game))}",
+        f"SUMMARY:{escape(title(game, matchup))}",
         f"DESCRIPTION:{escape(description(game, league_name, season_label, site_url))}",
     ]
     if site_url:
@@ -140,13 +141,13 @@ def calendar(name: str, timezone: str, events: list[list[str]]) -> str:
 
 def build_calendars(*, league_name: str, season_label: str, timezone: str, game_minutes: int,
                     games: list[CalGame], teams: dict[str, str], site_url: str = "", address: str = "",
-                    today: dt.date) -> dict[str, str]:
+                    today: dt.date, matchup: str = "vs") -> dict[str, str]:
     """{file name: .ics text}: `league.ics` and `<team id>.ics` for every team. `teams` is {id: name}.
     DTSTAMP is `today` at midnight UTC, so the same data and date always give the same files."""
     site_url = site_url.rstrip("/")
     now = dt.datetime.combine(today, dt.time(), tzinfo=dt.timezone.utc)
     events = {g.game_id: event(g, league_name=league_name, season_label=season_label, timezone=timezone,
-                               game_minutes=game_minutes, site_url=site_url, address=address, now=now)
+                               game_minutes=game_minutes, site_url=site_url, address=address, now=now, matchup=matchup)
               for g in games}
     files = {LEAGUE_FILE: calendar(f"{league_name} {season_label}", timezone, [events[g.game_id] for g in games])}
     for team_id, name in teams.items():
