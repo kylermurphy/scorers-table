@@ -1130,7 +1130,7 @@ def _file_of(site: Path, href: str) -> Path:
 def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demos(landed):
     root, result, main_output = landed
     assert result.returncode == 0, result.stdout + result.stderr
-    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html"]
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html", "slopitch"]
     assert "skipping /preview/" in result.stdout and "Sport preview copy: _site/curling/" in result.stdout
     assert "Sport preview copy: _site/hockey/" in result.stdout
     assert "Conflict" not in main_output + result.stdout + result.stderr
@@ -1147,12 +1147,12 @@ def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demo
 def test_the_landing_page_loads_each_sports_look_after_its_own_and_draws_every_window_in_it(landed):
     _, page = _landing_page(landed)
     css = page.stylesheets()
-    own, extra, more, base = (css.index(f"{BASE}/assets/css/{n}.css")
-                              for n in ("layouts/basketball", "layouts/curling", "layouts/hockey", "base"))
-    assert own < extra < more < base
-    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling", "hockey"]
+    own, extra, more, last, base = (css.index(f"{BASE}/assets/css/{n}.css")
+                                    for n in ("layouts/basketball", "layouts/curling", "layouts/hockey", "layouts/slopitch", "base"))
+    assert own < extra < more < last < base
+    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling", "hockey", "slopitch"]
     assert (page.html.index('aria-label="Basketball demo preview"') < page.html.index('aria-label="Curling demo preview"')
-            < page.html.index('aria-label="Hockey demo preview"'))
+            < page.html.index('aria-label="Hockey demo preview"') < page.html.index('aria-label="Slo-pitch demo preview"'))
 
 
 def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_the_base_path(landed):
@@ -1179,7 +1179,7 @@ def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_t
 def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
     root, _, _ = landed
     page = json.loads((root / "_data" / "computed" / "landing.json").read_text(encoding="utf-8"))
-    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey"]
+    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey", "slopitch"]
     for sport in page["sports"]:
         for team in sport["window"]["teams"].values():
             assert team["url"].startswith(f"/{sport['id']}/teams/"), team
@@ -1192,7 +1192,7 @@ def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
 def test_the_coming_soon_cards_have_no_link_and_no_window(landed):
     html, _ = _landing_page(landed)
     soon = re.findall(r'<article class="st-card st-sport-card st-sport-card--soon">.*?</article>', html, re.S)
-    assert len(soon) == 1 and "Slo-pitch" in soon[0] and "Hockey" not in soon[0]
+    assert soon == []                                       # every sport has its demo: landing.yml lists none
     for card in soon:
         assert "<a " not in card and "href" not in card and "st-sport-card__window" not in card
         assert "Coming soon" in card
@@ -1217,7 +1217,7 @@ def test_without_javascript_the_landing_page_and_its_windows_follow_the_phone(la
 
 def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
     root, _, _ = landed
-    for sport in ("basketball", "curling", "hockey"):
+    for sport in ("basketball", "curling", "hockey", "slopitch"):
         pages = sorted((root / "_site" / sport).rglob("*.html"))
         assert len(pages) > 40
         for file in pages:
@@ -1227,7 +1227,8 @@ def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
             assert Page(html).robots() == ["noindex, nofollow"], file
     other = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
     assert (f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>, '
-            f'<a class="st-banner__link" href="{BASE}/hockey/">Hockey</a>.') in other
+            f'<a class="st-banner__link" href="{BASE}/hockey/">Hockey</a>, '
+            f'<a class="st-banner__link" href="{BASE}/slopitch/">Slo-pitch</a>.') in other
     assert "st-banner" not in (root / "_site" / "index.html").read_text(encoding="utf-8")      # no sample banner on the landing page
 
 
@@ -1250,7 +1251,7 @@ def test_the_landing_page_never_publishes_the_score_sheet_photos(tmp_path, jekyl
     assert in_the_source                                                                   # it was in the source...
     assert "photos: true" in (root / "league.yml").read_text(encoding="utf-8")
     assert '"sheets/"' in (root / "_config.landing.yml").read_text(encoding="utf-8")
-    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html"]
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html", "slopitch"]
     assert not list((root / "_site").rglob("2026-11-14-g1.jpg"))                           # ...and nowhere in the site
 
 
@@ -1280,7 +1281,7 @@ def test_with_the_line_left_out_the_overlay_is_one_line_and_the_site_is_the_leag
     assert (root / "_config.landing.yml").read_text(encoding="utf-8") == "landing_page: false\n"
     assert not (root / "_data" / "computed" / "landing.json").exists()
     names = {p.name for p in (root / "_site").iterdir()}
-    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling", "hockey"} <= names
+    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling", "hockey", "slopitch"} <= names
     assert not ({"landing", "landing.yml"} & names)
     assert "A website for your league" not in (root / "_site" / "index.html").read_text(encoding="utf-8")
     demo = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
@@ -1295,7 +1296,7 @@ def test_the_overlay_that_says_off_changes_no_byte_of_the_root(landing_off, tmp_
     proc = subprocess.run([*jekyll, "build", "--config", "_config.yml,_config.ci.yml", "--baseurl", BASE,
                            "--destination", str(without), "--quiet"], cwd=root, capture_output=True, text=True, env=env)
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    assert _files(root / "_site", skip=("basketball", "curling", "hockey")) == _files(without)
+    assert _files(root / "_site", skip=("basketball", "curling", "hockey", "slopitch")) == _files(without)
 
 
 OFF_GOLDEN = ROOT / "tests" / "golden" / "landing" / "off-site.sha256"
