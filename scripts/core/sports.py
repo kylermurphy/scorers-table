@@ -35,7 +35,7 @@ SAMPLE_FUNCTION = ("sheet", 3)
 OPTION_TYPES = ("int", "bool", "choice", "text")
 # Keys of `stats:` that are not groups of counting stats: the model's (derived, team, columns) and `labels`
 # (E14: the group names the pages print) plus `_derived_group` (checker-only: derived key -> its `group:`).
-STAT_RESERVED = tuple(dict.fromkeys((*_MODEL_STAT_RESERVED, "labels", "_derived_group")))
+STAT_RESERVED = tuple(dict.fromkeys((*_MODEL_STAT_RESERVED, "_derived_group")))
 STAT_FORMATS = ("decimal", "dot")      # a derived stat's `format:` (E13): "0.912" or ".912"
 BOARD_ORDERS = ("desc", "asc")         # a leaderboard's `order:` (E12): best is highest (default) or lowest
 RESERVED_STATS = ("gp",)       # stats the core counts itself; a sport never lists them

@@ -26,7 +26,7 @@ def spec_of(sports_root, sport="tiny"):
 
 
 def test_discovery_lists_folders_that_have_a_sport_yml(sports_root, tmp_path):
-    assert discover_sports(sports_root) == ["bare", "broken", "other", "tiny", "typo"]
+    assert discover_sports(sports_root) == ["bare", "broken", "other", "tiny", "twogroup", "typo"]
     (tmp_path / "empty").mkdir()
     (tmp_path / "real").mkdir()
     (tmp_path / "real" / "sport.yml").write_text("name: x\n", encoding="utf-8")
@@ -134,7 +134,7 @@ def test_decide_wrappers():
 
 def test_load_all_sports_loads_every_folder_it_can(sports_root):
     sports, problems = load_all_sports(sports_root)
-    assert sorted(s.id for s in sports) == ["other", "tiny"]
+    assert sorted(s.id for s in sports) == ["other", "tiny", "twogroup"]
     assert {p.file.split("/")[-2] for p in problems if p.level == "error"} == {"bare", "broken", "typo"}
 
 

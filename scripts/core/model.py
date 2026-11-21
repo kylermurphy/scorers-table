@@ -20,7 +20,7 @@ DECIDED_IN = ("regulation", "overtime", "shootout")         # Score.decided_in
 PRESENT_KEYS = ("line_score", "card", "tiles", "blocks")
 BLOCK_TYPES = ("stat_table", "note", "top_performer", "numbers", "roster", "events", "penalties", "group")
 # The names under sport.yml `stats:` that are not groups of counting stats (every other key is a group).
-STAT_RESERVED = ("derived", "team", "columns")
+STAT_RESERVED = ("derived", "team", "columns", "labels")
 CELL_FLAGS = ("won", "mark", "blank", "void", "open", "hammer")
 
 # Every layout id: assets/css/layouts/<id>.css.
