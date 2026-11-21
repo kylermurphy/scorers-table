@@ -1,0 +1,20 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "The game was decided in overtime, so there was no shootout. Take 'shootout' out."
+    },
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "The game was decided in overtime, so there was no shootout. Leave the SO box empty."
+    },
+    {
+      "level": "error",
+      "at": "score.away.so",
+      "message": "The game was decided in overtime, so there was no shootout. Leave the SO box empty."
+    }
+  ],
+  "reading": null
+}

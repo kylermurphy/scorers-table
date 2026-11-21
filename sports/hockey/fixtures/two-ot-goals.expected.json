@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.5.period",
+      "message": "overtime ends on the first goal, so there is only one overtime goal in a game. Check the period of this goal."
+    }
+  ],
+  "reading": null
+}

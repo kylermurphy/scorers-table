@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.away",
+      "message": "is empty. List the players who dressed for Bravo, with their jersey numbers."
+    }
+  ],
+  "reading": null
+}

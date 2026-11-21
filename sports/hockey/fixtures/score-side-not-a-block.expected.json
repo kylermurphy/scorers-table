@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home",
+      "message": "should be like {periods: [2, 1, 2], final: 5} for Alpha"
+    }
+  ],
+  "reading": null
+}

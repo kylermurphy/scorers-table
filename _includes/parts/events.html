@@ -1,0 +1,39 @@
+{%- comment -%}
+  parts/events.html: the scoring summary of a game (present() block type "events"): a section heading, then a card with
+  one group for each period played (a head with the period and its tally, then the events one to a row), and a note.
+  Params: block, game (for the sides' chip and code). Reads: block {title, groups [{label, tally [{side, n}], empty
+  (the words shown when the group has no events: "No scoring"), events [{time, side, name, badge (a GWG badge, or
+  null), sub (the line under the name: the assists, or null), score (the running score at the right, or null)}]}],
+  note}. The name is plain text: the players of a summary are not links.
+{%- endcomment -%}
+{%- assign _ev_b = include.block -%}
+{%- capture _ev_o -%}
+<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">{{ _ev_b.title | escape }}</h2></div>
+<div class="st-events">
+{%- for _ev_g in _ev_b.groups -%}
+<section class="st-events__group"><h3 class="st-events__head"><span>{{ _ev_g.label | escape }}</span><span class="st-events__tally">
+  {%- for _ev_t in _ev_g.tally -%}{{ include.game[_ev_t.side].code | escape }} {{ _ev_t.n }}{% unless forloop.last %} · {% endunless %}{%- endfor -%}
+</span></h3>
+  {%- if _ev_g.events.size > 0 -%}
+<ol class="st-events__list">
+    {%- for _ev_e in _ev_g.events -%}
+      {%- assign _ev_s = include.game[_ev_e.side] -%}
+<li class="st-event"><span class="st-event__time">{{ _ev_e.time | escape }}</span><span class="st-event__team">{% include parts/chip.html team=_ev_s %}<abbr class="st-team-code" title="{{ _ev_s.name | escape }}">{{ _ev_s.code | escape }}</abbr></span><span class="st-event__who"><span class="st-event__name">{{ _ev_e.name | escape }}
+      {%- if _ev_e.badge.size > 0 %} <span class="st-badge">{{ _ev_e.badge | escape }}</span>{% endif -%}
+</span><span class="st-event__sub">{{ _ev_e.sub | escape }}</span></span>
+      {%- if _ev_e.score.size > 0 -%}<span class="st-event__score">{{ _ev_e.score | escape }}</span>{%- endif -%}
+</li>
+    {%- endfor -%}
+</ol>
+  {%- else -%}
+<p class="st-events__empty">{{ _ev_g.empty | default: "No scoring" | escape }}</p>
+  {%- endif -%}
+</section>
+{%- endfor -%}
+</div>
+{%- if _ev_b.note.size > 0 -%}<p class="st-note">{{ _ev_b.note | escape }}</p>{%- endif -%}
+</section>
+{%- endcapture -%}
+{%- assign _ev_lines = _ev_o | split: "
+" -%}
+{%- for _ev_line in _ev_lines -%}{{ _ev_line | strip }}{%- endfor -%}

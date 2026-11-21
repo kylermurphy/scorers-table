@@ -47,7 +47,11 @@ layout: default
 {% include shell/section-head.html title=league.labels.leaders %}
   {%- if _boards.size > 0 %}
     {%- for _b in _boards %}
+{%- if _b.group_label.size > 0 %}
+<p class="st-label st-leader-group">{{ _b.group_label | escape }} · {{ _b.title | escape }}</p>
+      {%- else %}
 <p class="st-label st-leader-group">{{ _b.title | escape }}</p>
+      {%- endif %}
 {% include core/board-table.html board=_b limit=10 %}
     {%- endfor %}
   {%- else %}

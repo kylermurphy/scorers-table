@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.away",
+      "message": "the GA boxes add up to 4, but Alpha scored 5, none into an empty net: check the GA boxes and the goal lines"
+    }
+  ],
+  "reading": null
+}

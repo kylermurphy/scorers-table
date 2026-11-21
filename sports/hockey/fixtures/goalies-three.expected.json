@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.home",
+      "message": "list Alpha's goalie, or two when both played: [{num: 31, ga: 3}]"
+    }
+  ],
+  "reading": null
+}

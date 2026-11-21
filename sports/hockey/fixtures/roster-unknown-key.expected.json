@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.home.2.pos",
+      "message": "'pos' isn't part of a roster row. Use one of: player, name, num."
+    }
+  ],
+  "reading": null
+}

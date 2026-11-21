@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.periods.1",
+      "message": "the box says 2, but the goal lines have 1 for Alpha in period 2"
+    }
+  ],
+  "reading": null
+}

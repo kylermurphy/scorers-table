@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "the shootout is level 1-1, but a shootout ends with a winner: check the shots, or add the shots that decided it"
+    }
+  ],
+  "reading": null
+}

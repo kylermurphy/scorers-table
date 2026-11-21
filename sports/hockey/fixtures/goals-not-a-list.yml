@@ -1,0 +1,33 @@
+# goals is not a list.
+fixture:
+  folder: games
+  game_type: regular
+  options: {}
+sheet:
+  roster:
+    home:
+      - {player: len-t, num: 31}
+      - {player: barry-s, num: 4}
+      - {player: terry-w, num: 6}
+      - {player: doug-h, num: 8}
+      - {player: gord-p, num: 12}
+      - {player: ken-l, num: 17}
+    away:
+      - {player: murray-b, num: 1}
+      - {player: phil-a, num: 2}
+      - {player: wayne-k, num: 9}
+      - {player: gary-n, num: 11}
+      - {player: rod-b, num: 14}
+      - {player: bob-c, num: 21}
+  goals: nobody
+  penalties:
+    - {period: 1, time: "12:15", side: away, num: 21, infraction: Tripping, minutes: 2}
+    - {period: 2, time: "9:02", side: home, num: 17, infraction: Hooking, minutes: 2}
+    - {period: 3, time: "8:44", side: away, num: 11, infraction: Slashing, minutes: 2}
+    - {period: 3, time: "14:10", side: home, num: 8, infraction: Body contact, minutes: 2}
+  goalies:
+    home: [{num: 31, ga: 3}]
+    away: [{num: 1, ga: 5}]
+  score:
+    home: {periods: [2, 1, 2], ot: ~, so: ~, final: 5}
+    away: {periods: [1, 2, 0], ot: ~, so: ~, final: 3}

@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "the SO box says 0, but Alpha won the shootout: write 1 for the winner and 0 for the other team"
+    },
+    {
+      "level": "error",
+      "at": "score.away.so",
+      "message": "the SO box says 1, but Alpha won the shootout: write 1 for the winner and 0 for the other team"
+    }
+  ],
+  "reading": null
+}

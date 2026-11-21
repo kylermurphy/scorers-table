@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "A regular-season game level after the periods is a tie in this league, with no shootout (rules.overtime). Take 'shootout' out."
+    }
+  ],
+  "reading": null
+}

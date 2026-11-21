@@ -1130,8 +1130,9 @@ def _file_of(site: Path, href: str) -> Path:
 def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demos(landed):
     root, result, main_output = landed
     assert result.returncode == 0, result.stdout + result.stderr
-    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "index.html"]
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html"]
     assert "skipping /preview/" in result.stdout and "Sport preview copy: _site/curling/" in result.stdout
+    assert "Sport preview copy: _site/hockey/" in result.stdout
     assert "Conflict" not in main_output + result.stdout + result.stderr
     html, page = _landing_page(landed)
     assert "<title>scorers-table</title>" in html and page.h1 == 1
@@ -1146,10 +1147,12 @@ def test_with_the_switch_on_the_root_is_the_landing_page_beside_404_and_the_demo
 def test_the_landing_page_loads_each_sports_look_after_its_own_and_draws_every_window_in_it(landed):
     _, page = _landing_page(landed)
     css = page.stylesheets()
-    own, extra, base = (css.index(f"{BASE}/assets/css/{n}.css") for n in ("layouts/basketball", "layouts/curling", "base"))
-    assert own < extra < base
-    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling"]
-    assert page.html.index('aria-label="Basketball demo preview"') < page.html.index('aria-label="Curling demo preview"')
+    own, extra, more, base = (css.index(f"{BASE}/assets/css/{n}.css")
+                              for n in ("layouts/basketball", "layouts/curling", "layouts/hockey", "base"))
+    assert own < extra < more < base
+    assert re.findall(r'<div class="st-page st-sport-card__window" data-layout="([a-z]+)"', page.html) == ["basketball", "curling", "hockey"]
+    assert (page.html.index('aria-label="Basketball demo preview"') < page.html.index('aria-label="Curling demo preview"')
+            < page.html.index('aria-label="Hockey demo preview"'))
 
 
 def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_the_base_path(landed):
@@ -1176,7 +1179,7 @@ def test_every_link_of_the_landing_page_and_404_goes_somewhere_and_starts_with_t
 def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
     root, _, _ = landed
     page = json.loads((root / "_data" / "computed" / "landing.json").read_text(encoding="utf-8"))
-    assert [s["id"] for s in page["sports"]] == ["basketball", "curling"]
+    assert [s["id"] for s in page["sports"]] == ["basketball", "curling", "hockey"]
     for sport in page["sports"]:
         for team in sport["window"]["teams"].values():
             assert team["url"].startswith(f"/{sport['id']}/teams/"), team
@@ -1189,7 +1192,7 @@ def test_the_teams_and_games_the_cards_name_have_pages_in_their_demo(landed):
 def test_the_coming_soon_cards_have_no_link_and_no_window(landed):
     html, _ = _landing_page(landed)
     soon = re.findall(r'<article class="st-card st-sport-card st-sport-card--soon">.*?</article>', html, re.S)
-    assert len(soon) == 2 and "Hockey" in soon[0] and "Slo-pitch" in soon[1]
+    assert len(soon) == 1 and "Slo-pitch" in soon[0] and "Hockey" not in soon[0]
     for card in soon:
         assert "<a " not in card and "href" not in card and "st-sport-card__window" not in card
         assert "Coming soon" in card
@@ -1214,7 +1217,7 @@ def test_without_javascript_the_landing_page_and_its_windows_follow_the_phone(la
 
 def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
     root, _, _ = landed
-    for sport in ("basketball", "curling"):
+    for sport in ("basketball", "curling", "hockey"):
         pages = sorted((root / "_site" / sport).rglob("*.html"))
         assert len(pages) > 40
         for file in pages:
@@ -1223,7 +1226,8 @@ def test_the_demos_banners_say_all_sports_and_link_to_the_landing_page(landed):
             assert "Go to the live site" not in html, file
             assert Page(html).robots() == ["noindex, nofollow"], file
     other = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
-    assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in other
+    assert (f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>, '
+            f'<a class="st-banner__link" href="{BASE}/hockey/">Hockey</a>.') in other
     assert "st-banner" not in (root / "_site" / "index.html").read_text(encoding="utf-8")      # no sample banner on the landing page
 
 
@@ -1246,7 +1250,7 @@ def test_the_landing_page_never_publishes_the_score_sheet_photos(tmp_path, jekyl
     assert in_the_source                                                                   # it was in the source...
     assert "photos: true" in (root / "league.yml").read_text(encoding="utf-8")
     assert '"sheets/"' in (root / "_config.landing.yml").read_text(encoding="utf-8")
-    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "index.html"]
+    assert sorted(p.name for p in (root / "_site").iterdir()) == ["404.html", "assets", "basketball", "curling", "hockey", "index.html"]
     assert not list((root / "_site").rglob("2026-11-14-g1.jpg"))                           # ...and nowhere in the site
 
 
@@ -1276,7 +1280,7 @@ def test_with_the_line_left_out_the_overlay_is_one_line_and_the_site_is_the_leag
     assert (root / "_config.landing.yml").read_text(encoding="utf-8") == "landing_page: false\n"
     assert not (root / "_data" / "computed" / "landing.json").exists()
     names = {p.name for p in (root / "_site").iterdir()}
-    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling"} <= names
+    assert {"schedule", "stats", "teams", "archive", "rules", "games", "players", "basketball", "curling", "hockey"} <= names
     assert not ({"landing", "landing.yml"} & names)
     assert "A website for your league" not in (root / "_site" / "index.html").read_text(encoding="utf-8")
     demo = (root / "_site" / "curling" / "index.html").read_text(encoding="utf-8")
@@ -1291,7 +1295,7 @@ def test_the_overlay_that_says_off_changes_no_byte_of_the_root(landing_off, tmp_
     proc = subprocess.run([*jekyll, "build", "--config", "_config.yml,_config.ci.yml", "--baseurl", BASE,
                            "--destination", str(without), "--quiet"], cwd=root, capture_output=True, text=True, env=env)
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    assert _files(root / "_site", skip=("basketball", "curling")) == _files(without)
+    assert _files(root / "_site", skip=("basketball", "curling", "hockey")) == _files(without)
 
 
 OFF_GOLDEN = ROOT / "tests" / "golden" / "landing" / "off-site.sha256"
@@ -1326,3 +1330,179 @@ def test_with_the_line_left_out_every_page_is_what_the_commit_before_the_landing
         f"with landing_page left out the site is not what it was (UPDATE_GOLDEN=1 rewrites "
         f"tests/golden/landing/off-site.sha256 if the change is meant): changed {changed[:10]}, "
         f"gone {missing[:10]}, new {extra[:10]}")
+
+
+# ------------------------------------------------------------------ core extensions E16 to E18 (hockey spec, section 6)
+
+def _add_events_penalties_and_groups_to_the_stub(root: Path) -> None:
+    """The stub with an `events` block (one period with a goal, one empty), a `penalties` block (a player row and a
+    bench row) and a `group` of a team_col table and a small-heading table on every game."""
+    sport = root / "sports" / "stub"
+    rules = (sport / "rules.py").read_text(encoding="utf-8")
+    note = '    blocks.append({"type": "note", "text": "Points come from the Final box and each player\'s row."})'
+    assert note in rules
+    rules = rules.replace(note, '''    who = [ln.player for ln in reading.lines]
+    blocks.append({"type": "events", "title": "Scoring", "note": "Score shown home first.", "groups": [
+        {"label": "1st period", "tally": [{"side": "home", "n": 1}, {"side": "away", "n": 0}], "empty": "No scoring",
+         "events": [{"time": "4:12", "side": "home", "player": who[0], "name": "A made-up scorer", "badge": "GWG",
+                     "sub": "Unassisted", "score": "1\\u20130"}]},
+        {"label": "2nd period", "tally": [{"side": "home", "n": 0}, {"side": "away", "n": 0}], "empty": "No scoring",
+         "events": []}]})
+    blocks.append({"type": "penalties", "title": "Penalties", "legend": ["home", "away"], "rows": [
+        {"period": 1, "time": "2:00", "side": "home", "player": who[0], "text": None, "infraction": "Tripping", "minutes": 2},
+        {"period": 2, "time": "3:00", "side": "away", "player": None, "text": "Bench (served by someone)",
+         "infraction": "Too many men", "minutes": 2}]})
+    one = [{"player": who[0], "side": "home", "cells": {"pts": "1"}}]
+    blocks.append({"type": "group", "title": "Goalies", "intro": None, "note": "A group note.", "blocks": [
+        {"type": "stat_table", "title": None, "side": None, "caption": "Goalies", "team_col": True, "player_label": "Goalie",
+         "columns": [{"key": "pts", "label": "Res", "title": None, "key_col": False, "style": "strong"}], "rows": one,
+         "totals": None, "note": None}]})
+    blocks.append({"type": "group", "title": "Skaters", "intro": "An intro.", "note": None, "blocks": [
+        {"type": "stat_table", "title": None, "side": "home", "heading": "small", "caption": "Home skaters",
+         "columns": [{"key": "pts", "label": "PTS", "title": "Points", "key_col": True, "style": "big"}], "rows": one,
+         "totals": {"label": "Total", "cells": {"pts": "1"}}, "note": None}]})
+''' + note)
+    (sport / "rules.py").write_text(rules, encoding="utf-8")
+
+
+@pytest.fixture(scope="module")
+def rink(tmp_path_factory, jekyll) -> Site:
+    return make_site(tmp_path_factory.mktemp("rink"), jekyll, edit=_add_events_penalties_and_groups_to_the_stub)
+
+
+def test_the_events_block_groups_goals_by_period_and_says_no_scoring_for_an_empty_one(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    events = re.search(r'<div class="st-events">.*?</div>\s*<p class="st-note">Score shown', page, re.S).group(0)
+    assert events.count('class="st-events__group"') == 2 and events.count("<li class=\"st-event\">") == 1
+    assert '<p class="st-events__empty">No scoring</p>' in events
+    assert '<span class="st-badge">GWG</span>' in events and "Unassisted" in events and "1–0" in events
+    assert re.search(r'st-events__tally">\s*\w+ 1 · \w+ 0<', events)
+
+
+def test_a_penalty_links_a_player_with_a_page_takes_text_for_a_bench_penalty_and_is_plain_in_a_past_season(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    table = re.search(r'<table class="st-table st-table--events">.*?</table>', page, re.S).group(0)
+    assert 'st-table__strong"><a class="st-player" href="/players/' in table
+    assert "Bench (served by someone)" in table and table.count("st-table__team-line") == 2
+    assert page.count('class="st-legend__item"') == 2
+    old = rink.html("/games/2025-10-16-1/")
+    table = re.search(r'<table class="st-table st-table--events">.*?</table>', old, re.S).group(0)
+    assert "/players/" not in table and "Tripping" in table
+
+
+def test_a_group_holds_its_tables_under_one_heading_with_the_team_column_styles_and_small_headings(rink):
+    page = rink.html("/games/2026-11-19-1/")
+    goalies = re.search(r'<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">Goalies.*?</section>', page, re.S).group(0)
+    assert goalies.count("<table") == 1 and "<h2 class=\"st-team-heading" not in goalies
+    assert 'class="is-left">Team</th>' in goalies and 'class="st-table__strong"' in goalies
+    assert re.search(r'<td class="is-left"><span class="st-chip st-chip--sm[^>]*></span>(?:&#32;| )\S', goalies)
+    assert goalies.rstrip().endswith('A group note.</p></section>')
+    skaters = re.search(r'<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">Skaters.*?</section>', page, re.S).group(0)
+    assert 'st-note--intro">An intro.</p>' in skaters
+    assert '<div class="st-game-block"><h3 class="st-team-heading st-team-heading--sm">' in skaters
+    assert "st-team-heading__score" not in skaters and 'class="is-key st-table__big"' in skaters
+
+
+# ------------------------------------------------------------------ the hockey sport preview (stage 5, part 3)
+
+@pytest.fixture(scope="module")
+def hockey_demo(previewed, tmp_path_factory):
+    """build_preview.sh with `sport_previews: [basketball, hockey]` (and no /preview/), run on a copy of the previewed
+    source: the hockey demo beside the basketball one, under BASE. Returns (copy of the source, result)."""
+    tmp = tmp_path_factory.mktemp("hockey_demo")
+    root = tmp / "root"
+    shutil.copytree(previewed[0], root, ignore=shutil.ignore_patterns("_site", "__pycache__"))
+    path = root / "league.yml"
+    text = path.read_text(encoding="utf-8")
+    assert "sport_previews: [basketball]" in text
+    path.write_text(text.replace("sport_previews: [basketball]", "sport_previews: [basketball, hockey]") + "\npreview: false\n",
+                    encoding="utf-8")
+    return root, _run_preview_script(root, tmp)
+
+
+def _hockey(demo, path: str) -> str:
+    return (demo[0] / "_site" / "hockey" / path.strip("/") / "index.html").read_text(encoding="utf-8")
+
+
+def _hockey_games(demo) -> dict[str, str]:
+    return {file.parent.name: file.read_text(encoding="utf-8")
+            for file in sorted((demo[0] / "_site" / "hockey" / "games").glob("*/index.html"))}
+
+
+def test_the_script_builds_the_hockey_demo_beside_the_basketball_one(hockey_demo):
+    root, result = hockey_demo
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Sport preview copy: _site/hockey/" in result.stdout and "Sport preview copy: _site/basketball/" in result.stdout
+    home = _hockey(hockey_demo, "/")
+    assert "Northside Old-Timers Hockey" in home and 'data-layout="hockey"' in home
+    assert f'href="{BASE}/hockey/assets/css/layouts/hockey.css"' in home
+    assert "Riverside Masters Basketball" not in home and "Pine Lake Curling Club" not in home
+    assert not (root / "_site" / "preview").exists()
+
+
+def test_every_hockey_preview_page_has_its_base_path_the_noindex_tag_and_the_banner(hockey_demo):
+    root = hockey_demo[0]
+    pages = sorted((root / "_site" / "hockey").rglob("*.html"))
+    assert len(pages) > 60
+    for file in pages:
+        html = file.read_text(encoding="utf-8")
+        page = Page(html)
+        local = [h for h in page.hrefs + page.srcs + [l.get("href", "") for l in page.links]
+                 if is_local(h) and not h.startswith(("#", "data:"))]
+        outside = [h for h in local if not (h.startswith(f"{BASE}/hockey/") or h == f"{BASE}/hockey")]
+        assert sorted(outside) == [f"{BASE}/", f"{BASE}/basketball/"] or outside == [f"{BASE}/"], (file.name, outside)
+        assert page.robots() == ["noindex, nofollow"], file
+        assert "<strong>Sport preview:</strong> a made-up hockey league, to show what the template does." in html, file
+        assert f'Other sports: <a class="st-banner__link" href="{BASE}/basketball/">Basketball</a>.' in html, file
+
+
+def test_the_hockey_preview_has_no_calendar_files_or_subscribe_links(hockey_demo):
+    site = hockey_demo[0] / "_site" / "hockey"
+    assert not list(site.rglob("*.ics")) and not (site / "calendar").exists()
+    for file in site.rglob("*.html"):
+        html = file.read_text(encoding="utf-8")
+        assert ".ics" not in html and "webcal:" not in html, file
+
+
+def test_a_hockey_game_page_has_the_events_penalties_goalies_and_skaters(hockey_demo):
+    games = {gid: html for gid, html in _hockey_games(hockey_demo).items() if "st-events" in html}
+    assert len(games) > 20
+    for gid, html in games.items():
+        assert 'class="st-events__group"' in html and "st-table--events" in html or "No scoring" in html, gid
+        assert ">Penalties<" in html and ">Goalies<" in html and ">Skaters<" in html, gid
+    assert any("st-table--events" in html for html in games.values())
+
+
+def test_a_hockey_playoff_game_decided_in_overtime_says_so(hockey_demo):
+    overtime = {gid: html for gid, html in _hockey_games(hockey_demo).items() if "Final · OT" in html}
+    assert overtime, "the past sample season has a playoff overtime game"
+    for gid, html in overtime.items():
+        assert '<th scope="col">OT</th>' in html and "<span>Overtime</span>" in html, gid
+        assert "Final · SO" not in html, gid                      # the defaults play no shootout
+
+
+def test_the_hockey_stats_page_has_a_skaters_and_a_goalies_table_with_the_lowest_gaa_first(hockey_demo):
+    html = _hockey(hockey_demo, "/stats/")
+    captions = re.findall(r'<caption class="st-visually-hidden">(.*?)</caption>', html)
+    assert "All players, skaters" in captions and "All players, goalies" in captions
+    table = re.search(r"<caption[^>]*>All players, goalies</caption>.*?</table>", html, re.S).group(0)
+    assert 'abbr title="Goals against average">GAA<' in table
+    header = re.findall(r"<abbr [^>]*>([A-Z%]+)</abbr>", table.split("</thead>")[0])
+    gaa = header.index("GAA") + 2                     # the Player and Team columns have no abbreviation
+    values = [float(cells[gaa]) for cells in
+              (re.findall(r"<td[^>]*>(.*?)</td>", row, re.S) for row in table.split("<tbody>")[1].split("</tr>")) if len(cells) > gaa]
+    assert len(values) >= 5 and values == sorted(values)
+    leaders = re.search(r"Goals-against avg.*?</ol>|Goals-against avg.*?</table>", html, re.S)
+    assert leaders is not None
+
+
+def test_the_hockey_home_page_shows_the_hockey_standings_and_goalie_tiles(hockey_demo):
+    home = _hockey(hockey_demo, "/")
+    assert ">GF<" in home and ">GA<" in home and ">T<" in home and "Week" in home
+    assert "Goals-against avg" in home and "Shutouts" in home and "st-table--leaders" in home
+    assert "Pad 1" in _hockey(hockey_demo, "/schedule/")
+
+
+def test_the_basketball_demo_next_to_the_hockey_one_has_no_hockey_in_it(hockey_demo):
+    html = (hockey_demo[0] / "_site" / "basketball" / "index.html").read_text(encoding="utf-8")
+    assert "Northside Old-Timers Hockey" not in html and 'data-layout="hockey"' not in html

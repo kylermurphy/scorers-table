@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.ref",
+      "message": "'ref' isn't part of a penalty line. Use one of: period, time, side, num, served_by, infraction, minutes."
+    }
+  ],
+  "reading": null
+}

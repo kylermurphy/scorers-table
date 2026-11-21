@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.home",
+      "message": "Alpha has 26 rows. A roster is a list of 1 to 25 players, one row each: {player: len-t, num: 31}"
+    }
+  ],
+  "reading": null
+}

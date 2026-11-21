@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.away",
+      "message": "should be a list of Bravo's shooters, like [{num: 12, scored: true}]"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,39 @@
+{%- comment -%}
+  parts/penalties.html: the penalties of a game (present() block type "penalties"): a section heading, a table in its
+  scroll box (PER, TIME, PLAYER, INFRACTION, MIN) and the team legend under it.
+  Params: block, game (for the sides). Reads: block {title, rows [{period, time, side, player (a player id), text (the
+  words instead of a player, as "Bench (served by #6 Terry W.)"), infraction, minutes}], legend [sides]},
+  stats.players (label, url).
+  The player cell holds the name and, under it, the team's chip and code (a chip alone is only colour). A player
+  with no page (url null: a past season) is plain text.
+{%- endcomment -%}
+{%- assign _pn_b = include.block -%}
+{%- capture _pn_o -%}
+<section class="st-game-block"><div class="st-section__head"><h2 class="st-section__title">{{ _pn_b.title | escape }}</h2></div>
+<div class="st-table-wrap" role="region" aria-label="{{ _pn_b.title | escape }}, scrolls sideways" tabindex="0">
+<table class="st-table st-table--events"><caption class="st-visually-hidden">{{ _pn_b.title | escape }}</caption>
+<thead><tr><th scope="col">Per</th><th scope="col">Time</th><th scope="col" class="is-left">Player</th><th scope="col" class="is-left">Infraction</th><th scope="col">Min</th></tr></thead>
+<tbody>
+{%- for _pn_r in _pn_b.rows -%}
+  {%- assign _pn_s = include.game[_pn_r.side] -%}
+  {%- assign _pn_p = stats.players[_pn_r.player] -%}
+<tr><td>{{ _pn_r.period | escape }}</td><td>{{ _pn_r.time | escape }}</td><td class="is-left st-table__strong">
+  {%- if _pn_r.text.size > 0 -%}{{ _pn_r.text | escape }}
+  {%- elsif _pn_p.url.size > 0 -%}<a class="st-player" href="{{ _pn_p.url | relative_url }}">{{ _pn_p.label | escape }}</a>
+  {%- else -%}{{ _pn_p.label | default: _pn_r.player | escape }}{%- endif -%}
+<span class="st-table__team-line">{% include parts/chip.html team=_pn_s size="sm" %}<abbr class="st-team-code" title="{{ _pn_s.name | escape }}">{{ _pn_s.code | escape }}</abbr></span></td><td class="is-left">{{ _pn_r.infraction | escape }}</td><td>{{ _pn_r.minutes | escape }}</td></tr>
+{%- endfor -%}
+</tbody></table></div>
+{%- if _pn_b.legend.size > 0 -%}
+<div style="margin-top:.5rem"><div class="st-legend">
+  {%- for _pn_l in _pn_b.legend -%}
+    {%- assign _pn_ls = include.game[_pn_l] -%}
+<span class="st-legend__item">{% include parts/chip.html team=_pn_ls size="sm" %}<span>{{ _pn_ls.name | escape }}</span></span>
+  {%- endfor -%}
+</div></div>
+{%- endif -%}
+</section>
+{%- endcapture -%}
+{%- assign _pn_lines = _pn_o | split: "
+" -%}
+{%- for _pn_line in _pn_lines -%}{{ _pn_line | strip }}{%- endfor -%}

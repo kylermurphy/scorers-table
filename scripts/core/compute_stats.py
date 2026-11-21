@@ -21,6 +21,10 @@
 * `leaders.columns[group]` is `{table, totals, log}`: the columns of the Stats table, of a player's season
   totals and of a game log. sport.yml `stats.columns.<group>` lists them; left out, each is GP, the counting
   stats, then the rates.
+* A board with `order: asc` lists the lowest value first (goals against per game); ties, `zero` and the minimum work
+  as for `desc`. The Stats table of a group sorts its key column the same way. A board's `columns:` (stat keys of its
+  group) fill `board.columns` and each row's `cells`; a derived stat with `format: dot` shows as ".912"; one with
+  `group:` belongs to that group only. `leaders.tables` has one table per group (`leaders.table` is the first).
 * Boards show the first `LEADERS_SHOWN` ranks (ties at the last rank included); the Stats table lists everyone.
 """
 from __future__ import annotations
@@ -29,8 +33,9 @@ from typing import Any
 
 from scripts.core import fmt
 from scripts.core.loader import LoadedGame
-from scripts.core.model import STAT_RESERVED, Line, Player
+from scripts.core.model import Line, Player
 from scripts.core.problems import call_sport
+from scripts.core.sports import STAT_RESERVED
 from scripts.core.compute_games import decided_word
 from scripts.core.season_ctx import SeasonCtx, dash, game_url, player_url, result_word
 from scripts.core.standings import record_of
@@ -53,7 +58,8 @@ def build_stats(ctx: SeasonCtx) -> tuple[dict, dict]:
     totals = {(pid, g, kind): _stat_block(ctx, g, rows) for (pid, g, kind), rows in played.items()}
     boards, ranks = _boards(ctx, totals, played)
     players = {pid: _player(ctx, p, groups, played, totals, ranks) for pid, p in ctx.players.items()}
-    leaders = {"boards": boards, "table": _table(ctx, groups, totals, boards), "columns": {
+    tables = [_table(ctx, g, totals) for g in groups]
+    leaders = {"boards": boards, "table": tables[0] if tables else None, "tables": tables, "columns": {
         g: _columns(ctx, g, _observed(totals, g)) for g in groups}}
     return players, leaders
 
@@ -76,11 +82,21 @@ def _collect(ctx: SeasonCtx) -> dict[tuple[str, str, str], list[_Played]]:
     return out
 
 
+def _derived(ctx: SeasonCtx, group: str) -> list[dict]:
+    """The rates a group shows: those with no `group:` and those naming this one."""
+    return [d for d in ctx.spec["stats"]["derived"] if d.get("group", group) == group]
+
+
+def _group_label(ctx: SeasonCtx, group: str) -> str:
+    """`stats.labels[group]`, else the group's key in title case ("Skater")."""
+    return ctx.spec["stats"].get("labels", {}).get(group) or group.title()
+
+
 def _defs(ctx: SeasonCtx, group: str) -> list[dict]:
     """Every stat of a group: gp, the counting stats, then the rates."""
     stats = ctx.spec["stats"]
     return ([{"key": "gp", "label": "GP", "title": "Games played"}] + list(stats[group])
-            + [dict(d, derived=True) for d in stats["derived"]])
+            + [dict(d, derived=True) for d in _derived(ctx, group)])
 
 
 def _stat_block(ctx: SeasonCtx, group: str, rows: list[_Played]) -> dict:
@@ -93,12 +109,12 @@ def _stat_block(ctx: SeasonCtx, group: str, rows: list[_Played]) -> dict:
     totals: dict[str, Any] = {"gp": counts["gp"], **{k: v for k, v in counts.items() if k != "gp"}}
     display = {key: str(value) for key, value in totals.items()}
     exact: dict[str, Any] = {}
-    for d in ctx.spec["stats"]["derived"]:
+    for d in _derived(ctx, group):
         rate = rates.get(d["key"])
         places = d.get("places", 1)
         exact[d["key"]] = rate
         totals[d["key"]] = rate if rate is None or isinstance(rate, int) else fmt.round_half_up(rate, places)
-        display[d["key"]] = fmt.decimal(rate, places)
+        display[d["key"]] = (fmt.dot if d.get("format") == "dot" else fmt.decimal)(rate, places)
     return {"totals": totals, "display": display, "exact": exact}
 
 
@@ -126,9 +142,9 @@ def _boards(ctx: SeasonCtx, totals: dict, played: dict) -> tuple[list[dict], dic
 def _board(ctx: SeasonCtx, spec: dict, edge: str, minimum: dict, unit: str) -> dict:
     group = spec.get("group", "player")
     return {"id": spec["id"], "label": spec["label"], "of": spec["of"], "group": group,
-            "group_label": group.title() if len(_groups(ctx)) > 1 else None, "stat": spec["stat"],
+            "group_label": _group_label(ctx, group) if len(_groups(ctx)) > 1 else None, "stat": spec["stat"],
             "tile": bool(spec.get("tile")), "list": True, "edge": edge, "home": spec.get("home", True),
-            "player_rank": spec.get("player_rank", True), "min": minimum, "unranked": [],
+            "player_rank": spec.get("player_rank", True), "order": spec.get("order", "desc"), "min": minimum, "unranked": [],
             "columns": None, "title": spec["label"], "title_board": None, "unit": unit,
             "first_row_in_tile": bool(spec.get("tile")), "rows": []}
 
@@ -183,7 +199,10 @@ def _player_board(ctx: SeasonCtx, spec: dict, edge: str, totals: dict, played: d
             unranked.append(pid)
         else:
             eligible.append((pid, block, value))
-    eligible.sort(key=lambda x: (-x[2], *name_order(ctx.players[x[0]])))
+    sign = 1 if spec.get("order") == "asc" else -1          # the best value first: lowest for `asc`, else highest
+    eligible.sort(key=lambda x: (sign * x[2], *name_order(ctx.players[x[0]])))
+    columns = _board_columns(ctx, spec, group, totals)
+    board["columns"] = columns
     rank = 0
     for i, (pid, block, value) in enumerate(eligible):
         rank = rank if i and value == eligible[i - 1][2] else i + 1
@@ -194,9 +213,22 @@ def _player_board(ctx: SeasonCtx, spec: dict, edge: str, totals: dict, played: d
             board["rows"].append({
                 "rank": rank, "player": pid, "team": player.team, "label": player.label,
                 "value": block["totals"][stat], "display": block["display"][stat],
-                "detail": _detail(spec, block["display"]), "cells": None})
+                "detail": _detail(spec, block["display"]),
+                "cells": {c["key"]: block["display"][c["key"]] for c in columns} if columns else None})
     board["unranked"] = sorted(unranked)
     return board
+
+
+def _board_columns(ctx: SeasonCtx, spec: dict, group: str, totals: dict) -> list[dict] | None:
+    """A board's `columns:` as [{key, label, title, key_col}] (the board's own stat is the key column), or None.
+    A rate nobody has a value for is left out, as in every other list."""
+    keys = spec.get("columns")
+    if not keys:
+        return None
+    seen = _observed(totals, group)
+    defs = {d["key"]: d for d in _defs(ctx, group) if not d.get("derived") or d["key"] in seen or not seen}
+    return [{"key": k, "label": defs[k]["label"], "title": defs[k]["title"], "key_col": k == spec["stat"]}
+            for k in keys if k in defs]
 
 
 def name_order(player: Player) -> tuple:
@@ -275,21 +307,22 @@ def _defs_keys(ctx: SeasonCtx, group: str) -> list[str]:
     return [d["key"] for d in _defs(ctx, group)]
 
 
-def _table(ctx: SeasonCtx, groups: list[str], totals: dict, boards: list[dict]) -> dict | None:
-    """Everyone who played, best first on the key column (ties by name): ids only, the page reads players.json."""
-    if not groups:
-        return None
-    group = groups[0]
+def _table(ctx: SeasonCtx, group: str, totals: dict) -> dict:
+    """Everyone who played in a group, best first on the key column (ties by name; the lowest first when the key
+    column's board is `order: asc`): ids only, the page reads players.json. `label` is the group's name."""
     columns = _columns(ctx, group, _observed(totals, group))["table"]
     key = next((c["key"] for c in columns if c["key_col"]), None)
+    board = next((b for b in ctx.spec["leaderboards"] if b["of"] == "player" and b.get("group", "player") == group
+                  and b["stat"] == key), {})
+    sign = 1 if board.get("order") == "asc" else -1
     ids = [pid for (pid, g, kind) in totals if g == group and kind == "regular"]
 
     def order(pid: str):                       # a rate sorts on its exact value, as the boards rank it
         block = totals[(pid, group, "regular")]
         value = (block["exact"][key] if key in block["exact"] else block["totals"].get(key)) if key else None
-        return (value is None, -(value or 0), *name_order(ctx.players[pid]))
+        return (value is None, sign * (value or 0), *name_order(ctx.players[pid]))
 
-    return {"group": group, "columns": columns, "rows": sorted(ids, key=order)}
+    return {"group": group, "label": _group_label(ctx, group), "columns": columns, "rows": sorted(ids, key=order)}
 
 
 # ------------------------------------------------------------------ one player

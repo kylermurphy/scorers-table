@@ -1,0 +1,20 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout",
+      "message": "A level playoff game in this league plays overtime periods until a goal, with no shootout (rules.playoff_overtime). Take 'shootout' out."
+    },
+    {
+      "level": "error",
+      "at": "score.home.so",
+      "message": "A level playoff game in this league plays overtime periods until a goal, with no shootout (rules.playoff_overtime). Leave the SO box empty."
+    },
+    {
+      "level": "error",
+      "at": "score.away.so",
+      "message": "A level playoff game in this league plays overtime periods until a goal, with no shootout (rules.playoff_overtime). Leave the SO box empty."
+    }
+  ],
+  "reading": null
+}

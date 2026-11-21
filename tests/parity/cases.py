@@ -19,10 +19,10 @@ CASES_DIR = Path(__file__).parent / "cases"
 # Parts that only a real sport needs: they stay Python-only in stage 4 (docs/stage-4-spec.md section 9), each
 # arrives with its sport in stage 5 together with its include and parity case.
 SKIPPED = {
-    "event-log": "hockey's scoring summary and penalties: a stage 5 part with the hockey sport (spec section 9)",
-    "game-tables": "hockey's and slo-pitch's game tables (goalies and skaters, facts, batting): stage 5 parts with "
-                   "each sport; basketball's tables, notes and top-performer tile ('game-tables-box') and "
-                   "curling's game in numbers ('game-tables-numbers') are covered by the fragment cases below",
+    "game-tables": "slo-pitch's game tables (facts, batting): a stage 5 part with that sport; basketball's tables, "
+                   "notes and top-performer tile ('game-tables-box'), curling's game in numbers "
+                   "('game-tables-numbers') and hockey's goalies and skaters ('game-tables-hockey') are covered by "
+                   "the fragment cases below",
 }
 
 
@@ -52,6 +52,9 @@ FRAGMENTS = [
               "(the top_performer, stat_table and note blocks)"),
     Case("game-tables-numbers", "game-tables", sports=("curling",),
          note="curling's game-tables specimen: the game in numbers (the numbers block)"),
+    Case("game-tables-hockey", "game-tables", sports=("hockey",),
+         note="hockey's game-tables specimen: the Goalies and Skaters sections (two group blocks, a stat_table with "
+              "team_col and cell styles, and one per side with the small heading)"),
 ]
 
 

@@ -12,6 +12,7 @@
       "edge": "hot",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -98,6 +99,7 @@
       "edge": "accent",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -184,6 +186,7 @@
       "edge": "accent",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -251,6 +254,7 @@
   ],
   "table": {
     "group": "player",
+    "label": "Player",
     "columns": [
       {
         "key": "gp",
@@ -287,6 +291,47 @@
       "tam-c"
     ]
   },
+  "tables": [
+    {
+      "group": "player",
+      "label": "Player",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "abe-b",
+        "ada-e",
+        "alf-h",
+        "amy-s",
+        "cal-c",
+        "dee-f",
+        "fay-a",
+        "finn-b",
+        "gwen-e",
+        "gwen-h",
+        "hal-b",
+        "hal-j",
+        "ike-h",
+        "jax-p",
+        "kai-p",
+        "kit-b",
+        "lars-d",
+        "nell-l",
+        "oz-m",
+        "pia-k",
+        "quin-p",
+        "quin-w",
+        "rae-w",
+        "sal-f",
+        "tam-c"
+      ]
+    }
+  ],
   "columns": {
     "player": {
       "table": [

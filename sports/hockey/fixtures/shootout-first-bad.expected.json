@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.first",
+      "message": "first 'left' should be home or away"
+    }
+  ],
+  "reading": null
+}

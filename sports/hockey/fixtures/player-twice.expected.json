@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.home.3.player",
+      "message": "doug-h is listed twice in this game (also at sheet.roster.home.2.player)"
+    }
+  ],
+  "reading": null
+}

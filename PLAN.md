@@ -13,7 +13,8 @@ pull request, never a merge.
 
 Status: stages 0-4 done (October 2026; stage 4, the core, is merged). Stage 5 is under way: **basketball is done and
 merged** (spec: `docs/stage-5-basketball-spec.md`) and **curling is done and merged** (spec:
-`docs/stage-5-curling-spec.md`); hockey and slo-pitch come next, one pull request each. Beside the stages, the
+`docs/stage-5-curling-spec.md`); **hockey is done and in review as a pull request** (spec:
+`docs/stage-5-hockey-spec.md`); slo-pitch comes next, in its own pull request. Beside the stages, the
 **landing page is done and in review as a pull request** (plan: `docs/landing-page-plan.md`; see "Landing page"
 below).
 
@@ -133,11 +134,32 @@ recommended (October 2026).
 - Not built, named in the spec: the club-scoreboard line score, team rates ("ends won %"), a printable curling score
   card and photo-reading prompt (both "Later"), and the JavaScript rules and entry page (stage 7).
 
+**Hockey: delivered (in review as a pull request).** All 19 decisions in the spec were confirmed by the owner as
+recommended (November 2026); one more was decided later: a backup goalie who dressed but did not play gets no game
+played.
+- `sports/hockey/`: `sport.yml`, `rules.py` (`check`, `read`, `present`, `derive`: the score by period with overtime and
+  a shootout, the game-winning goal in time order, shutouts, penalty minutes, goalie decisions and goals against with
+  empty-net goals, spares), `sample.py` (Northside Old-Timers Hockey), the README (the game sheet box by box, every
+  check with its path and level, the how-tos and the settings) and the shared fixture cases for the stage 7 JavaScript
+  port. Times in a game file are quoted (the YAML time trap, checked in Python).
+- Core extensions any sport can use: leaderboard `order: asc` and `columns:`; a derived stat's `format: dot` and
+  `group:`; `stats.labels` and more than one stat group on every page (`leaders.tables`, one table and one game log per
+  group); the `events`, `penalties` and `group` blocks (each with its include, parity case and specimen), and the
+  `stat_table` options `team_col`, `player_label`, column `style` and `heading: small`; "won the shootout" in the final
+  panel. The pages of the stub, basketball and curling stayed byte-identical (golden files, the off-site hash).
+- Golden files `tests/golden/hockey/`; the `/hockey/` sport preview and the landing card come by themselves
+  (`landing.yml` no longer lists hockey under `coming_soon`).
+- Docs: `docs/sports.md` (the new keys and blocks), `docs/data.md` (a hockey example, the quoted-time rule, the how-to
+  pointers), `docs/open-questions.md` section 8 (twelve placeholders and the decisions), `docs/design.md`, `README.md`.
+- Not built, named in the spec: period words chosen by an option ("Half"), three stars, a penalty limit before
+  ejection, team stats and boards (team PIM, power-play goals), a printable game sheet and the photo-reading prompt,
+  and the JavaScript rules and entry page (stage 7).
+
 **Landing page: delivered (in review as a pull request; plan: `docs/landing-page-plan.md`).** The template's own
 site (`kylermurphy.github.io/scorers-table/`) is a showcase, owner-approved: the front page `/` is a landing page in
 the Basketball look with a card per sport (name, one line, a live mini-preview in the sport's own look from its
-sample season, a link to the demo); hockey and slo-pitch are "Coming soon" cards with no link. The demos stay at
-`/basketball/` and `/curling/`. The setup link goes to the README's "Publish it" section until stage 8's guide exists.
+sample season, a link to the demo); a sport not built yet (slo-pitch) is a "Coming soon" card with no link. The demos
+are at `/basketball/`, `/curling/` and `/hockey/`. The setup link goes to the README's "Publish it" section until stage 8's guide exists.
 The design-system page is not linked.
 - The switch is `landing_page` in `league.yml`: shipped `true`, loud (listed beside `name`, `sport` and `timezone`,
   printed by every build, said on the page), default `false` when the line is left out; a real league sets `false`
@@ -150,24 +172,23 @@ The design-system page is not linked.
   it, `tests/test_nested_layout.py` guards the nesting), the page `landing/index.html`, the "All sports" banner, and
   `build_preview.sh` and the workflow changes. Docs: `README.md`, `docs/data.md`, `docs/sports.md`,
   `docs/design.md`, `docs/open-questions.md` section 7.
-- **When a sport lands, its card goes live by itself** (once it has a `sample.py` and a `blurb`): when the hockey
-  and slo-pitch stages merge, remove the sport from `coming_soon` in `landing.yml` (the build warns until then).
+- **When a sport lands, its card goes live by itself** (once it has a `sample.py` and a `blurb`): hockey's is live;
+  when the slo-pitch stage merges, remove it from `coming_soon` in `landing.yml` (the build warns until then).
 
 **Decided: the JavaScript copy of the rules moves to stage 7**, with the entry page, its only user. Each sport's
 pull request still commits its shared fixtures, so the port can be tested against them.
 
-**Still to come, with the sport that needs it** (deliberately not built yet, so no option goes untested; `order: asc`,
-`format:`, option-chosen period words and option-shown stats are the basketball spec's "Deferred" table):
-- Hockey and slo-pitch folders, each with its sample, golden files, README and fixtures (the same package shape as
-  basketball and curling).
-- The extra display parts still missing from stage 4's list: `facts` (slo-pitch), `events` (hockey's scoring
-  summary) and a penalties table (hockey), each a reusable core part with a specimen and a parity case (the design
-  system page already has the specimens), plus whatever `line_score` extras those sports turn out to need. (`numbers` and `roster` are done: curling.)
-- Leaderboard `order: asc` (lowest is best): hockey's goals-against average, where 0.00 is valid.
-- A `format:` for rates (`.333`, `.912`): slo-pitch's average, hockey's save percentage.
-- Period words chosen by an option: basketball halves (the Masters sheet had halves until October 2026).
-- Stats and boards that show only when an option is on: basketball with free throws not kept (and curling with
-  `rules.lineups: none`, whose Stats page shows the empty player table).
+**Still to come, with the sport that needs it** (deliberately not built yet, so no option goes untested). Hockey built
+`order: asc`, `format: dot`, the events and penalties parts, more than one stat group and leaderboard `columns`;
+what slo-pitch (the last sport) still needs from the core, from the specs' deferred lists:
+- A slo-pitch folder with its sample, golden files, README and fixtures (the same package shape as the other three).
+- The `facts` block (slo-pitch's game-page facts) as a reusable core part with a specimen and a parity case (the design
+  system page already has the specimen; `game-tables` stays skipped in the parity test until it exists), plus whatever
+  `line_score` extras innings and run limits turn out to need. (`numbers`, `roster`, `events`, `penalties` and `group` are done.)
+- `format: dot` is built (hockey's save percentage); slo-pitch's batting average (`.333`) can use it as it is.
+- Period words chosen by an option ("Half" for a two-period league: basketball halves, hockey's `periods: 2`).
+- Stats and boards that show only when an option is on: basketball with free throws not kept, curling with
+  `rules.lineups: none` (whose Stats page shows the empty player table).
 - Team rates (curling's "ends won %", needs `derive` for teams and ranking before rounding on team boards).
 
 ## Stage 6: the six layouts as a setting

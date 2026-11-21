@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.num",
+      "message": "#77 (the penalty) isn't on Alpha's roster. Check the number, or add the player to the roster."
+    }
+  ],
+  "reading": null
+}

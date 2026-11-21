@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score",
+      "message": "is empty. Copy the score by periods boxes for both teams."
+    }
+  ],
+  "reading": null
+}

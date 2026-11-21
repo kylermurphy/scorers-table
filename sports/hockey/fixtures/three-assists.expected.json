@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.assists",
+      "message": "has 3 assists. A goal has at most 2."
+    }
+  ],
+  "reading": null
+}

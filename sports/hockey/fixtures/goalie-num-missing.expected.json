@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.home.0.num",
+      "message": "is empty. Write the goalie's jersey number."
+    }
+  ],
+  "reading": null
+}

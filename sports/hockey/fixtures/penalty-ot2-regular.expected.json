@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.4.period",
+      "message": "OT2 isn't possible here: only a playoff game played to a first goal (sudden death) has OT2, OT3...; write OT"
+    }
+  ],
+  "reading": null
+}

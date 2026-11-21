@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.time",
+      "message": "the time 850 looks like 14:10 written without quotes (some YAML readers turn an unquoted 14:10 into 850): write it in quotes, like \"14:10\""
+    }
+  ],
+  "reading": null
+}

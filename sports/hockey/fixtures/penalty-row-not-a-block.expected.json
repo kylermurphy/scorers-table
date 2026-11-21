@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3",
+      "message": "a penalty line looks like {period: 1, time: \"12:15\", side: away, num: 21, infraction: Tripping, minutes: 2}"
+    }
+  ],
+  "reading": null
+}

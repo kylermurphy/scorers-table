@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.num",
+      "message": "is empty. Write the jersey number of the player who took the penalty, or bench for a bench penalty."
+    }
+  ],
+  "reading": null
+}

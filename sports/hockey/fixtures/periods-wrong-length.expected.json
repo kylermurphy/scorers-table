@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.periods",
+      "message": "this league plays 3 periods: write 3 boxes for Alpha"
+    }
+  ],
+  "reading": null
+}

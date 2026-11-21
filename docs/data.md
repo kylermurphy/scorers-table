@@ -19,9 +19,9 @@ fails with a plain message and **nothing is published**. A typo cannot put a wro
 
 Which boxes a score sheet has, and what is checked in them, depends on the sport. The box-by-box guide for
 your sport is `sports/<your sport>/README.md` (basketball's is `sports/basketball/README.md`, curling's is
-`sports/curling/README.md`). The examples on this page are basketball, the sport the template ships with, and the
-teams are the ones in its sample season; where curling differs, a curling example follows. Hockey and slo-pitch
-follow in their own pull requests; the stub (`sports/stub/`, two halves and a Final box) stays as the core's test
+`sports/curling/README.md`, hockey's is `sports/hockey/README.md`). The examples on this page are basketball, the
+sport the template ships with, and the teams are the ones in its sample season; where curling or hockey differs, an
+example follows. Slo-pitch follows in its own pull request; the stub (`sports/stub/`, two halves and a Final box) stays as the core's test
 sport.
 
 ## What lives where
@@ -80,10 +80,21 @@ sample_data: false
 rules: {ends: 8}               # the sport's own settings; see "Still to decide" below
 ```
 
-The look follows the sport (`curling` gets the Curling layout) unless you set `layout:`. Everything on this page
+A hockey league:
+
+```yaml
+name: "Northside Old-Timers Hockey"
+sport: hockey
+timezone: America/Toronto
+landing_page: false
+sample_data: false
+rules: {overtime: shootout, clock: remaining}   # the sport's own settings; see "Still to decide" below
+```
+
+The look follows the sport (`curling` gets the Curling layout, `hockey` the Hockey layout) unless you set `layout:`. Everything on this page
 works the same; only the boxes on the score sheet and the settings under `rules:` change. Changing sport in a
 league that already has games means rewriting its game files, so choose once. To see what a sport looks like first,
-open its preview copy (`/curling/`, see [below](#sample-data-and-the-preview-copies)).
+open its preview copy (`/curling/`, `/hockey/`, see [below](#sample-data-and-the-preview-copies)).
 
 ### `data/seasons.yml`
 
@@ -132,10 +143,12 @@ One line per player.
 * Two players on a team may not share a number. If two players on a team are both "Dave M.", both need a number.
 * A spare who belongs to no team has `team: null` and `sub: true`.
 * Someone on one team who fills in for another is fine: mark them `sub: true`, or the check warns you.
-* A sport with positions (curling: `lead`, `second`, `vice`, `skip`) takes `position:` on each regular
+* A sport with positions (curling: `lead`, `second`, `vice`, `skip`; hockey: `forward`, `defence`, `goalie`) takes `position:` on each regular
   player: `- {id: gail-r, name: Gail R., team: button-pushers, position: skip}`. A sport without positions
   (basketball) treats a `position` line as an error. Curlers wear no numbers, so a curling `players.yml` leaves
-  `number` out.
+  `number` out. In hockey, `position: goalie` matters for the games played: a goalie on the roster who did not play in
+  net, and has no goal, assist, penalty or shootout shot on the sheet, gets no game played at all (a backup who
+  dressed).
 
 ### `schedule.csv`
 
@@ -241,6 +254,37 @@ sheet:
 The number of end boxes must be exactly the league's `rules.ends` (8 unless you set it). An extra end, a
 concession ("shook hands after 6") and time called each have their own box; the curling README shows how.
 
+A hockey game (`sports/hockey/README.md` explains every box, with the game cut down here) lists who dressed, each
+goal with its assists, each penalty, the goalies and the score by period:
+
+```yaml
+game_id: 2026-11-29-1
+status: final
+home: blades
+away: wolves
+checked_by: Lee M.
+sheet:
+  roster:                      # who dressed; num is the jersey number on the sheet
+    home: [{player: len-t, num: 31}, {player: gord-p, num: 12}, {player: barry-s, num: 4}]
+    away: [{player: murray-b, num: 1}, {player: wayne-k, num: 9}]
+  goals:                       # in the order written; assists are jersey numbers
+    - {period: 1, time: "4:12", side: home, num: 12, assists: [4]}
+    - {period: 2, time: "11:54", side: away, num: 9}
+  penalties:
+    - {period: 1, time: "12:15", side: away, num: 9, infraction: Tripping, minutes: 2}
+  goalies:                     # each goalie who played, with their goals against
+    home: [{num: 31, ga: 1}]
+    away: [{num: 1, ga: 1}]
+  score:                       # the score by periods boxes, as written
+    home: {periods: [1, 0, 0], ot: ~, so: ~, final: 1}
+    away: {periods: [0, 1, 0], ot: ~, so: ~, final: 1}
+```
+
+**Put every time in quotes** (`time: "4:12"`). The site's own reader keeps an unquoted `4:12` as text, but many other
+YAML tools read it as the number 252 (a base-60 number), and `12:09` as 729; a time that arrives as a number is an error
+that names the time it probably was ("729 looks like 12:09 written without quotes"). The entry page will always write
+the quotes; when you type a file by hand, write them too. (`schedule.csv` times such as `19:00` are a different file and need no quotes.)
+
 ### `drafts/`
 
 A game you have not finished or checked. Same layout as a game file, with `status: draft`. **The build never
@@ -315,18 +359,36 @@ forfeit: pines
 No player gets a game played or any stat, and no team stat (stolen ends, for example) moves. How a forfeit counts
 (the score, and whether it earns period points) is a league decision, set under `standings: forfeit:` in
 `league.yml`. Until you set it, the site shows `[placeholder]` and the build lists it under "Still to decide"
-(basketball's usual rule is 20 to 0, curling's 1 to 0).
+(basketball's usual rule is 20 to 0, curling's and hockey's 1 to 0).
 
 ### A tie
 
 Whether a regular-season game may end level is the league's to decide (`standings: ties:` in `league.yml`;
-basketball starts with no ties and curling with ties allowed, both shown as `[placeholder]`). Where ties are allowed, write the game file as it
+basketball starts with no ties and curling and hockey with ties allowed, all shown as `[placeholder]`). Where ties are allowed, write the game file as it
 is and the standings show a tie. Where they are not, the check stops the build at the Final box and says so.
 A **playoff game can never end tied**, whatever the setting. If the sport has overtime, the sheet records it
 first: basketball's README has the details (a game level after Q4 goes to overtime, and only one still level
 after that is a tie). In curling the extra end is a setting, `rules.extra_end`: `playoffs` (the default: a level
 regular-season game is a tie, a level playoff game goes on to an extra end) or `always`. A league that never wants
-ties sets `rules: {extra_end: always}` **and** `standings: {ties: false}`.
+ties sets `rules: {extra_end: always}` **and** `standings: {ties: false}`. In hockey a level regular-season game is a
+tie unless `rules.overtime` (`overtime`, `shootout`, `shootout_only`) plays it on; a league that never wants ties sets
+`rules: {overtime: shootout}` **and** `standings: {ties: false}`. A level playoff game goes on by
+`rules.playoff_overtime` (`sudden_death`, or `shootout`).
+
+### Hockey how-tos
+
+These live in `sports/hockey/README.md`, "How to", with the YAML for each; this is where to find them.
+
+| You want to | See, in the hockey README |
+|---|---|
+| Record overtime (`period: OT` goal lines and the `ot` boxes of both teams) | Overtime |
+| Record a shootout (`shootout:` shots, `so: 1` and `0`; the winner gets one goal in the final score) | A shootout |
+| Record a team that used two goalies (`decision: true` on the one who gets the win or loss) | Two goalies |
+| Record a bench penalty (`num: bench`, optionally `served_by`) | A bench penalty |
+| Record a penalty shot, a power-play, short-handed or empty-net goal (`ps`, `strength`, `en`) | A penalty shot |
+| Record a spare goalie or skater, or a draft with a name not yet in `players.yml` | A spare goalie |
+| Record a game cut short by the clock or a mercy rule (the score stands; say why in `notes`) | A game cut short |
+| Record a forfeit (a file with `forfeit:` and no `sheet`, as above) | A forfeit |
 
 ### A bye
 
@@ -462,6 +524,25 @@ Still to decide (the site shows [placeholder] until you set these in league.yml)
   - Tiebreakers (standings.tiebreakers)
 ```
 
+Hockey's has twelve lines, because a hockey league decides its periods, overtime and shootout, the clock and the
+goalie minimum (`docs/open-questions.md`, section 8, lists each with its default):
+
+```
+Still to decide (the site shows [placeholder] until you set these in league.yml):
+  - Periods in a game (rules.periods)
+  - Minutes in a period (rules.period_minutes)
+  - Regular-season game level after the last period (rules.overtime)
+  - Playoff game level after the last period (rules.playoff_overtime)
+  - Minutes in the overtime period (rules.overtime_minutes)
+  - Shooters each in a shootout (rules.shootout_rounds)
+  - Goal and penalty times written as time elapsed or time left in the period (rules.clock)
+  - Most goals one player may score in a game (0 is no limit) (rules.goal_cap)
+  - Ties (standings.ties)
+  - Forfeit (standings.forfeit)
+  - Tiebreakers (standings.tiebreakers)
+  - Minimum games for the goalie leaders (stats.minimums.goalie_min_games)
+```
+
 For curling, `rules.ends` is how many ends a game has, 4 to 10 (8 until the league sets it; six-end leagues are
 common). A game file must have exactly that many boxes for each rink. A league that plays a different number in
 some season sets it for that season only, under that season's `overrides:` in `data/seasons.yml`
@@ -511,11 +592,12 @@ write them).
   build. (A sample season that is listed but broken is still an error.)
 * **Sport previews** are a second, separate setting, `sport_previews` (it sits beside `preview` in `league.yml`).
   `/preview/` is *your* league with made-up games; `/basketball/` is the template's own made-up league
-  ("Riverside Masters Basketball") for that sport, and `/curling/` is "Pine Lake Curling Club", each in the
+  ("Riverside Masters Basketball") for that sport, `/curling/` is "Pine Lake Curling Club" and `/hockey/` is "Northside
+  Old-Timers Hockey", each in the
   sport's own look, with the sport's usual rules and every "league decides" setting showing as `[placeholder]`:
   what a new league would see. Nothing from your `league.yml` reaches it except `timezone` and `time_format`.
-  * `sport_previews: true` builds one copy for every sport that has a demo (today basketball and curling, so
-    `/basketball/` and `/curling/`; hockey and slo-pitch get theirs when they are added). A list such as
+  * `sport_previews: true` builds one copy for every sport that has a demo (today basketball, curling and hockey, so
+    `/basketball/`, `/curling/` and `/hockey/`; slo-pitch gets its own when it is added). A list such as
     `[basketball, curling]` builds just those, in that order, and a name that is not such a sport is an error.
     `false`, or leaving the line out, builds none. The template ships with `true`, so its own site shows
     what each sport looks like.
@@ -549,7 +631,7 @@ Three settings in `league.yml` decide what a deploy publishes besides the league
 | `landing_page` | `sport_previews` | `preview` | Result |
 |---|---|---|---|
 | `false`, or left out | `true`, a list or `false` | `true` or `false` | your league's own site at `/`, plus whichever copies the other two settings ask for. Nothing about the build changes. |
-| `true` | `true` or a list | anything | the landing page at `/`, one card per sport in `sport_previews` (`true` = every sport that has a demo, in alphabetical order: today basketball, then curling; a list = those, in that order), then a "Coming soon" card for each sport in `landing.yml`'s `coming_soon`. The demos at `/<sport>/`. No `/preview/`. |
+| `true` | `true` or a list | anything | the landing page at `/`, one card per sport in `sport_previews` (`true` = every sport that has a demo, in alphabetical order: today basketball, curling, then hockey; a list = those, in that order), then a "Coming soon" card for each sport in `landing.yml`'s `coming_soon`. The demos at `/<sport>/`. No `/preview/`. |
 | `true` | `false`, or left out | anything | **an error**, because there would be no demos to show: `league.yml: landing_page: the landing page shows the sport demos and links to them, but sport_previews is false (or left out), so there are none. Set sport_previews: true, or set landing_page: false to put your league's own site at the front page.` |
 
 A value other than `true` or `false` is an error too (`league.yml: landing_page: must be true or false, not ...`).
@@ -593,7 +675,7 @@ description is not here: it is `blurb:` in `sports/<id>/sport.yml` ([`docs/sport
 | `links` | yes | Under "Get started" (the footer repeats them): `{label, url, note}`. A `url` starts with `https://` or is a path of this site, like `/basketball/`. The setup guide is the README's [Publish it](../README.md#publish-it) section until the written guide (stage 8) exists; swapping it is one line here. |
 | `features_title`, `features` | `features` yes | The "What every league gets" list. |
 | `copy_note` | no | The sentence about `landing_page: false` under "Get started". |
-| `coming_soon` | yes (may be `[]`) | Sports planned but not built: `{id, name, blurb}` each, shown as a card with a "Coming soon" tag and no link. A `blurb` is at most 100 characters. When a listed sport gets a demo, its real card appears by itself and the build warns `landing.yml: coming_soon.0: 'hockey' has a demo now, so it gets a real card. Take it off coming_soon.` |
+| `coming_soon` | yes (may be `[]`) | Sports planned but not built: `{id, name, blurb}` each, shown as a card with a "Coming soon" tag and no link. A `blurb` is at most 100 characters. When a listed sport gets a demo, its real card appears by itself and the build warns `landing.yml: coming_soon.0: 'slopitch' has a demo now, so it gets a real card. Take it off coming_soon.` |
 
 Problems name the line, like every other file: `landing.yml: links.1.url: 'githb.com/x' must start with
 https:// or be a path of this site, like /basketball/.` A missing file with `landing_page: true` is
@@ -605,7 +687,7 @@ template, or set landing_page: false.`
 ```
 python scripts/build.py                                              # also writes _data/computed/landing.json and _config.landing.yml
 bundle exec jekyll build --config _config.yml,_config.landing.yml     # the landing page, into _site/
-scripts/build_preview.sh                                              # the demos it links to: _site/basketball/ and _site/curling/
+scripts/build_preview.sh                                              # the demos it links to: _site/basketball/, _site/curling/ and _site/hockey/
 python -m http.server 4000 --directory _site                          # http://localhost:4000/
 ```
 

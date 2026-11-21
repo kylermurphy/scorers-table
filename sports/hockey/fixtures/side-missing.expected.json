@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.side",
+      "message": "is empty. Which team had the goal: home or away?"
+    }
+  ],
+  "reading": null
+}

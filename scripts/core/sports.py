@@ -17,7 +17,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Callable, Iterable
 
-from scripts.core.model import LAYOUTS, STAT_RESERVED, Problem, SportDef
+from scripts.core.model import LAYOUTS, Problem, SportDef
+from scripts.core.model import STAT_RESERVED as _MODEL_STAT_RESERVED
 from scripts.core.problems import (
     ID_RE, Checker, InternalError, display_path, join_path, one_of, read_yaml, suggest,
 )
@@ -32,6 +33,11 @@ RULES_FUNCTIONS = {"check": 2, "read": 2, "present": 2, "derive": 2}
 SAMPLE_FUNCTION = ("sheet", 3)
 
 OPTION_TYPES = ("int", "bool", "choice", "text")
+# Keys of `stats:` that are not groups of counting stats: the model's (derived, team, columns) and `labels`
+# (E14: the group names the pages print) plus `_derived_group` (checker-only: derived key -> its `group:`).
+STAT_RESERVED = tuple(dict.fromkeys((*_MODEL_STAT_RESERVED, "_derived_group")))
+STAT_FORMATS = ("decimal", "dot")      # a derived stat's `format:` (E13): "0.912" or ".912"
+BOARD_ORDERS = ("desc", "asc")         # a leaderboard's `order:` (E12): best is highest (default) or lowest
 RESERVED_STATS = ("gp",)       # stats the core counts itself; a sport never lists them
 # Leaderboard switches (all booleans): zero = a value of 0 is ranked; playoffs = playoff games count too;
 # home = on the Home page (false: the Stats page only); player_rank = in a player's "Ranks" line.
@@ -340,13 +346,21 @@ def _check_options(c: Checker, options: Any) -> None:
             check_option_value(c, opt["default"], join_path(at, "default"), opt)
 
 
-def _check_stat_list(c: Checker, items: Any, at: str, *, derived: bool = False) -> list[str]:
-    """Check a list of stat definitions; returns the keys that were fine."""
+def _check_stat_list(c: Checker, items: Any, at: str, *, derived: bool = False, groups: list[str] | None = None,
+                     derived_group: dict[str, str] | None = None) -> list[str]:
+    """Check a list of stat definitions; returns the keys that were fine. A derived stat may also give `places`,
+    `format` (E13) and `group` (E14: only that group's columns and boards may use it; recorded in `derived_group`)."""
     keys: list[str] = []
     for i, stat in enumerate(c.sequence(items, at) or []):
         s_at = join_path(at, i)
-        if c.mapping(stat, s_at, allowed=("places",) if derived else (), required=("key", "label", "title")) is None:
+        if c.mapping(stat, s_at, allowed=("places", "format", "group") if derived else (),
+                     required=("key", "label", "title")) is None:
             continue
+        if "format" in stat:
+            c.choice(stat["format"], join_path(s_at, "format"), STAT_FORMATS)
+        if "group" in stat and c.choice(stat["group"], join_path(s_at, "group"), groups or []) is not None:
+            if isinstance(stat.get("key"), str) and derived_group is not None:
+                derived_group[stat["key"]] = stat["group"]
         for k in ("label", "title"):
             if k in stat:
                 c.text(stat[k], join_path(s_at, k))
@@ -371,13 +385,23 @@ def _check_stats(c: Checker, stats: Any, at: str) -> dict[str, list[str]]:
     groups = [k for k in stats if k not in STAT_RESERVED]
     if not groups:
         c.error(at, "needs at least one group of counting stats, like 'player:' with a list of {key, label, title}.")
+    derived_group: dict[str, str] = {}
     for key, items in stats.items():
         key_at = join_path(at, key)
-        if key == "columns":
+        if key in ("columns", "labels"):
             continue
         if key in groups:
             c.pattern(key, key_at, KEY_RE, "a lower-case group name like 'player'")
-        found[key] = _check_stat_list(c, items, key_at, derived=(key == "derived"))
+        found[key] = _check_stat_list(c, items, key_at, derived=(key == "derived"), groups=groups,
+                                      derived_group=derived_group)
+    found["_derived_group"] = derived_group      # type: ignore[assignment]  (checker-only, see STAT_RESERVED)
+    if "labels" in stats and c.mapping(stats["labels"], join_path(at, "labels"), any_keys=True) is not None:
+        for group, text in stats["labels"].items():
+            l_at = join_path(at, "labels", group)
+            if group not in groups:
+                c.error(l_at, f"{group!r} is not a stats group. Use one of: {one_of(groups)}.")
+            else:
+                c.text(text, l_at)
     if "columns" in stats:
         _check_column_lists(c, stats["columns"], join_path(at, "columns"), found, groups)
     return found
@@ -395,7 +419,7 @@ def _check_column_lists(c: Checker, columns: Any, at: str, found: dict[str, list
             continue
         if c.mapping(lists, g_at, allowed=COLUMN_LISTS) is None:
             continue
-        allowed = [*RESERVED_STATS, *found.get(group, []), *found.get("derived", [])]
+        allowed = [*RESERVED_STATS, *group_stat_keys(found, group)]
         for name in COLUMN_LISTS:
             if name not in lists:
                 continue
@@ -408,6 +432,12 @@ def _check_column_lists(c: Checker, columns: Any, at: str, found: dict[str, list
             for i, item in enumerate(items):
                 if c.choice(item, join_path(l_at, i), allowed) is not None and item in items[:i]:
                     c.error(join_path(l_at, i), f"{item!r} is listed twice.")
+
+
+def group_stat_keys(found: dict, group: str) -> list[str]:
+    """A group's counting stats, then the derived stats it may show (those with no `group:` or this one)."""
+    by_group = found.get("_derived_group", {})
+    return [*found.get(group, []), *[k for k in found.get("derived", []) if by_group.get(k, group) == group]]
 
 
 def _check_minimums(c: Checker, minimums: Any) -> None:
@@ -434,7 +464,7 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
     known_minimums = list(minimums) if isinstance(minimums, dict) else []
     for i, board in enumerate(c.sequence(boards, "leaderboards") or []):
         at = join_path("leaderboards", i)
-        if c.mapping(board, at, allowed=("group", "tile", "edge", "detail", "min", *BOARD_FLAGS),
+        if c.mapping(board, at, allowed=("group", "tile", "edge", "detail", "min", "order", "columns", *BOARD_FLAGS),
                      required=("id", "of", "stat", "label")) is None:
             continue
         if "id" in board and c.pattern(board["id"], join_path(at, "id"), KEY_RE, "a lower-case name like 'pts'"):
@@ -448,17 +478,19 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
         for flag in ("tile", *BOARD_FLAGS):
             if flag in board:
                 c.boolean(board[flag], join_path(at, flag))
+        if "order" in board:
+            c.choice(board["order"], join_path(at, "order"), BOARD_ORDERS)
         if of is None:
             continue
         group = board.get("group", "player")
         if of == "team":
             available = stat_keys.get("team", [])
-            for flag in PLAYER_BOARD_FLAGS:          # team boards rank regular-season team stats only
+            for flag in (*PLAYER_BOARD_FLAGS, "order", "columns"):    # team boards rank regular-season team stats only
                 if flag in board:
                     c.error(join_path(at, flag), f"is for a board of players only (of: player); a team board "
                                                  f"does not use {flag!r}. Remove it.")
         elif group in stat_keys and group not in STAT_RESERVED:
-            available = stat_keys[group] + stat_keys.get("derived", [])
+            available = group_stat_keys(stat_keys, group)
         else:
             groups = [g for g in stat_keys if g not in STAT_RESERVED]
             c.error(join_path(at, "group"), f"{group!r} is not a stats group. Use one of: {one_of(groups)}.")
@@ -467,6 +499,13 @@ def _check_leaderboards(c: Checker, boards: Any, stat_keys: dict[str, list[str]]
             c.error(join_path(at, "stat"), f"{board['stat']!r} is not a stat of this board. Use one of: {one_of(available)}.")
         # The row's display values a `detail` may name: the board's stats and gp (team boards: the standings too).
         fields = [*RESERVED_STATS, *available, *(COLUMNS if of == "team" else ())]
+        if "columns" in board and of == "player":
+            cols = c.sequence(board["columns"], join_path(at, "columns"))
+            if cols is not None and not cols:
+                c.error(join_path(at, "columns"), "must list at least one stat.")
+            for j, item in enumerate(cols or []):
+                if c.choice(item, join_path(at, "columns", j), [*RESERVED_STATS, *available]) is not None and item in cols[:j]:
+                    c.error(join_path(at, "columns", j), f"{item!r} is listed twice.")
         if isinstance(board.get("detail"), str):
             check_template(c, board["detail"], join_path(at, "detail"), fields)
         if "min" in board:
@@ -551,6 +590,7 @@ def normalise_spec(spec: dict) -> dict:
     out["stats"].setdefault("derived", [])
     out["stats"].setdefault("team", [])
     out["stats"].setdefault("columns", {})
+    out["stats"].setdefault("labels", {})
     return out
 
 

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.home.0.num",
+      "message": "#99 (the shooter) isn't on Alpha's roster. Check the number, or add the player to the roster."
+    }
+  ],
+  "reading": null
+}

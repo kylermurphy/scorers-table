@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.time",
+      "message": "'12:9' isn't a time: write minutes and seconds in quotes, like \"4:12\""
+    }
+  ],
+  "reading": null
+}

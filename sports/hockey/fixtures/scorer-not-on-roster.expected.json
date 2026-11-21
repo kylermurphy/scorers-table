@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.num",
+      "message": "#99 (the scorer) isn't on Alpha's roster. Check the number, or add the player to the roster."
+    }
+  ],
+  "reading": null
+}

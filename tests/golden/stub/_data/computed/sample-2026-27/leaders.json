@@ -12,6 +12,7 @@
       "edge": "hot",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": null,
         "placeholder": false,
@@ -158,6 +159,7 @@
       "edge": "accent",
       "home": true,
       "player_rank": true,
+      "order": "desc",
       "min": {
         "value": 0,
         "placeholder": true,
@@ -275,6 +277,7 @@
   ],
   "table": {
     "group": "player",
+    "label": "Player",
     "columns": [
       {
         "key": "gp",
@@ -335,6 +338,71 @@
       "pax-f"
     ]
   },
+  "tables": [
+    {
+      "group": "player",
+      "label": "Player",
+      "columns": [
+        {
+          "key": "gp",
+          "label": "GP",
+          "title": "Games played",
+          "key_col": false
+        },
+        {
+          "key": "pts",
+          "label": "PTS",
+          "title": "Points",
+          "key_col": true
+        },
+        {
+          "key": "ppg",
+          "label": "PPG",
+          "title": "Points per game",
+          "key_col": false
+        }
+      ],
+      "rows": [
+        "noa-a",
+        "amy-p",
+        "eve-l",
+        "jax-f",
+        "cal-p",
+        "alf-g",
+        "ola-t",
+        "kai-g",
+        "jax-d",
+        "gwen-w",
+        "kai-m",
+        "quin-m",
+        "cleo-a",
+        "finn-f",
+        "noa-f",
+        "tam-k",
+        "ben-e",
+        "mae-f",
+        "quin-n",
+        "una-w",
+        "dax-d",
+        "eli-f",
+        "wes-t",
+        "dee-s",
+        "val-d",
+        "ada-c",
+        "cal-b",
+        "eve-b",
+        "noa-h",
+        "mae-t",
+        "val-j",
+        "max-t",
+        "pax-w",
+        "oz-l",
+        "tam-c",
+        "joy-n",
+        "pax-f"
+      ]
+    }
+  ],
   "columns": {
     "player": {
       "table": [

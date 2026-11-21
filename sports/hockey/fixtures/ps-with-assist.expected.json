@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.3.assists",
+      "message": "a penalty shot is never assisted: take the assists out, or the ps mark"
+    }
+  ],
+  "reading": null
+}

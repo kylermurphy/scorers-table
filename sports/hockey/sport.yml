@@ -1,0 +1,138 @@
+# Hockey: three periods, a scoring summary (goals with up to two assists), penalties, goalies and an optional
+# overtime and shootout. The sport's own knowledge only: nothing here is one league's rule. The defaults are
+# BRIEF.md's typical old-timers / rec rules (docs/stage-5-hockey-spec.md), and every rule a league decides is marked
+# `decide: true` (it shows as [placeholder] until the league sets it).
+name: Hockey
+blurb: Periods, goals and assists, penalties and goalies.
+default_layout: hockey
+games_per_day: 1
+game_minutes: 75
+words:
+  period: {one: Period, many: Periods, short: P}
+  day: Week
+  surface: Pad
+  points_for: {label: GF, title: Goals for}
+  points_against: {label: GA, title: Goals against}
+line_score: {shape: periods, total_label: T, corner: Period, periods: periods}
+options:
+  periods:
+    type: int
+    default: 3
+    min: 2
+    max: 4
+    decide: true
+    label: Periods in a game
+  period_minutes:
+    type: int
+    default: 15
+    min: 5
+    max: 30
+    decide: true
+    label: Minutes in a period
+  overtime:
+    type: choice
+    values: [none, overtime, shootout, shootout_only]
+    default: none
+    decide: true
+    label: Regular-season game level after the last period
+  playoff_overtime:
+    type: choice
+    values: [sudden_death, shootout]
+    default: sudden_death
+    decide: true
+    label: Playoff game level after the last period
+  overtime_minutes:
+    type: int
+    default: 5
+    min: 1
+    max: 20
+    decide: true
+    label: Minutes in the overtime period
+  shootout_rounds:
+    type: int
+    default: 3
+    min: 1
+    max: 5
+    decide: true
+    label: Shooters each in a shootout
+  clock:
+    type: choice
+    values: [elapsed, remaining]
+    default: elapsed
+    decide: true
+    label: Goal and penalty times written as time elapsed or time left in the period
+  goalie_shots:
+    type: choice
+    values: [none, recorded]
+    default: none
+    label: Shots against each goalie on the game sheet
+  goal_cap:
+    type: int
+    default: 0
+    min: 0
+    max: 10
+    decide: true
+    label: Most goals one player may score in a game (0 is no limit)
+standings:
+  rank_by: points
+  points: {win: 2, tie: 1, loss: 0}
+  period_points: 0
+  ties: {value: true, decide: true}
+  forfeit: {value: {score: [1, 0]}, decide: true}
+  tiebreakers: {value: [wins, head_to_head, diff], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa]
+stats:
+  skater:
+    - {key: g, label: G, title: Goals}
+    - {key: a, label: A, title: Assists}
+    - {key: pts, label: PTS, title: Points}
+    - {key: pim, label: PIM, title: Penalty minutes}
+    - {key: ppg, label: PPG, title: Power-play goals}
+    - {key: shg, label: SHG, title: Short-handed goals}
+    - {key: gwg, label: GWG, title: Game-winning goals}
+  goalie:
+    - {key: w, label: W, title: Wins}
+    - {key: l, label: L, title: Losses}
+    - {key: t, label: T, title: Ties}
+    - {key: otl, label: OTL, title: Overtime and shootout losses (of the losses)}
+    - {key: ga, label: GA, title: Goals against}
+    - {key: sa, label: SA, title: Shots against}
+    - {key: sho, label: SHO, title: Shutouts}
+    - {key: a, label: A, title: Assists}
+    - {key: pim, label: PIM, title: Penalty minutes}
+  derived:
+    - {key: gaa, label: GAA, title: Goals against average, places: 2, group: goalie}
+    - {key: sv_pct, label: "SV%", title: Save percentage, places: 3, format: dot, group: goalie}
+  team: []
+  labels: {skater: Skaters, goalie: Goalies}
+  columns:
+    skater:
+      table: [gp, g, a, pts, pim]
+      totals: [gp, g, a, pts, pim, ppg, shg, gwg]
+      log: [g, a, pts, pim]
+    goalie:
+      table: [gp, w, l, t, ga, gaa, sho, sv_pct]
+      totals: [gp, w, l, t, otl, ga, gaa, sho, sv_pct, a, pim]
+      log: [ga, sv_pct]
+minimums:
+  goalie_min_games:
+    default: 4
+    decide: true
+    label: Minimum games for the goalie leaders
+    note: "Goalies need {value} games played to rank."
+leaderboards:
+  - {id: points, of: player, group: skater, stat: pts, label: Points, columns: [g, a, pts], detail: "{gp} GP"}
+  - {id: goals, of: player, group: skater, stat: g, label: Goals, home: false, detail: "{gp} GP"}
+  - {id: assists, of: player, group: skater, stat: a, label: Assists, home: false, detail: "{gp} GP"}
+  - {id: pim, of: player, group: skater, stat: pim, label: Penalty minutes, playoffs: true, home: false,
+     player_rank: false, detail: "{gp} GP"}
+  - {id: gaa, of: player, group: goalie, stat: gaa, label: Goals-against avg, tile: true, edge: accent, order: asc,
+     zero: true, min: {stat: gp, setting: goalie_min_games, cap_at_team_games: true}, detail: "{ga} GA in {gp} GP"}
+  - {id: shutouts, of: player, group: goalie, stat: sho, label: Shutouts, tile: true, edge: hot, detail: "{gp} GP"}
+  - {id: sv_pct, of: player, group: goalie, stat: sv_pct, label: Save %, home: false, zero: true,
+     min: {stat: gp, setting: goalie_min_games, cap_at_team_games: true}, detail: "{sa} shots, {gp} GP"}
+labels: {results: Latest results, next: Next game night, leaders: Leaders}
+labels_by_layout:
+  classic: {leaders: Scoring leaders}
+display: {card: rows, card_foot: status_note, surface: sub}
+positions: [forward, defence, goalie]

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.served_by",
+      "message": "served_by is only for a bench penalty (num: bench). Take it out, or write num: bench."
+    }
+  ],
+  "reading": null
+}

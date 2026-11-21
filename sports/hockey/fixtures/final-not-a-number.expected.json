@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.final",
+      "message": "the Final box for Alpha should be a whole number, not 'five'"
+    }
+  ],
+  "reading": null
+}

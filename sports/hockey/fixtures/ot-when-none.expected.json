@@ -1,0 +1,20 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.4.period",
+      "message": "A regular-season game that is level after the periods doesn't go to overtime in this league (rules.overtime). Take this goal out, or fix the period."
+    },
+    {
+      "level": "error",
+      "at": "score.home.ot",
+      "message": "A regular-season game that is level after the periods doesn't go to overtime in this league (rules.overtime). Leave the OT box empty."
+    },
+    {
+      "level": "error",
+      "at": "score.away.ot",
+      "message": "A regular-season game that is level after the periods doesn't go to overtime in this league (rules.overtime). Leave the OT box empty."
+    }
+  ],
+  "reading": null
+}

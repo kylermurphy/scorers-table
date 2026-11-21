@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "shootout.first",
+      "message": "is empty. Which team shot first, home or away? (It decides when a shootout can stop early.)"
+    }
+  ],
+  "reading": null
+}

@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "score.home.ot",
+      "message": "The game wasn't level after the periods (5-3), so there was no overtime. Leave the OT box empty."
+    },
+    {
+      "level": "error",
+      "at": "score.away.ot",
+      "message": "The game wasn't level after the periods (5-3), so there was no overtime. Leave the OT box empty."
+    }
+  ],
+  "reading": null
+}

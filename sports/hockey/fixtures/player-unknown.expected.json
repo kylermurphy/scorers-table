@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.home.2.player",
+      "message": "player 'terry-x' is not in players.yml"
+    }
+  ],
+  "reading": null
+}

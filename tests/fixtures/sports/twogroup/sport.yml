@@ -1,0 +1,49 @@
+# A throwaway sport with two stat groups (skaters and goalies), for tests/test_stat_groups.py: not a real sport.
+name: Twogroup
+default_layout: classic
+demo: false
+games_per_day: 1
+game_minutes: 60
+words:
+  period: {one: Period, many: Periods, short: P}
+  surface: Pad
+  day: Week
+  points_for: {label: GF, title: Goals for}
+  points_against: {label: GA, title: Goals against}
+line_score: {shape: periods, total_label: T, corner: Period, periods: 1}
+options: {}
+standings:
+  points: {win: 2, tie: 1, loss: 0, ot_win: 2, ot_loss: 1}
+  ties: true
+  forfeit: {value: {score: [1, 0]}, decide: true}
+  tiebreakers: {value: [wins, diff], decide: true}
+  columns: [gp, w, l, t, pts, pf, pa]
+stats:
+  skater:
+    - {key: g, label: G, title: Goals}
+    - {key: a, label: A, title: Assists}
+  goalie:
+    - {key: ga, label: GA, title: Goals against}
+    - {key: sa, label: SA, title: Shots against}
+  derived:
+    - {key: gaa, label: GAA, title: Goals against average, places: 2, group: goalie}
+    - {key: sv, label: SV%, title: Save percentage, places: 3, format: dot, group: goalie}
+  team: []
+  labels: {skater: Skaters, goalie: Goalies}
+minimums:
+  goalie_min_games:
+    default: 2
+    decide: true
+    label: Games for the goalie boards
+    note: "Goalies need {value} games played to rank."
+leaderboards:
+  - {id: g, of: player, group: skater, stat: g, label: Goals, columns: [g, a], detail: "{gp} GP"}
+  - {id: gaa, of: player, group: goalie, stat: gaa, label: Goals-against avg, order: asc, zero: true, tile: true,
+     detail: "{ga} GA in {gp} GP"}
+  - {id: gaa_min, of: player, group: goalie, stat: gaa, label: GAA (minimum), order: asc, zero: true, home: false,
+     min: {stat: gp, setting: goalie_min_games}}
+  - {id: sv, of: player, group: goalie, stat: sv, label: Save %, detail: "{sa} shots, {gp} GP"}
+labels: {results: Latest results, next: Next game night, leaders: Leaders}
+labels_by_layout: {}
+display: {card: rows, card_foot: note, surface: label}
+positions: []

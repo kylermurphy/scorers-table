@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.away.0.shots",
+      "message": "is empty. Write the shots against this goalie (this league records them)."
+    }
+  ],
+  "reading": null
+}

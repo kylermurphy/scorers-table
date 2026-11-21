@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.infraction",
+      "message": "12 should be text, like Tripping"
+    }
+  ],
+  "reading": null
+}

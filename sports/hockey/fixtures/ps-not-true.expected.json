@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goals.7.ps",
+      "message": "ps should be true (an empty-net goal / a penalty-shot goal), or left out"
+    }
+  ],
+  "reading": null
+}

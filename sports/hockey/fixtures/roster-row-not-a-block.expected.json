@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "roster.home.2",
+      "message": "a row looks like {player: len-t, num: 31}"
+    }
+  ],
+  "reading": null
+}

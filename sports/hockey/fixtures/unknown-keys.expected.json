@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "referee",
+      "message": "'referee' isn't part of a game sheet. Use one of: roster, goals, penalties, goalies, shootout, score."
+    }
+  ],
+  "reading": null
+}

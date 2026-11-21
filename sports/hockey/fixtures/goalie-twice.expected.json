@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "goalies.home.1.num",
+      "message": "goalie #31 is listed twice for Alpha"
+    }
+  ],
+  "reading": null
+}

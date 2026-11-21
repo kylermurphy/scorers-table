@@ -1,0 +1,15 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "score.home.ot",
+      "message": "is empty. The game was level after 3 periods, so overtime was played: write Alpha's overtime goals (0 for a scoreless overtime)."
+    },
+    {
+      "level": "warning",
+      "at": "score.away.ot",
+      "message": "is empty. The game was level after 3 periods, so overtime was played: write Bravo's overtime goals (0 for a scoreless overtime)."
+    }
+  ],
+  "reading": null
+}

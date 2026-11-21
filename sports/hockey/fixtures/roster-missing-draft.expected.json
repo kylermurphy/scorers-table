@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "roster",
+      "message": "is empty. List the players who dressed for each team, with their jersey numbers."
+    }
+  ],
+  "reading": null
+}

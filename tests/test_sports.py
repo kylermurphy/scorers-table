@@ -26,7 +26,7 @@ def spec_of(sports_root, sport="tiny"):
 
 
 def test_discovery_lists_folders_that_have_a_sport_yml(sports_root, tmp_path):
-    assert discover_sports(sports_root) == ["bare", "broken", "other", "tiny", "typo"]
+    assert discover_sports(sports_root) == ["bare", "broken", "other", "tiny", "twogroup", "typo"]
     (tmp_path / "empty").mkdir()
     (tmp_path / "real").mkdir()
     (tmp_path / "real" / "sport.yml").write_text("name: x\n", encoding="utf-8")
@@ -74,7 +74,7 @@ def test_wrong_function_shapes_are_reported_with_the_signature_wanted(sports_roo
 
 def test_unknown_sport_folder(sports_root):
     sport, problems = load_sport("nope", sports_root)
-    assert sport is None and "Available: bare, broken, other, tiny, typo." in problems[0].message
+    assert sport is None and "Available: bare, broken, other, tiny, twogroup, typo." in problems[0].message
 
 
 def test_the_schema_reports_every_mistake_with_its_path(sports_root):
@@ -134,7 +134,7 @@ def test_decide_wrappers():
 
 def test_load_all_sports_loads_every_folder_it_can(sports_root):
     sports, problems = load_all_sports(sports_root)
-    assert sorted(s.id for s in sports) == ["other", "tiny"]
+    assert sorted(s.id for s in sports) == ["other", "tiny", "twogroup"]
     assert {p.file.split("/")[-2] for p in problems if p.level == "error"} == {"bare", "broken", "typo"}
 
 
@@ -293,7 +293,7 @@ def test_the_stub_is_a_test_sport_and_the_real_sports_are_demos():
     assert "demo: false" in (SPORTS_ROOT / "stub" / "sport.yml").read_text(encoding="utf-8")
     basketball, _ = load_sport("basketball", SPORTS_ROOT)
     assert basketball.spec["demo"] is True
-    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball", "curling": "Curling"}
+    assert demo_sports(SPORTS_ROOT) == {"basketball": "Basketball", "curling": "Curling", "hockey": "Hockey"}
 
 
 def test_demo_sports_needs_a_sample_and_a_demo_that_is_not_false(sports_root, tmp_path):
@@ -386,3 +386,72 @@ def test_the_shipped_keys_do_not_change_what_a_sport_without_them_gets(sports_ro
     sport, _ = load_sport("other", sports_root)
     assert "results_legend" not in sport.spec["display"] and "team_sub" not in sport.spec["display"]
     assert "extra" not in sport.spec["words"]
+
+
+# ------------------------------------------------------------------ hockey's core extensions (E12-E15)
+
+def _two_groups(sports_root):
+    spec = spec_of(sports_root)
+    spec["stats"] = {"skater": [{"key": "g", "label": "G", "title": "Goals"}],
+                     "goalie": [{"key": "ga", "label": "GA", "title": "Goals against"},
+                                {"key": "sa", "label": "SA", "title": "Shots against"}],
+                     "derived": [{"key": "gaa", "label": "GAA", "title": "Goals against average", "places": 2, "group": "goalie"},
+                                 {"key": "sv", "label": "SV%", "title": "Save percentage", "places": 3, "format": "dot",
+                                  "group": "goalie"}],
+                     "team": spec["stats"]["team"],
+                     "labels": {"skater": "Skaters", "goalie": "Goalies"}}
+    spec["leaderboards"] = [
+        {"id": "g", "of": "player", "group": "skater", "stat": "g", "label": "Goals", "columns": ["g", "gp"]},
+        {"id": "gaa", "of": "player", "group": "goalie", "stat": "gaa", "label": "GAA", "order": "asc", "zero": True}]
+    return spec
+
+
+def test_order_format_group_labels_and_board_columns_are_allowed(sports_root):
+    spec = _two_groups(sports_root)
+    assert check_sport_spec(spec, "sport.yml") == []
+    assert normalise_spec(spec_of(sports_root))["stats"]["labels"] == {}
+
+
+def test_order_must_be_asc_or_desc_and_is_for_player_boards(sports_root):
+    spec = _two_groups(sports_root)
+    spec["leaderboards"][1]["order"] = "up"
+    spec["leaderboards"].append({"id": "ends", "of": "team", "stat": "ends", "label": "Ends", "order": "asc", "columns": ["ends"]})
+    got = {p.at: p.message for p in check_sport_spec(spec, "sport.yml") if p.level == "error"}
+    assert set(got) == {"leaderboards.1.order", "leaderboards.2.order", "leaderboards.2.columns"}
+    assert "asc" in got["leaderboards.1.order"] and "of: player" in got["leaderboards.2.order"]
+
+
+def test_format_is_decimal_or_dot_and_only_for_a_derived_stat(sports_root):
+    spec = _two_groups(sports_root)
+    spec["stats"]["derived"][1]["format"] = "percent"
+    spec["stats"]["skater"][0]["format"] = "dot"
+    assert {p.at for p in check_sport_spec(spec, "sport.yml")} == {"stats.derived.1.format", "stats.skater.0.format"}
+
+
+def test_a_derived_stat_group_must_be_a_group_and_limits_where_it_is_offered(sports_root):
+    spec = _two_groups(sports_root)
+    spec["leaderboards"][0]["stat"] = "sv"                         # a goalie rate on a skater board
+    spec["stats"]["columns"] = {"skater": {"table": ["g", "gaa"]}}
+    got = {p.at for p in check_sport_spec(spec, "sport.yml")}
+    assert got == {"leaderboards.0.stat", "stats.columns.skater.table.1"}
+    spec = _two_groups(sports_root)
+    spec["stats"]["derived"][0]["group"] = "keeper"
+    assert {p.at for p in check_sport_spec(spec, "sport.yml")} == {"stats.derived.0.group"}
+
+
+def test_stats_labels_name_a_group_and_are_not_a_group_themselves(sports_root):
+    spec = _two_groups(sports_root)
+    spec["stats"]["labels"]["keeper"] = "Keepers"
+    spec["stats"]["labels"]["skater"] = 4
+    assert {p.at for p in check_sport_spec(spec, "sport.yml")} == {"stats.labels.keeper", "stats.labels.skater"}
+    spec = _two_groups(sports_root)
+    spec["leaderboards"][0]["group"] = "labels"
+    assert {p.at for p in check_sport_spec(spec, "sport.yml")} == {"leaderboards.0.group"}
+
+
+def test_board_columns_are_stats_of_the_boards_group(sports_root):
+    spec = _two_groups(sports_root)
+    spec["leaderboards"][0]["columns"] = ["g", "ga", "g", "nope"]
+    spec["leaderboards"][1]["columns"] = []
+    got = {p.at for p in check_sport_spec(spec, "sport.yml")}
+    assert got == {"leaderboards.0.columns.1", "leaderboards.0.columns.2", "leaderboards.0.columns.3", "leaderboards.1.columns"}

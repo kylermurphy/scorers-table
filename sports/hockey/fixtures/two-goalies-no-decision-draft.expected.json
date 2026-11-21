@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "warning",
+      "at": "goalies.home",
+      "message": "Alpha used two goalies: mark the one who gets the win or loss with decision: true"
+    }
+  ],
+  "reading": null
+}

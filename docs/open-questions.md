@@ -20,7 +20,8 @@ made up. A real league replaces each one in its own files.
 
 Basketball is the shipped sport now (stage 5), so the built basketball site shows its own placeholders:
 see [section 5](#5-stage-5-basketball-placeholders-and-decisions). Curling's are in
-[section 6](#6-stage-5-curling-placeholders-and-decisions).
+[section 6](#6-stage-5-curling-placeholders-and-decisions) and hockey's in
+[section 8](#8-stage-5-hockey-placeholders-and-decisions).
 
 ## 2. Rules a league has to decide
 
@@ -214,5 +215,87 @@ no longer exist (nothing but the demos' banners linked there), and `/preview/` i
 site root in a later stage (the entry page, say) must be added to `LEAGUE_PAGES` in `scripts/landing.py`, or it will
 show at the root of the showcase.
 
-Hockey and slo-pitch: when those sports land, take them off `coming_soon` in `landing.yml`; their cards then appear
-by themselves (the build warns until the list is updated).
+Hockey has landed (section 8): it is off `coming_soon`, and its card and `/hockey/` demo are built by themselves.
+Slo-pitch: when it lands, take it off `coming_soon` in `landing.yml`; its card then appears by itself (the build warns
+until the list is updated).
+
+## 8. Stage 5, hockey: placeholders and decisions
+
+### 8.1 What the build lists
+
+A league that writes `sport: hockey` in `league.yml` sees this list after every build, and the site shows
+`[placeholder]` for each until the league sets it (even to the usual value). The sport preview (`/hockey/`) always
+shows them, because it uses the sport's own defaults. (To see the list yourself, in a copy of the repository:
+`sport: hockey` in `league.yml`, then `python scripts/make_sample.py` and `python scripts/build.py --sample`; or build
+the preview with `python scripts/preview_root.py hockey <folder>` and
+`python scripts/build.py --root <folder> --sport-preview hockey`.)
+
+```
+Still to decide (the site shows [placeholder] until you set these in league.yml):
+  - Periods in a game (rules.periods)
+  - Minutes in a period (rules.period_minutes)
+  - Regular-season game level after the last period (rules.overtime)
+  - Playoff game level after the last period (rules.playoff_overtime)
+  - Minutes in the overtime period (rules.overtime_minutes)
+  - Shooters each in a shootout (rules.shootout_rounds)
+  - Goal and penalty times written as time elapsed or time left in the period (rules.clock)
+  - Most goals one player may score in a game (0 is no limit) (rules.goal_cap)
+  - Ties (standings.ties)
+  - Forfeit (standings.forfeit)
+  - Tiebreakers (standings.tiebreakers)
+  - Minimum games for the goalie leaders (stats.minimums.goalie_min_games)
+```
+
+| Setting in `league.yml` | The default the site uses meanwhile | Where `[placeholder]` shows | Who decides |
+|---|---|---|---|
+| `rules.periods` (Periods in a game) | 3 (2 to 4 are allowed; a game file has exactly this many period boxes) | the Rules page's list only | the league: 3, or 2 for a two-half league (the pages still say "Period"; period words by option are not built) |
+| `rules.period_minutes` (Minutes in a period) | 15 (5 to 30) | the Rules page's list only; the number only drives the time check on goals and penalties | the league |
+| `rules.overtime` (Regular-season game level after the last period) | `none`: a level regular-season game is a tie | the Rules page's list only | the league. `overtime` (one sudden-death period), `shootout` (overtime, then a shootout) or `shootout_only` |
+| `rules.playoff_overtime` (Playoff game level after the last period) | `sudden_death`: overtime periods until a goal | the Rules page's list only | the league. `shootout`: one overtime, then a shootout |
+| `rules.overtime_minutes` (Minutes in the overtime period) | 5 (1 to 20) | the Rules page's list only; only drives the time check in overtime | the league |
+| `rules.shootout_rounds` (Shooters each in a shootout) | 3 (1 to 5), then sudden death | the Rules page's list only; only drives the shootout warning | the league |
+| `rules.clock` (Goal and penalty times written as time elapsed or time left in the period) | `elapsed` (the mockup's 4:12, 9:38, 13:05) | the Rules page's list only; the game page's scoring note says which it is using | the league: a wrong setting reverses the order warnings and can pick the wrong game-winning goal, so a league whose sheets copy the scoreboard clock sets `remaining` |
+| `rules.goal_cap` (Most goals one player may score in a game) | 0, no limit; a player over a set cap is a warning, not an error | the Rules page's list only | the league |
+| `standings.ties` (Ties) | `true`: a level regular-season game is a tie, worth 1 point each | the Rules page's list; "Ties are allowed [placeholder]." in the standings note | the league. A league with no ties sets `ties: false` **and** `overtime: shootout` |
+| `standings.forfeit` (Forfeit) | 1-0 | the standings note ("A forfeit counts as 1–0 [placeholder]." while the table holds a forfeit), the forfeit's game page (a note under the score) and result card ("score [placeholder]"), and the Rules page's list | the league. Alternative: `{score: [5, 0]}`, common in adult leagues |
+| `standings.tiebreakers` (Tiebreakers) | wins, then head-to-head, then goal difference; still level share a rank | the standings note ("[placeholder] The league has not decided its tiebreakers yet..."), on Home, an archive season page and the Rules page's list | the league. A mercy-rule league caps the difference: `{diff: {cap: 5}}` |
+| `stats.minimums.goalie_min_games` (Minimum games for the goalie leaders) | 4, never more than the goalie's team has played, so the boards are not empty early in the season | "Goalies need [placeholder] games played to rank." under the Goals-against avg and Save % boards | the league |
+
+Not placeholders: standings points (2 for a win, 1 for a tie, 0 for a loss; an overtime or shootout loss counts as a
+loss until the league adds `ot_loss: 1`, the "loser point", and `otl` to the columns), the standings columns
+(GP W L T PTS GF GA), and `rules.goalie_shots` (`none` or `recorded`: whether the game sheet has shots against, which
+turns on save percentage and its board; a choice with a default). Also left for the league, as in every sport: the
+real season's `venue` (`[Gym name]` in the shipped `data/seasons.yml`; a hockey league will want its arena's name) and
+`[League rules]` on the Rules page.
+
+### 8.2 Decisions for the owner
+
+The 19 decisions are in `docs/stage-5-hockey-spec.md`, section 10. **All 19 were decided by the owner as recommended
+(November 2026).** One more was decided later (the last row). What was built:
+
+| # | Decision | Built as |
+|---|---|---|
+| 1 | Periods and their length | `periods` (2 to 4, default 3) and `period_minutes` (default 15), both `[placeholder]`; the length only drives the time check. A two-half league keeps the word "Period" |
+| 2 | A level game after regulation, regular season | a tie (`overtime: none`, `ties: true`, both `[placeholder]`); `overtime`, `shootout`, `shootout_only` are the options. A league with no ties sets `overtime: shootout` and `ties: false` |
+| 3 | Overtime format | one sudden-death overtime of `overtime_minutes` (5). 3-on-3 or 4-on-4 is not on the sheet: a line on the Rules page, not a setting. A league playing a full overtime where two goals can count gets an error |
+| 4 | Shootout scoring | `shootout_rounds` rounds (3) then sudden death, `[placeholder]`. The winner gets one goal in the final score (3-2 SO), which counts in GF, GA and the difference; no player gets a goal or a point and no goalie a goal against; a shutout ignores the shootout |
+| 5 | A level playoff game | sudden-death overtime periods until a goal (`playoff_overtime: sudden_death`); `shootout` is one overtime, then a shootout. A playoff game is never a tie |
+| 6 | Standings points | 2 a win, 1 a tie, 0 a loss; an overtime or shootout loss is a loss until `ot_loss: 1` is set. Columns GP W L T PTS GF GA; OTL is added with the overtime line |
+| 7 | Tiebreakers | wins, then head-to-head, then goal difference, `[placeholder]`; `{diff: {cap: 5}}` caps a game's margin. Head-to-head is skipped unless every tied pair has met (the core's rule) |
+| 8 | Forfeit score | 1-0, `[placeholder]`; 5-0 is the usual alternative. It changes nothing but GF and GA |
+| 9 | Assists | up to two per goal, as written; leaving them out is allowed, so no option. A league that never records assists shows a column of zeros and an empty Assists board |
+| 10 | Goalie stats | a goals-against box per goalie is required; GAA is goals against per game played (rec sheets have no minutes in net); shots are optional (`goalie_shots`), and save percentage and its board appear only when shots are recorded; two goalies in a game each get a game played and the one marked `decision` gets the win or loss. A goalie relieved early still gets a full game in GAA |
+| 11 | Goalie minimum | 4 games to rank on GAA and save percentage (`goalie_min_games`), `[placeholder]`, never more than the team has played |
+| 12 | Penalty minutes | PIM in the skater tables, the game page and a Penalty minutes board that is off Home and out of the "Ranks" line; infractions are free text; minutes 2, 4, 5 and 10 (anything else is a warning); bench penalties count to nobody. A penalty limit before ejection is not built. A league that does not want a PIM board removes the one line in `sport.yml` |
+| 13 | Strength marks and shutouts | power-play, short-handed, empty-net and penalty-shot marks are optional per goal; PPG, SHG and GWG show in a player's totals, not in the narrow tables. A shutout goes to a goalie who played the whole game alone and allowed no goal in a period or overtime (empty-net goals included); a shared shutout is not credited |
+| 14 | Clock direction | `clock: elapsed`, `[placeholder]`; `remaining` for sheets that copy the scoreboard clock |
+| 15 | Three stars | not built (rare on rec sheets, no mockup); a league that names stars can write them in `notes` |
+| 16 | Player goal cap | `goal_cap` (0 = none), `[placeholder]`; passing it is a warning |
+| 17 | Mercy rule and games cut short | the score stands as written, a line in `notes` says why, no special display |
+| 18 | Lineups | the roster is required (games played come from it), with jersey numbers; a spare from another team is a warning unless `sub: true`. A sheet with no roster cannot give games played |
+| 19 | Officials | referees' names are not copied into the file or shown |
+| (later) | A backup goalie who dressed but did not play | gets no game played at all, so the goalie's games, GAA and the minimum count only games in net. Applies to a roster row whose player is a goalie in `players.yml`, is not in the sheet's goalies, and has no goal, assist, penalty (or penalty served) or shootout shot on the sheet |
+
+Left for later (named in the spec, not built): period words chosen by an option ("Half"), a hockey tile on the game
+page, team stats and boards (team PIM, power-play goals), a printable hockey game sheet and the photo-reading prompt,
+and the entry page and JavaScript copy of the rules (stage 7).

@@ -1,0 +1,10 @@
+{
+  "problems": [
+    {
+      "level": "error",
+      "at": "penalties.3.minutes",
+      "message": "25 should be a whole number of minutes from 1 to 20"
+    }
+  ],
+  "reading": null
+}
